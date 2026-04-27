@@ -1,0 +1,15 @@
+# Godot-specific ignores
+.godot/
+extended_editor_settings.tres
+
+# Imported assets
+*.import
+
+# Mono/C# specifics (if you ever use them)
+.mono/
+bin/
+obj/
+
+# Tool-specific ignores
+.vscode/
+.history/
