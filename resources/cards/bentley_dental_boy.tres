@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc01"]
+
+[resource]
+script = ExtResource("1_abc01")
+id = "bentley_dental_boy"
+display_name = "Bentley's Dental Boy"
+description = "Bentley gets one free defensive save per heist."
+effect_type = "boolean"
+effect_key = "has_dental_boy"
+effect_value = 1.0
+unlock_condition = "default"
+rarity = "common"
+icon_path = ""

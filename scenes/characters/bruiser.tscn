@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://bruiser001jazz"]
+
+[ext_resource type="Script" path="res://src/enemies/Bruiser.gd" id="1_bruiser"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bruiser1"]
+size = Vector2(40, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bruiser2"]
+radius = 180.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bruiser3"]
+radius = 55.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bruiser4"]
+radius = 60.0
+
+[node name="Bruiser" type="CharacterBody2D"]
+script = ExtResource("1_bruiser")
+max_health = 100
+detection_range = 180.0
+attack_range = 55.0
+speed = 80.0
+chase_speed = 150.0
+acceleration = 8.0
+attack_damage = 20
+attack_cooldown = 2.5
+wind_up_time = 1.2
+slam_radius = 60.0
+recovery_time = 0.8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_bruiser1")
+
+[node name="VisionArea" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 5
+collision_mask = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_bruiser2")
+
+[node name="VisionCircle" type="Polygon2D" parent="VisionArea"]
+polygon = PackedVector2Array([Vector2(0, 0), Vector2(120, -70), Vector2(180, 0), Vector2(120, 70)])
+color = Color(1, 0.15, 0.15, 0.12)
+
+[node name="AttackArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_bruiser3")
+
+[node name="SlamArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlamArea"]
+shape = SubResource("CircleShape2D_bruiser4")
+
+[node name="PlaceholderBody" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([Vector2(-20, -40), Vector2(20, -40), Vector2(24, -10), Vector2(20, 20), Vector2(-20, 20), Vector2(-24, -10)])
+color = Color(0.4, 0.25, 0.2, 1.0)
+
+[node name="PlaceholderHead" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([Vector2(-14, -52), Vector2(14, -52), Vector2(16, -40), Vector2(-16, -40)])
+color = Color(0.3, 0.2, 0.15, 1.0)
+
+[node name="TelegraphIndicator" type="Polygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array([Vector2(-50, -60), Vector2(50, -60), Vector2(60, 0), Vector2(50, 60), Vector2(-50, 60), Vector2(-60, 0)])
+color = Color(1, 0.3, 0.1, 0.4)
+
+[node name="NameLabel" type="Label" parent="."]
+position = Vector2(-24, -72)
+text = "Bruiser"
+horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+add_theme_font_size_override("font_size", 10)

@@ -1,0 +1,160 @@
+[gd_scene load_steps=4 format=3 uid="uid://tacobellmission001"]
+
+[ext_resource type="Script" path="res://src/missions/TacoBellMission.gd" id="1_taco"]
+
+[sub_resource type="TileSet" id="TileSet_taco1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bag"]
+radius = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(80, 40)
+
+[node name="TacoBellMission" type="Node2D"]
+script = ExtResource("1_taco")
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_taco1")
+cell_quadrant_size = 16
+
+[node name="Floor" type="TileMapLayer" parent="TileMap"]
+name = "Floor"
+enabled = true
+y_sort_enabled = true
+y_sort_origin = 0
+tile_set = SubResource("TileSet_taco1")
+cell_quadrant_size = 16
+
+[node name="Walls" type="TileMapLayer" parent="TileMap"]
+name = "Walls"
+enabled = true
+y_sort_enabled = true
+y_sort_origin = 16
+tile_set = SubResource("TileSet_taco1")
+cell_quadrant_size = 16
+
+[node name="FloorVisual" type="Polygon2D" parent="."]
+z_index = -1
+polygon = PackedVector2Array([
+	Vector2(0, 0), Vector2(800, 0),
+	Vector2(800, 600), Vector2(0, 600)
+])
+color = Color(0.15, 0.15, 0.18, 1.0)
+
+[node name="WallLeft" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(0, 0), Vector2(120, 0),
+	Vector2(120, 600), Vector2(0, 600)
+])
+color = Color(0.25, 0.25, 0.3, 1.0)
+
+[node name="WallRight" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(680, 0), Vector2(800, 0),
+	Vector2(800, 600), Vector2(680, 600)
+])
+color = Color(0.25, 0.25, 0.3, 1.0)
+
+[node name="TacoBellDoor" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(300, 0), Vector2(500, 0),
+	Vector2(500, 80), Vector2(300, 80)
+])
+color = Color(0.35, 0.2, 0.15, 1.0)
+
+[node name="TacoBellSign" type="Label" parent="TacoBellDoor"]
+text = "TACO BELL"
+horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+position = Vector2(50, 20)
+
+[node name="Dumpster" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(140, 200), Vector2(220, 200),
+	Vector2(220, 280), Vector2(140, 280)
+])
+color = Color(0.3, 0.4, 0.25, 1.0)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 520)
+
+[node name="LouisSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 450)
+
+[node name="BagSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 150)
+
+[node name="GoonSpawns" type="Node2D" parent="."]
+
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(250, 300)
+
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(550, 250)
+
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(400, 100)
+
+[node name="CollectibleSpawns" type="Node2D" parent="."]
+
+[node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns"]
+position = Vector2(200, 400)
+
+[node name="TrinketSpawn" type="Marker2D" parent="CollectibleSpawns"]
+position = Vector2(600, 350)
+
+[node name="BagPickupZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BagPickupZone"]
+position = Vector2(400, 150)
+shape = SubResource("CircleShape2D_bag")
+
+[node name="BagVisual" type="Polygon2D" parent="BagPickupZone"]
+position = Vector2(400, 150)
+polygon = PackedVector2Array([
+	Vector2(-12, -16), Vector2(12, -16),
+	Vector2(16, 0), Vector2(-16, 0)
+])
+color = Color(0.6, 0.4, 0.2, 1.0)
+
+[node name="BagLabel" type="Label" parent="BagPickupZone"]
+position = Vector2(380, 120)
+text = "Delivery Bag"
+horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+[node name="SniffTrail" type="Line2D" parent="."]
+points = PackedVector2Array([
+	Vector2(400, 450), Vector2(400, 400),
+	Vector2(350, 350), Vector2(400, 300),
+	Vector2(450, 250), Vector2(400, 200),
+	Vector2(400, 150)
+])
+width = 4.0
+default_color = Color(0.4, 0.8, 0.4, 0.6)
+
+[node name="ExitZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+position = Vector2(400, 560)
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
+position = Vector2(400, 560)
+polygon = PackedVector2Array([
+	Vector2(-32, -16), Vector2(32, -16),
+	Vector2(32, 16), Vector2(-32, 16)
+])
+color = Color(0.2, 0.8, 0.4, 0.4)
+
+[node name="ExitLabel" type="Label" parent="ExitZone"]
+position = Vector2(368, 545)
+text = "EXIT ->"
+horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 300)
+zoom = Vector2(1.5, 1.5)
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 600

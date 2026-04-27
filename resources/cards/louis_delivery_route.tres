@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc04"]
+
+[resource]
+script = ExtResource("1_abc04")
+id = "louis_delivery_route"
+display_name = "Louis Delivery Route"
+description = "Reveals a side entrance or shortcut in every mission."
+effect_type = "boolean"
+effect_key = "has_delivery_route"
+effect_value = 1.0
+unlock_condition = "taco_bell_drop"
+rarity = "uncommon"
+icon_path = ""

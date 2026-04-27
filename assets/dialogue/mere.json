@@ -1,0 +1,179 @@
+{
+  "character_id": "mere",
+  "character_name": "Mere",
+  "default_portrait": "res://assets/sprites/portraits/mere.png",
+  "metadata": {
+    "role": "Lawyer / Fixer",
+    "location": "Hideout",
+    "voice": "Sharp, pragmatic, protective"
+  },
+  "nodes": {
+    "intro": {
+      "text": "You are two bad decisions away from a felony and one good plan away from winning. Which way are we going?",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "The winning way",
+          "next": "winning"
+        },
+        {
+          "text": "I need legal advice",
+          "next": "legal_advice"
+        },
+        {
+          "text": "What if I already made the bad decisions?",
+          "next": "bad_decisions"
+        },
+        {
+          "text": "Just saying hi",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "winning": {
+      "text": "Good. Let me see the plan. I'll tell you which parts will get you arrested, which parts will get you killed, and which parts are actually clever. Usually it's a Venn diagram with significant overlap.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "Show me what you've got",
+          "next": "mere_review"
+        },
+        {
+          "text": "I'll come back with a plan",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "mere_review": {
+      "text": "Hmm. The rooftop entry? Illegal, but creative. The fake delivery? Illegal, but effective. The part where you disguise yourself as a health inspector? That's actually legal, surprisingly. I checked. You're just missing one thing: an exit strategy that doesn't involve parkour.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "Parkour is my exit strategy",
+          "next": "mere_parkour"
+        },
+        {
+          "text": "What's your suggestion?",
+          "next": "mere_suggestion"
+        }
+      ]
+    },
+    "mere_parkour": {
+      "text": "Of course it is. And when you break your ankle — not if, when — remember that I told you so. In writing. I have a draft liability waiver ready. Sign it. It's for my peace of mind.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "You're the best, Mere",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "mere_suggestion": {
+      "text": "Louis has a delivery van. It's registered to a shell company I set up last month. The company name is 'Totally Legitimate Deliveries LLC.' I'm not good at names, I'm good at paperwork. Use the van.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "That's brilliant",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "legal_advice": {
+      "text": "I read contracts so you don't have to. What's the situation? And before you answer, remember that attorney-client privilege only applies if I'm actually your attorney. Which, legally speaking, I'm not. I'm your friend who happens to know a lot about law. Big difference.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "What if I got seen?",
+          "next": "mere_seen"
+        },
+        {
+          "text": "Any legal way to do this?",
+          "next": "mere_legal_way"
+        },
+        {
+          "text": "Actually, never mind",
+          "next": "intro"
+        }
+      ]
+    },
+    "mere_seen": {
+      "text": "If you got seen, we have options. Option A: It didn't happen. Option B: It happened, but it wasn't you. Option C: It was you, but you were sleepwalking and have no memory. I like Option A. It's clean. Option C requires a doctor's note, and Jake would actually write one, which says worrying things about both of you.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "Let's go with Option A",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "mere_legal_way": {
+      "text": "The legal way is to not do it. But since that's apparently off the table, the 'less illegal' way involves permits, licenses, and a shocking amount of paperwork. I can forge — I mean, 'prepare' — all of it. Give me 48 hours.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "48 hours?",
+          "next": "mere_48_hours"
+        }
+      ]
+    },
+    "mere_48_hours": {
+      "text": "I'm a professional. I can do it in 24 if you don't care about the details being believable. 48 if you want the IRS to nod approvingly. Your call.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "24 is fine",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "bad_decisions": {
+      "text": "Then we mitigate. That's lawyer-speak for 'make it someone else's problem.' Who saw you? What did they see? Do they have cameras? Do they have lawyers? Most importantly: do they have better lawyers than me? Because if they do, we might need to get creative.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "No one saw me. I think.",
+          "next": "mere_think"
+        },
+        {
+          "text": "A guard might have...",
+          "next": "mere_guard"
+        }
+      ]
+    },
+    "mere_think": {
+      "text": "'I think' is not a legal defense. 'I know' is barely a legal defense. But it's a start. Next time, know. Or better yet, don't be there to be seen.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "Noted",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "mere_guard": {
+      "text": "A guard. Okay. Guards have bosses. Bosses have insurance. Insurance companies have lawyers. Those lawyers are... adequate. I can work with adequate. The question is: does the guard know he saw you? Or does he think he saw a very athletic raccoon?",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "I was wearing black...",
+          "next": "mere_black"
+        }
+      ]
+    },
+    "mere_black": {
+      "text": "Black. At night. Groundbreaking. Next time try a high-visibility vest and a clipboard. No one questions someone with a clipboard. I have seventeen. They're my most effective legal tool.",
+      "speaker": "Mere",
+      "choices": [
+        {
+          "text": "I'll get a clipboard",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "goodbye": {
+      "text": "Remember: the law is a tool. Use it before it uses you.",
+      "speaker": "Mere",
+      "choices": []
+    }
+  }
+}

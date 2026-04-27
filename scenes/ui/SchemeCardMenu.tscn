@@ -1,0 +1,200 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7x3q9b2d4v5e"]
+
+[ext_resource type="Script" path="res://src/ui/SchemeCardMenu.gd" id="1_8k3j7"]
+[ext_resource type="Theme" uid="uid://bq5bll5p8h6bq" path="res://assets/themes/default_theme.tres" id="2_9jq6e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w5t8"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r9s1"]
+bg_color = Color(0.2, 0.2, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6v2p3"]
+bg_color = Color(0.3, 0.2, 0.4, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.4, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_9q7m4"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t5n6"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.2, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[node name="SchemeCardMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_8k3j7")
+theme = ExtResource("2_9jq6e")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="MenuContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2w5t8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+alignment = 1
+
+[node name="Title" type="Label" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 0.0
+offset_right = 200.0
+offset_bottom = 40.0
+horizontal_alignment = 1
+text = "Select Scheme Cards"
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.8, 0.4, 1, 1)
+
+[node name="Subtitle" type="Label" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 40.0
+offset_right = 300.0
+offset_bottom = 70.0
+horizontal_alignment = 1
+text = "Choose up to 3 cards for this mission"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.6, 0.8, 1)
+
+[node name="CardsContainer" type="GridContainer" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -400.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 400.0
+columns = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+
+[node name="SelectedCount" type="Label" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 420.0
+offset_right = 200.0
+offset_bottom = 450.0
+horizontal_alignment = 1
+text = "Selected: 0/3"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.8, 0.8, 0.9, 1)
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 470.0
+offset_right = 300.0
+offset_bottom = 530.0
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -140.0
+offset_top = 0.0
+offset_right = 140.0
+offset_bottom = 50.0
+text = "Confirm Selection"
+disabled = true
+theme_override_styles/normal = SubResource("StyleBoxFlat_9q7m4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_9q7m4")
+theme_override_font_sizes/font_size = 20
+
+[node name="BackButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 0.0
+offset_right = 130.0
+offset_bottom = 50.0
+text = "Back"
+theme_override_styles/normal = SubResource("StyleBoxFlat_9q7m4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1t5n6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_9q7m4")
+theme_override_font_sizes/font_size = 20

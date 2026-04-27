@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc02"]
+
+[resource]
+script = ExtResource("1_abc02")
+id = "fish_treat_focus"
+display_name = "Fish Treat Focus"
+description = "Bentley's ability meter recharges 50% faster."
+effect_type = "stat_mod"
+effect_key = "bentley_recharge_rate"
+effect_value = 1.5
+unlock_condition = "default"
+rarity = "common"
+icon_path = ""

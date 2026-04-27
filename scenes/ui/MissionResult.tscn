@@ -1,0 +1,145 @@
+[gd_scene load_steps=7 format=3 uid="uid://d9x7q3b8c2v1f"]
+
+[ext_resource type="Script" path="res://src/ui/MissionResult.gd" id="1_9k4l8"]
+[ext_resource type="Theme" uid="uid://bq5bll5p8h6bq" path="res://assets/themes/default_theme.tres" id="2_9jq6e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3w6t9"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q8m5"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t6n7"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.2, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_success"]
+bg_color = Color(0.141176, 0.35, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.7, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[node name="MissionResult" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_9k4l8")
+theme = ExtResource("2_9jq6e")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.85)
+
+[node name="MenuContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 80.0
+offset_right = -150.0
+offset_bottom = -80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3w6t9")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 0.0
+offset_right = 200.0
+offset_bottom = 60.0
+horizontal_alignment = 1
+text = "MISSION ACCOMPLISHED"
+theme_override_font_sizes/font_size = 40
+
+[node name="Subtitle" type="Label" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 60.0
+offset_right = 300.0
+offset_bottom = 100.0
+horizontal_alignment = 1
+text = "Mission Name"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.6, 0.6, 0.8, 1)
+
+[node name="RewardsContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 350.0
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="ContinueButton" type="Button" parent="MenuContainer/VBoxContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 380.0
+offset_right = 150.0
+offset_bottom = 440.0
+text = "Continue"
+theme_override_styles/normal = SubResource("StyleBoxFlat_0q8m5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2t6n7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2t6n7")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2t6n7")
+theme_override_font_sizes/font_size = 24

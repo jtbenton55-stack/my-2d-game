@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bq5w7v5v5o5v23"]
+
+[ext_resource type="Script" path="res://src/ui/HUD.gd" id="1_14h8aw"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_14h8aw")
+layer = 10
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+position = Vector2(20, 20)
+size = Vector2(200, 20)
+max_value = 100
+value = 100
+theme = SubResource("Theme_18h8aw")
+
+[node name="DetectionMeter" type="ProgressBar" parent="."]
+position = Vector2(20, 50)
+size = Vector2(200, 20)
+max_value = 100
+value = 0
+theme = SubResource("Theme_19h8aw")
+
+[node name="Label" type="Label" parent="DetectionMeter"]
+position = Vector2(0, -20)
+size = Vector2(200, 20)
+text = "DETECTION: 0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ObjectiveMarker" type="Sprite2D" parent="."]
+position = Vector2(400, 300)
+texture = ExtResource("2_14h8aw")
+
+[node name="Distance" type="Label" parent="ObjectiveMarker"]
+position = Vector2(0, 30)
+text = "0m"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[ext_resource type="CompressedTexture2D" uid="uid://bq5w7v5v5o5v24" path="res://icon.svg" id="2_14h8aw"]
+
+[sub_resource type="Theme" id="Theme_18h8aw"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_19h8aw"]
+default_font_size = 12

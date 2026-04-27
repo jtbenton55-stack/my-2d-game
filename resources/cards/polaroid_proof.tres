@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc15"]
+
+[resource]
+script = ExtResource("1_abc15")
+id = "polaroid_proof"
+display_name = "Polaroid Proof"
+description = "Captures evidence remotely. Reveals one hidden Polaroid per mission."
+effect_type = "boolean"
+effect_key = "has_polaroid_proof"
+effect_value = 1.0
+unlock_condition = "polaroid_mission"
+rarity = "rare"
+icon_path = ""

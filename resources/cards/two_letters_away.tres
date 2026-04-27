@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc13"]
+
+[resource]
+script = ExtResource("1_abc13")
+id = "two_letters_away"
+display_name = "Two Letters Away"
+description = "Auto-decodes one Caesar cipher per heist."
+effect_type = "boolean"
+effect_key = "has_two_letters"
+effect_value = 1.0
+unlock_condition = "velvet_paw_jazz_club_hidden"
+rarity = "rare"
+icon_path = ""

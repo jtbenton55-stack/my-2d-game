@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc12"]
+
+[resource]
+script = ExtResource("1_abc12")
+id = "clorox_wipe_protocol"
+display_name = "Clorox Wipe Protocol"
+description = "Cleans hazard tiles and reveals hidden codes or fingerprints."
+effect_type = "boolean"
+effect_key = "has_clorox_wipe"
+effect_value = 1.0
+unlock_condition = "clean_job_mission"
+rarity = "uncommon"
+icon_path = ""

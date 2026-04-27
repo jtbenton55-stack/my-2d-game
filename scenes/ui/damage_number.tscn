@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq5w7v5v5o5v14"]
+
+[ext_resource type="Script" path="res://src/ui/DamageNumber.gd" id="1_11h8aw"]
+
+[node name="DamageNumber" type="Label"]
+script = ExtResource("1_11h8aw")
+visible = false
+horizontal_alignment = 1
+vertical_alignment = 1
+theme = SubResource("Theme_12h8aw")
+
+[node name="Tween" type="Tween" parent="."]
+
+[sub_resource type="Theme" id="Theme_12h8aw"]
+default_font_size = 24
+default_font_color = Color(1, 0.2, 0.2, 1)

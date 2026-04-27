@@ -1,0 +1,178 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2xq8b3c6v1b2"]
+
+[ext_resource type="Script" path="res://src/ui/TitleScreen.gd" id="1_4hf8s"]
+[ext_resource type="Theme" uid="uid://bq5bll5p8h6bq" path="res://assets/themes/default_theme.tres" id="2_9jq6e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h4f6"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7q2v9"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.2, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p6w2"]
+bg_color = Color(0.6, 0.2, 0.8, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.4, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5r1t4"]
+bg_color = Color(0, 0, 0, 0.7)
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_4hf8s")
+theme = ExtResource("2_9jq6e")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0705882, 0.0705882, 0.0941176, 1)
+
+[node name="TitleContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Title" type="Label" parent="TitleContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 180.0
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "Untitled Heist RPG"
+uppercase = true
+theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.8, 0.4, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.3, 1)
+theme_override_constants/outline_size = 4
+
+[node name="Subtitle" type="Label" parent="TitleContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = 180.0
+offset_right = 300.0
+offset_bottom = 220.0
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "A birthday gift"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.6, 0.6, 0.8, 1)
+
+[node name="ButtonContainer" type="VBoxContainer" parent="TitleContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 300.0
+offset_right = 150.0
+offset_bottom = 500.0
+alignment = 1
+vertical = false
+
+[node name="NewGameButton" type="Button" parent="TitleContainer/ButtonContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 0.0
+offset_right = 150.0
+offset_bottom = 50.0
+text = "New Game"
+theme_override_styles/normal = SubResource("StyleBoxFlat_8h4f6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3p6w2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8h4f6")
+theme_override_font_sizes/font_size = 24
+
+[node name="ContinueButton" type="Button" parent="TitleContainer/ButtonContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 60.0
+offset_right = 150.0
+offset_bottom = 110.0
+text = "Continue"
+theme_override_styles/normal = SubResource("StyleBoxFlat_8h4f6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3p6w2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8h4f6")
+theme_override_font_sizes/font_size = 24
+
+[node name="QuitButton" type="Button" parent="TitleContainer/ButtonContainer"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -150.0
+offset_top = 120.0
+offset_right = 150.0
+offset_bottom = 170.0
+text = "Quit"
+theme_override_styles/normal = SubResource("StyleBoxFlat_8h4f6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3p6w2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7q2v9")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8h4f6")
+theme_override_font_sizes/font_size = 24
+
+[node name="VersionLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -20.0
+text = "v0.1.0"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.4, 0.4, 0.5, 1)
+
+[node name="CopyrightLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = -20.0
+offset_bottom = -20.0
+horizontal_alignment = 2
+text = "A birthday gift for someone special"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.4, 0.4, 0.5, 1)

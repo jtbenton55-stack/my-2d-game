@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc11"]
+
+[resource]
+script = ExtResource("1_abc11")
+id = "bryce_swiss_timing"
+display_name = "Bryce's Swiss Timing"
+description = "Slows timed hazards, vault mechanisms, and laser patrols."
+effect_type = "stat_mod"
+effect_key = "hazard_slow"
+effect_value = 0.6
+unlock_condition = "diamond_a_year_mission"
+rarity = "rare"
+icon_path = ""

@@ -1,0 +1,16 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bq5w7v5v5o5v9"]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource("1_8h8aw") ],
+"loop": true,
+"name": "idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource("1_8h8aw") ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+} ]
+
+[ext_resource type="CompressedTexture2D" uid="uid://bq5w7v5v5o5v10" path="res://icon.svg" id="1_8h8aw"]

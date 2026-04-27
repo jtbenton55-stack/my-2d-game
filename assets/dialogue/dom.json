@@ -1,0 +1,175 @@
+{
+  "character_id": "dom",
+  "character_name": "Dom",
+  "default_portrait": "res://assets/sprites/portraits/dom.png",
+  "metadata": {
+    "role": "Tech / Hacker",
+    "location": "Hideout",
+    "voice": "Fast-talking, caffeine-fueled, paranoid"
+  },
+  "nodes": {
+    "intro": {
+      "text": "Oh. Hey. You're real. I thought you were a figment of Jake's stress dreams. He talks about you a lot. Mostly worried. Sometimes impressed. Once he called you 'statistically improbable.' That was a compliment, by the way.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "You handle the tech?",
+          "next": "tech_intro"
+        },
+        {
+          "text": "Can you hack something?",
+          "next": "hack_request"
+        },
+        {
+          "text": "Jake talks about me?",
+          "next": "jake_talks"
+        },
+        {
+          "text": "Just passing through",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "tech_intro": {
+      "text": "I handle the tech, the surveillance, the counter-surveillance, and the coffee machine. The coffee machine is the most temperamental. I've named it 'The Beast.' It requires sacrifice. Usually my sleep schedule.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "What can you do for a heist?",
+          "next": "heist_tech"
+        },
+        {
+          "text": "Tell me about The Beast",
+          "next": "beast_story"
+        }
+      ]
+    },
+    "heist_tech": {
+      "text": "Cameras? I can loop them. Alarms? I can delay them. Keycards? I can clone them. Security guards' dating profiles? I can... also find those. For blackmail purposes. I'm not proud. I'm effective.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "Can you loop the Taco Bell cameras?",
+          "next": "taco_bell_tech",
+          "conditions": [{"type": "mission", "mission_id": "taco_bell_drop", "completed": false}]
+        },
+        {
+          "text": "That's... thorough",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "taco_bell_tech": {
+      "text": "Taco Bell? Their security system runs on a router from 2014. The password is probably 'password123' or the manager's birthday. Give me five minutes. Actually, give me three. I'm offended by how easy this is.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "Thanks, Dom",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "beast_story": {
+      "text": "The Beast is a Breville espresso machine that Jake bought during his 'self-care' phase. It has 37 settings. I've mapped 12. The others produce sounds that shouldn't exist in nature. Last Tuesday it made something that tasted like regret and looked like oil. Jake drank it anyway. He's hardcore.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "Jake drank it?",
+          "next": "jake_hardcore"
+        }
+      ]
+    },
+    "jake_hardcore": {
+      "text": "Jake once drank hospital coffee that had been sitting for six hours. This was worse. He said it 'built character.' I think it just built a stronger stomach lining. Med students are terrifying.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "I'll avoid The Beast",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "hack_request": {
+      "text": "Can I hack something? Can I hack something? I hacked the traffic lights on 5th Avenue last week because I was bored. What do you need?",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "I need intel on a location",
+          "next": "location_intel",
+          "conditions": [{"type": "intel", "intel_min": 15}]
+        },
+        {
+          "text": "Can you track someone?",
+          "next": "track_request"
+        },
+        {
+          "text": "Never mind",
+          "next": "intro"
+        }
+      ]
+    },
+    "location_intel": {
+      "text": "Intel costs. Not money — I don't need money. I need... interesting problems. The Taco Bell has a smart fridge that tweets when it's low on lettuce. I want to make it tweet poetry instead. Help me with that and I'll get you blueprints, guard schedules, and the manager's Netflix password.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "Deal",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "track_request": {
+      "text": "Track someone? Sure. As long as they have a phone, a car, or a reckless disregard for digital privacy. Which is everyone, basically. Who am I tracking?",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "A private investigator called 'The Eye'",
+          "next": "eye_tracking"
+        },
+        {
+          "text": "Actually, forget it",
+          "next": "intro"
+        }
+      ]
+    },
+    "eye_tracking": {
+      "text": "'The Eye'? That's adorable. Real name's probably something like 'Gary.' Give me 24 hours. I'll know what he eats for breakfast, who he calls, and whether he sleeps with a nightlight. Everyone has a nightlight. Don't let them tell you otherwise.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "You're scary, Dom",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "jake_talks": {
+      "text": "Oh yeah. All the time. 'She's too brave.' 'She's not careful enough.' 'She has this look when she's planning something and it's terrifying and beautiful.' He's got it bad. We all know. It's actually kind of sweet. Don't tell him I told you.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "I won't say anything",
+          "next": "goodbye"
+        },
+        {
+          "text": "'Terrifying and beautiful'?",
+          "next": "jake_compliment"
+        }
+      ]
+    },
+    "jake_compliment": {
+      "text": "His words, not mine. Though I agree with the terrifying part. The beautiful part is... also accurate. I'm going to stop talking now before this gets weird.",
+      "speaker": "Dom",
+      "choices": [
+        {
+          "text": "Thanks, Dom",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "goodbye": {
+      "text": "Stay off the grid. Or at least use a VPN.",
+      "speaker": "Dom",
+      "choices": []
+    }
+  }
+}

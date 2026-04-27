@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc06"]
+
+[resource]
+script = ExtResource("1_abc06")
+id = "yordano_bass_drop"
+display_name = "Yordano Bass Drop"
+description = "One area stun in music rooms or club environments."
+effect_type = "boolean"
+effect_key = "has_bass_drop"
+effect_value = 1.0
+unlock_condition = "velvet_paw_jazz_club"
+rarity = "uncommon"
+icon_path = ""

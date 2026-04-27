@@ -1,0 +1,165 @@
+{
+  "character_id": "yordano",
+  "character_name": "Yordano",
+  "default_portrait": "res://assets/sprites/portraits/yordano.png",
+  "metadata": {
+    "role": "Driver / Muscle",
+    "location": "Hideout",
+    "voice": "Stoic, loyal, quietly funny"
+  },
+  "nodes": {
+    "intro": {
+      "text": "You're smaller than I expected. That's not an insult. Most people I drive away from are bigger. And louder. And usually bleeding. You look like you can handle yourself, though.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "You handle the driving?",
+          "next": "driving_intro"
+        },
+        {
+          "text": "Need a getaway driver?",
+          "next": "getaway_request"
+        },
+        {
+          "text": "What do you drive?",
+          "next": "car_talk"
+        },
+        {
+          "text": "Just looking around",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "driving_intro": {
+      "text": "I handle driving, extraction, and 'aggressive negotiation.' That's when someone doesn't want to move and I convince them. I'm very convincing. I have a crowbar.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Have you ever been caught?",
+          "next": "caught_story"
+        },
+        {
+          "text": "The crowbar seems excessive",
+          "next": "crowbar_talk"
+        }
+      ]
+    },
+    "caught_story": {
+      "text": "Once. Highway patrol. I was doing 140 in a 65. The officer asked why I was in a hurry. I said my wife was in labor. He asked where my wife was. I pointed to the empty passenger seat and said 'she's very small.' He didn't believe me. I still got away. That's the important part.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "How?",
+          "next": "escape_story"
+        }
+      ]
+    },
+    "escape_story": {
+      "text": "I told him I was a volunteer firefighter responding to a cat in a tree. Then I showed him a laminated badge I bought online. Then I offered to help him with his taxes. People will believe anything if you offer to do their taxes.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "That's incredible",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "crowbar_talk": {
+      "text": "The crowbar is a tool of last resort. First resort is talking. Second resort is driving around the problem. Third resort is the crowbar. I've only needed it twice. Both times, the problem moved very quickly afterward.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "I'll keep that in mind",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "getaway_request": {
+      "text": "Always. It's what I do. You need fast, quiet, or loud? Fast is my specialty. Quiet requires a different car. Loud requires a different attitude. Which flavor of trouble are you planning?",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Fast",
+          "next": "fast_plan"
+        },
+        {
+          "text": "Quiet",
+          "next": "quiet_plan"
+        },
+        {
+          "text": "Loud",
+          "next": "loud_plan"
+        }
+      ]
+    },
+    "fast_plan": {
+      "text": "Fast I can do. I've got a '98 Civic with an engine that shouldn't exist. The previous owner was a NASA engineer with a felony record. It's basically a spaceship with cupholders.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Perfect",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "quiet_plan": {
+      "text": "Quiet means electric. I know a guy who knows a guy who imports Teslas with 'questionable paperwork.' They're silent. Eerily silent. You can hear your own heartbeat. It's unsettling.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Unsettling is fine",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "loud_plan": {
+      "text": "Loud means a '71 Charger with a supercharger that screams like an angry god. Everyone hears you coming. Everyone gets out of the way. It's not subtle. Subtle is for people who don't enjoy their work.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Let's get loud",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "car_talk": {
+      "text": "Right now? A 2015 Camry. Boring, reliable, invisible. The perfect getaway car is the one no one remembers. But for special occasions? I have a '69 Mustang in a garage across town. It's red. It's loud. It's beautiful. I only drive it when I need to feel alive.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Can I see it sometime?",
+          "next": "mustang_invite"
+        },
+        {
+          "text": "The Camry is smart",
+          "next": "camry_smart"
+        }
+      ]
+    },
+    "mustang_invite": {
+      "text": "Sure. But you have to promise not to touch the radio. It's set to classic rock and that's the way it stays. Jake tried to change it to jazz once. I didn't speak to him for a week.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Classic rock it is",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "camry_smart": {
+      "text": "The Camry is smart. The Camry is safe. The Camry has saved my life four times because no one looks twice at a beige sedan. Sometimes the most dangerous thing you can be is interesting.",
+      "speaker": "Yordano",
+      "choices": [
+        {
+          "text": "Words to live by",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "goodbye": {
+      "text": "Drive safe. Or drive fast. Your call.",
+      "speaker": "Yordano",
+      "choices": []
+    }
+  }
+}

@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://bq5w7v5v5o5v11"]
+
+[ext_resource type="Script" path="res://src/enemies/Guard.gd" id="1_9h8aw"]
+[ext_resource type="SpriteFrames" uid="uid://bq5w7v5v5o5v12" path="res://assets/sprites/guard_sprite_frames.tres" id="2_9h8aw"]
+
+[node name="Guard" type="CharacterBody2D"]
+script = ExtResource("1_9h8aw")
+max_health = 50
+detection_range = 200.0
+attack_range = 50.0
+speed = 150.0
+chase_speed = 250.0
+acceleration = 10.0
+attack_damage = 10
+attack_cooldown = 1.0
+patrol_speed = 100.0
+wait_time_at_points = 2.0
+detection_speed = 1.0
+detection_decay = 0.5
+alert_duration = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = ExtResource("2_9h8aw")
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_11h8aw")
+
+[node name="VisionArea" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 5
+collision_mask = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_12h8aw")
+
+[node name="VisionCone" type="Polygon2D" parent="VisionArea"]
+polygon = PackedVector2Array([Vector2(0, 0), Vector2(100, -50), Vector2(100, 50)])
+color = Color(1, 0, 0, 0.2)
+
+[node name="AttackArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_13h8aw")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11h8aw"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_12h8aw"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13h8aw"]
+radius = 50.0

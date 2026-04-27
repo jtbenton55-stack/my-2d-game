@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://carchasemission004"]
+
+[ext_resource type="Script" path="res://src/missions/CarChaseMission.gd" id="1_chase"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(40, 60)
+
+[node name="CarChaseMission" type="Node2D"]
+script = ExtResource("1_chase")
+
+[node name="RoadContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="ObstacleContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="EnemyContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="CollectibleContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 300)
+zoom = Vector2(1.0, 1.0)
+limit_left = 0
+limit_top = -200
+limit_right = 800
+limit_bottom = 700
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10

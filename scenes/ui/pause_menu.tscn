@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq5w7v5v5o5v25"]
+
+[ext_resource type="Script" path="res://src/ui/PauseMenu.gd" id="1_15h8aw"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_15h8aw")
+layer = 100
+visible = false
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("Theme_20h8aw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+text = "Resume"
+flat = true
+theme = SubResource("Theme_21h8aw")
+
+[node name="SaveButton" type="Button" parent="Panel/VBoxContainer"]
+text = "Save Game"
+flat = true
+theme = SubResource("Theme_21h8aw")
+
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+text = "Quit to Hideout"
+flat = true
+theme = SubResource("Theme_21h8aw")
+
+[sub_resource type="Theme" id="Theme_20h8aw"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_21h8aw"]
+default_font_size = 32

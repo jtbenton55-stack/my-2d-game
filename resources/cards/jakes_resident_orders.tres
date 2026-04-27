@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc03"]
+
+[resource]
+script = ExtResource("1_abc03")
+id = "jakes_resident_orders"
+display_name = "Jake's Resident Orders"
+description = "Start each heist with one med kit. Revive once if downed."
+effect_type = "boolean"
+effect_key = "has_med_kit"
+effect_value = 1.0
+unlock_condition = "default"
+rarity = "common"
+icon_path = ""

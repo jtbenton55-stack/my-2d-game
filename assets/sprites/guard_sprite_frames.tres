@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bq5w7v5v5o5v12"]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource("1_10h8aw") ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource("1_10h8aw") ],
+"loop": true,
+"name": "run",
+"speed": 6.0
+}, {
+"frames": [ ExtResource("1_10h8aw") ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
+"frames": [ ExtResource("1_10h8aw") ],
+"loop": false,
+"name": "dead",
+"speed": 5.0
+} ]
+
+[ext_resource type="CompressedTexture2D" uid="uid://bq5w7v5v5o5v13" path="res://icon.svg" id="1_10h8aw"]

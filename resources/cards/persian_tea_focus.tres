@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc09"]
+
+[resource]
+script = ExtResource("1_abc09")
+id = "persian_tea_focus"
+display_name = "Persian Tea Focus"
+description = "Briefly slows time during puzzles and perfect-dodge windows."
+effect_type = "stat_mod"
+effect_key = "time_slow"
+effect_value = 0.7
+unlock_condition = "persian_tea_mission"
+rarity = "rare"
+icon_path = ""

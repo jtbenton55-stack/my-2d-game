@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq5w7v5v5o5v8"]
+
+[ext_resource type="Script" path="res://src/player/DogCompanion.gd" id="1_7h8aw"]
+[ext_resource type="SpriteFrames" uid="uid://bq5w7v5v5o5v9" path="res://assets/sprites/dog_sprite_frames.tres" id="2_7h8aw"]
+
+[node name="DogCompanion" type="CharacterBody2D"]
+script = ExtResource("1_7h8aw")
+follow_distance = 50.0
+max_speed = 400.0
+acceleration = 20.0
+rotation_speed = 10.0
+distraction_duration = 5.0
+distraction_cooldown = 10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = ExtResource("2_7h8aw")
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_9h8aw")
+
+[node name="DistractionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DistractionArea"]
+shape = SubResource("CircleShape2D_10h8aw")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_9h8aw"]
+size = Vector2(24, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_10h8aw"]
+radius = 75.0

@@ -1,0 +1,193 @@
+{
+  "character_id": "jake",
+  "character_name": "Jake",
+  "default_portrait": "res://assets/sprites/portraits/jake.png",
+  "metadata": {
+    "role": "Doctor / Boyfriend",
+    "location": "Hideout",
+    "voice": "Dry, caring, exhausted"
+  },
+  "nodes": {
+    "intro": {
+      "text": "As your doctor, I have to recommend fewer rooftop fistfights. As your boyfriend, I'm unfortunately impressed.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I'll be more careful",
+          "next": "careful"
+        },
+        {
+          "text": "It was worth it",
+          "next": "worth_it"
+        },
+        {
+          "text": "How's Bentley?",
+          "next": "bentley_status"
+        },
+        {
+          "text": "I got hurt...",
+          "next": "heal_check",
+          "conditions": [{"type": "flag", "key": "player_injured", "value": true}]
+        }
+      ]
+    },
+    "careful": {
+      "text": "Good. Because as a resident, I have no idea when I last slept. Don't make me stitch you up at 3 AM again. The nurses are starting to think you're a hallucination.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I promise",
+          "next": "goodbye"
+        },
+        {
+          "text": "No promises",
+          "next": "no_promises"
+        }
+      ]
+    },
+    "worth_it": {
+      "text": "Of course it was. You're doing good things out there. Just... try to come home in one piece. I have enough incomplete jigsaw puzzles without adding you to the pile.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I will",
+          "next": "goodbye"
+        },
+        {
+          "text": "You do jigsaw puzzles?",
+          "next": "jigsaw"
+        }
+      ]
+    },
+    "jigsaw": {
+      "text": "I do them in the on-call room. It's either that or stare at the ceiling wondering if I remembered to eat. The 1000-piece ones. I find the edge pieces first. I'm very methodical. You'd know that if you ever stayed in one place long enough to notice.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I'll stay still sometime",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "bentley_status": {
+      "text": "Bentley is medically stable. Emotionally, he remains judgmental. He ate all the fish treats again. I caught him trying to open the cabinet with his nose. He's either very smart or very food-motivated. Probably both.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "That's my boy",
+          "next": "goodbye"
+        },
+        {
+          "text": "I'll get more treats",
+          "next": "more_treats"
+        }
+      ]
+    },
+    "more_treats": {
+      "text": "Please do. He's started giving me that look. You know the one. The 'I tolerate you because you have thumbs' look. It's devastating.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "He loves you, Jake",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "heal_check": {
+      "text": "Let me look at you. Hmm. That's a new bruise. And that's... is that a burn? What are you doing out there? Never mind, I don't want to know. Hold still.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "Thanks, Jake",
+          "next": "goodbye",
+          "effects": ["heal_player"]
+        }
+      ]
+    },
+    "no_promises": {
+      "text": "I figured. Well, if you're going to get hurt, at least make it stylish. The other residents are starting to take bets on what you'll come in with next. I'm winning, by the way. I had 'falling off a fake palm tree.'",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "Always",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "post_mission": {
+      "text": "You're back. You're walking. These are both good signs. Let me guess — you need stitches, an ice pack, and a lecture about 'acceptable risk thresholds.'",
+      "speaker": "Jake",
+      "conditions": [{"type": "mission", "mission_id": "taco_bell_drop", "completed": true}],
+      "choices": [
+        {
+          "text": "I'm fine, really",
+          "next": "jake_fine"
+        },
+        {
+          "text": "Maybe a few stitches...",
+          "next": "jake_stitches"
+        }
+      ]
+    },
+    "jake_fine": {
+      "text": "You're never fine. You just have a higher tolerance for 'fine' than medically advisable. Sit down. I'm checking your pupils.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "Yes, doctor",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "jake_stitches": {
+      "text": "Of course you do. Lie down. And try not to bleed on the couch — Bentley already claimed it as his territory and I don't want him getting ideas about hunting you.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "He wouldn't dare",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "many_failures": {
+      "text": "Okay. Okay. Deep breath. You're alive. That's the important thing. The other important thing is that maybe — and I'm just suggesting here — you need a different plan. Because whatever you're doing? It's not working. Three times. Three times you've come back looking like you lost a fight with a ceiling fan.",
+      "speaker": "Jake",
+      "conditions": [{"type": "failure_count", "mission_id": "taco_bell_drop", "comparison": "gte", "value": 3}],
+      "choices": [
+        {
+          "text": "I'll figure it out",
+          "next": "jake_figure_out"
+        },
+        {
+          "text": "It was close",
+          "next": "jake_close"
+        }
+      ]
+    },
+    "jake_figure_out": {
+      "text": "You will. You always do. But maybe talk to Mere first? Or Louis? Someone who knows which end of a plan is the smart end? I love you. I don't want to practice emergency medicine on you anymore.",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I love you too",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "jake_close": {
+      "text": "Close only counts in horseshoes and hand grenades. And surgery. Actually, close is terrible in surgery. Please stop being 'close.'",
+      "speaker": "Jake",
+      "choices": [
+        {
+          "text": "I'll do better",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "goodbye": {
+      "text": "Be safe. Or at least be clever.",
+      "speaker": "Jake",
+      "choices": []
+    }
+  }
+}

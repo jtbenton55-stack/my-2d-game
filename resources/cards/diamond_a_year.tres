@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc14"]
+
+[resource]
+script = ExtResource("1_abc14")
+id = "diamond_a_year"
+display_name = "Diamond a Year"
+description = "Increases vault rewards and diamond drop rates by 50%."
+effect_type = "stat_mod"
+effect_key = "vault_reward"
+effect_value = 1.5
+unlock_condition = "diamond_a_year_mission"
+rarity = "legendary"
+icon_path = ""

@@ -1,0 +1,121 @@
+[gd_scene load_steps=12 format=3 uid="uid://cityhub12345"]
+
+[ext_resource type="Script" path="res://src/levels/CityHub.gd" id="1_cityhub"]
+[ext_resource type="PackedScene" uid="uid://player123" path="res://scenes/characters/player.tscn" id="2_cityhub"]
+[ext_resource type="PackedScene" uid="uid://dog123" path="res://scenes/characters/dog.tscn" id="3_cityhub"]
+
+[node name="CityHub" type="Node2D"]
+script = ExtResource("1_cityhub")
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_city")
+cell_quadrant_size = 16
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 300)
+
+[node name="HideoutEntrance" type="Area2D" parent="."]
+position = Vector2(200, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HideoutEntrance"]
+shape = SubResource("RectangleShape2D_hideout")
+
+[node name="Sprite2D" type="Sprite2D" parent="HideoutEntrance"]
+texture = ExtResource("4_cityhub")
+
+[node name="LouisNPC" type="Area2D" parent="."]
+position = Vector2(500, 200)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LouisNPC"]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="LouisNPC"]
+texture = ExtResource("4_cityhub")
+
+[node name="YordanoNPC" type="Area2D" parent="."]
+position = Vector2(600, 400)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="YordanoNPC"]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="YordanoNPC"]
+texture = ExtResource("4_cityhub")
+
+[node name="MereNPC" type="Area2D" parent="."]
+position = Vector2(300, 400)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="MereNPC"]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D4" type="Sprite2D" parent="MereNPC"]
+texture = ExtResource("4_cityhub")
+
+[node name="DomNPC" type="Area2D" parent="."]
+position = Vector2(700, 200)
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="DomNPC"]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D5" type="Sprite2D" parent="DomNPC"]
+texture = ExtResource("4_cityhub")
+
+[node name="JakeNPC" type="Area2D" parent="."]
+position = Vector2(400, 500)
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="JakeNPC"]
+shape = SubResource("RectangleShape2D_npc")
+
+[node name="Sprite2D6" type="Sprite2D" parent="JakeNPC"]
+texture = ExtResource("4_cityhub")
+
+[node name="MissionTrigger_taco_bell_drop" type="Area2D" parent="."]
+position = Vector2(100, 100)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="MissionTrigger_taco_bell_drop"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="MissionTrigger_velvet_paw_jazz_club" type="Area2D" parent="."]
+position = Vector2(700, 100)
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="MissionTrigger_velvet_paw_jazz_club"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="MissionTrigger_rewrite_room" type="Area2D" parent="."]
+position = Vector2(100, 500)
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="MissionTrigger_rewrite_room"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="MissionTrigger_fast_family_getaway" type="Area2D" parent="."]
+position = Vector2(700, 500)
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="MissionTrigger_fast_family_getaway"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="MissionTrigger_sterling_tower_heist" type="Area2D" parent="."]
+position = Vector2(400, 100)
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="MissionTrigger_sterling_tower_heist"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 300)
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 600
+
+[ext_resource type="CompressedTexture2D" uid="uid://icon123" path="res://icon.svg" id="4_cityhub"]
+
+[sub_resource type="TileSet" id="TileSet_city"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npc"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mission"]
+size = Vector2(48, 48)

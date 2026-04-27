@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://goonbasic001"]
+
+[ext_resource type="Script" path="res://src/enemies/Goon.gd" id="1_goon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goon1"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_goon2"]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_goon3"]
+radius = 40.0
+
+[node name="Goon" type="CharacterBody2D"]
+script = ExtResource("1_goon")
+max_health = 30
+detection_range = 150.0
+attack_range = 40.0
+speed = 120.0
+chase_speed = 200.0
+acceleration = 10.0
+attack_damage = 8
+attack_cooldown = 1.2
+wander_radius = 50.0
+wander_speed = 80.0
+wait_time = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_goon1")
+
+[node name="VisionArea" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 5
+collision_mask = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_goon2")
+
+[node name="VisionCircle" type="Polygon2D" parent="VisionArea"]
+polygon = PackedVector2Array([Vector2(0, 0), Vector2(100, -60), Vector2(150, 0), Vector2(100, 60)])
+color = Color(1, 0.2, 0.2, 0.15)
+
+[node name="AttackArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_goon3")
+
+[node name="PlaceholderBody" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([Vector2(-16, -32), Vector2(16, -32), Vector2(16, 0), Vector2(-16, 0)])
+color = Color(0.6, 0.2, 0.2, 1.0)
+
+[node name="PlaceholderHead" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([Vector2(-12, -40), Vector2(12, -40), Vector2(12, -32), Vector2(-12, -32)])
+color = Color(0.5, 0.15, 0.15, 1.0)

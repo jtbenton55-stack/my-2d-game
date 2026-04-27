@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://victorsterling001"]
+
+[ext_resource type="Script" path="res://src/enemies/VictorSterling.gd" id="1_victor"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vision"]
+radius = 350.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_attack"]
+radius = 60.0
+
+[node name="VictorSterling" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_victor")
+
+# Body collision
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_body")
+
+# Visual — boss sprite placeholder
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -20)
+
+# Boss body (red polygon, distinguished from regular guards)
+[node name="BossBody" type="Polygon2D" parent="AnimatedSprite2D"]
+polygon = PackedVector2Array([
+	Vector2(-18, -40), Vector2(18, -40),
+	Vector2(22, -10), Vector2(18, 0),
+	Vector2(-18, 0), Vector2(-22, -10)
+])
+color = Color(0.75, 0.05, 0.05, 1.0)
+
+# Suit detail (darker red)
+[node name="SuitDetail" type="Polygon2D" parent="AnimatedSprite2D"]
+polygon = PackedVector2Array([
+	Vector2(-10, -35), Vector2(10, -35),
+	Vector2(12, -15), Vector2(-12, -15)
+])
+color = Color(0.55, 0.05, 0.05, 1.0)
+
+# Tie (gold)
+[node name="Tie" type="Polygon2D" parent="AnimatedSprite2D"]
+polygon = PackedVector2Array([
+	Vector2(-3, -32), Vector2(3, -32),
+	Vector2(2, -18), Vector2(-2, -18)
+])
+color = Color(0.9, 0.7, 0.1, 1.0)
+
+# Name label
+[node name="NameLabel" type="Label" parent="AnimatedSprite2D"]
+position = Vector2(-50, -60)
+text = "VICTOR STERLING"
+horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+add_theme_font_size_override("font_size", 12)
+add_theme_color_override("font_color", Color(0.9, 0.1, 0.1, 1.0))
+
+# Vision area (large detection range)
+[node name="VisionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_vision")
+
+# Attack area
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_attack")
+
+# Attack range area (for determining when to attack)
+[node name="AttackRangeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRangeArea"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_attack")
+
+# Retreat range area
+[node name="RetreatRangeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RetreatRangeArea"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_vision")
+
+# Projectile spawn points
+[node name="PistolProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(20, -25)
+
+[node name="ShotgunProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(20, -25)
+
+# Hurtbox (takes damage from player)
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -20)
+shape = SubResource("CircleShape2D_body")

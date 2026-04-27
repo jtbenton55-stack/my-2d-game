@@ -1,0 +1,188 @@
+{
+  "character_id": "louis",
+  "character_name": "Louis",
+  "default_portrait": "res://assets/sprites/portraits/louis.png",
+  "metadata": {
+    "role": "Delivery Driver / Informant",
+    "location": "Hideout",
+    "voice": "Casual, slightly conspiratorial"
+  },
+  "nodes": {
+    "intro": {
+      "text": "I deliver tacos, secrets, and occasionally fugitives. Depends on the tip.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Tell me about the delivery route",
+          "next": "route_info",
+          "set_flags": {"asked_about_route": true}
+        },
+        {
+          "text": "I need help with a heist",
+          "next": "heist_help",
+          "conditions": [{"type": "mission", "mission_id": "taco_bell_drop", "completed": false}]
+        },
+        {
+          "text": "Got any intel?",
+          "next": "intel_check",
+          "conditions": [{"type": "intel", "intel_min": 10}]
+        },
+        {
+          "text": "Just checking in",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "route_info": {
+      "text": "The city has three kinds of doors: locked, unlocked, and delivery entrance. I know all the delivery entrances. The Taco Bell on 5th? Back door's busted. Has been for months. Management doesn't care because the rats keep the health inspector away.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "That could be useful",
+          "next": "intro"
+        },
+        {
+          "text": "Rats?",
+          "next": "rats_story"
+        },
+        {
+          "text": "Thanks for the info",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "rats_story": {
+      "text": "Big ones. I named the biggest one 'Manager' because he's been there longer than the actual manager. Don't worry, they only come out after midnight. Which, coincidentally, is when the safe gets restocked.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "You're a legend, Louis",
+          "next": "goodbye"
+        },
+        {
+          "text": "Back to business",
+          "next": "intro"
+        }
+      ]
+    },
+    "heist_help": {
+      "text": "Crunchwrap, no witnesses? What do you need? I can get you floor plans, shift schedules, and the manager's embarrassing Spotify playlist. Not sure which is more useful.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Floor plans would be great",
+          "next": "heist_plans",
+          "set_flags": {"louis_provided_plans": true}
+        },
+        {
+          "text": "Actually, never mind",
+          "next": "intro"
+        }
+      ]
+    },
+    "heist_plans": {
+      "text": "Done. I drew them on a napkin. It's accurate, I promise. The napkin is also laminated because I've been carrying it for three weeks waiting for you to ask.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "You've been planning this?",
+          "next": "louis_confession"
+        },
+        {
+          "text": "Thanks, Louis",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "louis_confession": {
+      "text": "Let's just say the manager shorted me on hot sauce one too many times. I'm not petty. I'm... invested. In justice. And also revenge. But mostly justice.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "I respect that",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "intel_check": {
+      "text": "Ooh, spending that intel? I like a customer who knows the value of information. What do you want to know?",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Any new routes?",
+          "next": "new_routes",
+          "conditions": [{"type": "intel", "intel_min": 20}]
+        },
+        {
+          "text": "Who's watching us?",
+          "next": "watchers",
+          "conditions": [{"type": "intel", "intel_min": 30}]
+        },
+        {
+          "text": "Never mind",
+          "next": "intro"
+        }
+      ]
+    },
+    "new_routes": {
+      "text": "The jazz club on Meridian? They get their liquor through a back alley. No cameras. No guards after 2 AM. Just a very sleepy delivery guy who owes me a favor.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Good to know",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "watchers": {
+      "text": "There's a private investigator asking questions. Goes by 'The Eye.' Real creative. He's been sniffing around the taco drop zone. Might want to be careful.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Thanks for the heads up",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "goodbye": {
+      "text": "Stay safe out there. And tip your delivery drivers.",
+      "speaker": "Louis",
+      "choices": []
+    },
+    "post_mission": {
+      "text": "Heard you pulled it off. The Crunchwrap Caper. That's what I'm calling it. Don't argue. I've already told three people.",
+      "speaker": "Louis",
+      "conditions": [{"type": "mission", "mission_id": "taco_bell_drop", "completed": true}],
+      "choices": [
+        {
+          "text": "It went okay",
+          "next": "louis_post_okay"
+        },
+        {
+          "text": "Don't call it that",
+          "next": "louis_post_name"
+        }
+      ]
+    },
+    "louis_post_okay": {
+      "text": "Okay? You stole a diamond shaped like a Crunchwrap. That's not 'okay.' That's art.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "See you around, Louis",
+          "next": "goodbye"
+        }
+      ]
+    },
+    "louis_post_name": {
+      "text": "Too late. It's trending. Well, it's trending in my group chat. Same thing.",
+      "speaker": "Louis",
+      "choices": [
+        {
+          "text": "Fine. The Crunchwrap Caper.",
+          "next": "goodbye"
+        }
+      ]
+    }
+  }
+}

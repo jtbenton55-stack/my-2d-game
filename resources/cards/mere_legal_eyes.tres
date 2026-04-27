@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc05"]
+
+[resource]
+script = ExtResource("1_abc05")
+id = "mere_legal_eyes"
+display_name = "Mere's Legal Eyes"
+description = "Highlights dangerous dialogue choices and fake contracts."
+effect_type = "boolean"
+effect_key = "has_legal_eyes"
+effect_value = 1.0
+unlock_condition = "rewrite_room"
+rarity = "uncommon"
+icon_path = ""

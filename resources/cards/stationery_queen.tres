@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SchemeCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/inventory/SchemeCard.gd" id="1_abc07"]
+
+[resource]
+script = ExtResource("1_abc07")
+id = "stationery_queen"
+display_name = "Stationery Queen"
+description = "Retry one failed puzzle or dialogue choice per heist."
+effect_type = "boolean"
+effect_key = "has_stationery_queen"
+effect_value = 1.0
+unlock_condition = "rewrite_room"
+rarity = "uncommon"
+icon_path = ""
