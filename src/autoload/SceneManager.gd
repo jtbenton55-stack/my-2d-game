@@ -2,19 +2,21 @@ extends Node
 
 enum Transition { NONE, FADE }
 
-const TITLE_SCENE := "res://scenes/TitleScreen.tscn"
+const TITLE_SCENE := "res://scenes/MainMenu.tscn"
 const HIDEOUT_SCENE := "res://scenes/hideout/hideout.tscn"
 const CITY_HUB_SCENE := "res://scenes/CityHub.tscn"
 const MISSION_SELECT_SCENE := "res://scenes/ui/MissionSelect.tscn"
 const SCHEME_CARD_SCENE := "res://scenes/ui/SchemeCardMenu.tscn"
 const MISSION_RESULT_SCENE := "res://scenes/ui/MissionResult.tscn"
+const POLAROID_GALLERY_SCENE := "res://scenes/ui/PolaroidGallery.tscn"
+const CREW_MENU_SCENE := "res://scenes/ui/CrewMenu.tscn"
 
 var transition_in_progress := false
 
 func _ready() -> void:
 	EventBus.debug("SceneManager ready")
 
-func change_scene(scene_path: String, transition_type = Transition.NONE, transition_time = 0.2) -> void:
+func change_scene(scene_path: String, _transition_type = Transition.NONE, _transition_time = 0.2) -> void:
 	if scene_path == "":
 		return
 	if transition_in_progress:
@@ -25,7 +27,7 @@ func change_scene(scene_path: String, transition_type = Transition.NONE, transit
 		EventBus.warn("Scene change failed: " + scene_path + " error=" + str(err))
 	transition_in_progress = false
 
-func change_to_scene(scene_name: String, transition_type = Transition.NONE, transition_time = 0.2) -> void:
+func change_to_scene(scene_name: String, _transition_type = Transition.NONE, _transition_time = 0.2) -> void:
 	match scene_name:
 		"title": change_scene(TITLE_SCENE)
 		"hideout": change_scene(HIDEOUT_SCENE)
@@ -76,3 +78,9 @@ func return_to_hideout() -> void:
 
 func return_to_title() -> void:
 	change_scene(TITLE_SCENE)
+
+func open_polaroid_gallery() -> void:
+	change_scene(POLAROID_GALLERY_SCENE)
+
+func open_crew_menu() -> void:
+	change_scene(CREW_MENU_SCENE)

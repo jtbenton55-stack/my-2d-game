@@ -1,6 +1,19 @@
 [gd_scene load_steps=8 format=3 uid="uid://bq5w7v5v5o5v23"]
 
 [ext_resource type="Script" path="res://src/ui/HUD.gd" id="1_14h8aw"]
+[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="2_14h8aw"]
+
+[sub_resource type="Theme" id="Theme_18h8aw"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_19h8aw"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_Bentley"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_Objective"]
+default_font_size = 14
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_14h8aw")
@@ -13,9 +26,28 @@ max_value = 100
 value = 100
 theme = SubResource("Theme_18h8aw")
 
+[node name="HealthLabel" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_top = -20.0
+offset_right = 200.0
+text = "HEALTH"
+
+[node name="BentleyBar" type="ProgressBar" parent="."]
+position = Vector2(20, 55)
+size = Vector2(200, 15)
+max_value = 100
+value = 100
+theme = SubResource("Theme_Bentley")
+
+[node name="BentleyLabel" type="Label" parent="BentleyBar"]
+layout_mode = 0
+offset_top = -18.0
+offset_right = 200.0
+text = "BENTLEY"
+
 [node name="DetectionMeter" type="ProgressBar" parent="."]
-position = Vector2(20, 50)
-size = Vector2(200, 20)
+position = Vector2(20, 85)
+size = Vector2(200, 15)
 max_value = 100
 value = 0
 theme = SubResource("Theme_19h8aw")
@@ -27,6 +59,36 @@ text = "DETECTION: 0%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ObjectiveLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme = SubResource("Theme_Objective")
+text = "Objective: Reach the exit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardsLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -50.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Cards: None"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="ObjectiveMarker" type="Sprite2D" parent="."]
 position = Vector2(400, 300)
 texture = ExtResource("2_14h8aw")
@@ -36,11 +98,3 @@ position = Vector2(0, 30)
 text = "0m"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[ext_resource type="CompressedTexture2D" uid="uid://bq5w7v5v5o5v24" path="res://icon.svg" id="2_14h8aw"]
-
-[sub_resource type="Theme" id="Theme_18h8aw"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_19h8aw"]
-default_font_size = 12

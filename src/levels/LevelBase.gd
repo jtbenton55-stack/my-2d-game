@@ -11,6 +11,7 @@ var is_complete := false
 var is_failed := false
 
 func _ready() -> void:
+	_apply_card_effects()
 	_spawn_player_if_needed()
 	_spawn_dog_if_needed()
 	_spawn_default_enemies()
@@ -23,6 +24,14 @@ func _ready() -> void:
 		EventBus.player_died.connect(_on_player_died)
 	_ensure_common_ui()
 	EventBus.debug("Loaded level: " + name + " mission=" + get_mission_id())
+
+func _apply_card_effects() -> void:
+	# Apply detection reduction from cards
+	var detection_reduction: float = CardEffects.get_guard_detection_reduction()
+	if detection_reduction > 0.0:
+		for enemy in get_tree().get_nodes_in_group("enemy"):
+			if enemy.has_method("set_detection_multiplier"):
+				enemy.set_detection_multiplier(1.0 - detection_reduction)
 
 func get_mission_id() -> String:
 	if mission_id != "":
@@ -51,9 +60,11 @@ func _spawn_dog_if_needed() -> void:
 func _spawn_default_enemies() -> void:
 	if guard_count <= 0:
 		return
-	var enemy_scene := preload("res://scenes/characters/guard.tscn")
+	var enemy_scene: PackedScene = load("res://scenes/characters/guard.tscn")
+	if enemy_scene == null:
+		return
 	for i in range(guard_count):
-		var enemy := enemy_scene.instantiate()
+		var enemy: Node2D = enemy_scene.instantiate()
 		add_child(enemy)
 		enemy.global_position = Vector2(280 + i * 80, 280)
 

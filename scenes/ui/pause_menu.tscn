@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" path="res://src/ui/PauseMenu.gd" id="1_15h8aw"]
 
+[sub_resource type="Theme" id="Theme_20h8aw"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_21h8aw"]
+default_font_size = 32
+
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_15h8aw")
 layer = 100
@@ -31,9 +37,3 @@ theme = SubResource("Theme_21h8aw")
 text = "Quit to Hideout"
 flat = true
 theme = SubResource("Theme_21h8aw")
-
-[sub_resource type="Theme" id="Theme_20h8aw"]
-default_font_size = 24
-
-[sub_resource type="Theme" id="Theme_21h8aw"]
-default_font_size = 32

@@ -23,14 +23,14 @@ func set_bus_mute(bus: int, mute: bool) -> void:
 	if index >= 0:
 		AudioServer.set_bus_mute(index, mute)
 
-func play_music(music_name: String, fade_time = 0.0) -> void:
+func play_music(music_name: String, _fade_time = 0.0) -> void:
 	current_music = music_name
 	EventBus.debug("Music cue: " + music_name)
 
-func stop_music(fade_time = 0.0) -> void:
+func stop_music(_fade_time = 0.0) -> void:
 	current_music = ""
 
-func play_sfx(sfx_name: String, position = Vector2.ZERO) -> void:
+func play_sfx(sfx_name: String, _position = Vector2.ZERO) -> void:
 	EventBus.debug("SFX cue: " + sfx_name)
 
 func _bus_to_name(bus: int) -> String:

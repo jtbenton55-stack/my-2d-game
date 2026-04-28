@@ -20,6 +20,11 @@ func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player") as Node2D
 	if target == null:
 		call_deferred("_find_target")
+	# Initialize with correct values from CardEffects
+	var recharge_mult: float = CardEffects.get_bentley_recharge_multiplier()
+	recharge_rate *= recharge_mult
+	var radius_mult: float = CardEffects.get_bentley_bark_radius_multiplier()
+	bark_radius *= radius_mult
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
 
 func _find_target() -> void:
@@ -46,9 +51,9 @@ func _follow(delta: float) -> void:
 	move_and_slide()
 
 func _recharge(delta: float) -> void:
-	var rate := recharge_rate
-	if GameState.has_selected_card("fish_treat_focus"):
-		rate *= 1.6
+	var rate: float = recharge_rate
+	var recharge_mult: float = CardEffects.get_bentley_recharge_multiplier()
+	rate *= recharge_mult
 	ability_meter = min(ability_max, ability_meter + rate * delta)
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
 
@@ -57,8 +62,10 @@ func bark_stun() -> bool:
 		return false
 	ability_meter -= bark_cost
 	AudioManager.play_sfx("bentley_bark", global_position)
+	var radius_mult: float = CardEffects.get_bentley_bark_radius_multiplier()
+	var effective_radius: float = bark_radius * radius_mult
 	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if enemy is Node2D and global_position.distance_to(enemy.global_position) <= bark_radius:
+		if enemy is Node2D and global_position.distance_to(enemy.global_position) <= effective_radius:
 			if enemy.has_method("stun"):
 				enemy.stun(bark_stun_time)
 	EventBus.bentley_ability_used.emit("bark_stun")

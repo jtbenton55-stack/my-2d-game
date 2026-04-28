@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://mission_button_01"]
+
+[ext_resource type="Script" path="res://src/ui/MissionButton.gd" id="1_script"]
+
+[node name="MissionButton" type="Button"]
+custom_minimum_size = Vector2(600, 80)
+theme_override_font_sizes/font_size = 28
+text = "Mission Name"
+script = ExtResource("1_script")

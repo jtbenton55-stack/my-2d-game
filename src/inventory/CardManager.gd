@@ -50,7 +50,7 @@ func unlock_card(card_id: String) -> bool:
 func is_selected(card_id: String) -> bool:
 	return GameState.has_selected_card(card_id)
 
-func selected_value(effect_key: String, default_value = 0.0) -> float:
+func selected_value(effect_key: String, default_value: float = 0.0) -> float:
 	var value := default_value
 	for card in get_selected_cards():
 		if card.effect_key == effect_key:

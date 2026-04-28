@@ -17,7 +17,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and InputMap.has_action("interact") and event.is_action_pressed("interact"):
 		DialogueManager.next_line()
 
-func _on_dialogue_started(lines: Array) -> void:
+func _on_dialogue_started(_lines: Array) -> void:
 	visible = true
 
 func _on_dialogue_line_changed(speaker: String, text: String) -> void:

@@ -1,54 +1,66 @@
 extends Control
 
-@onready var cards_container := get_node_or_null("MenuContainer/VBoxContainer/CardsContainer") as GridContainer
-@onready var selected_count := get_node_or_null("MenuContainer/VBoxContainer/SelectedCount") as Label
-@onready var confirm_button := get_node_or_null("MenuContainer/VBoxContainer/ButtonContainer/ConfirmButton") as Button
-@onready var back_button := get_node_or_null("MenuContainer/VBoxContainer/ButtonContainer/BackButton") as Button
+const MAX_SELECTED_CARDS := 3
 
-var selected: Array[String] = []
-var buttons_by_card: Dictionary = {}
+var selected_cards: Array[String] = []
+
+@onready var cards_container: HBoxContainer = $CardsPanel/CardsContainer
+@onready var start_button: Button = $StartButton
+@onready var back_button: Button = $BackButton
+@onready var subtitle_label: Label = $SubtitleLabel
 
 func _ready() -> void:
-	selected = GameState.selected_cards.duplicate()
-	if confirm_button:
-		confirm_button.pressed.connect(_on_confirm_pressed)
-	if back_button:
-		back_button.pressed.connect(SceneManager.open_mission_select)
-	_build_cards()
-	_update_status()
+	start_button.pressed.connect(_on_start_pressed)
+	back_button.pressed.connect(_on_back_pressed)
+	_populate_cards()
+	_update_selection_display()
+	AudioManager.play_music("card_select")
 
-func _build_cards() -> void:
-	if cards_container == null:
-		return
+func _populate_cards() -> void:
 	for child in cards_container.get_children():
 		child.queue_free()
-	buttons_by_card.clear()
-	var cards := CardManager.get_unlocked_cards()
-	for card in cards:
-		var button := Button.new()
-		button.custom_minimum_size = Vector2(240, 110)
-		button.text = card.display_name + "\n" + card.description
-		button.toggle_mode = true
-		button.button_pressed = selected.has(card.id)
-		button.pressed.connect(func(): _toggle_card(card.id))
-		buttons_by_card[card.id] = button
-		cards_container.add_child(button)
+	
+	# Wait for CardManager to be ready
+	await get_tree().create_timer(0.1).timeout
+	
+	for card_id in GameState.unlocked_cards:
+		var card = CardManager.get_card(card_id)
+		if card == null:
+			# Try loading directly
+			var path = "res://resources/cards/" + card_id + ".tres"
+			card = load(path)
+		
+		if card:
+			var button = Button.new()
+			button.custom_minimum_size = Vector2(200, 280)
+			button.toggle_mode = true
+			# Get display name - handle both display_name and name properties
+			var card_name = card.display_name if card.get("display_name") else card.get("name", card_id)
+			var card_desc = card.description if card.get("description") else ""
+			button.text = "%s\n\n%s" % [card_name, card_desc]
+			button.pressed.connect(_on_card_toggled.bind(card_id, button))
+			cards_container.add_child(button)
 
-func _toggle_card(card_id: String) -> void:
-	if selected.has(card_id):
-		selected.erase(card_id)
-	elif selected.size() < GameState.MAX_SELECTED_CARDS:
-		selected.append(card_id)
-	for id in buttons_by_card.keys():
-		buttons_by_card[id].button_pressed = selected.has(id)
-	_update_status()
+func _on_card_toggled(card_id: String, button: Button) -> void:
+	if button.button_pressed:
+		if selected_cards.size() < MAX_SELECTED_CARDS:
+			selected_cards.append(card_id)
+			button.modulate = Color(0.8, 0.4, 1, 1)
+		else:
+			button.button_pressed = false
+	else:
+		selected_cards.erase(card_id)
+		button.modulate = Color(1, 1, 1, 1)
+	
+	_update_selection_display()
 
-func _update_status() -> void:
-	if selected_count:
-		selected_count.text = "%d/%d cards selected" % [selected.size(), GameState.MAX_SELECTED_CARDS]
-	if confirm_button:
-		confirm_button.disabled = false
+func _update_selection_display() -> void:
+	subtitle_label.text = "Choose up to 3 cards (%d/%d selected)" % [selected_cards.size(), MAX_SELECTED_CARDS]
+	# Allow starting even with 0 cards for now
 
-func _on_confirm_pressed() -> void:
-	GameState.set_selected_cards(selected)
+func _on_start_pressed() -> void:
+	GameState.selected_cards = selected_cards.duplicate()
 	SceneManager.start_pending_mission()
+
+func _on_back_pressed() -> void:
+	SceneManager.open_mission_select()

@@ -26,6 +26,7 @@ var can_control := true
 
 func _ready() -> void:
 	add_to_group("player")
+	max_health = int(CardEffects.get_player_max_health())
 	current_health = min(max_health, GameState.player_health if GameState.player_health > 0 else max_health)
 	GameState.player_max_health = max_health
 	GameState.player_health = current_health
@@ -44,14 +45,23 @@ func _physics_process(delta: float) -> void:
 	var input_vector := _get_move_vector()
 	if input_vector.length() > 0.01:
 		facing = input_vector.normalized()
+	
+	var dodge_cd_reduction: float = CardEffects.get_cooldown_reduction()
+	var effective_dodge_cooldown: float = dodge_cooldown * (1.0 - dodge_cd_reduction)
+	
 	if _action_just_pressed("dodge") and input_vector.length() > 0.01 and dodge_cooldown_timer <= 0.0:
 		dodge_timer = dodge_duration
-		dodge_cooldown_timer = dodge_cooldown
+		dodge_cooldown_timer = effective_dodge_cooldown
 		invulnerable = true
 		AudioManager.play_sfx("dodge", global_position)
 	if _action_just_pressed("attack") and attack_timer <= 0.0:
 		_attack()
-	var move_speed := stealth_speed if _action_pressed("stealth") else speed
+	
+	var speed_mult: float = CardEffects.get_player_speed_multiplier()
+	var effective_speed: float = speed * speed_mult
+	var effective_stealth_speed: float = stealth_speed * speed_mult
+	var move_speed := effective_stealth_speed if _action_pressed("stealth") else effective_speed
+	
 	if dodge_timer > 0.0:
 		velocity = facing * dodge_speed
 	else:
@@ -77,15 +87,18 @@ func _get_move_vector() -> Vector2:
 	return Vector2(x, y).normalized()
 
 func _attack() -> void:
-	attack_timer = attack_cooldown
+	var cd_reduction: float = CardEffects.get_cooldown_reduction()
+	attack_timer = attack_cooldown * (1.0 - cd_reduction)
 	AudioManager.play_sfx("quick_attack", global_position)
+	var damage_bonus: int = CardEffects.get_attack_damage_bonus()
+	var total_damage: int = attack_damage + damage_bonus
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if enemy is Node2D and global_position.distance_to(enemy.global_position) <= attack_range:
-			var direction := (enemy.global_position - global_position).normalized()
+			var direction: Vector2 = (enemy.global_position - global_position).normalized()
 			if facing.dot(direction) > -0.25 and enemy.has_method("take_damage"):
-				enemy.take_damage(attack_damage, self)
+				enemy.take_damage(total_damage, self)
 
-func take_damage(amount: int, source: Node = null) -> void:
+func take_damage(amount: int, _source: Node = null) -> void:
 	if invulnerable or current_health <= 0:
 		return
 	if GameState.has_selected_card("bentley_dental_boy") and not GameState.dialogue_flags.get("dental_boy_used", false):

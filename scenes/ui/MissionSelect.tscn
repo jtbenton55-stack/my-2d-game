@@ -1,170 +1,72 @@
-[gd_scene load_steps=8 format=3 uid="uid://d9x7q3b8c2v1e"]
+[gd_scene load_steps=3 format=3 uid="uid://mission_select_01"]
 
-[ext_resource type="Script" path="res://src/ui/MissionSelect.gd" id="1_7k3j8"]
-[ext_resource type="Theme" uid="uid://bq5bll5p8h6bq" path="res://assets/themes/default_theme.tres" id="2_9jq6e"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3w6t9"]
-bg_color = Color(0.141176, 0.141176, 0.141176, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.294118, 0.294118, 0.294118, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5s0v1"]
-bg_color = Color(0.2, 0.2, 0.25, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.4, 0.4, 0.5, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 15.0
-content_margin_top = 10.0
-content_margin_right = 15.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2p4"]
-bg_color = Color(0.3, 0.2, 0.4, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.4, 0.8, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 15.0
-content_margin_top = 10.0
-content_margin_right = 15.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q8m5"]
-bg_color = Color(0.141176, 0.141176, 0.141176, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.294118, 0.294118, 0.294118, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t6n7"]
-bg_color = Color(0.294118, 0.294118, 0.294118, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.2, 0.8, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
+[ext_resource type="Script" path="res://src/ui/MissionSelect.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://mainmenu_theme_01" path="res://assets/themes/main_menu_theme.tres" id="2_theme"]
 
 [node name="MissionSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_7k3j8")
-theme = ExtResource("2_9jq6e")
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.7)
+color = Color(0.05, 0.05, 0.07, 1)
 
-[node name="MenuContainer" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 50.0
-offset_right = -100.0
-offset_bottom = -50.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_3w6t9")
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 40.0
+offset_right = 400.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(0.9, 0.4, 1, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.3, 1)
+theme_override_constants/outline_size = 4
+text = "SELECT MISSION"
+horizontal_alignment = 1
+uppercase = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = 200.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = -20.0
 offset_bottom = -20.0
-alignment = 1
-
-[node name="Title" type="Label" parent="MenuContainer/VBoxContainer"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -200.0
-offset_top = 0.0
-offset_right = 200.0
-offset_bottom = 40.0
-horizontal_alignment = 1
-text = "Mission Select"
-theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.8, 0.4, 1, 1)
-
-[node name="Subtitle" type="Label" parent="MenuContainer/VBoxContainer"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -300.0
-offset_top = 40.0
-offset_right = 300.0
-offset_bottom = 70.0
-horizontal_alignment = 1
-text = "Choose a mission to undertake"
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.6, 0.6, 0.8, 1)
-
-[node name="MissionsContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -400.0
-offset_top = 80.0
-offset_right = 400.0
-offset_bottom = 400.0
 theme_override_constants/separation = 15
-
-[node name="ButtonContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -150.0
-offset_top = 420.0
-offset_right = 150.0
-offset_bottom = 480.0
 alignment = 1
 
-[node name="BackButton" type="Button" parent="MenuContainer/VBoxContainer/ButtonContainer"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -140.0
-offset_top = 0.0
-offset_right = 140.0
-offset_bottom = 50.0
-text = "Back to Hideout"
-theme_override_styles/normal = SubResource("StyleBoxFlat_0q8m5")
-theme_override_styles/hover = SubResource("StyleBoxFlat_2t6n7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2t6n7")
-theme_override_styles/focus = SubResource("StyleBoxFlat_2t6n7")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_0q8m5")
-theme_override_font_sizes/font_size = 20
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -80.0
+offset_right = 230.0
+offset_bottom = -30.0
+text = "Back"

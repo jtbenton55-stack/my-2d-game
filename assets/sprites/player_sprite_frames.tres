@@ -1,5 +1,7 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bq5w7v5v5o5v6"]
 
+[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="1_6h8aw"]
+
 [resource]
 animations = [ {
 "frames": [ ExtResource("1_6h8aw") ],
@@ -22,5 +24,3 @@ animations = [ {
 "name": "dodge",
 "speed": 20.0
 } ]
-
-[ext_resource type="CompressedTexture2D" uid="uid://bq5w7v5v5o5v7" path="res://icon.svg" id="1_6h8aw"]

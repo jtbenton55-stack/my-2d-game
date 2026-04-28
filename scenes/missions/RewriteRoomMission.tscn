@@ -1,301 +1,107 @@
-[gd_scene load_steps=8 format=3 uid="uid://rewriteroommission001"]
+[gd_scene load_steps=5 format=3 uid="uid://rewriteroom001"]
 
-[ext_resource type="Script" path="res://src/missions/RewriteRoomMission.gd" id="1_rewrite"]
+[ext_resource type="Script" path="res://src/missions/RewriteRoomMission.gd" id="1_rw"]
 
-[sub_resource type="TileSet" id="TileSet_rewrite"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_document"]
-radius = 32.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mere_office"]
-radius = 48.0
+[sub_resource type="TileSet" id="TileSet_rw1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(80, 40)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_reception"]
-size = Vector2(200, 60)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_docroom"]
-size = Vector2(150, 120)
+[sub_resource type="CircleShape2D" id="CircleShape2D_docs"]
+radius = 24.0
 
 [node name="RewriteRoomMission" type="Node2D"]
-script = ExtResource("1_rewrite")
-
-# ===== FLOOR & WALLS =====
+script = ExtResource("1_rw")
 
 [node name="FloorVisual" type="Polygon2D" parent="."]
 z_index = -1
 polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(800, 0),
-	Vector2(800, 600), Vector2(0, 600)
+	Vector2(0, 0), Vector2(900, 0),
+	Vector2(900, 650), Vector2(0, 650)
 ])
-color = Color(0.18, 0.16, 0.2, 1.0)
+color = Color(0.15, 0.15, 0.18, 1.0)
 
-[node name="WallTop" type="Polygon2D" parent="."]
+[node name="Walls" type="Polygon2D" parent="."]
 polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(800, 0),
-	Vector2(800, 40), Vector2(0, 40)
+	Vector2(0, 0), Vector2(150, 0),
+	Vector2(150, 650), Vector2(0, 650),
+	Vector2(0, 500), Vector2(50, 500),
+	Vector2(50, 150), Vector2(0, 150)
 ])
-color = Color(0.3, 0.28, 0.32, 1.0)
+color = Color(0.25, 0.25, 0.3, 1.0)
 
-[node name="WallLeft" type="Polygon2D" parent="."]
+[node name="OfficeArea" type="Polygon2D" parent="."]
 polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(40, 0),
-	Vector2(40, 600), Vector2(0, 600)
+	Vector2(200, 100), Vector2(400, 100),
+	Vector2(400, 300), Vector2(200, 300)
 ])
-color = Color(0.3, 0.28, 0.32, 1.0)
+color = Color(0.35, 0.35, 0.4, 1.0)
 
-[node name="WallRight" type="Polygon2D" parent="."]
+[node name="OfficeLabel" type="Label" parent="OfficeArea"]
+offset_left = 50.0
+offset_top = 90.0
+offset_right = 150.0
+offset_bottom = 120.0
+text = "OFFICE"
+horizontal_alignment = 1
+
+[node name="FileRoom" type="Polygon2D" parent="."]
 polygon = PackedVector2Array([
-	Vector2(760, 0), Vector2(800, 0),
-	Vector2(800, 600), Vector2(760, 600)
+	Vector2(500, 100), Vector2(750, 100),
+	Vector2(750, 250), Vector2(500, 250)
 ])
-color = Color(0.3, 0.28, 0.32, 1.0)
+color = Color(0.3, 0.3, 0.35, 1.0)
 
-[node name="WallBottom" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(0, 560), Vector2(800, 560),
-	Vector2(800, 600), Vector2(0, 600)
-])
-color = Color(0.3, 0.28, 0.32, 1.0)
-
-# ===== LAW FIRM LAYOUT =====
-
-# Reception Desk (left side)
-[node name="ReceptionDesk" type="Polygon2D" parent="."]
-position = Vector2(100, 200)
-polygon = PackedVector2Array([
-	Vector2(-80, -20), Vector2(80, -20),
-	Vector2(80, 20), Vector2(-80, 20)
-])
-color = Color(0.4, 0.35, 0.3, 1.0)
-
-[node name="ReceptionLabel" type="Label" parent="ReceptionDesk"]
-position = Vector2(-60, -50)
-text = "RECEPTION"
-
-# Waiting chairs (reception area)
-[node name="Chair1" type="Polygon2D" parent="."]
-position = Vector2(100, 300)
-polygon = PackedVector2Array([
-	Vector2(-20, -8), Vector2(20, -8),
-	Vector2(20, 8), Vector2(-20, 8)
-])
-color = Color(0.5, 0.25, 0.2, 1.0)
-
-[node name="Chair2" type="Polygon2D" parent="."]
-position = Vector2(100, 340)
-polygon = PackedVector2Array([
-	Vector2(-20, -8), Vector2(20, -8),
-	Vector2(20, 8), Vector2(-20, 8)
-])
-color = Color(0.5, 0.25, 0.2, 1.0)
-
-# Hallway (center)
-[node name="Hallway" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(250, 100), Vector2(550, 100),
-	Vector2(550, 500), Vector2(250, 500)
-])
-color = Color(0.22, 0.2, 0.24, 1.0)
-
-[node name="HallwayCarpet" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(260, 110), Vector2(540, 110),
-	Vector2(540, 490), Vector2(260, 490)
-])
-color = Color(0.28, 0.26, 0.3, 1.0)
-
-# Partner Offices (right side - top)
-[node name="PartnerOffice1" type="Polygon2D" parent="."]
-position = Vector2(650, 150)
-polygon = PackedVector2Array([
-	Vector2(-70, -50), Vector2(70, -50),
-	Vector2(70, 50), Vector2(-70, 50)
-])
-color = Color(0.35, 0.32, 0.28, 1.0)
-
-[node name="Office1Label" type="Label" parent="PartnerOffice1"]
-position = Vector2(-50, -70)
-text = "Partner Office"
-
-[node name="Desk1" type="Polygon2D" parent="PartnerOffice1"]
-position = Vector2(0, 20)
-polygon = PackedVector2Array([
-	Vector2(-40, -10), Vector2(40, -10),
-	Vector2(40, 10), Vector2(-40, 10)
-])
-color = Color(0.45, 0.4, 0.35, 1.0)
-
-# Partner Office 2
-[node name="PartnerOffice2" type="Polygon2D" parent="."]
-position = Vector2(650, 280)
-polygon = PackedVector2Array([
-	Vector2(-70, -50), Vector2(70, -50),
-	Vector2(70, 50), Vector2(-70, 50)
-])
-color = Color(0.35, 0.32, 0.28, 1.0)
-
-[node name="Office2Label" type="Label" parent="PartnerOffice2"]
-position = Vector2(-50, -70)
-text = "Partner Office"
-
-# Copy Room
-[node name="CopyRoom" type="Polygon2D" parent="."]
-position = Vector2(650, 420)
-polygon = PackedVector2Array([
-	Vector2(-60, -40), Vector2(60, -40),
-	Vector2(60, 40), Vector2(-60, 40)
-])
-color = Color(0.4, 0.38, 0.35, 1.0)
-
-[node name="CopyRoomLabel" type="Label" parent="CopyRoom"]
-position = Vector2(-40, -60)
-text = "Copy Room"
-
-[node name="CopyMachine" type="Polygon2D" parent="CopyRoom"]
-position = Vector2(0, 10)
-polygon = PackedVector2Array([
-	Vector2(-20, -15), Vector2(20, -15),
-	Vector2(20, 15), Vector2(-20, 15)
-])
-color = Color(0.5, 0.48, 0.45, 1.0)
-
-# Document Room (bottom center)
-[node name="DocumentRoom" type="Polygon2D" parent="."]
-position = Vector2(400, 480)
-polygon = PackedVector2Array([
-	Vector2(-80, -50), Vector2(80, -50),
-	Vector2(80, 50), Vector2(-80, 50)
-])
-color = Color(0.3, 0.28, 0.25, 1.0)
-
-[node name="DocumentRoomLabel" type="Label" parent="DocumentRoom"]
-position = Vector2(-60, -70)
-text = "DOCUMENT ROOM"
-
-[node name="FileCabinets" type="Polygon2D" parent="DocumentRoom"]
-position = Vector2(-50, 10)
-polygon = PackedVector2Array([
-	Vector2(-15, -20), Vector2(15, -20),
-	Vector2(15, 20), Vector2(-15, 20)
-])
-color = Color(0.5, 0.45, 0.4, 1.0)
-
-[node name="FileCabinets2" type="Polygon2D" parent="DocumentRoom"]
-position = Vector2(0, 10)
-polygon = PackedVector2Array([
-	Vector2(-15, -20), Vector2(15, -20),
-	Vector2(15, 20), Vector2(-15, 20)
-])
-color = Color(0.5, 0.45, 0.4, 1.0)
-
-[node name="FileCabinets3" type="Polygon2D" parent="DocumentRoom"]
-position = Vector2(50, 10)
-polygon = PackedVector2Array([
-	Vector2(-15, -20), Vector2(15, -20),
-	Vector2(15, 20), Vector2(-15, 20)
-])
-color = Color(0.5, 0.45, 0.4, 1.0)
-
-# Document table
-[node name="DocumentTable" type="Polygon2D" parent="DocumentRoom"]
-position = Vector2(0, -15)
-polygon = PackedVector2Array([
-	Vector2(-30, -8), Vector2(30, -8),
-	Vector2(30, 8), Vector2(-30, 8)
-])
-color = Color(0.55, 0.5, 0.45, 1.0)
-
-# ===== SPAWN POINTS =====
+[node name="FileLabel" type="Label" parent="FileRoom"]
+offset_left = 75.0
+offset_top = 65.0
+offset_right = 175.0
+offset_bottom = 95.0
+text = "FILES"
+horizontal_alignment = 1
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(400, 520)
+position = Vector2(100, 550)
 
-[node name="MereSpawn" type="Marker2D" parent="."]
-position = Vector2(650, 150)
+[node name="GoonSpawns" type="Node2D" parent="."]
 
-[node name="DocumentRoomSpawn" type="Marker2D" parent="."]
-position = Vector2(400, 480)
-
-# ===== GUARD SPAWNS =====
-
-[node name="GuardSpawns" type="Node2D" parent="."]
-
-[node name="GuardSpawn1" type="Marker2D" parent="GuardSpawns"]
-position = Vector2(300, 300)
-
-[node name="GuardSpawn2" type="Marker2D" parent="GuardSpawns"]
-position = Vector2(500, 300)
-
-[node name="GuardSpawn3" type="Marker2D" parent="GuardSpawns"]
-position = Vector2(400, 150)
-
-# ===== COLLECTIBLE SPAWNS =====
-
-[node name="CollectibleSpawns" type="Node2D" parent="."]
-
-[node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns"]
-position = Vector2(650, 280)
-
-[node name="TrinketSpawn" type="Marker2D" parent="CollectibleSpawns"]
-position = Vector2(650, 420)
-
-[node name="StationerySpawn1" type="Marker2D" parent="CollectibleSpawns"]
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
 position = Vector2(300, 200)
 
-[node name="StationerySpawn2" type="Marker2D" parent="CollectibleSpawns"]
-position = Vector2(500, 200)
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(600, 350)
 
-# ===== INTERACTION ZONES =====
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(450, 450)
 
-[node name="MereOfficeZone" type="Area2D" parent="."]
+[node name="DocumentsZone" type="Area2D" parent="."]
+position = Vector2(625, 175)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MereOfficeZone"]
-position = Vector2(650, 150)
-shape = SubResource("CircleShape2D_mere_office")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DocumentsZone"]
+shape = SubResource("CircleShape2D_docs")
 
-[node name="MereOfficeVisual" type="Polygon2D" parent="MereOfficeZone"]
-position = Vector2(650, 150)
+[node name="DocsVisual" type="Polygon2D" parent="DocumentsZone"]
 polygon = PackedVector2Array([
-	Vector2(-48, -48), Vector2(48, -48),
-	Vector2(48, 48), Vector2(-48, 48)
+	Vector2(-16, -12), Vector2(16, -12),
+	Vector2(16, 12), Vector2(-16, 12)
 ])
-color = Color(0.2, 0.4, 0.6, 0.15)
+color = Color(0.9, 0.9, 0.95, 1.0)
 
-[node name="MereOfficeLabel" type="Label" parent="MereOfficeZone"]
-position = Vector2(620, 100)
-text = "Mere's Office"
-
-[node name="DocumentInteractZone" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DocumentInteractZone"]
-position = Vector2(400, 480)
-shape = SubResource("CircleShape2D_document")
-
-[node name="DocumentVisual" type="Polygon2D" parent="DocumentInteractZone"]
-position = Vector2(400, 480)
-polygon = PackedVector2Array([
-	Vector2(-32, -32), Vector2(32, -32),
-	Vector2(32, 32), Vector2(-32, 32)
-])
-color = Color(0.6, 0.5, 0.3, 0.2)
-
-[node name="DocumentLabel" type="Label" parent="DocumentInteractZone"]
-position = Vector2(360, 440)
-text = "Screenplays"
-
-# ===== EXIT ZONE =====
+[node name="DocsLabel" type="Label" parent="DocumentsZone"]
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -10.0
+text = "[DOCS]"
+horizontal_alignment = 1
 
 [node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(800, 600)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
-position = Vector2(400, 580)
 shape = SubResource("RectangleShape2D_exit")
 
 [node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
-position = Vector2(400, 580)
 polygon = PackedVector2Array([
 	Vector2(-32, -16), Vector2(32, -16),
 	Vector2(32, 16), Vector2(-32, 16)
@@ -303,26 +109,17 @@ polygon = PackedVector2Array([
 color = Color(0.2, 0.8, 0.4, 0.4)
 
 [node name="ExitLabel" type="Label" parent="ExitZone"]
-position = Vector2(368, 565)
+offset_left = -40.0
+offset_top = -35.0
+offset_right = 40.0
+offset_bottom = -5.0
 text = "EXIT ->"
-
-# ===== SIGNAGE =====
-
-[node name="LawFirmSign" type="Label" parent="."]
-position = Vector2(320, 50)
-text = "STERLING & ASSOCIATES - LAW OFFICES"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="FloorSign" type="Label" parent="."]
-position = Vector2(270, 120)
-text = "2nd Floor"
-
-# ===== CAMERA =====
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(400, 300)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(450, 325)
+zoom = Vector2(1.4, 1.4)
 limit_left = 0
 limit_top = 0
-limit_right = 800
-limit_bottom = 600
+limit_right = 900
+limit_bottom = 650

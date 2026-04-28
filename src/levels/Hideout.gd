@@ -22,7 +22,7 @@ func _spawn_player_and_dog() -> void:
 	player.global_position = spawn.global_position if spawn else Vector2(400, 300)
 	dog = dog_scene.instantiate()
 	add_child(dog)
-	dog.global_position = player.global_position + Vector2(44, 18)
+	dog.global_position = player.global_position + Vector2(-60, 40)
 
 func _setup_camera() -> void:
 	var camera := get_node_or_null("Camera2D") as Camera2D
@@ -42,6 +42,24 @@ func _setup_interactables() -> void:
 	if crew:
 		crew.add_to_group("interactable")
 		crew.set_meta("interaction", "crew")
+	
+	var polaroid_zone := get_node_or_null("PolaroidGalleryZone")
+	if polaroid_zone:
+		polaroid_zone.add_to_group("interactable")
+		polaroid_zone.set_meta("interaction", "polaroid_gallery")
+		polaroid_zone.body_entered.connect(func(body):
+			if body.is_in_group("player"):
+				EventBus.objective_updated.emit("Press E to view collected memories.")
+		)
+	
+	var crew_menu_zone := get_node_or_null("CrewMenuZone")
+	if crew_menu_zone:
+		crew_menu_zone.add_to_group("interactable")
+		crew_menu_zone.set_meta("interaction", "crew_menu")
+		crew_menu_zone.body_entered.connect(func(body):
+			if body.is_in_group("player"):
+				EventBus.objective_updated.emit("Press E to check on your crew.")
+		)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if InputMap.has_action("interact") and event.is_action_pressed("interact"):
@@ -54,7 +72,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		var crew := get_node_or_null("CrewMember") as Node2D
 		if crew and player.global_position.distance_to(crew.global_position) < 72.0:
 			DialogueManager.start_simple_dialogue([{ "speaker": "Mere", "text": "A real plan is just friendship with a calendar invite." }])
-
+			return
+		var polaroid_zone := get_node_or_null("PolaroidGalleryZone") as Node2D
+		if polaroid_zone and player.global_position.distance_to(polaroid_zone.global_position) < 72.0:
+			SceneManager.open_polaroid_gallery()
+			return
+		var crew_menu_zone := get_node_or_null("CrewMenuZone") as Node2D
+		if crew_menu_zone and player.global_position.distance_to(crew_menu_zone.global_position) < 72.0:
+			SceneManager.open_crew_menu()
 
 func _ensure_common_ui() -> void:
 	if get_node_or_null("HUD") == null:

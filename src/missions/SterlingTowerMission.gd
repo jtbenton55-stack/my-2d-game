@@ -1,24 +1,56 @@
 extends "res://src/levels/LevelBase.gd"
 
+var vault_cracked := false
+var final_message_shown := false
+
 func _ready() -> void:
 	mission_id = "sterling_tower_heist"
-	objective_text = "Reach Victor Sterling and trigger the final crew payoff."
+	objective_text = "Crack the vault. Every favor comes due."
+	guard_count = 6
 	super._ready()
-	AudioManager.play_music("sterling_tower")
-	_spawn_victor()
+	
+	var vault := get_node_or_null("VaultZone")
+	if vault:
+		vault.add_to_group("interactable")
+		vault.body_entered.connect(_on_vault_body_entered)
+	
+	# Show opening dialogue
+	DialogueManager.start_simple_dialogue([
+		{ "speaker": "Jake", "text": "This is it. Sterling's vault. Every crew member we helped is here with us." },
+		{ "speaker": "Bentley", "text": "*intense dental stare*" },
+		{ "speaker": "Jake", "text": "Let's finish this." }
+	])
 
-func _spawn_victor() -> void:
-	var scene := preload("res://scenes/characters/VictorSterling.tscn")
-	var victor := scene.instantiate()
-	add_child(victor)
-	victor.global_position = Vector2(520, 260)
+func _on_vault_body_entered(body: Node) -> void:
+	if body.is_in_group("player") and not vault_cracked:
+		vault_cracked = true
+		QuestManager.set_objective("Vault cracked! Exit through the lobby!", mission_id)
+		var vault := get_node_or_null("VaultZone")
+		if vault:
+			vault.visible = false
+		AudioManager.play_sfx("vault_open")
+		
+		# Show victory dialogue
+		DialogueManager.start_simple_dialogue([
+			{ "speaker": "Jake", "text": "We did it. All of us. Every favor, every risk." },
+			{ "speaker": "Bentley", "text": "*approving woof*" }
+		])
 
 func complete_level() -> void:
-	if not GameState.dialogue_flags.get("final_line_seen", false):
-		GameState.dialogue_flags["final_line_seen"] = true
+	if not vault_cracked:
+		QuestManager.set_objective("The vault holds everything. We need inside.", mission_id)
+		return
+	
+	if not final_message_shown:
+		final_message_shown = true
 		DialogueManager.start_simple_dialogue([
-			{ "speaker": "Protagonist", "text": "You built an empire out of fear. I built mine out of favors." },
-			{ "speaker": "Bentley", "text": "..." },
-			{ "speaker": "Narrator", "text": "Friends helping friends. That was the whole job." }
+			{ "speaker": "Jake", "text": "Sterling's finished. And we did it together." },
+			{ "speaker": "Mere", "text": "Creative collaboration always wins. Even in a heist." },
+			{ "speaker": "Dom", "text": "Fast family. Forever." },
+			{ "speaker": "Louis", "text": "I knew my routes would pay off!" },
+			{ "speaker": "Yordano", "text": "The rhythm of revenge is sweet." },
+			{ "speaker": "Bentley", "text": "*happy bark*" }
 		])
+	
+	CollectibleManager.collect_polaroid("final_crew_polaroid")
 	super.complete_level()

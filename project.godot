@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Untitled Heist RPG"
 config/description="A stylish top-down action RPG with roguelite heist runs."
 config/version="0.1.0"
-run/main_scene="res://scenes/TitleScreen.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 
@@ -30,6 +30,7 @@ SceneManager="*res://src/autoload/SceneManager.gd"
 DialogueManager="*res://src/autoload/DialogueManager.gd"
 QuestManager="*res://src/autoload/QuestManager.gd"
 CardManager="*res://src/inventory/CardManager.gd"
+CardEffects="*res://src/autoload/CardEffects.gd"
 EventBus="*res://src/utils/EventBus.gd"
 CollectibleManager="*res://src/collectibles/CollectibleManager.gd"
 MCPRuntime="*uid://c13j8nchilhxj"

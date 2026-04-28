@@ -16,6 +16,7 @@ var health := 40
 var target: Node2D = null
 var attack_timer := 0.0
 var stunned_timer := 0.0
+var detection_multiplier := 1.0
 
 func _ready() -> void:
 	add_to_group("enemy")
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		target = get_tree().get_first_node_in_group("player") as Node2D
 	_update_ai(delta)
 
-func _update_ai(delta: float) -> void:
+func _update_ai(_delta: float) -> void:
 	if target == null:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -62,7 +63,7 @@ func take_damage(amount: int, source: Node = null) -> void:
 	health = max(0, health - amount)
 	AudioManager.play_sfx("enemy_hit", global_position)
 	if source is Node2D:
-		var knock := (global_position - source.global_position).normalized() * 16.0
+		var knock: Vector2 = (global_position - source.global_position).normalized() * 16.0
 		global_position += knock
 	if health <= 0:
 		_die()
@@ -73,3 +74,8 @@ func stun(duration: float) -> void:
 func _die() -> void:
 	died.emit(self)
 	queue_free()
+
+func set_detection_multiplier(mult: float) -> void:
+	detection_multiplier = mult
+	# Adjust detection range
+	detection_range *= mult

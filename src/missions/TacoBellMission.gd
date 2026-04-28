@@ -27,4 +27,6 @@ func complete_level() -> void:
 	if not bag_collected:
 		QuestManager.set_objective("Bentley insists the bag comes with us.", mission_id)
 		return
+	# Collect polaroid on completion
+	CollectibleManager.collect_polaroid("taco_bell_polaroid")
 	super.complete_level()

@@ -1,542 +1,154 @@
-[gd_scene load_steps=7 format=3 uid="uid://sterlingtower001"]
+[gd_scene load_steps=5 format=3 uid="uid://sterlingtower001"]
 
 [ext_resource type="Script" path="res://src/missions/SterlingTowerMission.gd" id="1_sterling"]
 
 [sub_resource type="TileSet" id="TileSet_sterling1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lobby_trigger"]
-size = Vector2(60, 120)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_office_trigger"]
-size = Vector2(60, 120)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_penthouse"]
-size = Vector2(200, 60)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_evidence"]
-size = Vector2(40, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_escape"]
-size = Vector2(80, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_elevator"]
-size = Vector2(60, 60)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(80, 40)
+size = Vector2(100, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vault"]
+radius = 32.0
 
 [node name="SterlingTowerMission" type="Node2D"]
 script = ExtResource("1_sterling")
 
-# ============================================================================
-# TILEMAP
-# ============================================================================
-[node name="TileMap" type="TileMap" parent="."]
-y_sort_enabled = true
-tile_set = SubResource("TileSet_sterling1")
-cell_quadrant_size = 16
-
-[node name="Floor" type="TileMapLayer" parent="TileMap"]
-name = "Floor"
-enabled = true
-y_sort_enabled = true
-y_sort_origin = 0
-tile_set = SubResource("TileSet_sterling1")
-cell_quadrant_size = 16
-
-[node name="Walls" type="TileMapLayer" parent="TileMap"]
-name = "Walls"
-enabled = true
-y_sort_enabled = true
-y_sort_origin = 16
-tile_set = SubResource("TileSet_sterling1")
-cell_quadrant_size = 16
-
-# ============================================================================
-# FLOOR VISUALS — LOBBY (y: 0-600)
-# ============================================================================
-[node name="LobbyFloor" type="Polygon2D" parent="."]
-z_index = -2
+[node name="FloorVisual" type="Polygon2D" parent="."]
+z_index = -1
 polygon = PackedVector2Array([
 	Vector2(0, 0), Vector2(1200, 0),
-	Vector2(1200, 600), Vector2(0, 600)
+	Vector2(1200, 800), Vector2(0, 800)
 ])
-color = Color(0.12, 0.12, 0.14, 1.0)
+color = Color(0.05, 0.05, 0.08, 1.0)
 
-[node name="LobbyWalls" type="Polygon2D" parent="."]
-z_index = -1
+[node name="TowerWalls" type="Polygon2D" parent="."]
 polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(80, 0),
-	Vector2(80, 600), Vector2(0, 600),
-	Vector2(0, 0), Vector2(0, 80),
-	Vector2(1200, 80), Vector2(1200, 0),
-	Vector2(1120, 0), Vector2(1120, 600),
-	Vector2(1200, 600), Vector2(1200, 520),
-	Vector2(0, 520), Vector2(0, 600)
-])
-color = Color(0.22, 0.22, 0.28, 1.0)
-
-[node name="LobbyDesk" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(500, 150), Vector2(700, 150),
-	Vector2(700, 220), Vector2(500, 220)
-])
-color = Color(0.35, 0.25, 0.15, 1.0)
-
-[node name="LobbyDeskLabel" type="Label" parent="LobbyDesk"]
-position = Vector2(40, 20)
-text = "RECEPTION"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="LobbyPlant1" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(150, 400), Vector2(190, 400),
-	Vector2(190, 480), Vector2(150, 480)
-])
-color = Color(0.15, 0.4, 0.2, 1.0)
-
-[node name="LobbyPlant2" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1010, 400), Vector2(1050, 400),
-	Vector2(1050, 480), Vector2(1010, 480)
-])
-color = Color(0.15, 0.4, 0.2, 1.0)
-
-[node name="ElevatorDoors" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(540, 20), Vector2(660, 20),
-	Vector2(660, 100), Vector2(540, 100)
-])
-color = Color(0.5, 0.5, 0.55, 1.0)
-
-[node name="ElevatorLabel" type="Label" parent="ElevatorDoors"]
-position = Vector2(20, 30)
-text = "ELEVATOR"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="ServiceEntrance" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(20, 200), Vector2(60, 200),
-	Vector2(60, 320), Vector2(20, 320)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
-
-[node name="ServiceEntranceLabel" type="Label" parent="ServiceEntrance"]
-position = Vector2(-10, 40)
-text = "SERVICE"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-# ============================================================================
-# FLOOR VISUALS — OFFICES (y: 600-1200, conceptually)
-# We use a single large map; offices are to the right
-# ============================================================================
-[node name="OfficeFloor" type="Polygon2D" parent="."]
-z_index = -2
-polygon = PackedVector2Array([
-	Vector2(1200, 0), Vector2(2400, 0),
-	Vector2(2400, 600), Vector2(1200, 600)
-])
-color = Color(0.14, 0.14, 0.16, 1.0)
-
-[node name="OfficeWalls" type="Polygon2D" parent="."]
-z_index = -1
-polygon = PackedVector2Array([
-	Vector2(1200, 0), Vector2(1280, 0),
-	Vector2(1280, 600), Vector2(1200, 600),
-	Vector2(1200, 0), Vector2(1200, 80),
-	Vector2(2400, 80), Vector2(2400, 0),
-	Vector2(2320, 0), Vector2(2320, 600),
-	Vector2(2400, 600), Vector2(2400, 520),
-	Vector2(1200, 520), Vector2(1200, 600)
-])
-color = Color(0.24, 0.24, 0.30, 1.0)
-
-[node name="OfficeCubicle1" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1350, 150), Vector2(1550, 150),
-	Vector2(1550, 280), Vector2(1350, 280)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
-
-[node name="OfficeCubicle2" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1650, 150), Vector2(1850, 150),
-	Vector2(1850, 280), Vector2(1650, 280)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
-
-[node name="OfficeCubicle3" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1950, 150), Vector2(2150, 150),
-	Vector2(2150, 280), Vector2(1950, 280)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
-
-[node name="LegalDepartment" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1350, 350), Vector2(1650, 350),
-	Vector2(1650, 480), Vector2(1350, 480)
-])
-color = Color(0.25, 0.2, 0.35, 1.0)
-
-[node name="LegalLabel" type="Label" parent="LegalDepartment"]
-position = Vector2(80, 50)
-text = "LEGAL DEPT"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="ExecutiveOffice" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1950, 350), Vector2(2250, 350),
-	Vector2(2250, 480), Vector2(1950, 480)
-])
-color = Color(0.35, 0.25, 0.2, 1.0)
-
-[node name="ExecutiveLabel" type="Label" parent="ExecutiveOffice"]
-position = Vector2(60, 50)
-text = "EXECUTIVE"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="OfficeElevator" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(1740, 20), Vector2(1860, 20),
-	Vector2(1860, 100), Vector2(1740, 100)
-])
-color = Color(0.5, 0.5, 0.55, 1.0)
-
-[node name="OfficeElevatorLabel" type="Label" parent="OfficeElevator"]
-position = Vector2(20, 30)
-text = "ELEVATOR"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-# ============================================================================
-# FLOOR VISUALS — PENTHOUSE (y: 0-600, x: 2400-3600)
-# ============================================================================
-[node name="PenthouseFloor" type="Polygon2D" parent="."]
-z_index = -2
-polygon = PackedVector2Array([
-	Vector2(2400, 0), Vector2(3600, 0),
-	Vector2(3600, 600), Vector2(2400, 600)
-])
-color = Color(0.18, 0.15, 0.12, 1.0)
-
-[node name="PenthouseWalls" type="Polygon2D" parent="."]
-z_index = -1
-polygon = PackedVector2Array([
-	Vector2(2400, 0), Vector2(2480, 0),
-	Vector2(2480, 600), Vector2(2400, 600),
-	Vector2(2400, 0), Vector2(2400, 80),
-	Vector2(3600, 80), Vector2(3600, 0),
-	Vector2(3520, 0), Vector2(3520, 600),
-	Vector2(3600, 600), Vector2(3600, 520),
-	Vector2(2400, 520), Vector2(2400, 600)
-])
-color = Color(0.35, 0.3, 0.25, 1.0)
-
-[node name="PenthouseDesk" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(2900, 120), Vector2(3300, 120),
-	Vector2(3300, 220), Vector2(2900, 220)
-])
-color = Color(0.45, 0.35, 0.25, 1.0)
-
-[node name="PenthouseDeskLabel" type="Label" parent="PenthouseDesk"]
-position = Vector2(140, 40)
-text = "STERLING'S DESK"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="PenthouseWindow" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(2500, 100), Vector2(2800, 100),
-	Vector2(2800, 350), Vector2(2500, 350)
-])
-color = Color(0.1, 0.15, 0.25, 0.6)
-
-[node name="PenthousePainting" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(3400, 120), Vector2(3480, 120),
-	Vector2(3480, 200), Vector2(3400, 200)
-])
-color = Color(0.6, 0.5, 0.3, 1.0)
-
-[node name="VaultDoor" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(3100, 280), Vector2(3180, 280),
-	Vector2(3180, 400), Vector2(3100, 400)
+	Vector2(0, 0), Vector2(100, 0),
+	Vector2(100, 800), Vector2(0, 800)
 ])
 color = Color(0.4, 0.4, 0.45, 1.0)
 
-[node name="VaultLabel" type="Label" parent="VaultDoor"]
-position = Vector2(-10, 50)
+[node name="TowerWalls2" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+		Vector2(1100, 0), Vector2(1200, 0),
+	Vector2(1200, 800), Vector2(1100, 800)
+])
+color = Color(0.4, 0.4, 0.45, 1.0)
+
+[node name="Lobby" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(150, 500), Vector2(400, 500),
+	Vector2(400, 700), Vector2(150, 700)
+])
+color = Color(0.25, 0.25, 0.3, 1.0)
+
+[node name="LobbyLabel" type="Label" parent="Lobby"]
+offset_left = 75.0
+offset_top = 80.0
+offset_right = 175.0
+offset_bottom = 110.0
+text = "LOBBY"
+horizontal_alignment = 1
+
+[node name="Elevator" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(500, 450), Vector2(600, 450),
+	Vector2(600, 550), Vector2(500, 550)
+])
+color = Color(0.3, 0.3, 0.35, 1.0)
+
+[node name="ElevatorLabel" type="Label" parent="Elevator"]
+offset_left = 10.0
+offset_top = 35.0
+offset_right = 90.0
+offset_bottom = 65.0
+text = "ELEV"
+horizontal_alignment = 1
+
+[node name="Vault" type="Polygon2D" parent="."]
+polygon = PackedVector2Array([
+	Vector2(800, 150), Vector2(1050, 150),
+	Vector2(1050, 350), Vector2(800, 350)
+])
+color = Color(0.2, 0.35, 0.2, 1.0)
+
+[node name="VaultLabel" type="Label" parent="Vault"]
+offset_left = 75.0
+offset_top = 90.0
+offset_right = 175.0
+offset_bottom = 120.0
 text = "VAULT"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 
-# ============================================================================
-# SPAWN POINTS
-# ============================================================================
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(600, 500)
+position = Vector2(275, 650)
 
-[node name="LobbySpawn" type="Marker2D" parent="."]
-position = Vector2(600, 500)
+[node name="GoonSpawns" type="Node2D" parent="."]
 
-[node name="ServiceEntranceSpawn" type="Marker2D" parent="."]
-position = Vector2(100, 260)
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(300, 400)
 
-[node name="OfficeSpawn" type="Marker2D" parent="."]
-position = Vector2(1800, 500)
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(550, 250)
 
-[node name="PenthouseSpawn" type="Marker2D" parent="."]
-position = Vector2(3000, 500)
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(850, 450)
 
-[node name="BossSpawn" type="Marker2D" parent="."]
-position = Vector2(3100, 200)
+[node name="GoonSpawn4" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(700, 600)
 
-[node name="BossRoomSpawn" type="Marker2D" parent="."]
-position = Vector2(3100, 200)
+[node name="GoonSpawn5" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(450, 150)
 
-[node name="EvidenceSpawn" type="Marker2D" parent="."]
-position = Vector2(3140, 340)
+[node name="GoonSpawn6" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(925, 250)
 
-[node name="EscapeSpawn" type="Marker2D" parent="."]
-position = Vector2(3000, 540)
+[node name="VaultZone" type="Area2D" parent="."]
+position = Vector2(925, 250)
 
-[node name="FastEscapeSpawn" type="Marker2D" parent="."]
-position = Vector2(3560, 300)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VaultZone"]
+shape = SubResource("CircleShape2D_vault")
 
-# ============================================================================
-# TRANSITION TRIGGERS
-# ============================================================================
-[node name="LobbyToOfficeTrigger" type="Area2D" parent="."]
-position = Vector2(1180, 300)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LobbyToOfficeTrigger"]
-shape = SubResource("RectangleShape2D_lobby_trigger")
-
-[node name="TriggerVisual" type="Polygon2D" parent="LobbyToOfficeTrigger"]
+[node name="VaultVisual" type="Polygon2D" parent="VaultZone"]
 polygon = PackedVector2Array([
-	Vector2(-30, -60), Vector2(30, -60),
-	Vector2(30, 60), Vector2(-30, 60)
+	Vector2(-24, -24), Vector2(24, -24),
+	Vector2(24, 24), Vector2(-24, 24)
 ])
-color = Color(0.2, 0.8, 0.4, 0.2)
+color = Color(0.8, 0.7, 0.3, 1.0)
 
-[node name="OfficeToPenthouseTrigger" type="Area2D" parent="."]
-position = Vector2(2380, 300)
+[node name="VaultLabel" type="Label" parent="VaultZone"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -20.0
+text = "[TARGET]"
+horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OfficeToPenthouseTrigger"]
-shape = SubResource("RectangleShape2D_office_trigger")
-
-[node name="TriggerVisual" type="Polygon2D" parent="OfficeToPenthouseTrigger"]
-polygon = PackedVector2Array([
-	Vector2(-30, -60), Vector2(30, -60),
-	Vector2(30, 60), Vector2(-30, 60)
-])
-color = Color(0.8, 0.2, 0.2, 0.2)
-
-# ============================================================================
-# PENTHOUSE / BOSS / EVIDENCE / ESCAPE ZONES
-# ============================================================================
-[node name="PenthouseEntrance" type="Area2D" parent="."]
-position = Vector2(3000, 350)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PenthouseEntrance"]
-shape = SubResource("RectangleShape2D_penthouse")
-
-[node name="EvidenceZone" type="Area2D" parent="."]
-position = Vector2(3140, 340)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvidenceZone"]
-shape = SubResource("RectangleShape2D_evidence")
-
-[node name="EscapeZone" type="Area2D" parent="."]
-position = Vector2(3000, 540)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeZone"]
-shape = SubResource("RectangleShape2D_escape")
-
-[node name="EscapeVisual" type="Polygon2D" parent="EscapeZone"]
-polygon = PackedVector2Array([
-	Vector2(-40, -20), Vector2(40, -20),
-	Vector2(40, 20), Vector2(-40, 20)
-])
-color = Color(0.2, 0.9, 0.3, 0.4)
-
-[node name="EscapeLabel" type="Label" parent="EscapeZone"]
-position = Vector2(-30, -8)
-text = "ESCAPE"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-[node name="ElevatorZone" type="Area2D" parent="."]
-position = Vector2(600, 60)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorZone"]
-shape = SubResource("RectangleShape2D_elevator")
-
-# ============================================================================
-# ENEMY SPAWNS
-# ============================================================================
-[node name="LobbyGuardSpawns" type="Node2D" parent="."]
-
-[node name="LobbyGuard1" type="Marker2D" parent="LobbyGuardSpawns"]
-position = Vector2(400, 300)
-
-[node name="LobbyGuard2" type="Marker2D" parent="LobbyGuardSpawns"]
-position = Vector2(800, 250)
-
-[node name="LobbyGuard3" type="Marker2D" parent="LobbyGuardSpawns"]
-position = Vector2(600, 150)
-
-[node name="LobbyGuard4" type="Marker2D" parent="LobbyGuardSpawns"]
-position = Vector2(300, 450)
-
-[node name="LobbyGuard5" type="Marker2D" parent="LobbyGuardSpawns"]
-position = Vector2(900, 450)
-
-[node name="OfficeGuardSpawns" type="Node2D" parent="."]
-
-[node name="OfficeGuard1" type="Marker2D" parent="OfficeGuardSpawns"]
-position = Vector2(1450, 200)
-
-[node name="OfficeGuard2" type="Marker2D" parent="OfficeGuardSpawns"]
-position = Vector2(1750, 400)
-
-[node name="OfficeGuard3" type="Marker2D" parent="OfficeGuardSpawns"]
-position = Vector2(2050, 200)
-
-[node name="OfficeGuard4" type="Marker2D" parent="OfficeGuardSpawns"]
-position = Vector2(2250, 450)
-
-[node name="PenthouseGuardSpawns" type="Node2D" parent="."]
-
-[node name="PenthouseGuard1" type="Marker2D" parent="PenthouseGuardSpawns"]
-position = Vector2(2600, 200)
-
-[node name="PenthouseGuard2" type="Marker2D" parent="PenthouseGuardSpawns"]
-position = Vector2(3400, 200)
-
-[node name="PenthouseGuard3" type="Marker2D" parent="PenthouseGuardSpawns"]
-position = Vector2(3000, 400)
-
-[node name="EscapeGuardSpawns" type="Node2D" parent="."]
-
-[node name="EscapeGuard1" type="Marker2D" parent="EscapeGuardSpawns"]
-position = Vector2(2800, 300)
-
-[node name="EscapeGuard2" type="Marker2D" parent="EscapeGuardSpawns"]
-position = Vector2(3200, 450)
-
-# ============================================================================
-# SECURITY SYSTEMS (placeholder nodes)
-# ============================================================================
-[node name="SecurityCameras" type="Node2D" parent="."]
-
-[node name="Camera1" type="Marker2D" parent="SecurityCameras"]
-position = Vector2(300, 150)
-
-[node name="Camera2" type="Marker2D" parent="SecurityCameras"]
-position = Vector2(900, 150)
-
-[node name="Camera3" type="Marker2D" parent="SecurityCameras"]
-position = Vector2(1500, 150)
-
-[node name="Camera4" type="Marker2D" parent="SecurityCameras"]
-position = Vector2(2100, 150)
-
-[node name="Camera5" type="Marker2D" parent="SecurityCameras"]
-position = Vector2(2700, 150)
-
-[node name="LaserGrids" type="Node2D" parent="."]
-
-[node name="Laser1" type="Marker2D" parent="LaserGrids"]
-position = Vector2(1000, 300)
-
-[node name="Laser2" type="Marker2D" parent="LaserGrids"]
-position = Vector2(1600, 300)
-
-[node name="Laser3" type="Marker2D" parent="LaserGrids"]
-position = Vector2(2200, 300)
-
-[node name="KeycardDoors" type="Node2D" parent="."]
-
-[node name="KeycardDoor1" type="Marker2D" parent="KeycardDoors"]
-position = Vector2(1200, 300)
-
-[node name="KeycardDoor2" type="Marker2D" parent="KeycardDoors"]
-position = Vector2(2400, 300)
-
-# ============================================================================
-# COLLECTIBLE SPAWNS
-# ============================================================================
-[node name="PolaroidSpawn" type="Marker2D" parent="."]
-position = Vector2(2200, 400)
-
-[node name="TrinketSpawn" type="Marker2D" parent="."]
-position = Vector2(1400, 300)
-
-# ============================================================================
-# EXIT ZONE (fallback)
-# ============================================================================
 [node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(3000, 540)
+position = Vector2(275, 750)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
 shape = SubResource("RectangleShape2D_exit")
 
-# ============================================================================
-# CAMERA
-# ============================================================================
+[node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
+polygon = PackedVector2Array([
+	Vector2(-40, -24), Vector2(40, -24),
+	Vector2(40, 24), Vector2(-40, 24)
+])
+color = Color(0.2, 0.8, 0.4, 0.4)
+
+[node name="ExitLabel" type="Label" parent="ExitZone"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -20.0
+text = "ESCAPE ->"
+horizontal_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(600, 300)
-zoom = Vector2(1.2, 1.2)
+position = Vector2(600, 400)
+zoom = Vector2(1.0, 1.0)
 limit_left = 0
 limit_top = 0
-limit_right = 3600
-limit_bottom = 600
-
-# ============================================================================
-# UI
-# ============================================================================
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="FloorLabel" type="Label" parent="UI"]
-offset_left = 20
-offset_top = 20
-offset_right = 300
-offset_bottom = 50
-text = "FLOOR: LOBBY"
-add_theme_font_size_override("font_size", 18)
-
-[node name="ObjectiveLabel" type="Label" parent="UI"]
-offset_left = 20
-offset_top = 55
-offset_right = 600
-offset_bottom = 85
-text = "Objective: Infiltrate Sterling Tower"
-add_theme_font_size_override("font_size", 14)
-
-[node name="FriendNotification" type="Label" parent="UI"]
-offset_left = 340
-offset_top = 20
-offset_right = 940
-offset_bottom = 50
-text = ""
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-add_theme_font_size_override("font_size", 14)
-add_theme_color_override("font_color", Color(0.2, 0.9, 0.4, 1.0))
-
-[node name="BossHealthBar" type="ProgressBar" parent="UI"]
-offset_left = 440
-offset_top = 660
-offset_right = 840
-offset_bottom = 690
-max_value = 100
-value = 100
-
-[node name="BossNameLabel" type="Label" parent="UI"]
-offset_left = 440
-offset_top = 635
-offset_right = 840
-offset_bottom = 660
-text = "VICTOR STERLING"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-add_theme_font_size_override("font_size", 16)
-add_theme_color_override("font_color", Color(0.9, 0.1, 0.1, 1.0))
+limit_right = 1200
+limit_bottom = 800
