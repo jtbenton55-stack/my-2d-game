@@ -1,81 +1,47 @@
-# AudioManager.gd
-# Placeholder audio manager - bus management, volume controls
-
 extends Node
 
-# Audio buses
-enum Bus {
-	MASTER = 0,
-	MUSIC = 1,
-	SFX = 2,
-	UI = 3
-}
+enum Bus { MASTER, MUSIC, SFX, UI }
+var current_music := ""
 
 func _ready() -> void:
-	EventBus.debug("AudioManager loaded")
-	
-	# Load saved volume settings
-	_update_volumes_from_settings()
+	EventBus.debug("AudioManager ready")
 
-# Set volume for a specific bus (0.0 to 1.0)
-func set_bus_volume(bus: Bus, volume: float) -> void:
-	var bus_index := AudioServer.get_bus_index(_bus_to_name(bus))
-	if bus_index != -1:
-		# Convert linear volume to dB
-		var db_volume := linear_to_db(volume)
-		AudioServer.set_bus_volume_db(bus_index, db_volume)
-		
-		# Update settings
-		match bus:
-			Bus.MASTER:
-				GameState.settings.audio.master_volume = volume
-			Bus.MUSIC:
-				GameState.settings.audio.music_volume = volume
-			Bus.SFX:
-				GameState.settings.audio.sfx_volume = volume
-		
-		EventBus.debug("Set " + _bus_to_name(bus) + " volume to " + str(volume))
+func set_bus_volume(bus: int, volume: float) -> void:
+	var bus_name := _bus_to_name(bus)
+	var index := AudioServer.get_bus_index(bus_name)
+	if index >= 0:
+		AudioServer.set_bus_volume_db(index, linear_to_db(clamp(volume, 0.0001, 1.0)))
 
-# Get current volume for a bus
-func get_bus_volume(bus: Bus) -> float:
-	var bus_index := AudioServer.get_bus_index(_bus_to_name(bus))
-	if bus_index != -1:
-		var db_volume := AudioServer.get_bus_volume_db(bus_index)
-		return db_to_linear(db_volume)
+func get_bus_volume(bus: int) -> float:
+	var index := AudioServer.get_bus_index(_bus_to_name(bus))
+	if index >= 0:
+		return db_to_linear(AudioServer.get_bus_volume_db(index))
 	return 1.0
 
-# Mute/unmute a bus
-func set_bus_mute(bus: Bus, mute: bool) -> void:
-	var bus_index := AudioServer.get_bus_index(_bus_to_name(bus))
-	if bus_index != -1:
-		AudioServer.set_bus_mute(bus_index, mute)
-		EventBus.debug(( "Muted" if mute else "Unmuted") + " " + _bus_to_name(bus))
+func set_bus_mute(bus: int, mute: bool) -> void:
+	var index := AudioServer.get_bus_index(_bus_to_name(bus))
+	if index >= 0:
+		AudioServer.set_bus_mute(index, mute)
 
-# Play a sound effect (placeholder - would integrate with actual audio files)
-func play_sfx(sfx_name: String, position: Vector2 = Vector2.ZERO) -> void:
-	EventBus.debug("Playing SFX: " + sfx_name + " at " + str(position))
-	# In a real implementation, this would instantiate and play an AudioStreamPlayer
+func play_music(music_name: String, fade_time = 0.0) -> void:
+	current_music = music_name
+	EventBus.debug("Music cue: " + music_name)
 
-# Play music (placeholder)
-func play_music(music_name: String, fade_time: float = 0.5) -> void:
-	EventBus.debug("Playing music: " + music_name + " (fade: " + str(fade_time) + "s)")
-	# In a real implementation, this would handle music crossfading
+func stop_music(fade_time = 0.0) -> void:
+	current_music = ""
 
-# Stop music
-func stop_music(fade_time: float = 0.5) -> void:
-	EventBus.debug("Stopping music (fade: " + str(fade_time) + "s)")
+func play_sfx(sfx_name: String, position = Vector2.ZERO) -> void:
+	EventBus.debug("SFX cue: " + sfx_name)
 
-# Update volumes from GameState settings
-func _update_volumes_from_settings() -> void:
-	set_bus_volume(Bus.MASTER, GameState.settings.audio.master_volume)
-	set_bus_volume(Bus.MUSIC, GameState.settings.audio.music_volume)
-	set_bus_volume(Bus.SFX, GameState.settings.audio.sfx_volume)
-
-# Convert Bus enum to bus name
-func _bus_to_name(bus: Bus) -> String:
+func _bus_to_name(bus: int) -> String:
 	match bus:
-		Bus.MASTER: return "Master"
-		Bus.MUSIC: return "Music"
-		Bus.SFX: return "SFX"
-		Bus.UI: return "UI"
-		_: return "Master"
+		Bus.MASTER:
+			return "Master"
+		Bus.MUSIC:
+			return "Music"
+		Bus.SFX:
+			return "SFX"
+		Bus.UI:
+			return "UI"
+		_:
+			return "Master"

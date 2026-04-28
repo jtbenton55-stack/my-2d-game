@@ -1,125 +1,107 @@
-# LevelBase.gd
-# Base class for all levels with common functionality
-
 extends Node2D
 
-# References
-@onready var player_spawn: Marker2D = $PlayerSpawn
-@onready var camera: Camera2D = $Camera2D
-@onready var exit_zone: Area2D = $ExitZone
+@export var mission_id := "test_mission"
+@export var guard_count := 0
+@export var auto_start_mission := true
+@export var objective_text := "Reach the exit."
 
-# Level state
 var player: Node2D = null
 var dog: Node2D = null
-var is_complete: bool = false
+var is_complete := false
+var is_failed := false
 
 func _ready() -> void:
-	EventBus.debug("Level loaded: " + name)
-	
-	# Spawn player
-	_spawn_player()
-	
-	# Spawn dog
-	_spawn_dog()
-	
-	# Spawn enemies
-	_spawn_enemies()
-	
-	# Setup camera
+	_spawn_player_if_needed()
+	_spawn_dog_if_needed()
+	_spawn_default_enemies()
 	_setup_camera()
-	
-	# Connect signals
-	exit_zone.body_entered.connect(_on_exit_zone_body_entered)
-	
-	# Start mission
-	var mission_id = _get_mission_id()
-	GameState.start_mission(mission_id)
-	EventBus.show_objective_marker.emit(true, exit_zone.global_position)
+	_setup_exit_zone()
+	if auto_start_mission and GameState.current_mission_id == "":
+		GameState.start_mission(get_mission_id())
+	QuestManager.set_objective(objective_text, get_mission_id())
+	if not EventBus.player_died.is_connected(_on_player_died):
+		EventBus.player_died.connect(_on_player_died)
+	_ensure_common_ui()
+	EventBus.debug("Loaded level: " + name + " mission=" + get_mission_id())
 
-# Spawn player at spawn point
-func _spawn_player() -> void:
-	var player_scene := preload("res://scenes/characters/player.tscn")
-	player = player_scene.instantiate()
-	player.global_position = player_spawn.global_position
-	player.add_to_group("player")
-	add_child(player)
-	
-	# Make camera follow player
-	if camera:
-		camera.position_smoothing_enabled = true
-		camera.position_smoothing_speed = 5.0
-		camera.make_current()
-
-# Spawn dog companion
-func _spawn_dog() -> void:
-	var dog_scene := preload("res://scenes/characters/dog.tscn")
-	dog = dog_scene.instantiate()
-	dog.global_position = player_spawn.global_position + Vector2(50, 0)
-	add_child(dog)
-
-# Spawn enemies (override in specific levels)
-func _spawn_enemies() -> void:
-	# This is a base implementation - specific levels should override
-	pass
-
-# Setup camera
-func _setup_camera() -> void:
-	if camera and player:
-		camera.position_smoothing_enabled = true
-		camera.position_smoothing_speed = 5.0
-		camera.make_current()
-
-# Complete the level
-func complete_level() -> void:
-	if is_complete:
-		return
-	
-	is_complete = true
-	EventBus.debug("Level completed: " + name)
-	
-	# Complete mission
-	var mission_id = GameState.current_mission
+func get_mission_id() -> String:
 	if mission_id != "":
-		GameState.complete_mission(mission_id)
-	GameState.end_mission()
-	
-	# Save game
-	SaveManager.auto_save()
-	
-	# Show completion message
-	EventBus.debug("Heist completed successfully!")
-	
-	# Return to hideout after delay
-	await get_tree().create_timer(2.0).timeout
-	SceneManager.change_to_scene("hideout")
+		return mission_id
+	return String(name).to_lower().replace(" ", "_")
 
-# Exit zone handler
+func _spawn_player_if_needed() -> void:
+	player = get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		var scene := preload("res://scenes/characters/player.tscn")
+		player = scene.instantiate()
+		add_child(player)
+	var spawn := get_node_or_null("PlayerSpawn") as Node2D
+	if spawn:
+		player.global_position = spawn.global_position
+
+func _spawn_dog_if_needed() -> void:
+	dog = get_tree().get_first_node_in_group("bentley") as Node2D
+	if dog == null:
+		var scene := preload("res://scenes/characters/dog.tscn")
+		dog = scene.instantiate()
+		add_child(dog)
+	if player:
+		dog.global_position = player.global_position + Vector2(42, 18)
+
+func _spawn_default_enemies() -> void:
+	if guard_count <= 0:
+		return
+	var enemy_scene := preload("res://scenes/characters/guard.tscn")
+	for i in range(guard_count):
+		var enemy := enemy_scene.instantiate()
+		add_child(enemy)
+		enemy.global_position = Vector2(280 + i * 80, 280)
+
+func _setup_camera() -> void:
+	var camera := get_node_or_null("Camera2D") as Camera2D
+	if camera:
+		camera.make_current()
+		if player:
+			camera.global_position = player.global_position
+
+func _setup_exit_zone() -> void:
+	var exit_zone := get_node_or_null("ExitZone")
+	if exit_zone and exit_zone.has_signal("body_entered"):
+		exit_zone.body_entered.connect(_on_exit_zone_body_entered)
+
+func complete_level() -> void:
+	if is_complete or is_failed:
+		return
+	is_complete = true
+	var result := GameState.complete_mission(get_mission_id())
+	SceneManager.show_mission_result(result)
+
+func fail_level(reason = "Not the cleanest getaway.") -> void:
+	if is_complete or is_failed:
+		return
+	is_failed = true
+	var result := GameState.fail_mission(get_mission_id(), reason)
+	SceneManager.show_mission_result(result)
+
 func _on_exit_zone_body_entered(body: Node) -> void:
-	if body.is_in_group("player") and not is_complete:
+	if body.is_in_group("player"):
 		complete_level()
 
-# Get mission ID for this level (override in subclasses)
-func _get_mission_id() -> String:
-	# Default: derive from scene name or use "tutorial"
-	return "tutorial"
+func _on_player_died() -> void:
+	if GameState.is_in_mission:
+		fail_level("Jake patched up the damage. Bentley remains judgmental.")
 
-# Clean up level
-func cleanup() -> void:
-	EventBus.debug("Cleaning up level: " + name)
-	
-	# Disconnect signals
-	if exit_zone and exit_zone.body_entered.is_connected(_on_exit_zone_body_entered):
-		exit_zone.body_entered.disconnect(_on_exit_zone_body_entered)
-	
-	# Hide objective marker
-	EventBus.show_objective_marker.emit(false, Vector2.ZERO)
 
-# Get player position
-func get_player_position() -> Vector2:
-	if player:
-		return player.global_position
-	return Vector2.ZERO
-
-# Get all enemies in level
-func get_enemies() -> Array:
-	return get_tree().get_nodes_in_group("enemy")
+func _ensure_common_ui() -> void:
+	if get_node_or_null("HUD") == null:
+		var hud := preload("res://scenes/ui/hud.tscn").instantiate()
+		hud.name = "HUD"
+		add_child(hud)
+	if get_node_or_null("DialogueBox") == null:
+		var dialogue := preload("res://scenes/ui/DialogueBox.tscn").instantiate()
+		dialogue.name = "DialogueBox"
+		add_child(dialogue)
+	if get_node_or_null("PauseMenu") == null:
+		var pause := preload("res://scenes/ui/pause_menu.tscn").instantiate()
+		pause.name = "PauseMenu"
+		add_child(pause)

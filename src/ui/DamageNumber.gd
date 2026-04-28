@@ -1,40 +1,13 @@
-# DamageNumber.gd
-# Floating damage number display
-
 extends Label
 
-@export var float_speed: float = 100.0
-@export var float_distance: float = 50.0
-@export var fade_time: float = 1.0
+@export var float_distance := 40.0
+@export var lifetime := 0.8
 
-var start_position: Vector2 = Vector2.ZERO
-var timer: float = 0.0
-
-func _ready() -> void:
-	visible = false
-
-# Show a damage number
-func show_damage(damage: int) -> void:
-	text = str(damage)
+func show_damage(amount: int, world_position: Vector2) -> void:
+	text = str(amount)
+	global_position = world_position
 	visible = true
-	start_position = global_position
-	timer = 0.0
-	
-	# Start animation
-	$Tween.kill()
-	$Tween.tween_property(self, "global_position:y", start_position.y - float_distance, fade_time)
-	$Tween.tween_property(self, "modulate:a", 0.0, fade_time)
-	$Tween.tween_callback(_on_animation_complete)
-
-func _process(delta: float) -> void:
-	if not visible:
-		return
-	
-	timer += delta
-	if timer >= fade_time:
-		visible = false
-
-func _on_animation_complete() -> void:
-	visible = false
-	modulate.a = 1.0
-	global_position = start_position
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", world_position + Vector2(0, -float_distance), lifetime)
+	tween.parallel().tween_property(self, "modulate:a", 0.0, lifetime)
+	tween.finished.connect(queue_free)
