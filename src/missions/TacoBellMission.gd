@@ -159,7 +159,7 @@ func _activate_scent_trail() -> void:
 
 var scent_markers_found := 0
 
-func _on_scent_marker_sniffed(marker_index: int) -> void:
+func _on_scent_marker_sniffed(_marker_index: int) -> void:
 	scent_markers_found += 1
 	AudioManager.play_sfx("bentley_sniff")
 	

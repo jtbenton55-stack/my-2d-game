@@ -48,9 +48,6 @@ script = ExtResource("1_taco")
 mission_id = "taco_bell_drop"
 guard_count = 0
 
-# ============================================
-# BASE FLOOR (1500 x 900)
-# ============================================
 [node name="FloorVisual" type="ColorRect" parent="."]
 z_index = -2
 offset_left = 0.0
@@ -59,9 +56,6 @@ offset_right = 1500.0
 offset_bottom = 900.0
 color = Color(0.12, 0.12, 0.14, 1.0)
 
-# ============================================
-# ALLEY ARRIVAL AREA (Left side)
-# ============================================
 [node name="AlleyLabel" type="Label" parent="."]
 z_index = 1
 offset_left = 50.0
@@ -108,9 +102,6 @@ text = "STAFF
 ONLY"
 horizontal_alignment = 1
 
-# --------------------------------------------
-# Louis NPC - Friend moment
-# --------------------------------------------
 [node name="LouisVisual" type="ColorRect" parent="."]
 offset_left = 480.0
 offset_top = 280.0
@@ -149,9 +140,6 @@ choices = []
 position = Vector2(500, 310)
 shape = SubResource("RectangleShape2D_dialogue")
 
-# --------------------------------------------
-# Dumpster with Intel
-# --------------------------------------------
 [node name="Dumpster" type="ColorRect" parent="."]
 offset_left = 200.0
 offset_top = 150.0
@@ -193,9 +181,6 @@ offset_bottom = -10.0
 text = "?"
 horizontal_alignment = 1
 
-# ============================================
-# SCENT TRAIL MARKERS (Leading to yard)
-# ============================================
 [node name="ScentMarker1" type="Area2D" parent="."]
 position = Vector2(450, 400)
 script = ExtResource("2_scent")
@@ -288,9 +273,6 @@ offset_bottom = -20.0
 text = "~"
 horizontal_alignment = 1
 
-# ============================================
-# STEALTH YARD AREA (Center-Right)
-# ============================================
 [node name="YardLabel" type="Label" parent="."]
 z_index = 1
 offset_left = 850.0
@@ -324,9 +306,6 @@ offset_bottom = 420.0
 text = "YARD\n->"
 horizontal_alignment = 1
 
-# --------------------------------------------
-# Crates for cover
-# --------------------------------------------
 [node name="Crate1" type="ColorRect" parent="."]
 offset_left = 850.0
 offset_top = 250.0
@@ -348,9 +327,6 @@ offset_right = 1000.0
 offset_bottom = 580.0
 color = Color(0.4, 0.35, 0.25, 1.0)
 
-# --------------------------------------------
-# Guard Patrol Paths (spawns will use these)
-# --------------------------------------------
 [node name="GuardPath1" type="Path2D" parent="."]
 position = Vector2(850, 200)
 curve = SubResource("Curve2D_1")
@@ -371,9 +347,6 @@ position = Vector2(0, 0)
 [node name="Path2Point2" type="Marker2D" parent="GuardPath2"]
 position = Vector2(200, 100)
 
-# ============================================
-# GARAGE PUZZLE AREA (Right side)
-# ============================================
 [node name="GarageBuilding" type="ColorRect" parent="."]
 offset_left = 1250.0
 offset_top = 200.0
@@ -430,9 +403,6 @@ offset_bottom = -25.0
 text = "KEYPAD"
 horizontal_alignment = 1
 
-# --------------------------------------------
-# Receipt Intel (near garage)
-# --------------------------------------------
 [node name="ReceiptIntel" type="Area2D" parent="."]
 position = Vector2(1150, 550)
 script = ExtResource("4_intel")
@@ -458,9 +428,6 @@ offset_bottom = -15.0
 text = "R"
 horizontal_alignment = 1
 
-# ============================================
-# BAG PICKUP ZONE (Inside garage concept)
-# ============================================
 [node name="BagPickupZone" type="Area2D" parent="."]
 position = Vector2(1350, 380)
 visible = false
@@ -483,16 +450,10 @@ offset_bottom = -20.0
 text = "Delivery Bag"
 horizontal_alignment = 1
 
-# --------------------------------------------
-# Sterling Clue Note (hidden until bag collected)
-# --------------------------------------------
 [node name="SterlingClueNote" type="Node2D" parent="."]
 position = Vector2(1350, 340)
 script = ExtResource("6_clue")
 
-# ============================================
-# POLAROID PICKUP
-# ============================================
 [node name="PolaroidPickup" type="Area2D" parent="."]
 position = Vector2(1100, 180)
 script = ExtResource("9_polaroid")
@@ -516,9 +477,6 @@ offset_bottom = -15.0
 text = "[P]"
 horizontal_alignment = 1
 
-# ============================================
-# EXIT ZONE (Return to alley)
-# ============================================
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(230, 520)
 monitorable = false
@@ -562,9 +520,6 @@ theme_override_colors/font_color = Color(0.8, 1.0, 0.8, 1.0)
 text = "Louis"
 horizontal_alignment = 1
 
-# ============================================
-# SPAWN POINTS
-# ============================================
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(400, 500)
 
@@ -587,9 +542,6 @@ position = Vector2(1100, 400)
 [node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns"]
 position = Vector2(1100, 180)
 
-# ============================================
-# CAMERA
-# ============================================
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(750, 450)
 zoom = Vector2(0.8, 0.8)

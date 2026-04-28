@@ -39,7 +39,8 @@ func _change_scene_deferred(scene_path: String) -> void:
 			GameState.is_in_mission = false
 			GameState.current_mission_id = ""
 	else:
-		GameState.pending_mission_id = ""
+		if GameState.is_in_mission and GameState.current_mission_id != "" and scene_path == GameState.get_mission_scene_path(GameState.current_mission_id):
+			GameState.pending_mission_id = ""
 	transition_in_progress = false
 
 func change_to_scene(scene_name: String, _transition_type = Transition.NONE, _transition_time = 0.2) -> void:
