@@ -1,154 +1,783 @@
-[gd_scene load_steps=5 format=3 uid="uid://sterlingtower001"]
+[gd_scene load_steps=16 format=3 uid="uid://sterlingtower001"]
 
 [ext_resource type="Script" path="res://src/missions/SterlingTowerMission.gd" id="1_sterling"]
 
-[sub_resource type="TileSet" id="TileSet_sterling1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_delivery"]
+size = Vector2(200, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_legal"]
+size = Vector2(250, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vault"]
+size = Vector2(250, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bass"]
+size = Vector2(300, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_combat"]
+size = Vector2(350, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vent"]
+size = Vector2(120, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_victor"]
+size = Vector2(300, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(100, 60)
+size = Vector2(120, 80)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vault"]
-radius = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_elevator"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wallh"]
+size = Vector2(1200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wallv"]
+size = Vector2(20, 800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obstacle"]
+size = Vector2(60, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elevator_trigger"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_contract"]
+size = Vector2(40, 30)
 
 [node name="SterlingTowerMission" type="Node2D"]
 script = ExtResource("1_sterling")
 
-[node name="FloorVisual" type="Polygon2D" parent="."]
-z_index = -1
-polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(1200, 0),
-	Vector2(1200, 800), Vector2(0, 800)
-])
-color = Color(0.05, 0.05, 0.08, 1.0)
+# ============================================================================
+# BACKGROUND & FLOOR VISUALS
+# ============================================================================
 
-[node name="TowerWalls" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(100, 0),
-	Vector2(100, 800), Vector2(0, 800)
-])
-color = Color(0.4, 0.4, 0.45, 1.0)
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+offset_right = 1600.0
+offset_bottom = 1200.0
+color = Color(0.03, 0.03, 0.05, 1.0)
 
-[node name="TowerWalls2" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-		Vector2(1100, 0), Vector2(1200, 0),
-	Vector2(1200, 800), Vector2(1100, 800)
-])
-color = Color(0.4, 0.4, 0.45, 1.0)
+[node name="FloorBase" type="ColorRect" parent="."]
+z_index = -5
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 1550.0
+offset_bottom = 1150.0
+color = Color(0.08, 0.08, 0.1, 1.0)
 
-[node name="Lobby" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(150, 500), Vector2(400, 500),
-	Vector2(400, 700), Vector2(150, 700)
-])
-color = Color(0.25, 0.25, 0.3, 1.0)
+# ============================================================================
+# FLOOR 0: LOBBY & DELIVERY ENTRANCE
+# ============================================================================
 
-[node name="LobbyLabel" type="Label" parent="Lobby"]
-offset_left = 75.0
-offset_top = 80.0
-offset_right = 175.0
-offset_bottom = 110.0
+[node name="LobbyArea" type="ColorRect" parent="."]
+offset_left = 100.0
+offset_top = 800.0
+offset_right = 450.0
+offset_bottom = 1100.0
+color = Color(0.2, 0.2, 0.25, 1.0)
+
+[node name="LobbyLabel" type="Label" parent="LobbyArea"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 125.0
+offset_right = 225.0
+offset_bottom = 155.0
 text = "LOBBY"
 horizontal_alignment = 1
 
-[node name="Elevator" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(500, 450), Vector2(600, 450),
-	Vector2(600, 550), Vector2(500, 550)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
+[node name="DeliveryDock" type="ColorRect" parent="."]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 350.0
+offset_bottom = 300.0
+color = Color(0.15, 0.2, 0.15, 1.0)
 
-[node name="ElevatorLabel" type="Label" parent="Elevator"]
-offset_left = 10.0
-offset_top = 35.0
-offset_right = 90.0
-offset_bottom = 65.0
-text = "ELEV"
-horizontal_alignment = 1
-
-[node name="Vault" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(800, 150), Vector2(1050, 150),
-	Vector2(1050, 350), Vector2(800, 350)
-])
-color = Color(0.2, 0.35, 0.2, 1.0)
-
-[node name="VaultLabel" type="Label" parent="Vault"]
+[node name="DeliveryLabel" type="Label" parent="DeliveryDock"]
+layout_mode = 0
 offset_left = 75.0
 offset_top = 90.0
 offset_right = 175.0
 offset_bottom = 120.0
+text = "DELIVERY DOCK"
+horizontal_alignment = 1
+
+[node name="LoadingEquipment" type="ColorRect" parent="DeliveryDock"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 80.0
+color = Color(0.3, 0.3, 0.35, 1.0)
+
+[node name="DeliveryEntranceZone" type="Area2D" parent="."]
+position = Vector2(225, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeliveryEntranceZone"]
+shape = SubResource("RectangleShape2D_delivery")
+
+[node name="Visual" type="ColorRect" parent="DeliveryEntranceZone"]
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+color = Color(0.2, 0.6, 0.3, 0.3)
+
+[node name="Label" type="Label" parent="DeliveryEntranceZone"]
+offset_left = -80.0
+offset_top = -70.0
+offset_right = 80.0
+offset_bottom = -40.0
+text = "[DELIVERY ENTRANCE]"
+horizontal_alignment = 1
+
+# Elevator to Floor 1
+[node name="Elevator0" type="ColorRect" parent="."]
+offset_left = 400.0
+offset_top = 150.0
+offset_right = 480.0
+offset_bottom = 230.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Elevator0Label" type="Label" parent="Elevator0"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 25.0
+offset_right = 70.0
+offset_bottom = 55.0
+text = "ELEV
+UP ->"
+horizontal_alignment = 1
+
+# ============================================================================
+# FLOOR 1: LEGAL TRAP FLOOR
+# ============================================================================
+
+[node name="LegalFloor" type="ColorRect" parent="."]
+offset_left = 550.0
+offset_top = 100.0
+offset_right = 900.0
+offset_bottom = 400.0
+color = Color(0.18, 0.15, 0.2, 1.0)
+
+[node name="LegalLabel" type="Label" parent="LegalFloor"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 10.0
+offset_right = 225.0
+offset_bottom = 40.0
+text = "LEGAL DEPT"
+horizontal_alignment = 1
+
+[node name="Desk" type="ColorRect" parent="LegalFloor"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 250.0
+offset_bottom = 200.0
+color = Color(0.4, 0.35, 0.3, 1.0)
+
+[node name="DeskLabel" type="Label" parent="LegalFloor/Desk"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 35.0
+offset_right = 125.0
+offset_bottom = 65.0
+text = "CONTRACTS"
+horizontal_alignment = 1
+
+[node name="BlueFolder" type="ColorRect" parent="LegalFloor/Desk"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 50.0
+offset_bottom = 85.0
+color = Color(0.2, 0.3, 0.6, 1.0)
+
+[node name="RedFolder" type="ColorRect" parent="LegalFloor/Desk"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 90.0
+offset_bottom = 85.0
+color = Color(0.6, 0.2, 0.2, 1.0)
+
+[node name="LegalTrapZone" type="Area2D" parent="."]
+position = Vector2(725, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LegalTrapZone"]
+shape = SubResource("RectangleShape2D_legal")
+
+[node name="Visual" type="ColorRect" parent="LegalTrapZone"]
+offset_left = -125.0
+offset_top = -75.0
+offset_right = 125.0
+offset_bottom = 75.0
+color = Color(0.5, 0.3, 0.6, 0.2)
+
+[node name="Label" type="Label" parent="LegalTrapZone"]
+offset_left = -100.0
+offset_top = -95.0
+offset_right = 100.0
+offset_bottom = -65.0
+text = "[LEGAL TRAP FLOOR]"
+horizontal_alignment = 1
+
+# Elevator to Floor 2
+[node name="Elevator1" type="ColorRect" parent="."]
+offset_left = 750.0
+offset_top = 300.0
+offset_right = 830.0
+offset_bottom = 380.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Elevator1Label" type="Label" parent="Elevator1"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 25.0
+offset_right = 70.0
+offset_bottom = 55.0
+text = "ELEV
+UP ->"
+horizontal_alignment = 1
+
+# ============================================================================
+# FLOOR 2: VAULT TIMING FLOOR
+# ============================================================================
+
+[node name="VaultFloor" type="ColorRect" parent="."]
+offset_left = 950.0
+offset_top = 100.0
+offset_right = 1300.0
+offset_bottom = 400.0
+color = Color(0.15, 0.2, 0.15, 1.0)
+
+[node name="VaultLabel" type="Label" parent="VaultFloor"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 10.0
+offset_right = 225.0
+offset_bottom = 40.0
+text = "VAULT ACCESS"
+horizontal_alignment = 1
+
+[node name="VaultDoor" type="ColorRect" parent="VaultFloor"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 100.0
+offset_right = 225.0
+offset_bottom = 220.0
+color = Color(0.7, 0.6, 0.2, 1.0)
+
+[node name="VaultDoorLabel" type="Label" parent="VaultFloor/VaultDoor"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 90.0
+offset_bottom = 70.0
 text = "VAULT"
 horizontal_alignment = 1
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(275, 650)
+[node name="VaultTimingZone" type="Area2D" parent="."]
+position = Vector2(1125, 250)
 
-[node name="GoonSpawns" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VaultTimingZone"]
+shape = SubResource("RectangleShape2D_vault")
 
-[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(300, 400)
+[node name="Visual" type="ColorRect" parent="VaultTimingZone"]
+offset_left = -125.0
+offset_top = -75.0
+offset_right = 125.0
+offset_bottom = 75.0
+color = Color(0.2, 0.5, 0.3, 0.2)
 
-[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(550, 250)
-
-[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(850, 450)
-
-[node name="GoonSpawn4" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(700, 600)
-
-[node name="GoonSpawn5" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(450, 150)
-
-[node name="GoonSpawn6" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(925, 250)
-
-[node name="VaultZone" type="Area2D" parent="."]
-position = Vector2(925, 250)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VaultZone"]
-shape = SubResource("CircleShape2D_vault")
-
-[node name="VaultVisual" type="Polygon2D" parent="VaultZone"]
-polygon = PackedVector2Array([
-	Vector2(-24, -24), Vector2(24, -24),
-	Vector2(24, 24), Vector2(-24, 24)
-])
-color = Color(0.8, 0.7, 0.3, 1.0)
-
-[node name="VaultLabel" type="Label" parent="VaultZone"]
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = -20.0
-text = "[TARGET]"
+[node name="Label" type="Label" parent="VaultTimingZone"]
+offset_left = -100.0
+offset_top = -95.0
+offset_right = 100.0
+offset_bottom = -65.0
+text = "[VAULT TIMING FLOOR]"
 horizontal_alignment = 1
 
+# Elevator to Floor 3
+[node name="Elevator2" type="ColorRect" parent="."]
+offset_left = 1150.0
+offset_top = 300.0
+offset_right = 1230.0
+offset_bottom = 380.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Elevator2Label" type="Label" parent="Elevator2"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 25.0
+offset_right = 70.0
+offset_bottom = 55.0
+text = "ELEV
+UP ->"
+horizontal_alignment = 1
+
+# ============================================================================
+# FLOOR 3: BASS BLACKOUT FLOOR (Security)
+# ============================================================================
+
+[node name="SecurityFloor" type="ColorRect" parent="."]
+offset_left = 100.0
+offset_top = 450.0
+offset_right = 500.0
+offset_bottom = 750.0
+color = Color(0.2, 0.15, 0.15, 1.0)
+
+[node name="SecurityLabel" type="Label" parent="SecurityFloor"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 40.0
+text = "SECURITY"
+horizontal_alignment = 1
+
+[node name="SecurityConsole" type="ColorRect" parent="SecurityFloor"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 80.0
+offset_right = 380.0
+offset_bottom = 180.0
+color = Color(0.1, 0.4, 0.2, 1.0)
+
+[node name="ConsoleLabel" type="Label" parent="SecurityFloor/SecurityConsole"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 90.0
+offset_bottom = 60.0
+text = "ALARMS"
+horizontal_alignment = 1
+
+[node name="BassBlackoutZone" type="Area2D" parent="."]
+position = Vector2(300, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BassBlackoutZone"]
+shape = SubResource("RectangleShape2D_bass")
+
+[node name="Visual" type="ColorRect" parent="BassBlackoutZone"]
+offset_left = -150.0
+offset_top = -75.0
+offset_right = 150.0
+offset_bottom = 75.0
+color = Color(0.4, 0.2, 0.4, 0.2)
+
+[node name="Label" type="Label" parent="BassBlackoutZone"]
+offset_left = -100.0
+offset_top = -95.0
+offset_right = 100.0
+offset_bottom = -65.0
+text = "[BASS BLACKOUT ZONE]"
+horizontal_alignment = 1
+
+[node name="Speaker" type="ColorRect" parent="BassBlackoutZone"]
+offset_left = 100.0
+offset_top = -50.0
+offset_right = 140.0
+offset_bottom = -10.0
+color = Color(0.3, 0.3, 0.3, 1.0)
+
+[node name="SpeakerLabel" type="Label" parent="BassBlackoutZone/Speaker"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 10.0
+offset_right = 35.0
+offset_bottom = 30.0
+text = "SUB"
+horizontal_alignment = 1
+
+# ============================================================================
+# FLOOR 4: COMBAT HOLDOFF
+# ============================================================================
+
+[node name="CombatFloor" type="ColorRect" parent="."]
+offset_left = 550.0
+offset_top = 450.0
+offset_right = 950.0
+offset_bottom = 750.0
+color = Color(0.22, 0.18, 0.15, 1.0)
+
+[node name="CombatLabel" type="Label" parent="CombatFloor"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 40.0
+text = "HOLDOFF"
+horizontal_alignment = 1
+
+[node name="EllieDesk" type="ColorRect" parent="CombatFloor"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 120.0
+offset_right = 350.0
+offset_bottom = 180.0
+color = Color(0.4, 0.35, 0.3, 1.0)
+
+[node name="ElliePlush" type="ColorRect" parent="CombatFloor/EllieDesk"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = -20.0
+offset_right = 65.0
+offset_bottom = 20.0
+color = Color(0.9, 0.5, 0.7, 1.0)
+
+[node name="EllieLabel" type="Label" parent="CombatFloor/EllieDesk/ElliePlush"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 10.0
+offset_right = 25.0
+offset_bottom = 30.0
+text = "E"
+horizontal_alignment = 1
+
+[node name="CombatHoldoffZone" type="Area2D" parent="."]
+position = Vector2(750, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatHoldoffZone"]
+shape = SubResource("RectangleShape2D_combat")
+
+[node name="Visual" type="ColorRect" parent="CombatHoldoffZone"]
+offset_left = -175.0
+offset_top = -75.0
+offset_right = 175.0
+offset_bottom = 75.0
+color = Color(0.5, 0.35, 0.2, 0.2)
+
+[node name="Label" type="Label" parent="CombatHoldoffZone"]
+offset_left = -100.0
+offset_top = -95.0
+offset_right = 100.0
+offset_bottom = -65.0
+text = "[COMBAT HOLDOFF]"
+horizontal_alignment = 1
+
+# Security Guard Spawn Points
+[node name="SecurityGuardSpawns" type="Node2D" parent="."]
+
+[node name="Spawn1" type="Marker2D" parent="SecurityGuardSpawns"]
+position = Vector2(600, 550)
+
+[node name="Spawn2" type="Marker2D" parent="SecurityGuardSpawns"]
+position = Vector2(850, 650)
+
+[node name="Spawn3" type="Marker2D" parent="SecurityGuardSpawns"]
+position = Vector2(700, 700)
+
+# ============================================================================
+# FLOOR 5: BENTLEY VENT AREA
+# ============================================================================
+
+[node name="VentFloor" type="ColorRect" parent="."]
+offset_left = 1000.0
+offset_top = 450.0
+offset_right = 1300.0
+offset_bottom = 650.0
+color = Color(0.15, 0.15, 0.18, 1.0)
+
+[node name="VentLabel" type="Label" parent="VentFloor"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "VENT ACCESS"
+horizontal_alignment = 1
+
+[node name="Vent" type="ColorRect" parent="VentFloor"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 80.0
+offset_right = 110.0
+offset_bottom = 140.0
+color = Color(0.25, 0.25, 0.3, 1.0)
+
+[node name="VentGrate" type="Label" parent="VentFloor/Vent"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 55.0
+offset_bottom = 40.0
+text = "|||"
+horizontal_alignment = 1
+
+[node name="BentleyVentZone" type="Area2D" parent="."]
+position = Vector2(1150, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BentleyVentZone"]
+shape = SubResource("RectangleShape2D_vent")
+
+[node name="Visual" type="ColorRect" parent="BentleyVentZone"]
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 40.0
+color = Color(0.3, 0.3, 0.35, 0.5)
+
+[node name="Label" type="Label" parent="BentleyVentZone"]
+offset_left = -50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "[BENTLEY'S VENT]"
+horizontal_alignment = 1
+
+# ============================================================================
+# FLOOR 6: VICTOR CONFRONTATION
+# ============================================================================
+
+[node name="VictorOffice" type="ColorRect" parent="."]
+offset_left = 1100.0
+offset_top = 800.0
+offset_right = 1500.0
+offset_bottom = 1100.0
+color = Color(0.25, 0.2, 0.15, 1.0)
+
+[node name="OfficeLabel" type="Label" parent="VictorOffice"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 40.0
+text = "STERLING'S OFFICE"
+horizontal_alignment = 1
+
+[node name="VictorDesk" type="ColorRect" parent="VictorOffice"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 200.0
+color = Color(0.5, 0.4, 0.3, 1.0)
+
+[node name="VictorSpawn" type="Marker2D" parent="VictorOffice"]
+position = Vector2(275, 80)
+
+[node name="VictorConfrontationZone" type="Area2D" parent="."]
+position = Vector2(1300, 950)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VictorConfrontationZone"]
+shape = SubResource("RectangleShape2D_victor")
+
+[node name="Visual" type="ColorRect" parent="VictorConfrontationZone"]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+color = Color(0.6, 0.2, 0.2, 0.2)
+
+[node name="Label" type="Label" parent="VictorConfrontationZone"]
+offset_left = -100.0
+offset_top = -120.0
+offset_right = 100.0
+offset_bottom = -90.0
+text = "[VICTOR CONFRONTATION]"
+horizontal_alignment = 1
+
+# ============================================================================
+# EXIT ZONE
+# ============================================================================
+
 [node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(275, 750)
+position = Vector2(275, 950)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
 shape = SubResource("RectangleShape2D_exit")
 
-[node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
-polygon = PackedVector2Array([
-	Vector2(-40, -24), Vector2(40, -24),
-	Vector2(40, 24), Vector2(-40, 24)
-])
+[node name="Visual" type="ColorRect" parent="ExitZone"]
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 40.0
 color = Color(0.2, 0.8, 0.4, 0.4)
 
-[node name="ExitLabel" type="Label" parent="ExitZone"]
+[node name="Label" type="Label" parent="ExitZone"]
 offset_left = -50.0
-offset_top = -50.0
+offset_top = -60.0
 offset_right = 50.0
-offset_bottom = -20.0
-text = "ESCAPE ->"
+offset_bottom = -30.0
+text = "[LOBBY EXIT]"
 horizontal_alignment = 1
 
+[node name="ExitArrow" type="Label" parent="ExitZone"]
+offset_left = -30.0
+offset_top = 10.0
+offset_right = 30.0
+offset_bottom = 40.0
+text = "EXIT ->"
+horizontal_alignment = 1
+
+# ============================================================================
+# PLAYER & CAMERA
+# ============================================================================
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(225, 250)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(600, 400)
-zoom = Vector2(1.0, 1.0)
+position = Vector2(800, 600)
+zoom = Vector2(0.6, 0.6)
 limit_left = 0
 limit_top = 0
-limit_right = 1200
-limit_bottom = 800
+limit_right = 1600
+limit_bottom = 1200
+
+# ============================================================================
+# WALLS / OBSTACLES (Static Bodies)
+# ============================================================================
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(800, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+shape = SubResource("RectangleShape2D_wallh")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(800, 1170)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+shape = SubResource("RectangleShape2D_wallh")
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(30, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource("RectangleShape2D_wallv")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(1570, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource("RectangleShape2D_wallv")
+
+# ============================================================================
+# DECORATIVE ELEMENTS
+# ============================================================================
+
+[node name="Decorations" type="Node2D" parent="."]
+
+[node name="Pillar1" type="ColorRect" parent="Decorations"]
+offset_left = 520.0
+offset_top = 80.0
+offset_right = 540.0
+offset_bottom = 420.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Pillar2" type="ColorRect" parent="Decorations"]
+offset_left = 910.0
+offset_top = 80.0
+offset_right = 930.0
+offset_bottom = 420.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Pillar3" type="ColorRect" parent="Decorations"]
+offset_left = 520.0
+offset_top = 430.0
+offset_right = 540.0
+offset_bottom = 770.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="Pillar4" type="ColorRect" parent="Decorations"]
+offset_left = 960.0
+offset_top = 430.0
+offset_right = 980.0
+offset_bottom = 770.0
+color = Color(0.35, 0.35, 0.4, 1.0)
+
+[node name="FloorDivider1" type="ColorRect" parent="Decorations"]
+offset_left = 50.0
+offset_top = 420.0
+offset_right = 1550.0
+offset_bottom = 430.0
+color = Color(0.1, 0.1, 0.12, 1.0)
+
+[node name="FloorDivider2" type="ColorRect" parent="Decorations"]
+offset_left = 50.0
+offset_top = 780.0
+offset_right = 1550.0
+offset_bottom = 790.0
+color = Color(0.1, 0.1, 0.12, 1.0)
+
+[node name="SterlingLogo" type="ColorRect" parent="Decorations"]
+offset_left = 1300.0
+offset_top = 820.0
+offset_right = 1400.0
+offset_bottom = 920.0
+color = Color(0.6, 0.5, 0.3, 0.5)
+
+[node name="LogoLabel" type="Label" parent="Decorations/SterlingLogo"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 40.0
+offset_right = 75.0
+offset_bottom = 60.0
+text = "VS"
+horizontal_alignment = 1
+
+# ============================================================================
+# PATH INDICATORS
+# ============================================================================
+
+[node name="PathMarkers" type="Node2D" parent="."]
+
+[node name="Arrow1" type="Label" parent="PathMarkers"]
+offset_left = 440.0
+offset_top = 200.0
+offset_right = 480.0
+offset_bottom = 230.0
+text = "->"
+horizontal_alignment = 1
+
+[node name="Arrow2" type="Label" parent="PathMarkers"]
+offset_left = 790.0
+offset_top = 250.0
+offset_right = 830.0
+offset_bottom = 280.0
+text = "->"
+horizontal_alignment = 1
+
+[node name="Arrow3" type="Label" parent="PathMarkers"]
+offset_left = 1190.0
+offset_top = 250.0
+offset_right = 1230.0
+offset_bottom = 280.0
+text = "->"
+horizontal_alignment = 1
+
+[node name="Arrow4" type="Label" parent="PathMarkers"]
+offset_left = 440.0
+offset_top = 600.0
+offset_right = 480.0
+offset_bottom = 630.0
+text = "->"
+horizontal_alignment = 1
+
+[node name="Arrow5" type="Label" parent="PathMarkers"]
+offset_left = 890.0
+offset_top = 600.0
+offset_right = 930.0
+offset_bottom = 630.0
+text = "->"
+horizontal_alignment = 1
+
+[node name="Arrow6" type="Label" parent="PathMarkers"]
+offset_left = 1190.0
+offset_top = 650.0
+offset_right = 1230.0
+offset_bottom = 680.0
+text = "v"
+horizontal_alignment = 1
+
+[node name="Arrow7" type="Label" parent="PathMarkers"]
+offset_left = 1090.0
+offset_top = 950.0
+offset_right = 1130.0
+offset_bottom = 980.0
+text = "<-"
+horizontal_alignment = 1

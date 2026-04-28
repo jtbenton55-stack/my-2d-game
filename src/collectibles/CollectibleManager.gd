@@ -5,7 +5,13 @@ var polaroid_catalog: Dictionary = {
 	"jazz_club_polaroid": {"title": "Velvet Paw", "description": "Noir lights, bass downstairs, secrets backstage."},
 	"rewrite_room_polaroid": {"title": "The Rewrite Room", "description": "Creative proof recovered from predatory paperwork."},
 	"car_chase_polaroid": {"title": "Fast Family Getaway", "description": "Rain, sirens, and a Shiba with opinions."},
-	"final_crew_polaroid": {"title": "Friends Helping Friends", "description": "The whole crew showed up."}
+	"final_crew_polaroid": {"title": "Friends Helping Friends", "description": "The whole crew showed up."},
+	"clean_job_polaroid": {"title": "The Clean Job", "description": "A luxury showroom code revealed by spotless glass."},
+	"diamond_vault_polaroid": {"title": "Diamond a Year", "description": "The tribute stones lined up by year, each one louder than the last."},
+	"arm_wrestling_polaroid": {"title": "Arm-Wrestling Underground", "description": "Parmida at the table with Violet watching like a proud coach."},
+	"persian_tea_polaroid": {"title": "Persian Tea and Poison Ink", "description": "Sour cherry tea, watercolor clues, and a conservatory saved."},
+	"ellie_polaroid": {"title": "The Elephant in the Room", "description": "Bentley reunited with Ellie, the only creature he respects more than himself."},
+	"shadow_solo_polaroid": {"title": "Shadow Solo Contract", "description": "Kiro, Jin, neon shadows, and Bentley being unimpressed."}
 }
 
 func _ready() -> void:

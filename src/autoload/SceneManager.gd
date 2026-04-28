@@ -10,6 +10,8 @@ const SCHEME_CARD_SCENE := "res://scenes/ui/SchemeCardMenu.tscn"
 const MISSION_RESULT_SCENE := "res://scenes/ui/MissionResult.tscn"
 const POLAROID_GALLERY_SCENE := "res://scenes/ui/PolaroidGallery.tscn"
 const CREW_MENU_SCENE := "res://scenes/ui/CrewMenu.tscn"
+const EVIDENCE_BOARD_SCENE := "res://src/ui/evidence_board/evidence_board.tscn"
+const ENDING_SCENE := "res://scenes/ui/Ending.tscn"
 
 var transition_in_progress := false
 
@@ -20,11 +22,24 @@ func change_scene(scene_path: String, _transition_type = Transition.NONE, _trans
 	if scene_path == "":
 		return
 	if transition_in_progress:
+		EventBus.warn("Scene change already in progress: " + scene_path)
 		return
 	transition_in_progress = true
+	call_deferred("_change_scene_deferred", scene_path)
+
+func _change_scene_deferred(scene_path: String) -> void:
+	if not ResourceLoader.exists(scene_path):
+		EventBus.warn("Scene file not found: " + scene_path)
+		transition_in_progress = false
+		return
 	var err := get_tree().change_scene_to_file(scene_path)
 	if err != OK:
 		EventBus.warn("Scene change failed: " + scene_path + " error=" + str(err))
+		if GameState.is_in_mission:
+			GameState.is_in_mission = false
+			GameState.current_mission_id = ""
+	else:
+		GameState.pending_mission_id = ""
 	transition_in_progress = false
 
 func change_to_scene(scene_name: String, _transition_type = Transition.NONE, _transition_time = 0.2) -> void:
@@ -50,6 +65,9 @@ func continue_game() -> void:
 
 func open_mission_select() -> void:
 	change_scene(MISSION_SELECT_SCENE)
+
+func open_city_hub() -> void:
+	change_scene(CITY_HUB_SCENE)
 
 func open_scheme_card_menu(mission_id: String) -> void:
 	GameState.set_pending_mission(mission_id)
@@ -84,3 +102,10 @@ func open_polaroid_gallery() -> void:
 
 func open_crew_menu() -> void:
 	change_scene(CREW_MENU_SCENE)
+
+func open_evidence_board() -> void:
+	change_scene(EVIDENCE_BOARD_SCENE)
+
+func show_ending() -> void:
+	SaveManager.auto_save()
+	change_scene(ENDING_SCENE)

@@ -9,6 +9,7 @@ var player: Node2D = null
 var dog: Node2D = null
 var is_complete := false
 var is_failed := false
+var active_camera: Camera2D = null
 
 func _ready() -> void:
 	_apply_card_effects()
@@ -27,7 +28,7 @@ func _ready() -> void:
 
 func _apply_card_effects() -> void:
 	# Apply detection reduction from cards
-	var detection_reduction: float = CardEffects.get_guard_detection_reduction()
+	var detection_reduction: float = _card_float("get_guard_detection_reduction", 0.0)
 	if detection_reduction > 0.0:
 		for enemy in get_tree().get_nodes_in_group("enemy"):
 			if enemy.has_method("set_detection_multiplier"):
@@ -44,9 +45,20 @@ func _spawn_player_if_needed() -> void:
 		var scene := preload("res://scenes/characters/player.tscn")
 		player = scene.instantiate()
 		add_child(player)
-	var spawn := get_node_or_null("PlayerSpawn") as Node2D
+	var spawn := _get_spawn_point()
 	if spawn:
 		player.global_position = spawn.global_position
+
+func _get_spawn_point() -> Node2D:
+	var spawn_name: String = GameState.next_spawn
+	if spawn_name != "":
+		var spawn_points := get_node_or_null("SpawnPoints")
+		if spawn_points:
+			var named_spawn := spawn_points.get_node_or_null(spawn_name) as Node2D
+			if named_spawn:
+				GameState.next_spawn = "default"
+				return named_spawn
+	return get_node_or_null("PlayerSpawn") as Node2D
 
 func _spawn_dog_if_needed() -> void:
 	dog = get_tree().get_first_node_in_group("bentley") as Node2D
@@ -69,11 +81,15 @@ func _spawn_default_enemies() -> void:
 		enemy.global_position = Vector2(280 + i * 80, 280)
 
 func _setup_camera() -> void:
-	var camera := get_node_or_null("Camera2D") as Camera2D
-	if camera:
-		camera.make_current()
+	active_camera = get_node_or_null("Camera2D") as Camera2D
+	if active_camera:
+		active_camera.make_current()
 		if player:
-			camera.global_position = player.global_position
+			active_camera.global_position = player.global_position
+
+func _process(_delta: float) -> void:
+	if active_camera and player:
+		active_camera.global_position = player.global_position
 
 func _setup_exit_zone() -> void:
 	var exit_zone := get_node_or_null("ExitZone")
@@ -112,7 +128,21 @@ func _ensure_common_ui() -> void:
 		var dialogue := preload("res://scenes/ui/DialogueBox.tscn").instantiate()
 		dialogue.name = "DialogueBox"
 		add_child(dialogue)
+	if get_node_or_null("ControlsOverlay") == null:
+		var overlay_scene := load("res://src/ui/test_ui/controls_overlay.tscn") as PackedScene
+		if overlay_scene:
+			var overlay := overlay_scene.instantiate()
+			overlay.name = "ControlsOverlay"
+			add_child(overlay)
 	if get_node_or_null("PauseMenu") == null:
-		var pause := preload("res://scenes/ui/pause_menu.tscn").instantiate()
-		pause.name = "PauseMenu"
-		add_child(pause)
+		var pause_scene := load("res://src/ui/test_ui/pause_menu.tscn") as PackedScene
+		if pause_scene:
+			var pause := pause_scene.instantiate()
+			pause.name = "PauseMenu"
+			add_child(pause)
+
+func _card_float(method_name: String, fallback: float) -> float:
+	var card_effects = get_node_or_null("/root/CardEffects")
+	if card_effects != null and card_effects.has_method(method_name):
+		return float(card_effects.call(method_name))
+	return fallback

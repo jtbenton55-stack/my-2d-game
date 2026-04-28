@@ -9,8 +9,9 @@ signal died(enemy)
 @export var detection_range := 200.0
 @export var attack_damage := 8
 @export var attack_range := 42.0
-@export var aggro_range := 240.0
+@export var aggro_range := 120.0
 @export var attack_cooldown := 0.8
+@export var stealth_aggro_multiplier := 0.35
 
 var health := 40
 var target: Node2D = null
@@ -41,11 +42,14 @@ func _update_ai(_delta: float) -> void:
 		move_and_slide()
 		return
 	var distance := global_position.distance_to(target.global_position)
+	var effective_aggro_range := aggro_range
+	if target.has_method("is_stealth_active") and target.is_stealth_active():
+		effective_aggro_range *= stealth_aggro_multiplier
 	if distance <= attack_range:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		_try_attack()
-	elif distance <= aggro_range:
+	elif distance <= effective_aggro_range:
 		velocity = (target.global_position - global_position).normalized() * chase_speed
 		move_and_slide()
 	else:

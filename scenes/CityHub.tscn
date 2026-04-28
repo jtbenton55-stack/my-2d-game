@@ -1,8 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://cityhub12345"]
+[gd_scene load_steps=6 format=3 uid="uid://cityhub12345"]
 
 [ext_resource type="Script" path="res://src/levels/CityHub.gd" id="1_cityhub"]
-[ext_resource type="PackedScene" uid="uid://player123" path="res://scenes/characters/player.tscn" id="2_cityhub"]
-[ext_resource type="PackedScene" uid="uid://dog123" path="res://scenes/characters/dog.tscn" id="3_cityhub"]
+[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="TileSet" id="TileSet_city"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
+size = Vector2(72, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npc"]
+size = Vector2(42, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mission"]
+size = Vector2(58, 58)
 
 [node name="CityHub" type="Node2D"]
 script = ExtResource("1_cityhub")
@@ -22,7 +32,18 @@ position = Vector2(200, 300)
 shape = SubResource("RectangleShape2D_hideout")
 
 [node name="Sprite2D" type="Sprite2D" parent="HideoutEntrance"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="HideoutEntrance"]
+offset_left = -70.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.8, 0.8, 1, 1)
+text = "[HIDEOUT]"
+horizontal_alignment = 1
 
 [node name="LouisNPC" type="Area2D" parent="."]
 position = Vector2(500, 200)
@@ -31,7 +52,18 @@ position = Vector2(500, 200)
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LouisNPC"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="LouisNPC"]
+offset_left = -50.0
+offset_top = -38.0
+offset_right = 50.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9, 0.75, 0.35, 1)
+text = "LOUIS"
+horizontal_alignment = 1
 
 [node name="YordanoNPC" type="Area2D" parent="."]
 position = Vector2(600, 400)
@@ -40,7 +72,18 @@ position = Vector2(600, 400)
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D3" type="Sprite2D" parent="YordanoNPC"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="YordanoNPC"]
+offset_left = -60.0
+offset_top = -38.0
+offset_right = 60.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.7, 1, 1)
+text = "YORDANO"
+horizontal_alignment = 1
 
 [node name="MereNPC" type="Area2D" parent="."]
 position = Vector2(300, 400)
@@ -49,7 +92,18 @@ position = Vector2(300, 400)
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D4" type="Sprite2D" parent="MereNPC"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="MereNPC"]
+offset_left = -50.0
+offset_top = -38.0
+offset_right = 50.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)
+text = "MERE"
+horizontal_alignment = 1
 
 [node name="DomNPC" type="Area2D" parent="."]
 position = Vector2(700, 200)
@@ -58,7 +112,18 @@ position = Vector2(700, 200)
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D5" type="Sprite2D" parent="DomNPC"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="DomNPC"]
+offset_left = -50.0
+offset_top = -38.0
+offset_right = 50.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.9, 0.6, 1)
+text = "DOM"
+horizontal_alignment = 1
 
 [node name="JakeNPC" type="Area2D" parent="."]
 position = Vector2(400, 500)
@@ -67,7 +132,18 @@ position = Vector2(400, 500)
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D6" type="Sprite2D" parent="JakeNPC"]
-texture = ExtResource("4_cityhub")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="Label" type="Label" parent="JakeNPC"]
+offset_left = -50.0
+offset_top = -38.0
+offset_right = 50.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 1, 0.9, 1)
+text = "JAKE"
+horizontal_alignment = 1
 
 [node name="MissionTrigger_taco_bell_drop" type="Area2D" parent="."]
 position = Vector2(100, 100)
@@ -75,11 +151,31 @@ position = Vector2(100, 100)
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="MissionTrigger_taco_bell_drop"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Label" type="Label" parent="MissionTrigger_taco_bell_drop"]
+offset_left = -70.0
+offset_top = -58.0
+offset_right = 70.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.9, 0.7, 0.3, 1)
+text = "TACO DROP"
+horizontal_alignment = 1
+
 [node name="MissionTrigger_velvet_paw_jazz_club" type="Area2D" parent="."]
 position = Vector2(700, 100)
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="MissionTrigger_velvet_paw_jazz_club"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_velvet_paw_jazz_club"]
+offset_left = -85.0
+offset_top = -58.0
+offset_right = 85.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.7, 1, 1)
+text = "VELVET PAW"
+horizontal_alignment = 1
 
 [node name="MissionTrigger_rewrite_room" type="Area2D" parent="."]
 position = Vector2(100, 500)
@@ -87,17 +183,143 @@ position = Vector2(100, 500)
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="MissionTrigger_rewrite_room"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Label" type="Label" parent="MissionTrigger_rewrite_room"]
+offset_left = -85.0
+offset_top = -58.0
+offset_right = 85.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)
+text = "REWRITE ROOM"
+horizontal_alignment = 1
+
 [node name="MissionTrigger_fast_family_getaway" type="Area2D" parent="."]
 position = Vector2(700, 500)
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="MissionTrigger_fast_family_getaway"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Label" type="Label" parent="MissionTrigger_fast_family_getaway"]
+offset_left = -90.0
+offset_top = -58.0
+offset_right = 90.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.9, 0.6, 1)
+text = "FAST FAMILY"
+horizontal_alignment = 1
+
 [node name="MissionTrigger_sterling_tower_heist" type="Area2D" parent="."]
 position = Vector2(400, 100)
 
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="MissionTrigger_sterling_tower_heist"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_sterling_tower_heist"]
+offset_left = -95.0
+offset_top = -58.0
+offset_right = 95.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.55, 0.55, 1)
+text = "STERLING TOWER"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_clean_job" type="Area2D" parent="."]
+position = Vector2(245, 125)
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="MissionTrigger_clean_job"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_clean_job"]
+offset_left = -80.0
+offset_top = -58.0
+offset_right = 80.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.75, 0.95, 1, 1)
+text = "CLEAN JOB"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_arm_wrestling_underground" type="Area2D" parent="."]
+position = Vector2(610, 295)
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="MissionTrigger_arm_wrestling_underground"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_arm_wrestling_underground"]
+offset_left = -110.0
+offset_top = -58.0
+offset_right = 110.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.65, 0.75, 1)
+text = "ARM WRESTLING"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_diamond_a_year_job" type="Area2D" parent="."]
+position = Vector2(250, 505)
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="MissionTrigger_diamond_a_year_job"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_diamond_a_year_job"]
+offset_left = -105.0
+offset_top = -58.0
+offset_right = 105.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.95, 1, 1)
+text = "DIAMOND YEAR"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_persian_tea_poison_ink" type="Area2D" parent="."]
+position = Vector2(520, 505)
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="MissionTrigger_persian_tea_poison_ink"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_persian_tea_poison_ink"]
+offset_left = -105.0
+offset_top = -58.0
+offset_right = 105.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.9, 0.75, 1, 1)
+text = "PERSIAN TEA"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_elephant_in_the_room" type="Area2D" parent="."]
+position = Vector2(295, 225)
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="MissionTrigger_elephant_in_the_room"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_elephant_in_the_room"]
+offset_left = -95.0
+offset_top = -58.0
+offset_right = 95.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.75, 0.95, 1)
+text = "ELEPHANT ROOM"
+horizontal_alignment = 1
+
+[node name="MissionTrigger_shadow_solo_contract" type="Area2D" parent="."]
+position = Vector2(535, 225)
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="MissionTrigger_shadow_solo_contract"]
+shape = SubResource("RectangleShape2D_mission")
+
+[node name="Label" type="Label" parent="MissionTrigger_shadow_solo_contract"]
+offset_left = -100.0
+offset_top = -58.0
+offset_right = 100.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
+text = "SHADOW SOLO"
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(400, 300)
@@ -106,16 +328,3 @@ limit_left = 0
 limit_top = 0
 limit_right = 800
 limit_bottom = 600
-
-[ext_resource type="CompressedTexture2D" uid="uid://icon123" path="res://icon.svg" id="4_cityhub"]
-
-[sub_resource type="TileSet" id="TileSet_city"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
-size = Vector2(64, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_npc"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mission"]
-size = Vector2(48, 48)

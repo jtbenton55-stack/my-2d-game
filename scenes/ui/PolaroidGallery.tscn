@@ -33,7 +33,7 @@ offset_bottom = 70.0
 grow_horizontal = 2
 theme = ExtResource("2_pgtheme")
 text = "Memory Gallery"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -87,7 +87,7 @@ offset_right = -15.0
 offset_bottom = -15.0
 theme = ExtResource("2_pgtheme")
 text = "Select a polaroid to view its memory."
-autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+autowrap_mode = 3
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1

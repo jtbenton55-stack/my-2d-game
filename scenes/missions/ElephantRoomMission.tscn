@@ -1,0 +1,418 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhk4csdpuyhgi"]
+
+[ext_resource type="Script" path="res://src/missions/ElephantRoomMission.gd" id="1_elephant"]
+[ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="2_dialogue"]
+[ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="3_note"]
+[ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="4_polaroid"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_objective"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(120, 70)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 40.0
+
+[node name="ElephantRoomMission" type="Node2D"]
+script = ExtResource("1_elephant")
+mission_id = "elephant_in_the_room"
+guard_count = 5
+objective_text = "Ellie is missing. Follow the scent clues to find her."
+completion_item_name = "scent clue"
+completion_line = "Ellie is safe. Bentley's loyalty surges."
+missing_item_line = "Bentley will not leave without Ellie."
+
+[node name="WarehouseFloor" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1500.0
+offset_bottom = 950.0
+color = Color(0.08, 0.075, 0.09, 1)
+
+[node name="CrateMaze" type="ColorRect" parent="."]
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 1300.0
+offset_bottom = 800.0
+color = Color(0.22, 0.16, 0.12, 1)
+
+[node name="StorageZone" type="ColorRect" parent="."]
+offset_left = 1200.0
+offset_top = 200.0
+offset_right = 1420.0
+offset_bottom = 450.0
+color = Color(0.18, 0.14, 0.10, 1)
+
+[node name="StorageLabel" type="Label" parent="StorageZone"]
+offset_left = 70.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 130.0
+text = "STORAGE"
+horizontal_alignment = 1
+
+[node name="GuardPost" type="ColorRect" parent="."]
+offset_left = 900.0
+offset_top = 500.0
+offset_right = 1100.0
+offset_bottom = 680.0
+color = Color(0.25, 0.20, 0.15, 1)
+
+[node name="GuardPostLabel" type="Label" parent="GuardPost"]
+offset_left = 50.0
+offset_top = 70.0
+offset_right = 150.0
+offset_bottom = 100.0
+text = "GUARD POST"
+horizontal_alignment = 1
+
+[node name="ElliesCage" type="ColorRect" parent="."]
+visible = false
+offset_left = 1250.0
+offset_top = 550.0
+offset_right = 1380.0
+offset_bottom = 720.0
+color = Color(0.3, 0.15, 0.15, 1)
+
+[node name="CageLabel" type="Label" parent="ElliesCage"]
+visible = false
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 110.0
+offset_bottom = 100.0
+text = "[CAGE]"
+horizontal_alignment = 1
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(100, 850)
+
+[node name="BentleySpawn" type="Marker2D" parent="."]
+position = Vector2(140, 880)
+
+[node name="GuardSpawns" type="Node2D" parent="."]
+
+[node name="GuardSpawn1" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(450, 250)
+
+[node name="GuardSpawn2" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(750, 350)
+
+[node name="GuardSpawn3" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(600, 600)
+
+[node name="GuardSpawn4" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(980, 580)
+
+[node name="GuardSpawn5" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(1280, 300)
+
+[node name="Objective_ScentOne" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(380, 280)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_ScentOne"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_ScentOne"]
+offset_left = -15.0
+offset_top = -10.0
+offset_right = 15.0
+offset_bottom = 10.0
+color = Color(0.9, 0.5, 0.7, 1)
+
+[node name="Label" type="Label" parent="Objective_ScentOne"]
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -25.0
+text = "[PINK THREAD]"
+horizontal_alignment = 1
+
+[node name="Objective_ScentTwo" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(720, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_ScentTwo"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_ScentTwo"]
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 12.0
+offset_bottom = 8.0
+color = Color(0.8, 0.7, 0.4, 1)
+
+[node name="Label" type="Label" parent="Objective_ScentTwo"]
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -25.0
+text = "[FISH TREAT]"
+horizontal_alignment = 1
+
+[node name="Objective_ScentThree" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(1050, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_ScentThree"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_ScentThree"]
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 10.0
+offset_bottom = 8.0
+color = Color(0.3, 0.6, 0.8, 1)
+
+[node name="Label" type="Label" parent="Objective_ScentThree"]
+offset_left = -85.0
+offset_top = -55.0
+offset_right = 85.0
+offset_bottom = -25.0
+text = "[SQUEAKER TOY]"
+horizontal_alignment = 1
+
+[node name="Objective_Ellie" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(1315, 635)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_Ellie"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_Ellie"]
+offset_left = -18.0
+offset_top = -20.0
+offset_right = 18.0
+offset_bottom = 25.0
+color = Color(0.9, 0.6, 0.8, 1)
+
+[node name="Label" type="Label" parent="Objective_Ellie"]
+offset_left = -70.0
+offset_top = -55.0
+offset_right = 70.0
+offset_bottom = -25.0
+text = "[ELLIE]"
+horizontal_alignment = 1
+
+[node name="Optional_StorageLog" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(1310, 280)
+script = ExtResource("3_note")
+note_title = "Storage Log"
+note_text = "'Item #772: Pink plush elephant, recovered from target's vehicle. Scheduled for disposal tomorrow.' Someone's going to pay for this."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_StorageLog"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_StorageLog"]
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 16.0
+offset_bottom = 20.0
+color = Color(0.5, 0.5, 0.55, 1)
+
+[node name="Label" type="Label" parent="Optional_StorageLog"]
+offset_left = -85.0
+offset_top = -55.0
+offset_right = 85.0
+offset_bottom = -25.0
+text = "[STORAGE LOG]"
+horizontal_alignment = 1
+
+[node name="Optional_BentleyBed" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(260, 720)
+script = ExtResource("3_note")
+note_title = "Makeshift Dog Bed"
+note_text = "A pile of old blankets in the corner. There's dog hair here — Bentley must have been waiting here while Ellie was taken. The blankets are still warm."
+
+[node name="CollisionShape22D" type="CollisionShape2D" parent="Optional_BentleyBed"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_BentleyBed"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.5, 0.4, 0.35, 0.8)
+
+[node name="Label" type="Label" parent="Optional_BentleyBed"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[BENTLEY'S BED]"
+horizontal_alignment = 1
+
+[node name="Optional_GuardSnack" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(1000, 620)
+script = ExtResource("3_note")
+note_title = "Guard's Lunch"
+note_text = "A half-eaten sandwich sits on a crate. Bentley gives you a look that says: 'I could distract them. For Ellie.' The dedication is touching. The hygiene is questionable."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_GuardSnack"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_GuardSnack"]
+offset_left = -14.0
+offset_top = -12.0
+offset_right = 14.0
+offset_bottom = 12.0
+color = Color(0.6, 0.55, 0.4, 1)
+
+[node name="Label" type="Label" parent="Optional_GuardSnack"]
+offset_left = -85.0
+offset_top = -55.0
+offset_right = 85.0
+offset_bottom = -25.0
+text = "[GUARD SNACK]"
+horizontal_alignment = 1
+
+[node name="Polaroid_Reunion" type="Area2D" parent="."]
+position = Vector2(1315, 720)
+script = ExtResource("4_polaroid")
+polaroid_id = "ellie_rescue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Polaroid_Reunion"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Polaroid_Reunion"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 12.0
+offset_bottom = 15.0
+color = Color(0.9, 0.9, 0.85, 1)
+
+[node name="Label" type="Label" parent="Polaroid_Reunion"]
+offset_left = -60.0
+offset_top = -55.0
+offset_right = 60.0
+offset_bottom = -25.0
+text = "[POLAROID]"
+horizontal_alignment = 1
+
+[node name="OpeningDialogue" type="Node2D" parent="."]
+position = Vector2(100, 850)
+script = ExtResource("2_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "Bentley",
+"text": "*whimpering* ...Woof."
+}, {
+"speaker": "You",
+"text": "Bentley? What's wrong?"
+}, {
+"speaker": "Bentley",
+"text": "*urgent barking, looking toward the warehouse*"
+}, {
+"speaker": "You",
+"text": "Ellie... she's gone. Someone took her."
+}])
+
+[node name="Label" type="Label" parent="OpeningDialogue"]
+offset_left = -60.0
+offset_top = -70.0
+offset_right = 60.0
+offset_bottom = -40.0
+text = "[START]"
+horizontal_alignment = 1
+
+[node name="TriggerZone" type="Area2D" parent="OpeningDialogue"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpeningDialogue/TriggerZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="BentleySeriousMoment" type="Area2D" parent="."]
+position = Vector2(600, 400)
+script = ExtResource("3_note")
+note_title = "Bentley's Focus"
+note_text = "Bentley stops abruptly, nose to the ground. His usual playful energy is completely gone — replaced by a grim determination you've never seen before. He's not playing around. He's hunting."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BentleySeriousMoment"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="BentleySeriousMoment"]
+offset_left = -16.0
+offset_top = -14.0
+offset_right = 16.0
+offset_bottom = 14.0
+color = Color(0.4, 0.3, 0.35, 0.7)
+
+[node name="Label" type="Label" parent="BentleySeriousMoment"]
+offset_left = -100.0
+offset_top = -55.0
+offset_right = 100.0
+offset_bottom = -25.0
+text = "[BENTLEY'S SERIOUS SPOT]"
+horizontal_alignment = 1
+
+[node name="RescueMoment" type="Area2D" parent="."]
+position = Vector2(1315, 635)
+script = ExtResource("3_note")
+note_title = "The Rescue"
+note_text = "As you approach the cage, Bentley lets out a sound that's half bark, half sob. Ellie sits there — a bit dusty, trunk slightly askew, but intact. Bentley immediately curls around her protectively, looking at you with pure gratitude."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RescueMoment"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="RescueMoment"]
+visible = false
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 18.0
+color = Color(0.8, 0.5, 0.6, 0.5)
+
+[node name="Label" type="Label" parent="RescueMoment"]
+visible = false
+offset_left = -70.0
+offset_top = -75.0
+offset_right = 70.0
+offset_bottom = -45.0
+text = "[RESCUE]"
+horizontal_alignment = 1
+
+[node name="LoyaltyDialogue" type="Node2D" parent="."]
+position = Vector2(1200, 750)
+script = ExtResource("2_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "Bentley",
+"text": "*soft woof, nuzzling Ellie*"
+}, {
+"speaker": "You",
+"text": "I know, buddy. Never again."
+}, {
+"speaker": "Bentley",
+"text": "*determined look, then a single sharp bark*"
+}, {
+"speaker": "You",
+"text": "Bentley looks at you with new loyalty. You can feel he'll always have your back now."
+}])
+
+[node name="Label" type="Label" parent="LoyaltyDialogue"]
+offset_left = -80.0
+offset_top = -70.0
+offset_right = 80.0
+offset_bottom = -40.0
+text = "[LOYALTY MOMENT]"
+horizontal_alignment = 1
+
+[node name="TriggerZone" type="Area2D" parent="LoyaltyDialogue"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoyaltyDialogue/TriggerZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(1450, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Label" type="Label" parent="ExitZone"]
+offset_left = -55.0
+offset_top = -45.0
+offset_right = 55.0
+offset_bottom = -15.0
+text = "EXIT"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(750, 475)
+zoom = Vector2(0.9, 0.9)
+limit_left = 0
+limit_top = 0
+limit_right = 1500
+limit_bottom = 950

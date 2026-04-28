@@ -20,10 +20,9 @@ func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player") as Node2D
 	if target == null:
 		call_deferred("_find_target")
-	# Initialize with correct values from CardEffects
-	var recharge_mult: float = CardEffects.get_bentley_recharge_multiplier()
+	var recharge_mult: float = _card_float("get_bentley_recharge_multiplier", 1.0)
 	recharge_rate *= recharge_mult
-	var radius_mult: float = CardEffects.get_bentley_bark_radius_multiplier()
+	var radius_mult: float = _card_float("get_bentley_bark_radius_multiplier", 1.0)
 	bark_radius *= radius_mult
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
 
@@ -49,10 +48,11 @@ func _follow(delta: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, max_speed * delta * 4.0)
 	move_and_slide()
+	_clamp_to_scene_bounds()
 
 func _recharge(delta: float) -> void:
 	var rate: float = recharge_rate
-	var recharge_mult: float = CardEffects.get_bentley_recharge_multiplier()
+	var recharge_mult: float = _card_float("get_bentley_recharge_multiplier", 1.0)
 	rate *= recharge_mult
 	ability_meter = min(ability_max, ability_meter + rate * delta)
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
@@ -62,7 +62,7 @@ func bark_stun() -> bool:
 		return false
 	ability_meter -= bark_cost
 	AudioManager.play_sfx("bentley_bark", global_position)
-	var radius_mult: float = CardEffects.get_bentley_bark_radius_multiplier()
+	var radius_mult: float = _card_float("get_bentley_bark_radius_multiplier", 1.0)
 	var effective_radius: float = bark_radius * radius_mult
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if enemy is Node2D and global_position.distance_to(enemy.global_position) <= effective_radius:
@@ -79,4 +79,31 @@ func sniff() -> void:
 func _ability_pressed() -> bool:
 	if InputMap.has_action("bentley_ability") and Input.is_action_just_pressed("bentley_ability"):
 		return true
-	return InputMap.has_action("stealth") and Input.is_action_just_pressed("stealth")
+	return false
+
+func set_rain_penalty(active: bool) -> void:
+	# Rain slows Bentley's ability recharge
+	if active:
+		recharge_rate *= 0.6  # 40% slower in rain without raincoat
+		EventBus.objective_updated.emit("Bentley: *shakes rain from fur*")
+	else:
+		recharge_rate = 22.0  # Reset to base
+
+func _card_float(method_name: String, fallback: float) -> float:
+	var card_effects = get_node_or_null("/root/CardEffects")
+	if card_effects != null and card_effects.has_method(method_name):
+		return float(card_effects.call(method_name))
+	return fallback
+
+func _clamp_to_scene_bounds() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var camera := scene.get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		return
+	if camera.limit_right <= camera.limit_left or camera.limit_bottom <= camera.limit_top:
+		return
+	var margin := 24.0
+	global_position.x = clamp(global_position.x, float(camera.limit_left) + margin, float(camera.limit_right) - margin)
+	global_position.y = clamp(global_position.y, float(camera.limit_top) + margin, float(camera.limit_bottom) - margin)

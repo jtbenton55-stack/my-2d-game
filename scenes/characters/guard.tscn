@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq5w7v5v5o5v11"]
+[gd_scene load_steps=6 format=3 uid="uid://bq5w7v5v5o5v11"]
 
 [ext_resource type="Script" path="res://src/enemies/Guard.gd" id="1_9h8aw"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/guard_sprite_frames.tres" id="2_9h8aw"]
@@ -15,17 +15,17 @@ radius = 50.0
 [node name="Guard" type="CharacterBody2D"]
 script = ExtResource("1_9h8aw")
 max_health = 50
-detection_range = 200.0
+detection_range = 150.0
 attack_range = 50.0
 speed = 150.0
-chase_speed = 250.0
+chase_speed = 145.0
 acceleration = 10.0
 attack_damage = 10
 attack_cooldown = 1.0
 patrol_speed = 100.0
 wait_time_at_points = 2.0
-detection_speed = 1.0
-detection_decay = 0.5
+detection_speed = 0.45
+detection_decay = 0.75
 alert_duration = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -46,9 +46,12 @@ collision_mask = 1
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
 shape = SubResource("CircleShape2D_12h8aw")
 
-[node name="VisionCone" type="Polygon2D" parent="VisionArea"]
-polygon = PackedVector2Array([Vector2(0, 0), Vector2(100, -50), Vector2(100, 50)])
+[node name="VisionCone" type="ColorRect" parent="VisionArea"]
 color = Color(1, 0, 0, 0.2)
+offset_left = 0.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 monitoring = false

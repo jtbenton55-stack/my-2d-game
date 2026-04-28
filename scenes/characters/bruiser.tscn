@@ -78,5 +78,5 @@ color = Color(1, 0.3, 0.1, 0.4)
 [node name="NameLabel" type="Label" parent="."]
 position = Vector2(-24, -72)
 text = "Bruiser"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 add_theme_font_size_override("font_size", 10)

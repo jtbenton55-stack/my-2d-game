@@ -31,7 +31,7 @@ offset_bottom = 70.0
 grow_horizontal = 2
 theme = ExtResource("2_crewtheme")
 text = "Crew & Friends"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -80,7 +80,7 @@ offset_right = -20.0
 offset_bottom = 50.0
 theme = ExtResource("2_crewtheme")
 text = "Select a crew member"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 
 [node name="StatusLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 1
@@ -127,7 +127,7 @@ offset_right = -20.0
 offset_bottom = -20.0
 theme = ExtResource("2_crewtheme")
 text = "Each crew member offers unique cards when helped. Complete their missions to unlock their full potential."
-autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+autowrap_mode = 3
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1

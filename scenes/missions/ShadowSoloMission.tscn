@@ -1,0 +1,491 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0mvco4ocviyy"]
+
+[ext_resource type="Script" path="res://src/missions/ShadowSoloMission.gd" id="1_shadow"]
+[ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="2_dialogue"]
+[ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="3_note"]
+[ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="4_polaroid"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_objective"]
+radius = 42.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(120, 70)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 44.0
+
+[node name="ShadowSoloMission" type="Node2D"]
+script = ExtResource("1_shadow")
+mission_id = "shadow_solo_contract"
+guard_count = 6
+objective_text = "Enter the neon arena and face Kiro and Jin's trials."
+completion_item_name = "trial"
+completion_line = "The shadows bow. Bentley remains unimpressed."
+missing_item_line = "The arena still has a trial waiting."
+
+[node name="ArenaFloor" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1600.0
+offset_bottom = 1000.0
+color = Color(0.025, 0.025, 0.06, 1)
+
+[node name="NeonArena" type="ColorRect" parent="."]
+offset_left = 180.0
+offset_top = 100.0
+offset_right = 1420.0
+offset_bottom = 850.0
+color = Color(0.08, 0.03, 0.15, 0.9)
+
+[node name="ArenaBorder" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(180, 100), Vector2(1420, 100), Vector2(1420, 850), Vector2(180, 850), Vector2(180, 100)])
+width = 4.0
+default_color = Color(0.6, 0.15, 0.9, 0.8)
+
+[node name="ArenaLineA" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(260, 180), Vector2(1340, 820)])
+width = 6.0
+default_color = Color(0.55, 0.2, 1, 0.8)
+
+[node name="ArenaLineB" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(1340, 180), Vector2(260, 820)])
+width = 6.0
+default_color = Color(0.1, 0.7, 1, 0.8)
+
+[node name="ArenaLineC" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(800, 100), Vector2(800, 850)])
+width = 4.0
+default_color = Color(0.9, 0.3, 0.6, 0.6)
+
+[node name="ArenaCenterRing" type="ColorRect" parent="."]
+offset_left = 720.0
+offset_top = 430.0
+offset_right = 880.0
+offset_bottom = 520.0
+color = Color(0.12, 0.08, 0.2, 0.8)
+
+[node name="TrialZone_North" type="ColorRect" parent="."]
+offset_left = 600.0
+offset_top = 140.0
+offset_right = 1000.0
+offset_bottom = 300.0
+color = Color(0.1, 0.15, 0.25, 0.7)
+
+[node name="TrialZone_West" type="ColorRect" parent="."]
+offset_left = 220.0
+offset_top = 350.0
+offset_right = 480.0
+offset_bottom = 600.0
+color = Color(0.15, 0.1, 0.22, 0.7)
+
+[node name="TrialZone_East" type="ColorRect" parent="."]
+offset_left = 1120.0
+offset_top = 350.0
+offset_right = 1380.0
+offset_bottom = 600.0
+color = Color(0.22, 0.1, 0.18, 0.7)
+
+[node name="BentleySpectatorZone" type="ColorRect" parent="."]
+offset_left = 720.0
+offset_top = 700.0
+offset_right = 880.0
+offset_bottom = 800.0
+color = Color(0.2, 0.15, 0.25, 0.5)
+
+[node name="BentleyLabel" type="Label" parent="BentleySpectatorZone"]
+offset_left = 20.0
+offset_top = 35.0
+offset_right = 140.0
+offset_bottom = 65.0
+text = "BENTLEY'S SEAT"
+horizontal_alignment = 1
+
+[node name="NeonGlow1" type="ColorRect" parent="."]
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 340.0
+offset_bottom = 240.0
+color = Color(0.8, 0.2, 0.9, 0.4)
+
+[node name="NeonGlow2" type="ColorRect" parent="."]
+offset_left = 1260.0
+offset_top = 200.0
+offset_right = 1300.0
+offset_bottom = 240.0
+color = Color(0.2, 0.8, 0.9, 0.4)
+
+[node name="NeonGlow3" type="ColorRect" parent="."]
+offset_left = 780.0
+offset_top = 700.0
+offset_right = 820.0
+offset_bottom = 740.0
+color = Color(0.9, 0.3, 0.5, 0.4)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(120, 900)
+
+[node name="BentleySpawn" type="Marker2D" parent="."]
+position = Vector2(800, 750)
+
+[node name="GuardSpawns" type="Node2D" parent="."]
+
+[node name="GuardSpawn1" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(350, 220)
+
+[node name="GuardSpawn2" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(800, 200)
+
+[node name="GuardSpawn3" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(1250, 220)
+
+[node name="GuardSpawn4" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(350, 480)
+
+[node name="GuardSpawn5" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(1250, 480)
+
+[node name="GuardSpawn6" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(800, 380)
+
+[node name="Objective_Kiro" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(350, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_Kiro"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_Kiro"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.2, 0.7, 0.9, 1)
+
+[node name="Label" type="Label" parent="Objective_Kiro"]
+offset_left = -70.0
+offset_top = -60.0
+offset_right = 70.0
+offset_bottom = -30.0
+text = "[KIRO'S TRIAL]"
+horizontal_alignment = 1
+
+[node name="Objective_Jin" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(1250, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_Jin"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_Jin"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.9, 0.2, 0.6, 1)
+
+[node name="Label" type="Label" parent="Objective_Jin"]
+offset_left = -70.0
+offset_top = -60.0
+offset_right = 70.0
+offset_bottom = -30.0
+text = "[JIN'S TRIAL]"
+horizontal_alignment = 1
+
+[node name="Objective_ShadowCore" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(800, 220)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_ShadowCore"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_ShadowCore"]
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+color = Color(0.8, 0.4, 0.9, 1)
+
+[node name="Label" type="Label" parent="Objective_ShadowCore"]
+offset_left = -100.0
+offset_top = -60.0
+offset_right = 100.0
+offset_bottom = -30.0
+text = "[SHADOW CORE TRIAL]"
+horizontal_alignment = 1
+
+[node name="Optional_ArenaData" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(1350, 280)
+script = ExtResource("3_note")
+note_title = "Arena Combat Data"
+note_text = "'Trial 1: Speed. Trial 2: Precision. Trial 3: Shadows within shadows.' The data tablet shows previous challengers... most failed at the third trial. Kiro and Jin's approval rating: 2% of participants."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_ArenaData"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_ArenaData"]
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 16.0
+offset_bottom = 20.0
+color = Color(0.4, 0.4, 0.5, 1)
+
+[node name="Label" type="Label" parent="Optional_ArenaData"]
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = -30.0
+text = "[ARENA DATA]"
+horizontal_alignment = 1
+
+[node name="Optional_StyleGuide" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(250, 280)
+script = ExtResource("3_note")
+note_title = "Shadow Style Guide"
+note_text = "'A true shadow moves with flair.' The guide includes elaborate poses, dramatic landing stances, and a note: 'Bentley is watching. Make it count.' Someone has a sense of humor."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_StyleGuide"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_StyleGuide"]
+offset_left = -14.0
+offset_top = -18.0
+offset_right = 14.0
+offset_bottom = 18.0
+color = Color(0.5, 0.45, 0.55, 1)
+
+[node name="Label" type="Label" parent="Optional_StyleGuide"]
+offset_left = -85.0
+offset_top = -60.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "[STYLE GUIDE]"
+horizontal_alignment = 1
+
+[node name="Optional_NeonSign" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(800, 580)
+script = ExtResource("3_note")
+note_title = "Flickering Neon Sign"
+note_text = "The sign buzzes with electricity: 'SHADOW SOLO - EST. 20XX.' Below it, someone scratched: 'Kiro wuz here' and 'Jin + Kiro 4ever' with a tiny heart. Tough warriors, soft hearts."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_NeonSign"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_NeonSign"]
+offset_left = -60.0
+offset_top = -12.0
+offset_right = 60.0
+offset_bottom = 12.0
+color = Color(0.7, 0.2, 0.8, 0.6)
+
+[node name="Label" type="Label" parent="Optional_NeonSign"]
+offset_left = -70.0
+offset_top = -60.0
+offset_right = 70.0
+offset_bottom = -30.0
+text = "[NEON SIGN]"
+horizontal_alignment = 1
+
+[node name="Polaroid_AnimeStyle" type="Area2D" parent="."]
+position = Vector2(550, 750)
+script = ExtResource("4_polaroid")
+polaroid_id = "shadow_solo_pose"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Polaroid_AnimeStyle"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Polaroid_AnimeStyle"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 12.0
+offset_bottom = 15.0
+color = Color(0.9, 0.9, 0.85, 1)
+
+[node name="Label" type="Label" parent="Polaroid_AnimeStyle"]
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -30.0
+text = "[POLAROID]"
+horizontal_alignment = 1
+
+[node name="KiroIntro" type="Node2D" parent="."]
+position = Vector2(350, 475)
+script = ExtResource("2_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "Kiro",
+"text": "So you're the one who thinks they can handle our trials."
+}, {
+"speaker": "Jin",
+"text": "*appears from shadows* Most don't make it past the first."
+}, {
+"speaker": "Bentley",
+"text": "*yawns loudly, unimpressed* ...Woof."
+}, {
+"speaker": "Kiro",
+"text": "Your dog has no respect for the art of combat."
+}, {
+"speaker": "You",
+"text": "Bentley has opinions. Let's begin."
+}])
+
+[node name="Label" type="Label" parent="KiroIntro"]
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = -70.0
+text = "[KIRO]"
+horizontal_alignment = 1
+
+[node name="Visual" type="ColorRect" parent="KiroIntro"]
+offset_left = -18.0
+offset_top = -30.0
+offset_right = 18.0
+offset_bottom = 30.0
+color = Color(0.2, 0.6, 0.8, 1)
+
+[node name="InteractZone" type="Area2D" parent="KiroIntro"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KiroIntro/InteractZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="JinIntro" type="Node2D" parent="."]
+position = Vector2(1250, 475)
+script = ExtResource("2_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "Jin",
+"text": "Speed is my domain. Move fast, think faster."
+}, {
+"speaker": "Kiro",
+"text": "*nods from across the arena* Precision requires patience."
+}, {
+"speaker": "Bentley",
+"text": "*sniffs the ground, finds a spot, sits down* Woof."
+}, {
+"speaker": "Jin",
+"text": "He just... sat down. In the middle of our dramatic introduction."
+}, {
+"speaker": "You",
+"text": "He's comfortable with himself."
+}])
+
+[node name="Label" type="Label" parent="JinIntro"]
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = -70.0
+text = "[JIN]"
+horizontal_alignment = 1
+
+[node name="Visual" type="ColorRect" parent="JinIntro"]
+offset_left = -18.0
+offset_top = -30.0
+offset_right = 18.0
+offset_bottom = 30.0
+color = Color(0.9, 0.3, 0.6, 1)
+
+[node name="InteractZone" type="Area2D" parent="JinIntro"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JinIntro/InteractZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="BentleySpectator" type="Area2D" parent="."]
+position = Vector2(800, 750)
+script = ExtResource("3_note")
+note_title = "Bentley's Commentary"
+note_text = "Bentley watches the arena with what can only be described as 'aggressive indifference.' He yawns again, scratches behind his ear, and looks at you as if to say: 'Are you done showing off? I'm hungry.' The shadow warriors seem offended."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BentleySpectator"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="BentleySpectator"]
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 18.0
+color = Color(0.35, 0.25, 0.3, 0.7)
+
+[node name="Label" type="Label" parent="BentleySpectator"]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -30.0
+text = "[BENTLEY - UNIMPRESSED]"
+horizontal_alignment = 1
+
+[node name="CompletionDialogue" type="Node2D" parent="."]
+position = Vector2(800, 475)
+script = ExtResource("2_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "Kiro",
+"text": "You completed all three trials. Respect."
+}, {
+"speaker": "Jin",
+"text": "Your technique... it's unconventional, but effective."
+}, {
+"speaker": "Bentley",
+"text": "*gets up, stretches, walks away without looking back* ...Woof."
+}, {
+"speaker": "Kiro",
+"text": "Your dog is impossible."
+}, {
+"speaker": "You",
+"text": "He's consistent. That's what matters."
+}])
+
+[node name="Label" type="Label" parent="CompletionDialogue"]
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = -70.0
+text = "[COMPLETION]"
+horizontal_alignment = 1
+
+[node name="TriggerZone" type="Area2D" parent="CompletionDialogue"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CompletionDialogue/TriggerZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="RewardZone" type="Area2D" parent="."]
+position = Vector2(800, 600)
+script = ExtResource("3_note")
+note_title = "Shadow Dash Upgrade"
+note_text = "Kiro and Jin present you with a small, carved stone. 'This stone channels shadow energy into your movements. Your dash now leaves a shadow trail and recharges faster. Use it wisely.' Bentley sniffs it and immediately tries to bury it."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RewardZone"]
+visible = false
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="RewardZone"]
+visible = false
+offset_left = -18.0
+offset_top = -20.0
+offset_right = 18.0
+offset_bottom = 20.0
+color = Color(0.6, 0.3, 0.8, 1)
+
+[node name="Label" type="Label" parent="RewardZone"]
+visible = false
+offset_left = -90.0
+offset_top = -60.0
+offset_right = 90.0
+offset_bottom = -30.0
+text = "[DASH UPGRADE]"
+horizontal_alignment = 1
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(1540, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Label" type="Label" parent="ExitZone"]
+offset_left = -55.0
+offset_top = -45.0
+offset_right = 55.0
+offset_bottom = -15.0
+text = "EXIT"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 500)
+zoom = Vector2(0.85, 0.85)
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1000

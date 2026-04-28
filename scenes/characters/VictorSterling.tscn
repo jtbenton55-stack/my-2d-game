@@ -27,34 +27,24 @@ position = Vector2(0, -20)
 
 # Boss body (red polygon, distinguished from regular guards)
 [node name="BossBody" type="Polygon2D" parent="AnimatedSprite2D"]
-polygon = PackedVector2Array([
-	Vector2(-18, -40), Vector2(18, -40),
-	Vector2(22, -10), Vector2(18, 0),
-	Vector2(-18, 0), Vector2(-22, -10)
-])
+polygon = PackedVector2Array([Vector2(-18, -40), Vector2(18, -40), Vector2(22, -10), Vector2(18, 0), Vector2(-18, 0), Vector2(-22, -10)])
 color = Color(0.75, 0.05, 0.05, 1.0)
 
 # Suit detail (darker red)
 [node name="SuitDetail" type="Polygon2D" parent="AnimatedSprite2D"]
-polygon = PackedVector2Array([
-	Vector2(-10, -35), Vector2(10, -35),
-	Vector2(12, -15), Vector2(-12, -15)
-])
+polygon = PackedVector2Array([Vector2(-10, -35), Vector2(10, -35), Vector2(12, -15), Vector2(-12, -15)])
 color = Color(0.55, 0.05, 0.05, 1.0)
 
 # Tie (gold)
 [node name="Tie" type="Polygon2D" parent="AnimatedSprite2D"]
-polygon = PackedVector2Array([
-	Vector2(-3, -32), Vector2(3, -32),
-	Vector2(2, -18), Vector2(-2, -18)
-])
+polygon = PackedVector2Array([Vector2(-3, -32), Vector2(3, -32), Vector2(2, -18), Vector2(-2, -18)])
 color = Color(0.9, 0.7, 0.1, 1.0)
 
 # Name label
 [node name="NameLabel" type="Label" parent="AnimatedSprite2D"]
 position = Vector2(-50, -60)
 text = "VICTOR STERLING"
-horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+horizontal_alignment = 1
 add_theme_font_size_override("font_size", 12)
 add_theme_color_override("font_color", Color(0.9, 0.1, 0.1, 1.0))
 

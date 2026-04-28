@@ -3,8 +3,9 @@ extends Control
 const MAX_SELECTED_CARDS := 3
 
 var selected_cards: Array[String] = []
+var is_closing := false
 
-@onready var cards_container: HBoxContainer = $CardsPanel/CardsContainer
+@onready var cards_container: HBoxContainer = $CardsPanel/ScrollContainer/CardsContainer
 @onready var start_button: Button = $StartButton
 @onready var back_button: Button = $BackButton
 @onready var subtitle_label: Label = $SubtitleLabel
@@ -14,6 +15,7 @@ func _ready() -> void:
 	back_button.pressed.connect(_on_back_pressed)
 	_populate_cards()
 	_update_selection_display()
+	start_button.grab_focus()
 	AudioManager.play_music("card_select")
 
 func _populate_cards() -> void:
@@ -22,6 +24,8 @@ func _populate_cards() -> void:
 	
 	# Wait for CardManager to be ready
 	await get_tree().create_timer(0.1).timeout
+	if is_closing or not is_inside_tree():
+		return
 	
 	for card_id in GameState.unlocked_cards:
 		var card = CardManager.get_card(card_id)
@@ -33,6 +37,7 @@ func _populate_cards() -> void:
 		if card:
 			var button = Button.new()
 			button.custom_minimum_size = Vector2(200, 280)
+			button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 			button.toggle_mode = true
 			# Get display name - handle both display_name and name properties
 			var card_name = card.display_name if card.get("display_name") else card.get("name", card_id)
@@ -59,8 +64,31 @@ func _update_selection_display() -> void:
 	# Allow starting even with 0 cards for now
 
 func _on_start_pressed() -> void:
-	GameState.selected_cards = selected_cards.duplicate()
+	if is_closing:
+		return
+	if GameState.pending_mission_id == "":
+		EventBus.warn("Start Mission pressed with no pending mission.")
+		return
+	is_closing = true
+	start_button.disabled = true
+	back_button.disabled = true
+	GameState.set_selected_cards(selected_cards)
 	SceneManager.start_pending_mission()
+	_reenable_if_scene_did_not_change()
 
 func _on_back_pressed() -> void:
+	if is_closing:
+		return
+	is_closing = true
+	start_button.disabled = true
+	back_button.disabled = true
 	SceneManager.open_mission_select()
+
+func _reenable_if_scene_did_not_change() -> void:
+	await get_tree().create_timer(0.75).timeout
+	if not is_inside_tree():
+		return
+	is_closing = false
+	start_button.disabled = false
+	back_button.disabled = false
+	start_button.grab_focus()

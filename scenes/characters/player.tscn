@@ -35,6 +35,7 @@ position = Vector2(0, -16)
 sprite_frames = ExtResource("2_6h8aw")
 animation = "idle"
 playing = true
+modulate = Color(0.95, 0.86, 0.78, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)

@@ -1,125 +1,633 @@
-[gd_scene load_steps=5 format=3 uid="uid://rewriteroom001"]
+[gd_scene load_steps=15 format=3 uid="uid://rewriteroom001"]
 
-[ext_resource type="Script" path="res://src/missions/RewriteRoomMission.gd" id="1_rw"]
-
-[sub_resource type="TileSet" id="TileSet_rw1"]
+[ext_resource type="Script" uid="uid://c8d8u4tf73n6p" path="res://src/missions/RewriteRoomMission.gd" id="1_rw"]
+[ext_resource type="Script" uid="uid://dgdqc7q8b1ql8" path="res://src/interactables/readable_note.gd" id="2_note"]
+[ext_resource type="Script" uid="uid://dwjugwwqx2kts" path="res://src/collectibles/polaroid_pickup.gd" id="3_polaroid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(80, 40)
+size = Vector2(100, 60)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_docs"]
-radius = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(60, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_area"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(200, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alert"]
+size = Vector2(300, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blocker"]
+size = Vector2(60, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spawn"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_guard"]
+size = Vector2(32, 32)
 
 [node name="RewriteRoomMission" type="Node2D"]
 script = ExtResource("1_rw")
 
-[node name="FloorVisual" type="Polygon2D" parent="."]
-z_index = -1
-polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(900, 0),
-	Vector2(900, 650), Vector2(0, 650)
-])
+# === FLOOR & WALLS ===
+[node name="FloorBase" type="ColorRect" parent="."]
+z_index = -10
+color = Color(0.12, 0.12, 0.14, 1.0)
+offset_right = 1600.0
+offset_bottom = 1000.0
+
+[node name="Walls" type="ColorRect" parent="."]
+z_index = -5
+color = Color(0.2, 0.2, 0.24, 1.0)
+offset_right = 1600.0
+offset_bottom = 1000.0
+
+# === MAIN BUILDING OUTLINE ===
+[node name="BuildingOutline" type="ColorRect" parent="."]
+z_index = -4
 color = Color(0.15, 0.15, 0.18, 1.0)
-
-[node name="Walls" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(150, 0),
-	Vector2(150, 650), Vector2(0, 650),
-	Vector2(0, 500), Vector2(50, 500),
-	Vector2(50, 150), Vector2(0, 150)
-])
-color = Color(0.25, 0.25, 0.3, 1.0)
-
-[node name="OfficeArea" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(200, 100), Vector2(400, 100),
-	Vector2(400, 300), Vector2(200, 300)
-])
-color = Color(0.35, 0.35, 0.4, 1.0)
-
-[node name="OfficeLabel" type="Label" parent="OfficeArea"]
 offset_left = 50.0
-offset_top = 90.0
-offset_right = 150.0
+offset_top = 50.0
+offset_right = 1550.0
+offset_bottom = 950.0
+
+# === LOBBY / RECEPTION AREA ===
+[node name="Lobby" type="ColorRect" parent="."]
+color = Color(0.3, 0.28, 0.25, 1.0)
+offset_left = 100.0
+offset_top = 150.0
+offset_right = 500.0
+offset_bottom = 550.0
+
+[node name="LobbyLabel" type="Label" parent="Lobby"]
+offset_left = 150.0
+offset_top = 180.0
+offset_right = 250.0
+offset_bottom = 210.0
+text = "LOBBY"
+horizontal_alignment = 1
+
+[node name="ReceptionDesk" type="ColorRect" parent="Lobby"]
+color = Color(0.5, 0.35, 0.25, 1.0)
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 180.0
 offset_bottom = 120.0
-text = "OFFICE"
+
+[node name="ReceptionLabel" type="Label" parent="Lobby/ReceptionDesk"]
+offset_left = 10.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 50.0
+text = "RECEPTION"
 horizontal_alignment = 1
 
-[node name="FileRoom" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(500, 100), Vector2(750, 100),
-	Vector2(750, 250), Vector2(500, 250)
-])
-color = Color(0.3, 0.3, 0.35, 1.0)
+[node name="EmailTerminal" type="Area2D" parent="Lobby/ReceptionDesk"]
+position = Vector2(65, 35)
 
-[node name="FileLabel" type="Label" parent="FileRoom"]
-offset_left = 75.0
-offset_top = 65.0
-offset_right = 175.0
-offset_bottom = 95.0
-text = "FILES"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lobby/ReceptionDesk/EmailTerminal"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="TerminalVisual" type="ColorRect" parent="Lobby/ReceptionDesk/EmailTerminal"]
+color = Color(0.1, 0.5, 0.2, 1.0)
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="TerminalLabel" type="Label" parent="Lobby/ReceptionDesk/EmailTerminal"]
+offset_left = -25.0
+offset_top = -35.0
+offset_right = 25.0
+offset_bottom = -5.0
+text = "[PC]"
 horizontal_alignment = 1
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(100, 550)
+# === SERVICE CORRIDOR (SNEAK ROUTE) ===
+[node name="ServiceCorridor" type="ColorRect" parent="."]
+color = Color(0.25, 0.25, 0.27, 1.0)
+offset_left = 50.0
+offset_top = 600.0
+offset_right = 350.0
+offset_bottom = 900.0
 
-[node name="GoonSpawns" type="Node2D" parent="."]
+[node name="CorridorLabel" type="Label" parent="ServiceCorridor"]
+offset_left = 100.0
+offset_top = 120.0
+offset_right = 200.0
+offset_bottom = 150.0
+text = "SERVICE"
+horizontal_alignment = 1
 
-[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(300, 200)
+[node name="ServiceVent" type="Area2D" parent="ServiceCorridor"]
+position = Vector2(200, 150)
 
-[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(600, 350)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServiceCorridor/ServiceVent"]
+shape = SubResource("CircleShape2D_area")
 
-[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(450, 450)
+[node name="VentVisual" type="ColorRect" parent="ServiceCorridor/ServiceVent"]
+color = Color(0.4, 0.4, 0.4, 1.0)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 
-[node name="DocumentsZone" type="Area2D" parent="."]
-position = Vector2(625, 175)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DocumentsZone"]
-shape = SubResource("CircleShape2D_docs")
-
-[node name="DocsVisual" type="Polygon2D" parent="DocumentsZone"]
-polygon = PackedVector2Array([
-	Vector2(-16, -12), Vector2(16, -12),
-	Vector2(16, 12), Vector2(-16, 12)
-])
-color = Color(0.9, 0.9, 0.95, 1.0)
-
-[node name="DocsLabel" type="Label" parent="DocumentsZone"]
-offset_left = -50.0
+[node name="VentLabel" type="Label" parent="ServiceCorridor/ServiceVent"]
+offset_left = -25.0
 offset_top = -40.0
-offset_right = 50.0
+offset_right = 25.0
+offset_bottom = -10.0
+text = "[VENT]"
+horizontal_alignment = 1
+
+# === HALLWAY TO FILE ROOM ===
+[node name="MainHallway" type="ColorRect" parent="."]
+color = Color(0.28, 0.28, 0.3, 1.0)
+offset_left = 500.0
+offset_top = 200.0
+offset_right = 900.0
+offset_bottom = 400.0
+
+[node name="HallwayLabel" type="Label" parent="MainHallway"]
+offset_left = 150.0
+offset_top = 80.0
+offset_right = 250.0
+offset_bottom = 110.0
+text = "HALLWAY"
+horizontal_alignment = 1
+
+# === FILE ROOM (LOCKED) ===
+[node name="FileRoom" type="ColorRect" parent="."]
+color = Color(0.22, 0.24, 0.28, 1.0)
+offset_left = 900.0
+offset_top = 100.0
+offset_right = 1300.0
+offset_bottom = 450.0
+
+[node name="FileRoomLabel" type="Label" parent="FileRoom"]
+offset_left = 150.0
+offset_top = 150.0
+offset_right = 250.0
+offset_bottom = 180.0
+text = "FILE ROOM"
+horizontal_alignment = 1
+
+[node name="FileRoomDoor" type="Area2D" parent="FileRoom"]
+position = Vector2(-30, 175)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FileRoomDoor"]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="DoorVisual" type="ColorRect" parent="FileRoomDoor"]
+color = Color(0.6, 0.4, 0.3, 1.0)
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = 40.0
+
+[node name="DoorLabel" type="Label" parent="FileRoomDoor"]
+offset_left = -40.0
+offset_top = -60.0
+offset_right = 40.0
+offset_bottom = -30.0
+text = "[DOOR]"
+horizontal_alignment = 1
+
+# === SCREENPLAY PUZZLE AREA ===
+[node name="ScreenplayPuzzleArea" type="Area2D" parent="FileRoom"]
+position = Vector2(150, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FileRoom/ScreenplayPuzzleArea"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="PuzzleVisual" type="ColorRect" parent="FileRoom/ScreenplayPuzzleArea"]
+color = Color(0.15, 0.35, 0.45, 0.8)
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = 75.0
+
+[node name="PuzzleLabel" type="Label" parent="FileRoom/ScreenplayPuzzleArea"]
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 80.0
+offset_bottom = 30.0
+text = "SCREENPLAY
+SEQUENCE"
+horizontal_alignment = 1
+
+[node name="CabinetA" type="ColorRect" parent="FileRoom"]
+color = Color(0.5, 0.45, 0.35, 1.0)
+offset_left = 50.0
+offset_top = 250.0
+offset_right = 120.0
+offset_bottom = 340.0
+
+[node name="CabinetALabel" type="Label" parent="FileRoom/CabinetA"]
+offset_left = -5.0
+offset_top = 35.0
+offset_right = 75.0
+offset_bottom = 65.0
+text = "A"
+horizontal_alignment = 1
+
+[node name="CabinetB" type="ColorRect" parent="FileRoom"]
+color = Color(0.5, 0.45, 0.35, 1.0)
+offset_left = 280.0
+offset_top = 250.0
+offset_right = 350.0
+offset_bottom = 340.0
+
+[node name="CabinetBLabel" type="Label" parent="FileRoom/CabinetB"]
+offset_left = -5.0
+offset_top = 35.0
+offset_right = 75.0
+offset_bottom = 65.0
+text = "B"
+horizontal_alignment = 1
+
+# === LEGAL DOCUMENT PUZZLE AREA ===
+[node name="LegalPuzzleArea" type="Area2D" parent="FileRoom"]
+position = Vector2(250, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FileRoom/LegalPuzzleArea"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="LegalDesk" type="ColorRect" parent="FileRoom/LegalPuzzleArea"]
+color = Color(0.45, 0.4, 0.35, 1.0)
+offset_left = -80.0
+offset_top = -50.0
+offset_right = 80.0
+offset_bottom = 50.0
+
+[node name="LegalLabel" type="Label" parent="FileRoom/LegalPuzzleArea"]
+offset_left = -70.0
+offset_top = -20.0
+offset_right = 70.0
+offset_bottom = 20.0
+text = "LEGAL DOCS"
+horizontal_alignment = 1
+
+[node name="DocumentsContainer" type="Area2D" parent="FileRoom"]
+position = Vector2(350, 325)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FileRoom/DocumentsContainer"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="DocsVisual" type="ColorRect" parent="FileRoom/DocumentsContainer"]
+color = Color(0.95, 0.9, 0.7, 1.0)
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+
+[node name="DocsLabel" type="Label" parent="FileRoom/DocumentsContainer"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
 offset_bottom = -10.0
 text = "[DOCS]"
 horizontal_alignment = 1
 
-[node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(800, 600)
+# === SECURITY COMPLICATION ZONE ===
+[node name="SecurityZone" type="ColorRect" parent="."]
+color = Color(0.35, 0.25, 0.25, 1.0)
+offset_left = 700.0
+offset_top = 500.0
+offset_right = 1100.0
+offset_bottom = 750.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+[node name="SecurityLabel" type="Label" parent="SecurityZone"]
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 250.0
+offset_bottom = 130.0
+text = "SECURITY"
+horizontal_alignment = 1
+
+[node name="SecurityAlertZone" type="Area2D" parent="SecurityZone"]
+position = Vector2(200, 125)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecurityZone/SecurityAlertZone"]
+shape = SubResource("RectangleShape2D_alert")
+
+[node name="AlertVisual" type="ColorRect" parent="SecurityZone/SecurityAlertZone"]
+color = Color(0.8, 0.2, 0.2, 0.3)
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+
+[node name="SecurityDesk" type="ColorRect" parent="SecurityZone"]
+color = Color(0.5, 0.4, 0.35, 1.0)
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 150.0
+offset_bottom = 120.0
+
+# === OPTIONAL EMOTIONAL ROOM ===
+[node name="EmotionalRoom" type="ColorRect" parent="."]
+color = Color(0.32, 0.3, 0.35, 1.0)
+offset_left = 1200.0
+offset_top = 500.0
+offset_right = 1500.0
+offset_bottom = 850.0
+
+[node name="EmotionalLabel" type="Label" parent="EmotionalRoom"]
+offset_left = 100.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 50.0
+text = "OLD OFFICE"
+horizontal_alignment = 1
+
+[node name="EmotionalRoomTrigger" type="Area2D" parent="EmotionalRoom"]
+position = Vector2(150, 175)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmotionalRoom/EmotionalRoomTrigger"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="EmotionalDesk" type="Area2D" parent="EmotionalRoom"]
+position = Vector2(150, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmotionalRoom/EmotionalDesk"]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="DeskVisual" type="ColorRect" parent="EmotionalRoom/EmotionalDesk"]
+color = Color(0.6, 0.5, 0.4, 1.0)
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 30.0
+
+[node name="DeskLabel" type="Label" parent="EmotionalRoom/EmotionalDesk"]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -20.0
+text = "[DESK]"
+horizontal_alignment = 1
+
+[node name="StationerySet" type="ColorRect" parent="EmotionalRoom"]
+color = Color(0.7, 0.6, 0.8, 1.0)
+offset_left = 80.0
+offset_top = 220.0
+offset_right = 120.0
+offset_bottom = 250.0
+
+[node name="StationeryLabel" type="Label" parent="EmotionalRoom/StationerySet"]
+offset_left = -10.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 5.0
+text = "ink"
+horizontal_alignment = 1
+
+[node name="Typewriter" type="ColorRect" parent="EmotionalRoom"]
+color = Color(0.3, 0.3, 0.3, 1.0)
+offset_left = 180.0
+offset_top = 220.0
+offset_right = 220.0
+offset_bottom = 260.0
+
+[node name="TypewriterLabel" type="Label" parent="EmotionalRoom/Typewriter"]
+offset_left = -15.0
+offset_top = -25.0
+offset_right = 55.0
+offset_bottom = 5.0
+text = "QWERTY"
+horizontal_alignment = 1
+
+# === ARCHIVE / SIDE EXIT ROUTE ===
+[node name="ArchiveRoom" type="ColorRect" parent="."]
+color = Color(0.25, 0.27, 0.25, 1.0)
+offset_left = 1300.0
+offset_top = 150.0
+offset_right = 1520.0
+offset_bottom = 450.0
+
+[node name="ArchiveLabel" type="Label" parent="ArchiveRoom"]
+offset_left = 60.0
+offset_top = 130.0
+offset_right = 160.0
+offset_bottom = 160.0
+text = "ARCHIVE"
+horizontal_alignment = 1
+
+[node name="ArchiveBlocker" type="StaticBody2D" parent="ArchiveRoom"]
+position = Vector2(0, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArchiveRoom/ArchiveBlocker"]
+shape = SubResource("RectangleShape2D_blocker")
+
+[node name="BlockerVisual" type="ColorRect" parent="ArchiveRoom/ArchiveBlocker"]
+color = Color(0.4, 0.35, 0.3, 1.0)
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+
+[node name="ArchiveExit" type="Area2D" parent="ArchiveRoom"]
+position = Vector2(100, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArchiveRoom/ArchiveExit"]
 shape = SubResource("RectangleShape2D_exit")
 
-[node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
-polygon = PackedVector2Array([
-	Vector2(-32, -16), Vector2(32, -16),
-	Vector2(32, 16), Vector2(-32, 16)
-])
-color = Color(0.2, 0.8, 0.4, 0.4)
+[node name="ExitVisual" type="ColorRect" parent="ArchiveRoom/ArchiveExit"]
+color = Color(0.3, 0.6, 0.3, 0.6)
+offset_left = -50.0
+offset_top = -30.0
+offset_right = 50.0
+offset_bottom = 30.0
 
-[node name="ExitLabel" type="Label" parent="ExitZone"]
-offset_left = -40.0
-offset_top = -35.0
-offset_right = 40.0
-offset_bottom = -5.0
+[node name="ArchiveExitLabel" type="Label" parent="ArchiveRoom/ArchiveExit"]
+offset_left = -50.0
+offset_top = -55.0
+offset_right = 50.0
+offset_bottom = -25.0
+text = "TUNNEL ->"
+horizontal_alignment = 1
+
+# === EXITS ===
+[node name="MainExit" type="Area2D" parent="."]
+position = Vector2(1450, 800)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainExit"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="ExitVisual" type="ColorRect" parent="MainExit"]
+color = Color(0.2, 0.8, 0.4, 0.6)
+offset_left = -50.0
+offset_top = -30.0
+offset_right = 50.0
+offset_bottom = 30.0
+
+[node name="ExitLabel" type="Label" parent="MainExit"]
+offset_left = -50.0
+offset_top = -55.0
+offset_right = 50.0
+offset_bottom = -25.0
 text = "EXIT ->"
 horizontal_alignment = 1
 
+# === SPAWN POINTS ===
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="VisitorSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(150, 450)
+
+[node name="SneakSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(150, 750)
+
+[node name="DeliverySpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 650)
+
+[node name="DefaultSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(150, 450)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(150, 450)
+
+# === GUARD PATROL POINTS ===
+[node name="GuardPatrolPoints" type="Node2D" parent="."]
+
+[node name="Patrol1" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(250, 250)
+
+[node name="Patrol2" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(450, 250)
+
+[node name="Patrol3" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(950, 250)
+
+[node name="Patrol4" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(1250, 250)
+
+[node name="Patrol5" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(750, 600)
+
+[node name="Patrol6" type="Marker2D" parent="GuardPatrolPoints"]
+position = Vector2(1050, 600)
+
+# === GOON SPAWNS (LEGACY) ===
+[node name="GoonSpawns" type="Node2D" parent="."]
+
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(350, 300)
+
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(1100, 300)
+
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(900, 625)
+
+# === POLAROID ===
+[node name="MissionPolaroid" type="Area2D" parent="."]
+position = Vector2(1250, 650)
+script = ExtResource("3_polaroid")
+polaroid_id = "rewrite_room_proof"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionPolaroid"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="PolaroidVisual" type="ColorRect" parent="MissionPolaroid"]
+color = Color(0.9, 0.85, 0.7, 1.0)
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="PolaroidLabel" type="Label" parent="MissionPolaroid"]
+offset_left = -30.0
+offset_top = -35.0
+offset_right = 30.0
+offset_bottom = -5.0
+text = "[PHOTO]"
+horizontal_alignment = 1
+
+# === READABLE NOTES ===
+[node name="Note_WriterMemoir" type="Area2D" parent="."]
+position = Vector2(1350, 650)
+script = ExtResource("2_note")
+note_title = "Writer's Notes"
+note_text = "Day 47. Sterling's people came again today. They want my screenplay - the one I've been developing for three years. Said they'd 'make me famous' if I sign over the rights. I refused. Tomorrow I'm hiding the original drafts in the file room. If something happens to me, the proof is in Cabinet B. -M.G."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Note_WriterMemoir"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="NoteVisual" type="ColorRect" parent="Note_WriterMemoir"]
+color = Color(0.95, 0.9, 0.8, 1.0)
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+
+[node name="NoteLabel" type="Label" parent="Note_WriterMemoir"]
+offset_left = -25.0
+offset_top = -35.0
+offset_right = 25.0
+offset_bottom = -5.0
+text = "[NOTE]"
+horizontal_alignment = 1
+
+[node name="Note_LegalMemo" type="Area2D" parent="."]
+position = Vector2(1100, 350)
+script = ExtResource("2_note")
+note_title = "Legal Memo"
+note_text = "RE: Chain of Title Investigation\n\nWe've identified three potential 'fake' assignment documents in Sterling's files. The authentic chain-of-title should show:\n1. Original writer's guild registration (1987)\n2. Valid option agreement with writer consent\n3. Clean assignment to Sterling Pictures with proper consideration\n\nAll other variations are likely forgeries. - Mere"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Note_LegalMemo"]
+shape = SubResource("CircleShape2D_area")
+
+[node name="NoteVisual" type="ColorRect" parent="Note_LegalMemo"]
+color = Color(0.95, 0.9, 0.8, 1.0)
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+
+[node name="NoteLabel" type="Label" parent="Note_LegalMemo"]
+offset_left = -25.0
+offset_top = -35.0
+offset_right = 25.0
+offset_bottom = -5.0
+text = "[MEMO]"
+horizontal_alignment = 1
+
+# === CAMERA ===
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(450, 325)
-zoom = Vector2(1.4, 1.4)
+position = Vector2(800, 500)
+zoom = Vector2(0.9, 0.9)
 limit_left = 0
 limit_top = 0
-limit_right = 900
-limit_bottom = 650
+limit_right = 1600
+limit_bottom = 1000
+
+# === COLLISION WALLS (Invisible barriers) ===
+[node name="WallCollisions" type="Node2D" parent="."]
+
+[node name="Wall_North" type="StaticBody2D" parent="WallCollisions"]
+position = Vector2(800, 25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollisions/Wall_North"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Wall_South" type="StaticBody2D" parent="WallCollisions"]
+position = Vector2(800, 975)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollisions/Wall_South"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Wall_East" type="StaticBody2D" parent="WallCollisions"]
+position = Vector2(1575, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollisions/Wall_East"]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="Wall_West" type="StaticBody2D" parent="WallCollisions"]
+position = Vector2(25, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollisions/Wall_West"]
+shape = SubResource("RectangleShape2D_door")

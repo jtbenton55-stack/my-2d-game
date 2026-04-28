@@ -47,7 +47,7 @@ offset_top = -200.0
 offset_right = 350.0
 offset_bottom = 200.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,8 +56,12 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = -20.0
 offset_bottom = -20.0
+horizontal_scroll_mode = 0
+
+[node name="MissionsContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 15
-alignment = 1
 
 [node name="BackButton" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 50)
@@ -70,3 +74,105 @@ offset_top = -80.0
 offset_right = 230.0
 offset_bottom = -30.0
 text = "Back"
+
+[node name="DossierPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = 50.0
+offset_right = -30.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="DossierTitle" type="Label" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.4, 1, 1)
+text = "Mission Title"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="DossierDescription" type="Label" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 70.0
+offset_right = -20.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 14
+text = "Background description..."
+autowrap_mode = 3
+
+[node name="DossierObjectives" type="Label" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 150.0
+offset_right = -20.0
+offset_bottom = 230.0
+theme_override_font_sizes/font_size = 13
+text = "Objectives..."
+autowrap_mode = 3
+
+[node name="DossierCards" type="Label" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 240.0
+offset_right = -20.0
+offset_bottom = 310.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+text = "Recommended cards..."
+autowrap_mode = 3
+
+[node name="DossierRewards" type="Label" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 320.0
+offset_right = -20.0
+offset_bottom = 390.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.9, 0.8, 0.4, 1)
+text = "Rewards..."
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = -20.0
+offset_bottom = -60.0
+text = "Start Mission"
+
+[node name="CloseDossierButton" type="Button" parent="DossierPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = -20.0
+offset_bottom = -20.0
+text = "Close"

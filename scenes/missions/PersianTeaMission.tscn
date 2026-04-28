@@ -1,0 +1,408 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsj6p3v2ooeqq"]
+
+[ext_resource type="Script" path="res://src/missions/PersianTeaMission.gd" id="1_tea"]
+[ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="2_jc_dialogue"]
+[ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="3_note"]
+[ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="4_polaroid"]
+[ext_resource type="PackedScene" path="res://src/puzzles/cipher/cipher_puzzle.tscn" id="5_puzzle"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_objective"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(120, 70)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 40.0
+
+[node name="PersianTeaMission" type="Node2D"]
+script = ExtResource("1_tea")
+mission_id = "persian_tea_poison_ink"
+guard_count = 3
+objective_text = "Enter the conservatory and speak with JC about the tea blend."
+completion_item_name = "ingredient"
+completion_line = "Sour cherry, cardamom, and saffron reveal the drawer."
+missing_item_line = "The tea is not balanced yet. Bentley is judging the sweetness."
+
+[node name="GardenFloor" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1600.0
+offset_bottom = 1000.0
+color = Color(0.08, 0.14, 0.10, 1)
+
+[node name="Conservatory" type="ColorRect" parent="."]
+offset_left = 200.0
+offset_top = 80.0
+offset_right = 1400.0
+offset_bottom = 820.0
+color = Color(0.13, 0.24, 0.16, 0.9)
+
+[node name="TeaLounge" type="ColorRect" parent="."]
+offset_left = 280.0
+offset_top = 120.0
+offset_right = 550.0
+offset_bottom = 320.0
+color = Color(0.18, 0.28, 0.20, 0.95)
+
+[node name="TeaLoungeLabel" type="Label" parent="TeaLounge"]
+offset_left = 85.0
+offset_top = 90.0
+offset_right = 185.0
+offset_bottom = 120.0
+text = "TEA LOUNGE"
+horizontal_alignment = 1
+
+[node name="PlantArea" type="ColorRect" parent="."]
+offset_left = 600.0
+offset_top = 140.0
+offset_right = 1350.0
+offset_bottom = 450.0
+color = Color(0.10, 0.20, 0.12, 0.8)
+
+[node name="PlantAreaLabel" type="Label" parent="PlantArea"]
+offset_left = 320.0
+offset_top = 140.0
+offset_right = 430.0
+offset_bottom = 170.0
+text = "HERB GARDEN"
+horizontal_alignment = 1
+
+[node name="WatercolorStation" type="ColorRect" parent="."]
+offset_left = 1150.0
+offset_top = 480.0
+offset_right = 1380.0
+offset_bottom = 650.0
+color = Color(0.15, 0.18, 0.22, 0.85)
+
+[node name="WatercolorLabel" type="Label" parent="WatercolorStation"]
+offset_left = 65.0
+offset_top = 70.0
+offset_right = 165.0
+offset_bottom = 100.0
+text = "ART CORNER"
+horizontal_alignment = 1
+
+[node name="HiddenDrawerZone" type="ColorRect" parent="."]
+visible = false
+offset_left = 900.0
+offset_top = 720.0
+offset_right = 1050.0
+offset_bottom = 800.0
+color = Color(0.25, 0.20, 0.15, 1)
+
+[node name="HiddenDrawerLabel" type="Label" parent="HiddenDrawerZone"]
+visible = false
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 125.0
+offset_bottom = 55.0
+text = "[SECRET DRAWER]"
+horizontal_alignment = 1
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(100, 880)
+
+[node name="JC_Spawn" type="Marker2D" parent="."]
+position = Vector2(415, 220)
+
+[node name="GuardSpawns" type="Node2D" parent="."]
+
+[node name="GuardSpawn1" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(720, 280)
+
+[node name="GuardSpawn2" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(1050, 350)
+
+[node name="GuardSpawn3" type="Marker2D" parent="GuardSpawns"]
+position = Vector2(500, 600)
+
+[node name="Objective_SourCherry" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(650, 280)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_SourCherry"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_SourCherry"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.8, 0.2, 0.3, 1)
+
+[node name="Label" type="Label" parent="Objective_SourCherry"]
+offset_left = -95.0
+offset_top = -55.0
+offset_right = 95.0
+offset_bottom = -25.0
+text = "[SOUR CHERRY BUSH]"
+horizontal_alignment = 1
+
+[node name="Objective_Cardamom" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(980, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_Cardamom"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_Cardamom"]
+offset_left = -12.0
+offset_top = -18.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.2, 0.6, 0.3, 1)
+
+[node name="Label" type="Label" parent="Objective_Cardamom"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[CARDAMOM PLANT]"
+horizontal_alignment = 1
+
+[node name="Objective_Saffron" type="Area2D" parent="." groups=["mission_required"]]
+position = Vector2(1280, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective_Saffron"]
+shape = SubResource("CircleShape2D_objective")
+
+[node name="Visual" type="ColorRect" parent="Objective_Saffron"]
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(0.9, 0.7, 0.1, 1)
+
+[node name="Label" type="Label" parent="Objective_Saffron"]
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -25.0
+text = "[SAFFRON CROCUS]"
+horizontal_alignment = 1
+
+[node name="Optional_Watercolor" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(1265, 565)
+script = ExtResource("3_note")
+note_title = "Faded Watercolor"
+note_text = "A delicate painting shows three plants arranged in a triangle. Red at the top, green to the left, gold to the right. Below them, Persian script reads: 'Albaloo, Hel, Zaferan — the sour opens what is hidden.'"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_Watercolor"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_Watercolor"]
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+color = Color(0.6, 0.5, 0.7, 0.8)
+
+[node name="Label" type="Label" parent="Optional_Watercolor"]
+offset_left = -85.0
+offset_top = -55.0
+offset_right = 85.0
+offset_bottom = -25.0
+text = "[WATERCOLOR CLUE]"
+horizontal_alignment = 1
+
+[node name="Optional_PoetryBook" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(350, 750)
+script = ExtResource("3_note")
+note_title = "Persian Poetry"
+note_text = "'The rose laughs at the thorn, but the thorn guards the rose.' — Saadi. A pressed flower marks this page, and a small note in the margin: 'JC was here, 1987.'"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_PoetryBook"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_PoetryBook"]
+offset_left = -18.0
+offset_top = -22.0
+offset_right = 18.0
+offset_bottom = 22.0
+color = Color(0.4, 0.3, 0.5, 1)
+
+[node name="Label" type="Label" parent="Optional_PoetryBook"]
+offset_left = -75.0
+offset_top = -55.0
+offset_right = 75.0
+offset_bottom = -25.0
+text = "[POETRY BOOK]"
+horizontal_alignment = 1
+
+[node name="Optional_SourItem" type="Area2D" parent="." groups=["mission_optional"]]
+position = Vector2(1450, 450)
+script = ExtResource("3_note")
+note_title = "Dried Sour Plums"
+note_text = "A small jar of dried sour plums sits on a shelf. Bentley eyes them suspiciously. 'Bentley: That's... a lot of sour. You sure about this?'"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Optional_SourItem"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Optional_SourItem"]
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 10.0
+offset_bottom = 12.0
+color = Color(0.7, 0.4, 0.2, 1)
+
+[node name="Label" type="Label" parent="Optional_SourItem"]
+offset_left = -70.0
+offset_top = -55.0
+offset_right = 70.0
+offset_bottom = -25.0
+text = "[SOUR ITEM]"
+horizontal_alignment = 1
+
+[node name="Polaroid_Conservatory" type="Area2D" parent="."]
+position = Vector2(820, 200)
+script = ExtResource("4_polaroid")
+polaroid_id = "conservatory_serenity"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Polaroid_Conservatory"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="Polaroid_Conservatory"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 12.0
+offset_bottom = 15.0
+color = Color(0.9, 0.9, 0.85, 1)
+
+[node name="Label" type="Label" parent="Polaroid_Conservatory"]
+offset_left = -60.0
+offset_top = -55.0
+offset_right = 60.0
+offset_bottom = -25.0
+text = "[POLAROID]"
+horizontal_alignment = 1
+
+[node name="JC_Dialogue" type="Node2D" parent="."]
+position = Vector2(415, 220)
+script = ExtResource("2_jc_dialogue")
+dialogue_lines = Array[Dictionary]([{
+"speaker": "JC",
+"text": "Ah, you made it! Come, the tea is almost ready."
+}, {
+"speaker": "Bentley",
+"text": "*sniffs the air appreciatively*"
+}, {
+"speaker": "JC",
+"text": "Your dog has good taste. Now, to unlock the hidden drawer, you must brew the blend my grandmother taught me."
+}, {
+"speaker": "JC",
+"text": "Find sour cherry, cardamom, and saffron from the garden. The watercolor painting holds the arrangement clue."
+}])
+
+[node name="Label" type="Label" parent="JC_Dialogue"]
+offset_left = -50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "[JC]"
+horizontal_alignment = 1
+
+[node name="Visual" type="ColorRect" parent="JC_Dialogue"]
+offset_left = -18.0
+offset_top = -28.0
+offset_right = 18.0
+offset_bottom = 28.0
+color = Color(0.6, 0.4, 0.3, 1)
+
+[node name="InteractZone" type="Area2D" parent="JC_Dialogue"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JC_Dialogue/InteractZone"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="HiddenDrawerInteract" type="Area2D" parent="."]
+position = Vector2(975, 760)
+script = ExtResource("3_note")
+note_title = "Hidden Drawer"
+note_text = "Inside the drawer: a leather journal with coded entries, dried tea leaves pressed between pages, and a faded photograph of three people at a tea ceremony. This is the evidence Sterling was looking for."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDrawerInteract"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="HiddenDrawerInteract"]
+visible = false
+offset_left = -25.0
+offset_top = -15.0
+offset_right = 25.0
+offset_bottom = 15.0
+color = Color(0.3, 0.25, 0.2, 1)
+
+[node name="Label" type="Label" parent="HiddenDrawerInteract"]
+visible = false
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[HIDDEN DRAWER]"
+horizontal_alignment = 1
+
+[node name="TeaStation" type="Area2D" parent="."]
+position = Vector2(415, 280)
+script = ExtResource("3_note")
+note_title = "Tea Brewing Station"
+note_text = "A beautiful brass samovar sits steaming. Slots for three ingredients await. The scent of cardamom fills the air."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeaStation"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="TeaStation"]
+offset_left = -22.0
+offset_top = -20.0
+offset_right = 22.0
+offset_bottom = 20.0
+color = Color(0.5, 0.4, 0.2, 1)
+
+[node name="Label" type="Label" parent="TeaStation"]
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -25.0
+text = "[TEA STATION]"
+horizontal_alignment = 1
+
+[node name="BentleyMoment" type="Area2D" parent="."]
+position = Vector2(600, 650)
+script = ExtResource("3_note")
+note_title = "Bentley's Observation"
+note_text = "Bentley sniffs at a spot near the herbs, then looks at you with an expression that clearly says: 'I found something, but I'm not telling unless you have treats.' He then proceeds to roll in something that definitely isn't a treat."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BentleyMoment"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Visual" type="ColorRect" parent="BentleyMoment"]
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = 14.0
+color = Color(0.4, 0.3, 0.25, 0.6)
+
+[node name="Label" type="Label" parent="BentleyMoment"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[BENTLEY'S SPOT]"
+horizontal_alignment = 1
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(1500, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Label" type="Label" parent="ExitZone"]
+offset_left = -55.0
+offset_top = -45.0
+offset_right = 55.0
+offset_bottom = -15.0
+text = "EXIT"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 500)
+zoom = Vector2(0.9, 0.9)
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1000

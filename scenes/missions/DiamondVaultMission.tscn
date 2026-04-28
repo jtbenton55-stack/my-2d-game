@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://c762xbgahbn8k"]
+
+[ext_resource type="Script" path="res://src/missions/DiamondVaultMission.gd" id="1_diamond"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_diamond"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_key"]
+radius = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lock"]
+size = Vector2(100, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(120, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(120, 70)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_polaroid"]
+radius = 25.0
+
+[node name="DiamondVaultMission" type="Node2D"]
+script = ExtResource("1_diamond")
+mission_id = "diamond_a_year_job"
+guard_count = 5
+objective_text = "Find the vault key, solve the timed lock, and collect Sterling's tribute diamonds."
+
+[node name="FloorVisual" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1600.0
+offset_bottom = 1000.0
+color = Color(0.04, 0.06, 0.1, 1)
+
+[node name="VaultRoom" type="ColorRect" parent="."]
+offset_left = 320.0
+offset_top = 160.0
+offset_right = 1350.0
+offset_bottom = 820.0
+color = Color(0.18, 0.18, 0.24, 1)
+
+[node name="LaserLineA" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(420, 300), Vector2(1280, 760)])
+width = 5.0
+default_color = Color(0.9, 0.05, 0.18, 0.8)
+
+[node name="LaserLineB" type="Line2D" parent="."]
+points = PackedVector2Array([Vector2(1280, 300), Vector2(420, 760)])
+width = 5.0
+default_color = Color(0.9, 0.05, 0.18, 0.8)
+
+[node name="DiamondYearOneVisual" type="ColorRect" parent="."]
+offset_left = 480.0
+offset_top = 240.0
+offset_right = 520.0
+offset_bottom = 280.0
+color = Color(0.4, 0.8, 0.95, 0.9)
+
+[node name="DiamondYearTwoVisual" type="ColorRect" parent="."]
+offset_left = 820.0
+offset_top = 480.0
+offset_right = 860.0
+offset_bottom = 520.0
+color = Color(0.5, 0.85, 1.0, 0.9)
+
+[node name="DiamondYearThreeVisual" type="ColorRect" parent="."]
+offset_left = 1160.0
+offset_top = 700.0
+offset_right = 1200.0
+offset_bottom = 740.0
+color = Color(0.6, 0.9, 1.0, 0.9)
+
+[node name="HiddenDiamondVisual" type="ColorRect" parent="."]
+offset_left = 1285.0
+offset_top = 245.0
+offset_right = 1315.0
+offset_bottom = 275.0
+color = Color(0.95, 0.3, 0.5, 0.95)
+
+[node name="VaultKeyVisual" type="ColorRect" parent="."]
+offset_left = 270.0
+offset_top = 375.0
+offset_right = 290.0
+offset_bottom = 425.0
+color = Color(0.85, 0.7, 0.3, 1)
+
+[node name="TimedLockVisual" type="ColorRect" parent="."]
+offset_left = 795.0
+offset_top = 450.0
+offset_right = 875.0
+offset_bottom = 530.0
+color = Color(0.3, 0.4, 0.5, 1)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(140, 880)
+
+[node name="VaultKeyZone" type="Area2D" parent="."]
+position = Vector2(280, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VaultKeyZone"]
+shape = SubResource("CircleShape2D_key")
+
+[node name="Label" type="Label" parent="VaultKeyZone"]
+offset_left = -70.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = -20.0
+text = "[VAULT KEY]"
+horizontal_alignment = 1
+
+[node name="TimedLockZone" type="Area2D" parent="."]
+position = Vector2(835, 490)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TimedLockZone"]
+shape = SubResource("RectangleShape2D_lock")
+
+[node name="Label" type="Label" parent="TimedLockZone"]
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = -30.0
+text = "[TIMED LOCK]"
+horizontal_alignment = 1
+
+[node name="YearOneZone" type="Area2D" parent="."]
+position = Vector2(500, 260)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YearOneZone"]
+shape = SubResource("CircleShape2D_diamond")
+
+[node name="Label" type="Label" parent="YearOneZone"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[YEAR ONE]"
+horizontal_alignment = 1
+
+[node name="YearTwoZone" type="Area2D" parent="."]
+position = Vector2(840, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YearTwoZone"]
+shape = SubResource("CircleShape2D_diamond")
+
+[node name="Label" type="Label" parent="YearTwoZone"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[YEAR TWO]"
+horizontal_alignment = 1
+
+[node name="YearThreeZone" type="Area2D" parent="."]
+position = Vector2(1180, 720)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YearThreeZone"]
+shape = SubResource("CircleShape2D_diamond")
+
+[node name="Label" type="Label" parent="YearThreeZone"]
+offset_left = -90.0
+offset_top = -55.0
+offset_right = 90.0
+offset_bottom = -25.0
+text = "[YEAR THREE]"
+horizontal_alignment = 1
+
+[node name="HiddenDiamondZone" type="Area2D" parent="."]
+position = Vector2(1300, 260)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDiamondZone"]
+shape = SubResource("CircleShape2D_diamond")
+
+[node name="Label" type="Label" parent="HiddenDiamondZone"]
+offset_left = -100.0
+offset_top = -55.0
+offset_right = 100.0
+offset_bottom = -25.0
+text = "[HIDDEN VAULT]"
+horizontal_alignment = 1
+
+[node name="VaultNoteZone" type="Area2D" parent="."]
+position = Vector2(400, 750)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VaultNoteZone"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Label" type="Label" parent="VaultNoteZone"]
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -25.0
+text = "[VAULT NOTE]"
+horizontal_alignment = 1
+
+[node name="BryceZone" type="Area2D" parent="."]
+position = Vector2(600, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BryceZone"]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Label" type="Label" parent="BryceZone"]
+offset_left = -60.0
+offset_top = -55.0
+offset_right = 60.0
+offset_bottom = -25.0
+text = "[BRYCE]"
+horizontal_alignment = 1
+
+[node name="BentleyMomentZone" type="Area2D" parent="."]
+position = Vector2(850, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BentleyMomentZone"]
+shape = SubResource("CircleShape2D_diamond")
+
+[node name="Label" type="Label" parent="BentleyMomentZone"]
+offset_left = -70.0
+offset_top = -55.0
+offset_right = 70.0
+offset_bottom = -25.0
+text = "[BENTLEY]"
+horizontal_alignment = 1
+
+[node name="PolaroidZone" type="Area2D" parent="."]
+position = Vector2(1260, 180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PolaroidZone"]
+shape = SubResource("CircleShape2D_polaroid")
+
+[node name="Label" type="Label" parent="PolaroidZone"]
+offset_left = -60.0
+offset_top = -45.0
+offset_right = 60.0
+offset_bottom = -15.0
+text = "[POLAROID]"
+horizontal_alignment = 1
+
+[node name="ExitZone" type="Area2D" parent="."]
+position = Vector2(1490, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Label" type="Label" parent="ExitZone"]
+offset_left = -55.0
+offset_top = -45.0
+offset_right = 55.0
+offset_bottom = -15.0
+text = "EXIT"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 500)
+zoom = Vector2(0.9, 0.9)
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1000

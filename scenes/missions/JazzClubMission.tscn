@@ -1,109 +1,287 @@
-[gd_scene load_steps=6 format=3 uid="uid://jazzclub001"]
+[gd_scene load_steps=23 format=3 uid="uid://jazzclub001"]
 
 [ext_resource type="Script" path="res://src/missions/JazzClubMission.gd" id="1_jazz"]
-
-[sub_resource type="TileSet" id="TileSet_jazz1"]
+[ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="2_note"]
+[ext_resource type="Script" path="res://src/missions/music_puzzle_trigger.gd" id="3_puzzle_trigger"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(80, 40)
+size = Vector2(100, 60)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ledger"]
-radius = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_entrance"]
+size = Vector2(120, 80)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_record"]
-radius = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_music"]
+size = Vector2(200, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_backstage"]
+size = Vector2(250, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_escape"]
+size = Vector2(100, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yordano"]
+size = Vector2(150, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ledger"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clue"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_polaroid"]
+size = Vector2(24, 24)
+
+[sub_resource type="Curve2D" id="Curve2D_bouncer1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 300, 350, 0, 0, 0, 0, 500, 350, 0, 0, 0, 0, 500, 500, 0, 0, 0, 0, 300, 500, 0, 0, 0, 0, 300, 350)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_bouncer2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 650, 300, 0, 0, 0, 0, 850, 300, 0, 0, 0, 0, 850, 450, 0, 0, 0, 0, 650, 450, 0, 0, 0, 0, 650, 300)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_bouncer3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 750, 150, 0, 0, 0, 0, 950, 150, 0, 0, 0, 0, 950, 250, 0, 0, 0, 0, 750, 250, 0, 0, 0, 0, 750, 150)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stage"]
+size = Vector2(200, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bar"]
+size = Vector2(180, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puzzle"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blocker"]
+size = Vector2(60, 20)
 
 [node name="JazzClubMission" type="Node2D"]
 script = ExtResource("1_jazz")
 
-[node name="FloorVisual" type="Polygon2D" parent="."]
+[node name="FloorVisual" type="ColorRect" parent="."]
 z_index = -1
-polygon = PackedVector2Array([
-	Vector2(0, 0), Vector2(1000, 0),
-	Vector2(1000, 700), Vector2(0, 700)
-])
-color = Color(0.12, 0.1, 0.15, 1.0)
+offset_right = 1200.0
+offset_bottom = 800.0
+color = Color(0.08, 0.06, 0.1, 1.0)
 
-[node name="Stage" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(400, 100), Vector2(600, 100),
-	Vector2(600, 200), Vector2(400, 200)
-])
-color = Color(0.3, 0.2, 0.25, 1.0)
-
-[node name="StageLabel" type="Label" parent="Stage"]
+[node name="ClubExterior" type="ColorRect" parent="."]
+z_index = -1
 offset_left = 50.0
-offset_top = 40.0
-offset_right = 150.0
-offset_bottom = 70.0
-text = "STAGE"
+offset_top = 600.0
+offset_right = 350.0
+offset_bottom = 780.0
+color = Color(0.15, 0.12, 0.1, 1.0)
+
+[node name="ExteriorLabel" type="Label" parent="ClubExterior"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 70.0
+offset_right = 220.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 18
+text = "CLUB ENTRANCE"
 horizontal_alignment = 1
 
-[node name="Bar" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([
-	Vector2(50, 400), Vector2(250, 400),
-	Vector2(250, 550), Vector2(50, 550)
-])
+[node name="BouncerExterior" type="ColorRect" parent="ClubExterior"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 80.0
+color = Color(0.4, 0.25, 0.2, 1.0)
+
+[node name="BouncerLabel" type="Label" parent="ClubExterior/BouncerExterior"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 55.0
+offset_bottom = 3.0
+theme_override_font_sizes/font_size = 10
+text = "BOUNCER"
+horizontal_alignment = 1
+
+[node name="SideEntrance" type="ColorRect" parent="ClubExterior"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 50.0
+offset_bottom = 120.0
 color = Color(0.25, 0.2, 0.15, 1.0)
 
-[node name="BarLabel" type="Label" parent="Bar"]
+[node name="SideEntranceLabel" type="Label" parent="ClubExterior/SideEntrance"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 25.0
+offset_right = 60.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 10
+text = "STAFF DOOR"
+horizontal_alignment = 1
+
+[node name="BarArea" type="ColorRect" parent="."]
+offset_left = 80.0
+offset_top = 250.0
+offset_right = 280.0
+offset_bottom = 380.0
+color = Color(0.22, 0.18, 0.12, 1.0)
+
+[node name="BarLabel" type="Label" parent="BarArea"]
+layout_mode = 0
 offset_left = 50.0
-offset_top = 60.0
+offset_top = 50.0
 offset_right = 150.0
-offset_bottom = 90.0
+offset_bottom = 80.0
 text = "BAR"
 horizontal_alignment = 1
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(100, 600)
+[node name="Bartender" type="ColorRect" parent="BarArea"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 50.0
+color = Color(0.35, 0.3, 0.25, 1.0)
 
-[node name="GoonSpawns" type="Node2D" parent="."]
+[node name="BartenderLabel" type="Label" parent="BarArea/Bartender"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 3.0
+theme_override_font_sizes/font_size = 10
+text = "BARTENDER"
+horizontal_alignment = 1
 
-[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(300, 300)
+[node name="Pianist" type="ColorRect" parent="BarArea"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 10.0
+offset_right = 180.0
+offset_bottom = 50.0
+color = Color(0.3, 0.28, 0.2, 1.0)
 
-[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(500, 400)
+[node name="PianistLabel" type="Label" parent="BarArea/Pianist"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 55.0
+offset_bottom = 3.0
+theme_override_font_sizes/font_size = 10
+text = "PIANIST"
+horizontal_alignment = 1
 
-[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(700, 350)
+[node name="SocialFloor" type="ColorRect" parent="."]
+offset_left = 300.0
+offset_top = 300.0
+offset_right = 600.0
+offset_bottom = 550.0
+color = Color(0.18, 0.15, 0.2, 1.0)
 
-[node name="GoonSpawn4" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(800, 500)
+[node name="SocialFloorLabel" type="Label" parent="SocialFloor"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 130.0
+text = "DANCE FLOOR"
+horizontal_alignment = 1
 
-[node name="LedgerZone" type="Area2D" parent="."]
-position = Vector2(500, 150)
+[node name="StageArea" type="ColorRect" parent="."]
+offset_left = 650.0
+offset_top = 80.0
+offset_right = 950.0
+offset_bottom = 250.0
+color = Color(0.25, 0.2, 0.18, 1.0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgerZone"]
-shape = SubResource("CircleShape2D_ledger")
+[node name="StageLabel" type="Label" parent="StageArea"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 70.0
+offset_right = 200.0
+offset_bottom = 100.0
+text = "STAGE"
+horizontal_alignment = 1
 
-[node name="LedgerVisual" type="Polygon2D" parent="LedgerZone"]
-polygon = PackedVector2Array([
-	Vector2(-12, -16), Vector2(12, -16),
-	Vector2(16, 0), Vector2(12, 16),
-	Vector2(-12, 16), Vector2(-16, 0)
-])
-color = Color(0.1, 0.1, 0.1, 1.0)
+[node name="Microphone" type="ColorRect" parent="StageArea"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 20.0
+offset_right = 130.0
+offset_bottom = 50.0
+color = Color(0.5, 0.5, 0.5, 1.0)
 
-[node name="LedgerLabel" type="Label" parent="LedgerZone"]
-offset_left = -50.0
+[node name="MusicPuzzleTrigger" type="Area2D" parent="StageArea"]
+position = Vector2(90, 110)
+script = ExtResource("3_puzzle_trigger")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageArea/MusicPuzzleTrigger"]
+shape = SubResource("RectangleShape2D_puzzle")
+
+[node name="MusicPuzzleVisual" type="ColorRect" parent="StageArea/MusicPuzzleTrigger"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(0.35, 0.3, 0.25, 1.0)
+
+[node name="SetlistLabel" type="Label" parent="StageArea/MusicPuzzleTrigger"]
+offset_left = -30.0
 offset_top = -40.0
-offset_right = 50.0
-offset_bottom = -10.0
-text = "[LEDGER]"
+offset_right = 30.0
+offset_bottom = -17.0
+theme_override_font_sizes/font_size = 10
+text = "[SETLIST]"
+horizontal_alignment = 1
+
+[node name="Backstage" type="ColorRect" parent="."]
+offset_left = 1000.0
+offset_top = 50.0
+offset_right = 1150.0
+offset_bottom = 250.0
+color = Color(0.2, 0.18, 0.15, 1.0)
+
+[node name="BackstageLabel" type="Label" parent="Backstage"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 90.0
+offset_right = 125.0
+offset_bottom = 120.0
+text = "BACKSTAGE"
+horizontal_alignment = 1
+
+[node name="BasementExit" type="ColorRect" parent="."]
+offset_left = 1050.0
+offset_top = 550.0
+offset_right = 1150.0
+offset_bottom = 650.0
+color = Color(0.12, 0.1, 0.08, 1.0)
+
+[node name="BasementLabel" type="Label" parent="BasementExit"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 90.0
+offset_bottom = 70.0
+text = "BASEMENT"
 horizontal_alignment = 1
 
 [node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(900, 650)
+position = Vector2(1100, 600)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
 shape = SubResource("RectangleShape2D_exit")
 
-[node name="ExitVisual" type="Polygon2D" parent="ExitZone"]
-polygon = PackedVector2Array([
-	Vector2(-32, -16), Vector2(32, -16),
-	Vector2(32, 16), Vector2(-32, 16)
-])
+[node name="ExitVisual" type="ColorRect" parent="ExitZone"]
+offset_left = -50.0
+offset_top = -30.0
+offset_right = 50.0
+offset_bottom = 30.0
 color = Color(0.2, 0.8, 0.4, 0.4)
 
 [node name="ExitLabel" type="Label" parent="ExitZone"]
@@ -114,10 +292,281 @@ offset_bottom = -5.0
 text = "EXIT ->"
 horizontal_alignment = 1
 
+[node name="EntranceZone" type="Area2D" parent="."]
+position = Vector2(30, 660)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntranceZone"]
+shape = SubResource("RectangleShape2D_entrance")
+
+[node name="EntranceVisual" type="ColorRect" parent="EntranceZone"]
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 40.0
+color = Color(0.3, 0.25, 0.2, 0.5)
+
+[node name="MusicPuzzleArea" type="Area2D" parent="."]
+position = Vector2(765, 170)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicPuzzleArea"]
+shape = SubResource("RectangleShape2D_music")
+
+[node name="MusicAreaVisual" type="ColorRect" parent="MusicPuzzleArea"]
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = 75.0
+color = Color(0.35, 0.25, 0.3, 0.4)
+
+[node name="BackstageArea" type="Area2D" parent="."]
+position = Vector2(1075, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackstageArea"]
+shape = SubResource("RectangleShape2D_backstage")
+
+[node name="BackstageVisual" type="ColorRect" parent="BackstageArea"]
+offset_left = -125.0
+offset_top = -90.0
+offset_right = 125.0
+offset_bottom = 90.0
+color = Color(0.3, 0.25, 0.2, 0.4)
+
+[node name="EscapeZone" type="Area2D" parent="."]
+position = Vector2(1100, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeZone"]
+shape = SubResource("RectangleShape2D_escape")
+
+[node name="YordanoTriggerZone" type="Area2D" parent="."]
+position = Vector2(950, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YordanoTriggerZone"]
+shape = SubResource("RectangleShape2D_yordano")
+
+[node name="YordanoVisual" type="ColorRect" parent="YordanoTriggerZone"]
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+color = Color(0.4, 0.3, 0.2, 0.3)
+
+[node name="YordanoLabel" type="Label" parent="YordanoTriggerZone"]
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -60.0
+text = "YORDANO'S SPOT"
+horizontal_alignment = 1
+
+[node name="LedgerZone" type="Area2D" parent="."]
+position = Vector2(1075, 120)
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgerZone"]
+shape = SubResource("RectangleShape2D_ledger")
+
+[node name="LedgerVisual" type="ColorRect" parent="LedgerZone"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.1, 0.08, 0.08, 1.0)
+
+[node name="LedgerLabel" type="Label" parent="LedgerZone"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -10.0
+text = "[LEDGER]"
+horizontal_alignment = 1
+
+[node name="Clue1" type="Area2D" parent="."]
+position = Vector2(1050, 80)
+script = ExtResource("2_note")
+note_title = "Crumpled Setlist Fragment"
+note_text = "...first set always opens with something personal. The boss says start with 'Naked Hug My Son' - gets the crowd vulnerable. End with the crowd-pleaser about that crime dog..."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clue1"]
+shape = SubResource("RectangleShape2D_clue")
+
+[node name="ClueVisual" type="ColorRect" parent="Clue1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.9, 0.85, 0.7, 1.0)
+
+[node name="ClueLabel" type="Label" parent="Clue1"]
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 10
+text = "[NOTE]"
+horizontal_alignment = 1
+
+[node name="Clue2" type="Area2D" parent="."]
+position = Vector2(1100, 180)
+script = ExtResource("2_note")
+note_title = "Stage Manager's Notes"
+note_text = "Song order for tonight:\n1. Open with intimacy\n2. Keep it light (bathroom humor always works)\n3. Kids love the Wee-Woo\n4. Dental blues for the working crowd\n5. Two Letters Away - the ballad\n6. Close with Raincoat for a Crime Dog - crowd goes wild"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clue2"]
+shape = SubResource("RectangleShape2D_clue")
+
+[node name="ClueVisual" type="ColorRect" parent="Clue2"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.9, 0.85, 0.7, 1.0)
+
+[node name="ClueLabel" type="Label" parent="Clue2"]
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -12.0
+theme_override_font_sizes/font_size = 10
+text = "[NOTE]"
+horizontal_alignment = 1
+
+[node name="PolaroidPickup" type="Area2D" parent="."]
+position = Vector2(180, 330)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PolaroidPickup"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="PolaroidVisual" type="ColorRect" parent="PolaroidPickup"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.95, 0.95, 0.9, 1.0)
+
+[node name="PolaroidLabel" type="Label" parent="PolaroidPickup"]
+offset_left = -25.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -7.0
+theme_override_font_sizes/font_size = 10
+text = "[PHOTO]"
+horizontal_alignment = 1
+
+[node name="BouncerPath1" type="Path2D" parent="."]
+curve = SubResource("Curve2D_bouncer1")
+
+[node name="BouncerPath2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_bouncer2")
+
+[node name="BouncerPath3" type="Path2D" parent="."]
+curve = SubResource("Curve2D_bouncer3")
+
+[node name="Bouncer1" type="CharacterBody2D" parent="."]
+position = Vector2(300, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer1"]
+shape = SubResource("RectangleShape2D_stage")
+
+[node name="BouncerVisual" type="ColorRect" parent="Bouncer1"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.4, 0.25, 0.2, 1.0)
+
+[node name="BouncerLabel" type="Label" parent="Bouncer1"]
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = -17.0
+theme_override_font_sizes/font_size = 10
+text = "BOUNCER"
+horizontal_alignment = 1
+
+[node name="Bouncer2" type="CharacterBody2D" parent="."]
+position = Vector2(650, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer2"]
+shape = SubResource("RectangleShape2D_bar")
+
+[node name="BouncerVisual" type="ColorRect" parent="Bouncer2"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.4, 0.25, 0.2, 1.0)
+
+[node name="BouncerLabel" type="Label" parent="Bouncer2"]
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = -17.0
+theme_override_font_sizes/font_size = 10
+text = "BOUNCER"
+horizontal_alignment = 1
+
+[node name="Bouncer3" type="CharacterBody2D" parent="."]
+position = Vector2(750, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer3"]
+shape = SubResource("RectangleShape2D_puzzle")
+
+[node name="BouncerVisual" type="ColorRect" parent="Bouncer3"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.4, 0.25, 0.2, 1.0)
+
+[node name="BouncerLabel" type="Label" parent="Bouncer3"]
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = -17.0
+theme_override_font_sizes/font_size = 10
+text = "BOUNCER"
+horizontal_alignment = 1
+
+[node name="BackstageBlocker" type="StaticBody2D" parent="."]
+position = Vector2(975, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackstageBlocker"]
+shape = SubResource("RectangleShape2D_blocker")
+
+[node name="BlockerVisual" type="ColorRect" parent="BackstageBlocker"]
+offset_left = -30.0
+offset_top = -10.0
+offset_right = 30.0
+offset_bottom = 10.0
+color = Color(0.5, 0.4, 0.3, 1.0)
+
+[node name="BlockerLabel" type="Label" parent="BackstageBlocker"]
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = -7.0
+theme_override_font_sizes/font_size = 9
+text = "LOCKED"
+horizontal_alignment = 1
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(200, 700)
+
+[node name="GoonSpawns" type="Node2D" parent="."]
+
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(450, 425)
+
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(750, 375)
+
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+position = Vector2(800, 200)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(500, 350)
-zoom = Vector2(1.3, 1.3)
+position = Vector2(600, 400)
+zoom = Vector2(1.1, 1.1)
 limit_left = 0
 limit_top = 0
-limit_right = 1000
-limit_bottom = 700
+limit_right = 1200
+limit_bottom = 800
