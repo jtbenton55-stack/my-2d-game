@@ -1,9 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bq5w7v5v5o5v19"]
+[gd_scene load_steps=18 format=3 uid="uid://bq5w7v5v5o5v19"]
 
 [ext_resource type="Script" path="res://src/levels/Hideout.gd" id="1_13h8aw"]
 [ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v5" path="res://scenes/characters/player.tscn" id="2_13h8aw"]
 [ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v8" path="res://scenes/characters/dog.tscn" id="3_13h8aw"]
-[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="4_13h8aw"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_mere.svg" id="4_mere"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_jake.svg" id="5_jake"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/token_dog.svg" id="6_dog"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_clean.svg" id="7_board"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hud_objective_pin.svg" id="8_pin"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_yordano.svg" id="9_crew"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_hideout.svg" id="10_city"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_rewrite.svg" id="11_clue"]
 
 [sub_resource type="TileSet" id="TileSet_15h8aw"]
 
@@ -44,7 +51,7 @@ shape = SubResource("RectangleShape2D_16h8aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="CrewMere"]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("4_mere")
 
 [node name="Label" type="Label" parent="CrewMere"]
 offset_left = -40.0
@@ -64,7 +71,7 @@ shape = SubResource("RectangleShape2D_16h8aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="CrewJake"]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("5_jake")
 modulate = Color(0.4, 0.6, 0.8, 1)
 
 [node name="Label" type="Label" parent="CrewJake"]
@@ -85,7 +92,7 @@ shape = SubResource("RectangleShape2D_16h8aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="CrewBentley"]
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("6_dog")
 modulate = Color(0.8, 0.5, 0.3, 1)
 
 [node name="Label" type="Label" parent="CrewBentley"]
@@ -106,7 +113,7 @@ shape = SubResource("RectangleShape2D_17h8aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="HeistStartZone"]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("7_board")
 
 [node name="Label" type="Label" parent="HeistStartZone"]
 offset_left = -80.0
@@ -134,7 +141,7 @@ shape = SubResource("RectangleShape2D_Polaroid")
 
 [node name="Sprite2D" type="Sprite2D" parent="PolaroidGalleryZone"]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("8_pin")
 
 [node name="Label" type="Label" parent="PolaroidGalleryZone"]
 offset_left = -60.0
@@ -154,7 +161,7 @@ shape = SubResource("RectangleShape2D_Crew")
 
 [node name="Sprite2D" type="Sprite2D" parent="CrewMenuZone"]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("9_crew")
 
 [node name="Label" type="Label" parent="CrewMenuZone"]
 offset_left = -60.0
@@ -174,7 +181,7 @@ shape = SubResource("RectangleShape2D_City")
 
 [node name="Sprite2D" type="Sprite2D" parent="CityHubZone"]
 scale = Vector2(0.45, 0.45)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("10_city")
 
 [node name="Label" type="Label" parent="CityHubZone"]
 offset_left = -80.0
@@ -194,7 +201,7 @@ shape = SubResource("RectangleShape2D_Evidence")
 
 [node name="Sprite2D" type="Sprite2D" parent="EvidenceBoardZone"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("4_13h8aw")
+texture = ExtResource("11_clue")
 
 [node name="Label" type="Label" parent="EvidenceBoardZone"]
 offset_left = -60.0

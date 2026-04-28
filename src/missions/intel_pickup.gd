@@ -17,6 +17,7 @@ func interact(_player: Node) -> void:
 		return
 	
 	collected = true
+	remove_from_group("interactable")
 	
 	# Show intel discovery
 	DialogueManager.show_simple_dialogue([

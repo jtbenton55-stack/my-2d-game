@@ -8,7 +8,11 @@ var choices: Array[String] = []
 @onready var choices_container: VBoxContainer = $Panel/VBoxContainer/ChoicesContainer
 
 func _ready() -> void:
+	add_to_group("blocking_ui")
 	grab_focus()
+
+func _exit_tree() -> void:
+	remove_from_group("blocking_ui")
 
 func setup(prompt: String, choices_array: Array[String]) -> void:
 	choices = choices_array.duplicate()

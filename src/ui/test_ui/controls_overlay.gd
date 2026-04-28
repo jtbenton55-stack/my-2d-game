@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 ## Simple overlay that shows the main controls.
 ## Can be toggled with a hotkey (F1) or left always visible.
@@ -6,8 +6,8 @@ extends Control
 @export var hotkey: Key = KEY_F1
 @export var always_visible: bool = true
 
-@onready var info_label: Label = $MarginContainer/Panel/InfoLabel
-@onready var minimize_button: Button = $MarginContainer/Panel/MinimizeButton
+@onready var info_label: Label = $PanelRoot/MarginContainer/Panel/InfoLabel
+@onready var minimize_button: Button = $PanelRoot/MarginContainer/Panel/MinimizeButton
 
 var is_minimized: bool = false
 var full_text: String = ""
@@ -15,7 +15,6 @@ var full_text: String = ""
 func _ready() -> void:
 	# Set process mode so it works even when the game is paused
 	process_mode = PROCESS_MODE_ALWAYS
-	z_index = 100
 	_update_label()
 	full_text = info_label.text
 	

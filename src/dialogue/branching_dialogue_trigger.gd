@@ -43,11 +43,19 @@ func _show_choices(prompt: String) -> void:
 		_dialogue_ended()
 		return
 	var panel := packed.instantiate()
-	if panel.has_method("setup"):
-		panel.setup(prompt, choices)
 	if panel.has_signal("choice_made"):
 		panel.choice_made.connect(_on_choice_made)
-	get_tree().current_scene.add_child(panel)
+	var host := get_tree().current_scene
+	if host == null:
+		_dialogue_ended()
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 94
+	host.add_child(layer)
+	layer.add_child(panel)
+	if panel.has_method("setup"):
+		panel.setup(prompt, choices)
+	panel.tree_exited.connect(func(): layer.queue_free())
 
 func _on_choice_made(index: int) -> void:
 	if choice_event_name != "" and EventBus.has_signal(choice_event_name):

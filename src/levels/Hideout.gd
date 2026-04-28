@@ -98,13 +98,14 @@ func _setup_interactables() -> void:
 			)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if InputMap.has_action("interact") and event.is_action_pressed("interact"):
-		if player == null:
-			return
-		var heist_zone := get_node_or_null("HeistStartZone") as Node2D
-		if heist_zone and player.global_position.distance_to(heist_zone.global_position) < 90.0:
-			SceneManager.open_mission_select()
-			return
+	if not (InputMap.has_action("interact") and event.is_action_pressed("interact")):
+		return
+	if player == null:
+		return
+	var heist_zone := get_node_or_null("HeistStartZone") as Node2D
+	if heist_zone and player.global_position.distance_to(heist_zone.global_position) < 90.0:
+		SceneManager.open_mission_select()
+		return
 	var mere := get_node_or_null("CrewMere") as Node2D
 	if mere and player.global_position.distance_to(mere.global_position) < 72.0:
 		_show_crew_dialogue("mere")

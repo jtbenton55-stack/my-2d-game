@@ -2,29 +2,37 @@
 
 [ext_resource type="Script" path="res://src/ui/test_ui/controls_overlay.gd" id="1_controls"]
 
-[node name="ControlsOverlay" type="Control"]
-process_mode = 3
-z_index = 100
-layout_mode = 3
-anchors_preset = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 250.0
+[node name="ControlsOverlay" type="CanvasLayer"]
+layer = 30
 script = ExtResource("1_controls")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="PanelRoot" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelRoot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -260.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="PanelRoot/MarginContainer"]
 layout_mode = 2
 
-[node name="InfoLabel" type="Label" parent="MarginContainer/Panel"]
+[node name="InfoLabel" type="Label" parent="PanelRoot/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +48,7 @@ theme_override_colors/font_color = Color(0.92, 0.94, 1, 1)
 text = "Loading controls..."
 autowrap_mode = 3
 
-[node name="MinimizeButton" type="Button" parent="MarginContainer/Panel"]
+[node name="MinimizeButton" type="Button" parent="PanelRoot/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

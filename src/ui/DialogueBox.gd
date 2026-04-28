@@ -16,6 +16,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and InputMap.has_action("interact") and event.is_action_pressed("interact"):
 		DialogueManager.next_line()
+		get_viewport().set_input_as_handled()
 
 func _on_dialogue_started(_lines: Array) -> void:
 	visible = true

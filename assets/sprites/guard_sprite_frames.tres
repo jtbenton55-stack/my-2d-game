@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bq5w7v5v5o5v12"]
 
-[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="1_10h8aw"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/token_guard.svg" id="1_10h8aw"]
 
 [resource]
 animations = [ {

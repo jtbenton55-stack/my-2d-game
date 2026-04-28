@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://tacobellmission001"]
+[gd_scene load_steps=21 format=3 uid="uid://tacobellmission001"]
 
 [ext_resource type="Script" path="res://src/missions/TacoBellMission.gd" id="1_taco"]
 [ext_resource type="Script" path="res://src/missions/scent_trail_marker.gd" id="2_scent"]
 [ext_resource type="Script" path="res://src/missions/garage_puzzle.gd" id="3_garage"]
 [ext_resource type="Script" path="res://src/missions/intel_pickup.gd" id="4_intel"]
+[ext_resource type="Script" path="res://src/missions/bag_pickup_zone.gd" id="10_bag"]
 [ext_resource type="Script" path="res://src/missions/yard_entrance.gd" id="5_yard"]
 [ext_resource type="Script" path="res://src/missions/sterling_clue_note.gd" id="6_clue"]
 [ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="7_dialogue"]
@@ -42,6 +43,9 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 100)
 }
 point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
+size = Vector2(100, 100)
 
 [node name="TacoBellMission" type="Node2D"]
 script = ExtResource("1_taco")
@@ -327,6 +331,30 @@ offset_right = 1000.0
 offset_bottom = 580.0
 color = Color(0.4, 0.35, 0.25, 1.0)
 
+[node name="Crate1Body" type="StaticBody2D" parent="."]
+position = Vector2(900, 300)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate1Body"]
+shape = SubResource("RectangleShape2D_crate")
+
+[node name="Crate2Body" type="StaticBody2D" parent="."]
+position = Vector2(1100, 350)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate2Body"]
+shape = SubResource("RectangleShape2D_crate")
+
+[node name="Crate3Body" type="StaticBody2D" parent="."]
+position = Vector2(950, 530)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate3Body"]
+shape = SubResource("RectangleShape2D_crate")
+
 [node name="GuardPath1" type="Path2D" parent="."]
 position = Vector2(850, 200)
 curve = SubResource("Curve2D_1")
@@ -396,11 +424,12 @@ offset_bottom = 20.0
 color = Color(0.2, 0.6, 0.3, 1.0)
 
 [node name="KeypadLabel" type="Label" parent="GaragePuzzleTrigger"]
-offset_left = -25.0
-offset_top = -50.0
-offset_right = 25.0
-offset_bottom = -25.0
-text = "KEYPAD"
+offset_left = -55.0
+offset_top = -58.0
+offset_right = 55.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 12
+text = "KEYPAD (press E)"
 horizontal_alignment = 1
 
 [node name="ReceiptIntel" type="Area2D" parent="."]
@@ -430,12 +459,17 @@ horizontal_alignment = 1
 
 [node name="BagPickupZone" type="Area2D" parent="."]
 position = Vector2(1350, 380)
-visible = false
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+monitorable = false
+script = ExtResource("10_bag")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BagPickupZone"]
 shape = SubResource("CircleShape2D_bag")
 
 [node name="BagVisual" type="ColorRect" parent="BagPickupZone"]
+visible = false
 offset_left = -24.0
 offset_top = -20.0
 offset_right = 24.0
@@ -443,12 +477,15 @@ offset_bottom = 20.0
 color = Color(0.6, 0.4, 0.2, 1.0)
 
 [node name="BagLabel" type="Label" parent="BagPickupZone"]
-offset_left = -40.0
-offset_top = -45.0
-offset_right = 40.0
-offset_bottom = -20.0
-text = "Delivery Bag"
+visible = false
+offset_left = -120.0
+offset_top = -52.0
+offset_right = 120.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 13
+text = "Louis's bag (appears after keypad)"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="SterlingClueNote" type="Node2D" parent="."]
 position = Vector2(1350, 340)

@@ -7,6 +7,9 @@ var current_index := -1
 func _ready() -> void:
 	EventBus.debug("DialogueManager ready")
 
+func show_simple_dialogue(lines: Array) -> void:
+	start_simple_dialogue(lines)
+
 func start_simple_dialogue(lines: Array) -> void:
 	current_lines = []
 	for item in lines:

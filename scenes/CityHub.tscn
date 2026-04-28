@@ -1,7 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cityhub12345"]
+[gd_scene load_steps=22 format=3 uid="uid://cityhub12345"]
 
 [ext_resource type="Script" path="res://src/levels/CityHub.gd" id="1_cityhub"]
-[ext_resource type="CompressedTexture2D" path="res://icon.svg" id="2_icon"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_hideout.svg" id="2_hide"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_louis.svg" id="3_louis"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_yordano.svg" id="4_yord"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_mere.svg" id="5_mere"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_dom.svg" id="6_dom"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_jake.svg" id="7_jake"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_taco.svg" id="8_tac"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_velvet.svg" id="9_vel"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_rewrite.svg" id="10_rw"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_fast.svg" id="11_fast"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_sterling.svg" id="12_st"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_clean.svg" id="13_cl"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_arm.svg" id="14_arm"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_diamond.svg" id="15_di"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_tea.svg" id="16_tea"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_elephant.svg" id="17_el"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_shadow.svg" id="18_sh"]
 
 [sub_resource type="TileSet" id="TileSet_city"]
 
@@ -33,7 +49,7 @@ shape = SubResource("RectangleShape2D_hideout")
 
 [node name="Sprite2D" type="Sprite2D" parent="HideoutEntrance"]
 scale = Vector2(0.45, 0.45)
-texture = ExtResource("2_icon")
+texture = ExtResource("2_hide")
 
 [node name="Label" type="Label" parent="HideoutEntrance"]
 offset_left = -70.0
@@ -53,7 +69,7 @@ shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LouisNPC"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("3_louis")
 
 [node name="Label" type="Label" parent="LouisNPC"]
 offset_left = -50.0
@@ -73,7 +89,7 @@ shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D3" type="Sprite2D" parent="YordanoNPC"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("4_yord")
 
 [node name="Label" type="Label" parent="YordanoNPC"]
 offset_left = -60.0
@@ -93,7 +109,7 @@ shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D4" type="Sprite2D" parent="MereNPC"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("5_mere")
 
 [node name="Label" type="Label" parent="MereNPC"]
 offset_left = -50.0
@@ -113,7 +129,7 @@ shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D5" type="Sprite2D" parent="DomNPC"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("6_dom")
 
 [node name="Label" type="Label" parent="DomNPC"]
 offset_left = -50.0
@@ -133,7 +149,7 @@ shape = SubResource("RectangleShape2D_npc")
 
 [node name="Sprite2D6" type="Sprite2D" parent="JakeNPC"]
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("7_jake")
 
 [node name="Label" type="Label" parent="JakeNPC"]
 offset_left = -50.0
@@ -151,6 +167,11 @@ position = Vector2(100, 100)
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="MissionTrigger_taco_bell_drop"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_taco_bell_drop"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("8_tac")
+
 [node name="Label" type="Label" parent="MissionTrigger_taco_bell_drop"]
 offset_left = -70.0
 offset_top = -58.0
@@ -166,6 +187,11 @@ position = Vector2(700, 100)
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="MissionTrigger_velvet_paw_jazz_club"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_velvet_paw_jazz_club"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("9_vel")
 
 [node name="Label" type="Label" parent="MissionTrigger_velvet_paw_jazz_club"]
 offset_left = -85.0
@@ -183,6 +209,11 @@ position = Vector2(100, 500)
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="MissionTrigger_rewrite_room"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_rewrite_room"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("10_rw")
+
 [node name="Label" type="Label" parent="MissionTrigger_rewrite_room"]
 offset_left = -85.0
 offset_top = -58.0
@@ -198,6 +229,11 @@ position = Vector2(700, 500)
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="MissionTrigger_fast_family_getaway"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_fast_family_getaway"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("11_fast")
 
 [node name="Label" type="Label" parent="MissionTrigger_fast_family_getaway"]
 offset_left = -90.0
@@ -215,6 +251,11 @@ position = Vector2(400, 100)
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="MissionTrigger_sterling_tower_heist"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_sterling_tower_heist"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("12_st")
+
 [node name="Label" type="Label" parent="MissionTrigger_sterling_tower_heist"]
 offset_left = -95.0
 offset_top = -58.0
@@ -230,6 +271,11 @@ position = Vector2(245, 125)
 
 [node name="CollisionShape2D12" type="CollisionShape2D" parent="MissionTrigger_clean_job"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_clean_job"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("13_cl")
 
 [node name="Label" type="Label" parent="MissionTrigger_clean_job"]
 offset_left = -80.0
@@ -247,6 +293,11 @@ position = Vector2(610, 295)
 [node name="CollisionShape2D13" type="CollisionShape2D" parent="MissionTrigger_arm_wrestling_underground"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_arm_wrestling_underground"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("14_arm")
+
 [node name="Label" type="Label" parent="MissionTrigger_arm_wrestling_underground"]
 offset_left = -110.0
 offset_top = -58.0
@@ -262,6 +313,11 @@ position = Vector2(250, 505)
 
 [node name="CollisionShape2D14" type="CollisionShape2D" parent="MissionTrigger_diamond_a_year_job"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_diamond_a_year_job"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("15_di")
 
 [node name="Label" type="Label" parent="MissionTrigger_diamond_a_year_job"]
 offset_left = -105.0
@@ -279,6 +335,11 @@ position = Vector2(520, 505)
 [node name="CollisionShape2D15" type="CollisionShape2D" parent="MissionTrigger_persian_tea_poison_ink"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_persian_tea_poison_ink"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("16_tea")
+
 [node name="Label" type="Label" parent="MissionTrigger_persian_tea_poison_ink"]
 offset_left = -105.0
 offset_top = -58.0
@@ -295,6 +356,11 @@ position = Vector2(295, 225)
 [node name="CollisionShape2D16" type="CollisionShape2D" parent="MissionTrigger_elephant_in_the_room"]
 shape = SubResource("RectangleShape2D_mission")
 
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_elephant_in_the_room"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("17_el")
+
 [node name="Label" type="Label" parent="MissionTrigger_elephant_in_the_room"]
 offset_left = -95.0
 offset_top = -58.0
@@ -310,6 +376,11 @@ position = Vector2(535, 225)
 
 [node name="CollisionShape2D17" type="CollisionShape2D" parent="MissionTrigger_shadow_solo_contract"]
 shape = SubResource("RectangleShape2D_mission")
+
+[node name="Icon" type="Sprite2D" parent="MissionTrigger_shadow_solo_contract"]
+position = Vector2(0, -78)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("18_sh")
 
 [node name="Label" type="Label" parent="MissionTrigger_shadow_solo_contract"]
 offset_left = -100.0

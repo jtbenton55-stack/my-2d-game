@@ -78,7 +78,7 @@ func _physics_process(delta: float) -> void:
 	_clamp_to_scene_bounds()
 	_update_stealth_visual()
 	_update_sprite()
-	if _action_just_pressed("interact"):
+	if _action_just_pressed("interact") and not _should_skip_world_interact():
 		_try_interact()
 
 func _update_timers(delta: float) -> void:
@@ -139,6 +139,13 @@ func _die() -> void:
 	else:
 		GameState.fail_mission("", "Jake has concerns. Bentley refuses to discuss it.")
 		SceneManager.show_mission_result()
+
+func _should_skip_world_interact() -> bool:
+	if DialogueManager.is_in_dialogue:
+		return true
+	if get_tree().get_nodes_in_group("blocking_ui").size() > 0:
+		return true
+	return false
 
 func _try_interact() -> void:
 	var best: Node = null

@@ -1,7 +1,7 @@
-extends Control
+extends CanvasLayer
 
-@onready var resume_button: Button = $CenterContainer/VBoxContainer/ResumeButton
-@onready var exit_button: Button = $CenterContainer/VBoxContainer/ExitButton
+@onready var resume_button: Button = $Overlay/CenterContainer/VBoxContainer/ResumeButton
+@onready var exit_button: Button = $Overlay/CenterContainer/VBoxContainer/ExitButton
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS

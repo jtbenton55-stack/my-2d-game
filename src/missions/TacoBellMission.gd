@@ -27,6 +27,7 @@ const GARAGE_CODE_GUESS_3 := "7429"
 func _ready() -> void:
 	mission_id = "taco_bell_drop"
 	objective_text = "Meet Louis in the alley."
+	guard_count = 0
 	super._ready()
 	
 	# Connect bag pickup
@@ -72,7 +73,6 @@ func _ready() -> void:
 	# Connect yard entrance
 	var yard := get_node_or_null("YardEntrance")
 	if yard:
-		yard.add_to_group("interactable")
 		if yard.has_signal("player_entered"):
 			if not yard.player_entered.is_connected(_on_yard_entered):
 				yard.player_entered.connect(_on_yard_entered)
@@ -85,6 +85,21 @@ func _ready() -> void:
 	
 	# Start the mission after a brief delay
 	call_deferred("_start_mission")
+
+func _spawn_default_enemies() -> void:
+	var enemy_scene: PackedScene = load("res://scenes/characters/guard.tscn")
+	if enemy_scene == null:
+		return
+	var yard_guard: CharacterBody2D = enemy_scene.instantiate() as CharacterBody2D
+	add_child(yard_guard)
+	var spawn_pt := get_node_or_null("GoonSpawns/GoonSpawn1") as Node2D
+	if spawn_pt:
+		yard_guard.global_position = spawn_pt.global_position
+	else:
+		yard_guard.global_position = Vector2(950, 280)
+	if yard_guard.has_signal("spotted_player"):
+		if not yard_guard.spotted_player.is_connected(_on_guard_spotted_player):
+			yard_guard.spotted_player.connect(_on_guard_spotted_player)
 
 func _advance_to(step: int) -> void:
 	current_step = step
@@ -111,11 +126,11 @@ func _advance_to(step: int) -> void:
 				AudioManager.play_sfx("objective_update")
 		
 		MissionStep.GARAGE_PUZZLE:
-			QuestManager.set_objective("Find the garage code. Check for receipts or try combinations.", mission_id)
+			QuestManager.set_objective("East end: gray EMPLOYEE GARAGE. Press E on the green KEYPAD. Code hint: receipt near yard (7429) or pick from the menu.", mission_id)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.RECOVER_BAG:
-			QuestManager.set_objective("The bag is inside! Grab it and get out.", mission_id)
+			QuestManager.set_objective("Bag is inside the east garage (brown rectangle). Walk onto it or press E to grab it, then head to the green EXIT near Louis.", mission_id)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.ESCAPE:
@@ -196,10 +211,16 @@ func _on_garage_solved() -> void:
 	garage_door_opened = true
 	AudioManager.play_sfx("door_open")
 	
-	# Reveal bag zone
+	# Reveal bag visuals only — keep Area2D active for collision (hidden Area2D can stop overlap detection).
 	var bag := get_node_or_null("BagPickupZone")
 	if bag:
-		bag.visible = true
+		var vis := bag.get_node_or_null("BagVisual")
+		if vis:
+			vis.visible = true
+		var lbl := bag.get_node_or_null("BagLabel")
+		if lbl:
+			lbl.text = "Louis's bag — walk onto it or press E"
+			lbl.visible = true
 	
 	_advance_to(MissionStep.RECOVER_BAG)
 
@@ -207,6 +228,9 @@ func _on_garage_failed() -> void:
 	# Wrong code - guards get alerted
 	QuestManager.set_objective("Wrong code! The noise attracted guards!", mission_id)
 	_on_guard_spotted_player()
+
+func try_collect_bag_from_interact(body: Node) -> void:
+	_on_bag_body_entered(body)
 
 func _on_bag_body_entered(body: Node) -> void:
 	if body.is_in_group("player") and current_step >= MissionStep.RECOVER_BAG:
