@@ -21,7 +21,7 @@ radius = 32.0
 size = Vector2(100, 80)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_intel"]
-radius = 24.0
+radius = 36.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bag"]
 radius = 32.0
@@ -161,7 +161,7 @@ text = "DUMPSTER"
 horizontal_alignment = 1
 
 [node name="DumpsterIntel" type="Area2D" parent="."]
-position = Vector2(250, 200)
+position = Vector2(250, 275)
 script = ExtResource("4_intel")
 intel_id = "dumpster_note"
 intel_title = "Scrawled Note"
@@ -410,7 +410,7 @@ text = "DOOR"
 horizontal_alignment = 1
 
 [node name="GaragePuzzleTrigger" type="Area2D" parent="."]
-position = Vector2(1350, 350)
+position = Vector2(1350, 518)
 script = ExtResource("3_garage")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GaragePuzzleTrigger"]
@@ -433,7 +433,7 @@ text = "KEYPAD (press E)"
 horizontal_alignment = 1
 
 [node name="ReceiptIntel" type="Area2D" parent="."]
-position = Vector2(1150, 550)
+position = Vector2(1020, 430)
 script = ExtResource("4_intel")
 intel_id = "garage_receipt"
 intel_title = "Crumpled Receipt"
@@ -458,7 +458,7 @@ text = "R"
 horizontal_alignment = 1
 
 [node name="BagPickupZone" type="Area2D" parent="."]
-position = Vector2(1350, 380)
+position = Vector2(1350, 400)
 collision_layer = 0
 collision_mask = 1
 monitoring = true
@@ -488,11 +488,11 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="SterlingClueNote" type="Node2D" parent="."]
-position = Vector2(1350, 340)
+position = Vector2(1340, 385)
 script = ExtResource("6_clue")
 
 [node name="PolaroidPickup" type="Area2D" parent="."]
-position = Vector2(1100, 180)
+position = Vector2(1040, 220)
 script = ExtResource("9_polaroid")
 polaroid_id = "taco_bell_polaroid"
 
@@ -564,7 +564,7 @@ position = Vector2(400, 500)
 position = Vector2(500, 310)
 
 [node name="BagSpawn" type="Marker2D" parent="."]
-position = Vector2(1350, 380)
+position = Vector2(1350, 400)
 
 [node name="GoonSpawns" type="Node2D" parent="."]
 
@@ -577,7 +577,7 @@ position = Vector2(1100, 400)
 [node name="CollectibleSpawns" type="Node2D" parent="."]
 
 [node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns"]
-position = Vector2(1100, 180)
+position = Vector2(1040, 220)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(750, 450)

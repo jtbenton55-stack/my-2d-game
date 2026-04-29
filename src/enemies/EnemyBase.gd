@@ -61,8 +61,7 @@ func _update_ai(_delta: float) -> void:
 	else:
 		if distance > effective_aggro_range * 1.75:
 			_spotted_emitted = false
-		velocity = Vector2.ZERO
-		move_and_slide()
+		_patrol_or_idle(_delta)
 
 func _can_see_player() -> bool:
 	if target == null or not is_instance_valid(target):
@@ -70,6 +69,7 @@ func _can_see_player() -> bool:
 	var space := get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(global_position, target.global_position)
 	query.exclude = [get_rid()]
+	query.collision_mask = 3
 	var result := space.intersect_ray(query)
 	if result.is_empty():
 		return true
@@ -102,3 +102,7 @@ func set_detection_multiplier(mult: float) -> void:
 	detection_multiplier = mult
 	# Adjust detection range
 	detection_range *= mult
+
+func _patrol_or_idle(_delta: float) -> void:
+	velocity = Vector2.ZERO
+	move_and_slide()

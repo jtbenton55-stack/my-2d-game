@@ -90,16 +90,26 @@ func _spawn_default_enemies() -> void:
 	var enemy_scene: PackedScene = load("res://scenes/characters/guard.tscn")
 	if enemy_scene == null:
 		return
-	var yard_guard: CharacterBody2D = enemy_scene.instantiate() as CharacterBody2D
+	var path_a := get_node_or_null("GuardPath1") as Path2D
+	var path_b := get_node_or_null("GuardPath2") as Path2D
+	var spawn1 := get_node_or_null("GoonSpawns/GoonSpawn1") as Node2D
+	var spawn2 := get_node_or_null("GoonSpawns/GoonSpawn2") as Node2D
+	_spawn_yard_guard(enemy_scene, spawn1, path_a, Vector2(900, 250))
+	_spawn_yard_guard(enemy_scene, spawn2, path_b, Vector2(1100, 400))
+
+func _spawn_yard_guard(packed: PackedScene, spawn: Node2D, path: Path2D, fallback_pos: Vector2) -> void:
+	var yard_guard = packed.instantiate()
+	if yard_guard == null:
+		return
 	add_child(yard_guard)
-	var spawn_pt := get_node_or_null("GoonSpawns/GoonSpawn1") as Node2D
-	if spawn_pt:
-		yard_guard.global_position = spawn_pt.global_position
+	if spawn:
+		yard_guard.global_position = spawn.global_position
 	else:
-		yard_guard.global_position = Vector2(950, 280)
-	if yard_guard.has_signal("spotted_player"):
-		if not yard_guard.spotted_player.is_connected(_on_guard_spotted_player):
-			yard_guard.spotted_player.connect(_on_guard_spotted_player)
+		yard_guard.global_position = fallback_pos
+	if yard_guard.has_method("assign_patrol_path"):
+		yard_guard.assign_patrol_path(path)
+	if yard_guard.has_signal("spotted_player") and not yard_guard.spotted_player.is_connected(_on_guard_spotted_player):
+		yard_guard.spotted_player.connect(_on_guard_spotted_player)
 
 func _advance_to(step: int) -> void:
 	current_step = step

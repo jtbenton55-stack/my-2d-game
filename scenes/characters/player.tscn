@@ -16,6 +16,8 @@ size = Vector2(32, 32)
 radius = 100.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 3
 script = ExtResource("1_4h8aw")
 speed = 300.0
 stealth_speed = 150.0
