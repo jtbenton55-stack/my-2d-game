@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bq5w7v5v5o5v5"]
+[gd_scene load_steps=12 format=3 uid="uid://bq5w7v5v5o5v5"]
 
 [ext_resource type="Script" path="res://src/player/Player.gd" id="1_4h8aw"]
 [ext_resource type="SpriteFrames" uid="uid://bq5w7v5v5o5v6" path="res://assets/sprites/player_sprite_frames.tres" id="2_6h8aw"]
+[ext_resource type="Script" path="res://src/combat/PlayerCombatController.gd" id="3_combat"]
+[ext_resource type="Script" path="res://src/combat/DashAbility.gd" id="4_dash"]
+[ext_resource type="Script" path="res://src/combat/MeleeHitbox.gd" id="5_melee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5h8aw"]
 size = Vector2(32, 32)
@@ -14,6 +17,9 @@ size = Vector2(32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h8aw"]
 radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stealth"]
+radius = 36.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 1
@@ -44,14 +50,29 @@ modulate = Color(0.95, 0.86, 0.78, 1)
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_5h8aw")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="PlayerCombatController" type="Node" parent="."]
+script = ExtResource("3_combat")
+
+[node name="DashAbility" type="Node" parent="PlayerCombatController"]
+script = ExtResource("4_dash")
+
+[node name="MeleeHitbox" type="Area2D" parent="PlayerCombatController"]
 monitoring = false
 monitorable = false
 collision_layer = 0
-collision_mask = 2
+collision_mask = 3
+script = ExtResource("5_melee")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCombatController/MeleeHitbox"]
 shape = SubResource("RectangleShape2D_6h8aw")
+
+[node name="StealthTakedownZone" type="Area2D" parent="PlayerCombatController"]
+collision_layer = 0
+collision_mask = 3
+monitoring = true
+
+[node name="CollisionShape2DStealth" type="CollisionShape2D" parent="PlayerCombatController/StealthTakedownZone"]
+shape = SubResource("CircleShape2D_stealth")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 monitorable = false

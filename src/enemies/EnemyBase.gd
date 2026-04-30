@@ -21,6 +21,7 @@ var attack_timer := 0.0
 var stunned_timer := 0.0
 var detection_multiplier := 1.0
 var _spotted_emitted := false
+var _aware := false
 
 func _ready() -> void:
 	add_to_group("enemy")
@@ -39,6 +40,17 @@ func _physics_process(delta: float) -> void:
 		target = get_tree().get_first_node_in_group("player") as Node2D
 	_update_ai(delta)
 
+func is_aware() -> bool:
+	return _aware
+
+
+func instant_kill() -> void:
+	if health <= 0:
+		return
+	health = 0
+	_die()
+
+
 func _update_ai(_delta: float) -> void:
 	if target == null:
 		velocity = Vector2.ZERO
@@ -49,10 +61,12 @@ func _update_ai(_delta: float) -> void:
 	if target.has_method("is_stealth_active") and target.is_stealth_active():
 		effective_aggro_range *= stealth_aggro_multiplier
 	if distance <= attack_range and _can_see_player():
+		_aware = true
 		velocity = Vector2.ZERO
 		move_and_slide()
 		_try_attack()
 	elif distance <= effective_aggro_range and _can_see_player():
+		_aware = true
 		if not _spotted_emitted:
 			_spotted_emitted = true
 			spotted_player.emit()
@@ -61,6 +75,7 @@ func _update_ai(_delta: float) -> void:
 	else:
 		if distance > effective_aggro_range * 1.75:
 			_spotted_emitted = false
+			_aware = false
 		_patrol_or_idle(_delta)
 
 func _can_see_player() -> bool:

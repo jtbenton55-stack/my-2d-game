@@ -26,19 +26,25 @@ var can_control := true
 var is_stealth := false
 var stealth_indicator: ColorRect = null
 
+var _combat: Node = null
+
 func is_stealth_active() -> bool:
 	return is_stealth
 
+func _uses_hitbox_combat() -> bool:
+	return _combat != null and _combat.enabled
+
 func _ready() -> void:
 	add_to_group("player")
+	_combat = get_node_or_null("PlayerCombatController")
 	max_health = _card_int("get_player_max_health", max_health)
 	current_health = min(max_health, GameState.player_health if GameState.player_health > 0 else max_health)
 	GameState.player_max_health = max_health
 	GameState.player_health = current_health
 	EventBus.player_health_changed.emit(current_health, max_health)
-	var hitbox := get_node_or_null("Hitbox")
-	if hitbox:
-		hitbox.monitoring = false
+	var melee_hb := get_node_or_null("PlayerCombatController/MeleeHitbox")
+	if melee_hb:
+		melee_hb.monitoring = false
 	_create_stealth_indicator()
 	_update_sprite()
 
@@ -51,17 +57,24 @@ func _physics_process(delta: float) -> void:
 	var input_vector := _get_move_vector()
 	if input_vector.length() > 0.01:
 		facing = input_vector.normalized()
-	
-	var dodge_cd_reduction: float = _card_float("get_cooldown_reduction", 0.0)
-	var effective_dodge_cooldown: float = dodge_cooldown * (1.0 - dodge_cd_reduction)
-	
-	if _action_just_pressed("dodge") and input_vector.length() > 0.01 and dodge_cooldown_timer <= 0.0:
-		dodge_timer = dodge_duration
-		dodge_cooldown_timer = effective_dodge_cooldown
-		invulnerable = true
-		AudioManager.play_sfx("dodge", global_position)
-	if _action_just_pressed("attack") and attack_timer <= 0.0:
-		_attack()
+
+	var combat_on := _uses_hitbox_combat()
+	if combat_on:
+		var dashing := false
+		if _combat.has_method("is_dashing"):
+			dashing = _combat.is_dashing()
+		if not _combat.can_act and not dashing:
+			input_vector = Vector2.ZERO
+	else:
+		var dodge_cd_reduction: float = _card_float("get_cooldown_reduction", 0.0)
+		var effective_dodge_cooldown: float = dodge_cooldown * (1.0 - dodge_cd_reduction)
+		if _action_just_pressed("dodge") and input_vector.length() > 0.01 and dodge_cooldown_timer <= 0.0:
+			dodge_timer = dodge_duration
+			dodge_cooldown_timer = effective_dodge_cooldown
+			invulnerable = true
+			AudioManager.play_sfx("dodge", global_position)
+		if _action_just_pressed("attack") and attack_timer <= 0.0:
+			_attack()
 	
 	var speed_mult: float = _card_float("get_player_speed_multiplier", 1.0)
 	var stealth_mult: float = _card_float("get_player_stealth_multiplier", 1.0)
@@ -70,7 +83,9 @@ func _physics_process(delta: float) -> void:
 	is_stealth = _action_pressed("stealth")
 	var move_speed := effective_stealth_speed if is_stealth else effective_speed
 	
-	if dodge_timer > 0.0:
+	if combat_on:
+		velocity = input_vector * move_speed
+	elif dodge_timer > 0.0:
 		velocity = facing * dodge_speed
 	else:
 		velocity = input_vector * move_speed
@@ -86,14 +101,15 @@ func _physics_process(delta: float) -> void:
 			_try_interact()
 
 func _update_timers(delta: float) -> void:
-	if dodge_timer > 0.0:
-		dodge_timer -= delta
-		if dodge_timer <= 0.0:
-			invulnerable = false
-	if dodge_cooldown_timer > 0.0:
-		dodge_cooldown_timer -= delta
-	if attack_timer > 0.0:
-		attack_timer -= delta
+	if not _uses_hitbox_combat():
+		if dodge_timer > 0.0:
+			dodge_timer -= delta
+			if dodge_timer <= 0.0:
+				invulnerable = false
+		if dodge_cooldown_timer > 0.0:
+			dodge_cooldown_timer -= delta
+		if attack_timer > 0.0:
+			attack_timer -= delta
 
 func _get_move_vector() -> Vector2:
 	var x := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -113,7 +129,7 @@ func _attack() -> void:
 				enemy.take_damage(total_damage, self)
 
 func take_damage(amount: int, _source: Node = null) -> void:
-	if invulnerable or current_health <= 0:
+	if invulnerable or is_in_group("invulnerable") or current_health <= 0:
 		return
 	if GameState.has_selected_card("bentley_dental_boy") and not GameState.dialogue_flags.get("dental_boy_used", false):
 		GameState.dialogue_flags["dental_boy_used"] = true

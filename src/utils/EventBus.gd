@@ -48,6 +48,8 @@ signal polaroid_collected(polaroid_id)
 signal friend_helped(friend_id)
 @warning_ignore("unused_signal")
 signal pause_requested
+@warning_ignore("unused_signal")
+signal screen_shake(intensity: float, duration: float)
 
 var verbose := true
 var log_history: Array[String] = []

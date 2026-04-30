@@ -81,3 +81,24 @@ func get_cooldown_reduction() -> float:
 	if GameState.has_selected_card("jc_london_contact"):
 		reduction += 0.10
 	return reduction
+
+
+func get_combo_window_multiplier() -> float:
+	var mult := 1.0
+	if GameState.has_selected_card("jc_london_contact"):
+		mult += 0.12
+	return mult
+
+
+func get_style_decay_reduction() -> float:
+	var reduction := 0.0
+	if GameState.has_selected_card("persian_tea_focus"):
+		reduction += 0.22
+	return reduction
+
+
+func get_finisher_damage_bonus() -> float:
+	var bonus := 0.0
+	if GameState.has_selected_card("violet_counterpunch"):
+		bonus += 12.0
+	return bonus

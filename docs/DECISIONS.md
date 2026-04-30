@@ -15,5 +15,8 @@ Homage NPCs and jokes are allowed, but no copied designs, logos, powers, or exac
 ## 2026-04-29: Scheme Cards Are Passive Loadouts
 Cards chosen before a mission apply automatically (buffs, perks, or Taco Bell–specific bypasses). No in-mission hotkey; visibility comes from the HUD card strip plus `EventBus.card_triggered` toasts when something fires.
 
+## 2026-04-29: Hitbox Combat vs Legacy Dodge
+Default player uses `PlayerCombatController` (hitbox melee + dash module). Space triggers dash with invulnerability via the `invulnerable` property plus the `invulnerable` group; turning off `PlayerCombatController.enabled` falls back to the older dodge timer + circular attack range for debugging or mods.
+
 ## 2026-04-29: Jazz Club Mission Structure
 Wrong setlist is a timed alarm hunt (overlay + extra guards + resolve), not a hard fail. Correct setlist unlocks vertical progression (stairs/upstairs) where the real ledger lives behind a boss encounter (reused bruiser pattern first). Shared UI (`readable_note`) uses `CanvasLayer` so mission `Node2D` roots don’t clip fullscreen controls.
