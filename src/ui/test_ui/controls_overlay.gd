@@ -4,7 +4,7 @@ extends CanvasLayer
 ## Can be toggled with a hotkey (F1) or left always visible.
 
 @export var hotkey: Key = KEY_F1
-@export var always_visible: bool = true
+@export var always_visible: bool = false
 
 @onready var info_label: Label = $PanelRoot/MarginContainer/Panel/InfoLabel
 @onready var minimize_button: Button = $PanelRoot/MarginContainer/Panel/MinimizeButton

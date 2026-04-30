@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://tacobellmission001"]
+[gd_scene load_steps=23 format=3 uid="uid://tacobellmission001"]
 
 [ext_resource type="Script" path="res://src/missions/TacoBellMission.gd" id="1_taco"]
 [ext_resource type="Script" path="res://src/missions/scent_trail_marker.gd" id="2_scent"]
 [ext_resource type="Script" path="res://src/missions/garage_puzzle.gd" id="3_garage"]
 [ext_resource type="Script" path="res://src/missions/intel_pickup.gd" id="4_intel"]
 [ext_resource type="Script" path="res://src/missions/bag_pickup_zone.gd" id="10_bag"]
+[ext_resource type="Script" path="res://src/missions/service_door_trigger.gd" id="11_service"]
 [ext_resource type="Script" path="res://src/missions/yard_entrance.gd" id="5_yard"]
 [ext_resource type="Script" path="res://src/missions/sterling_clue_note.gd" id="6_clue"]
 [ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="7_dialogue"]
@@ -46,6 +47,9 @@ point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
 size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alarm_line"]
+size = Vector2(24, 260)
 
 [node name="TacoBellMission" type="Node2D"]
 script = ExtResource("1_taco")
@@ -183,6 +187,56 @@ offset_top = -30.0
 offset_right = 20.0
 offset_bottom = -10.0
 text = "?"
+horizontal_alignment = 1
+
+[node name="KeycardIntel" type="Area2D" parent="."]
+position = Vector2(960, 300)
+script = ExtResource("4_intel")
+intel_id = "service_keycard"
+intel_title = "Blue Keycard"
+intel_description = "Service door access. Marked with a greasy taco logo."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeycardIntel"]
+shape = SubResource("CircleShape2D_intel")
+
+[node name="IntelVisual" type="ColorRect" parent="KeycardIntel"]
+offset_left = -10.0
+offset_top = -6.0
+offset_right = 10.0
+offset_bottom = 6.0
+color = Color(0.35, 0.55, 0.95, 0.95)
+
+[node name="IntelLabel" type="Label" parent="KeycardIntel"]
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = -10.0
+text = "KEYCARD"
+horizontal_alignment = 1
+
+[node name="AlarmPanel" type="Area2D" parent="."]
+position = Vector2(1210, 420)
+script = ExtResource("4_intel")
+intel_id = "alarm_panel_disabled"
+intel_title = "Security Panel"
+intel_description = "You cut power to the motion alarm grid."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmPanel"]
+shape = SubResource("CircleShape2D_intel")
+
+[node name="IntelVisual" type="ColorRect" parent="AlarmPanel"]
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 10.0
+offset_bottom = 12.0
+color = Color(0.95, 0.25, 0.2, 0.9)
+
+[node name="IntelLabel" type="Label" parent="AlarmPanel"]
+offset_left = -44.0
+offset_top = -34.0
+offset_right = 44.0
+offset_bottom = -14.0
+text = "ALARM"
 horizontal_alignment = 1
 
 [node name="ScentMarker1" type="Area2D" parent="."]
@@ -409,6 +463,30 @@ offset_bottom = 90.0
 text = "DOOR"
 horizontal_alignment = 1
 
+[node name="ServiceDoorTrigger" type="Area2D" parent="."]
+position = Vector2(1240, 430)
+script = ExtResource("11_service")
+prompt_text = "Service Door"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServiceDoorTrigger"]
+shape = SubResource("CircleShape2D_intel")
+
+[node name="ServiceDoorVisual" type="ColorRect" parent="ServiceDoorTrigger"]
+offset_left = -18.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 24.0
+color = Color(0.25, 0.45, 0.75, 0.92)
+
+[node name="ServiceDoorLabel" type="Label" parent="ServiceDoorTrigger"]
+offset_left = -70.0
+offset_top = -52.0
+offset_right = 70.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 12
+text = "SERVICE DOOR (E)"
+horizontal_alignment = 1
+
 [node name="GaragePuzzleTrigger" type="Area2D" parent="."]
 position = Vector2(1350, 518)
 script = ExtResource("3_garage")
@@ -431,6 +509,14 @@ offset_bottom = -22.0
 theme_override_font_sizes/font_size = 12
 text = "KEYPAD (press E)"
 horizontal_alignment = 1
+
+[node name="AlarmTripZone" type="Area2D" parent="."]
+position = Vector2(1188, 610)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmTripZone"]
+shape = SubResource("RectangleShape2D_alarm_line")
 
 [node name="ReceiptIntel" type="Area2D" parent="."]
 position = Vector2(1020, 430)
@@ -514,6 +600,29 @@ offset_bottom = -15.0
 text = "[P]"
 horizontal_alignment = 1
 
+[node name="SmiskiPickup" type="Area2D" parent="."]
+position = Vector2(1180, 265)
+script = ExtResource("9_polaroid")
+polaroid_id = "taco_bell_smiskis"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmiskiPickup"]
+shape = SubResource("CircleShape2D_intel")
+
+[node name="SmiskiVisual" type="ColorRect" parent="SmiskiPickup"]
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 7.0
+offset_bottom = 10.0
+color = Color(0.65, 1, 0.7, 0.9)
+
+[node name="SmiskiLabel" type="Label" parent="SmiskiPickup"]
+offset_left = -24.0
+offset_top = -28.0
+offset_right = 24.0
+offset_bottom = -10.0
+text = "S"
+horizontal_alignment = 1
+
 [node name="ExitZone" type="Area2D" parent="."]
 position = Vector2(230, 520)
 monitorable = false
@@ -565,6 +674,9 @@ position = Vector2(500, 310)
 
 [node name="BagSpawn" type="Marker2D" parent="."]
 position = Vector2(1350, 400)
+
+[node name="RealBagSpawn" type="Marker2D" parent="."]
+position = Vector2(1360, 120)
 
 [node name="GoonSpawns" type="Node2D" parent="."]
 

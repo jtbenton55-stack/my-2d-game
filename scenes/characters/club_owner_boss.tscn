@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://club_owner_boss001"]
+
+[ext_resource type="Script" path="res://src/enemies/Bruiser.gd" id="1_boss"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(46, 46)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vision"]
+radius = 260.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_attack"]
+radius = 62.0
+
+[node name="ClubOwnerBoss" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 3
+script = ExtResource("1_boss")
+max_health = 160
+detection_range = 260.0
+attack_range = 62.0
+aggro_range = 700.0
+speed = 90.0
+chase_speed = 175.0
+acceleration = 8.0
+attack_damage = 16
+attack_cooldown = 1.45
+wind_up_time = 1.0
+slam_radius = 70.0
+recovery_time = 0.8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="VisionArea" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 5
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_vision")
+
+[node name="AttackArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_attack")
+
+[node name="SuitBody" type="ColorRect" parent="."]
+offset_left = -24.0
+offset_top = -38.0
+offset_right = 24.0
+offset_bottom = 22.0
+color = Color(0.42, 0.22, 0.19, 1)
+
+[node name="GoldTie" type="ColorRect" parent="SuitBody"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 30.0
+offset_bottom = 54.0
+color = Color(0.95, 0.68, 0.18, 1)
+
+[node name="Head" type="ColorRect" parent="."]
+offset_left = -17.0
+offset_top = -66.0
+offset_right = 17.0
+offset_bottom = -36.0
+color = Color(0.7, 0.52, 0.38, 1)
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -62.0
+offset_top = -92.0
+offset_right = 62.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 10
+text = "CLUB OWNER"
+horizontal_alignment = 1

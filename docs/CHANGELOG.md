@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-29
+- **Jazz owner-suite boss arena:** New scene `JazzClubOwnerArena.tscn`—press **E** on `OwnerSuiteStairs` (after setlist + both clues) to load the fight; bruiser boss with intro/outro dialogue; mission state saved in `GameState.velvet_paw_resume_data`; victory returns to the club at `SpawnPoints/ReturnFromOwnerSuite` and unlocks the balcony briefcase pickup.
+- **Jazz Club overhaul:** 5-slot setlist with decoys + album-order hint; readable notes render on a high `CanvasLayer` (no top-left clipping); wrong-setlist triggers bass alarm (red overlay, reinforced `guard.tscn` hunters, safe-spot objective copy, 8s resolve); clues repositioned on bar vs dance floor and green sniff-trail shortcut removed; solving setlist opens stairs/backstage blockers.
+- **Input / interact:** `Player` advances dialogue with E from `_physics_process` (fullscreen UI was eating `_unhandled_input` before `DialogueBox`, soft-locking the world); modal note + music puzzle use `blocking_ui` on their `CanvasLayer` with E/Esc to close; `DialogueManager.next_line` debounced to avoid double-advances.
+- **Jazz Club fix:** Disabled invisible `LedgerDecoy` interactable/collision (it was stealing [E] backstage and showing a ledger the real upstairs flow could not complete); added `StairsWayfinding` (rig stairs treads + hint) revealed when the setlist is solved so the 2F route is visible.
+- Velvet Paw (Jazz Club): perimeter + shortcut seal + tall backstage seal (puzzle removes seal); staff south gate optional path after badge pickup; ledger decoy twist with real book under amp; staff badge + sound check micro-objectives; interactables (mixer, VIP phone, Sterling poster); optional `velvet_smiskis` and bar polaroid pickups; clue notes advance clue count via `note_read`.
+- Scheme Cards: HUD shows per-card title, description, and READY/ACTIVE/USED state with short toasts when effects fire (`EventBus.card_triggered`).
+- Taco Bell mission: wired passive card outcomes — Louis delivery route (service door without keycard), Mere legal eyes (one-shot alarm bypass), Polaroid Proof (start with receipt code), Clorox Protocol (skip decoy twist), Diamond A Year (highlight loot + marker). Passive combat/movement cards announce ACTIVE on deploy.
+
 ## 2026-04-28
 - Added creative direction, architecture, task list, and decision docs.
 - Confirmed MVP/stretches are separated around the heist spine.

@@ -3,6 +3,8 @@ extends Node
 var is_in_dialogue := false
 var current_lines: Array[Dictionary] = []
 var current_index := -1
+## Prevents double-advancing when both DialogueBox and Player forward the same E press.
+var _next_line_debounce_ms := 0
 
 func _ready() -> void:
 	EventBus.debug("DialogueManager ready")
@@ -31,6 +33,10 @@ func start_character_dialogue(character_id: String) -> void:
 func next_line() -> void:
 	if not is_in_dialogue:
 		return
+	var now := Time.get_ticks_msec()
+	if now - _next_line_debounce_ms < 45:
+		return
+	_next_line_debounce_ms = now
 	current_index += 1
 	if current_index >= current_lines.size():
 		end_dialogue()

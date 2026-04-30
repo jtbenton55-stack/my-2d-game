@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq5w7v5v5o5v8"]
+[gd_scene load_steps=8 format=3 uid="uid://bq5w7v5v5o5v8"]
 
 [ext_resource type="Script" path="res://src/player/DogCompanion.gd" id="1_7h8aw"]
 [ext_resource type="SpriteFrames" uid="uid://bq5w7v5v5o5v9" path="res://assets/sprites/dog_sprite_frames.tres" id="2_7h8aw"]
+[ext_resource type="CompressedTexture2D" path="res://assets/icons/token_dog.svg" id="3_token"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_9h8aw"]
 size = Vector2(24, 24)
@@ -13,7 +14,7 @@ radius = 75.0
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1_7h8aw")
-follow_distance = 50.0
+follow_distance = 88.0
 max_speed = 400.0
 acceleration = 20.0
 rotation_speed = 10.0
@@ -21,11 +22,18 @@ distraction_duration = 5.0
 distraction_cooldown = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, -16)
 sprite_frames = ExtResource("2_7h8aw")
 animation = "idle"
 playing = true
 modulate = Color(0.02, 0.02, 0.025, 1)
+
+[node name="TokenSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("3_token")
+modulate = Color(0.95, 0.75, 0.5, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)

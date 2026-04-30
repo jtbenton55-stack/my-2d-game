@@ -54,7 +54,7 @@ func _setup_interactables() -> void:
 			if body.is_in_group("player"):
 				EventBus.objective_updated.emit("Press E at the mission board to choose a job.")
 		)
-	var crew_members := ["CrewMere", "CrewJake", "CrewLouis", "CrewDom", "CrewYordano", "CrewBentley"]
+	var crew_members := ["CrewMere", "CrewJake", "CrewLouis", "CrewDom", "CrewYordano"]
 	for crew_id in crew_members:
 		var crew_node := get_node_or_null(crew_id)
 		if crew_node:
@@ -96,6 +96,15 @@ func _setup_interactables() -> void:
 			if body.is_in_group("player"):
 				EventBus.objective_updated.emit("Press E to review the evidence board.")
 			)
+	
+	var collectibles_shelf_zone := get_node_or_null("CollectiblesShelfZone")
+	if collectibles_shelf_zone:
+		collectibles_shelf_zone.add_to_group("interactable")
+		collectibles_shelf_zone.set_meta("interaction", "collectibles_shelf")
+		collectibles_shelf_zone.body_entered.connect(func(body):
+			if body.is_in_group("player"):
+				EventBus.objective_updated.emit("Press E to browse collected Smiskis.")
+			)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (InputMap.has_action("interact") and event.is_action_pressed("interact")):
@@ -131,10 +140,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		_show_crew_dialogue("yordano")
 		return
 	
-	var bentley := get_node_or_null("CrewBentley") as Node2D
-	if bentley and player.global_position.distance_to(bentley.global_position) < 72.0:
-		_show_crew_dialogue("bentley")
-		return
 	var polaroid_zone := get_node_or_null("PolaroidGalleryZone") as Node2D
 	if polaroid_zone and player.global_position.distance_to(polaroid_zone.global_position) < 72.0:
 		SceneManager.open_polaroid_gallery()
@@ -150,6 +155,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	var evidence_board_zone := get_node_or_null("EvidenceBoardZone") as Node2D
 	if evidence_board_zone and player.global_position.distance_to(evidence_board_zone.global_position) < 72.0:
 		SceneManager.open_evidence_board()
+		return
+	var collectibles_shelf_zone := get_node_or_null("CollectiblesShelfZone") as Node2D
+	if collectibles_shelf_zone and player.global_position.distance_to(collectibles_shelf_zone.global_position) < 90.0:
+		SceneManager.open_smiski_shelf()
 		return
 
 func _ensure_common_ui() -> void:

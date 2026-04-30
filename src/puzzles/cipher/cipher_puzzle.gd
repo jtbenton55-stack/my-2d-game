@@ -1,11 +1,11 @@
 extends Control
 
 @export var answer_word: String = "DOG"
-@export var available_letters: Array[String] = ["D", "O", "G", "X", "Y"]
+@export var available_letters: PackedStringArray = PackedStringArray(["D", "O", "G", "X", "Y"])
 @export var slot_count: int = 3
 
-var slots: Array[Control] = []
-var tiles: Array[Control] = []
+var slots: Array = []
+var tiles: Array = []
 var solved := false
 
 signal puzzle_solved
@@ -17,17 +17,22 @@ signal puzzle_solved
 
 func _ready() -> void:
 	prompt_label.text = "Decode the word:"
-	close_button.pressed.connect(queue_free)
+	close_button.pressed.connect(_on_close_pressed)
 	_create_slots()
 	_create_tiles()
 	close_button.grab_focus()
+
+
+func _on_close_pressed() -> void:
+	queue_free()
+
 
 func _create_slots() -> void:
 	for child in slot_container.get_children():
 		child.queue_free()
 	slots.clear()
 	for i in range(slot_count):
-		var slot := load("res://src/puzzles/cipher/puzzle_slot.tscn").instantiate()
+		var slot = load("res://src/puzzles/cipher/puzzle_slot.tscn").instantiate()
 		slot.slot_index = i
 		slot.letter_dropped.connect(_on_letter_dropped)
 		slot_container.add_child(slot)
@@ -38,7 +43,7 @@ func _create_tiles() -> void:
 		child.queue_free()
 	tiles.clear()
 	for letter in available_letters:
-		var tile := load("res://src/puzzles/cipher/puzzle_tile.tscn").instantiate()
+		var tile = load("res://src/puzzles/cipher/puzzle_tile.tscn").instantiate()
 		tile.set_letter(letter)
 		tile_container.add_child(tile)
 		tiles.append(tile)

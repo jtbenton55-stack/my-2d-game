@@ -42,7 +42,7 @@ func _populate_cards() -> void:
 			# Get display name - handle both display_name and name properties
 			var card_name = card.display_name if card.get("display_name") else card.get("name", card_id)
 			var card_desc = card.description if card.get("description") else ""
-			button.text = "%s\n\n%s" % [card_name, card_desc]
+			button.text = "%s\n\n%s\n\n— Takes effect automatically in mission." % [card_name, card_desc]
 			button.pressed.connect(_on_card_toggled.bind(card_id, button))
 			cards_container.add_child(button)
 

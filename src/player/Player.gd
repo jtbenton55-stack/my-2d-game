@@ -78,8 +78,12 @@ func _physics_process(delta: float) -> void:
 	_clamp_to_scene_bounds()
 	_update_stealth_visual()
 	_update_sprite()
-	if _action_just_pressed("interact") and not _should_skip_world_interact():
-		_try_interact()
+	# Advance dialogue from here too: fullscreen UI can eat _unhandled_input before DialogueBox sees E.
+	if _action_just_pressed("interact"):
+		if DialogueManager.is_in_dialogue:
+			DialogueManager.next_line()
+		elif not _should_skip_world_interact():
+			_try_interact()
 
 func _update_timers(delta: float) -> void:
 	if dodge_timer > 0.0:
@@ -114,6 +118,7 @@ func take_damage(amount: int, _source: Node = null) -> void:
 	if GameState.has_selected_card("bentley_dental_boy") and not GameState.dialogue_flags.get("dental_boy_used", false):
 		GameState.dialogue_flags["dental_boy_used"] = true
 		AudioManager.play_sfx("bentley_save", global_position)
+		EventBus.card_triggered.emit("bentley_dental_boy", "used", "Bentley took the hit.")
 		return
 	current_health = max(0, current_health - amount)
 	GameState.player_health = current_health
@@ -141,8 +146,6 @@ func _die() -> void:
 		SceneManager.show_mission_result()
 
 func _should_skip_world_interact() -> bool:
-	if DialogueManager.is_in_dialogue:
-		return true
 	if get_tree().get_nodes_in_group("blocking_ui").size() > 0:
 		return true
 	return false
@@ -151,12 +154,14 @@ func _try_interact() -> void:
 	var best: Node = null
 	var best_dist := 999999.0
 	for node in get_tree().get_nodes_in_group("interactable"):
-		if node is Node2D:
+		# Only consider nodes that actually implement interact; otherwise a large
+		# Area2D in "interactable" (e.g. trigger zones) wins by distance and blocks E.
+		if node is Node2D and node.has_method("interact"):
 			var dist := global_position.distance_to(node.global_position)
 			if dist < 72.0 and dist < best_dist:
 				best = node
 				best_dist = dist
-	if best and best.has_method("interact"):
+	if best != null:
 		best.interact(self)
 
 func _update_sprite() -> void:

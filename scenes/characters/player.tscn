@@ -34,6 +34,7 @@ stealth_detection_multiplier = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
+scale = Vector2(0.68, 0.68)
 sprite_frames = ExtResource("2_6h8aw")
 animation = "idle"
 playing = true

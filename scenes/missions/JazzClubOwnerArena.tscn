@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://jazz_owner_arena01"]
+
+[ext_resource type="Script" path="res://src/missions/JazzClubOwnerArena.gd" id="1_arena"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(800, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(28, 600)
+
+[node name="JazzClubOwnerArena" type="Node2D"]
+script = ExtResource("1_arena")
+
+[node name="Floor" type="ColorRect" parent="."]
+z_index = -2
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.07, 0.05, 0.09, 1)
+
+[node name="Rug" type="ColorRect" parent="."]
+z_index = -1
+offset_left = 64.0
+offset_top = 96.0
+offset_right = 736.0
+offset_bottom = 520.0
+color = Color(0.18, 0.1, 0.14, 1)
+
+[node name="BarLabel" type="Label" parent="."]
+offset_left = 280.0
+offset_top = 40.0
+offset_right = 520.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 16
+text = "OWNER SUITE — PRIVATE"
+horizontal_alignment = 1
+
+[node name="BossSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 200)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 400)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="WallTop" type="CollisionShape2D" parent="Walls"]
+position = Vector2(400, 14)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="WallBottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(400, 586)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Walls"]
+position = Vector2(14, 300)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="WallRight" type="CollisionShape2D" parent="Walls"]
+position = Vector2(786, 300)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 300)
+zoom = Vector2(1.12, 1.12)
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 600

@@ -39,6 +39,8 @@ signal dialogue_ended
 @warning_ignore("unused_signal")
 signal card_selection_changed(selected_cards)
 @warning_ignore("unused_signal")
+signal card_triggered(card_id: String, status: String, message: String)
+@warning_ignore("unused_signal")
 signal card_unlocked(card_id)
 @warning_ignore("unused_signal")
 signal polaroid_collected(polaroid_id)

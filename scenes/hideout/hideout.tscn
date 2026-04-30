@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bq5w7v5v5o5v19"]
+[gd_scene load_steps=19 format=3 uid="uid://bq5w7v5v5o5v19"]
 
 [ext_resource type="Script" path="res://src/levels/Hideout.gd" id="1_13h8aw"]
 [ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v5" path="res://scenes/characters/player.tscn" id="2_13h8aw"]
 [ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v8" path="res://scenes/characters/dog.tscn" id="3_13h8aw"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_mere.svg" id="4_mere"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_jake.svg" id="5_jake"]
-[ext_resource type="CompressedTexture2D" path="res://assets/icons/token_dog.svg" id="6_dog"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/loc_clean.svg" id="7_board"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/hud_objective_pin.svg" id="8_pin"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/hub_yordano.svg" id="9_crew"]
@@ -32,6 +31,9 @@ size = Vector2(56, 56)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_Evidence"]
 size = Vector2(48, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_CollectiblesShelf"]
+size = Vector2(120, 36)
+
 [node name="Hideout" type="Node2D"]
 script = ExtResource("1_13h8aw")
 
@@ -44,7 +46,7 @@ cell_quadrant_size = 16
 position = Vector2(400, 300)
 
 [node name="CrewMere" type="Area2D" parent="."]
-position = Vector2(700, 250)
+position = Vector2(640, 248)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrewMere"]
 shape = SubResource("RectangleShape2D_16h8aw")
@@ -64,7 +66,7 @@ text = "[MERE]"
 horizontal_alignment = 1
 
 [node name="CrewJake" type="Area2D" parent="."]
-position = Vector2(750, 280)
+position = Vector2(700, 286)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrewJake"]
 shape = SubResource("RectangleShape2D_16h8aw")
@@ -82,27 +84,6 @@ offset_bottom = -5.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.4, 0.6, 0.8, 1)
 text = "[JAKE]"
-horizontal_alignment = 1
-
-[node name="CrewBentley" type="Area2D" parent="."]
-position = Vector2(780, 320)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CrewBentley"]
-shape = SubResource("RectangleShape2D_16h8aw")
-
-[node name="Sprite2D" type="Sprite2D" parent="CrewBentley"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_dog")
-modulate = Color(0.8, 0.5, 0.3, 1)
-
-[node name="Label" type="Label" parent="CrewBentley"]
-offset_left = -40.0
-offset_top = -35.0
-offset_right = 40.0
-offset_bottom = -5.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.8, 0.5, 0.3, 1)
-text = "[BENTLEY]"
 horizontal_alignment = 1
 
 [node name="HeistStartZone" type="Area2D" parent="."]
@@ -326,3 +307,26 @@ offset_right = 80.0
 offset_bottom = 3.0
 theme_override_font_sizes/font_size = 10
 text = "Neon Poster"
+
+[node name="CollectiblesShelf" type="ColorRect" parent="."]
+offset_left = 515.0
+offset_top = 515.0
+offset_right = 655.0
+offset_bottom = 535.0
+color = Color(0.35, 0.2, 0.45, 1)
+
+[node name="Label" type="Label" parent="CollectiblesShelf"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -22.0
+offset_right = 150.0
+offset_bottom = -5.0
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.8, 0.6, 0.95, 1)
+text = "Collectibles Shelf"
+
+[node name="CollectiblesShelfZone" type="Area2D" parent="."]
+position = Vector2(585, 525)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectiblesShelfZone"]
+shape = SubResource("RectangleShape2D_CollectiblesShelf")

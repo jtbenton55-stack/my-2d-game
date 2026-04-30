@@ -1,22 +1,27 @@
 extends Control
 
+## Five slots for the correct run-of-show; extra titles are red herrings when placed in slots.
 @export var song_titles: Array[String] = [
-	"Naked Hug My Son",
+	"Waiting at TacoBell",
+	"Two Letters Away",
 	"Bathroom Snacks",
+	"Naked Hug My Son",
+	"Raincoat for a Crime Dog",
 	"Wee-Woo Lullaby",
 	"Dental Boy Blues",
-	"Two Letters Away",
-	"Raincoat for a Crime Dog"
+	"Sterling Suite (Instrumental)",
+	"Midnight in the Hideout",
 ]
 
-@export var correct_order: Array[int] = [0, 1, 2, 3, 4, 5]
-@export var max_slots: int = 6
+@export var correct_order: Array[int] = [0, 1, 2, 3, 4]
+@export var max_slots: int = 5
 
 var slots: Array[Control] = []
 var tiles: Array[Control] = []
 var placed_songs: Array[int] = []
 var solved := false
 var failed := false
+var _modal_key_close_ok := false
 
 signal puzzle_solved
 signal puzzle_failed
@@ -30,7 +35,7 @@ signal puzzle_failed
 
 func _ready() -> void:
 	prompt_label.text = "The Velvet Paw Setlist"
-	instruction_label.text = "Drag songs to arrange tonight's performance order.\nHint: Start with intimacy, end with justice."
+	instruction_label.text = "Tap songs to fill five slots in performance order.\nHint: Think of the order of our song albums, end with JUSTICE."
 	close_button.pressed.connect(_on_close)
 	check_button.pressed.connect(_on_check_solution)
 	
@@ -41,6 +46,10 @@ func _ready() -> void:
 	_create_song_tiles()
 	
 	close_button.grab_focus()
+	call_deferred("_enable_modal_key_close")
+
+func _enable_modal_key_close() -> void:
+	_modal_key_close_ok = true
 
 func _create_slots() -> void:
 	for child in slot_container.get_children():
@@ -58,7 +67,7 @@ func _create_slot(index: int) -> Panel:
 	
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.2, 0.2, 0.25, 1.0)
-	style.border_width_all = 2
+	style.set_border_width_all(2)
 	style.border_color = Color(0.4, 0.4, 0.5, 1.0)
 	style.corner_radius_top_left = 4
 	style.corner_radius_top_right = 4
@@ -111,14 +120,14 @@ func _create_song_tile(song_index: int) -> Button:
 	tile.custom_minimum_size = Vector2(200, 40)
 	tile.add_theme_font_size_override("font_size", 12)
 	
-	tile.pressed.connect(_on_tile_clicked.bind(tile, song_index))
+	tile.pressed.connect(_on_tile_clicked.bind(song_index))
 	
 	return tile
 
 var selected_slot_index: int = -1
 var selected_song_index: int = -1
 
-func _on_tile_clicked(tile: Button, song_index: int) -> void:
+func _on_tile_clicked(song_index: int) -> void:
 	if solved or failed:
 		return
 	
@@ -166,9 +175,9 @@ func _place_song_in_slot(song_index: int, slot_index: int) -> void:
 			tile.visible = false
 			break
 
-func _tiles_visible(visible: bool) -> void:
+func _tiles_visible(show_tiles: bool) -> void:
 	for tile in tiles:
-		tile.visible = visible
+		tile.visible = show_tiles
 
 func _highlight_slot(index: int) -> void:
 	for i in range(slots.size()):
@@ -179,7 +188,7 @@ func _highlight_slot(index: int) -> void:
 		else:
 			style.bg_color = Color(0.2, 0.2, 0.25, 1.0)
 			style.border_color = Color(0.4, 0.4, 0.5, 1.0)
-		style.border_width_all = 2
+		style.set_border_width_all(2)
 		style.corner_radius_top_left = 4
 		style.corner_radius_top_right = 4
 		style.corner_radius_bottom_left = 4
@@ -235,7 +244,7 @@ func _show_solution_feedback(correct: bool) -> void:
 			else:
 				style.bg_color = Color(0.5, 0.2, 0.2, 1.0)
 				style.border_color = Color(0.9, 0.4, 0.4, 1.0)
-		style.border_width_all = 2
+		style.set_border_width_all(2)
 		style.corner_radius_top_left = 4
 		style.corner_radius_top_right = 4
 		style.corner_radius_bottom_left = 4
@@ -246,6 +255,12 @@ func _on_close() -> void:
 	queue_free()
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_ESCAPE:
-			_on_close()
+	if not _modal_key_close_ok or not is_visible_in_tree():
+		return
+	if event.is_action_pressed("interact"):
+		_on_close()
+		get_viewport().set_input_as_handled()
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		_on_close()
+		get_viewport().set_input_as_handled()

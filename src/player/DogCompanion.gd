@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var recharge_rate := 22.0
 @export var bark_cost := 35.0
 @export var bark_radius := 130.0
-@export var bark_stun_time := 1.5
+@export var bark_stun_time := 2.0
 @export var distraction_duration := 5.0
 @export var distraction_cooldown := 10.0
 

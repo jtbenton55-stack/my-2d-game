@@ -42,6 +42,23 @@ var next_spawn: String = "default"
 var evidence_board_data: Dictionary = {}
 var equipped_items: Array[String] = []
 
+## Serialized when leaving JazzClubMission for the owner-suite boss arena; reapplied on return.
+var velvet_paw_resume_data: Dictionary = {}
+
+func set_velvet_paw_resume_data(data: Dictionary) -> void:
+	velvet_paw_resume_data = data.duplicate(true)
+
+func clear_velvet_paw_resume_data() -> void:
+	velvet_paw_resume_data.clear()
+
+func has_velvet_paw_resume_data() -> bool:
+	return velvet_paw_resume_data.size() > 0
+
+func take_velvet_paw_resume_data() -> Dictionary:
+	var d := velvet_paw_resume_data.duplicate(true)
+	velvet_paw_resume_data.clear()
+	return d
+
 func _ready() -> void:
 	reset_for_new_game(false)
 	EventBus.debug("GameState ready")
@@ -71,6 +88,7 @@ func reset_for_new_game(emit_change = true) -> void:
 	next_spawn = "default"
 	evidence_board_data = {}
 	equipped_items = []
+	velvet_paw_resume_data.clear()
 	if emit_change:
 		EventBus.game_state_changed.emit()
 

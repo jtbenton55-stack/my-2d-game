@@ -11,7 +11,10 @@ var polaroid_catalog: Dictionary = {
 	"arm_wrestling_polaroid": {"title": "Arm-Wrestling Underground", "description": "Parmida at the table with Violet watching like a proud coach."},
 	"persian_tea_polaroid": {"title": "Persian Tea and Poison Ink", "description": "Sour cherry tea, watercolor clues, and a conservatory saved."},
 	"ellie_polaroid": {"title": "The Elephant in the Room", "description": "Bentley reunited with Ellie, the only creature he respects more than himself."},
-	"shadow_solo_polaroid": {"title": "Shadow Solo Contract", "description": "Kiro, Jin, neon shadows, and Bentley being unimpressed."}
+	"shadow_solo_polaroid": {"title": "Shadow Solo Contract", "description": "Kiro, Jin, neon shadows, and Bentley being unimpressed."},
+	"taco_bell_smiskis": {"title": "Hidden Smiskis", "description": "Tiny glow pals tucked behind the Taco Bell loading gear."},
+	"velvet_smiskis": {"title": "Velvet Paw Smiskis", "description": "Micro mascots tucked in the amp rack shadows."},
+	"velvet_bar_polaroid": {"title": "Last Call at the Bar", "description": "A candid from the rail before the house went loud."}
 }
 
 func _ready() -> void:
