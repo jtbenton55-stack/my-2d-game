@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var health_bar := get_node_or_null("HealthBar") as ProgressBar
 @onready var bentley_bar := get_node_or_null("BentleyBar") as ProgressBar
+@onready var style_bar := get_node_or_null("StyleBar") as ProgressBar
+@onready var style_finisher_hint := get_node_or_null("StyleBar/StyleFinisherHint") as Label
 @onready var detection_meter := get_node_or_null("DetectionMeter") as ProgressBar
 @onready var objective_marker := get_node_or_null("ObjectiveMarker") as Node2D
 @onready var distance_label := get_node_or_null("ObjectiveMarker/Distance") as Label
@@ -22,6 +24,7 @@ func _ready() -> void:
 	EventBus.objective_updated.connect(_on_objective_updated)
 	EventBus.card_selection_changed.connect(_on_cards_changed)
 	EventBus.card_triggered.connect(_on_card_triggered)
+	EventBus.combat_style_changed.connect(_on_combat_style_changed)
 	_on_health_changed(GameState.player_health, GameState.player_max_health)
 	if objective_marker:
 		objective_marker.visible = false
@@ -30,6 +33,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if EventBus.card_triggered.is_connected(_on_card_triggered):
 		EventBus.card_triggered.disconnect(_on_card_triggered)
+	if EventBus.combat_style_changed.is_connected(_on_combat_style_changed):
+		EventBus.combat_style_changed.disconnect(_on_combat_style_changed)
 
 func _process(_delta: float) -> void:
 	if objective_marker and has_marker:
@@ -47,6 +52,30 @@ func _on_bentley_meter_changed(current: float, max_val: float) -> void:
 	if bentley_bar:
 		bentley_bar.max_value = max_val
 		bentley_bar.value = current
+
+
+func _on_combat_style_changed(current: float, max_style: float) -> void:
+	if style_bar == null:
+		return
+	style_bar.max_value = max_style
+	style_bar.value = current
+	if max_style <= 0.001:
+		return
+	if current >= max_style - 0.75:
+		style_bar.modulate = Color(1.0, 0.88, 0.4, 1.0)
+		if style_finisher_hint:
+			var fin_key := "R"
+			if InputMap.has_action("finisher"):
+				for ev in InputMap.action_get_events("finisher"):
+					if ev is InputEventKey:
+						var kc: int = ev.physical_keycode if ev.physical_keycode != 0 else ev.keycode
+						fin_key = OS.get_keycode_string(kc)
+						break
+			style_finisher_hint.text = "Finisher ready — press %s" % fin_key
+	else:
+		style_bar.modulate = Color.WHITE
+		if style_finisher_hint:
+			style_finisher_hint.text = ""
 
 func _on_show_objective_marker(should_show: bool, position: Vector2) -> void:
 	has_marker = should_show

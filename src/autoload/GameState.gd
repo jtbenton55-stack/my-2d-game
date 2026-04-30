@@ -45,6 +45,10 @@ var equipped_items: Array[String] = []
 ## Serialized when leaving JazzClubMission for the owner-suite boss arena; reapplied on return.
 var velvet_paw_resume_data: Dictionary = {}
 
+## If true, every mission in mission_catalog is added to available_missions after reset/load (local debugging).
+## Story progression tests force this off during resets — see StoryUnlockTest._reset_game_state.
+var debug_unlock_all_missions: bool = true
+
 func set_velvet_paw_resume_data(data: Dictionary) -> void:
 	velvet_paw_resume_data = data.duplicate(true)
 
@@ -58,6 +62,15 @@ func take_velvet_paw_resume_data() -> Dictionary:
 	var d := velvet_paw_resume_data.duplicate(true)
 	velvet_paw_resume_data.clear()
 	return d
+
+
+func _apply_debug_unlock_all_missions_if_enabled() -> void:
+	if not debug_unlock_all_missions:
+		return
+	for mission_id in mission_catalog.keys():
+		if not available_missions.has(mission_id):
+			available_missions.append(mission_id)
+
 
 func _ready() -> void:
 	reset_for_new_game(false)
@@ -89,6 +102,7 @@ func reset_for_new_game(emit_change = true) -> void:
 	evidence_board_data = {}
 	equipped_items = []
 	velvet_paw_resume_data.clear()
+	_apply_debug_unlock_all_missions_if_enabled()
 	if emit_change:
 		EventBus.game_state_changed.emit()
 

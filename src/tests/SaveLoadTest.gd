@@ -9,6 +9,8 @@ var _tests_failed: int = 0
 
 # Run all save/load tests
 func run_all_tests() -> Dictionary:
+    var prev_debug := GameState.debug_unlock_all_missions
+    GameState.debug_unlock_all_missions = false
     _test_results.clear()
     _tests_passed = 0
     _tests_failed = 0
@@ -29,6 +31,7 @@ func run_all_tests() -> Dictionary:
     for result in _test_results:
         print("  " + result)
     
+    GameState.debug_unlock_all_missions = prev_debug
     return {
         "passed": _tests_passed,
         "failed": _tests_failed,

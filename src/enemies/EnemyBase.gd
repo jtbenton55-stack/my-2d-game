@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal died(enemy)
 ## Emitted once when the enemy first gains line-of-sight while the player is in aggro range.
 signal spotted_player()
+signal health_changed(current: int, max_health: int)
 
 @export var max_health := 40
 @export var speed := 120.0
@@ -14,6 +15,7 @@ signal spotted_player()
 @export var aggro_range := 120.0
 @export var attack_cooldown := 0.8
 @export var stealth_aggro_multiplier := 0.35
+@export var hit_recovery_delay: float = 0.42
 
 var health := 40
 var target: Node2D = null
@@ -27,6 +29,7 @@ func _ready() -> void:
 	add_to_group("enemy")
 	health = max_health
 	target = get_tree().get_first_node_in_group("player") as Node2D
+	health_changed.emit(health, max_health)
 
 func _physics_process(delta: float) -> void:
 	if attack_timer > 0.0:
@@ -48,6 +51,7 @@ func instant_kill() -> void:
 	if health <= 0:
 		return
 	health = 0
+	health_changed.emit(health, max_health)
 	_die()
 
 
@@ -99,6 +103,8 @@ func _try_attack() -> void:
 
 func take_damage(amount: int, source: Node = null) -> void:
 	health = max(0, health - amount)
+	health_changed.emit(health, max_health)
+	attack_timer = maxf(attack_timer, hit_recovery_delay)
 	AudioManager.play_sfx("enemy_hit", global_position)
 	if source is Node2D:
 		var knock: Vector2 = (global_position - source.global_position).normalized() * 16.0

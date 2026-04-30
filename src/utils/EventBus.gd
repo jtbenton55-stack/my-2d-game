@@ -50,6 +50,8 @@ signal friend_helped(friend_id)
 signal pause_requested
 @warning_ignore("unused_signal")
 signal screen_shake(intensity: float, duration: float)
+@warning_ignore("unused_signal")
+signal combat_style_changed(current_style: float, max_style: float)
 
 var verbose := true
 var log_history: Array[String] = []

@@ -27,6 +27,8 @@ var is_stealth := false
 var stealth_indicator: ColorRect = null
 
 var _combat: Node = null
+## Blocks duplicate damage for a short window after Bentley's one-shot save (multi-hit attacks).
+var _dental_save_grace_until_msec: int = 0
 
 func is_stealth_active() -> bool:
 	return is_stealth
@@ -129,10 +131,14 @@ func _attack() -> void:
 				enemy.take_damage(total_damage, self)
 
 func take_damage(amount: int, _source: Node = null) -> void:
+	var now_msec := Time.get_ticks_msec()
+	if now_msec < _dental_save_grace_until_msec:
+		return
 	if invulnerable or is_in_group("invulnerable") or current_health <= 0:
 		return
 	if GameState.has_selected_card("bentley_dental_boy") and not GameState.dialogue_flags.get("dental_boy_used", false):
 		GameState.dialogue_flags["dental_boy_used"] = true
+		_dental_save_grace_until_msec = now_msec + 500
 		AudioManager.play_sfx("bentley_save", global_position)
 		EventBus.card_triggered.emit("bentley_dental_boy", "used", "Bentley took the hit.")
 		return

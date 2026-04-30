@@ -47,7 +47,7 @@ func _setup_controls_menu() -> void:
 	controls_button.pressed.connect(_toggle_controls_panel)
 	
 	controls_panel = Panel.new()
-	controls_panel.custom_minimum_size = Vector2(520, 260)
+	controls_panel.custom_minimum_size = Vector2(560, 420)
 	controls_panel.hide()
 	menu.add_child(controls_panel)
 	menu.move_child(controls_panel, controls_button.get_index() + 1)
@@ -77,15 +77,18 @@ func _controls_text() -> String:
 		"  Move: %s / %s / %s / %s" % [_bindings("move_up", "W"), _bindings("move_left", "A"), _bindings("move_down", "S"), _bindings("move_right", "D")],
 		"  Interact / advance dialogue: %s" % _bindings("interact", "E"),
 		"",
-		"Combat",
-		"  Attack / strike: %s" % _bindings("attack", "Left Mouse"),
-		"  Dodge / roll: %s" % _bindings("dodge", "Space"),
-		"  Stealth / sneak: %s" % _bindings("stealth", "Shift"),
+		"Combat (hitbox melee)",
+		"  Light attack / combo: %s (J = keyboard jab; mouse / gamepad also work)" % _bindings("attack", "J / Mouse"),
+		"  Heavy attack: %s" % _bindings("heavy", "Q / Mouse 2"),
+		"  Dash (invulnerable frames): %s (hold a move direction or dash won't start)" % _bindings("dodge", "Space"),
+		"  Style finisher (STYLE bar full in HUD): %s" % _bindings("finisher", "R"),
+		"  Stealth walk: hold %s and use WASD together (slower, quieter movement)" % _bindings("stealth", "Shift"),
+		"  Stealth takedown: stealth + behind unaware enemy + %s" % _bindings("attack", "J / light attack"),
 		"  Bentley ability / sniff: %s" % _bindings("bentley_ability", "F"),
 		"",
 		"Menus",
 		"  Pause / resume: %s" % _bindings("pause", "Esc"),
-		"  Toggle old controls overlay: F1 (hidden by default)"
+		"  Toggle controls overlay: F1 (hidden by default)"
 	]
 	return "\n".join(lines)
 

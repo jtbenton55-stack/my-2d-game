@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://club_owner_boss001"]
+[gd_scene load_steps=6 format=3 uid="uid://club_owner_boss001"]
 
 [ext_resource type="Script" path="res://src/enemies/Bruiser.gd" id="1_boss"]
+[ext_resource type="Script" path="res://src/enemies/BossFloatingHealthBar.gd" id="2_hpbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(46, 46)
@@ -20,7 +21,7 @@ detection_range = 260.0
 attack_range = 62.0
 aggro_range = 700.0
 speed = 90.0
-chase_speed = 175.0
+chase_speed = 60.0
 acceleration = 8.0
 attack_damage = 16
 attack_cooldown = 1.45
@@ -31,6 +32,9 @@ recovery_time = 0.8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_body")
+
+[node name="FloatingHealthBar" type="Node2D" parent="."]
+script = ExtResource("2_hpbar")
 
 [node name="VisionArea" type="Area2D" parent="."]
 monitorable = false

@@ -17,11 +17,11 @@ func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	_update_label()
 	full_text = info_label.text
-	
+
 	# Connect minimize button
 	if minimize_button:
 		minimize_button.pressed.connect(_on_minimize_pressed)
-	
+
 	# If not always visible, hide initially
 	if not always_visible:
 		visible = false
@@ -51,20 +51,20 @@ func _on_minimize_pressed() -> void:
 			minimize_button.text = "-"
 
 func _update_label() -> void:
-	var text := "[F1] Toggle | [ESC] Pause\n"
-	text += "\n"
-	
-	# Read the actual keybindings from the InputMap
-	text += _action_bindings("move_left", "A")
-	text += _action_bindings("move_right", "D")
-	text += _action_bindings("move_up", "W")
-	text += _action_bindings("move_down", "S")
-	text += _action_bindings("interact", "E")
-	text += _action_bindings("attack", "Space")
-	text += _action_bindings("dodge", "Shift")
-	text += _action_bindings("stealth", "Ctrl")
-	text += _action_bindings("bentley_ability", "Q")
-	
+	var text := "[F1] Toggle | [ESC] Pause\n\n"
+	text += _action_bindings("move_left", "Move left")
+	text += _action_bindings("move_right", "Move right")
+	text += _action_bindings("move_up", "Move up")
+	text += _action_bindings("move_down", "Move down")
+	text += _action_bindings("interact", "Interact / dialogue")
+	text += _action_bindings("attack", "Light attack / combo")
+	text += _action_bindings("heavy", "Heavy attack")
+	text += _action_bindings("dodge", "Dash")
+	text += _action_bindings("finisher", "Finisher (style full)")
+	text += _action_bindings("stealth", "Stealth walk (hold + WASD)")
+	text += "Stealth takedown: stealth + behind unaware + light attack\n"
+	text += _action_bindings("bentley_ability", "Bentley ability")
+
 	info_label.text = text
 
 func _action_bindings(action_name: String, label: String) -> String:
@@ -74,7 +74,8 @@ func _action_bindings(action_name: String, label: String) -> String:
 	var key_strs: PackedStringArray = []
 	for ev in keys:
 		if ev is InputEventKey:
-			key_strs.append(OS.get_keycode_string(ev.keycode))
+			var kc: int = ev.physical_keycode if ev.physical_keycode != 0 else ev.keycode
+			key_strs.append(OS.get_keycode_string(kc))
 		elif ev is InputEventJoypadButton:
 			key_strs.append("Btn %d" % ev.button_index)
 		elif ev is InputEventMouseButton:

@@ -111,6 +111,7 @@ func _process(delta: float) -> void:
 
 func _emit_style() -> void:
 	style_changed.emit(current_style, max_style)
+	EventBus.combat_style_changed.emit(current_style, max_style)
 
 
 func _unhandled_input(event: InputEvent) -> void:

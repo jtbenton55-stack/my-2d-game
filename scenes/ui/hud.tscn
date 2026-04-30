@@ -45,8 +45,30 @@ offset_top = -18.0
 offset_right = 200.0
 text = "BENTLEY"
 
+[node name="StyleBar" type="ProgressBar" parent="."]
+position = Vector2(20, 86)
+size = Vector2(200, 14)
+max_value = 100.0
+value = 0.0
+show_percentage = false
+theme = SubResource("Theme_19h8aw")
+
+[node name="StyleLabel" type="Label" parent="StyleBar"]
+layout_mode = 0
+offset_top = -18.0
+offset_right = 200.0
+text = "STYLE"
+
+[node name="StyleFinisherHint" type="Label" parent="StyleBar"]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 200.0
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+text = ""
+
 [node name="DetectionMeter" type="ProgressBar" parent="."]
-position = Vector2(20, 108)
+position = Vector2(20, 122)
 size = Vector2(200, 15)
 max_value = 100
 value = 0
