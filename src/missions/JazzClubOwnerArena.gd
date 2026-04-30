@@ -6,37 +6,12 @@ const CLUB_OWNER_BOSS_SCENE := "res://scenes/characters/club_owner_boss.tscn"
 
 var _boss: Node = null
 
-#region agent log
-func _agent_debug_log(hypothesis_id: String, message: String, data: Dictionary = {}) -> void:
-	var payload := {
-		"sessionId": "755971",
-		"runId": "initial",
-		"hypothesisId": hypothesis_id,
-		"location": "src/missions/JazzClubOwnerArena.gd",
-		"message": message,
-		"data": data,
-		"timestamp": Time.get_ticks_msec()
-	}
-	var path := "res://debug-755971.log"
-	var file := FileAccess.open(path, FileAccess.READ_WRITE if FileAccess.file_exists(path) else FileAccess.WRITE_READ)
-	if file:
-		file.seek_end()
-		file.store_line(JSON.stringify(payload))
-		file.close()
-#endregion
-
 func _ready() -> void:
 	mission_id = "velvet_paw_jazz_club"
 	auto_start_mission = false
 	objective_text = "The suite muscle answers to Sterling. Put him down—then the briefcase is yours."
 	guard_count = 0
 	super._ready()
-	_agent_debug_log("H2,H4", "arena ready after LevelBase", {
-		"player_valid": is_instance_valid(player),
-		"player_pos": player.global_position if is_instance_valid(player) else Vector2.ZERO,
-		"enemy_count": get_tree().get_nodes_in_group("enemy").size(),
-		"children": get_child_count()
-	})
 	AudioManager.play_music("nocturne_city")
 	_spawn_boss()
 	call_deferred("_begin_boss_intro")
@@ -45,7 +20,6 @@ func _ready() -> void:
 func _spawn_boss() -> void:
 	var packed := load(CLUB_OWNER_BOSS_SCENE)
 	if packed == null or not (packed is PackedScene):
-		_agent_debug_log("H1", "boss packed scene failed to load", {"path": CLUB_OWNER_BOSS_SCENE, "packed": str(packed)})
 		push_error("JazzClubOwnerArena: missing club owner boss scene")
 		return
 	_boss = (packed as PackedScene).instantiate()
@@ -59,14 +33,6 @@ func _spawn_boss() -> void:
 	if _boss.has_signal("died"):
 		_boss.died.connect(_on_boss_died)
 	_boss.process_mode = Node.PROCESS_MODE_DISABLED
-	_agent_debug_log("H1,H2,H3,H4", "boss spawned and disabled before intro", {
-		"boss_valid": is_instance_valid(_boss),
-		"boss_type": _boss.get_class(),
-		"boss_pos": (_boss as Node2D).global_position if _boss is Node2D else Vector2.ZERO,
-		"boss_process_mode": _boss.process_mode,
-		"has_died_signal": _boss.has_signal("died"),
-		"enemy_count": get_tree().get_nodes_in_group("enemy").size()
-	})
 
 
 func _begin_boss_intro() -> void:
@@ -84,13 +50,6 @@ func _begin_boss_intro() -> void:
 func _on_intro_dialogue_finished() -> void:
 	if is_instance_valid(_boss):
 		_boss.process_mode = Node.PROCESS_MODE_INHERIT
-	_agent_debug_log("H3,H4", "intro finished, boss process enabled", {
-		"boss_valid": is_instance_valid(_boss),
-		"boss_process_mode": _boss.process_mode if is_instance_valid(_boss) else -1,
-		"boss_pos": (_boss as Node2D).global_position if _boss is Node2D else Vector2.ZERO,
-		"player_pos": player.global_position if is_instance_valid(player) else Vector2.ZERO,
-		"enemy_count": get_tree().get_nodes_in_group("enemy").size()
-	})
 	QuestManager.set_objective("Dodge the slam. Strike between wind-ups.", mission_id)
 
 
