@@ -13,3 +13,6 @@ obj/
 # Tool-specific ignores
 .vscode/
 .history/
+
+# Agent / debug session NDJSON logs (workspace root)
+debug-*.log
