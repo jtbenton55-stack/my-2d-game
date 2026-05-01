@@ -13,6 +13,10 @@ var reward_claimed := false
 
 func _ready() -> void:
 	super._ready()
+
+	MissionMutationHelper.roll(get_mission_id(), {"trial_order_seed": [0, 1, 2]})
+	spawn_poop_bags_at_global_positions([Vector2(320, 420), Vector2(580, 380), Vector2(720, 520)])
+
 	_setup_kiro_dialogue()
 	_setup_jin_dialogue()
 	_setup_bentley_spectator()
@@ -158,10 +162,6 @@ func complete_level() -> void:
 		GameState.set_meta("shadow_dash_unlocked", true)
 		GameState.intel_points += 3
 		AudioManager.play_sfx("upgrade_get")
-	
-	# Collect polaroid if not already
-	if not CollectibleManager.has_polaroid("shadow_solo_pose"):
-		CollectibleManager.collect_polaroid("shadow_solo_pose")
 	
 	# Final shadow bow
 	DialogueManager.show_dialogue("Kiro", "The shadows will remember you. Travel with pride.")

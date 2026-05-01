@@ -27,7 +27,9 @@ func _ready() -> void:
 	completion_line = "All diamonds secured. The vault is ours. Exit through the loading dock!"
 	missing_item_line = "Bryce says the timing is still wrong. We need all three Year diamonds."
 	super._ready()
-	
+
+	spawn_poop_bags_at_global_positions([Vector2(200, 820), Vector2(560, 360), Vector2(780, 520)])
+
 	_setup_interactables()
 	_setup_lasers()
 	_show_opening_dialogue()

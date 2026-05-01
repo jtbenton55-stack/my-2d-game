@@ -11,6 +11,9 @@ var jc_dialogue_started := false
 
 func _ready() -> void:
 	super._ready()
+
+	spawn_poop_bags_at_global_positions([Vector2(360, 520), Vector2(620, 640), Vector2(480, 760)])
+
 	_setup_dialogue_triggers()
 	_setup_tea_station()
 	_setup_drawer_logic()
@@ -150,11 +153,16 @@ func complete_level() -> void:
 	if not drawer_revealed:
 		QuestManager.set_objective("The hidden drawer holds the evidence we need.", get_mission_id())
 		return
-	
-	# Collect polaroid if not already
-	if not CollectibleManager.has_polaroid("conservatory_serenity"):
-		CollectibleManager.collect_polaroid("conservatory_serenity")
-	
+
+	GameState.ensure_and_discover_sterling_clue("persian_tea_community_pattern", {
+		"title": "Community Takeover Pattern",
+		"description": "Sterling maps meaningful spaces before flipping them.",
+		"category": "Community",
+		"mission_id": "persian_tea_poison_ink",
+		"connects_to": "Sterling Tower Executive Garden",
+		"unlocks_or_modifies": "Garden floor intel",
+	})
+
 	# Final warm dialogue
 	DialogueManager.show_dialogue("JC", "Come back anytime, friend. The tea is always ready for you.")
 	

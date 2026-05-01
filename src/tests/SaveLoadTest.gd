@@ -45,6 +45,10 @@ func _test_save_to_dict() -> void:
     GameState.complete_mission("clean_job")
     GameState.equipped_items = ["lockpick", "smoke_grenade"]
     GameState.evidence_board_data = {"clue_1": true, "clue_2": false}
+    GameState.velvet_paw_resume_data = {"step": "LEDGER_PICKUP"}
+    GameState.mission_mutation_state = {"taco_bell_drop": {"keypad_code": "2174"}}
+    GameState.sterling_clues = {"sterling_delivery_token": {"title": "Token", "discovered": true}}
+    GameState.poop_bag_count = 2
     
     var data := GameState.to_dict()
     
@@ -57,7 +61,11 @@ func _test_save_to_dict() -> void:
         [data.save_version == GameState.SAVE_VERSION, "save_version should match current version"],
         [data.completed_missions.has("taco_bell_drop"), "completed_missions should contain taco_bell_drop"],
         [data.completed_missions.has("clean_job"), "completed_missions should contain clean_job"],
-        [data.equipped_items.has("lockpick"), "equipped_items should contain lockpick"]
+        [data.equipped_items.has("lockpick"), "equipped_items should contain lockpick"],
+        [data.has("velvet_paw_resume_data"), "velvet_paw_resume_data should serialize"],
+        [data.has("mission_mutation_state"), "mission_mutation_state should serialize"],
+        [data.has("sterling_clues"), "sterling_clues should serialize"],
+        [int(data.get("poop_bag_count", 0)) == 2, "poop_bag_count should serialize"]
     ]
     
     _record_result("Save to Dict", _evaluate_conditions(conditions))
@@ -83,7 +91,11 @@ func _test_load_from_dict() -> void:
         "settings": {"audio": {"master_volume": 0.8}},
         "next_spawn": "spawn_point_1",
         "evidence_board_data": {"clue_a": true},
-        "equipped_items": ["item_1"]
+        "equipped_items": ["item_1"],
+        "velvet_paw_resume_data": {"foo": "bar"},
+        "mission_mutation_state": {"velvet_paw_jazz_club": {"vip_alt_route": true}},
+        "sterling_clues": {"c1": {"discovered": false}},
+        "poop_bag_count": 4
     }
     
     GameState.from_dict(test_data)
@@ -97,7 +109,11 @@ func _test_load_from_dict() -> void:
         [GameState.player_max_health == 110, "player_max_health should restore to 110"],
         [GameState.next_spawn == "spawn_point_1", "next_spawn should restore correctly"],
         [GameState.equipped_items.has("item_1"), "equipped_items should restore item_1"],
-        [GameState.evidence_board_data.has("clue_a"), "evidence_board_data should restore clue_a"]
+        [GameState.evidence_board_data.has("clue_a"), "evidence_board_data should restore clue_a"],
+        [GameState.velvet_paw_resume_data.get("foo", "") == "bar", "velvet_paw_resume_data should restore"],
+        [GameState.mission_mutation_state.has("velvet_paw_jazz_club"), "mission_mutation_state should restore"],
+        [GameState.sterling_clues.has("c1"), "sterling_clues should restore"],
+        [GameState.poop_bag_count == 4, "poop_bag_count should restore"]
     ]
     
     _record_result("Load from Dict", _evaluate_conditions(conditions))

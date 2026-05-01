@@ -30,6 +30,7 @@ var staff_route_announced := false
 var social_floor_reacted := false
 var _read_clue_names: Array[StringName] = []
 var secret_velvet_collectible := false
+var _had_setlist_alarm := false
 
 ## Wrong-setlist alarm hunt (temporary reinforcements + overlay).
 var setlist_alarm_active := false
@@ -45,7 +46,9 @@ func _ready() -> void:
 	objective_text = "Find a way into the Velvet Paw Jazz Club."
 	guard_count = 0
 	super._ready()
-	
+
+	MissionMutationHelper.roll(mission_id, {"vip_alt_route": [true, false], "spotlight_strict": [true, false]})
+
 	_setup_mission_zones()
 	_setup_bouncer_patrols()
 	_setup_readable_notes()
@@ -327,9 +330,12 @@ func _setup_polaroid() -> void:
 		polaroid.add_to_group("interactable")
 
 func _on_polaroid_collected(polaroid_id: String) -> void:
-	if polaroid_id == "velvet_smiskis" and not secret_velvet_collectible:
+	var nid := GameState.normalize_polaroid_id(polaroid_id)
+	if nid == "velvet_shelf_goblins" and not secret_velvet_collectible:
 		secret_velvet_collectible = true
-		EventBus.objective_updated.emit("Optional: Velvet Smiski stash secured.")
+		EventBus.objective_updated.emit("Optional: Velvet Paw shelf goblins secured.")
+	if nid == "velvet_bathroom_glow_guy":
+		EventBus.objective_updated.emit("Optional: Velvet Paw Glow Guy — Bentley respects the grout lines.")
 
 func _advance_step(new_step: MissionStep) -> void:
 	current_step = new_step
@@ -529,7 +535,16 @@ func _on_ledger_body_entered(body: Node) -> void:
 	ledger.visible = false
 	ledger.set_deferred("monitoring", false)
 	AudioManager.play_sfx("item_pickup")
-	
+
+	GameState.ensure_and_discover_sterling_clue("black_ledger_shard_1", {
+		"title": "Black Ledger Shard 1",
+		"description": "Sterling hides blackmail data inside performance and music systems.",
+		"category": "Blackmail",
+		"mission_id": "velvet_paw_jazz_club",
+		"connects_to": "Sterling Tower Archive",
+		"unlocks_or_modifies": "Ledger assembly",
+	})
+
 	QuestManager.set_objective("Ledger secured. Yordano is tuning up for your exit.", mission_id)
 	_advance_step(MissionStep.ESCAPE)
 
@@ -602,6 +617,7 @@ func _on_music_puzzle_failed() -> void:
 func _begin_setlist_alarm() -> void:
 	if setlist_alarm_active:
 		return
+	_had_setlist_alarm = true
 	setlist_alarm_active = true
 	wrong_puzzle_attempts += 1
 	bouncer_alerted = true
@@ -670,10 +686,12 @@ func complete_level() -> void:
 	if not ledger_collected:
 		QuestManager.set_objective("The ledger stays. We do not leave witnesses.", mission_id)
 		return
+	if not _had_setlist_alarm:
+		CollectibleManager.collect_polaroid("jazz_club_perfect_bass_blackout")
 	CollectibleManager.collect_polaroid("jazz_club_polaroid")
 	if secret_velvet_collectible:
 		GameState.intel_points += 1
-		EventBus.objective_updated.emit("Bonus: Velvet Smiski stash. +1 intel.")
+		EventBus.objective_updated.emit("Bonus: Shelf goblin stash. +1 intel.")
 	super.complete_level()
 
 func _process(_delta: float) -> void:

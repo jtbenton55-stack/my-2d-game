@@ -119,6 +119,30 @@ func _on_player_died() -> void:
 		fail_level("Jake patched up the damage. Bentley remains judgmental.")
 
 
+func award_hidden_polaroid(polaroid_id: String) -> void:
+	CollectibleManager.collect_polaroid(polaroid_id)
+
+
+func award_perfect_polaroid(polaroid_id: String, _reason: String = "") -> void:
+	CollectibleManager.collect_polaroid(polaroid_id)
+
+
+func discover_mission_clue(clue_id: String, data: Dictionary) -> void:
+	GameState.ensure_and_discover_sterling_clue(clue_id, data)
+
+
+func spawn_poop_bags_at_global_positions(positions: Array[Vector2]) -> void:
+	var ps := load("res://scenes/collectibles/PoopBagPickup.tscn") as PackedScene
+	if ps == null:
+		return
+	for pos in positions:
+		var bag := ps.instantiate() as Node2D
+		if bag == null:
+			continue
+		add_child(bag)
+		bag.global_position = pos
+
+
 func _ensure_common_ui() -> void:
 	if get_node_or_null("HUD") == null:
 		var hud := preload("res://scenes/ui/hud.tscn").instantiate()

@@ -24,20 +24,22 @@ var alarm_disabled := false
 var alarm_tripped := false
 var used_service_route := false
 var decoy_bag_revealed := false
-var secret_smiskis_found := false
+var secret_glow_guys_found := false
 var hunter_guard_spawned := false
 var legal_eyes_used := false
 
-const GARAGE_CODE_RECEIPT := "7429"
+## Correct keypad code for this run (Mission Bible mutations + receipt intel).
+var _correct_garage_code: String = "7429"
 const GARAGE_CODE_GUESS_1 := "1234"
 const GARAGE_CODE_GUESS_2 := "0000"
-const GARAGE_CODE_GUESS_3 := "7429"
 
 func _ready() -> void:
 	mission_id = "taco_bell_drop"
 	objective_text = "Meet Louis in the alley."
 	guard_count = 0
+	_apply_taco_bell_mutations()
 	super._ready()
+	_spawn_taco_heat_extras()
 	
 	# Connect bag pickup
 	var bag := get_node_or_null("BagPickupZone")
@@ -126,6 +128,45 @@ func _ready() -> void:
 	call_deferred("_start_mission")
 	call_deferred("_announce_passive_cards")
 
+
+func _apply_taco_bell_mutations() -> void:
+	var pool := {
+		"keypad_code": ["7429", "2174", "4312", "9021"],
+		"glow_slot": [0, 1, 2],
+	}
+	var m := MissionMutationHelper.roll(mission_id, pool)
+	_correct_garage_code = String(m.get("keypad_code", "7429"))
+	var slot := int(m.get("glow_slot", 0))
+	var glow := get_node_or_null("GlowGuyPickup") as Node2D
+	var mk := get_node_or_null("MutationSlots/GlowGuySlot%d" % slot) as Node2D
+	if glow and mk:
+		glow.global_position = mk.global_position
+	var heat := GameState.get_mission_heat(mission_id)
+	if heat >= 3:
+		EventBus.objective_updated.emit("Heat level high — assume garage cameras are live.")
+	if heat >= 5:
+		call_deferred("_emit_louis_heat_hint")
+
+
+func _emit_louis_heat_hint() -> void:
+	QuestManager.set_objective(
+		"Louis texts a shortcut hint: keypad rotates on retries — current route code %s." % _correct_garage_code,
+		mission_id,
+	)
+
+
+func _spawn_taco_heat_extras() -> void:
+	var heat := GameState.get_mission_heat(mission_id)
+	if heat < 1:
+		return
+	var enemy_scene: PackedScene = load("res://scenes/characters/guard.tscn")
+	if enemy_scene == null:
+		return
+	var spawn3 := get_node_or_null("GoonSpawns/GoonSpawn3") as Node2D
+	var path_c := get_node_or_null("GuardPath3") as Path2D
+	_spawn_yard_guard(enemy_scene, spawn3, path_c, Vector2(1180, 320))
+
+
 func _spawn_default_enemies() -> void:
 	var enemy_scene: PackedScene = load("res://scenes/characters/guard.tscn")
 	if enemy_scene == null:
@@ -180,7 +221,7 @@ func _advance_to(step: int) -> void:
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.GARAGE_PUZZLE:
-			QuestManager.set_objective("Use keypad route at the garage (7429). If alarm is active, this may trip security.", mission_id)
+			QuestManager.set_objective("Use keypad route at the garage (%s). If alarm is active, this may trip security." % _correct_garage_code, mission_id)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.RECOVER_BAG:
@@ -198,17 +239,19 @@ func _start_mission() -> void:
 	if CardManager.is_selected("polaroid_proof"):
 		intel_receipt_found = true
 		EventBus.card_triggered.emit("polaroid_proof", "active", "Receipt evidence in hand.")
+	if GameState.get_mission_heat(mission_id) >= 5:
+		call_deferred("_emit_louis_heat_hint")
 	_advance_to(MissionStep.INTRO)
 
 func _apply_diamond_year_highlights() -> void:
 	if not CardEffects.can_see_loot_through_walls():
 		return
 	var bag_vis := get_node_or_null("BagPickupZone/BagVisual") as CanvasItem
-	var smiski_vis := get_node_or_null("SmiskiPickup/SmiskiVisual") as CanvasItem
+	var glow_vis := get_node_or_null("GlowGuyPickup/GlowVisual") as CanvasItem
 	if bag_vis:
 		bag_vis.modulate = Color(0.35, 1.0, 1.0, 1.0)
-	if smiski_vis:
-		smiski_vis.modulate = Color(1.0, 0.45, 0.95, 1.0)
+	if glow_vis:
+		glow_vis.modulate = Color(1.0, 0.45, 0.95, 1.0)
 	var real_spawn := get_node_or_null("RealBagSpawn") as Node2D
 	if real_spawn:
 		EventBus.show_objective_marker.emit(true, real_spawn.global_position)
@@ -301,7 +344,7 @@ func _on_guard_spotted_player() -> void:
 
 func _on_receipt_collected() -> void:
 	intel_receipt_found = true
-	QuestManager.set_objective("Receipt found: Garage code is " + GARAGE_CODE_RECEIPT + ".", mission_id)
+	QuestManager.set_objective("Receipt found: Garage code is " + _correct_garage_code + ".", mission_id)
 	AudioManager.play_sfx("intel_pickup")
 
 func _on_dumpster_intel_collected() -> void:
@@ -468,9 +511,9 @@ func _on_bag_body_entered(body: Node) -> void:
 		_advance_to(MissionStep.ESCAPE)
 
 func _on_polaroid_collected(polaroid_id: String) -> void:
-	if polaroid_id == "taco_bell_smiskis" and not secret_smiskis_found:
-		secret_smiskis_found = true
-		EventBus.objective_updated.emit("Optional collectible found: Smiski stash.")
+	if GameState.normalize_polaroid_id(polaroid_id) == "taco_bell_glow_guys" and not secret_glow_guys_found:
+		secret_glow_guys_found = true
+		EventBus.objective_updated.emit("Optional collectible found: Glow Guy stash.")
 
 func _play_reactive_dialogue(lines: Array[Dictionary]) -> void:
 	if DialogueManager.is_in_dialogue:
@@ -481,6 +524,14 @@ func _show_sterling_clue() -> void:
 	var note := get_node_or_null("SterlingClueNote")
 	if note and note.has_method("show_note"):
 		note.show_note()
+	GameState.ensure_and_discover_sterling_clue("sterling_delivery_token", {
+		"title": "Sterling Delivery Token",
+		"description": "Sterling moves secret packets through ordinary delivery networks.",
+		"category": "Logistics",
+		"mission_id": "taco_bell_drop",
+		"connects_to": "Velvet Paw Jazz Club",
+		"unlocks_or_modifies": "Delivery entrance options",
+	})
 
 func _on_exit_zone_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
@@ -493,7 +544,10 @@ func _on_exit_zone_body_entered(body: Node) -> void:
 func complete_level() -> void:
 	if is_complete or is_failed:
 		return
-	
+
+	if not alarm_tripped and not spotted_by_guard:
+		CollectibleManager.collect_polaroid("taco_bell_perfect_ambush")
+
 	# Collect polaroid on completion
 	CollectibleManager.collect_polaroid("taco_bell_polaroid")
 	
@@ -501,9 +555,9 @@ func complete_level() -> void:
 	if intel_receipt_found and intel_dumpster_found:
 		GameState.intel_points += 2
 		EventBus.objective_updated.emit("Bonus: All intel found! +2 intel points.")
-	if secret_smiskis_found:
+	if secret_glow_guys_found:
 		GameState.intel_points += 1
-		EventBus.objective_updated.emit("Bonus: Smiski stash recovered! +1 intel point.")
+		EventBus.objective_updated.emit("Bonus: Glow Guy stash recovered! +1 intel point.")
 	
 	is_complete = true
 	var result := GameState.complete_mission(get_mission_id())
@@ -511,8 +565,8 @@ func complete_level() -> void:
 
 func get_garage_code_options() -> Array[String]:
 	if intel_receipt_found:
-		return [GARAGE_CODE_RECEIPT]
-	return [GARAGE_CODE_GUESS_1, GARAGE_CODE_GUESS_2, GARAGE_CODE_GUESS_3]
+		return [_correct_garage_code]
+	return [_correct_garage_code, GARAGE_CODE_GUESS_1, GARAGE_CODE_GUESS_2]
 
 func is_garage_code_valid(code: String) -> bool:
-	return code == GARAGE_CODE_RECEIPT
+	return code == _correct_garage_code

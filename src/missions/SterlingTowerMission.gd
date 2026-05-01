@@ -38,7 +38,9 @@ func _ready() -> void:
 	objective_text = "The Sterling Tower. Every favor comes due."
 	guard_count = 0  # We'll spawn guards manually per floor
 	super._ready()
-	
+
+	spawn_poop_bags_at_global_positions([Vector2(420, 620), Vector2(680, 440), Vector2(540, 820)])
+
 	# Start the pre-heist briefing after a short delay
 	call_deferred("_start_pre_heist_briefing")
 	

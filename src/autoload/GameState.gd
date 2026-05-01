@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_VERSION := "0.3.0-rescue"
+const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
 
 var mission_catalog: Dictionary = {
@@ -45,9 +45,109 @@ var equipped_items: Array[String] = []
 ## Serialized when leaving JazzClubMission for the owner-suite boss arena; reapplied on return.
 var velvet_paw_resume_data: Dictionary = {}
 
-## If true, every mission in mission_catalog is added to available_missions after reset/load (local debugging).
-## Story progression tests force this off during resets — see StoryUnlockTest._reset_game_state.
-var debug_unlock_all_missions: bool = true
+## Mission Bible: heat is derived from failed_attempts (capped); mutations are rolled per mission and saved.
+var mission_mutation_state: Dictionary = {}
+
+## Structured Sterling clues for evidence board import; id -> {title, description, category, mission_id, connects_to, unlocks_or_modifies, discovered}
+var sterling_clues: Dictionary = {}
+
+## Bentley poop bags — global inventory + per-attempt pickup count for Responsible Crime Lord bonus.
+var poop_bag_count: int = 0
+var poop_bags_this_mission_attempt: int = 0
+
+## If true, every mission in mission_catalog is added to available_missions after reset (local QA only).
+## Default false so release/story order stay intact. Tests force off during runs.
+var debug_unlock_all_missions: bool = false
+
+## Legacy polaroid IDs (pre legal-safe rename) map to canonical IDs for saves and pickups.
+const POLAROID_LEGACY_IDS: Dictionary = {
+	"taco_bell_smiskis": "taco_bell_glow_guys",
+	"velvet_smiskis": "velvet_shelf_goblins",
+	"rewrite_room_proof": "rewrite_room_polaroid",
+	"conservatory_serenity": "persian_tea_hidden",
+	"ellie_rescue": "ellie_hidden_reunion",
+	"shadow_solo_pose": "shadow_solo_hidden_pose",
+}
+
+
+func normalize_polaroid_id(polaroid_id: String) -> String:
+	return String(POLAROID_LEGACY_IDS.get(polaroid_id, polaroid_id))
+
+
+func _migrate_polaroid_ids_inplace() -> void:
+	var out: Array[String] = []
+	var seen: Dictionary = {}
+	for id in collected_polaroids:
+		var nid := normalize_polaroid_id(String(id))
+		if seen.has(nid):
+			continue
+		seen[nid] = true
+		out.append(nid)
+	collected_polaroids = out
+
+
+func get_mission_heat(mission_id: String) -> int:
+	return mini(5, int(failed_attempts.get(mission_id, 0)))
+
+
+func get_or_roll_mission_mutations(mission_id: String, pool: Dictionary) -> Dictionary:
+	if mission_mutation_state.has(mission_id):
+		return mission_mutation_state[mission_id].duplicate(true)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(abs(hash(str(mission_id) + "_" + str(int(failed_attempts.get(mission_id, 0))))))
+	var out: Dictionary = {}
+	for key in pool.keys():
+		var choices = pool[key]
+		if choices is Array and choices.size() > 0:
+			out[key] = choices[rng.randi() % choices.size()]
+	mission_mutation_state[mission_id] = out.duplicate(true)
+	return out.duplicate(true)
+
+
+func clear_mission_mutations(mission_id: String) -> void:
+	mission_mutation_state.erase(mission_id)
+
+
+func register_sterling_clue(clue_id: String, data: Dictionary) -> void:
+	var d := data.duplicate(true)
+	if not d.has("discovered"):
+		d["discovered"] = false
+	sterling_clues[clue_id] = d
+
+
+func discover_sterling_clue(clue_id: String) -> void:
+	if not sterling_clues.has(clue_id):
+		return
+	var d: Dictionary = sterling_clues[clue_id].duplicate(true)
+	d["discovered"] = true
+	sterling_clues[clue_id] = d
+	EventBus.game_state_changed.emit()
+
+
+func ensure_and_discover_sterling_clue(clue_id: String, data: Dictionary) -> void:
+	if not sterling_clues.has(clue_id):
+		register_sterling_clue(clue_id, data)
+	discover_sterling_clue(clue_id)
+
+
+func add_poop_bag() -> void:
+	poop_bag_count += 1
+	if is_in_mission:
+		poop_bags_this_mission_attempt += 1
+	EventBus.game_state_changed.emit()
+
+
+func try_consume_poop_bag() -> bool:
+	if poop_bag_count <= 0:
+		return false
+	poop_bag_count -= 1
+	EventBus.game_state_changed.emit()
+	return true
+
+
+func get_poop_bag_count() -> int:
+	return poop_bag_count
+
 
 func set_velvet_paw_resume_data(data: Dictionary) -> void:
 	velvet_paw_resume_data = data.duplicate(true)
@@ -102,6 +202,10 @@ func reset_for_new_game(emit_change = true) -> void:
 	evidence_board_data = {}
 	equipped_items = []
 	velvet_paw_resume_data.clear()
+	mission_mutation_state.clear()
+	sterling_clues.clear()
+	poop_bag_count = 0
+	poop_bags_this_mission_attempt = 0
 	_apply_debug_unlock_all_missions_if_enabled()
 	if emit_change:
 		EventBus.game_state_changed.emit()
@@ -110,6 +214,7 @@ func start_mission(mission_id: String) -> void:
 	current_mission_id = mission_id
 	is_in_mission = true
 	player_health = player_max_health
+	poop_bags_this_mission_attempt = 0
 	dialogue_flags.erase("dental_boy_used")
 	EventBus.mission_started.emit(mission_id)
 	EventBus.debug("Mission started: " + mission_id)
@@ -125,6 +230,7 @@ func complete_mission(mission_id = "") -> Dictionary:
 	if not completed_missions.has(mission_id):
 		completed_missions.append(mission_id)
 	var rewards := _grant_success_rewards(mission_id)
+	clear_mission_mutations(mission_id)
 	last_mission_result = {"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}
 	EventBus.mission_completed.emit(mission_id, rewards)
 	EventBus.mission_result_ready.emit(last_mission_result)
@@ -177,6 +283,9 @@ func _grant_success_rewards(mission_id: String) -> Array[String]:
 	if mission_id == "diamond_a_year_job" and has_selected_card("diamond_a_year"):
 		intel_points += 2
 		rewards.append("Diamond a Year bonus: +2 intel")
+	if poop_bags_this_mission_attempt >= 3:
+		intel_points += 1
+		rewards.append("Responsible Crime Lord: +1 intel (3 poop bags this run)")
 	return rewards
 
 func _unlock_next_missions(mission_id: String) -> void:
@@ -256,10 +365,11 @@ func unlock_card(card_id: String) -> bool:
 	return true
 
 func collect_polaroid(polaroid_id: String) -> bool:
-	if collected_polaroids.has(polaroid_id):
+	var nid := normalize_polaroid_id(polaroid_id)
+	if collected_polaroids.has(nid):
 		return false
-	collected_polaroids.append(polaroid_id)
-	EventBus.polaroid_collected.emit(polaroid_id)
+	collected_polaroids.append(nid)
+	EventBus.polaroid_collected.emit(nid)
 	return true
 
 func help_friend(friend_id: String) -> void:
@@ -368,7 +478,31 @@ func _pretty_id(id: String) -> String:
 	return " ".join(parts)
 
 func to_dict() -> Dictionary:
-	return {"save_version": SAVE_VERSION, "available_missions": available_missions, "completed_missions": completed_missions, "failed_attempts": failed_attempts, "unlocked_cards": unlocked_cards, "selected_cards": selected_cards, "collected_polaroids": collected_polaroids, "crew_members": crew_members, "friend_favors": friend_favors, "player_upgrades": player_upgrades, "bentley_upgrades": bentley_upgrades, "dialogue_flags": dialogue_flags, "intel_points": intel_points, "player_max_health": player_max_health, "player_health": player_health, "settings": settings, "next_spawn": next_spawn, "evidence_board_data": evidence_board_data, "equipped_items": equipped_items}
+	return {
+		"save_version": SAVE_VERSION,
+		"available_missions": available_missions,
+		"completed_missions": completed_missions,
+		"failed_attempts": failed_attempts,
+		"unlocked_cards": unlocked_cards,
+		"selected_cards": selected_cards,
+		"collected_polaroids": collected_polaroids,
+		"crew_members": crew_members,
+		"friend_favors": friend_favors,
+		"player_upgrades": player_upgrades,
+		"bentley_upgrades": bentley_upgrades,
+		"dialogue_flags": dialogue_flags,
+		"intel_points": intel_points,
+		"player_max_health": player_max_health,
+		"player_health": player_health,
+		"settings": settings,
+		"next_spawn": next_spawn,
+		"evidence_board_data": evidence_board_data,
+		"equipped_items": equipped_items,
+		"velvet_paw_resume_data": velvet_paw_resume_data,
+		"mission_mutation_state": mission_mutation_state,
+		"sterling_clues": sterling_clues,
+		"poop_bag_count": poop_bag_count,
+	}
 
 func from_dict(data: Dictionary) -> void:
 	var loaded_version := String(data.get("save_version", ""))
@@ -383,6 +517,7 @@ func from_dict(data: Dictionary) -> void:
 	unlocked_cards = _as_string_array(data.get("unlocked_cards", unlocked_cards))
 	selected_cards = _as_string_array(data.get("selected_cards", []))
 	collected_polaroids = _as_string_array(data.get("collected_polaroids", []))
+	_migrate_polaroid_ids_inplace()
 	crew_members = _as_string_array(data.get("crew_members", crew_members))
 	friend_favors = Dictionary(data.get("friend_favors", friend_favors))
 	player_upgrades = Dictionary(data.get("player_upgrades", {}))
@@ -395,6 +530,10 @@ func from_dict(data: Dictionary) -> void:
 	next_spawn = String(data.get("next_spawn", "default"))
 	evidence_board_data = Dictionary(data.get("evidence_board_data", {}))
 	equipped_items = _as_string_array(data.get("equipped_items", []))
+	velvet_paw_resume_data = Dictionary(data.get("velvet_paw_resume_data", {}))
+	mission_mutation_state = Dictionary(data.get("mission_mutation_state", {}))
+	sterling_clues = Dictionary(data.get("sterling_clues", {}))
+	poop_bag_count = int(data.get("poop_bag_count", 0))
 	is_in_mission = false
 	current_mission_id = ""
 	pending_mission_id = ""

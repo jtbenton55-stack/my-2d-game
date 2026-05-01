@@ -103,7 +103,7 @@ func _setup_interactables() -> void:
 		collectibles_shelf_zone.set_meta("interaction", "collectibles_shelf")
 		collectibles_shelf_zone.body_entered.connect(func(body):
 			if body.is_in_group("player"):
-				EventBus.objective_updated.emit("Press E to browse collected Smiskis.")
+				EventBus.objective_updated.emit("Press E to browse Glow Guys and Shelf Goblins.")
 			)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -158,7 +158,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	var collectibles_shelf_zone := get_node_or_null("CollectiblesShelfZone") as Node2D
 	if collectibles_shelf_zone and player.global_position.distance_to(collectibles_shelf_zone.global_position) < 90.0:
-		SceneManager.open_smiski_shelf()
+		SceneManager.open_glow_collectible_shelf()
 		return
 
 func _ensure_common_ui() -> void:

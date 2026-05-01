@@ -20,3 +20,9 @@ Default player uses `PlayerCombatController` (hitbox melee + dash module). Space
 
 ## 2026-04-29: Jazz Club Mission Structure
 Wrong setlist is a timed alarm hunt (overlay + extra guards + resolve), not a hard fail. Correct setlist unlocks vertical progression (stairs/upstairs) where the real ledger lives behind a boss encounter (reused bruiser pattern first). Shared UI (`readable_note`) uses `CanvasLayer` so mission `Node2D` roots don’t clip fullscreen controls.
+
+## 2026-05-01: Mission Bible Meta Serialization
+Persist mission-spanning state in `GameState`: `velvet_paw_resume_data`, rolled `mission_mutation_state` per mission id, structured `sterling_clues` for evidence-board parity, and run-scoped `poop_bag_count` with intel bonus when ≥3 bags used in a successful mission attempt. Bump `SAVE_VERSION` to `0.4.0-bible` and migrate legacy polaroid ids via `POLAROID_LEGACY_IDS`.
+
+## 2026-04-30: Legally Safe Collectible Naming + Polaroid Migration
+Optional environmental polaroids use original IP-safe IDs (`taco_bell_glow_guys`, `velvet_shelf_goblins`). Legacy save keys (`*_smiskis`) map through `GameState.POLAROID_LEGACY_IDS` and `_migrate_polaroid_ids_inplace()` on load. Hideout shelf UI is `GlowCollectibleShelf` / `SceneManager.open_glow_collectible_shelf`. `debug_unlock_all_missions` defaults to **false** so normal story unlock order is preserved; enable locally for QA.

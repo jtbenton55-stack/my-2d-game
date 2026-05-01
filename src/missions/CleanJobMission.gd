@@ -20,7 +20,9 @@ func _ready() -> void:
 	completion_line = "All surfaces cleaned. The code is yours. Exit through the service door."
 	missing_item_line = "Bentley refuses to leave while the showroom is this filthy."
 	super._ready()
-	
+
+	spawn_poop_bags_at_global_positions([Vector2(220, 740), Vector2(520, 340), Vector2(780, 620)])
+
 	# Set up interactable zones
 	_setup_interactables()
 	

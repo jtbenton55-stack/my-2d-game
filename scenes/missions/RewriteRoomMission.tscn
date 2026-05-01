@@ -527,7 +527,7 @@ position = Vector2(900, 625)
 [node name="MissionPolaroid" type="Area2D" parent="."]
 position = Vector2(1250, 650)
 script = ExtResource("3_polaroid")
-polaroid_id = "rewrite_room_proof"
+polaroid_id = "rewrite_room_polaroid"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MissionPolaroid"]
 shape = SubResource("CircleShape2D_area")

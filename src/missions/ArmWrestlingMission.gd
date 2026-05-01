@@ -22,7 +22,9 @@ func _ready() -> void:
 	completion_line = "All opponents defeated! Counterpunch technique unlocked! Exit through the back alley."
 	missing_item_line = "The table is not impressed yet. Beat all three opponents first."
 	super._ready()
-	
+
+	spawn_poop_bags_at_global_positions([Vector2(240, 520), Vector2(520, 480), Vector2(720, 560)])
+
 	_setup_interactables()
 	_show_opening_dialogue()
 

@@ -9,7 +9,7 @@ const MISSION_SELECT_SCENE := "res://scenes/ui/MissionSelect.tscn"
 const SCHEME_CARD_SCENE := "res://scenes/ui/SchemeCardMenu.tscn"
 const MISSION_RESULT_SCENE := "res://scenes/ui/MissionResult.tscn"
 const POLAROID_GALLERY_SCENE := "res://scenes/ui/PolaroidGallery.tscn"
-const SMISKI_SHELF_SCENE := "res://scenes/ui/SmiskiShelf.tscn"
+const GLOW_COLLECTIBLE_SHELF_SCENE := "res://scenes/ui/GlowCollectibleShelf.tscn"
 const CREW_MENU_SCENE := "res://scenes/ui/CrewMenu.tscn"
 const EVIDENCE_BOARD_SCENE := "res://src/ui/evidence_board/evidence_board.tscn"
 const ENDING_SCENE := "res://scenes/ui/Ending.tscn"
@@ -102,8 +102,8 @@ func return_to_title() -> void:
 func open_polaroid_gallery() -> void:
 	change_scene(POLAROID_GALLERY_SCENE)
 
-func open_smiski_shelf() -> void:
-	change_scene(SMISKI_SHELF_SCENE)
+func open_glow_collectible_shelf() -> void:
+	change_scene(GLOW_COLLECTIBLE_SHELF_SCENE)
 
 func open_crew_menu() -> void:
 	change_scene(CREW_MENU_SCENE)

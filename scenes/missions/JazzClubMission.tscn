@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://jazzclub001"]
+[gd_scene load_steps=37 format=3 uid="uid://jazzclub001"]
 
 [ext_resource type="Script" path="res://src/missions/JazzClubMission.gd" id="1_jazz"]
 [ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="2_note"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/missions/ledger_decoy_interact.gd" id="5_decoy"]
 [ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="6_polaroid"]
 [ext_resource type="Script" path="res://src/missions/owner_suite_stairs.gd" id="7_stairs"]
+[ext_resource type="Script" path="res://src/collectibles/PoopBagPickup.gd" id="8_poop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(100, 60)
@@ -768,29 +769,131 @@ theme_override_font_sizes/font_size = 9
 text = "[POSTER]"
 horizontal_alignment = 1
 
-[node name="VelvetSmiskiPickup" type="Area2D" parent="."]
+[node name="VelvetShelfGoblinPickup" type="Area2D" parent="."]
 position = Vector2(704, 108)
 script = ExtResource("6_polaroid")
-polaroid_id = "velvet_smiskis"
+polaroid_id = "velvet_shelf_goblins"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VelvetSmiskiPickup"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VelvetShelfGoblinPickup"]
 shape = SubResource("RectangleShape2D_polaroid")
 
-[node name="SmiskiVisual" type="ColorRect" parent="VelvetSmiskiPickup"]
+[node name="ShelfGoblinVisual" type="ColorRect" parent="VelvetShelfGoblinPickup"]
 offset_left = -12.0
 offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
 color = Color(0.65, 1.0, 0.7, 1)
 
-[node name="SmiskiLabel" type="Label" parent="VelvetSmiskiPickup"]
+[node name="ShelfGoblinLabel" type="Label" parent="VelvetShelfGoblinPickup"]
 offset_left = -28.0
 offset_top = -30.0
 offset_right = 28.0
 offset_bottom = -8.0
 theme_override_font_sizes/font_size = 9
-text = "[SMISKI]"
+text = "[GOBLIN]"
 horizontal_alignment = 1
+
+[node name="HiddenBentleyStagePolaroid" type="Area2D" parent="."]
+position = Vector2(340, 260)
+script = ExtResource("6_polaroid")
+polaroid_id = "jazz_club_hidden_bentley_stage"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenBentleyStagePolaroid"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="PolaroidVisual" type="ColorRect" parent="HiddenBentleyStagePolaroid"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.92, 0.88, 0.72, 1)
+
+[node name="PolaroidLabel" type="Label" parent="HiddenBentleyStagePolaroid"]
+offset_left = -28.0
+offset_top = -30.0
+offset_right = 28.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 9
+text = "[PHOTO]"
+horizontal_alignment = 1
+
+[node name="BathroomGlowGuyPickup" type="Area2D" parent="."]
+position = Vector2(120, 620)
+script = ExtResource("6_polaroid")
+polaroid_id = "velvet_bathroom_glow_guy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BathroomGlowGuyPickup"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="GlowVisual" type="ColorRect" parent="BathroomGlowGuyPickup"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.65, 1.0, 0.75, 1)
+
+[node name="GlowLabel" type="Label" parent="BathroomGlowGuyPickup"]
+offset_left = -26.0
+offset_top = -28.0
+offset_right = 26.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 9
+text = "[GLOW]"
+horizontal_alignment = 1
+
+[node name="YordanoTinyIconPickup" type="Area2D" parent="."]
+position = Vector2(560, 440)
+script = ExtResource("6_polaroid")
+polaroid_id = "yordano_tiny_icon_headphones"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YordanoTinyIconPickup"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="TinyVisual" type="ColorRect" parent="YordanoTinyIconPickup"]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+color = Color(0.75, 0.55, 0.95, 1)
+
+[node name="TinyLabel" type="Label" parent="YordanoTinyIconPickup"]
+offset_left = -28.0
+offset_top = -30.0
+offset_right = 28.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 9
+text = "[ICON]"
+horizontal_alignment = 1
+
+[node name="PoopBag_Bathroom" type="Area2D" parent="."]
+position = Vector2(135, 640)
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("8_poop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_Bathroom"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="PoopBag_CoatCheck" type="Area2D" parent="."]
+position = Vector2(160, 260)
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("8_poop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_CoatCheck"]
+shape = SubResource("RectangleShape2D_polaroid")
+
+[node name="PoopBag_Alley" type="Area2D" parent="."]
+position = Vector2(80, 720)
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("8_poop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_Alley"]
+shape = SubResource("RectangleShape2D_polaroid")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(200, 700)

@@ -38,7 +38,10 @@ func _ready() -> void:
 	objective_text = "Infiltrate Sterling Tower law firm. Mere needs creative ownership proof."
 	guard_count = 0  # We'll spawn guards manually with patrol paths
 	super._ready()
-	
+
+	MissionMutationHelper.roll(mission_id, {"partner_patrol_variant": [0, 1, 2]})
+	spawn_poop_bags_at_global_positions([Vector2(180, 840), Vector2(560, 520), Vector2(920, 680)])
+
 	_setup_entry_route()
 	_setup_file_room_door()
 	_setup_screenplay_puzzle()
@@ -403,7 +406,7 @@ func _interact_emotional_desk() -> void:
 	DialogueManager.show_dialogue("An old leather notebook. Filled with story ideas that never got made.")
 
 func _collect_mission_polaroid(polaroid_node: Node) -> void:
-	CollectibleManager.collect_polaroid("rewrite_room_proof")
+	CollectibleManager.collect_polaroid("rewrite_room_polaroid")
 	AudioManager.play_sfx("collect")
 	polaroid_node.queue_free()
 	DialogueManager.show_dialogue("A polaroid of the original writer's guild registration. Dated 1987.")

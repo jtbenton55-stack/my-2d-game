@@ -12,6 +12,9 @@ var funny_payoff_triggered := false
 
 func _ready() -> void:
 	super._ready()
+
+	spawn_poop_bags_at_global_positions([Vector2(300, 640), Vector2(560, 480), Vector2(740, 720)])
+
 	_setup_opening_dialogue()
 	_setup_bentley_serious_moment()
 	_setup_ellie_rescue()
@@ -173,10 +176,6 @@ func complete_level() -> void:
 		QuestManager.set_objective("Bentley will NOT leave without Ellie. Find her first.", get_mission_id())
 		DialogueManager.show_dialogue("Bentley", "*sits stubbornly, refusing to move* ...*stares at you*")
 		return
-	
-	# Collect polaroid if not already
-	if not CollectibleManager.has_polaroid("ellie_rescue"):
-		CollectibleManager.collect_polaroid("ellie_rescue")
 	
 	# Final emotional sign-off
 	if loyalty_moment_triggered:

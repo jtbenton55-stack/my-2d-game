@@ -54,7 +54,9 @@ func _ready() -> void:
 	objective_text = "Help Dom prepare the getaway car."
 	guard_count = 0
 	super._ready()
-	
+
+	spawn_poop_bags_at_global_positions([Vector2(260, 420), Vector2(620, 380), Vector2(440, 540)])
+
 	# Check for raincoat upgrade
 	raincoat_upgrade = GameState.has_selected_card("bentley_raincoat") or GameState.bentley_upgrades.get("raincoat", false)
 	
