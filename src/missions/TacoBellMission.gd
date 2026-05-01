@@ -28,14 +28,28 @@ var secret_glow_guys_found := false
 var hunter_guard_spawned := false
 var legal_eyes_used := false
 
+## Which scent color family leads to the garage this run (0 orange, 1 blue, 2 green). Rolled in mutations.
+var _real_trail_family: int = 2
+var _sniffs_on_real_trail: int = 0
+var _fake_trail_reactions: int = 0
+var _raccoon_flavor_done := false
+var _decoy_flavor_done := false
+var _garage_ambush_spawned := false
+
 ## Correct keypad code for this run (Mission Bible mutations + receipt intel).
-var _correct_garage_code: String = "7429"
+var _correct_garage_code: String = "2174"
 const GARAGE_CODE_GUESS_1 := "1234"
 const GARAGE_CODE_GUESS_2 := "0000"
 
+const SCENT_MARKER_NAMES: Array[String] = [
+	"ScentMarker_O1", "ScentMarker_O2", "ScentMarker_B1", "ScentMarker_B2", "ScentMarker_G1", "ScentMarker_G2",
+]
+
+const _TRAIL_FAMILY_NAMES: Array[String] = ["orange food", "blue chemical", "green uncertain"]
+
 func _ready() -> void:
 	mission_id = "taco_bell_drop"
-	objective_text = "Meet Louis in the alley."
+	objective_text = "Meet Louis on Midnight Market Street."
 	guard_count = 0
 	_apply_taco_bell_mutations()
 	super._ready()
@@ -107,6 +121,15 @@ func _ready() -> void:
 		if not trip_zone.body_entered.is_connected(_on_alarm_trip_zone_entered):
 			trip_zone.body_entered.connect(_on_alarm_trip_zone_entered)
 
+	var decoy_intel := get_node_or_null("DecoyBagIntel")
+	if decoy_intel and decoy_intel.has_signal("intel_collected"):
+		if not decoy_intel.intel_collected.is_connected(_on_decoy_bag_intel_collected):
+			decoy_intel.intel_collected.connect(_on_decoy_bag_intel_collected)
+	var sauce_intel := get_node_or_null("SaucePacketInspect")
+	if sauce_intel and sauce_intel.has_signal("intel_collected"):
+		if not sauce_intel.intel_collected.is_connected(_on_sauce_packet_intel_collected):
+			sauce_intel.intel_collected.connect(_on_sauce_packet_intel_collected)
+
 	if not EventBus.polaroid_collected.is_connected(_on_polaroid_collected):
 		EventBus.polaroid_collected.connect(_on_polaroid_collected)
 	
@@ -127,15 +150,20 @@ func _ready() -> void:
 	# Start the mission after a brief delay (before passive card HUD pings)
 	call_deferred("_start_mission")
 	call_deferred("_announce_passive_cards")
+	call_deferred("_connect_flavor_zones")
+	call_deferred("_style_keypad_note_for_card")
+	call_deferred("_maybe_louis_failure_hint")
 
 
 func _apply_taco_bell_mutations() -> void:
 	var pool := {
-		"keypad_code": ["7429", "2174", "4312", "9021"],
+		"keypad_code": ["2174", "4312", "9021", "7429"],
 		"glow_slot": [0, 1, 2],
+		"real_trail_family": [0, 1, 2],
 	}
 	var m := MissionMutationHelper.roll(mission_id, pool)
-	_correct_garage_code = String(m.get("keypad_code", "7429"))
+	_correct_garage_code = String(m.get("keypad_code", "2174"))
+	_real_trail_family = clampi(int(m.get("real_trail_family", 2)), 0, 2)
 	var slot := int(m.get("glow_slot", 0))
 	var glow := get_node_or_null("GlowGuyPickup") as Node2D
 	var mk := get_node_or_null("MutationSlots/GlowGuySlot%d" % slot) as Node2D
@@ -143,14 +171,15 @@ func _apply_taco_bell_mutations() -> void:
 		glow.global_position = mk.global_position
 	var heat := GameState.get_mission_heat(mission_id)
 	if heat >= 3:
-		EventBus.objective_updated.emit("Heat level high — assume garage cameras are live.")
+		EventBus.objective_updated.emit("Heat level high — garage lights flicker; assume cameras are live.")
 	if heat >= 5:
 		call_deferred("_emit_louis_heat_hint")
 
 
 func _emit_louis_heat_hint() -> void:
+	var fam: String = _TRAIL_FAMILY_NAMES[clampi(_real_trail_family, 0, 2)]
 	QuestManager.set_objective(
-		"Louis texts a shortcut hint: keypad rotates on retries — current route code %s." % _correct_garage_code,
+		"Louis texts: real trail is the %s line; keypad %s; cameras may be live." % [fam, _correct_garage_code],
 		mission_id,
 	)
 
@@ -165,6 +194,16 @@ func _spawn_taco_heat_extras() -> void:
 	var spawn3 := get_node_or_null("GoonSpawns/GoonSpawn3") as Node2D
 	var path_c := get_node_or_null("GuardPath3") as Path2D
 	_spawn_yard_guard(enemy_scene, spawn3, path_c, Vector2(1180, 320))
+	if heat >= 4:
+		var bruiser_scene: PackedScene = load("res://scenes/characters/bruiser.tscn")
+		var spawn4 := get_node_or_null("GoonSpawns/GoonSpawn4") as Node2D
+		if bruiser_scene and spawn4:
+			var br = bruiser_scene.instantiate()
+			if br:
+				add_child(br)
+				br.global_position = spawn4.global_position
+				if br.has_signal("spotted_player") and not br.spotted_player.is_connected(_on_guard_spotted_player):
+					br.spotted_player.connect(_on_guard_spotted_player)
 
 
 func _spawn_default_enemies() -> void:
@@ -196,15 +235,18 @@ func _advance_to(step: int) -> void:
 	current_step = step
 	match step:
 		MissionStep.INTRO:
-			QuestManager.set_objective("Meet Louis in the alley. Find out what happened to the bag.", mission_id)
+			QuestManager.set_objective("Midnight Market → talk to Louis. Something's wrong with the delivery.", mission_id)
 			_show_louis_dialogue()
 		
 		MissionStep.INVESTIGATE:
-			QuestManager.set_objective("Search the alley. Look behind the dumpster for clues.", mission_id)
+			QuestManager.set_objective("Delivery Alley: inspect clues. Dumpster note starts Bentley's nose.", mission_id)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.SNIFF_TRAIL:
-			QuestManager.set_objective("Bentley smells something. Follow the scent trail.", mission_id)
+			QuestManager.set_objective(
+				"Scent split: orange (food), blue (Sterling chemical), green (uncertain). Follow the trail where Bentley's ears perk—not the sneeze trails.",
+				mission_id,
+			)
 			AudioManager.play_sfx("objective_update")
 			_activate_scent_trail()
 		
@@ -217,19 +259,28 @@ func _advance_to(step: int) -> void:
 				AudioManager.play_sfx("objective_update")
 
 		MissionStep.ACCESS_PREP:
-			QuestManager.set_objective("Micro-objectives: get the blue keycard and disable the alarm panel. Alternate route: open the service door with the keycard.", mission_id)
+			QuestManager.set_objective(
+				"Parking garage F1: keycard in security booth, alarm panel, or send Bentley through the vent. Cars = cover.",
+				mission_id,
+			)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.GARAGE_PUZZLE:
-			QuestManager.set_objective("Use keypad route at the garage (%s). If alarm is active, this may trip security." % _correct_garage_code, mission_id)
+			QuestManager.set_objective(
+				"Garage office keypad — 4 digits from the route board (receipt matches). Code this run: %s." % _correct_garage_code,
+				mission_id,
+			)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.RECOVER_BAG:
-			QuestManager.set_objective("Bag is inside the east garage (brown rectangle). Walk onto it or press E to grab it, then head to the green EXIT near Louis.", mission_id)
+			QuestManager.set_objective(
+				"Bag recovery room: grab Louis's bag in the garage. Expect an ambush when the lights snap on.",
+				mission_id,
+			)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.ESCAPE:
-			QuestManager.set_objective("Louis is waiting at the exit. Don't get caught!", mission_id)
+			QuestManager.set_objective("Escape back to Louis at the green exit — keep the bag.", mission_id)
 			AudioManager.play_sfx("objective_update")
 		
 		MissionStep.COMPLETE:
@@ -295,43 +346,121 @@ func _on_louis_dialogue_finished() -> void:
 		_advance_to(MissionStep.INVESTIGATE)
 
 func _setup_scent_trail() -> void:
-	for i in range(1, 5):
-		var marker := get_node_or_null("ScentMarker" + str(i))
-		if marker:
-			marker.add_to_group("scent_trail")
-			if marker.has_signal("sniffed"):
-				marker.sniffed.connect(_on_scent_marker_sniffed.bind(i))
-			marker.visible = false
+	for path in SCENT_MARKER_NAMES:
+		var marker := get_node_or_null(path)
+		if marker == null:
+			continue
+		marker.add_to_group("scent_trail")
+		if marker.has_signal("sniffed"):
+			marker.sniffed.connect(_on_scent_marker_sniffed)
+		marker.visible = false
+
 
 func _activate_scent_trail() -> void:
 	for marker in get_tree().get_nodes_in_group("scent_trail"):
-		marker.visible = true
+		if marker is CanvasItem:
+			marker.visible = true
 	
-	# Bentley barks to indicate trail
 	var bentley := get_tree().get_first_node_in_group("bentley")
 	if bentley and bentley.has_method("sniff"):
 		bentley.sniff()
 
-var scent_markers_found := 0
 
-func _on_scent_marker_sniffed(_marker_index: int) -> void:
-	scent_markers_found += 1
+func _on_scent_marker_sniffed(marker_id: int, trail_family: int) -> void:
 	AudioManager.play_sfx("bentley_sniff")
-	
-	if scent_markers_found >= 3:
-		scent_trail_complete = true
-		_play_reactive_dialogue([
-			{"speaker": "Bentley", "text": "*sharp bark* This trail splits. One scent is fake."},
-			{"speaker": "Parmida", "text": "Great. We follow the one that smells like panic."}
-		])
-		if current_step == MissionStep.SNIFF_TRAIL:
-			_advance_to(MissionStep.ACCESS_PREP)
+	if trail_family == _real_trail_family:
+		_sniffs_on_real_trail += 1
+		if _sniffs_on_real_trail == 1:
+			_play_reactive_dialogue([
+				{"speaker": "Bentley", "text": "*ears perk, lean forward*"},
+				{"speaker": "Parmida", "text": "That's the one. Stay on this color."},
+			])
+		if _sniffs_on_real_trail >= 2:
+			scent_trail_complete = true
+			_play_reactive_dialogue([
+				{"speaker": "Bentley", "text": "*tiny bark toward the loading yard*"},
+				{"speaker": "Parmida", "text": "Garage. Of course it's a garage."},
+			])
+			if current_step == MissionStep.SNIFF_TRAIL:
+				_advance_to(MissionStep.ACCESS_PREP)
+	else:
+		_fake_trail_reactions += 1
+		if _fake_trail_reactions <= 2:
+			_play_reactive_dialogue([
+				{"speaker": "Bentley", "text": "*pause… sneeze… side-eye*"},
+				{"speaker": "Parmida", "text": "Not that trail. He's judging you."},
+			])
+
+
+func _connect_flavor_zones() -> void:
+	var rp := get_node_or_null("RaccoonPit") as Area2D
+	if rp and not rp.body_entered.is_connected(_on_raccoon_pit_entered):
+		rp.body_entered.connect(_on_raccoon_pit_entered)
+	var dp := get_node_or_null("DecoyStaging") as Area2D
+	if dp and not dp.body_entered.is_connected(_on_decoy_staging_entered):
+		dp.body_entered.connect(_on_decoy_staging_entered)
+
+
+func _on_raccoon_pit_entered(body: Node) -> void:
+	if not body.is_in_group("player") or _raccoon_flavor_done:
+		return
+	_raccoon_flavor_done = true
+	DialogueManager.show_simple_dialogue([
+		{"speaker": "Parmida", "text": "Orange trail dead-ends at raccoons fighting over fries. Not Sterling — just chaos."},
+	])
+
+
+func _on_decoy_staging_entered(body: Node) -> void:
+	if not body.is_in_group("player") or _decoy_flavor_done:
+		return
+	_decoy_flavor_done = true
+	DialogueManager.show_simple_dialogue([
+		{"speaker": "Parmida", "text": "Decoy bag. Napkins and theater. The chemical blue trail was a lure."},
+	])
+
+
+func try_vent_unlock(vent: Node2D = null) -> void:
+	if keycard_found:
+		EventBus.objective_updated.emit("Already have the booth keycard.")
+		return
+	var dog := get_tree().get_first_node_in_group("bentley") as Node2D
+	var vpos: Vector2 = vent.global_position if vent else Vector2.ZERO
+	if dog == null or vpos.distance_to(dog.global_position) > 140.0:
+		_play_reactive_dialogue([{"speaker": "Parmida", "text": "Need Bentley at the vent."}])
+		return
+	keycard_found = true
+	AudioManager.play_sfx("objective_update")
+	EventBus.objective_updated.emit("Bentley wriggled through the vent and dropped the staff keycard.")
+	_play_reactive_dialogue([
+		{"speaker": "Louis", "text": "(whisper) That's my dog's tax return in action."},
+	])
+	_try_advance_from_access_prep()
+
+
+func _maybe_louis_failure_hint() -> void:
+	if int(GameState.failed_attempts.get(mission_id, 0)) < 2:
+		return
+	var fam: String = _TRAIL_FAMILY_NAMES[clampi(_real_trail_family, 0, 2)]
+	QuestManager.set_objective(
+		"Louis texts a hint: trust the %s trail where Bentley perks — keypad this week %s." % [fam, _correct_garage_code],
+		mission_id,
+	)
+
+
+func _style_keypad_note_for_card() -> void:
+	if not GameState.has_selected_card("two_letters_away"):
+		return
+	var n := get_node_or_null("KeypadRouteNote/NoteHighlight") as CanvasItem
+	if n:
+		n.visible = true
+	if get_node_or_null("KeypadRouteNote/Visual"):
+		(get_node_or_null("KeypadRouteNote/Visual") as CanvasItem).modulate = Color(1.0, 0.95, 0.35, 1.0)
+
 
 func _on_yard_entered() -> void:
 	if current_step == MissionStep.SNIFF_TRAIL and scent_trail_complete:
 		_advance_to(MissionStep.ACCESS_PREP)
 	elif current_step < MissionStep.ACCESS_PREP:
-		# Player found yard early, skip to stealth
 		_advance_to(MissionStep.ACCESS_PREP)
 
 func _on_guard_spotted_player() -> void:
@@ -461,6 +590,58 @@ func _on_garage_solved() -> void:
 			lbl.visible = true
 	
 	_advance_to(MissionStep.RECOVER_BAG)
+	call_deferred("_spawn_garage_ambush")
+	call_deferred("_play_ambush_intro_line")
+
+
+func _spawn_garage_ambush() -> void:
+	if _garage_ambush_spawned:
+		return
+	_garage_ambush_spawned = true
+	var goon_scene: PackedScene = load("res://scenes/characters/goon.tscn")
+	if goon_scene == null:
+		return
+	var s1 := get_node_or_null("AmbushSpawns/Ambush1") as Node2D
+	var s2 := get_node_or_null("AmbushSpawns/Ambush2") as Node2D
+	var s3 := get_node_or_null("AmbushSpawns/AmbushBottle") as Node2D
+	_spawn_goon_at(goon_scene, s1, Vector2(1280, 320))
+	_spawn_goon_at(goon_scene, s2, Vector2(1320, 440))
+	_spawn_goon_at(goon_scene, s3, Vector2(1180, 380))
+
+
+func _spawn_goon_at(packed: PackedScene, spawn: Node2D, fallback: Vector2) -> void:
+	var g = packed.instantiate()
+	if g == null:
+		return
+	add_child(g)
+	g.global_position = spawn.global_position if spawn else fallback
+	if g.has_signal("spotted_player") and not g.spotted_player.is_connected(_on_guard_spotted_player):
+		g.spotted_player.connect(_on_guard_spotted_player)
+
+
+func _play_ambush_intro_line() -> void:
+	var t := get_tree().create_timer(0.75)
+	t.timeout.connect(func():
+		DialogueManager.show_simple_dialogue([
+			{"speaker": "Goon", "text": "That bag belongs to Sterling now."},
+			{"speaker": "Parmida", "text": "Then Sterling should have tipped better."},
+		])
+	)
+
+
+func _on_decoy_bag_intel_collected(_intel_id: String) -> void:
+	GameState.intel_points += 1
+	EventBus.objective_updated.emit("Decoy bag documented for Sterling's theater. +1 intel.")
+
+
+func _on_sauce_packet_intel_collected(_intel_id: String) -> void:
+	GameState.ensure_and_discover_sterling_clue("sauce_packet_vp_hint", {
+		"title": "Sauce packet — V.P.",
+		"description": "Initials on foil point toward the Velvet Paw.",
+		"category": "Hint",
+		"mission_id": "taco_bell_drop",
+		"connects_to": "velvet_paw_jazz_club",
+	})
 
 func _on_garage_failed() -> void:
 	# Wrong code - guards get alerted
@@ -511,9 +692,12 @@ func _on_bag_body_entered(body: Node) -> void:
 		_advance_to(MissionStep.ESCAPE)
 
 func _on_polaroid_collected(polaroid_id: String) -> void:
-	if GameState.normalize_polaroid_id(polaroid_id) == "taco_bell_glow_guys" and not secret_glow_guys_found:
+	var nid := GameState.normalize_polaroid_id(polaroid_id)
+	if nid == "taco_bell_glow_guys" and not secret_glow_guys_found:
 		secret_glow_guys_found = true
 		EventBus.objective_updated.emit("Optional collectible found: Glow Guy stash.")
+	elif nid == "taco_bell_midnight_market_rain":
+		EventBus.objective_updated.emit("Hidden polaroid: Midnight Market rain.")
 
 func _play_reactive_dialogue(lines: Array[Dictionary]) -> void:
 	if DialogueManager.is_in_dialogue:
@@ -532,6 +716,28 @@ func _show_sterling_clue() -> void:
 		"connects_to": "Velvet Paw Jazz Club",
 		"unlocks_or_modifies": "Delivery entrance options",
 	})
+	GameState.ensure_and_discover_sterling_clue("velvet_paw_envelope_stamp", {
+		"title": "Velvet Paw Club Stamp",
+		"description": "Black envelope — club mark points to the Velvet Paw.",
+		"category": "Network",
+		"mission_id": "taco_bell_drop",
+		"connects_to": "velvet_paw_jazz_club",
+	})
+	GameState.ensure_and_discover_sterling_clue("route_manifest_half", {
+		"title": "Half-burned route manifest",
+		"description": "Garage dispatch overlaps with Dom's getaway routes later.",
+		"category": "Logistics",
+		"mission_id": "taco_bell_drop",
+		"connects_to": "fast_family_getaway",
+	})
+	call_deferred("_play_louis_bag_reveal_phone")
+
+
+func _play_louis_bag_reveal_phone() -> void:
+	DialogueManager.show_simple_dialogue([
+		{"speaker": "Louis", "text": "(phone, whisper) That's not a delivery route. That's a map of safehouses."},
+		{"speaker": "Parmida", "text": "Camera in on the token. Sterling's not stealing meals — he's stealing corridors."},
+	])
 
 func _on_exit_zone_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
