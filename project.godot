@@ -34,6 +34,8 @@ CardEffects="*res://src/autoload/CardEffects.gd"
 EventBus="*res://src/utils/EventBus.gd"
 CollectibleManager="*res://src/collectibles/CollectibleManager.gd"
 MCPRuntime="*uid://c13j8nchilhxj"
+GRBServer="*uid://hwkgc74v20qq"
+McpInteractionServer="*uid://dyhub7l5qsyig"
 
 [debug]
 
@@ -50,7 +52,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-runtime-bridge/plugin.cfg", "res://addons/godot_mcp/plugin.cfg")
 
 [input]
 
