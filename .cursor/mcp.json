@@ -6,7 +6,7 @@
                                                              ],
                                                     "env":  {
                                                                 "GDRB_FORCE_WINDOWED":  "1",
-                                                                "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe",
+                                                                "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe",
                                                                 "GDRB_INPUT_MODE":  "synthetic"
                                                             },
                                                     "command":  "node"
@@ -17,7 +17,7 @@
                                                            ],
                                                   "env":  {
                                                               "DEBUG":  "true",
-                                                              "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe"
+                                                              "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe"
                                                           },
                                                   "command":  "node"
                                               }

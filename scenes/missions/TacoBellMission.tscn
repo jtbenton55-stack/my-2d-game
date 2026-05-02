@@ -1,39 +1,36 @@
-[gd_scene load_steps=28 format=3 uid="uid://tacobellmission001"]
+[gd_scene format=3 uid="uid://brwtrvylwjgsu"]
 
-[ext_resource type="Script" path="res://src/missions/TacoBellMission.gd" id="1_taco"]
-[ext_resource type="Script" path="res://src/missions/scent_trail_marker.gd" id="2_scent"]
-[ext_resource type="Script" path="res://src/missions/garage_puzzle.gd" id="3_garage"]
+[ext_resource type="Script" uid="uid://br5sd4jcdxe4f" path="res://src/missions/TacoBellMission.gd" id="1_taco"]
+[ext_resource type="Script" uid="uid://dp7cfdjq5tqa7" path="res://src/missions/scent_trail_marker.gd" id="2_scent"]
+[ext_resource type="Script" uid="uid://d3xl3ec24tdi3" path="res://src/missions/garage_puzzle.gd" id="3_garage"]
 [ext_resource type="Script" path="res://src/missions/intel_pickup.gd" id="4_intel"]
-[ext_resource type="Script" path="res://src/missions/bag_pickup_zone.gd" id="10_bag"]
-[ext_resource type="Script" path="res://src/missions/service_door_trigger.gd" id="11_service"]
-[ext_resource type="Script" path="res://src/missions/yard_entrance.gd" id="5_yard"]
-[ext_resource type="Script" path="res://src/missions/sterling_clue_note.gd" id="6_clue"]
-[ext_resource type="Script" path="res://src/dialogue/branching_dialogue_trigger.gd" id="7_dialogue"]
-[ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="8_note"]
-[ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="9_polaroid"]
-[ext_resource type="Script" path="res://src/collectibles/PoopBagPickup.gd" id="12_poop"]
-[ext_resource type="Script" path="res://src/missions/contaminated_evidence_pickup.gd" id="13_cont"]
-[ext_resource type="Script" path="res://src/missions/taco_bell_vent.gd" id="15_vent"]
+[ext_resource type="Script" uid="uid://ddh77drg434lw" path="res://src/missions/yard_entrance.gd" id="5_yard"]
+[ext_resource type="Script" uid="uid://mnnj1208pqse" path="res://src/missions/sterling_clue_note.gd" id="6_clue"]
+[ext_resource type="Script" uid="uid://s432d7nt08ai" path="res://src/dialogue/branching_dialogue_trigger.gd" id="7_dialogue"]
+[ext_resource type="Script" uid="uid://dcfupgh76pqgk" path="res://src/interactables/readable_note.gd" id="8_note"]
+[ext_resource type="Script" uid="uid://rkfoxke6t258" path="res://src/collectibles/polaroid_pickup.gd" id="9_polaroid"]
+[ext_resource type="Script" uid="uid://crcsmv030t3t7" path="res://src/missions/bag_pickup_zone.gd" id="10_bag"]
+[ext_resource type="Script" uid="uid://dgbo7ta8ljngu" path="res://src/missions/service_door_trigger.gd" id="11_service"]
+[ext_resource type="Script" uid="uid://bixgalddqu8ig" path="res://src/collectibles/PoopBagPickup.gd" id="12_poop"]
+[ext_resource type="Script" uid="uid://ys77bfdvllcq" path="res://src/missions/contaminated_evidence_pickup.gd" id="13_cont"]
+[ext_resource type="Script" uid="uid://da8uvggilpvo7" path="res://src/missions/taco_bell_vent.gd" id="15_vent"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yard"]
-size = Vector2(120, 80)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_scent"]
-radius = 32.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_garage"]
-size = Vector2(100, 80)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dialogue"]
+size = Vector2(100, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_intel"]
 radius = 36.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bag"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_scent"]
 radius = 32.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(120, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flavor"]
+size = Vector2(120, 88)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dialogue"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yard"]
+size = Vector2(120, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
 size = Vector2(100, 100)
 
 [sub_resource type="Curve2D" id="Curve2D_1"]
@@ -54,86 +51,80 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
-size = Vector2(100, 100)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_garage"]
+size = Vector2(100, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alarm_line"]
 size = Vector2(24, 260)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_flavor"]
-size = Vector2(120, 88)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_note"]
 size = Vector2(56, 40)
 
-[node name="TacoBellMission" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bag"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(120, 60)
+
+[node name="TacoBellMission" type="Node2D" unique_id=715079699]
 script = ExtResource("1_taco")
 mission_id = "taco_bell_drop"
-guard_count = 0
 
-[node name="FloorVisual" type="ColorRect" parent="."]
+[node name="FloorVisual" type="ColorRect" parent="." unique_id=240431260]
 z_index = -2
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 2100.0
 offset_bottom = 900.0
-color = Color(0.12, 0.12, 0.14, 1.0)
+color = Color(0.12, 0.12, 0.14, 1)
 
-[node name="MidnightMarketFloor" type="ColorRect" parent="."]
+[node name="MidnightMarketFloor" type="ColorRect" parent="." unique_id=490880432]
 z_index = -3
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 420.0
 offset_bottom = 900.0
-color = Color(0.1, 0.11, 0.14, 1.0)
+color = Color(0.1, 0.11, 0.14, 1)
 
-[node name="HubConnectorLabel" type="Label" parent="."]
+[node name="HubConnectorLabel" type="Label" parent="." unique_id=780244451]
 z_index = 1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 200.0
 offset_bottom = 56.0
-theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.65, 0.7, 0.85, 1)
+theme_override_font_sizes/font_size = 14
 text = "↑ City Hub Entrance"
-horizontal_alignment = 0
 
-[node name="MidnightMarketLabel" type="Label" parent="."]
+[node name="MidnightMarketLabel" type="Label" parent="." unique_id=993894725]
 z_index = 1
 offset_left = 20.0
 offset_top = 64.0
 offset_right = 400.0
 offset_bottom = 104.0
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 20
 text = "MIDNIGHT MARKET STREET — wet pavement, neon halal cart parody"
-horizontal_alignment = 0
 autowrap_mode = 2
 
-[node name="StreetlightPole" type="ColorRect" parent="."]
-z_index = 0
+[node name="StreetlightPole" type="ColorRect" parent="." unique_id=1443424355]
 offset_left = 108.0
 offset_top = 120.0
 offset_right = 118.0
 offset_bottom = 220.0
 color = Color(0.25, 0.25, 0.28, 1)
 
-[node name="StreetlightLamp" type="ColorRect" parent="."]
-z_index = 0
+[node name="StreetlightLamp" type="ColorRect" parent="." unique_id=954433402]
 offset_left = 96.0
 offset_top = 108.0
 offset_right = 130.0
 offset_bottom = 128.0
 color = Color(1, 0.95, 0.65, 0.85)
 
-[node name="HalalCartParody" type="ColorRect" parent="."]
+[node name="HalalCartParody" type="ColorRect" parent="." unique_id=859066904]
 offset_left = 240.0
 offset_top = 200.0
 offset_right = 360.0
 offset_bottom = 300.0
 color = Color(0.55, 0.35, 0.2, 1)
 
-[node name="CartLabel" type="Label" parent="HalalCartParody"]
+[node name="CartLabel" type="Label" parent="HalalCartParody" unique_id=212148509]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 36.0
@@ -144,14 +135,14 @@ text = "LATE NIGHT
 WRAP STAND"
 horizontal_alignment = 1
 
-[node name="NPC_Courier" type="ColorRect" parent="."]
+[node name="NPC_Courier" type="ColorRect" parent="." unique_id=1942480778]
 offset_left = 72.0
 offset_top = 240.0
 offset_right = 104.0
 offset_bottom = 304.0
 color = Color(0.35, 0.4, 0.55, 1)
 
-[node name="NPC_Courier_Label" type="Label" parent="NPC_Courier"]
+[node name="NPC_Courier_Label" type="Label" parent="NPC_Courier" unique_id=549097018]
 layout_mode = 0
 offset_left = -8.0
 offset_top = -22.0
@@ -161,14 +152,14 @@ theme_override_font_sizes/font_size = 10
 text = "courier"
 horizontal_alignment = 1
 
-[node name="NPC_Doorman" type="ColorRect" parent="."]
+[node name="NPC_Doorman" type="ColorRect" parent="." unique_id=1643092817]
 offset_left = 180.0
 offset_top = 380.0
 offset_right = 212.0
 offset_bottom = 444.0
 color = Color(0.32, 0.32, 0.38, 1)
 
-[node name="NPC_Doorman_Label" type="Label" parent="NPC_Doorman"]
+[node name="NPC_Doorman_Label" type="Label" parent="NPC_Doorman" unique_id=1426139399]
 layout_mode = 0
 offset_left = -12.0
 offset_top = -22.0
@@ -178,14 +169,14 @@ theme_override_font_sizes/font_size = 10
 text = "doorman"
 horizontal_alignment = 1
 
-[node name="NPC_Musician" type="ColorRect" parent="."]
+[node name="NPC_Musician" type="ColorRect" parent="." unique_id=1183085423]
 offset_left = 300.0
 offset_top = 120.0
 offset_right = 332.0
 offset_bottom = 184.0
 color = Color(0.5, 0.35, 0.45, 1)
 
-[node name="NPC_Musician_Label" type="Label" parent="NPC_Musician"]
+[node name="NPC_Musician_Label" type="Label" parent="NPC_Musician" unique_id=1446680713]
 layout_mode = 0
 offset_left = -16.0
 offset_top = -22.0
@@ -195,18 +186,17 @@ theme_override_font_sizes/font_size = 10
 text = "musician"
 horizontal_alignment = 1
 
-[node name="DogStationAlleyLabel" type="Label" parent="."]
+[node name="DogStationAlleyLabel" type="Label" parent="." unique_id=2103324553]
 z_index = 1
 offset_left = 300.0
 offset_top = 12.0
 offset_right = 560.0
 offset_bottom = 44.0
-theme_override_font_sizes/font_size = 13
 theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 13
 text = "Dog Station Alley (hidden poop pack)"
-horizontal_alignment = 0
 
-[node name="AlleyLabel" type="Label" parent="."]
+[node name="AlleyLabel" type="Label" parent="." unique_id=1763445002]
 z_index = 1
 offset_left = 420.0
 offset_top = 52.0
@@ -214,35 +204,34 @@ offset_right = 820.0
 offset_bottom = 88.0
 theme_override_font_sizes/font_size = 18
 text = "DELIVERY ALLEY — scent split / dumpster intel"
-horizontal_alignment = 0
 
-[node name="TacoBellBuilding" type="ColorRect" parent="."]
+[node name="TacoBellBuilding" type="ColorRect" parent="." unique_id=2134638245]
 offset_left = 520.0
 offset_top = 50.0
 offset_right = 820.0
 offset_bottom = 250.0
-color = Color(0.35, 0.25, 0.2, 1.0)
+color = Color(0.35, 0.25, 0.2, 1)
 
-[node name="TacoBellSign" type="Label" parent="TacoBellBuilding"]
+[node name="TacoBellSign" type="Label" parent="TacoBellBuilding" unique_id=1298846309]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 10.0
 offset_right = 250.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0.9, 0.7, 0.1, 1.0)
+theme_override_colors/font_color = Color(0.9, 0.7, 0.1, 1)
 theme_override_font_sizes/font_size = 24
 text = "TACO BELL"
 horizontal_alignment = 1
 
-[node name="TacoBellDoor" type="ColorRect" parent="TacoBellBuilding"]
+[node name="TacoBellDoor" type="ColorRect" parent="TacoBellBuilding" unique_id=1444086333]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 150.0
 offset_right = 200.0
 offset_bottom = 200.0
-color = Color(0.6, 0.3, 0.2, 1.0)
+color = Color(0.6, 0.3, 0.2, 1)
 
-[node name="DoorLabel" type="Label" parent="TacoBellBuilding/TacoBellDoor"]
+[node name="DoorLabel" type="Label" parent="TacoBellBuilding/TacoBellDoor" unique_id=1558525806]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 15.0
@@ -252,24 +241,23 @@ text = "STAFF
 ONLY"
 horizontal_alignment = 1
 
-[node name="LouisVisual" type="ColorRect" parent="."]
+[node name="LouisVisual" type="ColorRect" parent="." unique_id=650114568]
 offset_left = 300.0
 offset_top = 280.0
 offset_right = 340.0
 offset_bottom = 340.0
-color = Color(0.4, 0.6, 0.4, 1.0)
+color = Color(0.4, 0.6, 0.4, 1)
 
-[node name="LouisLabel" type="Label" parent="LouisVisual"]
+[node name="LouisLabel" type="Label" parent="LouisVisual" unique_id=2014545550]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -25.0
 offset_right = 50.0
-offset_bottom = 0.0
-theme_override_colors/font_color = Color(0.8, 1.0, 0.8, 1.0)
+theme_override_colors/font_color = Color(0.8, 1, 0.8, 1)
 text = "Louis"
 horizontal_alignment = 1
 
-[node name="LouisDialogueTrigger" type="Area2D" parent="."]
+[node name="LouisDialogueTrigger" type="Area2D" parent="." unique_id=1135312868]
 script = ExtResource("7_dialogue")
 dialogue_lines = Array[Dictionary]([{
 "speaker": "Louis",
@@ -284,20 +272,19 @@ dialogue_lines = Array[Dictionary]([{
 "speaker": "Louis",
 "text": "Dumpster has my scribble. Three scent trails split from Delivery Alley — only one is real."
 }])
-choices = []
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LouisDialogueTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LouisDialogueTrigger" unique_id=1752133237]
 position = Vector2(320, 310)
 shape = SubResource("RectangleShape2D_dialogue")
 
-[node name="Dumpster" type="ColorRect" parent="."]
+[node name="Dumpster" type="ColorRect" parent="." unique_id=630770389]
 offset_left = 440.0
 offset_top = 160.0
 offset_right = 540.0
 offset_bottom = 260.0
-color = Color(0.25, 0.35, 0.2, 1.0)
+color = Color(0.25, 0.35, 0.2, 1)
 
-[node name="DumpsterLabel" type="Label" parent="Dumpster"]
+[node name="DumpsterLabel" type="Label" parent="Dumpster" unique_id=1513751983]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 35.0
@@ -306,24 +293,24 @@ offset_bottom = 60.0
 text = "DUMPSTER"
 horizontal_alignment = 1
 
-[node name="DumpsterIntel" type="Area2D" parent="."]
+[node name="DumpsterIntel" type="Area2D" parent="." unique_id=1702140927]
 position = Vector2(490, 285)
 script = ExtResource("4_intel")
 intel_id = "dumpster_note"
 intel_title = "Scrawled Note"
 intel_description = "They took the bag to the employee garage. Receipt + route board = keypad."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DumpsterIntel"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DumpsterIntel" unique_id=1089536734]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="DumpsterIntel"]
+[node name="IntelVisual" type="ColorRect" parent="DumpsterIntel" unique_id=1175816092]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.9, 0.8, 0.2, 0.8)
 
-[node name="IntelLabel" type="Label" parent="DumpsterIntel"]
+[node name="IntelLabel" type="Label" parent="DumpsterIntel" unique_id=1181979311]
 offset_left = -20.0
 offset_top = -30.0
 offset_right = 20.0
@@ -331,24 +318,24 @@ offset_bottom = -10.0
 text = "?"
 horizontal_alignment = 1
 
-[node name="KeycardIntel" type="Area2D" parent="."]
+[node name="KeycardIntel" type="Area2D" parent="." unique_id=1348454295]
 position = Vector2(960, 300)
 script = ExtResource("4_intel")
 intel_id = "service_keycard"
 intel_title = "Blue Keycard"
 intel_description = "Service door access. Marked with a greasy taco logo."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KeycardIntel"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeycardIntel" unique_id=1971684400]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="KeycardIntel"]
+[node name="IntelVisual" type="ColorRect" parent="KeycardIntel" unique_id=471644176]
 offset_left = -10.0
 offset_top = -6.0
 offset_right = 10.0
 offset_bottom = 6.0
 color = Color(0.35, 0.55, 0.95, 0.95)
 
-[node name="IntelLabel" type="Label" parent="KeycardIntel"]
+[node name="IntelLabel" type="Label" parent="KeycardIntel" unique_id=388923282]
 offset_left = -28.0
 offset_top = -28.0
 offset_right = 28.0
@@ -356,24 +343,24 @@ offset_bottom = -10.0
 text = "KEYCARD"
 horizontal_alignment = 1
 
-[node name="AlarmPanel" type="Area2D" parent="."]
+[node name="AlarmPanel" type="Area2D" parent="." unique_id=1036377881]
 position = Vector2(1210, 420)
 script = ExtResource("4_intel")
 intel_id = "alarm_panel_disabled"
 intel_title = "Security Panel"
 intel_description = "You cut power to the motion alarm grid."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmPanel"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmPanel" unique_id=771093426]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="AlarmPanel"]
+[node name="IntelVisual" type="ColorRect" parent="AlarmPanel" unique_id=2072467759]
 offset_left = -10.0
 offset_top = -12.0
 offset_right = 10.0
 offset_bottom = 12.0
 color = Color(0.95, 0.25, 0.2, 0.9)
 
-[node name="IntelLabel" type="Label" parent="AlarmPanel"]
+[node name="IntelLabel" type="Label" parent="AlarmPanel" unique_id=1159752014]
 offset_left = -44.0
 offset_top = -34.0
 offset_right = 44.0
@@ -381,23 +368,21 @@ offset_bottom = -14.0
 text = "ALARM"
 horizontal_alignment = 1
 
-[node name="ScentMarker_O1" type="Area2D" parent="."]
+[node name="ScentMarker_O1" type="Area2D" parent="." unique_id=2146835054]
 position = Vector2(540, 420)
 script = ExtResource("2_scent")
-marker_id = 1
-trail_family = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_O1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_O1" unique_id=1815576619]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_O1"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_O1" unique_id=1071671472]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_O1"]
+[node name="Label" type="Label" parent="ScentMarker_O1" unique_id=2065256418]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -405,23 +390,22 @@ offset_bottom = -20.0
 text = "O"
 horizontal_alignment = 1
 
-[node name="ScentMarker_O2" type="Area2D" parent="."]
+[node name="ScentMarker_O2" type="Area2D" parent="." unique_id=876565249]
 position = Vector2(400, 220)
 script = ExtResource("2_scent")
 marker_id = 2
-trail_family = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_O2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_O2" unique_id=637441692]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_O2"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_O2" unique_id=1722098041]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_O2"]
+[node name="Label" type="Label" parent="ScentMarker_O2" unique_id=1147690758]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -429,23 +413,23 @@ offset_bottom = -20.0
 text = "O"
 horizontal_alignment = 1
 
-[node name="ScentMarker_B1" type="Area2D" parent="."]
+[node name="ScentMarker_B1" type="Area2D" parent="." unique_id=565532255]
 position = Vector2(660, 410)
 script = ExtResource("2_scent")
 marker_id = 3
 trail_family = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_B1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_B1" unique_id=799009007]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_B1"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_B1" unique_id=1592609396]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_B1"]
+[node name="Label" type="Label" parent="ScentMarker_B1" unique_id=595251502]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -453,23 +437,23 @@ offset_bottom = -20.0
 text = "B"
 horizontal_alignment = 1
 
-[node name="ScentMarker_B2" type="Area2D" parent="."]
+[node name="ScentMarker_B2" type="Area2D" parent="." unique_id=2031020425]
 position = Vector2(740, 240)
 script = ExtResource("2_scent")
 marker_id = 4
 trail_family = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_B2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_B2" unique_id=1949699011]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_B2"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_B2" unique_id=1256386934]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_B2"]
+[node name="Label" type="Label" parent="ScentMarker_B2" unique_id=1469341479]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -477,23 +461,23 @@ offset_bottom = -20.0
 text = "B"
 horizontal_alignment = 1
 
-[node name="ScentMarker_G1" type="Area2D" parent="."]
+[node name="ScentMarker_G1" type="Area2D" parent="." unique_id=10669076]
 position = Vector2(700, 500)
 script = ExtResource("2_scent")
 marker_id = 5
 trail_family = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_G1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_G1" unique_id=1129247510]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_G1"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_G1" unique_id=510430228]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_G1"]
+[node name="Label" type="Label" parent="ScentMarker_G1" unique_id=1023715541]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -501,23 +485,23 @@ offset_bottom = -20.0
 text = "G"
 horizontal_alignment = 1
 
-[node name="ScentMarker_G2" type="Area2D" parent="."]
+[node name="ScentMarker_G2" type="Area2D" parent="." unique_id=180942970]
 position = Vector2(820, 400)
 script = ExtResource("2_scent")
 marker_id = 6
 trail_family = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_G2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScentMarker_G2" unique_id=252916869]
 shape = SubResource("CircleShape2D_scent")
 
-[node name="Visual" type="ColorRect" parent="ScentMarker_G2"]
+[node name="Visual" type="ColorRect" parent="ScentMarker_G2" unique_id=556891623]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 color = Color(1, 1, 1, 0.35)
 
-[node name="Label" type="Label" parent="ScentMarker_G2"]
+[node name="Label" type="Label" parent="ScentMarker_G2" unique_id=1543149475]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
@@ -525,16 +509,15 @@ offset_bottom = -20.0
 text = "G"
 horizontal_alignment = 1
 
-[node name="RaccoonPit" type="Area2D" parent="."]
+[node name="RaccoonPit" type="Area2D" parent="." unique_id=1254726944]
 position = Vector2(380, 180)
 collision_layer = 0
-collision_mask = 1
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RaccoonPit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RaccoonPit" unique_id=360151152]
 shape = SubResource("RectangleShape2D_flavor")
 
-[node name="RaccoonLabel" type="Label" parent="RaccoonPit"]
+[node name="RaccoonLabel" type="Label" parent="RaccoonPit" unique_id=843039471]
 offset_left = -50.0
 offset_top = -56.0
 offset_right = 50.0
@@ -543,16 +526,15 @@ theme_override_font_sizes/font_size = 11
 text = "fake trail → raccoons"
 horizontal_alignment = 1
 
-[node name="DecoyStaging" type="Area2D" parent="."]
+[node name="DecoyStaging" type="Area2D" parent="." unique_id=453285576]
 position = Vector2(760, 180)
 collision_layer = 0
-collision_mask = 1
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DecoyStaging"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DecoyStaging" unique_id=192844607]
 shape = SubResource("RectangleShape2D_flavor")
 
-[node name="DecoyLabel" type="Label" parent="DecoyStaging"]
+[node name="DecoyLabel" type="Label" parent="DecoyStaging" unique_id=303035521]
 offset_left = -56.0
 offset_top = -56.0
 offset_right = 56.0
@@ -561,7 +543,7 @@ theme_override_font_sizes/font_size = 11
 text = "fake trail → decoy bag"
 horizontal_alignment = 1
 
-[node name="YardLabel" type="Label" parent="."]
+[node name="YardLabel" type="Label" parent="." unique_id=1381598783]
 z_index = 1
 offset_left = 850.0
 offset_top = 100.0
@@ -569,132 +551,129 @@ offset_right = 1050.0
 offset_bottom = 130.0
 theme_override_font_sizes/font_size = 18
 text = "LOADING YARD → PARKING GARAGE (F1)"
-horizontal_alignment = 0
 
-[node name="YardFloor" type="ColorRect" parent="."]
+[node name="YardFloor" type="ColorRect" parent="." unique_id=1168617749]
 z_index = -1
 offset_left = 800.0
 offset_top = 150.0
 offset_right = 1200.0
 offset_bottom = 650.0
-color = Color(0.18, 0.18, 0.2, 1.0)
+color = Color(0.18, 0.18, 0.2, 1)
 
-[node name="YardEntrance" type="Area2D" parent="."]
+[node name="YardEntrance" type="Area2D" parent="." unique_id=1570757529]
 position = Vector2(800, 400)
 script = ExtResource("5_yard")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YardEntrance"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YardEntrance" unique_id=876478350]
 shape = SubResource("RectangleShape2D_yard")
 
-[node name="YardEntranceLabel" type="Label" parent="."]
+[node name="YardEntranceLabel" type="Label" parent="." unique_id=414604995]
 offset_left = 730.0
 offset_top = 380.0
 offset_right = 800.0
 offset_bottom = 420.0
-text = "YARD\n->"
+text = "YARD
+->"
 horizontal_alignment = 1
 
-[node name="Crate1" type="ColorRect" parent="."]
+[node name="Crate1" type="ColorRect" parent="." unique_id=617199609]
 offset_left = 850.0
 offset_top = 250.0
 offset_right = 950.0
 offset_bottom = 350.0
-color = Color(0.4, 0.35, 0.25, 1.0)
+color = Color(0.4, 0.35, 0.25, 1)
 
-[node name="Crate2" type="ColorRect" parent="."]
+[node name="Crate2" type="ColorRect" parent="." unique_id=1246110649]
 offset_left = 1050.0
 offset_top = 300.0
 offset_right = 1150.0
 offset_bottom = 400.0
-color = Color(0.4, 0.35, 0.25, 1.0)
+color = Color(0.4, 0.35, 0.25, 1)
 
-[node name="Crate3" type="ColorRect" parent="."]
+[node name="Crate3" type="ColorRect" parent="." unique_id=783980217]
 offset_left = 900.0
 offset_top = 480.0
 offset_right = 1000.0
 offset_bottom = 580.0
-color = Color(0.4, 0.35, 0.25, 1.0)
+color = Color(0.4, 0.35, 0.25, 1)
 
-[node name="Crate1Body" type="StaticBody2D" parent="."]
+[node name="Crate1Body" type="StaticBody2D" parent="." unique_id=466931189]
 position = Vector2(900, 300)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate1Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate1Body" unique_id=1382518884]
 shape = SubResource("RectangleShape2D_crate")
 
-[node name="Crate2Body" type="StaticBody2D" parent="."]
+[node name="Crate2Body" type="StaticBody2D" parent="." unique_id=1684590353]
 position = Vector2(1100, 350)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate2Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate2Body" unique_id=311653789]
 shape = SubResource("RectangleShape2D_crate")
 
-[node name="Crate3Body" type="StaticBody2D" parent="."]
+[node name="Crate3Body" type="StaticBody2D" parent="." unique_id=169072587]
 position = Vector2(950, 530)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate3Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate3Body" unique_id=2045707391]
 shape = SubResource("RectangleShape2D_crate")
 
-[node name="GuardPath1" type="Path2D" parent="."]
+[node name="GuardPath1" type="Path2D" parent="." unique_id=2046063172]
 position = Vector2(850, 200)
 curve = SubResource("Curve2D_1")
 
-[node name="Path1Point1" type="Marker2D" parent="GuardPath1"]
-position = Vector2(0, 0)
+[node name="Path1Point1" type="Marker2D" parent="GuardPath1" unique_id=1405274582]
 
-[node name="Path1Point2" type="Marker2D" parent="GuardPath1"]
+[node name="Path1Point2" type="Marker2D" parent="GuardPath1" unique_id=443193532]
 position = Vector2(300, 0)
 
-[node name="GuardPath2" type="Path2D" parent="."]
+[node name="GuardPath2" type="Path2D" parent="." unique_id=1326458762]
 position = Vector2(900, 450)
 curve = SubResource("Curve2D_2")
 
-[node name="Path2Point1" type="Marker2D" parent="GuardPath2"]
-position = Vector2(0, 0)
+[node name="Path2Point1" type="Marker2D" parent="GuardPath2" unique_id=1778736812]
 
-[node name="Path2Point2" type="Marker2D" parent="GuardPath2"]
+[node name="Path2Point2" type="Marker2D" parent="GuardPath2" unique_id=923512946]
 position = Vector2(200, 100)
 
-[node name="GuardPath3" type="Path2D" parent="."]
+[node name="GuardPath3" type="Path2D" parent="." unique_id=2091500589]
 position = Vector2(980, 280)
 curve = SubResource("Curve2D_3")
 
-[node name="Path3Point1" type="Marker2D" parent="GuardPath3"]
-position = Vector2(0, 0)
+[node name="Path3Point1" type="Marker2D" parent="GuardPath3" unique_id=45048513]
 
-[node name="Path3Point2" type="Marker2D" parent="GuardPath3"]
+[node name="Path3Point2" type="Marker2D" parent="GuardPath3" unique_id=1329278326]
 position = Vector2(180, -40)
 
-[node name="GarageBuilding" type="ColorRect" parent="."]
+[node name="GarageBuilding" type="ColorRect" parent="." unique_id=1900485555]
 offset_left = 1250.0
 offset_top = 200.0
 offset_right = 1450.0
 offset_bottom = 500.0
-color = Color(0.25, 0.25, 0.3, 1.0)
+color = Color(0.25, 0.25, 0.3, 1)
 
-[node name="GarageLabel" type="Label" parent="GarageBuilding"]
+[node name="GarageLabel" type="Label" parent="GarageBuilding" unique_id=1552386216]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 10.0
 offset_right = 180.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 1.0)
+theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 1)
 text = "EMPLOYEE GARAGE"
 horizontal_alignment = 1
 
-[node name="GarageDoor" type="ColorRect" parent="GarageBuilding"]
+[node name="GarageDoor" type="ColorRect" parent="GarageBuilding" unique_id=1273576111]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 100.0
 offset_right = 150.0
 offset_bottom = 250.0
-color = Color(0.35, 0.35, 0.4, 1.0)
+color = Color(0.35, 0.35, 0.4, 1)
 
-[node name="DoorLabel" type="Label" parent="GarageBuilding/GarageDoor"]
+[node name="DoorLabel" type="Label" parent="GarageBuilding/GarageDoor" unique_id=1770993002]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 60.0
@@ -703,22 +682,21 @@ offset_bottom = 90.0
 text = "DOOR"
 horizontal_alignment = 1
 
-[node name="ServiceDoorTrigger" type="Area2D" parent="."]
+[node name="ServiceDoorTrigger" type="Area2D" parent="." unique_id=137447136]
 position = Vector2(1240, 430)
 script = ExtResource("11_service")
-prompt_text = "Service Door"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ServiceDoorTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServiceDoorTrigger" unique_id=701851862]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="ServiceDoorVisual" type="ColorRect" parent="ServiceDoorTrigger"]
+[node name="ServiceDoorVisual" type="ColorRect" parent="ServiceDoorTrigger" unique_id=1248324857]
 offset_left = -18.0
 offset_top = -24.0
 offset_right = 18.0
 offset_bottom = 24.0
 color = Color(0.25, 0.45, 0.75, 0.92)
 
-[node name="ServiceDoorLabel" type="Label" parent="ServiceDoorTrigger"]
+[node name="ServiceDoorLabel" type="Label" parent="ServiceDoorTrigger" unique_id=1619564938]
 offset_left = -70.0
 offset_top = -52.0
 offset_right = 70.0
@@ -727,21 +705,21 @@ theme_override_font_sizes/font_size = 12
 text = "SERVICE DOOR (E)"
 horizontal_alignment = 1
 
-[node name="GaragePuzzleTrigger" type="Area2D" parent="."]
+[node name="GaragePuzzleTrigger" type="Area2D" parent="." unique_id=1629566386]
 position = Vector2(1350, 518)
 script = ExtResource("3_garage")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GaragePuzzleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GaragePuzzleTrigger" unique_id=105750060]
 shape = SubResource("RectangleShape2D_garage")
 
-[node name="KeypadVisual" type="ColorRect" parent="GaragePuzzleTrigger"]
+[node name="KeypadVisual" type="ColorRect" parent="GaragePuzzleTrigger" unique_id=1013888902]
 offset_left = -15.0
 offset_top = -20.0
 offset_right = 15.0
 offset_bottom = 20.0
-color = Color(0.2, 0.6, 0.3, 1.0)
+color = Color(0.2, 0.6, 0.3, 1)
 
-[node name="KeypadLabel" type="Label" parent="GaragePuzzleTrigger"]
+[node name="KeypadLabel" type="Label" parent="GaragePuzzleTrigger" unique_id=666927927]
 offset_left = -55.0
 offset_top = -58.0
 offset_right = 55.0
@@ -750,32 +728,31 @@ theme_override_font_sizes/font_size = 12
 text = "KEYPAD (press E)"
 horizontal_alignment = 1
 
-[node name="AlarmTripZone" type="Area2D" parent="."]
+[node name="AlarmTripZone" type="Area2D" parent="." unique_id=1662697360]
 position = Vector2(1188, 610)
 collision_layer = 0
-collision_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmTripZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlarmTripZone" unique_id=403409502]
 shape = SubResource("RectangleShape2D_alarm_line")
 
-[node name="ReceiptIntel" type="Area2D" parent="."]
+[node name="ReceiptIntel" type="Area2D" parent="." unique_id=1252018591]
 position = Vector2(1020, 430)
 script = ExtResource("4_intel")
 intel_id = "garage_receipt"
 intel_title = "Crumpled Receipt"
 intel_description = "Route board digits: Route 2, Drop 1, Bay 7, Door 4 → 4-digit employee code (rotates with Sterling dispatch)."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ReceiptIntel"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReceiptIntel" unique_id=1829119688]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="ReceiptVisual" type="ColorRect" parent="ReceiptIntel"]
+[node name="ReceiptVisual" type="ColorRect" parent="ReceiptIntel" unique_id=1897377854]
 offset_left = -8.0
 offset_top = -12.0
 offset_right = 8.0
 offset_bottom = 12.0
-color = Color(0.95, 0.95, 0.85, 1.0)
+color = Color(0.95, 0.95, 0.85, 1)
 
-[node name="ReceiptLabel" type="Label" parent="ReceiptIntel"]
+[node name="ReceiptLabel" type="Label" parent="ReceiptIntel" unique_id=1813206945]
 offset_left = -15.0
 offset_top = -30.0
 offset_right = 15.0
@@ -783,31 +760,30 @@ offset_bottom = -15.0
 text = "R"
 horizontal_alignment = 1
 
-[node name="GarageOfficeLabel" type="Label" parent="."]
+[node name="GarageOfficeLabel" type="Label" parent="." unique_id=1824121237]
 z_index = 1
 offset_left = 900.0
 offset_top = 300.0
 offset_right = 1180.0
 offset_bottom = 340.0
-theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.75, 0.78, 0.9, 1)
+theme_override_font_sizes/font_size = 14
 text = "GARAGE OFFICE — corkboard routes, keypad note"
-horizontal_alignment = 0
 
-[node name="KeypadRouteNote" type="Area2D" parent="."]
+[node name="KeypadRouteNote" type="Area2D" parent="." unique_id=1892494270]
 position = Vector2(1060, 360)
 script = ExtResource("8_note")
 note_title = "Employee route board (copy)"
 note_text = "Route 2 — Drop 1 — Bay 7 — Door 4. Take one digit from each line IN ORDER → 4-digit garage code. Sterling rotates dispatch; receipt should match the board this week. Two Letters Away: the note literally glows when that card is drafted."
 
-[node name="Visual" type="ColorRect" parent="KeypadRouteNote"]
+[node name="Visual" type="ColorRect" parent="KeypadRouteNote" unique_id=1795120454]
 offset_left = -28.0
 offset_top = -22.0
 offset_right = 28.0
 offset_bottom = 22.0
 color = Color(0.92, 0.88, 0.7, 0.95)
 
-[node name="NoteHighlight" type="ColorRect" parent="KeypadRouteNote"]
+[node name="NoteHighlight" type="ColorRect" parent="KeypadRouteNote" unique_id=861455995]
 visible = false
 offset_left = -32.0
 offset_top = -26.0
@@ -815,27 +791,27 @@ offset_right = 32.0
 offset_bottom = 26.0
 color = Color(1, 0.95, 0.4, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KeypadRouteNote"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeypadRouteNote" unique_id=1455109869]
 shape = SubResource("RectangleShape2D_note")
 
-[node name="SaucePacketInspect" type="Area2D" parent="."]
+[node name="SaucePacketInspect" type="Area2D" parent="." unique_id=666894833]
 position = Vector2(580, 340)
 script = ExtResource("4_intel")
 intel_id = "sauce_packet_vp"
 intel_title = "Sauce packets"
 intel_description = "Initials V.P. on the foil — points toward the Velvet Paw."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SaucePacketInspect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SaucePacketInspect" unique_id=586559750]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="SaucePacketInspect"]
+[node name="IntelVisual" type="ColorRect" parent="SaucePacketInspect" unique_id=1903299273]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.95, 0.4, 0.35, 0.9)
 
-[node name="IntelLabel" type="Label" parent="SaucePacketInspect"]
+[node name="IntelLabel" type="Label" parent="SaucePacketInspect" unique_id=585378470]
 offset_left = -28.0
 offset_top = -28.0
 offset_right = 28.0
@@ -843,24 +819,24 @@ offset_bottom = -10.0
 text = "sauce"
 horizontal_alignment = 1
 
-[node name="TireMarkInspect" type="Area2D" parent="."]
+[node name="TireMarkInspect" type="Area2D" parent="." unique_id=352619728]
 position = Vector2(500, 520)
 script = ExtResource("4_intel")
 intel_id = "tire_marks_alley"
 intel_title = "Skid marks"
 intel_description = "Delivery van burned rubber toward the loading yard — not the raccoon dead-end."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TireMarkInspect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TireMarkInspect" unique_id=1744086900]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="TireMarkInspect"]
+[node name="IntelVisual" type="ColorRect" parent="TireMarkInspect" unique_id=874366114]
 offset_left = -14.0
 offset_top = -6.0
 offset_right = 14.0
 offset_bottom = 6.0
 color = Color(0.15, 0.15, 0.18, 0.9)
 
-[node name="IntelLabel" type="Label" parent="TireMarkInspect"]
+[node name="IntelLabel" type="Label" parent="TireMarkInspect" unique_id=712087200]
 offset_left = -36.0
 offset_top = -28.0
 offset_right = 36.0
@@ -868,47 +844,48 @@ offset_bottom = -10.0
 text = "tire"
 horizontal_alignment = 1
 
-[node name="GarageVent" type="Area2D" parent="."]
+[node name="GarageVent" type="Area2D" parent="." unique_id=404031777]
 position = Vector2(920, 300)
 script = ExtResource("15_vent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GarageVent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GarageVent" unique_id=804396538]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="VentVisual" type="ColorRect" parent="GarageVent"]
+[node name="VentVisual" type="ColorRect" parent="GarageVent" unique_id=1343522606]
 offset_left = -14.0
 offset_top = -18.0
 offset_right = 14.0
 offset_bottom = 18.0
 color = Color(0.2, 0.25, 0.32, 0.92)
 
-[node name="VentLabel" type="Label" parent="GarageVent"]
+[node name="VentLabel" type="Label" parent="GarageVent" unique_id=2061037341]
 offset_left = -48.0
 offset_top = -44.0
 offset_right = 48.0
 offset_bottom = -18.0
 theme_override_font_sizes/font_size = 11
-text = "VENT (E)\nBentley"
+text = "VENT (E)
+Bentley"
 horizontal_alignment = 1
 
-[node name="DecoyBagIntel" type="Area2D" parent="."]
+[node name="DecoyBagIntel" type="Area2D" parent="." unique_id=1617351578]
 position = Vector2(780, 220)
 script = ExtResource("4_intel")
 intel_id = "decoy_bag_extra"
 intel_title = "Decoy delivery bag"
 intel_description = "Napkins and branding — extra intel if you recover Sterling's decoy."
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DecoyBagIntel"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DecoyBagIntel" unique_id=866220782]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="IntelVisual" type="ColorRect" parent="DecoyBagIntel"]
+[node name="IntelVisual" type="ColorRect" parent="DecoyBagIntel" unique_id=550537623]
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
 color = Color(0.55, 0.45, 0.35, 0.9)
 
-[node name="IntelLabel" type="Label" parent="DecoyBagIntel"]
+[node name="IntelLabel" type="Label" parent="DecoyBagIntel" unique_id=554652310]
 offset_left = -40.0
 offset_top = -30.0
 offset_right = 40.0
@@ -916,26 +893,24 @@ offset_bottom = -10.0
 text = "decoy"
 horizontal_alignment = 1
 
-[node name="BagPickupZone" type="Area2D" parent="."]
+[node name="BagPickupZone" type="Area2D" parent="." unique_id=320465130]
 position = Vector2(1350, 400)
 collision_layer = 0
-collision_mask = 1
-monitoring = true
 monitorable = false
 script = ExtResource("10_bag")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BagPickupZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BagPickupZone" unique_id=952871498]
 shape = SubResource("CircleShape2D_bag")
 
-[node name="BagVisual" type="ColorRect" parent="BagPickupZone"]
+[node name="BagVisual" type="ColorRect" parent="BagPickupZone" unique_id=1272073320]
 visible = false
 offset_left = -24.0
 offset_top = -20.0
 offset_right = 24.0
 offset_bottom = 20.0
-color = Color(0.6, 0.4, 0.2, 1.0)
+color = Color(0.6, 0.4, 0.2, 1)
 
-[node name="BagLabel" type="Label" parent="BagPickupZone"]
+[node name="BagLabel" type="Label" parent="BagPickupZone" unique_id=1909863930]
 visible = false
 offset_left = -120.0
 offset_top = -52.0
@@ -946,27 +921,27 @@ text = "Louis's bag (appears after keypad)"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="SterlingClueNote" type="Node2D" parent="."]
+[node name="SterlingClueNote" type="Node2D" parent="." unique_id=1408574783]
 position = Vector2(1340, 385)
 script = ExtResource("6_clue")
 clue_text = "INSIDE THE BAG: crushed foil, Sterling delivery token, half-burned route manifest (safehouse map), black envelope stamped VELVET PAW. The bag was never about tacos."
 
-[node name="PolaroidPickup" type="Area2D" parent="."]
+[node name="PolaroidPickup" type="Area2D" parent="." unique_id=780567782]
 position = Vector2(92, 168)
 script = ExtResource("9_polaroid")
 polaroid_id = "taco_bell_midnight_market_rain"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PolaroidPickup"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PolaroidPickup" unique_id=806191583]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="PolaroidVisual" type="ColorRect" parent="PolaroidPickup"]
+[node name="PolaroidVisual" type="ColorRect" parent="PolaroidPickup" unique_id=157480180]
 offset_left = -12.0
 offset_top = -15.0
 offset_right = 12.0
 offset_bottom = 15.0
-color = Color(0.9, 0.85, 0.7, 1.0)
+color = Color(0.9, 0.85, 0.7, 1)
 
-[node name="PolaroidLabel" type="Label" parent="PolaroidPickup"]
+[node name="PolaroidLabel" type="Label" parent="PolaroidPickup" unique_id=2073143236]
 offset_left = -20.0
 offset_top = -35.0
 offset_right = 20.0
@@ -974,33 +949,33 @@ offset_bottom = -15.0
 text = "[P]"
 horizontal_alignment = 1
 
-[node name="MutationSlots" type="Node2D" parent="."]
+[node name="MutationSlots" type="Node2D" parent="." unique_id=561005523]
 
-[node name="GlowGuySlot0" type="Marker2D" parent="MutationSlots"]
+[node name="GlowGuySlot0" type="Marker2D" parent="MutationSlots" unique_id=1074672075]
 position = Vector2(1180, 265)
 
-[node name="GlowGuySlot1" type="Marker2D" parent="MutationSlots"]
+[node name="GlowGuySlot1" type="Marker2D" parent="MutationSlots" unique_id=1580424062]
 position = Vector2(1140, 300)
 
-[node name="GlowGuySlot2" type="Marker2D" parent="MutationSlots"]
+[node name="GlowGuySlot2" type="Marker2D" parent="MutationSlots" unique_id=2119797985]
 position = Vector2(1210, 310)
 
-[node name="GlowGuyPickup" type="Area2D" parent="."]
+[node name="GlowGuyPickup" type="Area2D" parent="." unique_id=375001053]
 position = Vector2(1180, 265)
 script = ExtResource("9_polaroid")
 polaroid_id = "taco_bell_glow_guys"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GlowGuyPickup"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GlowGuyPickup" unique_id=1323604840]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="GlowVisual" type="ColorRect" parent="GlowGuyPickup"]
+[node name="GlowVisual" type="ColorRect" parent="GlowGuyPickup" unique_id=658221883]
 offset_left = -7.0
 offset_top = -10.0
 offset_right = 7.0
 offset_bottom = 10.0
 color = Color(0.65, 1, 0.7, 0.9)
 
-[node name="GlowLabel" type="Label" parent="GlowGuyPickup"]
+[node name="GlowLabel" type="Label" parent="GlowGuyPickup" unique_id=1881455095]
 offset_left = -24.0
 offset_top = -28.0
 offset_right = 24.0
@@ -1008,22 +983,22 @@ offset_bottom = -10.0
 text = "G"
 horizontal_alignment = 1
 
-[node name="LouisTinyIconPickup" type="Area2D" parent="."]
+[node name="LouisTinyIconPickup" type="Area2D" parent="." unique_id=1598088451]
 position = Vector2(270, 310)
 script = ExtResource("9_polaroid")
 polaroid_id = "louis_tiny_icon_delivery_bag"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LouisTinyIconPickup"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LouisTinyIconPickup" unique_id=874035057]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="TinyVisual" type="ColorRect" parent="LouisTinyIconPickup"]
+[node name="TinyVisual" type="ColorRect" parent="LouisTinyIconPickup" unique_id=1971351983]
 offset_left = -8.0
 offset_top = -10.0
 offset_right = 8.0
 offset_bottom = 10.0
 color = Color(0.95, 0.75, 0.35, 1)
 
-[node name="TinyLabel" type="Label" parent="LouisTinyIconPickup"]
+[node name="TinyLabel" type="Label" parent="LouisTinyIconPickup" unique_id=2137328906]
 offset_left = -22.0
 offset_top = -28.0
 offset_right = 22.0
@@ -1031,24 +1006,23 @@ offset_bottom = -10.0
 text = "T"
 horizontal_alignment = 1
 
-[node name="PoopBag_AlleyDogStation" type="Area2D" parent="."]
+[node name="PoopBag_AlleyDogStation" type="Area2D" parent="." unique_id=649903459]
 position = Vector2(380, 92)
 collision_layer = 0
-collision_mask = 1
 monitorable = false
 script = ExtResource("12_poop")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_AlleyDogStation"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_AlleyDogStation" unique_id=564179502]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="PoopVisual" type="ColorRect" parent="PoopBag_AlleyDogStation"]
+[node name="PoopVisual" type="ColorRect" parent="PoopBag_AlleyDogStation" unique_id=1081697970]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.55, 0.85, 0.45, 0.85)
 
-[node name="PoopLabel" type="Label" parent="PoopBag_AlleyDogStation"]
+[node name="PoopLabel" type="Label" parent="PoopBag_AlleyDogStation" unique_id=1448568630]
 offset_left = -18.0
 offset_top = -26.0
 offset_right = 18.0
@@ -1056,24 +1030,23 @@ offset_bottom = -10.0
 text = "B"
 horizontal_alignment = 1
 
-[node name="PoopBag_GarageBin" type="Area2D" parent="."]
+[node name="PoopBag_GarageBin" type="Area2D" parent="." unique_id=2032956966]
 position = Vector2(1275, 455)
 collision_layer = 0
-collision_mask = 1
 monitorable = false
 script = ExtResource("12_poop")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_GarageBin"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_GarageBin" unique_id=1112020905]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="PoopVisual" type="ColorRect" parent="PoopBag_GarageBin"]
+[node name="PoopVisual" type="ColorRect" parent="PoopBag_GarageBin" unique_id=899581068]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.55, 0.85, 0.45, 0.85)
 
-[node name="PoopLabel" type="Label" parent="PoopBag_GarageBin"]
+[node name="PoopLabel" type="Label" parent="PoopBag_GarageBin" unique_id=1914768866]
 offset_left = -18.0
 offset_top = -26.0
 offset_right = 18.0
@@ -1081,24 +1054,23 @@ offset_bottom = -10.0
 text = "B"
 horizontal_alignment = 1
 
-[node name="PoopBag_LobbyTrash" type="Area2D" parent="."]
+[node name="PoopBag_LobbyTrash" type="Area2D" parent="." unique_id=1627835916]
 position = Vector2(1310, 175)
 collision_layer = 0
-collision_mask = 1
 monitorable = false
 script = ExtResource("12_poop")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_LobbyTrash"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoopBag_LobbyTrash" unique_id=273000474]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="PoopVisual" type="ColorRect" parent="PoopBag_LobbyTrash"]
+[node name="PoopVisual" type="ColorRect" parent="PoopBag_LobbyTrash" unique_id=2010276854]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 color = Color(0.55, 0.85, 0.45, 0.85)
 
-[node name="PoopLabel" type="Label" parent="PoopBag_LobbyTrash"]
+[node name="PoopLabel" type="Label" parent="PoopBag_LobbyTrash" unique_id=959376371]
 offset_left = -18.0
 offset_top = -26.0
 offset_right = 18.0
@@ -1106,23 +1078,22 @@ offset_bottom = -10.0
 text = "B"
 horizontal_alignment = 1
 
-[node name="ContaminatedManifest" type="Area2D" parent="."]
+[node name="ContaminatedManifest" type="Area2D" parent="." unique_id=657173487]
 position = Vector2(1288, 348)
 collision_layer = 0
-collision_mask = 1
 script = ExtResource("13_cont")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContaminatedManifest"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContaminatedManifest" unique_id=2083794129]
 shape = SubResource("CircleShape2D_intel")
 
-[node name="ManifestVisual" type="ColorRect" parent="ContaminatedManifest"]
+[node name="ManifestVisual" type="ColorRect" parent="ContaminatedManifest" unique_id=499539736]
 offset_left = -10.0
 offset_top = -8.0
 offset_right = 10.0
 offset_bottom = 8.0
 color = Color(0.85, 0.35, 0.35, 0.75)
 
-[node name="ManifestLabel" type="Label" parent="ContaminatedManifest"]
+[node name="ManifestLabel" type="Label" parent="ContaminatedManifest" unique_id=2125619818]
 offset_left = -36.0
 offset_top = -30.0
 offset_right = 36.0
@@ -1130,92 +1101,91 @@ offset_bottom = -10.0
 text = "[E] Bag it"
 horizontal_alignment = 1
 
-[node name="ExitZone" type="Area2D" parent="."]
+[node name="ExitZone" type="Area2D" parent="." unique_id=1337426204]
 position = Vector2(230, 520)
-monitorable = false
 collision_layer = 0
-collision_mask = 1
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=960783624]
 shape = SubResource("RectangleShape2D_exit")
 
-[node name="ExitVisual" type="ColorRect" parent="ExitZone"]
+[node name="ExitVisual" type="ColorRect" parent="ExitZone" unique_id=3496403]
 offset_left = -60.0
 offset_top = -30.0
 offset_right = 60.0
 offset_bottom = 30.0
 color = Color(0.2, 0.95, 0.45, 0.72)
 
-[node name="ExitLabel" type="Label" parent="ExitZone"]
+[node name="ExitLabel" type="Label" parent="ExitZone" unique_id=1585577690]
 offset_left = -90.0
 offset_top = -42.0
 offset_right = 90.0
 offset_bottom = 42.0
-theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.9, 1, 0.9, 1)
-text = "EXIT TO LOUIS\n(after bag)"
+theme_override_font_sizes/font_size = 16
+text = "EXIT TO LOUIS
+(after bag)"
 horizontal_alignment = 1
 
-[node name="LouisAtExit" type="ColorRect" parent="."]
+[node name="LouisAtExit" type="ColorRect" parent="." unique_id=795447673]
 offset_left = 290.0
 offset_top = 475.0
 offset_right = 330.0
 offset_bottom = 535.0
 color = Color(0.4, 0.6, 0.4, 0.6)
 
-[node name="LouisExitLabel" type="Label" parent="LouisAtExit"]
+[node name="LouisExitLabel" type="Label" parent="LouisAtExit" unique_id=81725221]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -25.0
 offset_right = 50.0
-offset_bottom = 0.0
-theme_override_colors/font_color = Color(0.8, 1.0, 0.8, 1.0)
+theme_override_colors/font_color = Color(0.8, 1, 0.8, 1)
 text = "Louis"
 horizontal_alignment = 1
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=812427282]
 position = Vector2(120, 430)
 
-[node name="LouisSpawn" type="Marker2D" parent="."]
+[node name="LouisSpawn" type="Marker2D" parent="." unique_id=459778735]
 position = Vector2(320, 310)
 
-[node name="BagSpawn" type="Marker2D" parent="."]
+[node name="BagSpawn" type="Marker2D" parent="." unique_id=1714361152]
 position = Vector2(1350, 400)
 
-[node name="RealBagSpawn" type="Marker2D" parent="."]
+[node name="RealBagSpawn" type="Marker2D" parent="." unique_id=22230705]
 position = Vector2(1360, 120)
 
-[node name="GoonSpawns" type="Node2D" parent="."]
+[node name="GoonSpawns" type="Node2D" parent="." unique_id=1377158092]
 
-[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
+[node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns" unique_id=1279466955]
 position = Vector2(900, 250)
 
-[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
+[node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns" unique_id=526866033]
 position = Vector2(1100, 400)
 
-[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
+[node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns" unique_id=2033530189]
 position = Vector2(1050, 320)
 
-[node name="GoonSpawn4" type="Marker2D" parent="GoonSpawns"]
+[node name="GoonSpawn4" type="Marker2D" parent="GoonSpawns" unique_id=1011937028]
 position = Vector2(1000, 200)
 
-[node name="AmbushSpawns" type="Node2D" parent="."]
+[node name="AmbushSpawns" type="Node2D" parent="." unique_id=888273993]
 
-[node name="Ambush1" type="Marker2D" parent="AmbushSpawns"]
+[node name="Ambush1" type="Marker2D" parent="AmbushSpawns" unique_id=133832429]
 position = Vector2(1280, 320)
 
-[node name="Ambush2" type="Marker2D" parent="AmbushSpawns"]
+[node name="Ambush2" type="Marker2D" parent="AmbushSpawns" unique_id=121636831]
 position = Vector2(1320, 440)
 
-[node name="AmbushBottle" type="Marker2D" parent="AmbushSpawns"]
+[node name="AmbushBottle" type="Marker2D" parent="AmbushSpawns" unique_id=1602155967]
 position = Vector2(1180, 380)
 
-[node name="CollectibleSpawns" type="Node2D" parent="."]
+[node name="CollectibleSpawns" type="Node2D" parent="." unique_id=1019372888]
 
-[node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns"]
+[node name="PolaroidSpawn" type="Marker2D" parent="CollectibleSpawns" unique_id=278312922]
 position = Vector2(1040, 220)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1823275288]
 position = Vector2(900, 450)
 zoom = Vector2(0.75, 0.75)
 limit_left = 0
