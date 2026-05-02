@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://d7iso_vertical_slice"]
+
+[ext_resource type="Script" path="res://src/levels/IsoVerticalSlice.gd" id="1_iso"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(96, 96)
+
+[node name="IsoVerticalSlice" type="Node2D"]
+script = ExtResource("1_iso")
+
+[node name="WorldRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="GroundLayer" type="TileMapLayer" parent="WorldRoot"]
+y_sort_enabled = true
+
+[node name="DetailLayer" type="TileMapLayer" parent="WorldRoot"]
+y_sort_enabled = true
+
+[node name="WallLayer" type="TileMapLayer" parent="WorldRoot"]
+y_sort_enabled = true
+
+[node name="PropLayer" type="TileMapLayer" parent="WorldRoot"]
+y_sort_enabled = true
+
+[node name="EntityRoot" type="Node2D" parent="WorldRoot"]
+y_sort_enabled = true
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+
+[node name="ExitZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1, 1)
+limit_left = -1200
+limit_top = -900
+limit_right = 1200
+limit_bottom = 900

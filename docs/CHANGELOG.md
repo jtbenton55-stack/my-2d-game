@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-05-02
+- **Isometric dev slice (isolated):** `scenes/dev/IsoVerticalSlice.tscn` + `IsoVerticalSlice.gd` — standalone `TileMapLayer` stack under `WorldRoot` (`GroundLayer`, `DetailLayer`, `WallLayer`, `PropLayer`, `EntityRoot`) with `y_sort_enabled`; runtime tile paint from temporary `assets/tilesets/iso_vertical_slice/` placeholder atlas + `IsoVerticalSlice.tres`; `GameState.mission_catalog` entry `iso_vertical_slice` (**not** in default `available_missions`). `player.tscn` **collision_mask** `3` → `7` so **layer 3 (Walls)** collides with `CharacterBody2D` (required for wall tiles without `Player.gd` changes). See `docs/ISOMETRIC_LEVEL_SPEC.md`.
+
 ## 2026-05-01
 - **Velvet Paw Floor 2 (Phase 3):** `JazzClubMission.tscn` — `Floor2Visuals` backstage/VIP/sound-booth layout at `y=1664`; repositioned `BackstageArea`, rig stairs (`OwnerSuiteStairs`, `StairsWayfinding`, `UpstairsFloor`, `StairsBlocker`), balcony briefcase markers, mixer/VIP phone/goblin polaroid; `SoundBoothShipmentNote` readable manifest; `Floor2PlayerSpawn` marker for Phase 4; `StaffBadgePickup` + `StaffRouteZone` remain Floor 1 for pre-puzzle social stealth.
 - **Mission Bible implementation pass:** Save version `0.4.0-bible` — `mission_mutation_state`, `sterling_clues`, `poop_bag_count`, serialized `velvet_paw_resume_data`; heat API `get_mission_heat`, mutation rolls, Responsible Crime Lord intel bonus (3 poop bags/run); `CollectibleManager.has_polaroid`; legacy polaroid ID migrations (`rewrite_room_proof`, `conservatory_serenity`, `ellie_rescue`, `shadow_solo_pose`).

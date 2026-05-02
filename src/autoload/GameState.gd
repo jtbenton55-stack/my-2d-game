@@ -4,6 +4,7 @@ const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
 
 var mission_catalog: Dictionary = {
+	"iso_vertical_slice": {"name": "Iso Vertical Slice (Dev)", "description": "Internal isometric TileMapLayer prototype. Not part of story progression.", "scene_path": "res://scenes/dev/IsoVerticalSlice.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
 	"test_mission": {"name": "Test Mission Room", "description": "A tiny safe room for proving the full heist loop works.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
 	"taco_bell_drop": {"name": "The Taco Bell Drop", "description": "Recover Louis's bag and the first Sterling clue.", "scene_path": "res://scenes/missions/TacoBellMission.tscn", "reward_cards": ["louis_delivery_route"], "reward_polaroids": ["taco_bell_polaroid"], "friend": "louis"},
 	"velvet_paw_jazz_club": {"name": "The Velvet Paw Jazz Club", "description": "Yordano's bass drops hide more than beats. His setlist contains blackmail names from Sterling's network.", "scene_path": "res://scenes/missions/JazzClubMission.tscn", "reward_cards": ["yordano_bass_drop", "two_letters_away"], "reward_polaroids": ["jazz_club_polaroid"], "friend": "yordano"},

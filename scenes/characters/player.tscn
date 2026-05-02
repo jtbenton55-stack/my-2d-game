@@ -23,7 +23,7 @@ radius = 36.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 1
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_4h8aw")
 speed = 300.0
 stealth_speed = 150.0
