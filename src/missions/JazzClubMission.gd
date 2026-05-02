@@ -41,6 +41,42 @@ var _alarm_guards: Array[Node] = []
 var club_owner_spawned := false
 var club_owner_defeated := false
 
+## Basement (Phase 2): vault dialogue done; Phase 4 will set when upstairs path opens.
+var basement_vault_opened := false
+var floor2_access_unlocked := false
+
+#region agent log
+var _dbg_shard_f1_no_hostile_logged := false
+var _dbg_last_player_y := 1.0e9
+
+
+func _jazz_dbg(hypothesis_id: String, message: String, data: Dictionary = {}) -> void:
+	var payload := {
+		"sessionId": "755971",
+		"hypothesisId": hypothesis_id,
+		"location": "JazzClubMission.gd",
+		"message": message,
+		"data": data,
+		"timestamp": Time.get_ticks_msec()
+	}
+	var p := ProjectSettings.globalize_path("res://debug-755971.log")
+	if not FileAccess.file_exists(p):
+		var first := FileAccess.open(p, FileAccess.WRITE)
+		if first == null:
+			return
+		first.store_line(JSON.stringify(payload))
+		first.close()
+		return
+	var fa := FileAccess.open(p, FileAccess.READ_WRITE)
+	if fa == null:
+		return
+	fa.seek_end()
+	fa.store_line(JSON.stringify(payload))
+	fa.close()
+
+
+#endregion
+
 func _ready() -> void:
 	mission_id = "velvet_paw_jazz_club"
 	objective_text = "Find a way into the Velvet Paw Jazz Club."
@@ -61,11 +97,29 @@ func _ready() -> void:
 	
 	_setup_alarm_safe_zones()
 	_setup_owner_suite_stairs()
+	_setup_basement_flow()
 	
 	if GameState.has_velvet_paw_resume_data():
 		_apply_velvet_paw_resume_data(GameState.take_velvet_paw_resume_data())
 	else:
 		_advance_step(MissionStep.INTRO)
+	_jazz_dbg(
+		"H0",
+		"ready_state",
+		{
+			"club_hostile": GameState.velvet_paw_club_hostile,
+			"shard": GameState.velvet_paw_basement_shard_collected,
+			"floor2_access": floor2_access_unlocked,
+			"music_solved": music_puzzle_solved
+		}
+	)
+	var b1 := get_node_or_null("Bouncer1")
+	if b1:
+		_jazz_dbg(
+			"H3",
+			"bouncer1_script",
+			{"script": str(b1.get_script()) if b1.get_script() else "none", "in_enemy_group": b1.is_in_group("enemy")}
+		)
 
 func _setup_velvet_props_and_decoy() -> void:
 	var decoy := get_node_or_null("LedgerDecoy")
@@ -103,10 +157,6 @@ func _setup_mission_zones() -> void:
 	if escape_zone:
 		escape_zone.body_entered.connect(_on_escape_entered)
 	
-	var yordano_zone := get_node_or_null("YordanoTriggerZone")
-	if yordano_zone:
-		yordano_zone.body_entered.connect(_on_yordano_triggered)
-	
 	var social_zone := get_node_or_null("SocialFloorZone")
 	if social_zone and not social_zone.body_entered.is_connected(_on_social_floor_entered):
 		social_zone.body_entered.connect(_on_social_floor_entered)
@@ -116,7 +166,9 @@ func _setup_alarm_safe_zones() -> void:
 	for spot_name in [&"SafeSpotBar", &"SafeSpotDance"]:
 		var spot := get_node_or_null(String(spot_name))
 		if spot and spot.has_signal("body_entered"):
-			spot.body_entered.connect(_on_alarm_safe_spot_entered.bind(spot_name))
+			spot.body_entered.connect(func(body: Node) -> void:
+				_on_alarm_safe_spot_entered(spot_name, body)
+			)
 
 
 func _on_alarm_safe_spot_entered(spot_name: StringName, body: Node) -> void:
@@ -138,14 +190,31 @@ func _setup_owner_suite_stairs() -> void:
 
 
 func _on_stairs_body_entered(body: Node) -> void:
-	if body.is_in_group("player") and music_puzzle_solved and not club_owner_defeated:
+	if body.is_in_group("player") and music_puzzle_solved and GameState.velvet_paw_basement_shard_collected and not club_owner_defeated and floor2_access_unlocked:
 		EventBus.objective_updated.emit("Press E at the rig stairs to enter the owner suite (boss fight).")
 
 
 func try_enter_owner_suite() -> void:
+	_jazz_dbg(
+		"H2",
+		"try_enter_owner_suite",
+		{
+			"floor2_access_unlocked": floor2_access_unlocked,
+			"club_hostile": GameState.velvet_paw_club_hostile,
+			"shard": GameState.velvet_paw_basement_shard_collected,
+			"boss_defeated": club_owner_defeated
+		}
+	)
 	if not music_puzzle_solved:
 		QuestManager.set_objective("Solve the setlist on stage before you pick a fight upstairs.", mission_id)
 		return
+	if not club_owner_defeated:
+		if not GameState.velvet_paw_basement_shard_collected:
+			QuestManager.set_objective("Sterling's ledger shard is in the club basement—take the service door near the stage after the setlist.", mission_id)
+			return
+		if GameState.velvet_paw_club_hostile and not floor2_access_unlocked:
+			QuestManager.set_objective("The club's hostile—reach the rig stairs once you have a path upstairs (Phase 4).", mission_id)
+			return
 	if clues_found < TOTAL_CLUES:
 		QuestManager.set_objective("Find both clue notes—the suite won't open until Bentley has the scent.", mission_id)
 		return
@@ -182,6 +251,8 @@ func _build_velvet_resume_payload() -> Dictionary:
 		"secret_velvet_collectible": secret_velvet_collectible,
 		"club_owner_defeated": club_owner_defeated,
 		"club_owner_spawned": club_owner_spawned,
+		"basement_vault_opened": basement_vault_opened,
+		"floor2_access_unlocked": floor2_access_unlocked,
 	}
 
 
@@ -202,6 +273,13 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 	secret_velvet_collectible = bool(d.get("secret_velvet_collectible", false))
 	club_owner_defeated = bool(d.get("club_owner_defeated", false))
 	club_owner_spawned = bool(d.get("club_owner_spawned", false))
+	basement_vault_opened = bool(d.get("basement_vault_opened", false))
+	floor2_access_unlocked = bool(d.get("floor2_access_unlocked", false))
+	_jazz_dbg(
+		"H2",
+		"resume_applied",
+		{"floor2_access_unlocked": floor2_access_unlocked, "music_solved": music_puzzle_solved, "shard": GameState.velvet_paw_basement_shard_collected}
+	)
 	_read_clue_names.clear()
 	for s in d.get("read_clue_names", []):
 		_read_clue_names.append(StringName(String(s)))
@@ -209,6 +287,7 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 		var bb := get_node_or_null("BackstageBlocker")
 		if is_instance_valid(bb):
 			bb.queue_free()
+	if music_puzzle_solved and GameState.velvet_paw_basement_shard_collected and floor2_access_unlocked:
 		var sb := get_node_or_null("StairsBlocker")
 		if is_instance_valid(sb):
 			sb.queue_free()
@@ -218,6 +297,14 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 		var sl := get_node_or_null("OwnerSuiteStairs/StairsInteractLabel") as Label
 		if sl:
 			sl.visible = true
+	if basement_vault_opened:
+		_sync_basement_vault_visuals()
+	if GameState.velvet_paw_basement_shard_collected:
+		var shard_pick := get_node_or_null("BlackLedgerShardPickup")
+		if is_instance_valid(shard_pick):
+			shard_pick.hide()
+			shard_pick.monitoring = false
+	_refresh_basement_door_from_state()
 	if staff_badge_secured:
 		var badge := get_node_or_null("StaffBadgePickup")
 		if is_instance_valid(badge):
@@ -226,6 +313,15 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 		if is_instance_valid(gate):
 			gate.queue_free()
 	if club_owner_defeated:
+		var sb_boss := get_node_or_null("StairsBlocker")
+		if is_instance_valid(sb_boss):
+			sb_boss.queue_free()
+		var wf_boss := get_node_or_null("StairsWayfinding")
+		if wf_boss:
+			wf_boss.visible = true
+		var sl_boss := get_node_or_null("OwnerSuiteStairs/StairsInteractLabel") as Label
+		if sl_boss:
+			sl_boss.visible = true
 		_place_ledger_after_boss_victory()
 	else:
 		match current_step:
@@ -236,10 +332,10 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 			MissionStep.SOCIAL_STEALTH:
 				QuestManager.set_objective("Avoid the bouncers on the social floor. Micro-objectives: grab the staff badge (dressing area) and run the sound check (stage wing).", mission_id)
 			MissionStep.MUSIC_PUZZLE:
-				QuestManager.set_objective("The stage area has a song list puzzle. Put the setlist in the correct order to unlock backstage.", mission_id)
+				QuestManager.set_objective("The stage area has a song list puzzle. Solve it to open the service basement door.", mission_id)
 			MissionStep.BACKSTAGE_SEARCH:
 				if clues_found >= TOTAL_CLUES:
-					QuestManager.set_objective("Ledger isn't crate dressing—the owner's suite upstairs holds the briefcase. Press E on the rig stairs.", mission_id)
+					QuestManager.set_objective("Ledger isn't crate dressing—the basement server stack is screaming Sterling RF. Get the shard underground, then deal with the suite.", mission_id)
 				else:
 					QuestManager.set_objective("Search backstage for clues about where the ledger is hidden. Bentley can sniff out the real one.", mission_id)
 			MissionStep.LEDGER_PICKUP:
@@ -347,7 +443,7 @@ func _advance_step(new_step: MissionStep) -> void:
 		MissionStep.SOCIAL_STEALTH:
 			QuestManager.set_objective("Avoid the bouncers on the social floor. Micro-objectives: grab the staff badge (dressing area) and run the sound check (stage wing).", mission_id)
 		MissionStep.MUSIC_PUZZLE:
-			QuestManager.set_objective("The stage area has a song list puzzle. Put the setlist in the correct order to unlock backstage.", mission_id)
+			QuestManager.set_objective("The stage area has a song list puzzle. Solve it to open the service basement door.", mission_id)
 		MissionStep.BACKSTAGE_SEARCH:
 			QuestManager.set_objective("Search backstage for clues about where the ledger is hidden. Bentley can sniff out the real one.", mission_id)
 		MissionStep.LEDGER_PICKUP:
@@ -418,17 +514,154 @@ func _on_escape_entered(body: Node) -> void:
 	if current_step == MissionStep.ESCAPE and ledger_collected:
 		_advance_step(MissionStep.COMPLETE)
 
-func _on_yordano_triggered(body: Node) -> void:
-	if not body.is_in_group("player"):
+func try_yordano_basement_interact() -> void:
+	if player == null or player.global_position.y < 2900.0:
+		return
+	if basement_vault_opened:
+		return
+	if DialogueManager.is_in_dialogue:
 		return
 	if yordano_triggered:
 		return
 	yordano_triggered = true
-	
 	if GameState.has_selected_card("yordano_bass_drop"):
 		_trigger_bass_drop_stun()
+		basement_vault_opened = true
+		_sync_basement_vault_visuals()
+		return
+	var lines := [
+		{"speaker": "Yordano", "text": "That hum is the vault handshake. I green-lit it—go pull Sterling's purple shard before lawyers remote-wipe."},
+		{"speaker": "Bentley", "text": "Woof! (Treats optional. Evidence mandatory.)"}
+	]
+	if not EventBus.dialogue_ended.is_connected(_on_yordano_basement_dialogue_finished):
+		EventBus.dialogue_ended.connect(_on_yordano_basement_dialogue_finished, CONNECT_ONE_SHOT)
+	DialogueManager.start_simple_dialogue(lines)
+
+
+func _on_yordano_basement_dialogue_finished() -> void:
+	basement_vault_opened = true
+	_sync_basement_vault_visuals()
+
+
+func _setup_basement_flow() -> void:
+	var door := get_node_or_null("BasementDoorTrigger")
+	if door and not door.body_entered.is_connected(_on_basement_door_body_entered):
+		door.body_entered.connect(_on_basement_door_body_entered)
+	var ret := get_node_or_null("BasementReturnTrigger")
+	if ret and not ret.body_entered.is_connected(_on_basement_return_body_entered):
+		ret.body_entered.connect(_on_basement_return_body_entered)
+	var sh := get_node_or_null("BlackLedgerShardPickup")
+	if sh and not sh.body_entered.is_connected(_on_basement_shard_body_entered):
+		sh.body_entered.connect(_on_basement_shard_body_entered)
+	var kc := get_node_or_null("BlackLedgerKeycard")
+	if kc and not kc.body_entered.is_connected(_on_basement_keycard_body_entered):
+		kc.body_entered.connect(_on_basement_keycard_body_entered)
+	_refresh_basement_door_from_state()
+
+
+func _refresh_basement_door_from_state() -> void:
+	var door := get_node_or_null("BasementDoorTrigger")
+	if door == null:
+		return
+	door.monitoring = music_puzzle_solved and not GameState.velvet_paw_club_hostile
+
+
+func _sync_basement_vault_visuals() -> void:
+	var red := get_node_or_null("BasementVisuals/ServerVaultDoor/VaultIndicatorRed") as CanvasItem
+	var green := get_node_or_null("BasementVisuals/ServerVaultDoor/VaultIndicatorGreen") as CanvasItem
+	if red:
+		red.visible = not basement_vault_opened
+	if green:
+		green.visible = basement_vault_opened
+	var term := get_node_or_null("BasementVisuals/MainLedgerTerminal") as CanvasItem
+	if term:
+		term.visible = basement_vault_opened
+	var shard_pick := get_node_or_null("BlackLedgerShardPickup") as Area2D
+	if shard_pick:
+		shard_pick.monitoring = basement_vault_opened and not GameState.velvet_paw_basement_shard_collected
+
+
+func _on_basement_door_body_entered(body: Node) -> void:
+	if body != player:
+		return
+	if not music_puzzle_solved:
+		return
+	var mark := get_node_or_null("BasementArrivalMarker") as Node2D
+	if mark == null:
+		return
+	if player:
+		player.global_position = mark.global_position
+	if dog:
+		dog.global_position = mark.global_position + Vector2(48, 0)
+
+
+func _on_basement_return_body_entered(body: Node) -> void:
+	if body != player:
+		return
+	_jazz_dbg(
+		"H1",
+		"basement_return_trigger",
+		{"has_shard": GameState.velvet_paw_basement_shard_collected, "hostile_before": GameState.velvet_paw_club_hostile}
+	)
+	if not GameState.velvet_paw_basement_shard_collected:
+		EventBus.objective_updated.emit("Yordano isn't done yet. Get the shard first.")
+		return
+	var mk := get_node_or_null("Floor1_BasementReturnMarker") as Node2D
+	if mk == null:
+		return
+	if player:
+		player.global_position = mk.global_position
+	if dog:
+		dog.global_position = mk.global_position + Vector2(48, 0)
+	GameState.velvet_paw_club_hostile = true
+	_jazz_dbg("H1", "basement_return_set_hostile", {"floor2_access_unlocked": floor2_access_unlocked})
+	EventBus.game_state_changed.emit()
+	if GameState.velvet_paw_basement_keycard_collected:
+		QuestManager.set_objective("The club's gone hostile. The Black Card might get you to the stairs unseen — or fight your way through.", mission_id)
 	else:
-		_show_yordano_dialogue()
+		QuestManager.set_objective("The club's gone hostile. Defeat enough bouncers and reach the upstairs.", mission_id)
+	_refresh_basement_door_from_state()
+
+
+func _on_basement_shard_body_entered(body: Node) -> void:
+	if body != player:
+		return
+	if not basement_vault_opened:
+		return
+	if GameState.velvet_paw_basement_shard_collected:
+		return
+	GameState.velvet_paw_basement_shard_collected = true
+	GameState.ensure_and_discover_sterling_clue("black_ledger_shard_1", {
+		"title": "Black Ledger Shard 1",
+		"description": "Sterling hides blackmail data inside performance and music systems.",
+		"category": "Blackmail",
+		"mission_id": "velvet_paw_jazz_club",
+		"connects_to": "Sterling Tower Archive",
+		"unlocks_or_modifies": "Ledger assembly",
+	})
+	var shard_n := get_node_or_null("BlackLedgerShardPickup")
+	if is_instance_valid(shard_n):
+		shard_n.set_deferred("monitoring", false)
+		shard_n.hide()
+	AudioManager.play_sfx("item_pickup")
+	QuestManager.set_objective("Get back upstairs.", mission_id)
+	EventBus.game_state_changed.emit()
+
+
+func _on_basement_keycard_body_entered(body: Node) -> void:
+	if body != player:
+		return
+	if GameState.velvet_paw_basement_keycard_collected:
+		return
+	GameState.velvet_paw_basement_keycard_collected = true
+	var kc := get_node_or_null("BlackLedgerKeycard")
+	if is_instance_valid(kc):
+		kc.set_deferred("monitoring", false)
+		kc.hide()
+	AudioManager.play_sfx("item_pickup")
+	EventBus.objective_updated.emit("Sterling Black Card acquired.")
+	EventBus.game_state_changed.emit()
+
 
 func _trigger_bass_drop_stun() -> void:
 	QuestManager.set_objective("YORDANO BASS DROP! The bouncers are stunned!", mission_id)
@@ -442,19 +675,12 @@ func _trigger_bass_drop_stun() -> void:
 			enemy.set_deferred("is_stunned", false)
 			enemy.call_deferred("_resume_after_delay", 5.0)
 
-func _show_yordano_dialogue() -> void:
-	var lines := [
-		{"speaker": "Yordano", "text": "That's my cue. Time for the exit solo."},
-		{"speaker": "Bentley", "text": "Woof! (The bass is about to drop!)"}
-	]
-	DialogueManager.start_simple_dialogue(lines)
-
 func _check_clues_and_reveal_ledger() -> void:
 	if clues_found < TOTAL_CLUES:
 		return
 	if current_step != MissionStep.BACKSTAGE_SEARCH:
 		return
-	QuestManager.set_objective("Ledger isn't crate dressing—the briefcase waits past the rig stairs. Press E on the stairs to enter the owner suite.", mission_id)
+	QuestManager.set_objective("Ledger isn't crate dressing—the basement amp is throwing Sterling hash. Take the service hatch, grab the shard, then regroup.", mission_id)
 	_play_reactive_dialogue([
 		{"speaker": "Bentley", "text": "*low growl* (Ink upstairs. Cologne downstairs.)"}
 	])
@@ -474,8 +700,12 @@ func on_ledger_decoy_interacted() -> void:
 		decoy.remove_from_group("interactable")
 		decoy.set_deferred("monitoring", false)
 	var ledger := get_node_or_null("LedgerZone")
+	var mk := get_node_or_null("LedgerBriefcaseMarker")
 	if ledger:
-		ledger.global_position = Vector2(1085, 88)
+		if mk:
+			ledger.global_position = mk.global_position
+		else:
+			ledger.global_position = Vector2(1536, 2480)
 		ledger.visible = true
 	AudioManager.play_sfx("note_read")
 	_play_reactive_dialogue([
@@ -590,7 +820,7 @@ func _on_music_puzzle_solved() -> void:
 	music_puzzle_solved = true
 	active_puzzle = null
 	AudioManager.play_sfx("puzzle_solved")
-	QuestManager.set_objective("Stage cleared. Slip backstage—then press E on the rig stairs to enter the owner suite (boss fight).", mission_id)
+	QuestManager.set_objective("Stage cleared. The service basement hatch is open—slip backstage near the piano and drop through the door.", mission_id)
 	_play_reactive_dialogue([
 		{"speaker": "Yordano", "text": "House lights love you. Don't waste the downbeat."}
 	])
@@ -598,15 +828,7 @@ func _on_music_puzzle_solved() -> void:
 	var blocker := get_node_or_null("BackstageBlocker")
 	if blocker:
 		blocker.queue_free()
-	var stairs_block := get_node_or_null("StairsBlocker")
-	if stairs_block:
-		stairs_block.queue_free()
-	var wayfinding := get_node_or_null("StairsWayfinding")
-	if wayfinding:
-		wayfinding.visible = true
-	var sl := get_node_or_null("OwnerSuiteStairs/StairsInteractLabel") as Label
-	if sl:
-		sl.visible = true
+	_refresh_basement_door_from_state()
 
 
 func _on_music_puzzle_failed() -> void:
@@ -696,6 +918,30 @@ func complete_level() -> void:
 
 func _process(_delta: float) -> void:
 	super._process(_delta)
+	if player:
+		var py := player.global_position.y
+		if (
+			GameState.velvet_paw_basement_shard_collected
+			and not GameState.velvet_paw_club_hostile
+			and py < 3040.0
+			and not _dbg_shard_f1_no_hostile_logged
+		):
+			_dbg_shard_f1_no_hostile_logged = true
+			_jazz_dbg(
+				"H1",
+				"shard_collected_player_above_basement_y_without_hostile",
+				{"y": py, "x": player.global_position.x, "last_y": _dbg_last_player_y}
+			)
+		_dbg_last_player_y = py
+	if not GameState.velvet_paw_basement_keycard_collected and player:
+		var kc_vis := get_node_or_null("BlackLedgerKeycard/KeycardVisual") as ColorRect
+		if kc_vis and is_instance_valid(kc_vis):
+			var kc_node := get_node_or_null("BlackLedgerKeycard") as Node2D
+			if kc_node:
+				var d := kc_node.global_position.distance_to(player.global_position)
+				var c := kc_vis.color
+				c.a = 0.35 if d > 96.0 else 1.0
+				kc_vis.color = c
 
 func on_bentley_sniff() -> void:
 	if current_step == MissionStep.BACKSTAGE_SEARCH or current_step == MissionStep.LEDGER_PICKUP:

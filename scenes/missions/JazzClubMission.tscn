@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://jazzclub001"]
+[gd_scene load_steps=40 format=3 uid="uid://jazzclub001"]
 
 [ext_resource type="Script" path="res://src/missions/JazzClubMission.gd" id="1_jazz"]
 [ext_resource type="Script" path="res://src/interactables/readable_note.gd" id="2_note"]
@@ -8,18 +8,19 @@
 [ext_resource type="Script" path="res://src/collectibles/polaroid_pickup.gd" id="6_polaroid"]
 [ext_resource type="Script" path="res://src/missions/owner_suite_stairs.gd" id="7_stairs"]
 [ext_resource type="Script" path="res://src/collectibles/PoopBagPickup.gd" id="8_poop"]
+[ext_resource type="Script" path="res://src/missions/yordano_basement_interact.gd" id="9_yord"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(100, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_entrance"]
-size = Vector2(120, 80)
+size = Vector2(256, 320)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_music"]
-size = Vector2(200, 150)
+size = Vector2(320, 280)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_backstage"]
-size = Vector2(250, 180)
+size = Vector2(1728, 640)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_escape"]
 size = Vector2(100, 80)
@@ -38,21 +39,21 @@ size = Vector2(24, 24)
 
 [sub_resource type="Curve2D" id="Curve2D_bouncer1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 300, 350, 0, 0, 0, 0, 500, 350, 0, 0, 0, 0, 500, 500, 0, 0, 0, 0, 300, 500, 0, 0, 0, 0, 300, 350)
+"points": PackedVector2Array(0, 0, 0, 0, 1056, 480, 0, 0, 0, 0, 1568, 480, 0, 0, 0, 0, 2016, 736, 0, 0, 0, 0, 1632, 1120, 0, 0, 0, 0, 1184, 736, 0, 0, 0, 0, 1056, 480)
 }
-point_count = 5
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_bouncer2"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 650, 300, 0, 0, 0, 0, 850, 300, 0, 0, 0, 0, 850, 450, 0, 0, 0, 0, 650, 450, 0, 0, 0, 0, 650, 300)
+"points": PackedVector2Array(0, 0, 0, 0, 1568, 480, 0, 0, 0, 0, 2016, 736, 0, 0, 0, 0, 1632, 1120, 0, 0, 0, 0, 1184, 736, 0, 0, 0, 0, 1056, 480, 0, 0, 0, 0, 1568, 480)
 }
-point_count = 5
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_bouncer3"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 750, 150, 0, 0, 0, 0, 950, 150, 0, 0, 0, 0, 950, 250, 0, 0, 0, 0, 750, 250, 0, 0, 0, 0, 750, 150)
+"points": PackedVector2Array(0, 0, 0, 0, 2016, 736, 0, 0, 0, 0, 1632, 1120, 0, 0, 0, 0, 1184, 736, 0, 0, 0, 0, 1056, 480, 0, 0, 0, 0, 1568, 480, 0, 0, 0, 0, 2016, 736)
 }
-point_count = 5
+point_count = 6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stage"]
 size = Vector2(200, 120)
@@ -67,22 +68,22 @@ size = Vector2(48, 48)
 size = Vector2(52, 210)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_top"]
-size = Vector2(1200, 14)
+size = Vector2(2560, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_side"]
-size = Vector2(20, 800)
+size = Vector2(20, 4224)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shortcut"]
 size = Vector2(280, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_staff_gate"]
-size = Vector2(56, 20)
+size = Vector2(96, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_social_zone"]
-size = Vector2(310, 258)
+size = Vector2(1344, 1024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_staff_route"]
-size = Vector2(96, 48)
+size = Vector2(320, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_decoy"]
 size = Vector2(40, 40)
@@ -102,163 +103,1009 @@ size = Vector2(100, 80)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stairs_enter"]
 size = Vector2(200, 96)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_basement_door"]
+size = Vector2(112, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_basement_return"]
+size = Vector2(288, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shard_pickup"]
+size = Vector2(48, 48)
+
 [node name="JazzClubMission" type="Node2D"]
 script = ExtResource("1_jazz")
 
 [node name="FloorVisual" type="ColorRect" parent="."]
+z_index = -2
+offset_right = 2560.0
+offset_bottom = 4224.0
+color = Color(0.101961, 0.101961, 0.180392, 1)
+
+[node name="Floor1Visuals" type="Node2D" parent="."]
+
+[node name="NeonAlleyFloor" type="ColorRect" parent="Floor1Visuals"]
 z_index = -1
-offset_right = 1200.0
+offset_right = 512.0
+offset_bottom = 1536.0
+color = Color(0.058824, 0.062745, 0.12549, 1)
+
+[node name="PuddleCyan1" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 192.0
+offset_bottom = 512.0
+color = Color(0, 0.831373, 1, 0.5)
+
+[node name="PuddleMagenta1" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 256.0
+offset_top = 832.0
+offset_right = 384.0
+offset_bottom = 896.0
+color = Color(1, 0.411765, 0.705882, 0.5)
+
+[node name="PuddleCyan2" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 128.0
+offset_top = 1088.0
+offset_right = 320.0
+offset_bottom = 1152.0
+color = Color(0, 0.831373, 1, 0.5)
+
+[node name="NeonPawSign" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 192.0
+offset_top = 128.0
+offset_right = 384.0
+offset_bottom = 384.0
+color = Color(1, 0.411765, 0.705882, 1)
+
+[node name="NeonPawGlow" type="ColorRect" parent="Floor1Visuals/NeonPawSign"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 198.0
+offset_bottom = 262.0
+color = Color(0, 0.831373, 1, 0.35)
+
+[node name="NeonPawFill" type="ColorRect" parent="Floor1Visuals/NeonPawSign"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 186.0
+offset_bottom = 250.0
+color = Color(1, 0.411765, 0.705882, 1)
+
+[node name="NeonPawLabel" type="Label" parent="Floor1Visuals/NeonPawSign"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 96.0
+offset_right = 180.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 14
+text = "VELVET PAW"
+horizontal_alignment = 1
+
+[node name="AlleyDumpster" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 128.0
+offset_top = 1280.0
+offset_right = 256.0
+offset_bottom = 1408.0
+color = Color(0.18, 0.18, 0.2, 1)
+
+[node name="AlleyTrashCan" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 256.0
+offset_top = 1280.0
+offset_right = 320.0
+offset_bottom = 1344.0
+color = Color(0.28, 0.28, 0.32, 1)
+
+[node name="DeliveryDoor" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 64.0
+offset_top = 896.0
+offset_right = 128.0
+offset_bottom = 1024.0
+color = Color(0.25, 0.14, 0.08, 1)
+
+[node name="DeliveryDoorLabel" type="Label" parent="Floor1Visuals/DeliveryDoor"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = 48.0
+offset_right = 72.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 9
+text = "DELIVERY"
+horizontal_alignment = 1
+
+[node name="AlleyVent" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 384.0
+offset_top = 640.0
+offset_right = 448.0
+offset_bottom = 704.0
+color = Color(0.22, 0.24, 0.28, 1)
+
+[node name="ValetTicket" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 128.0
+offset_top = 1152.0
+offset_right = 192.0
+offset_bottom = 1216.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="EscapeLadderSymbol" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 256.0
+offset_top = 1312.0
+offset_right = 288.0
+offset_bottom = 1440.0
+color = Color(0.35, 0.35, 0.4, 0.85)
+
+[node name="EscapeLadderEndpoint" type="Marker2D" parent="Floor1Visuals"]
+position = Vector2(224, 1376)
+
+[node name="MainJazzFloor_Base" type="ColorRect" parent="Floor1Visuals"]
+z_index = -1
+offset_left = 896.0
+offset_top = 256.0
+offset_right = 2240.0
+offset_bottom = 1280.0
+color = Color(0.12, 0.08, 0.18, 1)
+
+[node name="MainJazzFloor_Tint" type="ColorRect" parent="Floor1Visuals"]
+z_index = -1
+offset_left = 896.0
+offset_top = 256.0
+offset_right = 2240.0
+offset_bottom = 1280.0
+color = Color(0.29, 0.055, 0.133, 0.35)
+
+[node name="StageSpotlight" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 832.0
+offset_top = 224.0
+offset_right = 1408.0
 offset_bottom = 800.0
-color = Color(0.08, 0.06, 0.1, 1.0)
+color = Color(1, 0.8, 0.4, 0.12)
+
+[node name="PianoStageBase" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 928.0
+offset_top = 288.0
+offset_right = 1312.0
+offset_bottom = 672.0
+color = Color(0.08, 0.06, 0.08, 1)
+
+[node name="PianoStageRim" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 920.0
+offset_top = 280.0
+offset_right = 1320.0
+offset_bottom = 680.0
+color = Color(1, 0.8, 0.4, 0.45)
+
+[node name="PianoStageLabel" type="Label" parent="Floor1Visuals"]
+offset_left = 1008.0
+offset_top = 440.0
+offset_right = 1232.0
+offset_bottom = 480.0
+theme_override_font_sizes/font_size = 12
+text = "PIANO STAGE"
+horizontal_alignment = 1
+
+[node name="BackstageStairsMarker" type="Marker2D" parent="Floor1Visuals"]
+position = Vector2(928, 288)
+
+[node name="BackstageStairsSymbol" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 896.0
+offset_top = 256.0
+offset_right = 960.0
+offset_bottom = 448.0
+color = Color(0.32, 0.26, 0.22, 0.9)
+
+[node name="BackstageStairsArrow" type="Label" parent="Floor1Visuals"]
+offset_left = 904.0
+offset_top = 312.0
+offset_right = 952.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 22
+text = "↑"
+horizontal_alignment = 1
+
+[node name="BentleyVentPathStart" type="Marker2D" parent="Floor1Visuals"]
+position = Vector2(544, 928)
+
+[node name="JazzTable_16_7" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1024.0
+offset_top = 448.0
+offset_right = 1088.0
+offset_bottom = 512.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_20_7" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1280.0
+offset_top = 448.0
+offset_right = 1344.0
+offset_bottom = 512.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_24_7" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1536.0
+offset_top = 448.0
+offset_right = 1600.0
+offset_bottom = 512.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_28_7" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1792.0
+offset_top = 448.0
+offset_right = 1856.0
+offset_bottom = 512.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_18_11" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1152.0
+offset_top = 704.0
+offset_right = 1216.0
+offset_bottom = 768.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_22_11" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1408.0
+offset_top = 704.0
+offset_right = 1472.0
+offset_bottom = 768.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_26_11" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1664.0
+offset_top = 704.0
+offset_right = 1728.0
+offset_bottom = 768.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="JazzTable_30_11" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1920.0
+offset_top = 704.0
+offset_right = 1984.0
+offset_bottom = 768.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="BarLFoot" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 2176.0
+offset_top = 1152.0
+offset_right = 2304.0
+offset_bottom = 1280.0
+color = Color(0.18, 0.12, 0.08, 1)
+
+[node name="DanceFloorChecker" type="Node2D" parent="Floor1Visuals"]
+
+[node name="DF_22_14" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1408.0
+offset_top = 896.0
+offset_right = 1472.0
+offset_bottom = 960.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_23_14" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1472.0
+offset_top = 896.0
+offset_right = 1536.0
+offset_bottom = 960.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_24_14" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1536.0
+offset_top = 896.0
+offset_right = 1600.0
+offset_bottom = 960.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_25_14" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1600.0
+offset_top = 896.0
+offset_right = 1664.0
+offset_bottom = 960.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_22_15" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1408.0
+offset_top = 960.0
+offset_right = 1472.0
+offset_bottom = 1024.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_23_15" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1472.0
+offset_top = 960.0
+offset_right = 1536.0
+offset_bottom = 1024.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_24_15" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1536.0
+offset_top = 960.0
+offset_right = 1600.0
+offset_bottom = 1024.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_25_15" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1600.0
+offset_top = 960.0
+offset_right = 1664.0
+offset_bottom = 1024.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_22_16" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1408.0
+offset_top = 1024.0
+offset_right = 1472.0
+offset_bottom = 1088.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_23_16" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1472.0
+offset_top = 1024.0
+offset_right = 1536.0
+offset_bottom = 1088.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_24_16" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1536.0
+offset_top = 1024.0
+offset_right = 1600.0
+offset_bottom = 1088.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_25_16" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1600.0
+offset_top = 1024.0
+offset_right = 1664.0
+offset_bottom = 1088.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_22_17" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1408.0
+offset_top = 1088.0
+offset_right = 1472.0
+offset_bottom = 1152.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_23_17" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1472.0
+offset_top = 1088.0
+offset_right = 1536.0
+offset_bottom = 1152.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="DF_24_17" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1536.0
+offset_top = 1088.0
+offset_right = 1600.0
+offset_bottom = 1152.0
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="DF_25_17" type="ColorRect" parent="Floor1Visuals/DanceFloorChecker"]
+offset_left = 1600.0
+offset_top = 1088.0
+offset_right = 1664.0
+offset_bottom = 1152.0
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="BouncerPatrolLine" type="Line2D" parent="Floor1Visuals"]
+width = 2.0
+default_color = Color(0.95, 0.15, 0.15, 0.85)
+points = PackedVector2Array(1056, 480, 1568, 480, 2016, 736, 1632, 1120, 1184, 736, 1056, 480)
+
+[node name="VIPBalconyOverlookGhost" type="Line2D" parent="Floor1Visuals"]
+width = 2.0
+default_color = Color(1, 1, 1, 0.12)
+points = PackedVector2Array(1152, 256, 2048, 256, 2048, 1280, 1152, 1280, 1152, 256)
+
+[node name="BentleyVentPathStub" type="Line2D" parent="Floor1Visuals"]
+width = 2.0
+default_color = Color(0.4, 0.85, 1, 0.35)
+points = PackedVector2Array(544, 928, 544, 200)
+
+[node name="ClubEntranceFloor" type="ColorRect" parent="Floor1Visuals"]
+z_index = -1
+offset_left = 512.0
+offset_top = 512.0
+offset_right = 896.0
+offset_bottom = 1024.0
+color = Color(0.29, 0.055, 0.133, 1)
+
+[node name="GoldStanchion1" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 586.0
+offset_top = 662.0
+offset_right = 608.0
+offset_bottom = 684.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="GoldStanchion2" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 650.0
+offset_top = 662.0
+offset_right = 672.0
+offset_bottom = 684.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="GoldStanchion3" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 586.0
+offset_top = 786.0
+offset_right = 608.0
+offset_bottom = 808.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="GoldStanchion4" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 650.0
+offset_top = 786.0
+offset_right = 672.0
+offset_bottom = 808.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="VelvetRopeH1" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 608.0
+offset_top = 670.0
+offset_right = 650.0
+offset_bottom = 676.0
+color = Color(0.45, 0.08, 0.16, 1)
+
+[node name="VelvetRopeH2" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 608.0
+offset_top = 794.0
+offset_right = 650.0
+offset_bottom = 800.0
+color = Color(0.45, 0.08, 0.16, 1)
+
+[node name="VelvetRopeV" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 647.0
+offset_top = 684.0
+offset_right = 653.0
+offset_bottom = 786.0
+color = Color(1, 0.75, 0.35, 0.7)
+
+[node name="CoatCheckBooth" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 512.0
+offset_top = 896.0
+offset_right = 640.0
+offset_bottom = 1024.0
+color = Color(0.2, 0.16, 0.14, 1)
+
+[node name="CoatCheckLabel" type="Label" parent="Floor1Visuals/CoatCheckBooth"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 10
+text = "COAT CHECK"
+horizontal_alignment = 1
+
+[node name="BathroomHallFloor" type="ColorRect" parent="Floor1Visuals"]
+z_index = -1
+offset_left = 896.0
+offset_top = 1280.0
+offset_right = 1280.0
+offset_bottom = 1536.0
+color = Color(0.16, 0.18, 0.2, 1)
+
+[node name="BathroomDoorA" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 896.0
+offset_top = 1344.0
+offset_right = 960.0
+offset_bottom = 1472.0
+color = Color(0.32, 0.22, 0.16, 1)
+
+[node name="BathroomDoorB" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 960.0
+offset_top = 1344.0
+offset_right = 1024.0
+offset_bottom = 1472.0
+color = Color(0.32, 0.22, 0.16, 1)
+
+[node name="CleaningCart" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1216.0
+offset_top = 1408.0
+offset_right = 1280.0
+offset_bottom = 1472.0
+color = Color(0.45, 0.42, 0.38, 1)
+
+[node name="FoggedMirrorMessage" type="ColorRect" parent="Floor1Visuals"]
+offset_left = 1024.0
+offset_top = 1280.0
+offset_right = 1152.0
+offset_bottom = 1344.0
+color = Color(0.55, 0.58, 0.62, 0.55)
+
+[node name="FoggedMirrorLabel" type="Label" parent="Floor1Visuals/FoggedMirrorMessage"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 124.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 8
+text = "VJG DCUGOGPV QRGPU CV OKFPKIJV"
+autowrap_mode = 2
+
+[node name="Floor2Visuals" type="Node2D" parent="."]
+position = Vector2(0, 1664)
+
+[node name="Floor2_Background" type="ColorRect" parent="Floor2Visuals"]
+z_index = -2
+offset_right = 2048.0
+offset_bottom = 1280.0
+color = Color(0.333333, 0.333333, 0.333333, 1)
+
+[node name="Floor2_TitleLabel" type="Label" parent="Floor2Visuals"]
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 720.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 13
+text = "FLOOR 2 — BACKSTAGE / VIP"
+
+[node name="BackstageCorridor" type="ColorRect" parent="Floor2Visuals"]
+z_index = -1
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 1984.0
+offset_bottom = 192.0
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="DressingRoomA" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 128.0
+offset_top = 256.0
+offset_right = 320.0
+offset_bottom = 576.0
+color = Color(0.133333, 0.266667, 0.666667, 0.85)
+
+[node name="DressingRoomA_Label" type="Label" parent="Floor2Visuals/DressingRoomA"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 10
+text = "ROOM A — Wee-Woo Lullaby"
+
+[node name="SetlistScrap_RaincoatForACrimeDog" type="ColorRect" parent="Floor2Visuals/DressingRoomA"]
+metadata/is_optional_postgame = true
+layout_mode = 0
+offset_left = 140.0
+offset_top = 200.0
+offset_right = 172.0
+offset_bottom = 232.0
+color = Color(0.92, 0.88, 0.72, 1)
+
+[node name="ScrapRaincoatLabel" type="Label" parent="Floor2Visuals/DressingRoomA/SetlistScrap_RaincoatForACrimeDog"]
+layout_mode = 0
+offset_left = -130.0
+offset_top = -36.0
+offset_right = 40.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 8
+text = "Scrap: Raincoat for a Crime Dog"
+
+[node name="DressingRoomB" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 448.0
+offset_top = 256.0
+offset_right = 640.0
+offset_bottom = 576.0
+color = Color(1, 0.533333, 0.266667, 0.85)
+
+[node name="DressingRoomB_Label" type="Label" parent="Floor2Visuals/DressingRoomB"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 188.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 10
+text = "ROOM B — Dental Boy Blues"
+
+[node name="SetlistScrap_TwoLettersAway" type="ColorRect" parent="Floor2Visuals/DressingRoomB"]
+metadata/is_optional_postgame = true
+layout_mode = 0
+offset_left = 140.0
+offset_top = 200.0
+offset_right = 172.0
+offset_bottom = 232.0
+color = Color(0.92, 0.88, 0.72, 1)
+
+[node name="ScrapTwoLettersLabel" type="Label" parent="Floor2Visuals/DressingRoomB/SetlistScrap_TwoLettersAway"]
+layout_mode = 0
+offset_left = -120.0
+offset_top = -36.0
+offset_right = 48.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 8
+text = "Scrap: Two Letters Away"
+
+[node name="DressingRoomC" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 768.0
+offset_top = 256.0
+offset_right = 960.0
+offset_bottom = 576.0
+color = Color(0.266667, 0.666667, 0.266667, 0.85)
+
+[node name="DressingRoomC_Label" type="Label" parent="Floor2Visuals/DressingRoomC"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 188.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 10
+text = "ROOM C — Bathroom Snacks"
+
+[node name="SetlistScrap_NakedHugMySon" type="ColorRect" parent="Floor2Visuals/DressingRoomC"]
+metadata/is_optional_postgame = true
+layout_mode = 0
+offset_left = 140.0
+offset_top = 200.0
+offset_right = 172.0
+offset_bottom = 232.0
+color = Color(0.92, 0.88, 0.72, 1)
+
+[node name="ScrapNakedHugLabel" type="Label" parent="Floor2Visuals/DressingRoomC/SetlistScrap_NakedHugMySon"]
+layout_mode = 0
+offset_left = -118.0
+offset_top = -36.0
+offset_right = 52.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 8
+text = "Scrap: Naked Hug My Son"
+
+[node name="SoundBooth" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1152.0
+offset_top = 192.0
+offset_right = 1728.0
+offset_bottom = 640.0
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="MixingBoard" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1280.0
+offset_top = 384.0
+offset_right = 1536.0
+offset_bottom = 448.0
+color = Color(0.15, 0.14, 0.18, 1)
+
+[node name="EqualizerScreen" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1568.0
+offset_top = 320.0
+offset_right = 1664.0
+offset_bottom = 448.0
+color = Color(0.08, 0.08, 0.1, 1)
+
+[node name="EQBarCyan" type="ColorRect" parent="Floor2Visuals/EqualizerScreen"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 80.0
+offset_right = 24.0
+offset_bottom = 112.0
+color = Color(0, 0.85, 1, 0.8)
+
+[node name="EQBarMagenta" type="ColorRect" parent="Floor2Visuals/EqualizerScreen"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 64.0
+offset_right = 48.0
+offset_bottom = 112.0
+color = Color(1, 0.41, 0.71, 0.75)
+
+[node name="SoundBoothClueBoard" type="Label" parent="Floor2Visuals"]
+offset_left = 1200.0
+offset_top = 480.0
+offset_right = 1680.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 9
+text = "SOLVED SETLIST (DEBRIEF)\nSilly → Comfort → Danger → Secret → Courage → Closer\n(Bathroom Snacks → Dental Boy Blues → Wee-Woo Lullaby → Two Letters Away → Raincoat for a Crime Dog → Naked Hug My Son)"
+autowrap_mode = 3
+
+[node name="CueSwatchRow" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1200.0
+offset_top = 608.0
+offset_right = 1680.0
+offset_bottom = 624.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="SwatchSilly" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1208.0
+offset_top = 608.0
+offset_right = 1288.0
+offset_bottom = 624.0
+color = Color(1, 0.8, 0.4, 1)
+
+[node name="SwatchComfort" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1296.0
+offset_top = 608.0
+offset_right = 1376.0
+offset_bottom = 624.0
+color = Color(0.266667, 0.666667, 0.266667, 1)
+
+[node name="SwatchDanger" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1384.0
+offset_top = 608.0
+offset_right = 1464.0
+offset_bottom = 624.0
+color = Color(1, 0.266667, 0.266667, 1)
+
+[node name="SwatchSecret" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1472.0
+offset_top = 608.0
+offset_right = 1552.0
+offset_bottom = 624.0
+color = Color(0.482353, 0.172549, 0.752941, 1)
+
+[node name="SwatchCourage" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1560.0
+offset_top = 608.0
+offset_right = 1640.0
+offset_bottom = 624.0
+color = Color(0.356863, 0.54902, 1, 1)
+
+[node name="SwatchCloser" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1648.0
+offset_top = 608.0
+offset_right = 1672.0
+offset_bottom = 624.0
+color = Color(0, 0.831373, 1, 1)
+
+[node name="SoundBoothShipmentNote" type="Area2D" parent="Floor2Visuals"]
+position = Vector2(1696, 544)
+script = ExtResource("2_note")
+note_title = "SHIPMENT MANIFEST"
+note_text = "SHIPMENT MANIFEST — Destination: Rewrite Room. Sterling Legal."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2Visuals/SoundBoothShipmentNote"]
+shape = SubResource("RectangleShape2D_clue")
+
+[node name="ShipmentNoteVisual" type="ColorRect" parent="Floor2Visuals/SoundBoothShipmentNote"]
+offset_left = -18.0
+offset_top = -14.0
+offset_right = 18.0
+offset_bottom = 14.0
+color = Color(0.9, 0.85, 0.7, 1)
+
+[node name="VIPBalcony" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1152.0
+offset_top = 768.0
+offset_right = 2048.0
+offset_bottom = 960.0
+color = Color(0.2, 0.06, 0.12, 0.92)
+
+[node name="VIPBalconyRailing" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1152.0
+offset_top = 912.0
+offset_right = 2048.0
+offset_bottom = 920.0
+color = Color(1, 0.76, 0.35, 0.85)
+
+[node name="VIPOverlookDottedLine" type="Line2D" parent="Floor2Visuals"]
+width = 2.0
+default_color = Color(1, 0.85, 0.35, 0.22)
+points = PackedVector2Array(1600, 960, 1600, -384)
+
+[node name="VIPArmchairA" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1248.0
+offset_top = 800.0
+offset_right = 1312.0
+offset_bottom = 864.0
+color = Color(0.35, 0.12, 0.22, 1)
+
+[node name="VIPArmchairB" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1504.0
+offset_top = 800.0
+offset_right = 1568.0
+offset_bottom = 864.0
+color = Color(0.35, 0.12, 0.22, 1)
+
+[node name="VIPArmchairC" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1760.0
+offset_top = 800.0
+offset_right = 1824.0
+offset_bottom = 864.0
+color = Color(0.35, 0.12, 0.22, 1)
+
+[node name="VIPChampagneTable" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1472.0
+offset_top = 864.0
+offset_right = 1600.0
+offset_bottom = 928.0
+color = Color(0.25, 0.18, 0.12, 1)
+
+[node name="SterlingVIPListDocument" type="Label" parent="Floor2Visuals"]
+offset_left = 1488.0
+offset_top = 872.0
+offset_right = 1584.0
+offset_bottom = 920.0
+theme_override_font_sizes/font_size = 8
+text = "Sterling VIP list (visual)"
+
+[node name="Floor2_EscapeRoute" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1408.0
+offset_top = 1024.0
+offset_right = 2048.0
+offset_bottom = 1152.0
+color = Color(0.12, 0.1, 0.14, 1)
+
+[node name="Floor2_EscapeRouteLabel" type="Label" parent="Floor2Visuals"]
+offset_left = 1440.0
+offset_top = 1048.0
+offset_right = 1984.0
+offset_bottom = 1120.0
+theme_override_font_sizes/font_size = 11
+text = "ESCAPE ROUTE → SERVICE STAIRS / BASEMENT"
+
+[node name="Floor2VentGrate" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 608.0
+offset_top = 160.0
+offset_right = 672.0
+offset_bottom = 224.0
+color = Color(0.28, 0.3, 0.32, 1)
+
+[node name="Floor2_VentExit" type="Marker2D" parent="Floor2Visuals"]
+position = Vector2(640, 192)
+
+[node name="BentleyVentLineFloor2" type="Line2D" parent="Floor2Visuals"]
+width = 2.0
+default_color = Color(0.4, 0.85, 1, 0.35)
+points = PackedVector2Array(640, 192, 544, -736)
+
+[node name="ServiceStairsDownSymbol" type="ColorRect" parent="Floor2Visuals"]
+offset_left = 1696.0
+offset_top = 224.0
+offset_right = 1760.0
+offset_bottom = 288.0
+color = Color(0.4, 0.42, 0.45, 0.9)
+
+[node name="ServiceStairsDownMarker" type="Marker2D" parent="Floor2Visuals"]
+position = Vector2(1728, 256)
+
+[node name="ServiceStairsDownArrow" type="Line2D" parent="Floor2Visuals"]
+width = 2.0
+default_color = Color(0.55, 0.55, 0.6, 0.55)
+points = PackedVector2Array(1728, 280, 1728, 420)
 
 [node name="ClubExterior" type="ColorRect" parent="."]
 z_index = -1
-offset_left = 50.0
-offset_top = 600.0
-offset_right = 350.0
-offset_bottom = 780.0
-color = Color(0.15, 0.12, 0.1, 1.0)
+offset_left = 512.0
+offset_top = 512.0
+offset_right = 896.0
+offset_bottom = 1024.0
+color = Color(0.29, 0.055, 0.133, 0)
 
 [node name="ExteriorLabel" type="Label" parent="ClubExterior"]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 70.0
-offset_right = 220.0
-offset_bottom = 100.0
-theme_override_font_sizes/font_size = 18
-text = "CLUB ENTRANCE"
+offset_left = 120.0
+offset_top = 32.0
+offset_right = 260.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 16
+text = "VELVET PAW — ENTRANCE"
 horizontal_alignment = 1
 
 [node name="BouncerExterior" type="ColorRect" parent="ClubExterior"]
 layout_mode = 0
-offset_left = 240.0
-offset_top = 20.0
-offset_right = 280.0
-offset_bottom = 80.0
-color = Color(0.4, 0.25, 0.2, 1.0)
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 192.0
+color = Color(0.12, 0.1, 0.12, 0.95)
 
 [node name="BouncerLabel" type="Label" parent="ClubExterior/BouncerExterior"]
 layout_mode = 0
-offset_left = -15.0
-offset_top = -20.0
-offset_right = 55.0
-offset_bottom = 3.0
+offset_left = -8.0
+offset_top = -22.0
+offset_right = 72.0
+offset_bottom = 2.0
 theme_override_font_sizes/font_size = 10
-text = "BOUNCER"
+text = "DOORMAN"
 horizontal_alignment = 1
 
 [node name="SideEntrance" type="ColorRect" parent="ClubExterior"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 60.0
-offset_right = 50.0
-offset_bottom = 120.0
-color = Color(0.25, 0.2, 0.15, 1.0)
+offset_left = 8.0
+offset_top = 384.0
+offset_right = 72.0
+offset_bottom = 512.0
+color = Color(0.25, 0.2, 0.15, 1)
 
 [node name="SideEntranceLabel" type="Label" parent="ClubExterior/SideEntrance"]
 layout_mode = 0
-offset_left = -20.0
-offset_top = 25.0
-offset_right = 60.0
-offset_bottom = 48.0
-theme_override_font_sizes/font_size = 10
-text = "STAFF DOOR"
+offset_left = -12.0
+offset_top = 48.0
+offset_right = 68.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 9
+text = "STAFF"
 horizontal_alignment = 1
 
 [node name="BarArea" type="ColorRect" parent="."]
-offset_left = 80.0
-offset_top = 250.0
-offset_right = 280.0
-offset_bottom = 380.0
-color = Color(0.22, 0.18, 0.12, 1.0)
+offset_left = 2176.0
+offset_top = 384.0
+offset_right = 2304.0
+offset_bottom = 1152.0
+color = Color(0.16, 0.1, 0.06, 1)
 
 [node name="BarLabel" type="Label" parent="BarArea"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 150.0
-offset_bottom = 80.0
+offset_left = 32.0
+offset_top = 320.0
+offset_right = 96.0
+offset_bottom = 352.0
 text = "BAR"
 horizontal_alignment = 1
 
 [node name="Bartender" type="ColorRect" parent="BarArea"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 10.0
-offset_right = 100.0
-offset_bottom = 50.0
-color = Color(0.35, 0.3, 0.25, 1.0)
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 80.0
+offset_bottom = 88.0
+color = Color(0.35, 0.3, 0.25, 1)
 
 [node name="BartenderLabel" type="Label" parent="BarArea/Bartender"]
 layout_mode = 0
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 60.0
-offset_bottom = 3.0
-theme_override_font_sizes/font_size = 10
+offset_left = -24.0
+offset_top = -22.0
+offset_right = 56.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 9
 text = "BARTENDER"
 horizontal_alignment = 1
 
 [node name="Pianist" type="ColorRect" parent="BarArea"]
+visible = false
 layout_mode = 0
-offset_left = 140.0
-offset_top = 10.0
-offset_right = 180.0
-offset_bottom = 50.0
-color = Color(0.3, 0.28, 0.2, 1.0)
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1.0
+offset_bottom = 1.0
+color = Color(0.3, 0.28, 0.2, 1)
 
 [node name="PianistLabel" type="Label" parent="BarArea/Pianist"]
+visible = false
 layout_mode = 0
-offset_left = -15.0
-offset_top = -20.0
-offset_right = 55.0
-offset_bottom = 3.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1.0
+offset_bottom = 1.0
 theme_override_font_sizes/font_size = 10
 text = "PIANIST"
 horizontal_alignment = 1
 
 [node name="SocialFloor" type="ColorRect" parent="."]
-offset_left = 300.0
-offset_top = 300.0
-offset_right = 600.0
-offset_bottom = 550.0
-color = Color(0.18, 0.15, 0.2, 1.0)
+offset_left = 1408.0
+offset_top = 896.0
+offset_right = 1664.0
+offset_bottom = 1152.0
+color = Color(0.14, 0.12, 0.18, 0.35)
 
 [node name="SocialFloorLabel" type="Label" parent="SocialFloor"]
 layout_mode = 0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 200.0
-offset_bottom = 130.0
+offset_left = 48.0
+offset_top = 96.0
+offset_right = 208.0
+offset_bottom = 128.0
 text = "DANCE FLOOR"
 horizontal_alignment = 1
 
 [node name="StageArea" type="ColorRect" parent="."]
-offset_left = 650.0
-offset_top = 80.0
-offset_right = 950.0
-offset_bottom = 250.0
-color = Color(0.25, 0.2, 0.18, 1.0)
+offset_left = 928.0
+offset_top = 288.0
+offset_right = 1312.0
+offset_bottom = 672.0
+color = Color(0.14, 0.11, 0.1, 0.25)
 
 [node name="StageLabel" type="Label" parent="StageArea"]
 layout_mode = 0
-offset_left = 100.0
-offset_top = 70.0
-offset_right = 200.0
-offset_bottom = 100.0
-text = "STAGE"
+offset_left = 96.0
+offset_top = 160.0
+offset_right = 288.0
+offset_bottom = 196.0
+text = "STAGE / SETLIST"
 horizontal_alignment = 1
 
 [node name="Microphone" type="ColorRect" parent="StageArea"]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 20.0
-offset_right = 130.0
-offset_bottom = 50.0
-color = Color(0.5, 0.5, 0.5, 1.0)
+offset_left = 176.0
+offset_top = 96.0
+offset_right = 188.0
+offset_bottom = 140.0
+color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="MusicPuzzleTrigger" type="Area2D" parent="StageArea"]
-position = Vector2(90, 110)
+position = Vector2(192, 192)
 script = ExtResource("3_puzzle_trigger")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StageArea/MusicPuzzleTrigger"]
@@ -281,10 +1128,10 @@ text = "[SETLIST]"
 horizontal_alignment = 1
 
 [node name="Backstage" type="ColorRect" parent="."]
-offset_left = 1000.0
-offset_top = 50.0
-offset_right = 1150.0
-offset_bottom = 250.0
+offset_left = 64.0
+offset_top = 1792.0
+offset_right = 1760.0
+offset_bottom = 2368.0
 color = Color(0.2, 0.18, 0.15, 1.0)
 
 [node name="BackstageLabel" type="Label" parent="Backstage"]
@@ -297,10 +1144,10 @@ text = "BACKSTAGE"
 horizontal_alignment = 1
 
 [node name="BasementExit" type="ColorRect" parent="."]
-offset_left = 1050.0
-offset_top = 550.0
-offset_right = 1150.0
-offset_bottom = 650.0
+offset_left = 1184.0
+offset_top = 1344.0
+offset_right = 1280.0
+offset_bottom = 1472.0
 color = Color(0.12, 0.1, 0.08, 1.0)
 
 [node name="BasementLabel" type="Label" parent="BasementExit"]
@@ -313,7 +1160,7 @@ text = "BASEMENT"
 horizontal_alignment = 1
 
 [node name="ExitZone" type="Area2D" parent="."]
-position = Vector2(1100, 600)
+position = Vector2(1232, 1408)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
 shape = SubResource("RectangleShape2D_exit")
@@ -334,7 +1181,7 @@ text = "EXIT ->"
 horizontal_alignment = 1
 
 [node name="EntranceZone" type="Area2D" parent="."]
-position = Vector2(30, 660)
+position = Vector2(704, 704)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntranceZone"]
 shape = SubResource("RectangleShape2D_entrance")
@@ -347,7 +1194,7 @@ offset_bottom = 40.0
 color = Color(0.3, 0.25, 0.2, 0.5)
 
 [node name="MusicPuzzleArea" type="Area2D" parent="."]
-position = Vector2(765, 170)
+position = Vector2(1120, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MusicPuzzleArea"]
 shape = SubResource("RectangleShape2D_music")
@@ -360,26 +1207,245 @@ offset_bottom = 75.0
 color = Color(0.35, 0.25, 0.3, 0.4)
 
 [node name="BackstageArea" type="Area2D" parent="."]
-position = Vector2(1075, 150)
+position = Vector2(912, 2080)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackstageArea"]
 shape = SubResource("RectangleShape2D_backstage")
 
 [node name="BackstageVisual" type="ColorRect" parent="BackstageArea"]
-offset_left = -125.0
-offset_top = -90.0
-offset_right = 125.0
-offset_bottom = 90.0
+offset_left = -864.0
+offset_top = -320.0
+offset_right = 864.0
+offset_bottom = 320.0
 color = Color(0.3, 0.25, 0.2, 0.4)
 
+[node name="BasementStairsMarker" type="Marker2D" parent="."]
+position = Vector2(1056, 288)
+
+[node name="Floor1_BasementReturnMarker" type="Marker2D" parent="."]
+position = Vector2(1056, 352)
+
+[node name="BasementDoorTrigger" type="Area2D" parent="."]
+position = Vector2(1056, 288)
+collision_layer = 0
+collision_mask = 1
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BasementDoorTrigger"]
+shape = SubResource("RectangleShape2D_basement_door")
+
+[node name="BasementArrivalMarker" type="Marker2D" parent="."]
+position = Vector2(160, 3168)
+
+[node name="BasementReturnTrigger" type="Area2D" parent="."]
+position = Vector2(128, 3136)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BasementReturnTrigger"]
+shape = SubResource("RectangleShape2D_basement_return")
+
+[node name="BasementVisuals" type="Node2D" parent="."]
+position = Vector2(0, 3072)
+
+[node name="BasementBackground" type="ColorRect" parent="BasementVisuals"]
+z_index = -2
+offset_right = 1792.0
+offset_bottom = 1152.0
+color = Color(0.039216, 0.039216, 0.039216, 1)
+
+[node name="BasementTitleLabel" type="Label" parent="BasementVisuals"]
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 900.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 14
+text = "BASEMENT — EDM ROOM / BLACK LEDGER SERVER"
+
+[node name="BasementServiceStairs" type="ColorRect" parent="BasementVisuals"]
+offset_right = 256.0
+offset_bottom = 384.0
+color = Color(0.22, 0.22, 0.26, 1)
+
+[node name="ServiceStairsArrivalArrow" type="Line2D" parent="BasementVisuals"]
+width = 2.0
+default_color = Color(0.5, 0.55, 0.6, 0.65)
+points = PackedVector2Array(128, 32, 128, 96)
+
+[node name="BassRoomFloor" type="ColorRect" parent="BasementVisuals"]
+offset_left = 256.0
+offset_top = 256.0
+offset_right = 1536.0
+offset_bottom = 1024.0
+color = Color(0.05, 0.05, 0.07, 1)
+
+[node name="YordanoDJBooth" type="ColorRect" parent="BasementVisuals"]
+offset_left = 640.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 384.0
+color = Color(0.14, 0.14, 0.18, 1)
+
+[node name="YordanoBasementSilhouette" type="ColorRect" parent="BasementVisuals"]
+offset_left = 800.0
+offset_top = 224.0
+offset_right = 928.0
+offset_bottom = 352.0
+color = Color(0.06, 0.06, 0.08, 0.92)
+
+[node name="BlackLedgerServerRoom" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1152.0
+offset_top = 448.0
+offset_right = 1536.0
+offset_bottom = 832.0
+color = Color(0.08, 0.04, 0.06, 1)
+
+[node name="ServerRoomOutline" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1148.0
+offset_top = 444.0
+offset_right = 1540.0
+offset_bottom = 836.0
+color = Color(1, 0, 0, 0.35)
+
+[node name="ServerRackA" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1184.0
+offset_top = 512.0
+offset_right = 1248.0
+offset_bottom = 704.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="ServerRackB" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1264.0
+offset_top = 512.0
+offset_right = 1328.0
+offset_bottom = 704.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="ServerRackC" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1344.0
+offset_top = 512.0
+offset_right = 1408.0
+offset_bottom = 704.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="ServerRackD" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1424.0
+offset_top = 512.0
+offset_right = 1488.0
+offset_bottom = 704.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="ServerVaultDoor" type="ColorRect" parent="BasementVisuals"]
+offset_left = 1184.0
+offset_top = 576.0
+offset_right = 1312.0
+offset_bottom = 704.0
+color = Color(0.18, 0.12, 0.1, 1)
+
+[node name="VaultIndicatorRed" type="ColorRect" parent="BasementVisuals/ServerVaultDoor"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 40.0
+color = Color(0.9, 0.1, 0.1, 1)
+
+[node name="VaultIndicatorGreen" type="ColorRect" parent="BasementVisuals/ServerVaultDoor"]
+visible = false
+layout_mode = 0
+offset_left = 96.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 40.0
+color = Color(0.2, 0.85, 0.25, 1)
+
+[node name="MainLedgerTerminal" type="Label" parent="BasementVisuals"]
+visible = false
+offset_left = 1200.0
+offset_top = 720.0
+offset_right = 1500.0
+offset_bottom = 780.0
+theme_override_font_sizes/font_size = 11
+text = "STERLING BLACK LEDGER — ACCESS GRANTED"
+
+[node name="BasementEscapeCorridor" type="ColorRect" parent="BasementVisuals"]
+offset_left = 0.0
+offset_top = 896.0
+offset_right = 640.0
+offset_bottom = 1088.0
+color = Color(0.06, 0.06, 0.07, 1)
+
+[node name="CountdownLabel" type="Label" parent="BasementVisuals"]
+offset_left = 32.0
+offset_top = 928.0
+offset_right = 400.0
+offset_bottom = 968.0
+theme_override_font_sizes/font_size = 12
+text = "30 SECOND ESCAPE ROUTE"
+
+[node name="EscapeLadderLine" type="Line2D" parent="."]
+z_index = -1
+width = 2.0
+default_color = Color(0.75, 0.75, 0.82, 0.45)
+points = PackedVector2Array(160, 4128, 224, 1376)
+
+[node name="BlackLedgerShardPickup" type="Area2D" parent="."]
+position = Vector2(1312, 3776)
+collision_layer = 0
+collision_mask = 1
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackLedgerShardPickup"]
+shape = SubResource("RectangleShape2D_shard_pickup")
+
+[node name="ShardVisual" type="ColorRect" parent="BlackLedgerShardPickup"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.53, 0, 1, 0.9)
+
+[node name="ShardHalo" type="ColorRect" parent="BlackLedgerShardPickup"]
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+color = Color(0.53, 0, 1, 0.15)
+
+[node name="BlackLedgerKeycard" type="Area2D" parent="."]
+position = Vector2(1440, 3808)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackLedgerKeycard"]
+shape = SubResource("RectangleShape2D_prop")
+
+[node name="KeycardVisual" type="ColorRect" parent="BlackLedgerKeycard"]
+offset_left = -14.0
+offset_top = -10.0
+offset_right = 14.0
+offset_bottom = 10.0
+color = Color(1, 0.8, 0.4, 0.35)
+
+[node name="KeycardLabel" type="Label" parent="BlackLedgerKeycard"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 12
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EscapeZone" type="Area2D" parent="."]
-position = Vector2(1100, 600)
+position = Vector2(2432, 1408)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeZone"]
 shape = SubResource("RectangleShape2D_escape")
 
 [node name="YordanoTriggerZone" type="Area2D" parent="."]
-position = Vector2(1050, 520)
+position = Vector2(864, 3360)
+script = ExtResource("9_yord")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YordanoTriggerZone"]
 shape = SubResource("RectangleShape2D_yordano")
@@ -392,15 +1458,16 @@ offset_bottom = 75.0
 color = Color(0.4, 0.3, 0.2, 0.3)
 
 [node name="YordanoLabel" type="Label" parent="YordanoTriggerZone"]
-offset_left = -50.0
+offset_left = -56.0
 offset_top = -90.0
-offset_right = 50.0
+offset_right = 56.0
 offset_bottom = -60.0
-text = "YORDANO'S SPOT"
+theme_override_font_sizes/font_size = 10
+text = "[E] YORDANO"
 horizontal_alignment = 1
 
 [node name="LedgerZone" type="Area2D" parent="."]
-position = Vector2(1075, 120)
+position = Vector2(1536, 2480)
 visible = false
 monitoring = false
 
@@ -423,7 +1490,7 @@ text = "[LEDGER]"
 horizontal_alignment = 1
 
 [node name="Clue1" type="Area2D" parent="."]
-position = Vector2(115, 310)
+position = Vector2(1184, 736)
 script = ExtResource("2_note")
 note_title = "Crumpled Setlist Fragment"
 note_text = "...first set always opens with something personal. The boss says start with 'Naked Hug My Son' - gets the crowd vulnerable. End with the crowd-pleaser about that crime dog..."
@@ -448,7 +1515,7 @@ text = "[NOTE]"
 horizontal_alignment = 1
 
 [node name="Clue2" type="Area2D" parent="."]
-position = Vector2(420, 400)
+position = Vector2(1472, 704)
 script = ExtResource("2_note")
 note_title = "Stage Manager's Notes"
 note_text = "Song order for tonight:\n1. Open with intimacy\n2. Keep it light (bathroom humor always works)\n3. Kids love the Wee-Woo\n4. Dental blues for the working crowd\n5. Two Letters Away - the ballad\n6. Close with Raincoat for a Crime Dog - crowd goes wild"
@@ -473,7 +1540,7 @@ text = "[NOTE]"
 horizontal_alignment = 1
 
 [node name="PolaroidPickup" type="Area2D" parent="."]
-position = Vector2(180, 330)
+position = Vector2(2208, 736)
 script = ExtResource("6_polaroid")
 polaroid_id = "velvet_bar_polaroid"
 
@@ -506,7 +1573,7 @@ curve = SubResource("Curve2D_bouncer2")
 curve = SubResource("Curve2D_bouncer3")
 
 [node name="Bouncer1" type="CharacterBody2D" parent="."]
-position = Vector2(300, 350)
+position = Vector2(1056, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer1"]
 shape = SubResource("RectangleShape2D_stage")
@@ -528,7 +1595,7 @@ text = "BOUNCER"
 horizontal_alignment = 1
 
 [node name="Bouncer2" type="CharacterBody2D" parent="."]
-position = Vector2(650, 300)
+position = Vector2(1568, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer2"]
 shape = SubResource("RectangleShape2D_bar")
@@ -550,7 +1617,7 @@ text = "BOUNCER"
 horizontal_alignment = 1
 
 [node name="Bouncer3" type="CharacterBody2D" parent="."]
-position = Vector2(750, 150)
+position = Vector2(2016, 736)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncer3"]
 shape = SubResource("RectangleShape2D_puzzle")
@@ -572,7 +1639,7 @@ text = "BOUNCER"
 horizontal_alignment = 1
 
 [node name="BackstageBlocker" type="StaticBody2D" parent="."]
-position = Vector2(978, 150)
+position = Vector2(928, 1776)
 collision_layer = 2
 collision_mask = 0
 
@@ -600,27 +1667,27 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="WallTop" type="CollisionShape2D" parent="ClubPerimeter"]
-position = Vector2(600, 7)
+position = Vector2(1280, 7)
 shape = SubResource("RectangleShape2D_wall_top")
 
 [node name="WallBottom" type="CollisionShape2D" parent="ClubPerimeter"]
-position = Vector2(600, 793)
+position = Vector2(1280, 4217)
 shape = SubResource("RectangleShape2D_wall_top")
 
 [node name="WallLeft" type="CollisionShape2D" parent="ClubPerimeter"]
-position = Vector2(10, 400)
+position = Vector2(10, 2112)
 shape = SubResource("RectangleShape2D_wall_side")
 
 [node name="WallRight" type="CollisionShape2D" parent="ClubPerimeter"]
-position = Vector2(1190, 400)
+position = Vector2(2550, 2112)
 shape = SubResource("RectangleShape2D_wall_side")
 
 [node name="ShortcutSeal" type="CollisionShape2D" parent="ClubPerimeter"]
-position = Vector2(690, 278)
+position = Vector2(896, 704)
 shape = SubResource("RectangleShape2D_shortcut")
 
 [node name="StaffSouthGate" type="StaticBody2D" parent="."]
-position = Vector2(1057, 249)
+position = Vector2(912, 2410)
 collision_layer = 2
 collision_mask = 0
 
@@ -637,20 +1704,20 @@ text = "STAFF LOCK"
 horizontal_alignment = 1
 
 [node name="SocialFloorZone" type="Area2D" parent="."]
-position = Vector2(450, 425)
+position = Vector2(1568, 768)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SocialFloorZone"]
 shape = SubResource("RectangleShape2D_social_zone")
 
 [node name="StaffRouteZone" type="Area2D" parent="."]
-position = Vector2(1075, 265)
+position = Vector2(928, 312)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaffRouteZone"]
 shape = SubResource("RectangleShape2D_staff_route")
 
 [node name="LedgerDecoy" type="Area2D" parent="."]
 visible = false
-position = Vector2(1075, 118)
+position = Vector2(1600, 2480)
 script = ExtResource("5_decoy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LedgerDecoy"]
@@ -673,7 +1740,7 @@ text = "[LEDGER]"
 horizontal_alignment = 1
 
 [node name="StaffBadgePickup" type="Area2D" parent="."]
-position = Vector2(115, 292)
+position = Vector2(592, 904)
 script = ExtResource("4_velvet")
 prop_id = "staff_badge"
 
@@ -697,7 +1764,7 @@ text = "BADGE"
 horizontal_alignment = 1
 
 [node name="SoundBoardInteract" type="Area2D" parent="."]
-position = Vector2(678, 132)
+position = Vector2(1408, 2080)
 script = ExtResource("4_velvet")
 prop_id = "sound_board"
 
@@ -721,7 +1788,7 @@ text = "[MIXER]"
 horizontal_alignment = 1
 
 [node name="VIPPhoneInteract" type="Area2D" parent="."]
-position = Vector2(205, 288)
+position = Vector2(1536, 2560)
 script = ExtResource("4_velvet")
 prop_id = "vip_phone"
 
@@ -745,7 +1812,7 @@ text = "[PHONE]"
 horizontal_alignment = 1
 
 [node name="NightPoster" type="Area2D" parent="."]
-position = Vector2(465, 418)
+position = Vector2(992, 416)
 script = ExtResource("2_note")
 note_title = "Tonight's Headliner Poster"
 note_text = "Raincoat for a Crime Dog — presented by Sterling Syndicate Holdings. (Tiny print: 'Complimentary guilt.')"
@@ -770,7 +1837,7 @@ text = "[POSTER]"
 horizontal_alignment = 1
 
 [node name="VelvetShelfGoblinPickup" type="Area2D" parent="."]
-position = Vector2(704, 108)
+position = Vector2(640, 2144)
 script = ExtResource("6_polaroid")
 polaroid_id = "velvet_shelf_goblins"
 
@@ -794,7 +1861,7 @@ text = "[GOBLIN]"
 horizontal_alignment = 1
 
 [node name="HiddenBentleyStagePolaroid" type="Area2D" parent="."]
-position = Vector2(340, 260)
+position = Vector2(1088, 352)
 script = ExtResource("6_polaroid")
 polaroid_id = "jazz_club_hidden_bentley_stage"
 
@@ -818,7 +1885,7 @@ text = "[PHOTO]"
 horizontal_alignment = 1
 
 [node name="BathroomGlowGuyPickup" type="Area2D" parent="."]
-position = Vector2(120, 620)
+position = Vector2(1184, 1440)
 script = ExtResource("6_polaroid")
 polaroid_id = "velvet_bathroom_glow_guy"
 
@@ -826,10 +1893,10 @@ polaroid_id = "velvet_bathroom_glow_guy"
 shape = SubResource("RectangleShape2D_polaroid")
 
 [node name="GlowVisual" type="ColorRect" parent="BathroomGlowGuyPickup"]
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 color = Color(0.65, 1.0, 0.75, 1)
 
 [node name="GlowLabel" type="Label" parent="BathroomGlowGuyPickup"]
@@ -842,7 +1909,7 @@ text = "[GLOW]"
 horizontal_alignment = 1
 
 [node name="YordanoTinyIconPickup" type="Area2D" parent="."]
-position = Vector2(560, 440)
+position = Vector2(736, 3296)
 script = ExtResource("6_polaroid")
 polaroid_id = "yordano_tiny_icon_headphones"
 
@@ -866,7 +1933,7 @@ text = "[ICON]"
 horizontal_alignment = 1
 
 [node name="PoopBag_Bathroom" type="Area2D" parent="."]
-position = Vector2(135, 640)
+position = Vector2(1104, 1440)
 collision_layer = 0
 collision_mask = 1
 monitorable = false
@@ -876,7 +1943,7 @@ script = ExtResource("8_poop")
 shape = SubResource("RectangleShape2D_polaroid")
 
 [node name="PoopBag_CoatCheck" type="Area2D" parent="."]
-position = Vector2(160, 260)
+position = Vector2(560, 936)
 collision_layer = 0
 collision_mask = 1
 monitorable = false
@@ -886,7 +1953,7 @@ script = ExtResource("8_poop")
 shape = SubResource("RectangleShape2D_polaroid")
 
 [node name="PoopBag_Alley" type="Area2D" parent="."]
-position = Vector2(80, 720)
+position = Vector2(288, 1312)
 collision_layer = 0
 collision_mask = 1
 monitorable = false
@@ -896,86 +1963,90 @@ script = ExtResource("8_poop")
 shape = SubResource("RectangleShape2D_polaroid")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(200, 700)
+position = Vector2(192, 1408)
+
+[node name="Floor2PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(960, 1888)
 
 [node name="GoonSpawns" type="Node2D" parent="."]
 
 [node name="GoonSpawn1" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(450, 425)
+position = Vector2(1568, 768)
 
 [node name="GoonSpawn2" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(750, 375)
+position = Vector2(1632, 960)
 
 [node name="GoonSpawn3" type="Marker2D" parent="GoonSpawns"]
-position = Vector2(800, 200)
+position = Vector2(1120, 480)
 
 [node name="UpstairsFloor" type="ColorRect" parent="."]
 z_index = -1
-offset_left = 920.0
-offset_top = 18.0
-offset_right = 1180.0
-offset_bottom = 112.0
+offset_left = 864.0
+offset_top = 1728.0
+offset_right = 1048.0
+offset_bottom = 1808.0
 color = Color(0.12, 0.1, 0.16, 1)
 
 [node name="UpstairsLabel" type="Label" parent="UpstairsFloor"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 8.0
-offset_right = 220.0
-offset_bottom = 40.0
+offset_left = 16.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 48.0
 theme_override_font_sizes/font_size = 12
 text = "OWNER SUITE (2F)"
 horizontal_alignment = 1
 
 [node name="StairsWayfinding" type="Node2D" parent="."]
+position = Vector2(0, 1664)
 visible = false
 
 [node name="RigStairsFill" type="ColorRect" parent="StairsWayfinding"]
 z_index = 1
-offset_left = 852.0
+offset_left = 880.0
 offset_top = 108.0
-offset_right = 1020.0
+offset_right = 1048.0
 offset_bottom = 228.0
 color = Color(0.2, 0.16, 0.14, 0.55)
 
 [node name="StairTreadA" type="ColorRect" parent="StairsWayfinding"]
 z_index = 2
-offset_left = 862.0
-offset_top = 200.0
-offset_right = 918.0
-offset_bottom = 216.0
+offset_left = 890.0
+offset_top = 192.0
+offset_right = 946.0
+offset_bottom = 208.0
 color = Color(0.35, 0.28, 0.22, 1)
 
 [node name="StairTreadB" type="ColorRect" parent="StairsWayfinding"]
 z_index = 2
-offset_left = 882.0
-offset_top = 172.0
-offset_right = 948.0
-offset_bottom = 192.0
+offset_left = 910.0
+offset_top = 164.0
+offset_right = 976.0
+offset_bottom = 184.0
 color = Color(0.35, 0.28, 0.22, 1)
 
 [node name="StairTreadC" type="ColorRect" parent="StairsWayfinding"]
 z_index = 2
-offset_left = 908.0
-offset_top = 142.0
-offset_right = 988.0
-offset_bottom = 166.0
+offset_left = 936.0
+offset_top = 134.0
+offset_right = 1016.0
+offset_bottom = 158.0
 color = Color(0.35, 0.28, 0.22, 1)
 
 [node name="StairTreadD" type="ColorRect" parent="StairsWayfinding"]
 z_index = 2
-offset_left = 938.0
-offset_top = 112.0
-offset_right = 1018.0
-offset_bottom = 138.0
+offset_left = 966.0
+offset_top = 104.0
+offset_right = 1046.0
+offset_bottom = 130.0
 color = Color(0.35, 0.28, 0.22, 1)
 
 [node name="StairsHint" type="Label" parent="StairsWayfinding"]
 z_index = 3
 offset_left = 848.0
-offset_top = 78.0
+offset_top = 70.0
 offset_right = 1160.0
-offset_bottom = 108.0
+offset_bottom = 100.0
 theme_override_font_sizes/font_size = 11
 text = "↑ RIG STAIRS — Press E here to enter the owner suite (boss fight)"
 horizontal_alignment = 1
@@ -983,10 +2054,10 @@ horizontal_alignment = 1
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="ReturnFromOwnerSuite" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(920, 175)
+position = Vector2(928, 1888)
 
 [node name="OwnerSuiteStairs" type="Area2D" parent="."]
-position = Vector2(915, 165)
+position = Vector2(928, 1888)
 collision_layer = 0
 collision_mask = 1
 monitorable = false
@@ -1006,7 +2077,7 @@ text = "[E] OWNER SUITE"
 horizontal_alignment = 1
 
 [node name="StairsBlocker" type="StaticBody2D" parent="."]
-position = Vector2(888, 188)
+position = Vector2(928, 1910)
 collision_layer = 2
 collision_mask = 0
 
@@ -1021,16 +2092,16 @@ offset_bottom = 52.0
 color = Color(0.45, 0.35, 0.3, 1)
 
 [node name="LedgerBriefcaseMarker" type="Marker2D" parent="."]
-position = Vector2(1025, 62)
+position = Vector2(1536, 2480)
 
 [node name="AlarmSpawn1" type="Marker2D" parent="."]
-position = Vector2(280, 380)
+position = Vector2(2208, 704)
 
 [node name="AlarmSpawn2" type="Marker2D" parent="."]
-position = Vector2(820, 340)
+position = Vector2(1536, 1024)
 
 [node name="SafeSpotBar" type="Area2D" parent="."]
-position = Vector2(118, 268)
+position = Vector2(2240, 704)
 collision_layer = 0
 collision_mask = 1
 
@@ -1038,17 +2109,36 @@ collision_mask = 1
 shape = SubResource("RectangleShape2D_safe")
 
 [node name="SafeSpotDance" type="Area2D" parent="."]
-position = Vector2(420, 400)
+position = Vector2(1536, 1008)
 collision_layer = 0
 collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SafeSpotDance"]
 shape = SubResource("RectangleShape2D_safe")
 
+[node name="BartenderInteract" type="Area2D" parent="."]
+position = Vector2(2224, 704)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BartenderInteract"]
+disabled = true
+shape = SubResource("RectangleShape2D_prop")
+
+[node name="BartenderInteractLabel" type="Label" parent="BartenderInteract"]
+offset_left = -56.0
+offset_top = -40.0
+offset_right = 56.0
+offset_bottom = -14.0
+theme_override_font_sizes/font_size = 9
+text = "BARTENDER (hook)"
+horizontal_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(600, 400)
-zoom = Vector2(1.1, 1.1)
+position = Vector2(1280, 768)
+zoom = Vector2(0.7, 0.7)
 limit_left = 0
 limit_top = 0
-limit_right = 1200
-limit_bottom = 800
+limit_right = 2560
+limit_bottom = 4224

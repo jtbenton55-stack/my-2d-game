@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-05-01
+- **Velvet Paw Floor 2 (Phase 3):** `JazzClubMission.tscn` — `Floor2Visuals` backstage/VIP/sound-booth layout at `y=1664`; repositioned `BackstageArea`, rig stairs (`OwnerSuiteStairs`, `StairsWayfinding`, `UpstairsFloor`, `StairsBlocker`), balcony briefcase markers, mixer/VIP phone/goblin polaroid; `SoundBoothShipmentNote` readable manifest; `Floor2PlayerSpawn` marker for Phase 4; `StaffBadgePickup` + `StaffRouteZone` remain Floor 1 for pre-puzzle social stealth.
 - **Mission Bible implementation pass:** Save version `0.4.0-bible` — `mission_mutation_state`, `sterling_clues`, `poop_bag_count`, serialized `velvet_paw_resume_data`; heat API `get_mission_heat`, mutation rolls, Responsible Crime Lord intel bonus (3 poop bags/run); `CollectibleManager.has_polaroid`; legacy polaroid ID migrations (`rewrite_room_proof`, `conservatory_serenity`, `ellie_rescue`, `shadow_solo_pose`).
 - **Shared pickups:** `PoopBagPickup` + `scenes/collectibles/PoopBagPickup.tscn`, `spawn_poop_bags_at_global_positions` on `LevelBase`; `MissionMutationHelper`; contaminated manifest interact (`contaminated_evidence_pickup.gd`).
 - **Evidence board:** Sterling clue cards with `sterling_clue_id` persistence, auto-import of discovered clues, link line drawing.

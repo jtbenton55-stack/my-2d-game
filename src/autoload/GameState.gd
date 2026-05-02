@@ -45,6 +45,12 @@ var equipped_items: Array[String] = []
 ## Serialized when leaving JazzClubMission for the owner-suite boss arena; reapplied on return.
 var velvet_paw_resume_data: Dictionary = {}
 
+## Velvet Paw Jazz Club — multi-floor run state (basement + Phase 4 hostile / stealth).
+var velvet_paw_club_hostile: bool = false
+var velvet_paw_basement_shard_collected: bool = false
+var velvet_paw_basement_keycard_collected: bool = false
+var velvet_paw_stealth_run_broken: bool = false
+
 ## Mission Bible: heat is derived from failed_attempts (capped); mutations are rolled per mission and saved.
 var mission_mutation_state: Dictionary = {}
 
@@ -202,6 +208,10 @@ func reset_for_new_game(emit_change = true) -> void:
 	evidence_board_data = {}
 	equipped_items = []
 	velvet_paw_resume_data.clear()
+	velvet_paw_club_hostile = false
+	velvet_paw_basement_shard_collected = false
+	velvet_paw_basement_keycard_collected = false
+	velvet_paw_stealth_run_broken = false
 	mission_mutation_state.clear()
 	sterling_clues.clear()
 	poop_bag_count = 0
@@ -227,6 +237,11 @@ func complete_mission(mission_id = "") -> Dictionary:
 		mission_id = "test_mission"
 	is_in_mission = false
 	current_mission_id = ""
+	if mission_id == "velvet_paw_jazz_club":
+		velvet_paw_club_hostile = false
+		velvet_paw_basement_shard_collected = false
+		velvet_paw_basement_keycard_collected = false
+		velvet_paw_stealth_run_broken = false
 	if not completed_missions.has(mission_id):
 		completed_missions.append(mission_id)
 	var rewards := _grant_success_rewards(mission_id)
@@ -244,6 +259,11 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		mission_id = "test_mission"
 	is_in_mission = false
 	current_mission_id = ""
+	if mission_id == "velvet_paw_jazz_club":
+		velvet_paw_club_hostile = false
+		velvet_paw_basement_shard_collected = false
+		velvet_paw_basement_keycard_collected = false
+		velvet_paw_stealth_run_broken = false
 	var attempt_count := int(failed_attempts.get(mission_id, 0)) + 1
 	failed_attempts[mission_id] = attempt_count
 	intel_points += 1
@@ -499,6 +519,10 @@ func to_dict() -> Dictionary:
 		"evidence_board_data": evidence_board_data,
 		"equipped_items": equipped_items,
 		"velvet_paw_resume_data": velvet_paw_resume_data,
+		"velvet_paw_club_hostile": velvet_paw_club_hostile,
+		"velvet_paw_basement_shard_collected": velvet_paw_basement_shard_collected,
+		"velvet_paw_basement_keycard_collected": velvet_paw_basement_keycard_collected,
+		"velvet_paw_stealth_run_broken": velvet_paw_stealth_run_broken,
 		"mission_mutation_state": mission_mutation_state,
 		"sterling_clues": sterling_clues,
 		"poop_bag_count": poop_bag_count,
@@ -531,6 +555,10 @@ func from_dict(data: Dictionary) -> void:
 	evidence_board_data = Dictionary(data.get("evidence_board_data", {}))
 	equipped_items = _as_string_array(data.get("equipped_items", []))
 	velvet_paw_resume_data = Dictionary(data.get("velvet_paw_resume_data", {}))
+	velvet_paw_club_hostile = bool(data.get("velvet_paw_club_hostile", false))
+	velvet_paw_basement_shard_collected = bool(data.get("velvet_paw_basement_shard_collected", false))
+	velvet_paw_basement_keycard_collected = bool(data.get("velvet_paw_basement_keycard_collected", false))
+	velvet_paw_stealth_run_broken = bool(data.get("velvet_paw_stealth_run_broken", false))
 	mission_mutation_state = Dictionary(data.get("mission_mutation_state", {}))
 	sterling_clues = Dictionary(data.get("sterling_clues", {}))
 	poop_bag_count = int(data.get("poop_bag_count", 0))

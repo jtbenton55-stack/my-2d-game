@@ -38,7 +38,7 @@ collision_mask = 1
 shape = SubResource("CircleShape2D_goon2")
 
 [node name="VisionCircle" type="Polygon2D" parent="VisionArea"]
-polygon = PackedVector2Array([Vector2(0, 0), Vector2(100, -60), Vector2(150, 0), Vector2(100, 60)])
+polygon = PackedVector2Array(0, 0, 100, -60, 150, 0, 100, 60)
 color = Color(1, 0.2, 0.2, 0.15)
 
 [node name="AttackArea" type="Area2D" parent="."]
@@ -51,9 +51,9 @@ collision_mask = 1
 shape = SubResource("CircleShape2D_goon3")
 
 [node name="PlaceholderBody" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([Vector2(-16, -32), Vector2(16, -32), Vector2(16, 0), Vector2(-16, 0)])
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 0, -16, 0)
 color = Color(0.6, 0.2, 0.2, 1.0)
 
 [node name="PlaceholderHead" type="Polygon2D" parent="."]
-polygon = PackedVector2Array([Vector2(-12, -40), Vector2(12, -40), Vector2(12, -32), Vector2(-12, -32)])
+polygon = PackedVector2Array(-12, -40, 12, -40, 12, -32, -12, -32)
 color = Color(0.5, 0.15, 0.15, 1.0)
