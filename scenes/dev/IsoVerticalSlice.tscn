@@ -1,42 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://d7iso_vertical_slice"]
+[gd_scene format=3 uid="uid://bv4afmr2ued42"]
 
-[ext_resource type="Script" path="res://src/levels/IsoVerticalSlice.gd" id="1_iso"]
+[ext_resource type="Script" uid="uid://c1fmt4cqp8td4" path="res://src/levels/IsoVerticalSlice.gd" id="1_iso"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(96, 96)
 
-[node name="IsoVerticalSlice" type="Node2D"]
+[node name="IsoVerticalSlice" type="Node2D" unique_id=1116099179]
 script = ExtResource("1_iso")
 
-[node name="WorldRoot" type="Node2D" parent="."]
+[node name="WorldRoot" type="Node2D" parent="." unique_id=137788388]
 y_sort_enabled = true
 
-[node name="GroundLayer" type="TileMapLayer" parent="WorldRoot"]
+[node name="GroundLayer" type="TileMapLayer" parent="WorldRoot" unique_id=484049258]
 y_sort_enabled = true
 
-[node name="DetailLayer" type="TileMapLayer" parent="WorldRoot"]
+[node name="DetailLayer" type="TileMapLayer" parent="WorldRoot" unique_id=200154436]
 y_sort_enabled = true
 
-[node name="WallLayer" type="TileMapLayer" parent="WorldRoot"]
+[node name="WallLayer" type="TileMapLayer" parent="WorldRoot" unique_id=2117281030]
 y_sort_enabled = true
 
-[node name="PropLayer" type="TileMapLayer" parent="WorldRoot"]
+[node name="PropLayer" type="TileMapLayer" parent="WorldRoot" unique_id=85315028]
 y_sort_enabled = true
 
-[node name="EntityRoot" type="Node2D" parent="WorldRoot"]
+[node name="EntityRoot" type="Node2D" parent="WorldRoot" unique_id=369114401]
 y_sort_enabled = true
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1933085290]
 
-[node name="ExitZone" type="Area2D" parent="."]
+[node name="ExitZone" type="Area2D" parent="." unique_id=111938759]
 collision_layer = 0
-collision_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1423291441]
 shape = SubResource("RectangleShape2D_exit")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1, 1)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=751038256]
 limit_left = -1200
 limit_top = -900
 limit_right = 1200

@@ -1,0 +1,29 @@
+[gd_resource type="TileSet" format=3 uid="uid://df8prcmmv8v7g"]
+
+[ext_resource type="Texture2D" uid="uid://bush64sx1drk6" path="res://assets/tilesets/iso_vertical_slice/processed/cyberpunk_iso_atlas.png" id="1_tex"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cyber"]
+texture = ExtResource("1_tex")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 40, 52, 40, 52, 58, 12, 58)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 40, 52, 40, 52, 58, 12, 58)
+5:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(22, 46, 42, 46, 42, 58, 22, 58)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(18, 44, 46, 44, 46, 58, 18, 58)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(20, 46, 44, 46, 44, 58, 20, 58)
+3:1/0 = 0
+4:1/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+physics_layer_0/collision_layer = 4
+sources/0 = SubResource("TileSetAtlasSource_cyber")
