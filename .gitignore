@@ -16,3 +16,6 @@ obj/
 
 # Agent / debug session NDJSON logs (workspace root)
 debug-*.log
+
+# Ephemeral Godot Runtime Bridge / tooling output (logs, screenshots; may contain machine-specific GPU/driver noise)
+debug/

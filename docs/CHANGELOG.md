@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2026-05-02
+- **Repo hygiene:** Ignore `debug/` (GRB launch logs, screenshots); removed accidentally committed artifacts from version control. Root-level `debug-*.log` ignore unchanged.
+
 - **Isometric dev slice (isolated):** `scenes/dev/IsoVerticalSlice.tscn` + `IsoVerticalSlice.gd` — standalone `TileMapLayer` stack under `WorldRoot` (`GroundLayer`, `DetailLayer`, `WallLayer`, `PropLayer`, `EntityRoot`) with `y_sort_enabled`; runtime tile paint from temporary `assets/tilesets/iso_vertical_slice/` placeholder atlas + `IsoVerticalSlice.tres`; `GameState.mission_catalog` entry `iso_vertical_slice` (**not** in default `available_missions`). `player.tscn` **collision_mask** `3` → `7` so **layer 3 (Walls)** collides with `CharacterBody2D` (required for wall tiles without `Player.gd` changes). See `docs/ISOMETRIC_LEVEL_SPEC.md`.
 
 ## 2026-05-01
