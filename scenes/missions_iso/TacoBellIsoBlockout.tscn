@@ -20,6 +20,8 @@ y_sort_enabled = true
 
 [node name="BoundaryColliders" type="Node2D" parent="GameplayRoot" unique_id=276704254]
 
+[node name="ZoneLabels" type="Node2D" parent="GameplayRoot" unique_id=945232289]
+
 [node name="ObjectiveAreas" type="Node2D" parent="GameplayRoot" unique_id=648464279]
 
 [node name="ExitAreas" type="Node2D" parent="GameplayRoot" unique_id=724187960]

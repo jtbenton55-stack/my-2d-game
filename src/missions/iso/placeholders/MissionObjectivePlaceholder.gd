@@ -5,5 +5,7 @@ extends "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd"
 
 
 func _complete(player: Node = null) -> void:
+	if once_only and completed:
+		return
 	super._complete(player)
 	EventBus.objective_updated.emit(objective_update if objective_update != "" else display_name + " complete.")

@@ -12,89 +12,223 @@
 [ext_resource type="Script" uid="uid://dpevwb0kw53d" path="res://src/missions/definitions/MissionRouteDefinition.gd" id="10_route"]
 [ext_resource type="Script" uid="uid://2x8ark2eu03q" path="res://src/missions/definitions/MissionGateDefinition.gd" id="11_gate"]
 
-[sub_resource type="Resource" id="Col_polaroid"]
+[sub_resource type="Resource" id="Col_hidden_polaroid"]
 script = ExtResource("4_col")
-collectible_id = "taco_bell_polaroid"
-display_name = "Taco Bell Drop Polaroid"
+collectible_id = "taco_bell_midnight_market_rain"
+display_name = "Hidden Polaroid: Midnight Market Rain"
 mission_id = "taco_bell_drop"
-zone_id = "garage"
-marker_cell = Vector2i(12, 2)
-completion_text = "Hidden Polaroid placeholder collected."
+zone_id = "midnight_market_street"
+marker_cell = Vector2i(-11, 3)
+completion_text = "Hidden Polaroid placeholder collected: Midnight Market Rain."
+
+[sub_resource type="Resource" id="Col_perfect_polaroid"]
+script = ExtResource("4_col")
+collectible_id = "taco_bell_perfect_ambush"
+display_name = "Perfect Polaroid Placeholder: Parking Garage Ambush"
+mission_id = "taco_bell_drop"
+zone_id = "garage_floor_2_ambush"
+marker_cell = Vector2i(23, 2)
+completion_text = "Perfect/stylish Polaroid placeholder collected: Parking Garage Ambush."
 
 [sub_resource type="Resource" id="Col_glow"]
 script = ExtResource("4_col")
 collectible_id = "taco_bell_glow_guys"
-display_name = "Glow Guy Placeholder"
+display_name = "Glow Guy Behind Cone"
 type = 1
 mission_id = "taco_bell_drop"
-zone_id = "stealth_yard"
-marker_cell = Vector2i(3, 3)
-completion_text = "Glow Guy placeholder collected."
+zone_id = "garage_office"
+marker_cell = Vector2i(21, -2)
+completion_text = "Glow Guy behind cone collected."
 
 [sub_resource type="Resource" id="Col_icon"]
 script = ExtResource("4_col")
 collectible_id = "louis_tiny_icon_delivery_bag"
-display_name = "Louis Tiny Icon Placeholder"
+display_name = "Tiny Icon: Louis With Delivery Bag"
 type = 3
 mission_id = "taco_bell_drop"
-zone_id = "midnight_market"
-marker_cell = Vector2i(-4, 2)
-completion_text = "Tiny Icon placeholder collected."
+zone_id = "city_hub_entrance"
+marker_cell = Vector2i(-16, 3)
+completion_text = "Tiny Icon placeholder collected: Louis with delivery bag."
+
+[sub_resource type="Resource" id="Col_keycard"]
+script = ExtResource("4_col")
+collectible_id = "garage_staff_keycard"
+display_name = "Garage Staff Keycard"
+type = 7
+mission_id = "taco_bell_drop"
+zone_id = "parking_garage_floor_1"
+marker_cell = Vector2i(14, -8)
+completion_text = "Garage staff keycard acquired."
 
 [sub_resource type="Resource" id="Col_bag1"]
 script = ExtResource("4_col")
 collectible_id = "taco_bell_poop_bag_1"
-display_name = "Bentley Poop Bag 1"
+display_name = "Poop Bag 1: Dog Station"
 type = 5
 mission_id = "taco_bell_drop"
-zone_id = "midnight_market"
-marker_cell = Vector2i(-7, 3)
-completion_text = "+1 Bentley poop bag."
+zone_id = "dog_station_alley"
+marker_cell = Vector2i(-10, -6)
+completion_text = "+1 Bentley poop bag from the dog station."
 
 [sub_resource type="Resource" id="Col_bag2"]
 script = ExtResource("4_col")
 collectible_id = "taco_bell_poop_bag_2"
-display_name = "Bentley Poop Bag 2"
+display_name = "Poop Bag 2: Garage Pet Relief Bin"
 type = 5
 mission_id = "taco_bell_drop"
-zone_id = "stealth_yard"
-marker_cell = Vector2i(1, 3)
-completion_text = "+1 Bentley poop bag."
+zone_id = "parking_garage_floor_1"
+marker_cell = Vector2i(15, 3)
+completion_text = "+1 Bentley poop bag from the garage relief bin."
 
 [sub_resource type="Resource" id="Col_bag3"]
 script = ExtResource("4_col")
 collectible_id = "taco_bell_poop_bag_3"
-display_name = "Bentley Poop Bag 3"
+display_name = "Poop Bag 3: Lobby Trash Can Placeholder"
 type = 5
 mission_id = "taco_bell_drop"
-zone_id = "garage"
-marker_cell = Vector2i(9, 3)
-completion_text = "+1 Bentley poop bag."
+zone_id = "escape_return_to_louis"
+marker_cell = Vector2i(-17, 11)
+completion_text = "+1 Bentley poop bag from the luxury lobby trash can placeholder."
 
 [sub_resource type="Resource" id="Cut_intro"]
 script = ExtResource("8_cut")
-cutscene_id = "intro_louis"
-trigger_id = "meet_louis"
-objective_update = "Follow Bentley's scent trail."
+cutscene_id = "louis_opening_handoff"
+trigger_id = "talk_to_louis"
+objective_update = "Inspect the dropped sauce packets or receipt."
 lines = Array[Dictionary]([{
 "speaker": "Louis",
-"text": "Delivery routes are how Sterling moves secrets. Bentley can smell the fake bag."
+"text": "Tiny job, Parm. Bag went missing, Bentley went judgmental, and now Sterling's name is on the receipt."
+}])
+
+[sub_resource type="Resource" id="Cut_code"]
+script = ExtResource("8_cut")
+cutscene_id = "garage_office_code_beat"
+trigger_id = "route_manifest_half"
+objective_update = "Use the manifest logic at the garage office keypad."
+lines = Array[Dictionary]([{
+"speaker": "Parmida",
+"text": "Route two, drop one, bay seven, door four. 2174 unless Sterling rotated the code."
+}])
+
+[sub_resource type="Resource" id="Cut_bag"]
+script = ExtResource("8_cut")
+cutscene_id = "bag_recovery_reveal"
+trigger_id = "retrieve_delivery_bag"
+objective_update = "Recover the required clues, then return to Louis."
+lines = Array[Dictionary]([{
+"speaker": "Bentley",
+"text": "*low growl at the bag*"
+}, {
+"speaker": "Parmida",
+"text": "That's not lunch. That's a safehouse route."
+}])
+
+[sub_resource type="Resource" id="Cut_phone"]
+script = ExtResource("8_cut")
+cutscene_id = "louis_safehouse_phone_line"
+trigger_id = "story_louis_phone_line"
+objective_update = "Louis confirms the route connects to Sterling safehouses."
+lines = Array[Dictionary]([{
+"speaker": "Louis",
+"text": "(phone) That route is a safehouse chain. Delivery vans in, witnesses out."
+}])
+
+[sub_resource type="Resource" id="Cut_complete"]
+script = ExtResource("8_cut")
+cutscene_id = "mission_completion_beat"
+trigger_id = "escape_and_return_to_louis"
+objective_update = "Exit when ready."
+lines = Array[Dictionary]([{
+"speaker": "Louis",
+"text": "You found a conspiracy inside a takeout bag. That's noir, baby."
 }])
 
 [sub_resource type="Resource" id="Spawn_player"]
 script = ExtResource("9_spawn")
 spawn_id = "player_start"
 type = 0
-marker_cell = Vector2i(-7, 0)
-zone_id = "midnight_market"
+marker_cell = Vector2i(-20, 0)
+zone_id = "city_hub_entrance"
 
-[sub_resource type="Resource" id="Spawn_guard"]
+[sub_resource type="Resource" id="Spawn_guard_floor1"]
 script = ExtResource("9_spawn")
-spawn_id = "yard_guard_placeholder"
+spawn_id = "garage_floor_1_guard_placeholder"
 scene_path = "res://scenes/characters/guard.tscn"
-marker_cell = Vector2i(2, -3)
-zone_id = "stealth_yard"
-route_id = "yard_patrol"
+marker_cell = Vector2i(10, 2)
+zone_id = "parking_garage_floor_1"
+route_id = "cover_route"
+
+[sub_resource type="Resource" id="Spawn_guard_heat"]
+script = ExtResource("9_spawn")
+spawn_id = "heat_extra_guard_placeholder"
+type = 4
+marker_cell = Vector2i(25, 4)
+zone_id = "garage_floor_2_ambush"
+heat_min = 2
+
+[sub_resource type="Resource" id="Spawn_scent_a"]
+script = ExtResource("9_spawn")
+spawn_id = "scent_trash_area"
+type = 4
+marker_cell = Vector2i(-3, -6)
+zone_id = "fake_scent_trail_a_trash_area"
+
+[sub_resource type="Resource" id="Spawn_scent_b"]
+script = ExtResource("9_spawn")
+spawn_id = "scent_loading_dock"
+type = 4
+marker_cell = Vector2i(2, 5)
+zone_id = "fake_scent_trail_b_loading_dock"
+
+[sub_resource type="Resource" id="Spawn_scent_real"]
+script = ExtResource("9_spawn")
+spawn_id = "scent_parking_garage"
+type = 4
+marker_cell = Vector2i(3, 0)
+zone_id = "real_scent_trail_parking_garage"
+
+[sub_resource type="Resource" id="Spawn_cover"]
+script = ExtResource("9_spawn")
+spawn_id = "car_cover_route_placeholder"
+type = 4
+marker_cell = Vector2i(11, 2)
+zone_id = "parking_garage_floor_1"
+
+[sub_resource type="Resource" id="Spawn_vent"]
+script = ExtResource("9_spawn")
+spawn_id = "bentley_vent_route_placeholder"
+type = 4
+marker_cell = Vector2i(15, -4)
+zone_id = "parking_garage_floor_1"
+
+[sub_resource type="Resource" id="Spawn_ambush"]
+script = ExtResource("9_spawn")
+spawn_id = "garage_floor_2_ambush_marker"
+type = 4
+marker_cell = Vector2i(22, 4)
+zone_id = "garage_floor_2_ambush"
+
+[sub_resource type="Resource" id="Spawn_camera"]
+script = ExtResource("9_spawn")
+spawn_id = "heat_camera_placeholder"
+type = 4
+marker_cell = Vector2i(22, -6)
+zone_id = "garage_office"
+heat_min = 2
+
+[sub_resource type="Resource" id="Spawn_alarm"]
+script = ExtResource("9_spawn")
+spawn_id = "alarm_zone_placeholder"
+type = 4
+marker_cell = Vector2i(14, 3)
+zone_id = "parking_garage_floor_1"
+
+[sub_resource type="Resource" id="Spawn_phone"]
+script = ExtResource("9_spawn")
+spawn_id = "story_louis_phone_line"
+type = 4
+marker_cell = Vector2i(31, 4)
+zone_id = "bag_recovery_room"
 
 [sub_resource type="Resource" id="Clue_delivery"]
 script = ExtResource("5_clue")
@@ -102,146 +236,443 @@ clue_id = "sterling_delivery_token"
 display_name = "Sterling Delivery Token"
 mission_found = "taco_bell_drop"
 category = "Logistics"
-description = "Secret packets moved through ordinary delivery routes."
-connects_to = "Sterling Tower Loading Dock"
+description = "Secret packets move through ordinary delivery routes."
+connects_to = "Sterling Tower delivery entrance"
 unlocks_or_modifies = "Delivery entrance options"
-final_tower_relevance = "Supports the final tower delivery entrance route."
-zone_id = "garage"
-marker_cell = Vector2i(11, -2)
+final_tower_relevance = "Supports the final tower logistics route."
+zone_id = "bag_recovery_room"
+marker_cell = Vector2i(29, 2)
+
+[sub_resource type="Resource" id="Clue_stamp"]
+script = ExtResource("5_clue")
+clue_id = "velvet_paw_stamp"
+display_name = "Velvet Paw Stamp"
+mission_found = "taco_bell_drop"
+category = "Network"
+description = "Black envelope stamp ties the delivery drop to the Velvet Paw."
+connects_to = "velvet_paw_jazz_club"
+unlocks_or_modifies = "Velvet Paw follow-up clue chain"
+final_tower_relevance = "Shows Sterling routes pass through nightlife couriers."
+zone_id = "bag_recovery_room"
+marker_cell = Vector2i(31, 2)
+
+[sub_resource type="Resource" id="Clue_manifest"]
+script = ExtResource("5_clue")
+clue_id = "route_manifest_half"
+display_name = "Route Manifest Half"
+mission_found = "taco_bell_drop"
+category = "Code"
+description = "Default code logic: route 2, drop 1, bay 7, office door 4. Together: 2174."
+connects_to = "Sterling safehouse logistics"
+unlocks_or_modifies = "Garage office code clue"
+final_tower_relevance = "Safehouse route numbers become tower logistics advantages."
+zone_id = "garage_office"
+marker_cell = Vector2i(20, -5)
+
+[sub_resource type="Resource" id="Clue_sauce"]
+script = ExtResource("5_clue")
+clue_id = "sauce_packet_vp"
+display_name = "Sauce Packet With Initials V.P."
+mission_found = "taco_bell_drop"
+category = "Hint"
+description = "Foil packet initials V.P. point the next investigation toward the Velvet Paw."
+connects_to = "velvet_paw_jazz_club"
+unlocks_or_modifies = "Velvet Paw unlock connection through the envelope stamp"
+final_tower_relevance = "Confirms the delivery clue chain starts before the tower."
+zone_id = "midnight_market_street"
+marker_cell = Vector2i(-9, 2)
+
+[sub_resource type="Resource" id="Mut_scent"]
+script = ExtResource("7_mut")
+mutation_id = "real_scent_trail"
+options = Array[String](["trash_area", "loading_dock", "parking_garage"])
+target_id = "follow_correct_bentley_scent_trail"
+hint_text = "Real scent trail can move among the three visible trail choices."
 
 [sub_resource type="Resource" id="Mut_code"]
 script = ExtResource("7_mut")
-mutation_id = "alternate_code"
+mutation_id = "garage_code"
 type = 0
-options = Array[String](["2174", "4312", "9021", "7429"])
-target_id = "garage_keypad"
-hint_text = "Louis texts a safer keypad hint after repeated failures."
+options = Array[String](["2174", "4312", "9021"])
+target_id = "garage_office_code"
+hint_text = "Louis texts a stronger garage-code hint after repeated failures."
 
 [sub_resource type="Resource" id="Mut_collectible"]
 script = ExtResource("7_mut")
-mutation_id = "alternate_collectible_location"
+mutation_id = "hidden_collectible_slot"
 type = 2
 heat_min = 1
 failed_attempt_min = 1
-options = Array[String](["market_slot", "yard_slot", "garage_slot"])
-target_id = "taco_bell_glow_guys"
-hint_text = "Glow Guy can move between placeholder slots."
+options = Array[String](["market_rain", "garage_stairs", "exit_lobby"])
+target_id = "taco_bell_midnight_market_rain"
+hint_text = "Hidden collectible can move among three placeholder spots."
+
+[sub_resource type="Resource" id="Mut_heat_guard"]
+script = ExtResource("7_mut")
+mutation_id = "heat_extra_guard_camera"
+type = 4
+heat_min = 2
+options = Array[String](["extra_guard", "extra_camera", "both"])
+target_id = "heat_placeholder"
+hint_text = "Higher heat adds guard/camera placeholders."
+
+[sub_resource type="Resource" id="Mut_louis_hint"]
+script = ExtResource("7_mut")
+mutation_id = "louis_failure_hint"
+type = 5
+failed_attempt_min = 1
+options = Array[String](["route_hint", "scent_hint", "code_hint"])
+target_id = "louis"
+hint_text = "Louis gives stronger hints after repeated failure."
+
+[sub_resource type="Resource" id="Obj_optional_dog_station"]
+script = ExtResource("3_obj")
+objective_id = "find_hidden_dog_station_poop_bag_pack"
+display_text = "Optional: find the hidden dog station poop bag pack."
+zone_id = "dog_station_alley"
+marker_cell = Vector2i(-11, -6)
+required = false
+completion_text = "Dog station supplies logged."
+
+[sub_resource type="Resource" id="Obj_optional_alarm"]
+script = ExtResource("3_obj")
+objective_id = "complete_without_triggering_garage_alarm"
+display_text = "Optional: complete without triggering garage alarm."
+zone_id = "parking_garage_floor_1"
+marker_cell = Vector2i(14, 3)
+required = false
+completion_text = "Garage alarm avoidance placeholder logged."
 
 [sub_resource type="Resource" id="Obj_optional_decoy"]
 script = ExtResource("3_obj")
-objective_id = "inspect_decoy_bag"
-display_text = "Optional: inspect the decoy bag."
-zone_id = "stealth_yard"
-marker_cell = Vector2i(4, 2)
+objective_id = "recover_decoy_bag_extra_intel"
+display_text = "Optional: recover the decoy bag for extra intel."
+zone_id = "fake_scent_trail_b_loading_dock"
+marker_cell = Vector2i(3, 6)
 required = false
-completion_text = "Decoy logged for later mission polish."
+completion_text = "Decoy bag documented for extra intel."
 
-[sub_resource type="Resource" id="Obj_meet"]
+[sub_resource type="Resource" id="Obj_optional_glow"]
 script = ExtResource("3_obj")
-objective_id = "meet_louis"
-display_text = "Meet Louis and confirm the bag route."
-zone_id = "midnight_market"
-marker_cell = Vector2i(-6, 0)
-completion_text = "Louis points Bentley toward the real delivery trail."
+objective_id = "find_glow_guy_under_garage_stairs"
+display_text = "Optional: find the Glow Guy under the garage stairs."
+zone_id = "garage_office"
+marker_cell = Vector2i(22, -2)
+required = false
+completion_text = "Glow Guy stairs stash logged."
+
+[sub_resource type="Resource" id="Obj_optional_polaroid"]
+script = ExtResource("3_obj")
+objective_id = "find_hidden_polaroid"
+display_text = "Optional: find the hidden Polaroid."
+zone_id = "midnight_market_street"
+marker_cell = Vector2i(-12, 3)
+required = false
+completion_text = "Hidden Polaroid route logged."
+
+[sub_resource type="Resource" id="Obj_optional_three_bags"]
+script = ExtResource("3_obj")
+objective_id = "reach_exit_with_all_three_poop_bags"
+display_text = "Optional: reach the exit with all three poop bags."
+zone_id = "escape_return_to_louis"
+marker_cell = Vector2i(-15, 10)
+required = false
+completion_text = "Responsible Crime Lord route logged."
+
+[sub_resource type="Resource" id="Obj_optional_no_wrong_trail"]
+script = ExtResource("3_obj")
+objective_id = "complete_without_wrong_scent_trail"
+display_text = "Optional: complete without using the wrong scent trail."
+zone_id = "real_scent_trail_parking_garage"
+marker_cell = Vector2i(5, 1)
+required = false
+completion_text = "Clean scent read logged."
+
+[sub_resource type="Resource" id="Obj_talk"]
+script = ExtResource("3_obj")
+objective_id = "talk_to_louis"
+display_text = "Talk to Louis at the handoff."
+zone_id = "city_hub_entrance"
+marker_cell = Vector2i(-18, 0)
+completion_text = "Louis: a small delivery problem just became your problem."
+
+[sub_resource type="Resource" id="Obj_inspect"]
+script = ExtResource("3_obj")
+objective_id = "inspect_sauce_packets_or_receipt"
+display_text = "Inspect the dropped sauce packets or receipt."
+zone_id = "midnight_market_street"
+marker_cell = Vector2i(-10, 0)
+sequence_index = 1
+completion_text = "Receipt and sauce packet point toward route 2174 and the initials V.P."
 
 [sub_resource type="Resource" id="Obj_scent"]
 script = ExtResource("3_obj")
-objective_id = "follow_scent_trail"
-display_text = "Use Bentley's scent-trail placeholder to identify the real route."
-zone_id = "stealth_yard"
-marker_cell = Vector2i(2, -1)
-sequence_index = 1
-completion_text = "The green trail is the real route in this blockout."
-gate_id = "garage_keypad"
+objective_id = "follow_correct_bentley_scent_trail"
+display_text = "Follow the correct Bentley scent trail."
+zone_id = "real_scent_trail_parking_garage"
+marker_cell = Vector2i(3, 0)
+sequence_index = 2
+completion_text = "Bentley locks onto the Sterling chemical scent."
+
+[sub_resource type="Resource" id="Obj_enter_garage"]
+script = ExtResource("3_obj")
+objective_id = "enter_parking_garage"
+display_text = "Enter the parking garage."
+zone_id = "parking_garage_floor_1"
+marker_cell = Vector2i(9, 0)
+sequence_index = 3
+completion_text = "Parking garage entered. Cars make decent cover."
+
+[sub_resource type="Resource" id="Obj_keycard"]
+script = ExtResource("3_obj")
+objective_id = "get_garage_staff_keycard_or_bypass"
+display_text = "Get the garage staff keycard or use a bypass route."
+zone_id = "security_booth_keycard_room"
+marker_cell = Vector2i(12, -7)
+sequence_index = 4
+completion_text = "Garage staff keycard/bypass route confirmed."
+
+[sub_resource type="Resource" id="Obj_code"]
+script = ExtResource("3_obj")
+objective_id = "solve_garage_office_code"
+display_text = "Solve or bypass the garage office code."
+zone_id = "garage_office"
+marker_cell = Vector2i(21, -3)
+sequence_index = 5
+completion_text = "Garage office code accepted. The bag route opens."
 
 [sub_resource type="Resource" id="Obj_bag"]
 script = ExtResource("3_obj")
-objective_id = "recover_bag"
-display_text = "Recover Louis's bag from the garage."
-zone_id = "garage"
-marker_cell = Vector2i(10, 0)
-sequence_index = 2
-completion_text = "Bag recovered. Get to the exit."
+objective_id = "retrieve_delivery_bag"
+display_text = "Retrieve the delivery bag."
+zone_id = "bag_recovery_room"
+marker_cell = Vector2i(30, 3)
+sequence_index = 6
+completion_text = "Bag recovered. This job is bigger than tacos."
 
-[sub_resource type="Resource" id="Gate_garage"]
+[sub_resource type="Resource" id="Obj_escape"]
+script = ExtResource("3_obj")
+objective_id = "escape_and_return_to_louis"
+display_text = "Escape and return to Louis."
+zone_id = "escape_return_to_louis"
+marker_cell = Vector2i(-16, 10)
+sequence_index = 7
+completion_text = "Returned to Louis. Finish at the exit."
+
+[sub_resource type="Resource" id="Gate_office_code"]
 script = ExtResource("11_gate")
-gate_id = "garage_keypad"
-display_name = "Garage Keypad"
-marker_cell = Vector2i(6, 0)
-zone_id = "stealth_yard"
-locked_text = "Garage keypad placeholder: find the route code."
-unlocked_text = "Garage keypad placeholder solved."
+gate_id = "garage_office_code"
+display_name = "Garage Office Keypad"
+required_item_id = "route_manifest_half"
+required_objective_ids = Array[String](["get_garage_staff_keycard_or_bypass"])
+marker_cell = Vector2i(21, -3)
+zone_id = "garage_office"
+locked_text = "Garage keypad locked: find the route manifest logic or use the staff keycard bypass."
+unlocked_text = "Garage office code accepted."
+
+[sub_resource type="Resource" id="Gate_vent"]
+script = ExtResource("11_gate")
+gate_id = "bentley_vent_route"
+display_name = "Bentley Vent Route Placeholder"
+type = 4
+marker_cell = Vector2i(15, -4)
+zone_id = "parking_garage_floor_1"
+locked_text = "Bentley vent route is a visible placeholder for future traversal."
+unlocked_text = "Bentley vent bypass placeholder acknowledged."
+
+[sub_resource type="Resource" id="Gate_louis_shortcut"]
+script = ExtResource("11_gate")
+gate_id = "louis_delivery_route_future_shortcut"
+display_name = "Louis Delivery Route Future Shortcut"
+type = 4
+marker_cell = Vector2i(9, -4)
+zone_id = "parking_garage_floor_1"
+locked_text = "Future shortcut placeholder: reward card will make this route real later."
+unlocked_text = "Louis delivery shortcut placeholder acknowledged."
 
 [sub_resource type="Resource" id="Route_main"]
 script = ExtResource("10_route")
 route_id = "main_delivery_route"
-display_name = "Main Delivery Route"
-zone_ids = Array[String](["midnight_market", "stealth_yard", "garage"])
-required_gate_ids = Array[String](["garage_keypad"])
-notes = "Blockout route proves spawn-to-objectives-to-exit."
+display_name = "Louis Delivery Route"
+zone_ids = Array[String](["city_hub_entrance", "midnight_market_street", "dog_station_alley", "delivery_alley", "real_scent_trail_parking_garage", "parking_garage_floor_1", "security_booth_keycard_room", "garage_office", "garage_floor_2_ambush", "bag_recovery_room", "south_return_drop", "south_return_corridor", "escape_return_to_louis"])
+required_gate_ids = Array[String](["garage_office_code"])
+notes = "Gold-standard Taco Bell iso blockout route: left-to-right tutorial, visible fake trails, garage code, bag reveal, return to Louis."
 
 [sub_resource type="Resource" id="Reward_louis"]
 script = ExtResource("6_reward")
 reward_id = "louis_delivery_route"
 display_name = "Louis Delivery Route"
 mission_id = "taco_bell_drop"
-notes = "Matches current GameState mission_catalog."
+notes = "Matches current GameState mission_catalog reward card."
+
+[sub_resource type="Resource" id="Zone_start"]
+script = ExtResource("2_zone")
+zone_id = "city_hub_entrance"
+display_name = "City Hub Entrance / Start"
+description = "Start pad and Louis handoff space."
+origin = Vector2i(-22, -4)
+size = Vector2i(8, 9)
+route_tags = Array[String](["start", "handoff"])
+objective_ids = Array[String](["talk_to_louis"])
 
 [sub_resource type="Resource" id="Zone_market"]
 script = ExtResource("2_zone")
-zone_id = "midnight_market"
-display_name = "Midnight Market"
-description = "Street logistics entry zone for the delivery-route heist."
-origin = Vector2i(-9, -5)
-size = Vector2i(8, 10)
-route_tags = Array[String](["main", "stealth"])
-objective_ids = Array[String](["meet_louis"])
+zone_id = "midnight_market_street"
+display_name = "Midnight Market Street"
+description = "Noir street read with sauce packets and rain-polaroid hiding spots."
+origin = Vector2i(-14, -3)
+size = Vector2i(8, 7)
+route_tags = Array[String](["main", "investigation"])
+objective_ids = Array[String](["inspect_sauce_packets_or_receipt"])
 
-[sub_resource type="Resource" id="Zone_yard"]
+[sub_resource type="Resource" id="Zone_dog_station"]
 script = ExtResource("2_zone")
-zone_id = "stealth_yard"
-display_name = "Stealth Yard"
-description = "Guarded yard with Bentley scent-trail placeholders."
-origin = Vector2i(-1, -5)
-size = Vector2i(8, 10)
-route_tags = Array[String](["stealth", "scent"])
-objective_ids = Array[String](["follow_scent_trail"])
-gate_ids = Array[String](["garage_keypad"])
+zone_id = "dog_station_alley"
+display_name = "Dog Station Alley"
+description = "Dog station, poop bag pack, and first stealth bypass clue."
+origin = Vector2i(-12, -8)
+size = Vector2i(5, 5)
+route_tags = Array[String](["optional", "bentley"])
 
-[sub_resource type="Resource" id="Zone_garage"]
+[sub_resource type="Resource" id="Zone_delivery"]
 script = ExtResource("2_zone")
-zone_id = "garage"
-display_name = "Garage"
-description = "Bag recovery and Sterling logistics clue."
-origin = Vector2i(7, -5)
-size = Vector2i(8, 10)
+zone_id = "delivery_alley"
+display_name = "Delivery Alley"
+description = "Delivery route narrows into three scent trail choices."
+origin = Vector2i(-6, -3)
+size = Vector2i(7, 7)
+route_tags = Array[String](["main", "scent_setup"])
+
+[sub_resource type="Resource" id="Zone_fake_a"]
+script = ExtResource("2_zone")
+zone_id = "fake_scent_trail_a_trash_area"
+display_name = "Fake Scent Trail A: Trash Area"
+description = "Raccoon/regret dead-end trail."
+origin = Vector2i(-5, -8)
+size = Vector2i(5, 5)
+route_tags = Array[String](["fake", "scent"])
+
+[sub_resource type="Resource" id="Zone_fake_b"]
+script = ExtResource("2_zone")
+zone_id = "fake_scent_trail_b_loading_dock"
+display_name = "Fake Scent Trail B: Loading Dock"
+description = "Decoy bag loading dock route."
+origin = Vector2i(-3, 4)
+size = Vector2i(7, 5)
+route_tags = Array[String](["fake", "scent"])
+
+[sub_resource type="Resource" id="Zone_real"]
+script = ExtResource("2_zone")
+zone_id = "real_scent_trail_parking_garage"
+display_name = "Real Scent Trail: Parking Garage"
+description = "Bentley locks onto the Sterling chemical scent."
+origin = Vector2i(0, -2)
+size = Vector2i(8, 5)
+route_tags = Array[String](["main", "scent"])
+objective_ids = Array[String](["follow_correct_bentley_scent_trail"])
+
+[sub_resource type="Resource" id="Zone_garage1"]
+script = ExtResource("2_zone")
+zone_id = "parking_garage_floor_1"
+display_name = "Parking Garage Floor 1"
+description = "Garage entry, cars-as-cover, keycard, vent route, alarm marker."
+origin = Vector2i(8, -5)
+size = Vector2i(10, 10)
+route_tags = Array[String](["main", "stealth", "access"])
+objective_ids = Array[String](["enter_parking_garage", "get_garage_staff_keycard_or_bypass"])
+
+[sub_resource type="Resource" id="Zone_security"]
+script = ExtResource("2_zone")
+zone_id = "security_booth_keycard_room"
+display_name = "Security Booth / Staff Keycard"
+description = "Optional/semi-optional keycard booth on the garage north edge."
+origin = Vector2i(11, -10)
+size = Vector2i(5, 5)
+route_tags = Array[String](["optional", "access", "dead_end"])
+objective_ids = Array[String](["get_garage_staff_keycard_or_bypass"])
+
+[sub_resource type="Resource" id="Zone_office"]
+script = ExtResource("2_zone")
+zone_id = "garage_office"
+display_name = "Garage Office"
+description = "Office keypad and route-manifest clue explain the code."
+origin = Vector2i(18, -7)
+size = Vector2i(6, 7)
 route_tags = Array[String](["main", "puzzle"])
-objective_ids = Array[String](["recover_bag"])
+objective_ids = Array[String](["solve_garage_office_code"])
+gate_ids = Array[String](["garage_office_code"])
+
+[sub_resource type="Resource" id="Zone_ambush"]
+script = ExtResource("2_zone")
+zone_id = "garage_floor_2_ambush"
+display_name = "Garage Floor 2 Ambush"
+description = "Placeholder combat beat and perfect Polaroid marker."
+origin = Vector2i(18, 0)
+size = Vector2i(9, 7)
+route_tags = Array[String](["combat", "ambush"])
+
+[sub_resource type="Resource" id="Zone_bag"]
+script = ExtResource("2_zone")
+zone_id = "bag_recovery_room"
+display_name = "Bag Recovery Room"
+description = "Delivery bag and safehouse logistics clue chain."
+origin = Vector2i(27, 1)
+size = Vector2i(6, 5)
+route_tags = Array[String](["main", "reveal"])
+objective_ids = Array[String](["retrieve_delivery_bag"])
+
+[sub_resource type="Resource" id="Zone_return_drop"]
+script = ExtResource("2_zone")
+zone_id = "south_return_drop"
+display_name = "South Return Corridor Drop"
+description = "Vertical escape connector south of the bag room."
+origin = Vector2i(27, 5)
+size = Vector2i(8, 10)
+route_tags = Array[String](["return", "escape"])
+
+[sub_resource type="Resource" id="Zone_return"]
+script = ExtResource("2_zone")
+zone_id = "south_return_corridor"
+display_name = "South Return Corridor"
+description = "Separate southern escape route looping west toward Louis."
+origin = Vector2i(-16, 6)
+size = Vector2i(49, 9)
+route_tags = Array[String](["return", "escape", "loop"])
+
+[sub_resource type="Resource" id="Zone_exit"]
+script = ExtResource("2_zone")
+zone_id = "escape_return_to_louis"
+display_name = "Escape / Return to Louis"
+description = "West-side exit reached by the southern return corridor."
+origin = Vector2i(-23, 6)
+size = Vector2i(10, 9)
+route_tags = Array[String](["exit"])
+objective_ids = Array[String](["escape_and_return_to_louis"])
 
 [resource]
 script = ExtResource("1_def")
 mission_id = "taco_bell_drop"
 display_name = "The Taco Bell Drop"
-description = "Iso blockout prototype for the delivery-route heist. Existing orthogonal TacoBellMission remains untouched."
-genre_feel = "Street logistics heist"
-player_mindset = "After-hours infiltration, scent reading, and tight extraction."
-signature_mechanic = "Bentley scent trail plus garage keypad placeholder."
-signature_emotion = "Paranoia plus Louis/Bentley competence."
-zones = Array[Resource]([SubResource("Zone_market"), SubResource("Zone_yard"), SubResource("Zone_garage")])
-primary_objectives = Array[Resource]([SubResource("Obj_meet"), SubResource("Obj_scent"), SubResource("Obj_bag")])
-optional_objectives = Array[Resource]([SubResource("Obj_optional_decoy")])
-access_items = Array[String](["delivery_badge", "garage_code"])
-puzzle_gates = Array[Resource]([SubResource("Gate_garage")])
-unique_mechanics = Array[String](["bentley_scent_trail", "alternate_keypad_code", "decoy_bag"])
-enemies = Array[Resource]([SubResource("Spawn_player"), SubResource("Spawn_guard")])
-stealth_opportunities = Array[String](["Avoid yard guard route.", "Use scent trail to skip decoy bag."])
-combat_opportunities = Array[String](["Optional yard guard pressure placeholder."])
-collectibles = Array[Resource]([SubResource("Col_polaroid"), SubResource("Col_glow"), SubResource("Col_icon"), SubResource("Col_bag1"), SubResource("Col_bag2"), SubResource("Col_bag3")])
-evidence_clues = Array[Resource]([SubResource("Clue_delivery")])
+description = "Gold-standard data-driven isometric blockout for the delivery-route stealth tutorial. Existing orthogonal TacoBellMission remains untouched."
+genre_feel = "noir tracking tutorial / delivery-route stealth"
+player_mindset = "investigate and extract"
+signature_mechanic = "Bentley scent trail"
+signature_emotion = "small job reveals a bigger conspiracy"
+zones = Array[Resource]([SubResource("Zone_start"), SubResource("Zone_market"), SubResource("Zone_dog_station"), SubResource("Zone_delivery"), SubResource("Zone_fake_a"), SubResource("Zone_fake_b"), SubResource("Zone_real"), SubResource("Zone_garage1"), SubResource("Zone_security"), SubResource("Zone_office"), SubResource("Zone_ambush"), SubResource("Zone_bag"), SubResource("Zone_return_drop"), SubResource("Zone_return"), SubResource("Zone_exit")])
+primary_objectives = Array[Resource]([SubResource("Obj_talk"), SubResource("Obj_inspect"), SubResource("Obj_scent"), SubResource("Obj_enter_garage"), SubResource("Obj_keycard"), SubResource("Obj_code"), SubResource("Obj_bag"), SubResource("Obj_escape")])
+optional_objectives = Array[Resource]([SubResource("Obj_optional_dog_station"), SubResource("Obj_optional_alarm"), SubResource("Obj_optional_decoy"), SubResource("Obj_optional_glow"), SubResource("Obj_optional_polaroid"), SubResource("Obj_optional_three_bags"), SubResource("Obj_optional_no_wrong_trail")])
+access_items = Array[String](["garage_staff_keycard", "garage_office_code", "bentley_vent_route_placeholder", "louis_delivery_route_future_shortcut", "optional_decoy_bag_intel"])
+puzzle_gates = Array[Resource]([SubResource("Gate_office_code"), SubResource("Gate_vent"), SubResource("Gate_louis_shortcut")])
+unique_mechanics = Array[String](["bentley_scent_trail", "garage_code_gate", "wrong_scent_feedback", "decoy_bag_intel", "heat_guard_camera_placeholders"])
+enemies = Array[Resource]([SubResource("Spawn_player"), SubResource("Spawn_guard_floor1"), SubResource("Spawn_guard_heat"), SubResource("Spawn_scent_a"), SubResource("Spawn_scent_b"), SubResource("Spawn_scent_real"), SubResource("Spawn_cover"), SubResource("Spawn_vent"), SubResource("Spawn_ambush"), SubResource("Spawn_camera"), SubResource("Spawn_alarm"), SubResource("Spawn_phone")])
+stealth_opportunities = Array[String](["Car/cover route through Parking Garage Floor 1.", "Bentley distraction / vent route placeholder.", "Avoid alarm/camera placeholders on higher heat."])
+combat_opportunities = Array[String](["Garage Floor 2 ambush marker.", "Heat extra guard placeholder."])
+collectibles = Array[Resource]([SubResource("Col_hidden_polaroid"), SubResource("Col_perfect_polaroid"), SubResource("Col_glow"), SubResource("Col_icon"), SubResource("Col_keycard"), SubResource("Col_bag1"), SubResource("Col_bag2"), SubResource("Col_bag3")])
+evidence_clues = Array[Resource]([SubResource("Clue_delivery"), SubResource("Clue_stamp"), SubResource("Clue_manifest"), SubResource("Clue_sauce")])
 scheme_card_rewards = Array[Resource]([SubResource("Reward_louis")])
-cutscenes = Array[Resource]([SubResource("Cut_intro")])
-live_restart_mutations = Array[Resource]([SubResource("Mut_code"), SubResource("Mut_collectible")])
-final_tower_connections = Array[String](["Sterling Tower delivery entrance", "Loading dock logistics"])
+cutscenes = Array[Resource]([SubResource("Cut_intro"), SubResource("Cut_code"), SubResource("Cut_bag"), SubResource("Cut_phone"), SubResource("Cut_complete")])
+live_restart_mutations = Array[Resource]([SubResource("Mut_scent"), SubResource("Mut_code"), SubResource("Mut_collectible"), SubResource("Mut_heat_guard"), SubResource("Mut_louis_hint")])
+final_tower_connections = Array[String](["delivery entrance / logistics route advantage", "Sterling safehouse logistics clue chain", "Velvet Paw unlock connection through the envelope stamp"])
 routes = Array[Resource]([SubResource("Route_main")])
-art_notes = "Do not paint final art into GameplayRoot. Later Monogon cyberpunk art belongs under ArtRoot only."
-implementation_status = "phase_1_sample_blockout"
+art_notes = "GameplayRoot remains semantic blockout only. Paint final Monogon art manually under ArtRoot later; do not move gameplay collision out of GameplayCollisionLayer or BoundaryColliders."
+implementation_status = "BLOCKOUT_GOLD_STANDARD_CANDIDATE"

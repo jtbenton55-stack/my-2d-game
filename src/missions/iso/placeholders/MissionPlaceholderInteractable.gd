@@ -39,6 +39,9 @@ func _complete(_player: Node = null) -> void:
 		QuestManager.set_objective(text, mission_id)
 	DialogueManager.start_simple_dialogue([{ "speaker": display_name, "text": text }])
 	placeholder_completed.emit(placeholder_id)
+	if once_only:
+		remove_from_group("interactable")
+		set_deferred("monitoring", false)
 
 
 func _on_body_entered(body: Node) -> void:

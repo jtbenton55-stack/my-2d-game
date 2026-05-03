@@ -110,6 +110,20 @@ Run directly:
 
 It is not registered into `GameState.mission_catalog`; this keeps the existing story Taco Bell mission intact.
 
+Phase 2A promotes this scene to the Taco Bell gold-standard blockout candidate:
+
+- `GameplayRoot` is generated from `assets/missions/taco_bell_iso_blockout_definition.tres`.
+- Zone labels and semantic marker tiles are placeholder-safe and may be deleted/hidden later only after equivalent art-readable cues exist.
+- Phase 2A.2 reshapes the spatial profile into the reference topology for future missions: west Louis start, market-street branch to a north dog-station dead end, central delivery-alley scent hub, two fake scent dead ends, real eastbound garage route, large garage floor, security/keycard booth, garage office/code gate, ambush room, bag room, south return drop, long westbound return corridor, and west-side exit.
+- `ArtRoot` remains for hand-painted Monogon art only. Paint ground, walls, props, lighting, and decoration under `ArtRoot`; do not add gameplay collision there.
+- Keep `GameplayCollisionLayer` and `BoundaryColliders` as the source of truth for walls/containment. Boundary colliders are generated from exterior wall cells so containment follows the irregular graybox footprint instead of a broad map rectangle.
+- Interior graybox cover/choke markers are generated as colliding cover cells in `GameplayCollisionLayer`; paint visual cars, cones, office props, trash, loading docks, and garage dressing under `ArtRoot` later while preserving the collision cells until QA replaces them intentionally.
+- Required objectives, clues, collectibles, gates, scent trails, and exits are represented by Area2D placeholders with interaction radii/debug labels. Non-interactable enemy/heat markers should remain documented as encounter markers, not player-facing E targets.
+- Start areas need extra physical clearance, not just grid reachability. Keep the player spawn centered in at least a 3x3 clear floor patch, keep the first exit into the next zone at least 2 cells wide, and verify real movement input before relying on teleported smoke checks.
+- Required routes need physical passage clearance, not just connected floor cells. Main-route passages should validate at 3+ open cells, the south return/exit approach should stay comfortably wider than the iso player body, and future blockouts should keep any brief doorway/choke readable and physically testable. The current iso blockout player instance is locally scaled to 0.86 visual size with a 24x24 collision body; do not apply that shrink to non-iso missions.
+- When painting final art, preserve the marker cells for required objectives, clues, collectibles, gates, and exit until QA verifies the painted scene still guides the player.
+- Before switching story flow, run `MissionBlockoutValidator` and a manual playthrough of `TacoBellIsoBlockout.tscn`.
+
 ## Future Conversion Steps
 
 1. Create a `MissionDefinition` from Mission Bible + current `GameState` ids.

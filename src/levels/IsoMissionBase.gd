@@ -30,6 +30,11 @@ const TILE_FRIEND_ASSIST := Vector2i(5, 2)
 const BOUNDARY_THICKNESS := 28.0
 const BOUNDARY_OUTSET := 0.0
 const CORNER_SEAL_SIZE := 72.0
+const MIN_REQUIRED_PASSAGE_WIDTH_CELLS := 3
+const MIN_EXIT_APPROACH_WIDTH_CELLS := 3
+const PLAYER_CLEARANCE_PADDING_PX := 4.0
+const ISO_PLAYER_VISUAL_SCALE := 0.86
+const ISO_PLAYER_COLLISION_SIZE := Vector2(24, 24)
 
 @export var mission_definition: Resource
 @export var auto_generate_from_definition := true
@@ -37,11 +42,13 @@ const CORNER_SEAL_SIZE := 72.0
 
 var _required_objective_ids: Array[String] = []
 var _completed_objective_ids: Dictionary = {}
+var _required_objective_text: Dictionary = {}
 var _required_collectible_ids: Array[String] = []
 var _completed_collectible_ids: Dictionary = {}
 var _required_clue_ids: Array[String] = []
 var _completed_clue_ids: Dictionary = {}
 var _mission_completing := false
+var _active_mutations: Dictionary = {}
 
 
 func _ready() -> void:
@@ -55,6 +62,12 @@ func _ready() -> void:
 	super._ready()
 
 
+func validate_blockout() -> Dictionary:
+	if mission_definition == null:
+		return {"ok": false, "errors": ["MissionDefinition is null."], "warnings": [], "debug": {}}
+	return MissionBlockoutValidator.validate(mission_definition, self)
+
+
 func _ensure_iso_structure() -> void:
 	var gameplay := _ensure_node(self, "GameplayRoot", Node2D.new()) as Node2D
 	var art := _ensure_node(self, "ArtRoot", Node2D.new()) as Node2D
@@ -64,6 +77,7 @@ func _ensure_iso_structure() -> void:
 	_ensure_node(gameplay, "GameplayCollisionLayer", TileMapLayer.new())
 	_ensure_node(gameplay, "GameplayMarkersLayer", TileMapLayer.new())
 	_ensure_node(gameplay, "BoundaryColliders", Node2D.new())
+	_ensure_node(gameplay, "ZoneLabels", Node2D.new())
 	_ensure_node(gameplay, "ObjectiveAreas", Node2D.new())
 	_ensure_node(gameplay, "ExitAreas", Node2D.new())
 	_ensure_node(gameplay, "SpawnPoints", Node2D.new())
@@ -152,6 +166,7 @@ func _build_runtime_blockout_tileset() -> TileSet:
 			source.create_tile(Vector2i(x, y))
 	# Keep wall solids compact so adjacent isometric wall cells do not create player-trapping seams.
 	_add_tile_collision(source, TILE_WALL, PackedVector2Array([Vector2(18, 28), Vector2(46, 28), Vector2(46, 50), Vector2(18, 50)]))
+	_add_tile_collision(source, TILE_COVER, PackedVector2Array([Vector2(20, 30), Vector2(44, 30), Vector2(44, 48), Vector2(20, 48)]))
 	return ts
 
 
@@ -164,10 +179,15 @@ func _add_tile_collision(source: TileSetAtlasSource, coords: Vector2i, points: P
 func _generate_from_definition() -> void:
 	_required_objective_ids.clear()
 	_completed_objective_ids.clear()
+	_required_objective_text.clear()
 	_required_collectible_ids.clear()
 	_completed_collectible_ids.clear()
 	_required_clue_ids.clear()
 	_completed_clue_ids.clear()
+	_active_mutations.clear()
+	var pool: Dictionary = mission_definition.mutation_pool()
+	if not pool.is_empty():
+		_active_mutations = MissionMutationHelper.roll(mission_definition.mission_id, pool)
 	_paint_zones()
 	_create_boundary_colliders()
 	_create_spawn_points()
@@ -179,18 +199,18 @@ func _generate_from_definition() -> void:
 	_create_cutscene_triggers()
 	_create_exit_areas()
 	_apply_camera_bounds()
-	var pool: Dictionary = mission_definition.mutation_pool()
-	if not pool.is_empty():
-		MissionMutationHelper.roll(mission_definition.mission_id, pool)
+	_update_next_required_objective()
 
 
 func _paint_zones() -> void:
 	var floor_layer := $GameplayRoot/GameplayFloorLayer as TileMapLayer
 	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
 	var marker_layer := $GameplayRoot/GameplayMarkersLayer as TileMapLayer
+	var labels := $GameplayRoot/ZoneLabels as Node2D
 	floor_layer.clear()
 	collision_layer.clear()
 	marker_layer.clear()
+	_clear_children(labels)
 	var zones: Array = mission_definition.zones
 	if zones.is_empty():
 		_paint_floor_zone(Vector2i(-int(default_zone_size.x / 2.0), -int(default_zone_size.y / 2.0)), default_zone_size)
@@ -202,6 +222,8 @@ func _paint_zones() -> void:
 		var origin: Vector2i = zone.origin
 		var size := Vector2i(maxi(3, zone.size.x), maxi(3, zone.size.y))
 		_paint_floor_zone(origin, size)
+		_add_zone_label(labels, zone.display_name, origin, size)
+	_apply_layout_profile()
 	_paint_boundary_walls()
 
 
@@ -210,6 +232,38 @@ func _paint_floor_zone(origin: Vector2i, size: Vector2i) -> void:
 	for x in range(origin.x, origin.x + size.x):
 		for y in range(origin.y, origin.y + size.y):
 			floor_layer.set_cell(Vector2i(x, y), SOURCE_ID, TILE_FLOOR)
+
+
+func _apply_layout_profile() -> void:
+	if mission_definition == null or mission_definition.mission_id != "taco_bell_drop":
+		return
+	_apply_taco_bell_layout_profile()
+
+
+func _apply_taco_bell_layout_profile() -> void:
+	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
+	for cell in [
+		Vector2i(-11, -1), Vector2i(-10, -1), Vector2i(-8, 2),
+		Vector2i(-2, -6), Vector2i(-1, -6), Vector2i(-1, 6),
+		Vector2i(10, -1), Vector2i(11, -1), Vector2i(12, 1), Vector2i(13, 1),
+		Vector2i(15, -3), Vector2i(16, -3), Vector2i(15, 3), Vector2i(16, 3),
+		Vector2i(20, 2), Vector2i(21, 2), Vector2i(24, 4), Vector2i(25, 4),
+		Vector2i(30, 4), Vector2i(31, 4), Vector2i(7, 10), Vector2i(8, 10),
+	]:
+		collision_layer.set_cell(cell, SOURCE_ID, TILE_COVER)
+
+
+func _add_zone_label(parent: Node2D, text: String, origin: Vector2i, size: Vector2i) -> void:
+	if text == "":
+		return
+	var label := Label.new()
+	label.name = _node_name("ZoneLabel", text)
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 10)
+	label.modulate = Color(0.85, 0.95, 1.0, 0.85)
+	parent.add_child(label)
+	label.global_position = _map_to_global(origin + Vector2i(int(size.x / 2.0), 0)) + Vector2(-72, -28)
 
 
 func _paint_boundary_walls() -> void:
@@ -228,23 +282,43 @@ func _paint_boundary_walls() -> void:
 func _create_boundary_colliders() -> void:
 	var parent := $GameplayRoot/BoundaryColliders as Node2D
 	_clear_children(parent)
-	var bounds := _floor_world_bounds()
-	if bounds.size == Vector2.ZERO:
+	var floor_layer := $GameplayRoot/GameplayFloorLayer as TileMapLayer
+	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
+	if floor_layer == null or collision_layer == null:
 		return
-	var left := bounds.position.x - BOUNDARY_OUTSET
-	var right := bounds.end.x + BOUNDARY_OUTSET
-	var top := bounds.position.y - BOUNDARY_OUTSET
-	var bottom := bounds.end.y + BOUNDARY_OUTSET
-	var width := right - left
-	var height := bottom - top
-	_add_boundary_rect(parent, "BoundaryTop", Vector2((left + right) * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(width + CORNER_SEAL_SIZE, BOUNDARY_THICKNESS))
-	_add_boundary_rect(parent, "BoundaryBottom", Vector2((left + right) * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(width + CORNER_SEAL_SIZE, BOUNDARY_THICKNESS))
-	_add_boundary_rect(parent, "BoundaryLeft", Vector2(left - BOUNDARY_THICKNESS * 0.5, (top + bottom) * 0.5), Vector2(BOUNDARY_THICKNESS, height + CORNER_SEAL_SIZE))
-	_add_boundary_rect(parent, "BoundaryRight", Vector2(right + BOUNDARY_THICKNESS * 0.5, (top + bottom) * 0.5), Vector2(BOUNDARY_THICKNESS, height + CORNER_SEAL_SIZE))
-	_add_boundary_rect(parent, "BoundaryTopLeftCorner", Vector2(left - BOUNDARY_THICKNESS * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
-	_add_boundary_rect(parent, "BoundaryTopRightCorner", Vector2(right + BOUNDARY_THICKNESS * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
-	_add_boundary_rect(parent, "BoundaryBottomLeftCorner", Vector2(left - BOUNDARY_THICKNESS * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
-	_add_boundary_rect(parent, "BoundaryBottomRightCorner", Vector2(right + BOUNDARY_THICKNESS * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
+	var floor_cells := {}
+	for cell in floor_layer.get_used_cells():
+		floor_cells[cell] = true
+	var wall_cells := []
+	for cell in collision_layer.get_used_cells():
+		if collision_layer.get_cell_atlas_coords(cell) != TILE_WALL:
+			continue
+		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
+			if floor_cells.has(cell + offset):
+				wall_cells.append(cell)
+				break
+	var index := 0
+	for cell in wall_cells:
+		index += 1
+		_add_boundary_rect(parent, "BoundaryWall_%03d" % index, _boundary_collider_center(cell, floor_cells), Vector2(8, 8))
+
+
+func _boundary_collider_center(wall_cell: Vector2i, floor_cells: Dictionary) -> Vector2:
+	var wall_pos := _map_to_global(wall_cell)
+	var floor_center_sum := Vector2.ZERO
+	var floor_neighbor_count := 0
+	for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
+		var neighbor: Vector2i = wall_cell + offset
+		if floor_cells.has(neighbor):
+			floor_center_sum += _map_to_global(neighbor)
+			floor_neighbor_count += 1
+	if floor_neighbor_count == 0:
+		return wall_pos
+	var floor_center := floor_center_sum / float(floor_neighbor_count)
+	var outward := wall_pos - floor_center
+	if outward.length() < 0.01:
+		return wall_pos
+	return wall_pos + outward.normalized() * 42.0
 
 
 func _add_boundary_rect(parent: Node2D, rect_name: String, center: Vector2, size: Vector2) -> void:
@@ -287,21 +361,83 @@ func _create_objective_areas() -> void:
 	for objective in objectives:
 		if objective == null:
 			continue
-		var node = _new_placeholder("res://src/missions/iso/placeholders/MissionObjectivePlaceholder.gd")
-		node.name = _node_name("Objective", objective.objective_id)
-		node.placeholder_id = objective.objective_id
-		node.mission_id = mission_definition.mission_id
-		node.display_name = "Objective"
-		node.interaction_text = objective.display_text
-		node.objective_update = objective.completion_text
-		node.required = objective.required
-		node.global_position = _map_to_global(objective.marker_cell)
-		_add_area_shape(node, 30.0)
-		parent.add_child(node)
-		node.placeholder_completed.connect(_on_objective_completed)
+		if _is_scent_objective(objective.objective_id):
+			_create_scent_objective(parent, objective)
+		elif _is_code_objective(objective.objective_id):
+			_create_code_objective(parent, objective)
+		else:
+			var node = _new_placeholder("res://src/missions/iso/placeholders/MissionObjectivePlaceholder.gd")
+			node.name = _node_name("Objective", objective.objective_id)
+			node.placeholder_id = objective.objective_id
+			node.mission_id = mission_definition.mission_id
+			node.display_name = "Objective"
+			node.interaction_text = objective.display_text
+			node.objective_update = objective.completion_text
+			node.required = objective.required
+			node.global_position = _map_to_global(objective.marker_cell)
+			_add_area_shape(node, 30.0)
+			_add_debug_label(node, objective.display_text)
+			parent.add_child(node)
+			node.placeholder_completed.connect(_on_objective_completed)
 		if objective.required:
 			_required_objective_ids.append(objective.objective_id)
+			_required_objective_text[objective.objective_id] = objective.display_text
 		$GameplayRoot/GameplayMarkersLayer.set_cell(objective.marker_cell, SOURCE_ID, TILE_OBJECTIVE)
+
+
+func _is_scent_objective(objective_id: String) -> bool:
+	return objective_id.contains("scent")
+
+
+func _is_code_objective(objective_id: String) -> bool:
+	return objective_id.contains("code") or objective_id.contains("keypad")
+
+
+func _create_scent_objective(parent: Node2D, objective: Resource) -> void:
+	var trails := _scent_trail_cells()
+	if trails.is_empty():
+		trails["parking_garage"] = objective.marker_cell
+	var real_id := String(_active_mutations.get("real_scent_trail", "parking_garage"))
+	if not trails.has(real_id):
+		real_id = "parking_garage"
+	for trail_id in trails.keys():
+		var node = _new_placeholder("res://src/missions/iso/placeholders/MissionScentTrailPlaceholder.gd")
+		node.name = _node_name("Objective" if trail_id == real_id else "ScentTrail", objective.objective_id if trail_id == real_id else trail_id)
+		node.placeholder_id = objective.objective_id
+		node.objective_id = objective.objective_id
+		node.trail_id = trail_id
+		node.real_trail_id = real_id
+		node.mission_id = mission_definition.mission_id
+		node.display_name = _scent_display_name(trail_id)
+		node.real_text = "Bentley locks onto the Sterling chemical scent."
+		node.fake_text = _fake_scent_text(trail_id)
+		node.objective_update = objective.completion_text
+		node.global_position = _map_to_global(trails[trail_id])
+		_add_area_shape(node, 30.0)
+		_add_debug_label(node, node.display_name)
+		parent.add_child(node)
+		node.placeholder_completed.connect(_on_objective_completed)
+		$GameplayRoot/GameplayMarkersLayer.set_cell(trails[trail_id], SOURCE_ID, TILE_FRIEND_ASSIST if trail_id == real_id else TILE_HAZARD)
+
+
+func _create_code_objective(parent: Node2D, objective: Resource) -> void:
+	var node = _new_placeholder("res://src/missions/iso/placeholders/MissionCodeGatePlaceholder.gd")
+	node.name = _node_name("Objective", objective.objective_id)
+	node.placeholder_id = objective.objective_id
+	node.objective_id = objective.objective_id
+	node.gate_id = "garage_office_code"
+	node.mission_id = mission_definition.mission_id
+	node.display_name = "Garage Office Keypad"
+	node.correct_code = String(_active_mutations.get("garage_code", "2174"))
+	node.required_clue_id = "route_manifest_half"
+	node.bypass_item_id = "garage_staff_keycard"
+	node.wrong_code_text = "Wrong code. The keypad chirps and flashes red."
+	node.solved_text = objective.completion_text
+	node.global_position = _map_to_global(objective.marker_cell)
+	_add_rect_shape(node, Vector2(84, 48))
+	_add_debug_label(node, "Garage code " + node.correct_code)
+	parent.add_child(node)
+	node.placeholder_completed.connect(_on_objective_completed)
 
 
 func _create_clue_pickups() -> void:
@@ -322,6 +458,7 @@ func _create_clue_pickups() -> void:
 		node.interaction_text = "Evidence clue logged: " + clue.display_name
 		node.global_position = _map_to_global(clue.marker_cell)
 		_add_area_shape(node, 24.0)
+		_add_debug_label(node, clue.display_name)
 		parent.add_child(node)
 		node.placeholder_completed.connect(_on_clue_completed)
 		if clue.required:
@@ -337,10 +474,14 @@ func _create_collectible_pickups() -> void:
 		var script_path := "res://src/missions/iso/placeholders/MissionCollectiblePickupPlaceholder.gd"
 		if int(collectible.type) == 5:
 			script_path = "res://src/missions/iso/placeholders/MissionPoopBagPlaceholder.gd"
+		elif String(collectible.collectible_id).contains("keycard") or String(collectible.collectible_id).contains("route_code"):
+			script_path = "res://src/missions/iso/placeholders/MissionAccessItemPlaceholder.gd"
 		var node = _new_placeholder(script_path)
 		node.name = _node_name("Collectible", collectible.collectible_id)
 		node.placeholder_id = collectible.collectible_id
 		node.collectible_id = collectible.collectible_id
+		if node is MissionAccessItemPlaceholder:
+			node.access_item_id = collectible.collectible_id
 		node.collectible_type = _collectible_type_string(collectible.type)
 		node.mission_id = mission_definition.mission_id
 		node.display_name = collectible.display_name
@@ -348,6 +489,7 @@ func _create_collectible_pickups() -> void:
 		node.interaction_text = collectible.completion_text
 		node.global_position = _map_to_global(collectible.marker_cell)
 		_add_area_shape(node, 22.0)
+		_add_debug_label(node, collectible.display_name)
 		parent.add_child(node)
 		node.placeholder_completed.connect(_on_collectible_completed)
 		if collectible.required:
@@ -360,6 +502,8 @@ func _create_gate_placeholders() -> void:
 	for gate in mission_definition.puzzle_gates:
 		if gate == null:
 			continue
+		if String(gate.gate_id).contains("garage_office_code"):
+			continue
 		var node = _new_placeholder("res://src/missions/iso/placeholders/MissionPuzzleGatePlaceholder.gd")
 		node.name = _node_name("Gate", gate.gate_id)
 		node.placeholder_id = gate.gate_id
@@ -371,21 +515,38 @@ func _create_gate_placeholders() -> void:
 		node.unlocked_text = gate.unlocked_text
 		node.global_position = _map_to_global(gate.marker_cell)
 		_add_rect_shape(node, Vector2(72, 42))
+		_add_debug_label(node, gate.display_name)
 		parent.add_child(node)
 		$GameplayRoot/GameplayMarkersLayer.set_cell(gate.marker_cell, SOURCE_ID, TILE_PUZZLE_GATE)
 
 
 func _create_enemy_markers() -> void:
 	var parent := $GameplayRoot/EnemyPaths as Node2D
+	var interactables := $EntityRoot/Interactables as Node2D
 	_clear_children(parent)
 	for spawn_def in mission_definition.enemies:
-		if spawn_def == null or int(spawn_def.type) != 2:
+		if spawn_def == null:
 			continue
-		var marker := Marker2D.new()
-		marker.name = _node_name("EnemySpawn", spawn_def.spawn_id)
-		parent.add_child(marker)
-		marker.global_position = _map_to_global(spawn_def.marker_cell)
-		$GameplayRoot/GameplayMarkersLayer.set_cell(spawn_def.marker_cell, SOURCE_ID, TILE_ENEMY_SPAWN)
+		if int(spawn_def.type) == 2:
+			var marker := Marker2D.new()
+			marker.name = _node_name("EnemySpawn", spawn_def.spawn_id)
+			parent.add_child(marker)
+			marker.global_position = _map_to_global(spawn_def.marker_cell)
+			_add_debug_label(marker, _spawn_label(spawn_def.spawn_id))
+			$GameplayRoot/GameplayMarkersLayer.set_cell(spawn_def.marker_cell, SOURCE_ID, TILE_ENEMY_SPAWN)
+		elif int(spawn_def.type) == 4:
+			if String(spawn_def.spawn_id).begins_with("scent_"):
+				continue
+			var hook = _new_placeholder("res://src/missions/iso/MissionMechanicHook.gd")
+			hook.name = _node_name("Placeholder", spawn_def.spawn_id)
+			hook.display_name = _spawn_label(spawn_def.spawn_id)
+			hook.placeholder_text = _spawn_placeholder_text(spawn_def.spawn_id)
+			hook.objective_update = hook.placeholder_text
+			hook.global_position = _map_to_global(spawn_def.marker_cell)
+			_add_area_shape(hook, 24.0)
+			_add_debug_label(hook, hook.display_name)
+			interactables.add_child(hook)
+			$GameplayRoot/GameplayMarkersLayer.set_cell(spawn_def.marker_cell, SOURCE_ID, _spawn_tile(spawn_def.spawn_id))
 
 
 func _create_cutscene_triggers() -> void:
@@ -460,8 +621,90 @@ func _add_rect_shape(node: Area2D, size: Vector2) -> void:
 	node.add_child(collision)
 
 
+func _add_debug_label(node: Node2D, text: String) -> void:
+	if text == "":
+		return
+	var label := Label.new()
+	label.name = "Label"
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 9)
+	label.modulate = Color(1.0, 1.0, 1.0, 0.9)
+	label.position = Vector2(-64, -42)
+	label.size = Vector2(128, 20)
+	node.add_child(label)
+
+
+func _scent_trail_cells() -> Dictionary:
+	var trails := {}
+	for spawn_def in mission_definition.enemies:
+		if spawn_def == null or int(spawn_def.type) != 4:
+			continue
+		var id := String(spawn_def.spawn_id)
+		if id.begins_with("scent_"):
+			trails[id.substr("scent_".length())] = spawn_def.marker_cell
+	return trails
+
+
+func _scent_display_name(trail_id: String) -> String:
+	match trail_id:
+		"trash_area":
+			return "Fake Scent A"
+		"loading_dock":
+			return "Fake Scent B"
+		"parking_garage":
+			return "Real Scent Trail"
+		_:
+			return trail_id.replace("_", " ").capitalize()
+
+
+func _fake_scent_text(trail_id: String) -> String:
+	match trail_id:
+		"trash_area":
+			return "Bentley sneezes. This smells like raccoons and regret."
+		"loading_dock":
+			return "Bentley sits down judgmentally. Decoy bag."
+		_:
+			return "Bentley refuses the trail. Wrong scent, no softlock."
+
+
+func _spawn_label(spawn_id: String) -> String:
+	return spawn_id.replace("_", " ").capitalize()
+
+
+func _spawn_placeholder_text(spawn_id: String) -> String:
+	if spawn_id.contains("cover"):
+		return "Stealth placeholder: cars and cones create a low cover route."
+	if spawn_id.contains("vent"):
+		return "Bentley vent route placeholder: future shortcut/bypass."
+	if spawn_id.contains("ambush"):
+		return "Combat placeholder: garage floor 2 ambush beat."
+	if spawn_id.contains("camera"):
+		return "Heat placeholder: camera watches this lane on hotter restarts."
+	if spawn_id.contains("alarm"):
+		return "Alarm placeholder: route is noisy unless bypassed."
+	if spawn_id.contains("guard"):
+		return "Heat placeholder: extra guard marker."
+	if spawn_id.contains("louis"):
+		return "Louis phone line: safehouses are hidden inside delivery logistics."
+	return "Mission placeholder: " + _spawn_label(spawn_id)
+
+
+func _spawn_tile(spawn_id: String) -> Vector2i:
+	if spawn_id.contains("camera"):
+		return TILE_CAMERA_BOUND
+	if spawn_id.contains("alarm"):
+		return TILE_HAZARD
+	if spawn_id.contains("ambush") or spawn_id.contains("guard"):
+		return TILE_ENEMY_SPAWN
+	if spawn_id.contains("vent") or spawn_id.contains("louis"):
+		return TILE_FRIEND_ASSIST
+	return TILE_INTERACTABLE
+
+
 func _on_objective_completed(id: String) -> void:
 	_completed_objective_ids[id] = true
+	_update_next_required_objective()
 
 
 func _on_collectible_completed(id: String) -> void:
@@ -470,6 +713,13 @@ func _on_collectible_completed(id: String) -> void:
 
 func _on_clue_completed(id: String) -> void:
 	_completed_clue_ids[id] = true
+	_update_next_required_objective()
+
+
+func set_iso_access_item(id: String) -> void:
+	if id == "":
+		return
+	GameState.dialogue_flags["mission_access_item:" + id] = true
 
 
 func complete_level() -> void:
@@ -479,6 +729,7 @@ func complete_level() -> void:
 func request_exit_completion(_player: Node = null) -> bool:
 	if _mission_completing or is_complete or is_failed:
 		return false
+	_complete_exit_return_objectives()
 	if not _all_required_done():
 		_show_exit_locked_feedback()
 		return false
@@ -496,7 +747,7 @@ func _show_exit_locked_feedback() -> void:
 func _exit_locked_message() -> String:
 	for id in _required_objective_ids:
 		if not _completed_objective_ids.has(id):
-			return "Exit locked: finish required objectives first."
+			return "Exit locked: " + String(_required_objective_text.get(id, "finish required objectives first."))
 	for id in _required_clue_ids:
 		if not _completed_clue_ids.has(id):
 			return "Exit locked: recover the required clue before leaving."
@@ -504,6 +755,24 @@ func _exit_locked_message() -> String:
 		if not _completed_collectible_ids.has(id):
 			return "Exit locked: collect required pickups before leaving."
 	return "Exit locked: finish required objectives first."
+
+
+func _complete_exit_return_objectives() -> void:
+	for id in _required_objective_ids:
+		if String(id).contains("escape") or String(id).contains("return_to_louis"):
+			_completed_objective_ids[id] = true
+
+
+func _update_next_required_objective() -> void:
+	for id in _required_objective_ids:
+		if not _completed_objective_ids.has(id):
+			QuestManager.set_objective(String(_required_objective_text.get(id, "Continue the route.")), get_mission_id())
+			return
+	for id in _required_clue_ids:
+		if not _completed_clue_ids.has(id):
+			QuestManager.set_objective("Recover required clue: " + id.replace("_", " ").capitalize(), get_mission_id())
+			return
+	QuestManager.set_objective("Return to Louis at the exit.", get_mission_id())
 
 
 func _on_exit_zone_body_entered(body: Node) -> void:
@@ -567,6 +836,22 @@ func _spawn_player_if_needed() -> void:
 	var spawn := _get_spawn_point()
 	if spawn and player:
 		player.global_position = spawn.global_position
+	_apply_iso_player_profile()
+
+
+func _apply_iso_player_profile() -> void:
+	if player == null:
+		return
+	if not bool(player.get_meta("iso_blockout_profile_applied", false)):
+		var sprite := player.get_node_or_null("AnimatedSprite2D") as Node2D
+		if sprite != null:
+			sprite.scale *= ISO_PLAYER_VISUAL_SCALE
+		player.set_meta("iso_blockout_profile_applied", true)
+	var collision := player.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if collision != null and collision.shape is RectangleShape2D:
+		var rect := RectangleShape2D.new()
+		rect.size = ISO_PLAYER_COLLISION_SIZE
+		collision.shape = rect
 
 
 func _spawn_dog_if_needed() -> void:
@@ -620,6 +905,15 @@ func _find_marker_for_trigger(trigger_id: String) -> Vector2i:
 	for clue in mission_definition.evidence_clues:
 		if clue != null and clue.clue_id == trigger_id:
 			return clue.marker_cell
+	for collectible in mission_definition.collectibles:
+		if collectible != null and collectible.collectible_id == trigger_id:
+			return collectible.marker_cell
+	for gate in mission_definition.puzzle_gates:
+		if gate != null and gate.gate_id == trigger_id:
+			return gate.marker_cell
+	for spawn_def in mission_definition.enemies:
+		if spawn_def != null and spawn_def.spawn_id == trigger_id:
+			return spawn_def.marker_cell
 	return Vector2i.ZERO
 
 

@@ -4,6 +4,14 @@ extends "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd"
 @export var lines: Array[Dictionary] = []
 
 
+func _ready() -> void:
+	# Cutscene Areas can sit on top of objectives/clues; keep E reserved for the
+	# gameplay interactable and let these fire by proximity only.
+	auto_trigger_on_enter = true
+	super._ready()
+	remove_from_group("interactable")
+
+
 func _complete(_player: Node = null) -> void:
 	if once_only and completed:
 		return
