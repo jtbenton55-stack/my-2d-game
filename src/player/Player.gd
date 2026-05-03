@@ -122,6 +122,7 @@ func _attack() -> void:
 	var cd_reduction: float = _card_float("get_cooldown_reduction", 0.0)
 	attack_timer = attack_cooldown * (1.0 - cd_reduction)
 	AudioManager.play_sfx("quick_attack", global_position)
+	EventBus.debug("Player attacked.")
 	var damage_bonus: int = _card_int("get_attack_damage_bonus", 0)
 	var total_damage: int = attack_damage + damage_bonus
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -175,14 +176,23 @@ func _should_skip_world_interact() -> bool:
 func _try_interact() -> void:
 	var best: Node = null
 	var best_dist := 999999.0
+	var best_priority := -999999
 	for node in get_tree().get_nodes_in_group("interactable"):
 		# Only consider nodes that actually implement interact; otherwise a large
 		# Area2D in "interactable" (e.g. trigger zones) wins by distance and blocks E.
 		if node is Node2D and node.has_method("interact"):
+			if node.has_method("is_interaction_available") and not bool(node.call("is_interaction_available", self)):
+				continue
 			var dist := global_position.distance_to(node.global_position)
-			if dist < 72.0 and dist < best_dist:
+			if dist >= 72.0:
+				continue
+			var priority := 0
+			if node.has_method("get_interaction_priority"):
+				priority = int(node.call("get_interaction_priority", self))
+			if priority > best_priority or (priority == best_priority and dist < best_dist):
 				best = node
 				best_dist = dist
+				best_priority = priority
 	if best != null:
 		best.interact(self)
 

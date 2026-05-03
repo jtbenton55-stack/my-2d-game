@@ -10,6 +10,9 @@ signal placeholder_completed(placeholder_id: String)
 @export var objective_update: String = ""
 @export var auto_trigger_on_enter := false
 @export var once_only := true
+@export var interaction_priority: int = 50
+@export var allow_repeat_interaction := false
+@export var available_when_completed := false
 
 var completed := false
 
@@ -23,6 +26,8 @@ func _ready() -> void:
 
 
 func interact(player: Node) -> void:
+	if not is_interaction_available(player):
+		return
 	_complete(player)
 
 
@@ -47,3 +52,15 @@ func _complete(_player: Node = null) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		_complete(body)
+
+
+func is_interaction_available(_player: Node = null) -> bool:
+	if completed and not available_when_completed and not allow_repeat_interaction:
+		return false
+	return true
+
+
+func get_interaction_priority(_player: Node = null) -> int:
+	if completed and not allow_repeat_interaction:
+		return interaction_priority - 40
+	return interaction_priority

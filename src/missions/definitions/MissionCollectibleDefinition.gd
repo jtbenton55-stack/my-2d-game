@@ -21,3 +21,7 @@ enum CollectibleType {
 @export var required: bool = false
 @export var completion_text: String = ""
 @export var global_state_key: String = ""
+@export var hidden := false
+@export var mastery_collectible := false
+@export var reward_effect: String = ""
+@export var collection_group: String = ""

@@ -32,6 +32,14 @@ static func collect(
 		_:
 			# Glow Guys / Desk Spirits / Tiny Icons / Shelf Goblins are tracked as saved flags for now.
 			pass
+	GameState.record_typed_collectible(collectible_id, collectible_type, {
+		"mission_id": mission_id,
+		"display_name": display_name if display_name != "" else collectible_id.capitalize(),
+		"collection_group": collectible_type,
+		"hidden": collectible_type == "polaroid" and collectible_id.contains("hidden"),
+	})
+	if mission_id != "":
+		GameState.record_mission_performance_event(mission_id, "collectibles_found", 1)
 	GameState.dialogue_flags[flag_key] = true
 	EventBus.game_state_changed.emit()
 	return true

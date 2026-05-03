@@ -35,10 +35,38 @@ const MIN_EXIT_APPROACH_WIDTH_CELLS := 3
 const PLAYER_CLEARANCE_PADDING_PX := 4.0
 const ISO_PLAYER_VISUAL_SCALE := 0.86
 const ISO_PLAYER_COLLISION_SIZE := Vector2(24, 24)
+const ISO_ENEMY_VISUAL_SCALE := 0.86
+const ISO_ENEMY_COLLISION_SIZE := Vector2(24, 24)
+const LIGHT_ZONE_SHADOW := "shadow"
+const LIGHT_ZONE_BRIGHT := "bright"
+const LIGHT_ZONE_FLICKER := "flicker"
+const ALARM_STATE_NORMAL := "normal"
+const ALARM_STATE_SUSPICIOUS := "suspicious"
+const ALARM_STATE_ALERTED := "alerted"
+const ALARM_STATE_RESOLVED := "resolved"
+const ISO_MARKER_SCRIPT := preload("res://src/missions/iso/authoring/IsoMissionMarker.gd")
+const MARKER_CATEGORIES: Array[String] = [
+	"Spawns",
+	"Objectives",
+	"Patrols",
+	"Enemies",
+	"Cameras",
+	"LightZones",
+	"AlarmZones",
+	"EncounterZones",
+	"Clues",
+	"Collectibles",
+	"ScentTrails",
+	"Gates",
+	"Routes",
+	"Transitions",
+	"Exit",
+]
 
 @export var mission_definition: Resource
 @export var auto_generate_from_definition := true
 @export var default_zone_size := Vector2i(12, 8)
+@export var dev_harness_enabled := true
 
 var _required_objective_ids: Array[String] = []
 var _completed_objective_ids: Dictionary = {}
@@ -49,6 +77,18 @@ var _required_clue_ids: Array[String] = []
 var _completed_clue_ids: Dictionary = {}
 var _mission_completing := false
 var _active_mutations: Dictionary = {}
+var _runtime_spawned_ids: Dictionary = {}
+var _runtime_counts: Dictionary = {}
+var _runtime_marker_source := "definition"
+var _scene_marker_count := 0
+var _generated_marker_count := 0
+var _spawn_points_by_id: Dictionary = {}
+var _runtime_position_resolutions: Array = []
+var _marker_index_ready := false
+var _markers_by_id: Dictionary = {}
+var _markers_by_type: Dictionary = {}
+var _markers_by_link: Dictionary = {}
+var _bake_marker_ids: Dictionary = {}
 
 
 func _ready() -> void:
@@ -59,7 +99,14 @@ func _ready() -> void:
 		objective_text = _initial_objective_text()
 		if auto_generate_from_definition:
 			_generate_from_definition()
+	_ensure_dev_harness()
 	super._ready()
+
+
+func get_authoring_mode() -> String:
+	if mission_definition != null and mission_definition.has_method("get"):
+		return String(mission_definition.get("authoring_mode"))
+	return "generated"
 
 
 func validate_blockout() -> Dictionary:
@@ -82,12 +129,37 @@ func _ensure_iso_structure() -> void:
 	_ensure_node(gameplay, "ExitAreas", Node2D.new())
 	_ensure_node(gameplay, "SpawnPoints", Node2D.new())
 	_ensure_node(gameplay, "EnemyPaths", Node2D.new())
-	for layer_name in ["GroundArtLayer", "WallArtLayer", "PropArtLayer", "DecorBelowLayer", "DecorAboveLayer", "LightingLayer"]:
+	_ensure_node(gameplay, "AuthoringMarkers", Node2D.new())
+	_ensure_node(gameplay, "Subareas", Node2D.new())
+	var layout_root := _ensure_node(gameplay, "LayoutRoot", Node2D.new())
+	_ensure_node(layout_root, "FloorLayer", TileMapLayer.new())
+	_ensure_node(layout_root, "WallLayer", TileMapLayer.new())
+	_ensure_node(layout_root, "CoverLayer", TileMapLayer.new())
+	_ensure_node(layout_root, "CollisionBarrierLayer", TileMapLayer.new())
+	_ensure_node(layout_root, "MarkerTileLayer", TileMapLayer.new())
+	_ensure_node(layout_root, "DebugLabelLayer", TileMapLayer.new())
+	var marker_root := _ensure_node(gameplay, "MarkerRoot", Node2D.new())
+	for category in MARKER_CATEGORIES:
+		_ensure_node(marker_root, category, Node2D.new())
+	var runtime := _ensure_node(gameplay, "RuntimeSystems", Node2D.new())
+	_ensure_node(runtime, "SpawnedGuards", Node2D.new())
+	_ensure_node(runtime, "SpawnedCameras", Node2D.new())
+	_ensure_node(runtime, "LightZones", Node2D.new())
+	_ensure_node(runtime, "DetectionZones", Node2D.new())
+	_ensure_node(runtime, "AlarmZones", Node2D.new())
+	_ensure_node(runtime, "EncounterZones", Node2D.new())
+	_ensure_node(runtime, "RouteAccessPoints", Node2D.new())
+	_ensure_node(runtime, "TransitionTriggers", Node2D.new())
+	_ensure_node(runtime, "DebugLabels", Node2D.new())
+	_ensure_node(runtime, "DebugUI", Node2D.new())
+	for layer_name in ["GroundArtLayer", "WallArtLayer", "PropArtLayer", "DecorBelowLayer", "DecorAboveLayer", "LightingLayer", "LightingArtLayer"]:
 		var layer := _ensure_node(art, layer_name, TileMapLayer.new()) as TileMapLayer
 		layer.collision_enabled = false
 		layer.y_sort_enabled = true
 	_ensure_node(entity, "Enemies", Node2D.new())
+	_ensure_node(entity, "Cameras", Node2D.new())
 	_ensure_node(entity, "Interactables", Node2D.new())
+	_ensure_node(entity, "DynamicProps", Node2D.new())
 	if get_node_or_null("Camera2D") == null:
 		var camera := Camera2D.new()
 		camera.name = "Camera2D"
@@ -117,12 +189,19 @@ func _apply_blockout_tileset() -> void:
 		"GameplayRoot/GameplayFloorLayer",
 		"GameplayRoot/GameplayCollisionLayer",
 		"GameplayRoot/GameplayMarkersLayer",
+		"GameplayRoot/LayoutRoot/FloorLayer",
+		"GameplayRoot/LayoutRoot/WallLayer",
+		"GameplayRoot/LayoutRoot/CoverLayer",
+		"GameplayRoot/LayoutRoot/CollisionBarrierLayer",
+		"GameplayRoot/LayoutRoot/MarkerTileLayer",
+		"GameplayRoot/LayoutRoot/DebugLabelLayer",
 		"ArtRoot/GroundArtLayer",
 		"ArtRoot/WallArtLayer",
 		"ArtRoot/PropArtLayer",
 		"ArtRoot/DecorBelowLayer",
 		"ArtRoot/DecorAboveLayer",
 		"ArtRoot/LightingLayer",
+		"ArtRoot/LightingArtLayer",
 	]:
 		var layer := get_node_or_null(path) as TileMapLayer
 		if layer == null:
@@ -188,6 +267,18 @@ func _generate_from_definition() -> void:
 	var pool: Dictionary = mission_definition.mutation_pool()
 	if not pool.is_empty():
 		_active_mutations = MissionMutationHelper.roll(mission_definition.mission_id, pool)
+	var mode := get_authoring_mode()
+	_runtime_marker_source = "scene_markers" if mode == "scene_authored" or mode == "hybrid" else "definition"
+	_reset_marker_index()
+	_scene_marker_count = _collect_authoring_markers().size()
+	_generated_marker_count = 0
+	EventBus.debug("Iso authoring_mode=%s layout_source=%s marker_source=%s scene_markers=%d" % [
+		mode,
+		_resolved_layout_source(),
+		_runtime_marker_source,
+		_scene_marker_count
+	])
+	_sync_layout_root_to_gameplay_layers()
 	_paint_zones()
 	_create_boundary_colliders()
 	_create_spawn_points()
@@ -198,8 +289,11 @@ func _generate_from_definition() -> void:
 	_create_enemy_markers()
 	_create_cutscene_triggers()
 	_create_exit_areas()
+	_create_route_test_subareas()
+	_setup_runtime_systems()
 	_apply_camera_bounds()
 	_update_next_required_objective()
+	_sync_gameplay_layers_to_layout_root()
 
 
 func _paint_zones() -> void:
@@ -207,11 +301,20 @@ func _paint_zones() -> void:
 	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
 	var marker_layer := $GameplayRoot/GameplayMarkersLayer as TileMapLayer
 	var labels := $GameplayRoot/ZoneLabels as Node2D
-	floor_layer.clear()
-	collision_layer.clear()
-	marker_layer.clear()
+	var mode := get_authoring_mode()
+	var preserve_scene_layout := mode == "scene_authored" or mode == "hybrid"
+	if preserve_scene_layout and floor_layer.get_used_cells().size() > 0:
+		EventBus.debug("Iso layout preserved from scene-authored TileMapLayer.")
+	else:
+		floor_layer.clear()
+		collision_layer.clear()
+		marker_layer.clear()
+		_generated_marker_count += 1
 	_clear_children(labels)
 	var zones: Array = mission_definition.zones
+	if preserve_scene_layout and floor_layer.get_used_cells().size() > 0:
+		_apply_layout_profile()
+		return
 	if zones.is_empty():
 		_paint_floor_zone(Vector2i(-int(default_zone_size.x / 2.0), -int(default_zone_size.y / 2.0)), default_zone_size)
 		_paint_boundary_walls()
@@ -340,7 +443,27 @@ func _add_boundary_rect(parent: Node2D, rect_name: String, center: Vector2, size
 func _create_spawn_points() -> void:
 	var spawns := $GameplayRoot/SpawnPoints as Node2D
 	_clear_children(spawns)
+	_spawn_points_by_id.clear()
 	var spawn_cell := Vector2i.ZERO
+	var player_marker := _find_authoring_marker("PLAYER_SPAWN", "start_main")
+	if player_marker == null:
+		player_marker = _find_authoring_marker("PLAYER_SPAWN", "")
+	if player_marker != null:
+		var start := Marker2D.new()
+		start.name = "start_main"
+		start.global_position = player_marker.global_position
+		spawns.add_child(start)
+		_spawn_points_by_id["start_main"] = start.global_position
+		for sub in _collect_authoring_markers("SUBAREA_SPAWN"):
+			var sub_id := String(sub.marker_id if sub.has_method("get") else "")
+			if sub_id == "":
+				continue
+			var sub_marker := Marker2D.new()
+			sub_marker.name = sub_id
+			sub_marker.global_position = sub.global_position
+			spawns.add_child(sub_marker)
+			_spawn_points_by_id[sub_id] = sub_marker.global_position
+		return
 	for spawn_def in mission_definition.enemies:
 		if spawn_def != null and int(spawn_def.type) == 0:
 			spawn_cell = spawn_def.marker_cell
@@ -349,6 +472,8 @@ func _create_spawn_points() -> void:
 	marker.name = "default"
 	spawns.add_child(marker)
 	marker.global_position = _map_to_global(spawn_cell)
+	_spawn_points_by_id["default"] = marker.global_position
+	_spawn_points_by_id["start_main"] = marker.global_position
 	$GameplayRoot/GameplayMarkersLayer.set_cell(spawn_cell, SOURCE_ID, TILE_PLAYER_SPAWN)
 
 
@@ -374,7 +499,8 @@ func _create_objective_areas() -> void:
 			node.interaction_text = objective.display_text
 			node.objective_update = objective.completion_text
 			node.required = objective.required
-			node.global_position = _map_to_global(objective.marker_cell)
+			node.global_position = _resolve_point_position(objective.marker_cell, "OBJECTIVE", String(objective.objective_id))
+			node.interaction_priority = 95 if objective.required else 60
 			_add_area_shape(node, 30.0)
 			_add_debug_label(node, objective.display_text)
 			parent.add_child(node)
@@ -412,7 +538,9 @@ func _create_scent_objective(parent: Node2D, objective: Resource) -> void:
 		node.real_text = "Bentley locks onto the Sterling chemical scent."
 		node.fake_text = _fake_scent_text(trail_id)
 		node.objective_update = objective.completion_text
-		node.global_position = _map_to_global(trails[trail_id])
+		var marker_type := "SCENT_TRAIL_REAL" if trail_id == real_id else "SCENT_TRAIL_FAKE"
+		node.global_position = _resolve_point_position(trails[trail_id], marker_type, String(trail_id))
+		node.interaction_priority = 85 if trail_id == real_id else 65
 		_add_area_shape(node, 30.0)
 		_add_debug_label(node, node.display_name)
 		parent.add_child(node)
@@ -433,7 +561,8 @@ func _create_code_objective(parent: Node2D, objective: Resource) -> void:
 	node.bypass_item_id = "garage_staff_keycard"
 	node.wrong_code_text = "Wrong code. The keypad chirps and flashes red."
 	node.solved_text = objective.completion_text
-	node.global_position = _map_to_global(objective.marker_cell)
+	node.global_position = _resolve_point_position(objective.marker_cell, "CODE_GATE", String(objective.objective_id))
+	node.interaction_priority = 90
 	_add_rect_shape(node, Vector2(84, 48))
 	_add_debug_label(node, "Garage code " + node.correct_code)
 	parent.add_child(node)
@@ -456,7 +585,11 @@ func _create_clue_pickups() -> void:
 		node.unlocks_or_modifies = clue.unlocks_or_modifies
 		node.final_tower_relevance = clue.final_tower_relevance
 		node.interaction_text = "Evidence clue logged: " + clue.display_name
-		node.global_position = _map_to_global(clue.marker_cell)
+		node.global_position = _resolve_point_position(clue.marker_cell, "CLUE", String(clue.clue_id), {
+			"linked_clue_id": String(clue.clue_id),
+			"canonical_marker_id": "clue_" + String(clue.clue_id),
+		})
+		node.interaction_priority = 80 if clue.required else 55
 		_add_area_shape(node, 24.0)
 		_add_debug_label(node, clue.display_name)
 		parent.add_child(node)
@@ -468,6 +601,7 @@ func _create_clue_pickups() -> void:
 
 func _create_collectible_pickups() -> void:
 	var parent := $EntityRoot/Interactables as Node2D
+	var hidden_slot := String(_active_mutations.get("hidden_collectible_slot", "market_rain"))
 	for collectible in mission_definition.collectibles:
 		if collectible == null:
 			continue
@@ -487,14 +621,28 @@ func _create_collectible_pickups() -> void:
 		node.display_name = collectible.display_name
 		node.required = collectible.required
 		node.interaction_text = collectible.completion_text
-		node.global_position = _map_to_global(collectible.marker_cell)
+		var marker_cell: Vector2i = collectible.marker_cell
+		if String(collectible.collectible_id) == "taco_bell_midnight_market_rain":
+			marker_cell = _mutated_hidden_collectible_cell(hidden_slot, marker_cell)
+		var marker_type := "POLAROID_HIDDEN"
+		if node.collectible_type == "tiny_icon":
+			marker_type = "TINY_ICON"
+		elif node.collectible_type == "glow_guy":
+			marker_type = "GLOW_GUY"
+		elif node.collectible_type == "poop_bag":
+			marker_type = "POOP_BAG"
+		node.global_position = _resolve_point_position(marker_cell, marker_type, String(collectible.collectible_id), {
+			"linked_collectible_id": String(collectible.collectible_id),
+			"canonical_marker_id": _canonical_collectible_marker_id(String(collectible.collectible_id)),
+		})
+		node.interaction_priority = 75 if collectible.required else 50
 		_add_area_shape(node, 22.0)
 		_add_debug_label(node, collectible.display_name)
 		parent.add_child(node)
 		node.placeholder_completed.connect(_on_collectible_completed)
 		if collectible.required:
 			_required_collectible_ids.append(collectible.collectible_id)
-		$GameplayRoot/GameplayMarkersLayer.set_cell(collectible.marker_cell, SOURCE_ID, _tile_for_collectible(collectible.type))
+		$GameplayRoot/GameplayMarkersLayer.set_cell(marker_cell, SOURCE_ID, _tile_for_collectible(collectible.type))
 
 
 func _create_gate_placeholders() -> void:
@@ -503,6 +651,8 @@ func _create_gate_placeholders() -> void:
 		if gate == null:
 			continue
 		if String(gate.gate_id).contains("garage_office_code"):
+			continue
+		if String(gate.gate_id).contains("vent_route") or String(gate.gate_id).contains("future_shortcut"):
 			continue
 		var node = _new_placeholder("res://src/missions/iso/placeholders/MissionPuzzleGatePlaceholder.gd")
 		node.name = _node_name("Gate", gate.gate_id)
@@ -579,11 +729,57 @@ func _create_exit_areas() -> void:
 	node.mission_id = mission_definition.mission_id
 	node.display_name = "Exit"
 	node.interaction_text = "Exit reached."
-	node.global_position = _map_to_global(exit_cell)
+	node.global_position = _resolve_point_position(exit_cell, "EXIT", "exit", {
+		"canonical_marker_id": "exit_return_to_louis",
+	})
 	_add_rect_shape(node, Vector2(96, 64))
 	parent.add_child(node)
 	node.add_to_group("iso_mission_exit")
 	$GameplayRoot/GameplayMarkersLayer.set_cell(exit_cell, SOURCE_ID, TILE_EXIT)
+
+
+func _create_route_test_subareas() -> void:
+	var floor_layer := $GameplayRoot/GameplayFloorLayer as TileMapLayer
+	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
+	if floor_layer == null or collision_layer == null:
+		return
+	var mode := get_authoring_mode()
+	if mode == "scene_authored":
+		return
+	var authored := _collect_authoring_markers("SUBAREA_SPAWN")
+	if authored.size() >= 4:
+		return
+	var louis_origin := Vector2i(58, -2)
+	var vent_origin := Vector2i(58, 10)
+	for x in range(louis_origin.x, louis_origin.x + 7):
+		for y in range(louis_origin.y, louis_origin.y + 4):
+			floor_layer.set_cell(Vector2i(x, y), SOURCE_ID, TILE_FLOOR)
+	for x in range(vent_origin.x, vent_origin.x + 6):
+		for y in range(vent_origin.y, vent_origin.y + 4):
+			floor_layer.set_cell(Vector2i(x, y), SOURCE_ID, TILE_FLOOR)
+	for x in range(louis_origin.x - 1, louis_origin.x + 8):
+		collision_layer.set_cell(Vector2i(x, louis_origin.y - 1), SOURCE_ID, TILE_WALL)
+		collision_layer.set_cell(Vector2i(x, louis_origin.y + 4), SOURCE_ID, TILE_WALL)
+	for x in range(vent_origin.x - 1, vent_origin.x + 7):
+		collision_layer.set_cell(Vector2i(x, vent_origin.y - 1), SOURCE_ID, TILE_WALL)
+		collision_layer.set_cell(Vector2i(x, vent_origin.y + 4), SOURCE_ID, TILE_WALL)
+	_ensure_subarea_spawn_marker("route_louis_entry", _map_to_global(louis_origin + Vector2i(1, 1)))
+	_ensure_subarea_spawn_marker("route_louis_return", _map_to_global(Vector2i(10, -4)))
+	_ensure_subarea_spawn_marker("route_vent_entry", _map_to_global(vent_origin + Vector2i(1, 1)))
+	_ensure_subarea_spawn_marker("route_vent_return", _map_to_global(Vector2i(24, -5)))
+
+
+func _ensure_subarea_spawn_marker(spawn_id: String, spawn_position: Vector2) -> void:
+	var spawns := $GameplayRoot/SpawnPoints as Node2D
+	if spawns == null:
+		return
+	var marker := spawns.get_node_or_null(spawn_id) as Marker2D
+	if marker == null:
+		marker = Marker2D.new()
+		marker.name = spawn_id
+		spawns.add_child(marker)
+	marker.global_position = spawn_position
+	_spawn_points_by_id[spawn_id] = spawn_position
 
 
 func _apply_camera_bounds() -> void:
@@ -702,6 +898,18 @@ func _spawn_tile(spawn_id: String) -> Vector2i:
 	return TILE_INTERACTABLE
 
 
+func _mutated_hidden_collectible_cell(slot: String, fallback: Vector2i) -> Vector2i:
+	match slot:
+		"market_rain":
+			return Vector2i(-10, 1)
+		"garage_stairs":
+			return Vector2i(19, -4)
+		"exit_lobby":
+			return Vector2i(-18, 10)
+		_:
+			return fallback
+
+
 func _on_objective_completed(id: String) -> void:
 	_completed_objective_ids[id] = true
 	_update_next_required_objective()
@@ -734,6 +942,7 @@ func request_exit_completion(_player: Node = null) -> bool:
 		_show_exit_locked_feedback()
 		return false
 	_mission_completing = true
+	_record_runtime_completion_metadata()
 	super.complete_level()
 	return true
 
@@ -791,6 +1000,35 @@ func _all_required_done() -> bool:
 		if not _completed_clue_ids.has(id):
 			return false
 	return true
+
+
+func _record_runtime_completion_metadata() -> void:
+	for reward in mission_definition.scheme_card_rewards:
+		if reward == null:
+			continue
+		var reward_id := String(reward.reward_id)
+		if reward_id == "":
+			continue
+		GameState.unlock_scheme_card(reward_id, {
+			"card_id": reward_id,
+			"display_name": String(reward.display_name),
+			"description": String(reward.description),
+			"unlocked_by_mission": mission_definition.mission_id,
+			"effect_type": String(reward.effect_type),
+			"effect_data": reward.effect_data if reward.effect_data is Dictionary else {},
+			"is_equipped": false,
+		})
+		DialogueManager.start_simple_dialogue([{
+			"speaker": "Mission",
+			"text": "Scheme Card unlocked: " + String(reward.display_name)
+		}])
+		if reward_id == "louis_delivery_route":
+			GameState.unlock_crew_assist("louis_delivery_route_assist", {
+				"friend_name": "louis",
+				"unlocked_by_mission": mission_definition.mission_id,
+				"effect_type": "delivery_route_access",
+				"usable_in_missions": ["jazz_club", "rewrite_room", "sterling_tower_heist"],
+			})
 
 
 func _setup_exit_zone() -> void:
@@ -874,6 +1112,1245 @@ func _spawn_dog_if_needed() -> void:
 		(dog as CollisionObject2D).collision_mask = 0
 
 
+func _setup_runtime_systems() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if runtime == null:
+		return
+	for child_name in ["SpawnedGuards", "SpawnedCameras", "LightZones", "DetectionZones", "AlarmZones", "EncounterZones", "RouteAccessPoints", "TransitionTriggers", "DebugLabels"]:
+		var bucket := runtime.get_node_or_null(child_name)
+		if bucket != null:
+			_clear_children(bucket)
+	_runtime_spawned_ids.clear()
+	_runtime_counts.clear()
+	_reset_marker_index()
+	_attach_camera_shake()
+	var alert := _create_alert_controller()
+	_spawn_runtime_from_markers(alert)
+	_spawn_light_zones()
+	_spawn_route_access_points()
+	_spawn_transition_placeholder()
+	_spawn_poop_bag_decoy()
+	_spawn_camera_terminal()
+	if int(_runtime_counts.get("cameras", 0)) <= 0:
+		_spawn_fallback_camera(alert)
+	_apply_iso_profile_to_all_runtime_guards()
+	if int(_runtime_counts.get("guards", 0)) <= 0:
+		_spawn_fallback_guard()
+	var debug := _runtime_debug_summary()
+	set_meta("iso_runtime_debug", debug)
+
+
+func _attach_camera_shake() -> void:
+	var camera := get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		return
+	if camera.get_node_or_null("MissionCameraShake") != null:
+		return
+	var shake_script := load("res://src/missions/iso/runtime/MissionCameraShake.gd") as Script
+	if shake_script == null:
+		return
+	var shake := shake_script.new() as Node
+	shake.name = "MissionCameraShake"
+	camera.add_child(shake)
+
+
+func _create_alert_controller() -> Node:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if runtime == null:
+		return null
+	var script := load("res://src/missions/iso/runtime/MissionAlertController.gd") as Script
+	if script == null:
+		return null
+	var controller := script.new() as Node
+	controller.name = "MissionAlertController"
+	controller.add_to_group("iso_alert_controller")
+	controller.set("mission_id", mission_definition.mission_id)
+	runtime.add_child(controller)
+	_register_runtime("alert_controllers", "mission_alert_controller")
+	return controller
+
+
+func _spawn_runtime_from_markers(_alert_controller: Node) -> void:
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	for spawn_def in mission_definition.enemies:
+		if spawn_def == null:
+			continue
+		if spawn_def.heat_min > heat:
+			continue
+		var spawn_id := String(spawn_def.spawn_id)
+		if spawn_id.contains("guard"):
+			_spawn_guard_for_spawn(spawn_def)
+		elif spawn_id.contains("camera"):
+			if spawn_def.heat_min <= heat:
+				_spawn_security_camera(spawn_def.marker_cell, spawn_id)
+		elif spawn_id.contains("alarm"):
+			_spawn_alarm_zone(spawn_def.marker_cell, spawn_id)
+		elif spawn_id.contains("ambush"):
+			_spawn_encounter_trigger(spawn_def.marker_cell, spawn_id)
+
+
+func _spawn_guard_for_spawn(spawn_def: Resource) -> void:
+	var spawn_id := String(spawn_def.spawn_id)
+	if _runtime_spawned_ids.has("guard:" + spawn_id):
+		return
+	var packed := load(spawn_def.scene_path if String(spawn_def.scene_path) != "" else "res://scenes/characters/guard.tscn") as PackedScene
+	if packed == null:
+		return
+	var guard := packed.instantiate() as Node2D
+	if guard == null:
+		return
+	var enemies := get_node_or_null("EntityRoot/Enemies") as Node2D
+	if enemies == null:
+		return
+	enemies.add_child(guard)
+	guard.global_position = _resolve_point_position(spawn_def.marker_cell, "GUARD_SPAWN", spawn_id, {
+		"linked_guard_id": spawn_id,
+		"canonical_marker_id": "guard_" + spawn_id,
+	})
+	_apply_iso_enemy_profile(guard)
+	if guard.has_signal("spotted_player"):
+		guard.connect("spotted_player", Callable(self, "_on_runtime_guard_spotted").bind(spawn_id))
+	_spawn_guard_patrol_path(guard, spawn_def.marker_cell, spawn_id)
+	_runtime_spawned_ids["guard:" + spawn_id] = true
+	_register_runtime("guards", spawn_id)
+
+
+func _spawn_guard_patrol_path(guard: Node2D, marker_cell: Vector2i, spawn_id: String) -> void:
+	if not guard.has_method("assign_patrol_path"):
+		return
+	var paths := get_node_or_null("GameplayRoot/EnemyPaths") as Node2D
+	if paths == null:
+		return
+	var path := Path2D.new()
+	path.name = _node_name("Patrol", spawn_id)
+	var c := Curve2D.new()
+	var patrol_markers: Array = []
+	for marker in _collect_authoring_markers("patrol_point"):
+		var linked_guard := _value_string(marker.get("linked_guard_id"))
+		var group_id := _value_string(marker.get("group_id"))
+		if linked_guard == spawn_id or group_id == spawn_id:
+			patrol_markers.append(marker)
+	patrol_markers.sort_custom(func(a, b): return int(a.get("order")) < int(b.get("order")))
+	if patrol_markers.size() >= 2:
+		for marker in patrol_markers:
+			c.add_point((marker as Node2D).global_position)
+	else:
+		var base := _map_to_global(marker_cell)
+		c.add_point(base + Vector2(-90, -20))
+		c.add_point(base + Vector2(0, 30))
+		c.add_point(base + Vector2(90, -20))
+	path.curve = c
+	paths.add_child(path)
+	guard.assign_patrol_path(path)
+	_register_runtime("patrol_paths", spawn_id)
+
+
+func _apply_iso_enemy_profile(guard: Node2D) -> void:
+	var sprite := guard.get_node_or_null("AnimatedSprite2D") as Node2D
+	if sprite != null:
+		sprite.scale = Vector2.ONE * ISO_ENEMY_VISUAL_SCALE
+	var collider := guard.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if collider != null and collider.shape is RectangleShape2D:
+		(collider.shape as RectangleShape2D).size = ISO_ENEMY_COLLISION_SIZE
+	var hurtbox := guard.get_node_or_null("Hurtbox/CollisionShape2D") as CollisionShape2D
+	if hurtbox != null and hurtbox.shape is RectangleShape2D:
+		(hurtbox.shape as RectangleShape2D).size = ISO_ENEMY_COLLISION_SIZE
+	var vision_cone := guard.get_node_or_null("VisionArea/VisionCone") as CanvasItem
+	if vision_cone != null:
+		vision_cone.visible = OS.is_debug_build()
+
+
+func _apply_iso_profile_to_all_runtime_guards() -> void:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		return
+	for guard in enemies.get_children():
+		if guard is Node2D:
+			_apply_iso_enemy_profile(guard as Node2D)
+
+
+func _spawn_security_camera(cell: Vector2i, camera_id: String) -> void:
+	if _runtime_spawned_ids.has("camera:" + camera_id):
+		return
+	var script := load("res://src/missions/iso/runtime/MissionSecurityCamera.gd") as Script
+	if script == null:
+		return
+	var camera := script.new() as Area2D
+	camera.name = _node_name("SecurityCamera", camera_id)
+	camera.global_position = _resolve_point_position(cell, "SECURITY_CAMERA", camera_id)
+	camera.set("camera_id", camera_id)
+	var parent := get_node_or_null("EntityRoot/Cameras") as Node2D
+	if parent == null:
+		parent = get_node_or_null("EntityRoot/Interactables") as Node2D
+	if parent == null:
+		return
+	parent.add_child(camera)
+	_register_runtime("cameras", camera_id)
+	var detection_parent := get_node_or_null("GameplayRoot/RuntimeSystems/DetectionZones") as Node2D
+	if detection_parent != null:
+		var proxy := Area2D.new()
+		proxy.name = _node_name("DetectionZone", camera_id)
+		proxy.collision_layer = 0
+		proxy.collision_mask = 1
+		proxy.global_position = camera.global_position
+		var shape := CollisionShape2D.new()
+		var circle := CircleShape2D.new()
+		circle.radius = 64.0
+		shape.shape = circle
+		proxy.add_child(shape)
+		detection_parent.add_child(proxy)
+		_register_runtime("detection_zones", camera_id)
+	_runtime_spawned_ids["camera:" + camera_id] = true
+
+
+func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
+	if runtime == null:
+		return
+	var area := Area2D.new()
+	area.name = _node_name("AlarmZone", alarm_id)
+	area.collision_layer = 0
+	area.collision_mask = 1
+	area.global_position = _resolve_point_position(cell, "ALARM_ZONE", alarm_id)
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(100, 72)
+	shape.shape = rect
+	area.add_child(shape)
+	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(alarm_id))
+	runtime.add_child(area)
+	_register_runtime("alarm_zones", alarm_id)
+
+
+func _spawn_encounter_trigger(cell: Vector2i, encounter_id: String) -> void:
+	if _runtime_spawned_ids.has("encounter:" + encounter_id):
+		return
+	var script := load("res://src/missions/iso/runtime/MissionEncounterTrigger.gd") as Script
+	if script == null:
+		return
+	var trigger := script.new() as Area2D
+	trigger.name = _node_name("Encounter", encounter_id)
+	trigger.global_position = _resolve_point_position(cell, "AMBUSH_TRIGGER", encounter_id)
+	trigger.set("encounter_id", encounter_id)
+	trigger.set("spawn_guard", true)
+	trigger.set("dialogue_line", "Garage ambush! Keep moving and recover the bag.")
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/EncounterZones") as Node2D
+	if runtime == null:
+		return
+	runtime.add_child(trigger)
+	_register_runtime("encounters", encounter_id)
+	_runtime_spawned_ids["encounter:" + encounter_id] = true
+
+
+func _spawn_light_zones() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/LightZones") as Node2D
+	if runtime == null:
+		return
+	_spawn_light_zone_for("fake_scent_trail_a_trash_area", LIGHT_ZONE_SHADOW, 68.0)
+	_spawn_light_zone_for("fake_scent_trail_b_loading_dock", LIGHT_ZONE_FLICKER, 78.0)
+	_spawn_light_zone_for("parking_garage_floor_1", LIGHT_ZONE_BRIGHT, 92.0)
+
+
+func _spawn_light_zone_for(zone_id: String, zone_type: String, radius: float) -> void:
+	var zone: Resource = _zone_by_id(zone_id)
+	if zone == null:
+		return
+	var script := load("res://src/missions/iso/runtime/MissionLightZone.gd") as Script
+	if script == null:
+		return
+	var node := script.new() as Area2D
+	node.name = _node_name("LightZone", zone_id)
+	var center: Vector2i = zone.origin + Vector2i(int(zone.size.x / 2), int(zone.size.y / 2))
+	node.global_position = _map_to_global(center)
+	node.set("zone_type", zone_type)
+	node.set("radius", radius)
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/LightZones") as Node2D
+	runtime.add_child(node)
+	_register_runtime("light_zones", zone_id + ":" + zone_type)
+
+
+func _spawn_route_access_points() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/RouteAccessPoints") as Node2D
+	if runtime == null:
+		return
+	var script := load("res://src/missions/iso/runtime/MissionRouteAccessPoint.gd") as Script
+	if script == null:
+		return
+	for gate in mission_definition.puzzle_gates:
+		if gate == null:
+			continue
+		var gate_id := String(gate.gate_id)
+		if not gate_id.contains("vent_route") and not gate_id.contains("future_shortcut"):
+			continue
+		var route := script.new() as Area2D
+		route.name = _node_name("RouteAccess", gate_id)
+		route.set("mission_id", mission_definition.mission_id)
+		route.set("display_name", gate.display_name)
+		route.set("route_id", gate_id)
+		route.set("is_future_placeholder", gate_id.contains("future_shortcut"))
+		route.set("required_card", "louis_delivery_route" if gate_id.contains("future_shortcut") else "")
+		route.set("locked_message", gate.locked_text)
+		route.set("unlocked_message", gate.unlocked_text)
+		route.set("target_spawn_id", "route_louis_entry" if gate_id.contains("future_shortcut") else "route_vent_entry")
+		route.set("return_spawn_id", "route_louis_return" if gate_id.contains("future_shortcut") else "route_vent_return")
+		route.global_position = _resolve_point_position(gate.marker_cell, "ROUTE_ACCESS", gate_id)
+		route.set("interaction_priority", 88)
+		_add_rect_shape(route, Vector2(68, 40))
+		_add_debug_label(route, gate.display_name)
+		runtime.add_child(route)
+		_register_runtime("route_access_points", gate_id)
+	var keycard_route := script.new() as Area2D
+	keycard_route.name = "RouteAccess_garage_staff_keycard_route"
+	keycard_route.set("mission_id", mission_definition.mission_id)
+	keycard_route.set("display_name", "Garage Staff Keycard Route")
+	keycard_route.set("route_id", "garage_staff_keycard_route")
+	keycard_route.set("required_item", "garage_staff_keycard")
+	keycard_route.set("locked_message", "Need staff keycard (or alternate bypass) for this route.")
+	keycard_route.set("unlocked_message", "Keycard route unlocked.")
+	var security_zone: Resource = _zone_by_id("security_booth_keycard_room")
+	if security_zone != null:
+		var center: Vector2i = security_zone.origin + Vector2i(int(security_zone.size.x / 2), int(security_zone.size.y / 2))
+		keycard_route.global_position = _resolve_point_position(center, "ROUTE_ACCESS", "garage_staff_keycard_route")
+	keycard_route.set("interaction_priority", 70)
+	_add_rect_shape(keycard_route, Vector2(66, 40))
+	_add_debug_label(keycard_route, "Staff Keycard Route")
+	runtime.add_child(keycard_route)
+	_register_runtime("route_access_points", "garage_staff_keycard_route")
+
+
+func _spawn_transition_placeholder() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/TransitionTriggers") as Node2D
+	if runtime == null:
+		return
+	var script := load("res://src/missions/iso/runtime/MissionTransitionPlaceholder.gd") as Script
+	if script == null:
+		return
+	var node := script.new() as Area2D
+	node.name = "Transition_garage_floor2_service_stairs"
+	node.set("mission_id", mission_definition.mission_id)
+	node.set("display_name", "Garage Floor 2 Service Transition")
+	node.set("transition_id", "garage_floor2_service_stairs")
+	node.set("target_subarea", "garage_floor_2")
+	node.set("target_spawn_id", "route_louis_entry")
+	node.set("return_spawn_id", "route_louis_return")
+	node.set("is_placeholder", false)
+	node.set("locked_message", "Future transition: Garage Floor 2 route.")
+	var office: Resource = _zone_by_id("garage_office")
+	if office != null:
+		var center: Vector2i = office.origin + Vector2i(maxi(1, office.size.x - 2), int(office.size.y / 2))
+		node.global_position = _resolve_point_position(center, "TRANSITION", "garage_floor2_service_stairs")
+	node.set("interaction_priority", 84)
+	_add_rect_shape(node, Vector2(64, 42))
+	runtime.add_child(node)
+	_register_runtime("transition_triggers", "garage_floor2_service_stairs")
+	var route_return := script.new() as Area2D
+	route_return.name = "Transition_route_louis_return"
+	route_return.set("mission_id", mission_definition.mission_id)
+	route_return.set("display_name", "Return From Louis Route")
+	route_return.set("transition_id", "route_louis_return")
+	route_return.set("target_spawn_id", "route_louis_return")
+	route_return.set("is_placeholder", false)
+	route_return.set("interaction_priority", 90)
+	route_return.global_position = _spawn_points_by_id.get("route_louis_entry", _map_to_global(Vector2i(58, -2)))
+	_add_rect_shape(route_return, Vector2(62, 36))
+	runtime.add_child(route_return)
+	_register_runtime("transition_triggers", "route_louis_return")
+	var vent_return := script.new() as Area2D
+	vent_return.name = "Transition_route_vent_return"
+	vent_return.set("mission_id", mission_definition.mission_id)
+	vent_return.set("display_name", "Return From Vent Route")
+	vent_return.set("transition_id", "route_vent_return")
+	vent_return.set("target_spawn_id", "route_vent_return")
+	vent_return.set("is_placeholder", false)
+	vent_return.set("interaction_priority", 90)
+	vent_return.global_position = _spawn_points_by_id.get("route_vent_entry", _map_to_global(Vector2i(58, 10)))
+	_add_rect_shape(vent_return, Vector2(62, 36))
+	runtime.add_child(vent_return)
+	_register_runtime("transition_triggers", "route_vent_return")
+
+
+func _spawn_poop_bag_decoy() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/RouteAccessPoints") as Node2D
+	if runtime == null:
+		return
+	var script := load("res://src/missions/iso/runtime/MissionPoopBagDecoyPoint.gd") as Script
+	if script == null:
+		return
+	var node := script.new() as Area2D
+	node.name = "PoopBagDecoy_loading_dock"
+	node.set("mission_id", mission_definition.mission_id)
+	node.set("display_name", "Poop Bag Decoy Point")
+	node.set("interaction_text", "Deploy a poop bag decoy to distract nearby guards.")
+	var zone: Resource = _zone_by_id("fake_scent_trail_b_loading_dock")
+	if zone != null:
+		var center: Vector2i = zone.origin + Vector2i(maxi(1, zone.size.x - 2), int(zone.size.y / 2))
+		node.global_position = _resolve_point_position(center, "POOP_BAG", "loading_dock_decoy")
+	node.set("interaction_priority", 72)
+	_add_area_shape(node, 24.0)
+	runtime.add_child(node)
+	_register_runtime("poop_bag_utility_points", "loading_dock_decoy")
+
+
+func _spawn_camera_terminal() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/RouteAccessPoints") as Node2D
+	if runtime == null:
+		return
+	var script := load("res://src/missions/iso/runtime/MissionCameraTerminal.gd") as Script
+	if script == null:
+		return
+	var node := script.new() as Area2D
+	node.name = "CameraTerminal_security_booth"
+	node.set("mission_id", mission_definition.mission_id)
+	node.set("display_name", "Security Camera Terminal")
+	var zone: Resource = _zone_by_id("security_booth_keycard_room")
+	if zone != null:
+		var center: Vector2i = zone.origin + Vector2i(int(zone.size.x / 2), int(zone.size.y / 2))
+		node.global_position = _resolve_point_position(center, "CAMERA_TERMINAL", "security_booth_terminal")
+	node.set("interaction_priority", 82)
+	_add_rect_shape(node, Vector2(60, 36))
+	runtime.add_child(node)
+	_register_runtime("camera_terminals", "security_booth_terminal")
+
+
+func _spawn_fallback_camera(_alert_controller: Node) -> void:
+	var zone: Resource = _zone_by_id("parking_garage_floor_1")
+	if zone == null:
+		return
+	var center: Vector2i = zone.origin + Vector2i(maxi(1, zone.size.x - 2), 1)
+	_spawn_security_camera(center, "garage_fallback_camera")
+
+
+func _spawn_fallback_guard() -> void:
+	var zone: Resource = _zone_by_id("parking_garage_floor_1")
+	if zone == null:
+		return
+	var spawn_def := MissionSpawnDefinition.new()
+	spawn_def.spawn_id = "garage_fallback_guard"
+	spawn_def.scene_path = "res://scenes/characters/guard.tscn"
+	spawn_def.marker_cell = zone.origin + Vector2i(2, int(zone.size.y / 2))
+	_spawn_guard_for_spawn(spawn_def)
+
+
+func _on_runtime_guard_spotted(spawn_id: String) -> void:
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null:
+		controller.call("register_detection_event", spawn_id, 1.0, "guard_detected")
+	EventBus.screen_shake.emit(0.9, 0.08)
+
+
+func _on_runtime_alarm_zone_entered(body: Node, alarm_id: String) -> void:
+	if not body.is_in_group("player"):
+		return
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null:
+		controller.call("register_detection_event", alarm_id, 1.0, "alarm_zone")
+
+
+func _zone_by_id(id: String) -> Resource:
+	for zone in mission_definition.zones:
+		if zone != null and String(zone.zone_id) == id:
+			return zone
+	return null
+
+
+func _register_runtime(bucket: String, id: String) -> void:
+	_runtime_counts[bucket] = int(_runtime_counts.get(bucket, 0)) + 1
+	_runtime_spawned_ids[bucket + ":" + id] = true
+
+
+func _runtime_debug_summary() -> Dictionary:
+	return {
+		"marker_to_runtime_counts": _runtime_counts.duplicate(true),
+		"spawned_runtime_ids": _runtime_spawned_ids.keys(),
+		"authoring_mode": get_authoring_mode(),
+		"layout_source": _resolved_layout_source(),
+		"marker_source": _runtime_marker_source,
+		"scene_markers_found": _scene_marker_count,
+		"generated_markers_found": _generated_marker_count,
+		"using_scene_authored_layout": get_authoring_mode() == "hybrid" or get_authoring_mode() == "scene_authored",
+		"using_scene_authored_markers": _runtime_marker_source == "scene_markers",
+		"position_resolutions": _runtime_position_resolutions.duplicate(true),
+	}
+
+
+func _resolved_layout_source() -> String:
+	if mission_definition == null:
+		return "definition"
+	if mission_definition.has_method("get"):
+		var value = mission_definition.get("layout_source_id")
+		if value != null and String(value).strip_edges() != "":
+			return String(value)
+	return "definition"
+
+
+func _collect_authoring_markers(type_filter: String = "") -> Array:
+	_ensure_marker_index()
+	var normalized_filter := _normalized_marker_type(type_filter)
+	if normalized_filter == "":
+		return _markers_by_type.get("*", [])
+	return _markers_by_type.get(normalized_filter, [])
+
+
+func _ensure_marker_index() -> void:
+	if _marker_index_ready:
+		return
+	_rebuild_marker_index()
+
+
+func _rebuild_marker_index() -> void:
+	_markers_by_id.clear()
+	_markers_by_type.clear()
+	_markers_by_link.clear()
+	_markers_by_type["*"] = []
+	var roots := _marker_collection_roots()
+	for root in roots:
+		_collect_marker_nodes_recursive(root, _markers_by_type["*"], "")
+	for marker in _markers_by_type["*"]:
+		_index_marker(marker)
+	_marker_index_ready = true
+
+
+func _marker_collection_roots() -> Array:
+	var roots: Array = []
+	var marker_root := get_node_or_null("GameplayRoot/MarkerRoot")
+	if marker_root != null and marker_root.get_child_count() > 0:
+		roots.append(marker_root)
+	if roots.is_empty():
+		var legacy_root := get_node_or_null("GameplayRoot/AuthoringMarkers")
+		if legacy_root != null:
+			roots.append(legacy_root)
+	return roots
+
+
+func _index_marker(marker: Node) -> void:
+	if marker == null:
+		return
+	var marker_type := _normalized_marker_type(_value_string(marker.get("marker_type")))
+	if not _markers_by_type.has(marker_type):
+		_markers_by_type[marker_type] = []
+	(_markers_by_type[marker_type] as Array).append(marker)
+	var marker_id := _value_string(marker.get("marker_id"))
+	if marker_id != "" and not _markers_by_id.has(marker_id):
+		_markers_by_id[marker_id] = marker
+	var link_fields := [
+		"linked_objective_id",
+		"linked_clue_id",
+		"linked_collectible_id",
+		"linked_route_id",
+		"linked_guard_id",
+		"linked_camera_id",
+		"group_id",
+	]
+	for field in link_fields:
+		var value := _value_string(marker.get(field))
+		if value == "":
+			continue
+		var key: String = field + ":" + value
+		if not _markers_by_link.has(key):
+			_markers_by_link[key] = []
+		(_markers_by_link[key] as Array).append(marker)
+
+
+func _reset_marker_index() -> void:
+	_marker_index_ready = false
+	_markers_by_id.clear()
+	_markers_by_type.clear()
+	_markers_by_link.clear()
+
+
+func _collect_authoring_markers_legacy(type_filter: String = "") -> Array:
+	var out: Array = []
+	var roots := _marker_collection_roots()
+	for root in roots:
+		_collect_marker_nodes_recursive(root, out, type_filter)
+	out.sort_custom(func(a, b): return int(a.get("order")) < int(b.get("order")))
+	return out
+
+
+func _collect_marker_nodes_recursive(node: Node, out: Array, type_filter: String) -> void:
+	var normalized_filter := _normalized_marker_type(type_filter)
+	for child in node.get_children():
+		if child == null:
+			continue
+		if child.has_method("get") and child.get("marker_type") != null:
+			var marker_type := _normalized_marker_type(str(child.get("marker_type")))
+			if normalized_filter == "" or marker_type == normalized_filter:
+				out.append(child)
+		_collect_marker_nodes_recursive(child, out, type_filter)
+
+
+func _find_authoring_marker(type_filter: String, marker_id: String) -> Node:
+	_ensure_marker_index()
+	if marker_id != "" and _markers_by_id.has(marker_id):
+		var direct := _markers_by_id[marker_id] as Node
+		if type_filter == "" or _normalized_marker_type(_value_string(direct.get("marker_type"))) == _normalized_marker_type(type_filter):
+			return direct
+	for marker in _collect_authoring_markers(type_filter):
+		if marker_id == "" or _value_string(marker.get("marker_id")) == marker_id:
+			return marker
+	return null
+
+
+func _resolve_point_position(default_cell: Vector2i, type_filter: String, marker_id: String, query: Dictionary = {}) -> Vector2:
+	var normalized_type := _normalized_marker_type(type_filter)
+	_ensure_marker_index()
+	var marker := _resolve_marker_from_query(normalized_type, marker_id, query)
+	var default_position := _map_to_global(default_cell)
+	if marker == null and normalized_type == "guard_spawn":
+		marker = _resolve_marker_from_query("ambush_guard_spawn", marker_id, query)
+	if marker == null and normalized_type == "route_access":
+		if marker_id.contains("vent"):
+			marker = _resolve_marker_from_query("bentley_vent_route", marker_id, query)
+		elif marker_id.contains("louis"):
+			marker = _resolve_marker_from_query("louis_delivery_route", marker_id, query)
+	if marker == null and normalized_type == "transition":
+		marker = _resolve_marker_from_query("transition_entry", marker_id, query)
+	if marker == null and normalized_type == "poop_bag":
+		marker = _resolve_marker_from_query("poop_bag", marker_id, query)
+	if marker == null and marker_id != "":
+		marker = _resolve_marker_from_query("", marker_id, query)
+	if marker != null:
+		var marker_position := (marker as Node2D).global_position
+		_record_position_resolution(marker_id, normalized_type, "scene_marker", _value_string(marker.get("marker_id")), marker_position, marker_position)
+		return marker_position
+	_record_position_resolution(marker_id, normalized_type, "definition_fallback", marker_id, default_position, default_position)
+	return default_position
+
+
+func _resolve_marker_from_query(type_filter: String, marker_id: String, query: Dictionary) -> Node:
+	var normalized_type := _normalized_marker_type(type_filter)
+	var id_value := marker_id.strip_edges()
+	if id_value != "" and _markers_by_id.has(id_value):
+		var by_id := _markers_by_id[id_value] as Node
+		if normalized_type == "" or _normalized_marker_type(_value_string(by_id.get("marker_type"))) == normalized_type:
+			return by_id
+	var linked_order := [
+		"linked_clue_id",
+		"linked_collectible_id",
+		"linked_objective_id",
+		"linked_route_id",
+		"linked_guard_id",
+		"linked_camera_id",
+	]
+	for field in linked_order:
+		var value := _value_string(query.get(field, ""))
+		if value == "":
+			continue
+		var key: String = field + ":" + value
+		if _markers_by_link.has(key):
+			for marker in _markers_by_link[key]:
+				if normalized_type == "" or _normalized_marker_type(_value_string(marker.get("marker_type"))) == normalized_type:
+					return marker
+	var canonical := _value_string(query.get("canonical_marker_id", ""))
+	if canonical != "" and _markers_by_id.has(canonical):
+		return _markers_by_id[canonical]
+	if normalized_type != "":
+		var typed: Array = _markers_by_type.get(normalized_type, [])
+		for marker in typed:
+			if id_value == "" or _value_string(marker.get("marker_id")) == id_value:
+				return marker
+	return null
+
+
+func _record_position_resolution(object_id: String, object_type: String, source: String, marker_id: String, marker_position: Vector2, runtime_position: Vector2) -> void:
+	_runtime_position_resolutions.append({
+		"object_id": object_id,
+		"object_type": object_type,
+		"resolved_from": source,
+		"marker_id": marker_id,
+		"scene_marker_position": marker_position,
+		"runtime_spawn_position": runtime_position,
+		"position_delta": runtime_position - marker_position,
+	})
+
+
+func _normalized_marker_type(value: String) -> String:
+	var normalized := value.strip_edges().to_lower()
+	if normalized == "":
+		return ""
+	return normalized.replace(" ", "_")
+
+
+func _ensure_dev_harness() -> void:
+	if not OS.is_debug_build() or not dev_harness_enabled:
+		return
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/DebugUI") as Node2D
+	if runtime == null:
+		return
+	if get_node_or_null("IsoMissionDebugPanel") != null:
+		return
+	var script := load("res://src/missions/iso/runtime/IsoMissionDebugPanel.gd") as Script
+	if script == null:
+		return
+	var panel := script.new() as CanvasLayer
+	panel.name = "IsoMissionDebugPanel"
+	panel.set("mission_id", mission_definition.mission_id)
+	add_child(panel)
+	var token := Node2D.new()
+	token.name = "IsoDebugHarnessToken"
+	runtime.add_child(token)
+
+
+func trigger_alarm_test() -> void:
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null:
+		controller.call("register_detection_event", "debug_alarm", 1.0, "debug_alarm")
+	spawn_extra_guard_test()
+
+
+func spawn_extra_guard_test() -> void:
+	var spawn_def := MissionSpawnDefinition.new()
+	spawn_def.spawn_id = "debug_extra_guard"
+	spawn_def.marker_cell = Vector2i(14, -3)
+	spawn_def.scene_path = "res://scenes/characters/guard.tscn"
+	_spawn_guard_for_spawn(spawn_def)
+
+
+func teleport_player_to_spawn_id(spawn_id: String) -> void:
+	var player_node := get_tree().get_first_node_in_group("player") as Node2D
+	if player_node == null:
+		return
+	if _spawn_points_by_id.has(spawn_id):
+		player_node.global_position = _spawn_points_by_id[spawn_id]
+		return
+	var fallback := {
+		"delivery_hub": Vector2i(-2, -5),
+		"garage_1": Vector2i(14, -6),
+		"code_gate": Vector2i(19, -2),
+		"ambush": Vector2i(24, 1),
+		"bag_recovery": Vector2i(29, 2),
+		"exit": _default_exit_cell()
+	}
+	if fallback.has(spawn_id):
+		var value = fallback[spawn_id]
+		if value is Vector2i:
+			player_node.global_position = _map_to_global(value)
+
+
+func handle_route_access(route_id: String, target_spawn_id: String, return_spawn_id: String) -> bool:
+	if target_spawn_id == "":
+		return false
+	teleport_player_to_spawn_id(target_spawn_id)
+	if return_spawn_id != "":
+		GameState.dialogue_flags["iso_return_spawn:" + route_id] = return_spawn_id
+	return true
+
+
+func handle_transition_trigger(_transition_id: String, target_spawn_id: String, return_spawn_id: String) -> bool:
+	if target_spawn_id == "":
+		return false
+	teleport_player_to_spawn_id(target_spawn_id)
+	if return_spawn_id != "":
+		GameState.dialogue_flags["iso_return_spawn:last"] = return_spawn_id
+	return true
+
+
+func bake_to_editable_scene(output_scene_path: String = "res://scenes/missions_iso/TacoBellIso_Editable.tscn", overwrite_existing := false) -> Dictionary:
+	if FileAccess.file_exists(output_scene_path) and not overwrite_existing:
+		return {"ok": false, "error": "Output scene already exists. Pass overwrite_existing=true or move it first.", "path": output_scene_path}
+	_prepare_editable_bake_state()
+	_strip_runtime_state_for_bake()
+	_ensure_owner_tree_for_bake()
+	name = "TacoBellIso_Editable"
+	var packed := PackedScene.new()
+	var pack_err := packed.pack(self)
+	if pack_err != OK:
+		return {"ok": false, "error": "PackedScene.pack failed: " + str(pack_err), "path": output_scene_path}
+	var save_err := ResourceSaver.save(packed, output_scene_path)
+	return {"ok": save_err == OK, "path": output_scene_path, "error": "" if save_err == OK else "ResourceSaver.save failed: " + str(save_err)}
+
+
+func bake_hand_edit_test_scene(source_scene_path: String = "res://scenes/missions_iso/TacoBellIso_Editable.tscn", test_scene_path: String = "res://scenes/missions_iso/TacoBellIso_Editable_Test.tscn", overwrite_existing := true) -> Dictionary:
+	if not FileAccess.file_exists(source_scene_path):
+		return {"ok": false, "error": "Source editable scene not found: " + source_scene_path}
+	if FileAccess.file_exists(test_scene_path) and not overwrite_existing:
+		return {"ok": false, "error": "Test scene already exists and overwrite_existing=false."}
+	var packed := load(source_scene_path) as PackedScene
+	if packed == null:
+		return {"ok": false, "error": "Failed loading source scene."}
+	var inst := packed.instantiate() as Node2D
+	if inst == null:
+		return {"ok": false, "error": "Failed instantiating source scene."}
+	var level := inst as Node
+	if level == null:
+		return {"ok": false, "error": "Source scene root is not a Node2D."}
+	level.call("_apply_hand_edit_test_mutations")
+	inst.name = "TacoBellIso_Editable_Test"
+	var out := PackedScene.new()
+	var pack_err := out.pack(inst)
+	if pack_err != OK:
+		inst.queue_free()
+		return {"ok": false, "error": "PackedScene.pack failed: " + str(pack_err)}
+	var save_err := ResourceSaver.save(out, test_scene_path)
+	inst.queue_free()
+	return {"ok": save_err == OK, "path": test_scene_path, "error": "" if save_err == OK else "ResourceSaver.save failed: " + str(save_err)}
+
+
+func _prepare_editable_bake_state() -> void:
+	_bake_marker_ids.clear()
+	_ensure_iso_structure()
+	_sync_gameplay_layers_to_layout_root()
+	_rebuild_marker_root_from_scene_nodes()
+	_normalize_marker_positions_for_bake()
+	_deduplicate_scene_markers()
+	_reset_marker_index()
+	set("auto_generate_from_definition", true)
+	if mission_definition != null and mission_definition.has_method("set"):
+		mission_definition.set("authoring_mode", "hybrid")
+		mission_definition.set("layout_source_id", "scene_authored_tile_layers")
+		mission_definition.set("marker_source_id", "scene_authored_marker_nodes")
+
+
+func _deduplicate_scene_markers() -> void:
+	var seen := {}
+	for marker in _collect_authoring_markers_legacy(""):
+		var marker_id := _value_string(marker.get("marker_id"))
+		if marker_id == "":
+			var replacement := _unique_bake_marker_id(_normalized_marker_type(_value_string(marker.get("marker_type"))), "marker", {})
+			marker.set("marker_id", replacement)
+			marker.name = replacement
+			seen[replacement] = true
+			continue
+		if not seen.has(marker_id):
+			seen[marker_id] = true
+			continue
+		var replacement_id := _unique_bake_marker_id(_normalized_marker_type(_value_string(marker.get("marker_type"))), marker_id, {})
+		marker.set("marker_id", replacement_id)
+		marker.name = replacement_id
+		seen[replacement_id] = true
+
+
+func _normalize_marker_positions_for_bake() -> void:
+	for marker in _collect_authoring_markers_legacy(""):
+		if not marker is Node2D:
+			continue
+		(marker as Node2D).global_position = _snap_marker_position((marker as Node2D).global_position)
+
+
+func _strip_runtime_state_for_bake() -> void:
+	var gameplay_roots := [
+		"GameplayRoot/ObjectiveAreas",
+		"GameplayRoot/ExitAreas",
+		"GameplayRoot/SpawnPoints",
+		"GameplayRoot/EnemyPaths",
+		"GameplayRoot/RuntimeSystems/SpawnedGuards",
+		"GameplayRoot/RuntimeSystems/SpawnedCameras",
+		"GameplayRoot/RuntimeSystems/LightZones",
+		"GameplayRoot/RuntimeSystems/DetectionZones",
+		"GameplayRoot/RuntimeSystems/AlarmZones",
+		"GameplayRoot/RuntimeSystems/EncounterZones",
+		"GameplayRoot/RuntimeSystems/RouteAccessPoints",
+		"GameplayRoot/RuntimeSystems/TransitionTriggers",
+		"GameplayRoot/RuntimeSystems/DebugLabels",
+		"GameplayRoot/RuntimeSystems/DebugUI",
+	]
+	for path in gameplay_roots:
+		var node := get_node_or_null(path)
+		if node != null:
+			_clear_children_immediate(node)
+	var entity := get_node_or_null("EntityRoot")
+	if entity != null:
+		for child in entity.get_children():
+			if String(child.name) in ["Enemies", "Cameras", "Interactables", "DynamicProps"]:
+				_clear_children_immediate(child)
+			elif String(child.name) == "Player" or String(child.name).contains("Dog"):
+				child.queue_free()
+	var legacy := get_node_or_null("GameplayRoot/AuthoringMarkers")
+	if legacy != null:
+		_clear_children_immediate(legacy)
+	var debug_panel := get_node_or_null("IsoMissionDebugPanel")
+	if debug_panel != null:
+		debug_panel.queue_free()
+
+
+func _rebuild_marker_root_from_scene_nodes() -> void:
+	_bake_marker_ids.clear()
+	var marker_root := get_node_or_null("GameplayRoot/MarkerRoot") as Node2D
+	if marker_root == null:
+		return
+	for category in MARKER_CATEGORIES:
+		var bucket := marker_root.get_node_or_null(category)
+		if bucket != null:
+			_clear_children_immediate(bucket)
+	var legacy := get_node_or_null("GameplayRoot/AuthoringMarkers")
+	if legacy != null:
+		_clear_children_immediate(legacy)
+	_add_spawn_markers()
+	_add_patrol_markers()
+	_add_objective_markers()
+	_add_clue_markers()
+	_add_collectible_markers()
+	_add_runtime_security_markers()
+	_add_route_transition_markers()
+	_add_exit_marker()
+
+
+func _marker_bucket(category: String) -> Node2D:
+	return get_node_or_null("GameplayRoot/MarkerRoot/" + category) as Node2D
+
+
+func _add_editable_marker(category: String, type: String, marker_id: String, label: String, marker_position: Vector2, extra: Dictionary = {}) -> Node2D:
+	var bucket := _marker_bucket(category)
+	if bucket == null:
+		return null
+	var final_id := _unique_bake_marker_id(type, marker_id, extra)
+	var marker := ISO_MARKER_SCRIPT.new() as Node2D
+	marker.name = final_id
+	marker.position = bucket.to_local(_snap_marker_position(marker_position))
+	marker.set("marker_type", type)
+	marker.set("marker_id", final_id)
+	marker.set("display_name", label)
+	for key in extra.keys():
+		marker.set(key, extra[key])
+	bucket.add_child(marker)
+	marker.owner = self
+	return marker
+
+
+func _add_spawn_markers() -> void:
+	var spawns := get_node_or_null("GameplayRoot/SpawnPoints") as Node2D
+	if spawns != null:
+		for child in spawns.get_children():
+			var id := String(child.name)
+			var marker_type := "player_spawn" if id.contains("start") or id == "default" else "transition_entry"
+			var marker_id := id if marker_type == "player_spawn" else "spawn_" + id
+			_add_editable_marker("Spawns", marker_type, marker_id, id.replace("_", " ").capitalize(), (child as Node2D).global_position, {
+				"group_id": id
+			})
+	var player_node := get_tree().get_first_node_in_group("player") as Node2D
+	if player_node != null:
+		_add_editable_marker("Spawns", "player_spawn", "player_spawn_main", "PLAYER", player_node.global_position, {
+			"group_id": "spawns"
+		})
+	var dog_node := get_tree().get_first_node_in_group("dog") as Node2D
+	if dog_node != null:
+		_add_editable_marker("Spawns", "bentley_spawn", "bentley_spawn_main", "BENTLEY", dog_node.global_position, {
+			"group_id": "spawns"
+		})
+	elif player_node != null:
+		_add_editable_marker("Spawns", "bentley_spawn", "bentley_spawn_main", "BENTLEY", player_node.global_position + Vector2(32, 16), {
+			"group_id": "spawns"
+		})
+	for spawn_def in mission_definition.enemies:
+		if spawn_def == null:
+			continue
+		if int(spawn_def.type) != 2:
+			continue
+		var sid := String(spawn_def.spawn_id)
+		if not sid.contains("guard"):
+			continue
+		_add_editable_marker("Enemies", "guard_spawn", sid, "GUARD", _map_to_global(spawn_def.marker_cell), {
+			"linked_guard_id": sid
+		})
+
+
+func _add_patrol_markers() -> void:
+	var paths := get_node_or_null("GameplayRoot/EnemyPaths") as Node2D
+	if paths == null:
+		return
+	for path_node in paths.get_children():
+		if not path_node is Path2D:
+			continue
+		var path := path_node as Path2D
+		var route_id := String(path.name)
+		var linked_guard := route_id.replace("Patrol_", "")
+		if path.curve == null:
+			continue
+		for i in range(path.curve.point_count):
+			var world_pos := path.to_global(path.curve.get_point_position(i))
+			_add_editable_marker("Patrols", "patrol_point", "patrol_%s_%02d" % [linked_guard.to_lower(), i + 1], "PATROL %d" % [i + 1], world_pos, {
+				"linked_guard_id": linked_guard,
+				"group_id": linked_guard,
+				"order": i + 1
+			})
+
+
+func _add_objective_markers() -> void:
+	var objectives := get_node_or_null("GameplayRoot/ObjectiveAreas") as Node2D
+	if objectives == null:
+		return
+	for node in objectives.get_children():
+		if not node is Node2D:
+			continue
+		var id := String(node.name).to_lower()
+		var objective_id := _value_string(node.get("objective_id")) if node.has_method("get") else ""
+		if objective_id == "":
+			objective_id = _value_string(node.get("placeholder_id")) if node.has_method("get") else ""
+		if objective_id == "":
+			objective_id = String(node.name)
+		var mtype := "objective"
+		if id.contains("scenttrail"):
+			mtype = "scent_trail_fake"
+			if String(node.name).contains("Objective_follow_correct"):
+				mtype = "scent_trail_real"
+		elif id.contains("code"):
+			mtype = "code_gate"
+		var canonical := _canonical_objective_marker_id(objective_id, mtype)
+		_add_editable_marker("Gates" if mtype == "code_gate" else "ScentTrails" if mtype.contains("scent") else "Objectives", mtype, canonical, String(node.name), (node as Node2D).global_position, {
+			"linked_objective_id": objective_id,
+		})
+
+
+func _add_clue_markers() -> void:
+	var interactables := get_node_or_null("EntityRoot/Interactables") as Node2D
+	if interactables == null:
+		return
+	for node in interactables.get_children():
+		if not node is Node2D:
+			continue
+		var clue_id := _value_string(node.get("clue_id")) if node.has_method("get") else ""
+		if clue_id == "":
+			continue
+		_add_editable_marker("Clues", "clue", "clue_" + clue_id, "CLUE", (node as Node2D).global_position, {
+			"linked_clue_id": clue_id
+		})
+
+
+func _add_collectible_markers() -> void:
+	var interactables := get_node_or_null("EntityRoot/Interactables") as Node2D
+	if interactables == null:
+		return
+	for node in interactables.get_children():
+		if not node is Node2D:
+			continue
+		var node_name := String(node.name)
+		if not node_name.begins_with("Collectible_"):
+			continue
+		var type := "polaroid_hidden"
+		var display := "POLAROID"
+		var collectible_id := _value_string(node.get("collectible_id")) if node.has_method("get") else ""
+		if collectible_id == "":
+			continue
+		var low := collectible_id.to_lower()
+		if low.contains("glow"):
+			type = "glow_guy"
+			display = "GLOW"
+		elif low.contains("tiny_icon"):
+			type = "tiny_icon"
+			display = "TINY"
+		elif low.contains("poop_bag"):
+			type = "poop_bag"
+			display = "POOP"
+		elif low.contains("perfect"):
+			type = "polaroid_perfect"
+		_add_editable_marker("Collectibles", type, _canonical_collectible_marker_id(collectible_id), display, (node as Node2D).global_position, {
+			"linked_collectible_id": collectible_id
+		})
+
+
+func _add_runtime_security_markers() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if runtime == null:
+		return
+	var cameras := runtime.get_node_or_null("SpawnedCameras")
+	if cameras != null:
+		for node in cameras.get_children():
+			if node is Node2D:
+				_add_editable_marker("Cameras", "security_camera", String(node.name).to_lower(), "CAMERA", (node as Node2D).global_position, {
+					"linked_camera_id": String(node.name).to_lower()
+				})
+	var alarm_zones := runtime.get_node_or_null("AlarmZones")
+	if alarm_zones != null:
+		for node in alarm_zones.get_children():
+			if node is Node2D:
+				_add_editable_marker("AlarmZones", "alarm_zone", String(node.name).to_lower(), "ALARM", (node as Node2D).global_position)
+	var encounters := runtime.get_node_or_null("EncounterZones")
+	if encounters != null:
+		for node in encounters.get_children():
+			if node is Node2D:
+				_add_editable_marker("EncounterZones", "ambush_trigger", String(node.name).to_lower(), "AMBUSH", (node as Node2D).global_position)
+	var light_zones := runtime.get_node_or_null("LightZones")
+	if light_zones != null:
+		for node in light_zones.get_children():
+			if node is Node2D:
+				var lower := String(node.name).to_lower()
+				var kind := "shadow_zone"
+				if lower.contains("bright"):
+					kind = "bright_zone"
+				elif lower.contains("flicker"):
+					kind = "flicker_zone"
+				_add_editable_marker("LightZones", kind, lower, "LIGHT", (node as Node2D).global_position)
+
+
+func _add_route_transition_markers() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if runtime == null:
+		return
+	var routes := runtime.get_node_or_null("RouteAccessPoints")
+	if routes != null:
+		for node in routes.get_children():
+			if node is Node2D:
+				var route_id := _value_string(node.get("route_id")) if node.has_method("get") else ""
+				if route_id == "":
+					route_id = String(node.name).to_lower()
+				var canonical_route := _canonical_route_marker_id(route_id)
+				_add_editable_marker("Routes", "route_access", canonical_route, "ROUTE", (node as Node2D).global_position, {
+					"linked_route_id": route_id
+				})
+	var transitions := runtime.get_node_or_null("TransitionTriggers")
+	if transitions != null:
+		for node in transitions.get_children():
+			if node is Node2D:
+				var transition_id := _value_string(node.get("transition_id")) if node.has_method("get") else ""
+				if transition_id == "":
+					transition_id = String(node.name).to_lower()
+				_add_editable_marker("Transitions", "transition", "transition_" + transition_id, "TRANSITION", (node as Node2D).global_position, {
+					"group_id": transition_id
+				})
+
+
+func _add_exit_marker() -> void:
+	var exits := get_node_or_null("GameplayRoot/ExitAreas") as Node2D
+	if exits == null:
+		return
+	for node in exits.get_children():
+		if node is Node2D:
+			_add_editable_marker("Exit", "exit", "exit_return_to_louis", "EXIT", (node as Node2D).global_position, {
+				"group_id": "exit"
+			})
+			return
+
+
+func _find_editable_marker_by_id(marker_id: String) -> Node2D:
+	for marker in _collect_authoring_markers(""):
+		if str(marker.get("marker_id")) == marker_id:
+			return marker as Node2D
+	return null
+
+
+func _apply_hand_edit_test_mutations() -> void:
+	var moved := {
+		"poop_bag_dog_station": Vector2(120, 64),
+		"garage_floor_1_guard_placeholder": Vector2(64, 48),
+		"patrol_garage_floor_1_guard_placeholder_01": Vector2(32, -24),
+		"patrol_garage_floor_1_guard_placeholder_02": Vector2(84, -36),
+		"clue_velvet_paw_stamp": Vector2(-64, 52),
+		"exit_return_to_louis": Vector2(56, -12),
+	}
+	for id in moved.keys():
+		var marker := _find_editable_marker_by_id(id)
+		if marker != null:
+			var target: Vector2 = marker.global_position + moved[id]
+			marker.global_position = _snap_marker_position(target)
+	var cover := get_node_or_null("GameplayRoot/LayoutRoot/CoverLayer") as TileMapLayer
+	if cover != null:
+		cover.set_cell(Vector2i(8, 1), SOURCE_ID, TILE_COVER)
+	var wall := get_node_or_null("GameplayRoot/LayoutRoot/WallLayer") as TileMapLayer
+	if wall != null:
+		var cells := wall.get_used_cells()
+		if not cells.is_empty():
+			wall.erase_cell(cells[0])
+	_sync_layout_root_to_gameplay_layers()
+
+
+func _ensure_owner_tree_for_bake() -> void:
+	_assign_owner_recursive(self)
+
+
+func _assign_owner_recursive(node: Node) -> void:
+	for child in node.get_children():
+		if child.owner == null:
+			child.owner = self
+		_assign_owner_recursive(child)
+
+
+func _clear_children_immediate(node: Node) -> void:
+	var children := node.get_children()
+	for child in children:
+		node.remove_child(child)
+		child.free()
+
+
+func _snap_marker_position(world_pos: Vector2) -> Vector2:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer == null:
+		return world_pos
+	var floor_cells := _cell_set(floor_layer.get_used_cells())
+	if floor_cells.is_empty():
+		return world_pos
+	var collision_layer := get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	var blocked := _cell_set(collision_layer.get_used_cells()) if collision_layer != null else {}
+	var origin := floor_layer.local_to_map(floor_layer.to_local(world_pos))
+	if floor_cells.has(origin) and not blocked.has(origin):
+		return world_pos
+	var best_cell := origin
+	var best_distance := INF
+	for radius in range(1, 10):
+		for y in range(origin.y - radius, origin.y + radius + 1):
+			for x in range(origin.x - radius, origin.x + radius + 1):
+				var cell := Vector2i(x, y)
+				if not floor_cells.has(cell) or blocked.has(cell):
+					continue
+				var dist := (Vector2(cell - origin)).length_squared()
+				if dist < best_distance:
+					best_distance = dist
+					best_cell = cell
+		if best_distance < INF:
+			break
+	return floor_layer.to_global(floor_layer.map_to_local(best_cell))
+
+
+func _cell_set(cells: Array) -> Dictionary:
+	var out := {}
+	for cell in cells:
+		out[cell] = true
+	return out
+
+
+func _value_string(value: Variant) -> String:
+	if value == null:
+		return ""
+	var text := str(value).strip_edges()
+	return "" if text == "<null>" else text
+
+
+func _canonical_collectible_marker_id(collectible_id: String) -> String:
+	var map := {
+		"taco_bell_poop_bag_1": "poop_bag_dog_station",
+		"taco_bell_poop_bag_2": "poop_bag_garage_pet_bin",
+		"taco_bell_poop_bag_3": "poop_bag_lobby_trash",
+		"taco_bell_glow_guys": "glow_guy_garage_stairs",
+		"louis_tiny_icon_delivery_bag": "tiny_icon_louis_delivery",
+		"taco_bell_midnight_market_rain": "hidden_polaroid_market_rain",
+		"taco_bell_perfect_ambush": "perfect_polaroid_garage_ambush",
+		"garage_staff_keycard": "keycard_garage_staff",
+	}
+	return map.get(collectible_id, collectible_id)
+
+
+func _canonical_objective_marker_id(objective_id: String, marker_type: String) -> String:
+	var map := {
+		"follow_correct_bentley_scent_trail": "scent_real_parking_garage",
+		"recover_decoy_bag_extra_intel": "scent_fake_loading_dock",
+		"complete_without_wrong_scent_trail": "scent_fake_trash_area",
+		"solve_garage_office_code": "code_gate_garage_office",
+	}
+	if map.has(objective_id):
+		return map[objective_id]
+	return marker_type + "_" + objective_id
+
+
+func _canonical_route_marker_id(route_id: String) -> String:
+	if route_id.contains("vent"):
+		return "route_bentley_vent"
+	if route_id.contains("louis"):
+		return "route_louis_delivery_future"
+	return "route_" + route_id
+
+
+func _unique_bake_marker_id(marker_type: String, base_id: String, extra: Dictionary) -> String:
+	var candidate := base_id.strip_edges()
+	if candidate == "":
+		candidate = marker_type + "_" + _value_string(extra.get("linked_objective_id", extra.get("linked_collectible_id", extra.get("linked_clue_id", "marker"))))
+	var key := candidate
+	if not _bake_marker_ids.has(key):
+		_bake_marker_ids[key] = 1
+		return key
+	var idx := int(_bake_marker_ids[key]) + 1
+	_bake_marker_ids[key] = idx
+	return "%s_%02d" % [candidate, idx]
+
+
 func _map_to_global(cell: Vector2i) -> Vector2:
 	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
 	if floor_layer:
@@ -885,7 +2362,18 @@ func _initial_objective_text() -> String:
 	if mission_definition.primary_objectives.is_empty():
 		return "Explore the isometric mission blockout."
 	var objective = mission_definition.primary_objectives[0]
-	return objective.display_text if objective != null else "Explore the isometric mission blockout."
+	if objective == null:
+		return "Explore the isometric mission blockout."
+	var base_text := String(objective.display_text)
+	var fails := int(GameState.failed_attempts.get(mission_definition.mission_id, 0))
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	if heat >= 3 or fails >= 3:
+		return base_text + " Louis hint (tier 3): real scent leads garage-ward, code clue sits in office paperwork."
+	if heat >= 2 or fails >= 2:
+		return base_text + " Louis hint (tier 2): ignore sneeze trails; use the Sterling-smelling path."
+	if fails >= 1:
+		return base_text + " Louis hint (tier 1): check trail reactions and route manifest logic."
+	return base_text
 
 
 func _default_exit_cell() -> Vector2i:
@@ -971,6 +2459,79 @@ func _floor_world_bounds() -> Rect2:
 		min_y = minf(min_y, pos.y - half_tile.y)
 		max_y = maxf(max_y, pos.y + half_tile.y)
 	return Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
+
+
+func _sync_layout_root_to_gameplay_layers() -> void:
+	var mode := get_authoring_mode()
+	if mode != "hybrid" and mode != "scene_authored":
+		return
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	var collision_layer := get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	var marker_layer := get_node_or_null("GameplayRoot/GameplayMarkersLayer") as TileMapLayer
+	var layout_floor := get_node_or_null("GameplayRoot/LayoutRoot/FloorLayer") as TileMapLayer
+	var layout_wall := get_node_or_null("GameplayRoot/LayoutRoot/WallLayer") as TileMapLayer
+	var layout_cover := get_node_or_null("GameplayRoot/LayoutRoot/CoverLayer") as TileMapLayer
+	var layout_barrier := get_node_or_null("GameplayRoot/LayoutRoot/CollisionBarrierLayer") as TileMapLayer
+	var layout_markers := get_node_or_null("GameplayRoot/LayoutRoot/MarkerTileLayer") as TileMapLayer
+	if floor_layer == null or collision_layer == null or layout_floor == null:
+		return
+	if layout_floor.get_used_cells().is_empty() and layout_wall != null and layout_wall.get_used_cells().is_empty():
+		return
+	floor_layer.clear()
+	collision_layer.clear()
+	if marker_layer != null:
+		marker_layer.clear()
+	for cell in layout_floor.get_used_cells():
+		floor_layer.set_cell(cell, SOURCE_ID, TILE_FLOOR)
+	if layout_wall != null:
+		for cell in layout_wall.get_used_cells():
+			collision_layer.set_cell(cell, SOURCE_ID, TILE_WALL)
+	if layout_cover != null:
+		for cell in layout_cover.get_used_cells():
+			collision_layer.set_cell(cell, SOURCE_ID, TILE_COVER)
+	if layout_barrier != null:
+		for cell in layout_barrier.get_used_cells():
+			collision_layer.set_cell(cell, SOURCE_ID, TILE_WALL)
+	if marker_layer != null and layout_markers != null:
+		for cell in layout_markers.get_used_cells():
+			var atlas := layout_markers.get_cell_atlas_coords(cell)
+			if atlas != Vector2i(-1, -1):
+				marker_layer.set_cell(cell, SOURCE_ID, atlas)
+
+
+func _sync_gameplay_layers_to_layout_root() -> void:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	var collision_layer := get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	var marker_layer := get_node_or_null("GameplayRoot/GameplayMarkersLayer") as TileMapLayer
+	var layout_floor := get_node_or_null("GameplayRoot/LayoutRoot/FloorLayer") as TileMapLayer
+	var layout_wall := get_node_or_null("GameplayRoot/LayoutRoot/WallLayer") as TileMapLayer
+	var layout_cover := get_node_or_null("GameplayRoot/LayoutRoot/CoverLayer") as TileMapLayer
+	var layout_barrier := get_node_or_null("GameplayRoot/LayoutRoot/CollisionBarrierLayer") as TileMapLayer
+	var layout_markers := get_node_or_null("GameplayRoot/LayoutRoot/MarkerTileLayer") as TileMapLayer
+	if floor_layer == null or collision_layer == null or layout_floor == null:
+		return
+	layout_floor.clear()
+	if layout_wall != null:
+		layout_wall.clear()
+	if layout_cover != null:
+		layout_cover.clear()
+	if layout_barrier != null:
+		layout_barrier.clear()
+	if layout_markers != null:
+		layout_markers.clear()
+	for cell in floor_layer.get_used_cells():
+		layout_floor.set_cell(cell, SOURCE_ID, TILE_FLOOR)
+	for cell in collision_layer.get_used_cells():
+		var atlas := collision_layer.get_cell_atlas_coords(cell)
+		if atlas == TILE_WALL and layout_wall != null:
+			layout_wall.set_cell(cell, SOURCE_ID, TILE_WALL)
+		elif atlas == TILE_COVER and layout_cover != null:
+			layout_cover.set_cell(cell, SOURCE_ID, TILE_COVER)
+	if marker_layer != null and layout_markers != null:
+		for cell in marker_layer.get_used_cells():
+			var atlas := marker_layer.get_cell_atlas_coords(cell)
+			if atlas != Vector2i(-1, -1):
+				layout_markers.set_cell(cell, SOURCE_ID, atlas)
 
 
 func _clear_children(parent: Node) -> void:

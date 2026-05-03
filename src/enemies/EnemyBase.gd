@@ -102,6 +102,7 @@ func _try_attack() -> void:
 		target.take_damage(attack_damage, self)
 
 func take_damage(amount: int, source: Node = null) -> void:
+	EventBus.debug("Guard hit.")
 	health = max(0, health - amount)
 	health_changed.emit(health, max_health)
 	attack_timer = maxf(attack_timer, hit_recovery_delay)
@@ -110,6 +111,7 @@ func take_damage(amount: int, source: Node = null) -> void:
 		var knock: Vector2 = (global_position - source.global_position).normalized() * 16.0
 		global_position += knock
 	if health <= 0:
+		EventBus.debug("Guard defeated.")
 		_die()
 
 func stun(duration: float) -> void:

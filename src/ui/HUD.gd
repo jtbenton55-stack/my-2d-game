@@ -25,6 +25,7 @@ func _ready() -> void:
 	EventBus.card_selection_changed.connect(_on_cards_changed)
 	EventBus.card_triggered.connect(_on_card_triggered)
 	EventBus.combat_style_changed.connect(_on_combat_style_changed)
+	EventBus.detection_state_changed.connect(_on_detection_state_changed)
 	_on_health_changed(GameState.player_health, GameState.player_max_health)
 	if objective_marker:
 		objective_marker.visible = false
@@ -35,6 +36,8 @@ func _exit_tree() -> void:
 		EventBus.card_triggered.disconnect(_on_card_triggered)
 	if EventBus.combat_style_changed.is_connected(_on_combat_style_changed):
 		EventBus.combat_style_changed.disconnect(_on_combat_style_changed)
+	if EventBus.detection_state_changed.is_connected(_on_detection_state_changed):
+		EventBus.detection_state_changed.disconnect(_on_detection_state_changed)
 
 func _process(_delta: float) -> void:
 	if objective_marker and has_marker:
@@ -88,6 +91,20 @@ func _on_objective_updated(text: String) -> void:
 		objective_label.text = text
 	if detection_meter:
 		detection_meter.tooltip_text = text
+
+
+func _on_detection_state_changed(current: float, max_value: float, state: String, modifier: float, source_id: String) -> void:
+	if detection_meter == null:
+		return
+	detection_meter.max_value = max_value
+	detection_meter.value = current
+	detection_meter.tooltip_text = "Detection %.2f/%s | state=%s | mod=%.2f | source=%s" % [
+		current,
+		str(max_value),
+		state,
+		modifier,
+		source_id
+	]
 
 func _on_cards_changed(_cards: Array) -> void:
 	_rebuild_cards_panel()

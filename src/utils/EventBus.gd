@@ -52,6 +52,8 @@ signal pause_requested
 signal screen_shake(intensity: float, duration: float)
 @warning_ignore("unused_signal")
 signal combat_style_changed(current_style: float, max_style: float)
+@warning_ignore("unused_signal")
+signal detection_state_changed(current: float, max_value: float, state: String, modifier: float, source_id: String)
 
 var verbose := true
 var log_history: Array[String] = []

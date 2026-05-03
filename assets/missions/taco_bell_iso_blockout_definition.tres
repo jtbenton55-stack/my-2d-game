@@ -20,6 +20,8 @@ mission_id = "taco_bell_drop"
 zone_id = "midnight_market_street"
 marker_cell = Vector2i(-11, 3)
 completion_text = "Hidden Polaroid placeholder collected: Midnight Market Rain."
+hidden = true
+collection_group = "polaroid_hidden"
 
 [sub_resource type="Resource" id="Col_perfect_polaroid"]
 script = ExtResource("4_col")
@@ -29,6 +31,9 @@ mission_id = "taco_bell_drop"
 zone_id = "garage_floor_2_ambush"
 marker_cell = Vector2i(23, 2)
 completion_text = "Perfect/stylish Polaroid placeholder collected: Parking Garage Ambush."
+mastery_collectible = true
+reward_effect = "perfect_moment_polaroid"
+collection_group = "polaroid_mastery"
 
 [sub_resource type="Resource" id="Col_glow"]
 script = ExtResource("4_col")
@@ -39,6 +44,7 @@ mission_id = "taco_bell_drop"
 zone_id = "garage_office"
 marker_cell = Vector2i(21, -2)
 completion_text = "Glow Guy behind cone collected."
+collection_group = "glow_guy"
 
 [sub_resource type="Resource" id="Col_icon"]
 script = ExtResource("4_col")
@@ -49,6 +55,7 @@ mission_id = "taco_bell_drop"
 zone_id = "city_hub_entrance"
 marker_cell = Vector2i(-16, 3)
 completion_text = "Tiny Icon placeholder collected: Louis with delivery bag."
+collection_group = "tiny_icon"
 
 [sub_resource type="Resource" id="Col_keycard"]
 script = ExtResource("4_col")
@@ -59,6 +66,7 @@ mission_id = "taco_bell_drop"
 zone_id = "parking_garage_floor_1"
 marker_cell = Vector2i(14, -8)
 completion_text = "Garage staff keycard acquired."
+collection_group = "intel_access_item"
 
 [sub_resource type="Resource" id="Col_bag1"]
 script = ExtResource("4_col")
@@ -69,6 +77,7 @@ mission_id = "taco_bell_drop"
 zone_id = "dog_station_alley"
 marker_cell = Vector2i(-10, -6)
 completion_text = "+1 Bentley poop bag from the dog station."
+collection_group = "poop_bag"
 
 [sub_resource type="Resource" id="Col_bag2"]
 script = ExtResource("4_col")
@@ -79,6 +88,7 @@ mission_id = "taco_bell_drop"
 zone_id = "parking_garage_floor_1"
 marker_cell = Vector2i(15, 3)
 completion_text = "+1 Bentley poop bag from the garage relief bin."
+collection_group = "poop_bag"
 
 [sub_resource type="Resource" id="Col_bag3"]
 script = ExtResource("4_col")
@@ -89,6 +99,7 @@ mission_id = "taco_bell_drop"
 zone_id = "escape_return_to_louis"
 marker_cell = Vector2i(-17, 11)
 completion_text = "+1 Bentley poop bag from the luxury lobby trash can placeholder."
+collection_group = "poop_bag"
 
 [sub_resource type="Resource" id="Cut_intro"]
 script = ExtResource("8_cut")
@@ -237,6 +248,8 @@ display_name = "Sterling Delivery Token"
 mission_found = "taco_bell_drop"
 category = "Logistics"
 description = "Secret packets move through ordinary delivery routes."
+short_name = "Delivery Token"
+clue_board_cluster = "Sterling Logistics"
 connects_to = "Sterling Tower delivery entrance"
 unlocks_or_modifies = "Delivery entrance options"
 final_tower_relevance = "Supports the final tower logistics route."
@@ -250,6 +263,8 @@ display_name = "Velvet Paw Stamp"
 mission_found = "taco_bell_drop"
 category = "Network"
 description = "Black envelope stamp ties the delivery drop to the Velvet Paw."
+short_name = "V.P. Stamp"
+clue_board_cluster = "Velvet Paw Network"
 connects_to = "velvet_paw_jazz_club"
 unlocks_or_modifies = "Velvet Paw follow-up clue chain"
 final_tower_relevance = "Shows Sterling routes pass through nightlife couriers."
@@ -263,6 +278,8 @@ display_name = "Route Manifest Half"
 mission_found = "taco_bell_drop"
 category = "Code"
 description = "Default code logic: route 2, drop 1, bay 7, office door 4. Together: 2174."
+short_name = "Manifest Half"
+clue_board_cluster = "Sterling Logistics"
 connects_to = "Sterling safehouse logistics"
 unlocks_or_modifies = "Garage office code clue"
 final_tower_relevance = "Safehouse route numbers become tower logistics advantages."
@@ -276,6 +293,8 @@ display_name = "Sauce Packet With Initials V.P."
 mission_found = "taco_bell_drop"
 category = "Hint"
 description = "Foil packet initials V.P. point the next investigation toward the Velvet Paw."
+short_name = "V.P. Sauce Packet"
+clue_board_cluster = "Velvet Paw Network"
 connects_to = "velvet_paw_jazz_club"
 unlocks_or_modifies = "Velvet Paw unlock connection through the envelope stamp"
 final_tower_relevance = "Confirms the delivery clue chain starts before the tower."
@@ -496,6 +515,8 @@ route_id = "main_delivery_route"
 display_name = "Louis Delivery Route"
 zone_ids = Array[String](["city_hub_entrance", "midnight_market_street", "dog_station_alley", "delivery_alley", "real_scent_trail_parking_garage", "parking_garage_floor_1", "security_booth_keycard_room", "garage_office", "garage_floor_2_ambush", "bag_recovery_room", "south_return_drop", "south_return_corridor", "escape_return_to_louis"])
 required_gate_ids = Array[String](["garage_office_code"])
+locked_message = "Main delivery route remains locked until garage access steps are complete."
+unlocked_message = "Main delivery route open."
 notes = "Gold-standard Taco Bell iso blockout route: left-to-right tutorial, visible fake trails, garage code, bag reveal, return to Louis."
 
 [sub_resource type="Resource" id="Reward_louis"]
@@ -503,6 +524,11 @@ script = ExtResource("6_reward")
 reward_id = "louis_delivery_route"
 display_name = "Louis Delivery Route"
 mission_id = "taco_bell_drop"
+description = "Scheme card unlock for logistics route shortcuts and crew assist routing."
+effect_data = {
+"crew_assist": "louis_delivery_route_assist",
+"route_id": "louis_delivery_route_future_shortcut"
+}
 notes = "Matches current GameState mission_catalog reward card."
 
 [sub_resource type="Resource" id="Zone_start"]
@@ -654,6 +680,8 @@ script = ExtResource("1_def")
 mission_id = "taco_bell_drop"
 display_name = "The Taco Bell Drop"
 description = "Gold-standard data-driven isometric blockout for the delivery-route stealth tutorial. Existing orthogonal TacoBellMission remains untouched."
+layout_source_id = "scene_tilemaps_plus_definition_defaults"
+marker_source_id = "scene_markers_plus_definition_defaults"
 genre_feel = "noir tracking tutorial / delivery-route stealth"
 player_mindset = "investigate and extract"
 signature_mechanic = "Bentley scent trail"

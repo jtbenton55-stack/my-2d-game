@@ -57,10 +57,31 @@ var mission_mutation_state: Dictionary = {}
 
 ## Structured Sterling clues for evidence board import; id -> {title, description, category, mission_id, connects_to, unlocks_or_modifies, discovered}
 var sterling_clues: Dictionary = {}
+## Typed clue board records (additive to sterling_clues for backward compatibility).
+var evidence_clues: Dictionary = {}
+
+## Mission rewards/loadout style cards with richer metadata (unlocked_cards remains canonical for old systems).
+var unlocked_scheme_cards: Dictionary = {}
+
+## Typed collectible records used by iso placeholder missions.
+var typed_collectibles: Dictionary = {}
+
+## Lightweight crew assist unlock records for route and hint checks.
+var crew_assists: Dictionary = {}
+
+## Mission heat snapshots for deterministic restart mutations.
+var mission_heat_states: Dictionary = {}
+
+## Mission runtime performance snapshots for mastery/replay hooks.
+var mission_performance: Dictionary = {}
+
+## Per-mission alert/suspicion state snapshots (normal/suspicious/alerted/resolved).
+var mission_alert_states: Dictionary = {}
 
 ## Bentley poop bags — global inventory + per-attempt pickup count for Responsible Crime Lord bonus.
 var poop_bag_count: int = 0
 var poop_bags_this_mission_attempt: int = 0
+var poop_bag_inventory: Dictionary = {"count": 0, "collected_this_mission": 0, "used_this_mission": 0}
 
 ## If true, every mission in mission_catalog is added to available_missions after reset (local QA only).
 ## Default false so release/story order stay intact. Tests force off during runs.
@@ -120,6 +141,7 @@ func register_sterling_clue(clue_id: String, data: Dictionary) -> void:
 	if not d.has("discovered"):
 		d["discovered"] = false
 	sterling_clues[clue_id] = d
+	record_evidence_clue(clue_id, d)
 
 
 func discover_sterling_clue(clue_id: String) -> void:
@@ -128,6 +150,7 @@ func discover_sterling_clue(clue_id: String) -> void:
 	var d: Dictionary = sterling_clues[clue_id].duplicate(true)
 	d["discovered"] = true
 	sterling_clues[clue_id] = d
+	record_evidence_clue(clue_id, d)
 	EventBus.game_state_changed.emit()
 
 
@@ -139,6 +162,8 @@ func ensure_and_discover_sterling_clue(clue_id: String, data: Dictionary) -> voi
 
 func add_poop_bag() -> void:
 	poop_bag_count += 1
+	poop_bag_inventory["count"] = poop_bag_count
+	poop_bag_inventory["collected_this_mission"] = int(poop_bag_inventory.get("collected_this_mission", 0)) + 1
 	if is_in_mission:
 		poop_bags_this_mission_attempt += 1
 	EventBus.game_state_changed.emit()
@@ -148,6 +173,8 @@ func try_consume_poop_bag() -> bool:
 	if poop_bag_count <= 0:
 		return false
 	poop_bag_count -= 1
+	poop_bag_inventory["count"] = poop_bag_count
+	poop_bag_inventory["used_this_mission"] = int(poop_bag_inventory.get("used_this_mission", 0)) + 1
 	EventBus.game_state_changed.emit()
 	return true
 
@@ -215,8 +242,16 @@ func reset_for_new_game(emit_change = true) -> void:
 	velvet_paw_stealth_run_broken = false
 	mission_mutation_state.clear()
 	sterling_clues.clear()
+	evidence_clues.clear()
+	unlocked_scheme_cards.clear()
+	typed_collectibles.clear()
+	crew_assists.clear()
+	mission_heat_states.clear()
+	mission_performance.clear()
+	mission_alert_states.clear()
 	poop_bag_count = 0
 	poop_bags_this_mission_attempt = 0
+	poop_bag_inventory = {"count": 0, "collected_this_mission": 0, "used_this_mission": 0}
 	_apply_debug_unlock_all_missions_if_enabled()
 	if emit_change:
 		EventBus.game_state_changed.emit()
@@ -226,7 +261,10 @@ func start_mission(mission_id: String) -> void:
 	is_in_mission = true
 	player_health = player_max_health
 	poop_bags_this_mission_attempt = 0
+	poop_bag_inventory["collected_this_mission"] = 0
+	poop_bag_inventory["used_this_mission"] = 0
 	dialogue_flags.erase("dental_boy_used")
+	begin_mission_performance(mission_id)
 	EventBus.mission_started.emit(mission_id)
 	EventBus.debug("Mission started: " + mission_id)
 	EventBus.game_state_changed.emit()
@@ -245,6 +283,7 @@ func complete_mission(mission_id = "") -> Dictionary:
 		velvet_paw_stealth_run_broken = false
 	if not completed_missions.has(mission_id):
 		completed_missions.append(mission_id)
+	_finalize_mission_performance(mission_id, true)
 	var rewards := _grant_success_rewards(mission_id)
 	clear_mission_mutations(mission_id)
 	last_mission_result = {"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}
@@ -267,6 +306,8 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		velvet_paw_stealth_run_broken = false
 	var attempt_count := int(failed_attempts.get(mission_id, 0)) + 1
 	failed_attempts[mission_id] = attempt_count
+	_update_mission_heat_state(mission_id)
+	_finalize_mission_performance(mission_id, false)
 	intel_points += 1
 	var rewards: Array[String] = ["+1 intel point", "Attempt %d logged for the crew board" % attempt_count]
 	if attempt_count >= 2 and unlock_card("two_letters_away"):
@@ -307,6 +348,14 @@ func _grant_success_rewards(mission_id: String) -> Array[String]:
 	if poop_bags_this_mission_attempt >= 3:
 		intel_points += 1
 		rewards.append("Responsible Crime Lord: +1 intel (3 poop bags this run)")
+	if mission_id == "taco_bell_drop":
+		unlock_crew_assist("louis_delivery_route_assist", {
+			"friend_name": "louis",
+			"unlocked_by_mission": "taco_bell_drop",
+			"effect_type": "delivery_route_access",
+			"usable_in_missions": ["jazz_club", "rewrite_room", "sterling_tower_heist"],
+			"cooldown_or_once_per_mission": "once_per_mission",
+		})
 	return rewards
 
 func _unlock_next_missions(mission_id: String) -> void:
@@ -382,6 +431,7 @@ func unlock_card(card_id: String) -> bool:
 	if unlocked_cards.has(card_id):
 		return false
 	unlocked_cards.append(card_id)
+	unlock_scheme_card(card_id, {"display_name": _pretty_id(card_id), "effect_type": "legacy_card"})
 	EventBus.card_unlocked.emit(card_id)
 	return true
 
@@ -526,7 +576,15 @@ func to_dict() -> Dictionary:
 		"velvet_paw_stealth_run_broken": velvet_paw_stealth_run_broken,
 		"mission_mutation_state": mission_mutation_state,
 		"sterling_clues": sterling_clues,
+		"evidence_clues": evidence_clues,
+		"unlocked_scheme_cards": unlocked_scheme_cards,
+		"typed_collectibles": typed_collectibles,
+		"crew_assists": crew_assists,
+		"mission_heat_states": mission_heat_states,
+		"mission_performance": mission_performance,
+		"mission_alert_states": mission_alert_states,
 		"poop_bag_count": poop_bag_count,
+		"poop_bag_inventory": poop_bag_inventory,
 	}
 
 func from_dict(data: Dictionary) -> void:
@@ -562,7 +620,19 @@ func from_dict(data: Dictionary) -> void:
 	velvet_paw_stealth_run_broken = bool(data.get("velvet_paw_stealth_run_broken", false))
 	mission_mutation_state = Dictionary(data.get("mission_mutation_state", {}))
 	sterling_clues = Dictionary(data.get("sterling_clues", {}))
+	evidence_clues = Dictionary(data.get("evidence_clues", {}))
+	unlocked_scheme_cards = Dictionary(data.get("unlocked_scheme_cards", {}))
+	typed_collectibles = Dictionary(data.get("typed_collectibles", {}))
+	crew_assists = Dictionary(data.get("crew_assists", {}))
+	mission_heat_states = Dictionary(data.get("mission_heat_states", {}))
+	mission_performance = Dictionary(data.get("mission_performance", {}))
+	mission_alert_states = Dictionary(data.get("mission_alert_states", {}))
 	poop_bag_count = int(data.get("poop_bag_count", 0))
+	poop_bag_inventory = Dictionary(data.get("poop_bag_inventory", {"count": poop_bag_count, "collected_this_mission": 0, "used_this_mission": 0}))
+	if not poop_bag_inventory.has("count"):
+		poop_bag_inventory["count"] = poop_bag_count
+	else:
+		poop_bag_count = int(poop_bag_inventory.get("count", poop_bag_count))
 	is_in_mission = false
 	current_mission_id = ""
 	pending_mission_id = ""
@@ -594,3 +664,177 @@ func _as_string_array(value) -> Array[String]:
 		for item in value:
 			out.append(String(item))
 	return out
+
+
+func unlock_scheme_card(card_id: String, data: Dictionary = {}) -> bool:
+	if card_id == "":
+		return false
+	var record: Dictionary = unlocked_scheme_cards.get(card_id, {
+		"card_id": card_id,
+		"display_name": _pretty_id(card_id),
+		"description": "",
+		"unlocked_by_mission": "",
+		"effect_type": "boolean",
+		"effect_data": {},
+		"is_unlocked": true,
+		"is_equipped": false,
+	})
+	for key in data.keys():
+		record[key] = data[key]
+	record["is_unlocked"] = true
+	unlocked_scheme_cards[card_id] = record
+	if not unlocked_cards.has(card_id):
+		unlocked_cards.append(card_id)
+	return true
+
+
+func has_scheme_card(card_id: String) -> bool:
+	return unlocked_cards.has(card_id) or bool(unlocked_scheme_cards.get(card_id, {}).get("is_unlocked", false))
+
+
+func record_evidence_clue(clue_id: String, data: Dictionary) -> void:
+	if clue_id == "":
+		return
+	var record: Dictionary = evidence_clues.get(clue_id, {
+		"clue_id": clue_id,
+		"display_name": data.get("title", _pretty_id(clue_id)),
+		"short_name": data.get("title", _pretty_id(clue_id)),
+		"description": data.get("description", ""),
+		"category": data.get("category", "Mission Bible"),
+		"found_in_mission": data.get("mission_id", ""),
+		"clue_board_cluster": data.get("connects_to", "Sterling Tower"),
+		"connects_to": data.get("connects_to", ""),
+		"unlocks_or_modifies": data.get("unlocks_or_modifies", ""),
+		"final_tower_relevance": data.get("final_tower_relevance", ""),
+		"is_required_for_mission_completion": true,
+		"discovered": false,
+	})
+	for key in data.keys():
+		record[key] = data[key]
+	if data.has("title"):
+		record["display_name"] = data["title"]
+		record["short_name"] = data["title"]
+	evidence_clues[clue_id] = record
+
+
+func has_evidence_clue(clue_id: String) -> bool:
+	return evidence_clues.has(clue_id) or sterling_clues.has(clue_id)
+
+
+func record_typed_collectible(collectible_id: String, collectible_type: String, data: Dictionary = {}) -> void:
+	if collectible_id == "":
+		return
+	var record: Dictionary = typed_collectibles.get(collectible_id, {
+		"collectible_id": collectible_id,
+		"type": collectible_type,
+		"mission_id": data.get("mission_id", current_mission_id),
+		"display_name": data.get("display_name", _pretty_id(collectible_id)),
+		"description": data.get("description", ""),
+		"hidden": bool(data.get("hidden", false)),
+		"reward_effect": data.get("reward_effect", ""),
+		"collection_group": data.get("collection_group", collectible_type),
+		"found_state": "found",
+	})
+	for key in data.keys():
+		record[key] = data[key]
+	record["type"] = collectible_type
+	record["found_state"] = "found"
+	typed_collectibles[collectible_id] = record
+
+
+func unlock_crew_assist(assist_id: String, data: Dictionary = {}) -> void:
+	if assist_id == "":
+		return
+	var record: Dictionary = crew_assists.get(assist_id, {
+		"assist_id": assist_id,
+		"friend_name": data.get("friend_name", "crew"),
+		"unlocked_by_mission": data.get("unlocked_by_mission", ""),
+		"effect_type": data.get("effect_type", "route_access"),
+		"usable_in_missions": data.get("usable_in_missions", []),
+		"cooldown_or_once_per_mission": data.get("cooldown_or_once_per_mission", "once_per_mission"),
+		"is_unlocked": true,
+	})
+	for key in data.keys():
+		record[key] = data[key]
+	record["is_unlocked"] = true
+	crew_assists[assist_id] = record
+
+
+func has_crew_assist(assist_id: String) -> bool:
+	return bool(crew_assists.get(assist_id, {}).get("is_unlocked", false))
+
+
+func set_mission_alert_state(mission_id: String, state: String) -> void:
+	if mission_id == "":
+		return
+	mission_alert_states[mission_id] = {
+		"state": state,
+		"updated_at": Time.get_unix_time_from_system(),
+	}
+
+
+func get_mission_alert_state(mission_id: String) -> String:
+	if mission_id == "":
+		return "normal"
+	return String(mission_alert_states.get(mission_id, {}).get("state", "normal"))
+
+
+func begin_mission_performance(mission_id: String) -> void:
+	if mission_id == "":
+		return
+	mission_performance[mission_id] = {
+		"mission_id": mission_id,
+		"started_at": Time.get_unix_time_from_system(),
+		"completed_at": 0,
+		"alarms_triggered": 0,
+		"guards_alerted": 0,
+		"wrong_scent_trails_followed": 0,
+		"wrong_code_attempts": 0,
+		"damage_taken": 0,
+		"poop_bags_collected": 0,
+		"collectibles_found": 0,
+		"optional_objectives_completed": 0,
+		"combat_style_event_completed": false,
+		"mission_time": 0.0,
+		"perfect_moment_earned": false,
+	}
+
+
+func record_mission_performance_event(mission_id: String, key: String, delta: int = 1) -> void:
+	if mission_id == "":
+		return
+	if not mission_performance.has(mission_id):
+		begin_mission_performance(mission_id)
+	var record: Dictionary = mission_performance[mission_id]
+	record[key] = int(record.get(key, 0)) + delta
+	mission_performance[mission_id] = record
+
+
+func _finalize_mission_performance(mission_id: String, success: bool) -> void:
+	if mission_id == "":
+		return
+	if not mission_performance.has(mission_id):
+		return
+	var record: Dictionary = mission_performance[mission_id]
+	var now := Time.get_unix_time_from_system()
+	record["completed_at"] = now
+	record["mission_time"] = maxf(0.0, float(now) - float(record.get("started_at", now)))
+	record["poop_bags_collected"] = poop_bags_this_mission_attempt
+	record["perfect_moment_earned"] = success and int(record.get("alarms_triggered", 0)) == 0 and int(record.get("wrong_scent_trails_followed", 0)) == 0
+	mission_performance[mission_id] = record
+
+
+func _update_mission_heat_state(mission_id: String) -> void:
+	if mission_id == "":
+		return
+	var failed := int(failed_attempts.get(mission_id, 0))
+	mission_heat_states[mission_id] = {
+		"mission_id": mission_id,
+		"failed_attempts": failed,
+		"heat_level": mini(5, failed),
+		"selected_mutations": mission_mutation_state.get(mission_id, {}),
+		"active_extra_guards": failed >= 2,
+		"active_camera_state": "high_heat" if failed >= 2 else "normal",
+		"moved_collectible_variant": String(mission_mutation_state.get(mission_id, {}).get("hidden_collectible_slot", "")),
+		"friend_hint_level": mini(3, failed),
+	}

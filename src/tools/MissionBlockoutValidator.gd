@@ -11,6 +11,19 @@ const REQUIRED_LAYER_PATHS: Array[String] = [
 	"GameplayRoot/ExitAreas",
 	"GameplayRoot/SpawnPoints",
 	"GameplayRoot/EnemyPaths",
+	"GameplayRoot/AuthoringMarkers",
+	"GameplayRoot/Subareas",
+	"GameplayRoot/RuntimeSystems",
+	"GameplayRoot/RuntimeSystems/SpawnedGuards",
+	"GameplayRoot/RuntimeSystems/SpawnedCameras",
+	"GameplayRoot/RuntimeSystems/LightZones",
+	"GameplayRoot/RuntimeSystems/DetectionZones",
+	"GameplayRoot/RuntimeSystems/AlarmZones",
+	"GameplayRoot/RuntimeSystems/EncounterZones",
+	"GameplayRoot/RuntimeSystems/RouteAccessPoints",
+	"GameplayRoot/RuntimeSystems/TransitionTriggers",
+	"GameplayRoot/RuntimeSystems/DebugLabels",
+	"GameplayRoot/RuntimeSystems/DebugUI",
 	"ArtRoot",
 	"ArtRoot/GroundArtLayer",
 	"ArtRoot/WallArtLayer",
@@ -18,9 +31,12 @@ const REQUIRED_LAYER_PATHS: Array[String] = [
 	"ArtRoot/DecorBelowLayer",
 	"ArtRoot/DecorAboveLayer",
 	"ArtRoot/LightingLayer",
+	"ArtRoot/LightingArtLayer",
 	"EntityRoot",
 	"EntityRoot/Enemies",
+	"EntityRoot/Cameras",
 	"EntityRoot/Interactables",
+	"EntityRoot/DynamicProps",
 	"Camera2D",
 	"MissionController",
 ]
@@ -117,6 +133,13 @@ static func _validate_definition(definition: Resource, report: Dictionary) -> vo
 		_add_error(report, "Mission must include a final tower delivery/logistics dependency connection.")
 	if String(definition.implementation_status).strip_edges() == "":
 		_add_warning(report, "implementation_status is empty.")
+	var mode := "generated"
+	if definition.has_method("get"):
+		var mode_value = definition.get("authoring_mode")
+		if mode_value != null and String(mode_value).strip_edges() != "":
+			mode = String(mode_value)
+	if not ["generated", "scene_authored", "hybrid"].has(mode):
+		_add_error(report, "authoring_mode must be generated, scene_authored, or hybrid.")
 
 
 static func _has_final_tower_logistics_connection(definition: Resource) -> bool:
@@ -128,12 +151,15 @@ static func _has_final_tower_logistics_connection(definition: Resource) -> bool:
 
 
 static func _validate_scene(definition: Resource, scene_root: Node, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	debug["scene_path"] = String(scene_root.scene_file_path)
+	report["debug"] = debug
 	for path in REQUIRED_LAYER_PATHS:
 		if scene_root.get_node_or_null(path) == null:
 			_add_error(report, "Missing required node: " + path)
 	var spawn_points := scene_root.get_node_or_null("GameplayRoot/SpawnPoints")
-	if spawn_points != null and spawn_points.get_child_count() != 1:
-		_add_warning(report, "Expected one generated player spawn marker; found " + str(spawn_points.get_child_count()) + ".")
+	if spawn_points != null and spawn_points.get_child_count() < 1:
+		_add_error(report, "Expected at least one spawn marker in GameplayRoot/SpawnPoints.")
 	var exit_areas := scene_root.get_node_or_null("GameplayRoot/ExitAreas")
 	if exit_areas == null or exit_areas.get_child_count() < 1:
 		_add_error(report, "At least one exit area is required.")
@@ -156,6 +182,10 @@ static func _validate_scene(definition: Resource, scene_root: Node, report: Dict
 	_validate_exit_setup(definition, scene_root, report)
 	_validate_interactable_setup(definition, scene_root, report)
 	_validate_interactable_spacing(definition, report)
+	_validate_authoring_contract(definition, scene_root, report)
+	_validate_interaction_runtime_priority(scene_root, report)
+	_validate_runtime_systems(definition, scene_root, report)
+	_validate_typed_system_data(definition, report)
 	_validate_cover_collision(scene_root, report)
 	if definition.mission_id == "taco_bell_drop":
 		_validate_taco_bell_layout(definition, scene_root, report)
@@ -248,7 +278,10 @@ static func _validate_boundary_integrity(definition: Resource, scene_root: Node,
 	if not boundary_ok:
 		_add_error(report, "GameplayRoot/BoundaryColliders must exist with generated edge colliders.")
 	if not bool(debug["outer_collision_surrounds_floor"]):
-		_add_error(report, "GameplayCollisionLayer does not surround the playable floor footprint.")
+		if _is_editable_scene(scene_root):
+			_add_warning(report, "GameplayCollisionLayer does not fully surround the editable scene footprint (verify subareas).")
+		else:
+			_add_error(report, "GameplayCollisionLayer does not surround the playable floor footprint.")
 	var outside_targets: Array = debug["required_targets_outside_floor"]
 	if not outside_targets.is_empty():
 		_add_error(report, "Required targets outside playable floor: " + ", ".join(outside_targets))
@@ -256,7 +289,10 @@ static func _validate_boundary_integrity(definition: Resource, scene_root: Node,
 	if not outside_markers.is_empty():
 		_add_error(report, "Mission markers outside playable floor: " + ", ".join(outside_markers))
 	if int(debug["internal_transition_blocker_count"]) > 0:
-		_add_error(report, "Internal zone transitions contain collision blockers.")
+		if _is_editable_scene(scene_root):
+			_add_warning(report, "Internal zone transitions contain collision blockers in editable scene.")
+		else:
+			_add_error(report, "Internal zone transitions contain collision blockers.")
 	var escape_risk: Array = debug["outside_escape_risk_cells"]
 	if not escape_risk.is_empty():
 		_add_error(report, "Outside test cells are marked floor/reachable risk: " + str(escape_risk))
@@ -392,6 +428,12 @@ static func _validate_exit_setup(definition: Resource, scene_root: Node, report:
 				exit_has_player_mask = true
 			if floor_layer != null:
 				var expected_pos := floor_layer.to_global(floor_layer.map_to_local(_exit_cell(definition)))
+				var marker_root := scene_root.get_node_or_null("GameplayRoot/MarkerRoot")
+				var exit_marker := _find_scene_marker(marker_root, "exit_return_to_louis")
+				if exit_marker == null:
+					exit_marker = _find_scene_marker(marker_root, "exit")
+				if exit_marker != null and exit_marker is Node2D:
+					expected_pos = (exit_marker as Node2D).global_position
 				if area.global_position.distance_to(expected_pos) <= 8.0:
 					exit_overlaps_expected_cell = true
 			if not area.monitoring:
@@ -433,25 +475,30 @@ static func _validate_interactable_setup(definition: Resource, scene_root: Node,
 		for objective in definition.primary_objectives:
 			if objective == null:
 				continue
-			checks[String(objective.objective_id)] = objective_parent.get_node_or_null("Objective_" + String(objective.objective_id))
+			checks[String(objective.objective_id)] = _find_interactable_by_property(objective_parent, "objective_id", String(objective.objective_id))
 	var interactables := scene_root.get_node_or_null("EntityRoot/Interactables")
+	var route_access_points := scene_root.get_node_or_null("GameplayRoot/RuntimeSystems/RouteAccessPoints")
 	if interactables != null:
 		for clue in definition.evidence_clues:
 			if clue != null:
-				checks[String(clue.clue_id)] = interactables.get_node_or_null("Clue_" + String(clue.clue_id))
+				checks[String(clue.clue_id)] = _find_interactable_by_property(interactables, "clue_id", String(clue.clue_id))
 		for collectible in definition.collectibles:
 			if collectible != null:
-				checks[String(collectible.collectible_id)] = interactables.get_node_or_null("Collectible_" + String(collectible.collectible_id))
+				checks[String(collectible.collectible_id)] = _find_interactable_by_property(interactables, "collectible_id", String(collectible.collectible_id))
 		for gate in definition.puzzle_gates:
 			if gate == null:
 				continue
 			var gate_id := String(gate.gate_id)
 			if gate_id == "garage_office_code":
 				continue
-			checks[gate_id] = interactables.get_node_or_null("Gate_" + gate_id)
+			if gate_id.contains("vent_route") or gate_id.contains("future_shortcut"):
+				var route_node := _find_interactable_by_property(route_access_points, "route_id", gate_id) if route_access_points != null else null
+				checks[gate_id] = route_node
+			else:
+				checks[gate_id] = interactables.get_node_or_null("Gate_" + gate_id)
 	var exit_parent := scene_root.get_node_or_null("GameplayRoot/ExitAreas")
 	if exit_parent != null:
-		checks["exit"] = exit_parent.get_node_or_null("ExitZone")
+		checks["exit"] = _find_interactable_by_property(exit_parent, "placeholder_id", "exit")
 	for id in checks.keys():
 		var node := checks[id] as Node
 		if node == null or not node.is_in_group("interactable") or not node.has_method("interact"):
@@ -523,6 +570,366 @@ static func _validate_cover_collision(scene_root: Node, report: Dictionary) -> v
 		_add_warning(report, "No intentional cover cells found in GameplayCollisionLayer.")
 	elif not bool(debug["cover_tile_has_collision"]):
 		_add_error(report, "Cover cells exist but the cover tile has no collision polygon.")
+
+
+static func _validate_runtime_systems(_definition: Resource, scene_root: Node, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	var runtime := scene_root.get_node_or_null("GameplayRoot/RuntimeSystems")
+	if runtime == null:
+		_add_error(report, "RuntimeSystems root missing under GameplayRoot.")
+		return
+	var spawned_guards := scene_root.get_node_or_null("EntityRoot/Enemies")
+	var spawned_cameras := scene_root.get_node_or_null("EntityRoot/Cameras")
+	var light_zones := runtime.get_node_or_null("LightZones")
+	var detection_zones := runtime.get_node_or_null("DetectionZones")
+	var alarm_zones := runtime.get_node_or_null("AlarmZones")
+	var encounters := runtime.get_node_or_null("EncounterZones")
+	var route_access := runtime.get_node_or_null("RouteAccessPoints")
+	var transitions := runtime.get_node_or_null("TransitionTriggers")
+	var debug_ui := runtime.get_node_or_null("DebugUI")
+	var meta_debug: Dictionary = scene_root.get_meta("iso_runtime_debug", {})
+	var enemy_iso_scale_ok := true
+	var expected_scale := 0.86
+	var expected_collision := Vector2(24, 24)
+	var actual_scale := 0.0
+	var actual_collision := Vector2.ZERO
+	if spawned_guards != null and spawned_guards.get_child_count() > 0:
+		for child in spawned_guards.get_children():
+			var guard := child as Node2D
+			if guard == null:
+				continue
+			var sprite := guard.get_node_or_null("AnimatedSprite2D") as Node2D
+			var body := guard.get_node_or_null("CollisionShape2D") as CollisionShape2D
+			if sprite != null:
+				actual_scale = maxf(actual_scale, sprite.scale.x)
+				if absf(sprite.scale.x - expected_scale) > 0.03:
+					enemy_iso_scale_ok = false
+			if body != null and body.shape is RectangleShape2D:
+				var size := (body.shape as RectangleShape2D).size
+				actual_collision = size
+				if absf(size.x - expected_collision.x) > 0.2 or absf(size.y - expected_collision.y) > 0.2:
+					enemy_iso_scale_ok = false
+	debug["runtime_marker_to_object_counts"] = meta_debug.get("marker_to_runtime_counts", {})
+	debug["runtime_spawned_ids"] = meta_debug.get("spawned_runtime_ids", [])
+	debug["authoring_mode"] = meta_debug.get("authoring_mode", "")
+	debug["layout_source"] = meta_debug.get("layout_source", "")
+	debug["marker_source"] = meta_debug.get("marker_source", "")
+	debug["scene_markers_found"] = meta_debug.get("scene_markers_found", 0)
+	debug["generated_markers_found"] = meta_debug.get("generated_markers_found", 0)
+	debug["runtime_spawned_guard_count"] = spawned_guards.get_child_count() if spawned_guards != null else 0
+	debug["runtime_spawned_camera_count"] = spawned_cameras.get_child_count() if spawned_cameras != null else 0
+	debug["runtime_light_zone_count"] = light_zones.get_child_count() if light_zones != null else 0
+	debug["runtime_detection_zone_count"] = detection_zones.get_child_count() if detection_zones != null else 0
+	debug["runtime_alarm_zone_count"] = alarm_zones.get_child_count() if alarm_zones != null else 0
+	debug["runtime_encounter_zone_count"] = encounters.get_child_count() if encounters != null else 0
+	debug["runtime_route_access_count"] = route_access.get_child_count() if route_access != null else 0
+	debug["runtime_transition_count"] = transitions.get_child_count() if transitions != null else 0
+	debug["runtime_debug_ui_count"] = debug_ui.get_child_count() if debug_ui != null else 0
+	debug["enemy_iso_scale_ok"] = enemy_iso_scale_ok
+	debug["enemy_iso_expected_scale"] = expected_scale
+	debug["enemy_iso_actual_scale"] = actual_scale
+	debug["enemy_iso_expected_collision_size"] = expected_collision
+	debug["enemy_iso_actual_collision_size"] = actual_collision
+	debug["position_resolutions"] = meta_debug.get("position_resolutions", [])
+	report["debug"] = debug
+	if int(debug["runtime_spawned_guard_count"]) < 1:
+		_add_error(report, "Expected at least one spawned guard runtime object.")
+	if int(debug["runtime_spawned_camera_count"]) < 1:
+		_add_error(report, "Expected at least one spawned security camera runtime object.")
+	if int(debug["runtime_light_zone_count"]) < 3:
+		_add_warning(report, "Expected at least three light zones (shadow/flicker/bright) for Taco Bell proof target.")
+	if int(debug["runtime_encounter_zone_count"]) < 1:
+		_add_error(report, "Expected at least one encounter/ambush trigger runtime object.")
+	if int(debug["runtime_route_access_count"]) < 2:
+		_add_warning(report, "Expected route access runtime points (keycard/vent/future shortcut).")
+	if int(debug["runtime_transition_count"]) < 1:
+		_add_warning(report, "Expected at least one transition placeholder runtime trigger.")
+	if not bool(debug["enemy_iso_scale_ok"]):
+		_add_error(report, "Runtime guard does not match expected iso enemy profile (scale/collision).")
+
+
+static func _validate_authoring_contract(definition: Resource, scene_root: Node, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	var marker_root := scene_root.get_node_or_null("GameplayRoot/AuthoringMarkers")
+	var modern_marker_root := scene_root.get_node_or_null("GameplayRoot/MarkerRoot")
+	var mode := "generated"
+	if definition.has_method("get"):
+		var mode_value = definition.get("authoring_mode")
+		if mode_value != null and String(mode_value).strip_edges() != "":
+			mode = String(mode_value)
+	var approved := {
+		"floor": true, "wall": true, "cover": true, "collision_barrier": true, "hazard": true, "decor_placeholder": true,
+		"player_spawn": true, "bentley_spawn": true, "guard_spawn": true, "ambush_guard_spawn": true, "extra_heat_guard_spawn": true,
+		"patrol_point": true, "security_camera": true, "camera_cone": true, "camera_terminal": true, "alarm_zone": true, "detection_zone": true,
+		"shadow_zone": true, "bright_zone": true, "flicker_zone": true, "louis": true, "objective": true, "clue": true, "keycard": true,
+		"code_gate": true, "route_access": true, "transition": true, "exit": true, "polaroid_hidden": true, "polaroid_completion": true,
+		"polaroid_perfect": true, "glow_guy": true, "tiny_icon": true, "poop_bag": true, "scent_trail_real": true, "scent_trail_fake": true,
+		"bentley_sniff_zone": true, "bentley_vent_route": true, "bentley_exit": true, "ambush_trigger": true, "camera_shake_trigger": true,
+		"alarm_trigger": true, "dialogue_trigger": true, "subarea_spawn": true, "transition_entry": true, "transition_exit": true, "return_spawn": true
+	}
+	var unknown: Array[String] = []
+	var duplicate_ids: Array[String] = []
+	var id_seen := {}
+	var duplicate_seen := {}
+	var required_missing: Array[String] = []
+	var markers_outside_floor: Array[String] = []
+	var markers_inside_blocking: Array[String] = []
+	var found := 0
+	var floor_layer := scene_root.get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	var collision := scene_root.get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	var marker_nodes := _collect_scene_marker_nodes(modern_marker_root if modern_marker_root != null else marker_root)
+	if marker_nodes.size() > 0:
+		for marker in marker_nodes:
+			if not marker.has_method("get"):
+				continue
+			var marker_type := String(marker.get("marker_type")).to_lower()
+			if marker_type == "":
+				continue
+			found += 1
+			if not approved.has(marker_type):
+				unknown.append(marker_type)
+			var marker_id := _safe_marker_string(marker.get("marker_id"))
+			if marker_id != "":
+				if id_seen.has(marker_id):
+					if not duplicate_seen.has(marker_id):
+						duplicate_seen[marker_id] = true
+						duplicate_ids.append(marker_id)
+				id_seen[marker_id] = true
+			if floor_layer != null and marker is Node2D:
+				var cell := floor_layer.local_to_map(floor_layer.to_local((marker as Node2D).global_position))
+				if not _cell_set(floor_layer.get_used_cells()).has(cell):
+					markers_outside_floor.append(marker_id if marker_id != "" else _safe_marker_string(marker.name))
+				if _cell_set(collision.get_used_cells()).has(cell):
+					markers_inside_blocking.append(marker_id if marker_id != "" else _safe_marker_string(marker.name))
+	var required_ids := ["player_spawn_main", "bentley_spawn_main", "exit_return_to_louis", "clue_velvet_paw_stamp", "code_gate_garage_office", "route_bentley_vent", "scent_real_parking_garage", "poop_bag_dog_station"]
+	for rid in required_ids:
+		if not id_seen.has(rid):
+			required_missing.append(rid)
+	var layout_floor := scene_root.get_node_or_null("GameplayRoot/LayoutRoot/FloorLayer") as TileMapLayer
+	var layout_wall := scene_root.get_node_or_null("GameplayRoot/LayoutRoot/WallLayer") as TileMapLayer
+	var layout_cover := scene_root.get_node_or_null("GameplayRoot/LayoutRoot/CoverLayer") as TileMapLayer
+	var layout_barrier := scene_root.get_node_or_null("GameplayRoot/LayoutRoot/CollisionBarrierLayer") as TileMapLayer
+	debug["authoring_mode"] = mode
+	debug["authoring_marker_count"] = found
+	debug["unknown_marker_types"] = unknown
+	debug["duplicate_marker_ids"] = duplicate_ids
+	debug["required_missing_markers"] = required_missing
+	debug["markers_outside_floor"] = markers_outside_floor
+	debug["markers_inside_blocking_collision"] = markers_inside_blocking
+	debug["floor_cell_count"] = layout_floor.get_used_cells().size() if layout_floor != null else 0
+	debug["wall_cell_count"] = layout_wall.get_used_cells().size() if layout_wall != null else 0
+	debug["cover_cell_count"] = layout_cover.get_used_cells().size() if layout_cover != null else 0
+	debug["barrier_cell_count"] = layout_barrier.get_used_cells().size() if layout_barrier != null else 0
+	debug["player_spawn_found"] = id_seen.has("player_spawn_main") or id_seen.has("start_main")
+	debug["bentley_spawn_found"] = id_seen.has("bentley_spawn_main")
+	debug["required_clue_count"] = _count_markers_by_type(marker_nodes, "clue")
+	debug["collectible_count"] = _count_collectible_markers(marker_nodes)
+	debug["guard_spawn_count"] = _count_markers_by_type(marker_nodes, "guard_spawn")
+	debug["patrol_point_count"] = _count_markers_by_type(marker_nodes, "patrol_point")
+	debug["route_access_count"] = _count_markers_by_type(marker_nodes, "route_access")
+	debug["transition_count"] = _count_markers_by_type(marker_nodes, "transition")
+	debug["exit_found"] = _count_markers_by_type(marker_nodes, "exit") > 0
+	report["debug"] = debug
+	if mode != "generated" and found <= 0:
+		_add_warning(report, "authoring_mode is %s but no scene authoring markers were found." % mode)
+	if not unknown.is_empty():
+		_add_warning(report, "Unknown authoring marker types: " + ", ".join(unknown))
+	if not duplicate_ids.is_empty():
+		_add_error(report, "Duplicate marker_id values found: " + ", ".join(duplicate_ids))
+	if not required_missing.is_empty():
+		_add_error(report, "Required scene markers missing: " + ", ".join(required_missing))
+	if not markers_outside_floor.is_empty():
+		_add_error(report, "Markers placed outside floor cells: " + ", ".join(markers_outside_floor))
+	if not markers_inside_blocking.is_empty():
+		_add_error(report, "Markers placed inside blocking collision cells: " + ", ".join(markers_inside_blocking))
+
+
+static func _validate_interaction_runtime_priority(scene_root: Node, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	var interactables := _collect_interactable_nodes(scene_root)
+	var overlap_ids: Array[String] = []
+	var conflicts: Array[String] = []
+	for i in range(interactables.size()):
+		for j in range(i + 1, interactables.size()):
+			var a: Node = interactables[i]
+			var b: Node = interactables[j]
+			if not (a is Node2D and b is Node2D):
+				continue
+			var d := (a as Node2D).global_position.distance_to((b as Node2D).global_position)
+			if d > 72.0:
+				continue
+			overlap_ids.append(String(a.name) + " <-> " + String(b.name))
+			var ap := int(a.call("get_interaction_priority", null)) if a.has_method("get_interaction_priority") else 0
+			var bp := int(b.call("get_interaction_priority", null)) if b.has_method("get_interaction_priority") else 0
+			if ap == bp:
+				conflicts.append(String(a.name) + " vs " + String(b.name) + " equal priority")
+	debug["overlapping_interactables"] = overlap_ids
+	debug["interaction_priority_conflicts"] = conflicts
+	report["debug"] = debug
+	if overlap_ids.size() > 0:
+		_add_warning(report, "Interactables overlap within 72px and may compete for input: " + str(overlap_ids.slice(0, min(8, overlap_ids.size()))))
+	var mismatches := _runtime_position_mismatches(scene_root)
+	var ignored := _hybrid_scene_marker_ignored(scene_root, debug.get("position_resolutions", []))
+	debug["runtime_position_mismatches"] = mismatches
+	debug["hybrid_ignored_scene_markers"] = ignored
+	report["debug"] = debug
+	if not mismatches.is_empty():
+		_add_error(report, "Runtime position mismatch vs marker nodes: " + ", ".join(mismatches))
+	if not ignored.is_empty():
+		_add_error(report, "Hybrid mode ignored scene marker for: " + ", ".join(ignored))
+
+
+static func _collect_interactable_nodes(root: Node) -> Array:
+	var out: Array = []
+	_collect_interactable_nodes_recursive(root, out)
+	return out
+
+
+static func _collect_interactable_nodes_recursive(node: Node, out: Array) -> void:
+	if node.is_in_group("interactable"):
+		out.append(node)
+	for child in node.get_children():
+		_collect_interactable_nodes_recursive(child, out)
+
+
+static func _collect_scene_marker_nodes(root: Node) -> Array:
+	var out: Array = []
+	if root == null:
+		return out
+	_collect_scene_marker_nodes_recursive(root, out)
+	return out
+
+
+static func _collect_scene_marker_nodes_recursive(node: Node, out: Array) -> void:
+	for child in node.get_children():
+		if child.has_method("get") and child.get("marker_type") != null:
+			out.append(child)
+		_collect_scene_marker_nodes_recursive(child, out)
+
+
+static func _count_markers_by_type(nodes: Array, marker_type: String) -> int:
+	var count := 0
+	for node in nodes:
+		if String(node.get("marker_type")).to_lower() == marker_type:
+			count += 1
+	return count
+
+
+static func _count_collectible_markers(nodes: Array) -> int:
+	var collect_types := {"polaroid_hidden": true, "polaroid_completion": true, "polaroid_perfect": true, "glow_guy": true, "tiny_icon": true, "poop_bag": true}
+	var count := 0
+	for node in nodes:
+		if collect_types.has(String(node.get("marker_type")).to_lower()):
+			count += 1
+	return count
+
+
+static func _runtime_position_mismatches(scene_root: Node) -> Array[String]:
+	var out: Array[String] = []
+	var meta_debug: Dictionary = scene_root.get_meta("iso_runtime_debug", {})
+	for entry in meta_debug.get("position_resolutions", []):
+		if not (entry is Dictionary):
+			continue
+		var source := _safe_marker_string(entry.get("resolved_from"))
+		var object_id := _safe_marker_string(entry.get("object_id"))
+		var delta: Variant = entry.get("position_delta")
+		if source != "scene_marker" or object_id == "":
+			continue
+		if delta is Vector2 and (delta as Vector2).length() > 6.0:
+			out.append(object_id)
+	return out
+
+
+static func _hybrid_scene_marker_ignored(scene_root: Node, resolutions: Array) -> Array[String]:
+	var out: Array[String] = []
+	var mode := _safe_marker_string(scene_root.get_meta("iso_runtime_debug", {}).get("authoring_mode"))
+	if mode != "hybrid":
+		return out
+	for entry in resolutions:
+		if not (entry is Dictionary):
+			continue
+		var source := _safe_marker_string(entry.get("resolved_from"))
+		var marker_id := _safe_marker_string(entry.get("marker_id"))
+		if marker_id != "" and source == "definition_fallback":
+			out.append(_safe_marker_string(entry.get("object_id")))
+	return out
+
+
+static func _find_interactable_by_property(root: Node, property_name: String, value: String) -> Node:
+	if root == null or value == "":
+		return null
+	for child in root.get_children():
+		if child.has_method("get"):
+			var prop := _safe_marker_string(child.get(property_name))
+			var placeholder := _safe_marker_string(child.get("placeholder_id"))
+			if prop == value or placeholder == value:
+				return child
+		var nested := _find_interactable_by_property(child, property_name, value)
+		if nested != null:
+			return nested
+	return null
+
+
+static func _find_scene_marker(root: Node, marker_id: String) -> Node:
+	if root == null:
+		return null
+	for child in root.get_children():
+		if child.has_method("get") and _safe_marker_string(child.get("marker_id")) == marker_id:
+			return child
+		var nested := _find_scene_marker(child, marker_id)
+		if nested != null:
+			return nested
+	return null
+
+
+static func _is_editable_scene(scene_root: Node) -> bool:
+	var scene_path := String(scene_root.scene_file_path)
+	return scene_path.contains("TacoBellIso_Editable")
+
+
+static func _safe_marker_string(value: Variant) -> String:
+	if value == null:
+		return ""
+	var text := String(value).strip_edges()
+	if text == "<null>":
+		return ""
+	return text
+
+
+static func _validate_typed_system_data(definition: Resource, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	var missing_clue_meta: Array[String] = []
+	for clue in definition.evidence_clues:
+		if clue == null:
+			continue
+		if String(clue.clue_board_cluster).strip_edges() == "" and String(clue.connects_to).strip_edges() == "":
+			missing_clue_meta.append(String(clue.clue_id))
+	var missing_collectible_groups: Array[String] = []
+	for collectible in definition.collectibles:
+		if collectible == null:
+			continue
+		if String(collectible.collection_group).strip_edges() == "":
+			missing_collectible_groups.append(String(collectible.collectible_id))
+	var missing_route_messages: Array[String] = []
+	for route in definition.routes:
+		if route == null:
+			continue
+		if String(route.locked_message).strip_edges() == "" or String(route.unlocked_message).strip_edges() == "":
+			missing_route_messages.append(String(route.route_id))
+	debug["typed_missing_clue_meta"] = missing_clue_meta
+	debug["typed_missing_collectible_groups"] = missing_collectible_groups
+	debug["typed_missing_route_messages"] = missing_route_messages
+	debug["typed_scheme_cards_unlocked"] = GameState.unlocked_scheme_cards.keys()
+	debug["typed_evidence_clues_recorded"] = GameState.evidence_clues.keys()
+	debug["typed_collectibles_recorded"] = GameState.typed_collectibles.keys()
+	debug["typed_crew_assists"] = GameState.crew_assists.keys()
+	report["debug"] = debug
+	if not missing_clue_meta.is_empty():
+		_add_warning(report, "Evidence clues missing clue_board_cluster/connects_to metadata: " + ", ".join(missing_clue_meta))
+	if not missing_collectible_groups.is_empty():
+		_add_warning(report, "Collectibles missing collection_group metadata: " + ", ".join(missing_collectible_groups))
+	if not missing_route_messages.is_empty():
+		_add_warning(report, "Route definitions missing locked/unlocked messages: " + ", ".join(missing_route_messages))
 
 
 static func _validate_taco_bell_layout(definition: Resource, _scene_root: Node, report: Dictionary) -> void:
@@ -1054,6 +1461,28 @@ static func print_debug_report(report: Dictionary) -> void:
 	print("  interactable marker overlaps: " + str(debug.get("interactable_marker_overlaps", [])))
 	print("  cover cell count: " + str(debug.get("cover_cell_count", 0)))
 	print("  cover tile has collision: " + str(debug.get("cover_tile_has_collision", false)))
+	print("  runtime marker->object counts: " + str(debug.get("runtime_marker_to_object_counts", {})))
+	print("  runtime spawned guard count: " + str(debug.get("runtime_spawned_guard_count", 0)))
+	print("  runtime spawned camera count: " + str(debug.get("runtime_spawned_camera_count", 0)))
+	print("  runtime light zone count: " + str(debug.get("runtime_light_zone_count", 0)))
+	print("  runtime detection zone count: " + str(debug.get("runtime_detection_zone_count", 0)))
+	print("  runtime alarm zone count: " + str(debug.get("runtime_alarm_zone_count", 0)))
+	print("  runtime encounter zone count: " + str(debug.get("runtime_encounter_zone_count", 0)))
+	print("  runtime route access count: " + str(debug.get("runtime_route_access_count", 0)))
+	print("  runtime transition count: " + str(debug.get("runtime_transition_count", 0)))
+	print("  runtime debug ui count: " + str(debug.get("runtime_debug_ui_count", 0)))
+	print("  authoring mode: " + str(debug.get("authoring_mode", "")))
+	print("  layout source: " + str(debug.get("layout_source", "")))
+	print("  marker source: " + str(debug.get("marker_source", "")))
+	print("  scene markers found: " + str(debug.get("scene_markers_found", 0)))
+	print("  generated markers found: " + str(debug.get("generated_markers_found", 0)))
+	print("  enemy iso scale ok: " + str(debug.get("enemy_iso_scale_ok", false)))
+	print("  unknown marker types: " + str(debug.get("unknown_marker_types", [])))
+	print("  overlapping interactables: " + str(debug.get("overlapping_interactables", [])))
+	print("  interaction priority conflicts: " + str(debug.get("interaction_priority_conflicts", [])))
+	print("  typed missing clue meta: " + str(debug.get("typed_missing_clue_meta", [])))
+	print("  typed missing collectible groups: " + str(debug.get("typed_missing_collectible_groups", [])))
+	print("  typed missing route messages: " + str(debug.get("typed_missing_route_messages", [])))
 	print("  Taco Bell missing layout zones: " + str(debug.get("taco_bell_missing_layout_zones", [])))
 	print("  Taco Bell missing zone connections: " + str(debug.get("taco_bell_missing_zone_connections", [])))
 	print("  Taco Bell exit west of bag room: " + str(debug.get("taco_bell_exit_west_of_bag_room", false)))

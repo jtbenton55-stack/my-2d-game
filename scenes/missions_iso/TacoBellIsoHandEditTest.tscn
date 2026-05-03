@@ -1,12 +1,13 @@
-[gd_scene format=3 uid="uid://wm1rfbixe8wm"]
+[gd_scene format=3 uid="uid://nqgpsklwm41n"]
 
-[ext_resource type="Script" uid="uid://dwrxlvn7pvun6" path="res://src/levels/IsoMissionBase.gd" id="1_iso_base"]
-[ext_resource type="Resource" uid="uid://c6ko41lrityyi" path="res://assets/missions/taco_bell_iso_blockout_definition.tres" id="2_definition"]
-[ext_resource type="Script" uid="uid://b4d34ixi5r1in" path="res://src/missions/iso/IsoAuthoringMarker.gd" id="3_marker"]
+[ext_resource type="Script" uid="uid://dwrxlvn7pvun6" path="res://src/levels/IsoMissionBase.gd" id="1_crhk0"]
+[ext_resource type="Resource" uid="uid://c6ko41lrityyi" path="res://assets/missions/taco_bell_iso_blockout_definition.tres" id="2_kvoqp"]
+[ext_resource type="Script" uid="uid://b4d34ixi5r1in" path="res://src/missions/iso/IsoAuthoringMarker.gd" id="3_yh0s6"]
 
 [node name="TacoBellIsoBlockout" type="Node2D" unique_id=448543279]
-script = ExtResource("1_iso_base")
-mission_definition = ExtResource("2_definition")
+position = Vector2(0, -1)
+script = ExtResource("1_crhk0")
+mission_definition = ExtResource("2_kvoqp")
 
 [node name="GameplayRoot" type="Node2D" parent="." unique_id=1671890987]
 
@@ -35,7 +36,7 @@ y_sort_enabled = true
 
 [node name="Marker_StartMain" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=432886009]
 position = Vector2(-28, -72)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "PLAYER_SPAWN"
 marker_id = "start_main"
 display_name = "Start Spawn"
@@ -43,7 +44,7 @@ required = true
 
 [node name="Marker_CodeGate" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=1598566026]
 position = Vector2(912, -184)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "CODE_GATE"
 marker_id = "scan_garage_keypad_or_bypass"
 display_name = "Code Gate Marker"
@@ -51,28 +52,28 @@ required = true
 
 [node name="Marker_GlowGuy" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=536929225]
 position = Vector2(988, -244)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "GLOW_GUY"
 marker_id = "taco_bell_glow_guys"
 display_name = "Glow Guy Marker"
 
 [node name="Marker_TinyIcon" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=578074457]
 position = Vector2(-690, 102)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "TINY_ICON"
 marker_id = "louis_tiny_icon_delivery_bag"
 display_name = "Tiny Icon Marker"
 
 [node name="Marker_PoopDecoy" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=1236071159]
 position = Vector2(254, -126)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "POOP_BAG"
 marker_id = "loading_dock_decoy"
 display_name = "Poop Decoy Marker"
 
 [node name="Marker_RouteLouis" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=866035521]
 position = Vector2(964, 252)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "ROUTE_ACCESS"
 marker_id = "louis_delivery_route_future_shortcut"
 display_name = "Louis Delivery Route Access"
@@ -80,42 +81,42 @@ required = true
 
 [node name="Marker_RouteVent" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=310273846]
 position = Vector2(736, -112)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "ROUTE_ACCESS"
 marker_id = "bentley_vent_route"
 display_name = "Bentley Vent Route Access"
 
 [node name="Marker_Transition" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=1327986119]
 position = Vector2(1086, -210)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "TRANSITION"
 marker_id = "garage_floor2_service_stairs"
 display_name = "Service Transition Marker"
 
 [node name="Marker_Sub_LouisEntry" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=1559386889]
 position = Vector2(1600, -56)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "SUBAREA_SPAWN"
 marker_id = "route_louis_entry"
 display_name = "Route Louis Entry"
 
 [node name="Marker_Sub_LouisReturn" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=1083693783]
 position = Vector2(682, -270)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "SUBAREA_SPAWN"
 marker_id = "route_louis_return"
 display_name = "Route Louis Return"
 
 [node name="Marker_Sub_VentEntry" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=145971786]
 position = Vector2(1600, 338)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "SUBAREA_SPAWN"
 marker_id = "route_vent_entry"
 display_name = "Route Vent Entry"
 
 [node name="Marker_Sub_VentReturn" type="Marker2D" parent="GameplayRoot/AuthoringMarkers" unique_id=552332908]
 position = Vector2(852, -276)
-script = ExtResource("3_marker")
+script = ExtResource("3_yh0s6")
 marker_type = "SUBAREA_SPAWN"
 marker_id = "route_vent_return"
 display_name = "Route Vent Return"

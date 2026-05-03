@@ -16,8 +16,15 @@ func _complete(player: Node = null) -> void:
 		"description": clue_description if clue_description != "" else interaction_text,
 		"category": category,
 		"mission_id": mission_id,
+		"found_in_mission": mission_id,
+		"clue_id": id,
+		"display_name": display_name,
+		"short_name": display_name,
+		"clue_board_cluster": connects_to if connects_to != "" else "Sterling Tower",
 		"connects_to": connects_to,
 		"unlocks_or_modifies": unlocks_or_modifies,
 		"final_tower_relevance": final_tower_relevance,
+		"is_required_for_mission_completion": true,
+		"discovered": true,
 	})
 	super._complete(player)
