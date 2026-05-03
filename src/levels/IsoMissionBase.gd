@@ -25,6 +25,12 @@ const TILE_EXIT := Vector2i(3, 2)
 const TILE_PUZZLE_GATE := Vector2i(4, 2)
 const TILE_FRIEND_ASSIST := Vector2i(5, 2)
 
+# Boundary colliders are invisible containment only. TileMap wall cells remain the
+# readable blockout language, while these strips sit just outside the playable floor.
+const BOUNDARY_THICKNESS := 28.0
+const BOUNDARY_OUTSET := 0.0
+const CORNER_SEAL_SIZE := 72.0
+
 @export var mission_definition: Resource
 @export var auto_generate_from_definition := true
 @export var default_zone_size := Vector2i(12, 8)
@@ -56,6 +62,7 @@ func _ensure_iso_structure() -> void:
 	_ensure_node(gameplay, "GameplayFloorLayer", TileMapLayer.new())
 	_ensure_node(gameplay, "GameplayCollisionLayer", TileMapLayer.new())
 	_ensure_node(gameplay, "GameplayMarkersLayer", TileMapLayer.new())
+	_ensure_node(gameplay, "BoundaryColliders", Node2D.new())
 	_ensure_node(gameplay, "ObjectiveAreas", Node2D.new())
 	_ensure_node(gameplay, "ExitAreas", Node2D.new())
 	_ensure_node(gameplay, "SpawnPoints", Node2D.new())
@@ -142,8 +149,8 @@ func _build_runtime_blockout_tileset() -> TileSet:
 	for y in range(3):
 		for x in range(6):
 			source.create_tile(Vector2i(x, y))
-	_add_tile_collision(source, TILE_WALL, PackedVector2Array([Vector2(8, 32), Vector2(32, 8), Vector2(56, 32), Vector2(32, 56)]))
-	_add_tile_collision(source, TILE_COVER, PackedVector2Array([Vector2(12, 34), Vector2(32, 16), Vector2(52, 34), Vector2(32, 52)]))
+	# Keep wall solids compact so adjacent isometric wall cells do not create player-trapping seams.
+	_add_tile_collision(source, TILE_WALL, PackedVector2Array([Vector2(18, 28), Vector2(46, 28), Vector2(46, 50), Vector2(18, 50)]))
 	return ts
 
 
@@ -161,6 +168,7 @@ func _generate_from_definition() -> void:
 	_required_clue_ids.clear()
 	_completed_clue_ids.clear()
 	_paint_zones()
+	_create_boundary_colliders()
 	_create_spawn_points()
 	_create_objective_areas()
 	_create_clue_pickups()
@@ -184,28 +192,74 @@ func _paint_zones() -> void:
 	marker_layer.clear()
 	var zones: Array = mission_definition.zones
 	if zones.is_empty():
-		_paint_zone(Vector2i(-int(default_zone_size.x / 2.0), -int(default_zone_size.y / 2.0)), default_zone_size)
+		_paint_floor_zone(Vector2i(-int(default_zone_size.x / 2.0), -int(default_zone_size.y / 2.0)), default_zone_size)
+		_paint_boundary_walls()
 		return
 	for zone in zones:
 		if zone == null:
 			continue
 		var origin: Vector2i = zone.origin
 		var size := Vector2i(maxi(3, zone.size.x), maxi(3, zone.size.y))
-		_paint_zone(origin, size)
+		_paint_floor_zone(origin, size)
+	_paint_boundary_walls()
 
 
-func _paint_zone(origin: Vector2i, size: Vector2i) -> void:
+func _paint_floor_zone(origin: Vector2i, size: Vector2i) -> void:
 	var floor_layer := $GameplayRoot/GameplayFloorLayer as TileMapLayer
-	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
 	for x in range(origin.x, origin.x + size.x):
 		for y in range(origin.y, origin.y + size.y):
 			floor_layer.set_cell(Vector2i(x, y), SOURCE_ID, TILE_FLOOR)
-	for x in range(origin.x, origin.x + size.x):
-		collision_layer.set_cell(Vector2i(x, origin.y), SOURCE_ID, TILE_WALL)
-		collision_layer.set_cell(Vector2i(x, origin.y + size.y - 1), SOURCE_ID, TILE_WALL)
-	for y in range(origin.y, origin.y + size.y):
-		collision_layer.set_cell(Vector2i(origin.x, y), SOURCE_ID, TILE_WALL)
-		collision_layer.set_cell(Vector2i(origin.x + size.x - 1, y), SOURCE_ID, TILE_WALL)
+
+
+func _paint_boundary_walls() -> void:
+	var floor_layer := $GameplayRoot/GameplayFloorLayer as TileMapLayer
+	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
+	var floor_cells := {}
+	for cell in floor_layer.get_used_cells():
+		floor_cells[cell] = true
+	for cell in floor_cells.keys():
+		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
+			var wall_cell: Vector2i = cell + offset
+			if not floor_cells.has(wall_cell):
+				collision_layer.set_cell(wall_cell, SOURCE_ID, TILE_WALL)
+
+
+func _create_boundary_colliders() -> void:
+	var parent := $GameplayRoot/BoundaryColliders as Node2D
+	_clear_children(parent)
+	var bounds := _floor_world_bounds()
+	if bounds.size == Vector2.ZERO:
+		return
+	var left := bounds.position.x - BOUNDARY_OUTSET
+	var right := bounds.end.x + BOUNDARY_OUTSET
+	var top := bounds.position.y - BOUNDARY_OUTSET
+	var bottom := bounds.end.y + BOUNDARY_OUTSET
+	var width := right - left
+	var height := bottom - top
+	_add_boundary_rect(parent, "BoundaryTop", Vector2((left + right) * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(width + CORNER_SEAL_SIZE, BOUNDARY_THICKNESS))
+	_add_boundary_rect(parent, "BoundaryBottom", Vector2((left + right) * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(width + CORNER_SEAL_SIZE, BOUNDARY_THICKNESS))
+	_add_boundary_rect(parent, "BoundaryLeft", Vector2(left - BOUNDARY_THICKNESS * 0.5, (top + bottom) * 0.5), Vector2(BOUNDARY_THICKNESS, height + CORNER_SEAL_SIZE))
+	_add_boundary_rect(parent, "BoundaryRight", Vector2(right + BOUNDARY_THICKNESS * 0.5, (top + bottom) * 0.5), Vector2(BOUNDARY_THICKNESS, height + CORNER_SEAL_SIZE))
+	_add_boundary_rect(parent, "BoundaryTopLeftCorner", Vector2(left - BOUNDARY_THICKNESS * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
+	_add_boundary_rect(parent, "BoundaryTopRightCorner", Vector2(right + BOUNDARY_THICKNESS * 0.5, top - BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
+	_add_boundary_rect(parent, "BoundaryBottomLeftCorner", Vector2(left - BOUNDARY_THICKNESS * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
+	_add_boundary_rect(parent, "BoundaryBottomRightCorner", Vector2(right + BOUNDARY_THICKNESS * 0.5, bottom + BOUNDARY_THICKNESS * 0.5), Vector2(CORNER_SEAL_SIZE, CORNER_SEAL_SIZE))
+
+
+func _add_boundary_rect(parent: Node2D, rect_name: String, center: Vector2, size: Vector2) -> void:
+	var body := StaticBody2D.new()
+	body.name = rect_name
+	body.collision_layer = 4
+	body.collision_mask = 0
+	body.set_meta("purpose", "Generated invisible outer boundary for iso blockout.")
+	parent.add_child(body)
+	body.global_position = center
+	var shape := CollisionShape2D.new()
+	shape.name = rect_name + "Shape"
+	var rect := RectangleShape2D.new()
+	rect.size = size
+	shape.shape = rect
+	body.add_child(shape)
 
 
 func _create_spawn_points() -> void:
@@ -495,6 +549,10 @@ func _spawn_dog_if_needed() -> void:
 		dog.reparent(entity_root)
 	if player:
 		dog.global_position = player.global_position + Vector2(42, 18)
+	# In iso blockouts Bentley is a companion/sensor, not a physical wall that can pin the player.
+	if dog is CollisionObject2D:
+		(dog as CollisionObject2D).collision_layer = 0
+		(dog as CollisionObject2D).collision_mask = 0
 
 
 func _map_to_global(cell: Vector2i) -> Vector2:
@@ -512,8 +570,8 @@ func _initial_objective_text() -> String:
 
 
 func _default_exit_cell() -> Vector2i:
-	if not mission_definition.zones.is_empty() and mission_definition.zones[0] != null:
-		var zone = mission_definition.zones[0]
+	if not mission_definition.zones.is_empty() and mission_definition.zones[-1] != null:
+		var zone = mission_definition.zones[-1]
 		return zone.origin + Vector2i(zone.size.x - 2, int(zone.size.y / 2))
 	return Vector2i(5, 0)
 
@@ -544,6 +602,47 @@ func _mission_rect() -> Rect2:
 	var min_world := _map_to_global(min_cell)
 	var max_world := _map_to_global(max_cell)
 	return Rect2(min_world, max_world - min_world).abs()
+
+
+func _floor_cell_bounds() -> Rect2i:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer == null:
+		return Rect2i()
+	var cells := floor_layer.get_used_cells()
+	if cells.is_empty():
+		return Rect2i()
+	var min_x := cells[0].x
+	var max_x := cells[0].x
+	var min_y := cells[0].y
+	var max_y := cells[0].y
+	for cell in cells:
+		min_x = mini(min_x, cell.x)
+		max_x = maxi(max_x, cell.x)
+		min_y = mini(min_y, cell.y)
+		max_y = maxi(max_y, cell.y)
+	return Rect2i(Vector2i(min_x, min_y), Vector2i(max_x - min_x + 1, max_y - min_y + 1))
+
+
+func _floor_world_bounds() -> Rect2:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer == null:
+		return Rect2()
+	var cells := floor_layer.get_used_cells()
+	if cells.is_empty():
+		return Rect2()
+	var half_tile := Vector2(32, 16)
+	var first_pos := floor_layer.to_global(floor_layer.map_to_local(cells[0]))
+	var min_x := first_pos.x - half_tile.x
+	var max_x := first_pos.x + half_tile.x
+	var min_y := first_pos.y - half_tile.y
+	var max_y := first_pos.y + half_tile.y
+	for cell in cells:
+		var pos := floor_layer.to_global(floor_layer.map_to_local(cell))
+		min_x = minf(min_x, pos.x - half_tile.x)
+		max_x = maxf(max_x, pos.x + half_tile.x)
+		min_y = minf(min_y, pos.y - half_tile.y)
+		max_y = maxf(max_y, pos.y + half_tile.y)
+	return Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
 
 
 func _clear_children(parent: Node) -> void:

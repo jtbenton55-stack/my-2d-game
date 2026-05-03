@@ -17,6 +17,8 @@ y_sort_enabled = true
 [node name="GameplayMarkersLayer" type="TileMapLayer" parent="GameplayRoot"]
 y_sort_enabled = true
 
+[node name="BoundaryColliders" type="Node2D" parent="GameplayRoot"]
+
 [node name="ObjectiveAreas" type="Node2D" parent="GameplayRoot"]
 
 [node name="ExitAreas" type="Node2D" parent="GameplayRoot"]
