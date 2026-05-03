@@ -41,6 +41,7 @@ var _required_collectible_ids: Array[String] = []
 var _completed_collectible_ids: Dictionary = {}
 var _required_clue_ids: Array[String] = []
 var _completed_clue_ids: Dictionary = {}
+var _mission_completing := false
 
 
 func _ready() -> void:
@@ -420,6 +421,7 @@ func _create_exit_areas() -> void:
 	node.global_position = _map_to_global(exit_cell)
 	_add_rect_shape(node, Vector2(96, 64))
 	parent.add_child(node)
+	node.add_to_group("iso_mission_exit")
 	$GameplayRoot/GameplayMarkersLayer.set_cell(exit_cell, SOURCE_ID, TILE_EXIT)
 
 
@@ -471,10 +473,42 @@ func _on_clue_completed(id: String) -> void:
 
 
 func complete_level() -> void:
+	request_exit_completion(player)
+
+
+func request_exit_completion(_player: Node = null) -> bool:
+	if _mission_completing or is_complete or is_failed:
+		return false
 	if not _all_required_done():
-		QuestManager.set_objective("Blockout route incomplete: finish required objectives, clues, and collectibles.", get_mission_id())
-		return
+		_show_exit_locked_feedback()
+		return false
+	_mission_completing = true
 	super.complete_level()
+	return true
+
+
+func _show_exit_locked_feedback() -> void:
+	var message := _exit_locked_message()
+	QuestManager.set_objective(message, get_mission_id())
+	DialogueManager.start_simple_dialogue([{ "speaker": "Exit", "text": message }])
+
+
+func _exit_locked_message() -> String:
+	for id in _required_objective_ids:
+		if not _completed_objective_ids.has(id):
+			return "Exit locked: finish required objectives first."
+	for id in _required_clue_ids:
+		if not _completed_clue_ids.has(id):
+			return "Exit locked: recover the required clue before leaving."
+	for id in _required_collectible_ids:
+		if not _completed_collectible_ids.has(id):
+			return "Exit locked: collect required pickups before leaving."
+	return "Exit locked: finish required objectives first."
+
+
+func _on_exit_zone_body_entered(body: Node) -> void:
+	if body.is_in_group("player"):
+		request_exit_completion(body)
 
 
 func _all_required_done() -> bool:

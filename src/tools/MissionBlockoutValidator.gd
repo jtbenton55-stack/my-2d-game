@@ -131,6 +131,7 @@ static func _validate_scene(definition: Resource, scene_root: Node, report: Dict
 	_validate_named_references(definition, scene_root, report)
 	_validate_reachability(definition, scene_root, report)
 	_validate_boundary_integrity(definition, scene_root, report)
+	_validate_exit_setup(definition, scene_root, report)
 
 
 static func _validate_named_references(definition: Resource, scene_root: Node, report: Dictionary) -> void:
@@ -234,6 +235,73 @@ static func _validate_boundary_integrity(definition: Resource, scene_root: Node,
 	var collectible_overlaps: Array = debug["collectibles_inside_boundary_collision"]
 	if not collectible_overlaps.is_empty():
 		_add_warning(report, "Collectibles may overlap BoundaryColliders: " + ", ".join(collectible_overlaps))
+
+
+static func _validate_exit_setup(definition: Resource, scene_root: Node, report: Dictionary) -> void:
+	var debug: Dictionary = report.get("debug", {})
+	var exits := scene_root.get_node_or_null("GameplayRoot/ExitAreas")
+	var floor_layer := scene_root.get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	var exit_area_count := 0
+	var exit_shape_count := 0
+	var exit_interactable_count := 0
+	var exit_body_entered_connected_count := 0
+	var exit_overlaps_expected_cell := false
+	var exit_has_player_mask := false
+	if exits != null:
+		for child in exits.get_children():
+			if not child is Area2D:
+				continue
+			exit_area_count += 1
+			var area := child as Area2D
+			if _area_has_collision_shape(area):
+				exit_shape_count += 1
+			if area.is_in_group("interactable") and area.has_method("interact"):
+				exit_interactable_count += 1
+			if area.body_entered.get_connections().size() > 0:
+				exit_body_entered_connected_count += 1
+			if (area.collision_mask & 1) != 0:
+				exit_has_player_mask = true
+			if floor_layer != null:
+				var expected_pos := floor_layer.to_global(floor_layer.map_to_local(_exit_cell(definition)))
+				if area.global_position.distance_to(expected_pos) <= 8.0:
+					exit_overlaps_expected_cell = true
+			if not area.monitoring:
+				_add_error(report, "Exit Area2D monitoring must be enabled.")
+			if not area.monitorable:
+				_add_warning(report, "Exit Area2D monitorable is disabled; enable it unless intentionally trigger-only.")
+	debug["exit_area_count"] = exit_area_count
+	debug["exit_collision_shape_count"] = exit_shape_count
+	debug["exit_interactable_count"] = exit_interactable_count
+	debug["exit_body_entered_connected_count"] = exit_body_entered_connected_count
+	debug["exit_overlaps_expected_cell"] = exit_overlaps_expected_cell
+	debug["exit_has_player_collision_mask"] = exit_has_player_mask
+	debug["exit_uses_real_completion_path"] = scene_root.has_method("request_exit_completion") or scene_root.has_method("complete_level")
+	report["debug"] = debug
+	if exit_area_count < 1:
+		_add_error(report, "Exit must generate at least one Area2D.")
+	if exit_shape_count < 1:
+		_add_error(report, "Exit Area2D must include a CollisionShape2D.")
+	if exit_interactable_count < 1:
+		_add_error(report, "Exit must be in group \"interactable\" and implement interact(player) for E support.")
+	if exit_body_entered_connected_count < 1:
+		_add_error(report, "Exit body_entered must be connected for walk-in completion.")
+	if not exit_overlaps_expected_cell:
+		_add_error(report, "Exit trigger does not overlap the expected exit marker cell.")
+	if not exit_has_player_mask:
+		_add_error(report, "Exit collision_mask must include the Player layer.")
+	if not bool(debug["exit_uses_real_completion_path"]):
+		_add_error(report, "Exit cannot call a real mission completion path.")
+
+
+static func _area_has_collision_shape(area: Area2D) -> bool:
+	for child in area.get_children():
+		if child is CollisionShape2D:
+			var shape := (child as CollisionShape2D).shape
+			if shape != null and not (child as CollisionShape2D).disabled:
+				return true
+		if child is CollisionPolygon2D and not (child as CollisionPolygon2D).disabled:
+			return true
+	return false
 
 
 static func _cell_set(cells: Array[Vector2i]) -> Dictionary:
@@ -482,6 +550,13 @@ static func print_debug_report(report: Dictionary) -> void:
 	print("  outside escape risk cells: " + str(debug.get("outside_escape_risk_cells", [])))
 	print("  required targets inside boundary collision: " + str(debug.get("required_targets_inside_boundary_collision", [])))
 	print("  collectibles inside boundary collision: " + str(debug.get("collectibles_inside_boundary_collision", [])))
+	print("  exit area count: " + str(debug.get("exit_area_count", 0)))
+	print("  exit collision shape count: " + str(debug.get("exit_collision_shape_count", 0)))
+	print("  exit interactable count: " + str(debug.get("exit_interactable_count", 0)))
+	print("  exit body_entered connected count: " + str(debug.get("exit_body_entered_connected_count", 0)))
+	print("  exit overlaps expected cell: " + str(debug.get("exit_overlaps_expected_cell", false)))
+	print("  exit has player collision mask: " + str(debug.get("exit_has_player_collision_mask", false)))
+	print("  exit uses real completion path: " + str(debug.get("exit_uses_real_completion_path", false)))
 
 
 static func _add_error(report: Dictionary, message: String) -> void:
