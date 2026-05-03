@@ -3,6 +3,8 @@
 ## 2026-05-02
 - **Repo hygiene:** Ignore `debug/` (GRB launch logs, screenshots); removed accidentally committed artifacts from version control. Root-level `debug-*.log` ignore unchanged.
 
+- **Iso mission blockout framework (Phase 1):** Added typed `MissionDefinition` resources, `IsoMissionBase.gd`, semantic iso blockout TileSet/atlas, canonical template scene, generic placeholder interactables/components, `MissionBlockoutValidator.gd`, docs, and an isolated Taco Bell iso blockout prototype under `scenes/missions_iso/`. Existing story missions and `GameState.mission_catalog` flow remain unchanged.
+
 - **Iso cyberpunk vertical slice:** Monogon subset → `assets/tilesets/iso_vertical_slice/processed/cyberpunk_iso_atlas.png` + `IsoCyberpunkVerticalSlice.tres`; `IsoVerticalSlice.gd` paints floors/walls/detail door/props; `source/monogon/.gdignore` skips bulk Godot imports; **`ASSET_MANIFEST.md`** added with license TODO. Prototype `prototype_iso_atlas.png` / `IsoVerticalSlice.tres` retained.
 - **IsoVerticalSlice reliability:** West spawn vs east exit, delayed **`ExitZone.monitoring`**, frame-separated **`PropLayer`** paints, runtime **`TileSet`** fallback when atlas import/`.ctex` is missing; `TileSet.TILE_LAYOUT_STACKED` / `TILE_OFFSET_AXIS_HORIZONTAL` in runtime builder (matches `.tres`).
 

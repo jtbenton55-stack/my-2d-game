@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/levels/IsoMissionBase.gd" id="1_iso_base"]
+[ext_resource type="Resource" path="res://assets/missions/taco_bell_iso_blockout_definition.tres" id="2_definition"]
+
+[node name="TacoBellIsoBlockout" type="Node2D"]
+script = ExtResource("1_iso_base")
+mission_definition = ExtResource("2_definition")
+
+[node name="GameplayRoot" type="Node2D" parent="."]
+
+[node name="GameplayFloorLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="GameplayCollisionLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="GameplayMarkersLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="ObjectiveAreas" type="Node2D" parent="GameplayRoot"]
+
+[node name="ExitAreas" type="Node2D" parent="GameplayRoot"]
+
+[node name="SpawnPoints" type="Node2D" parent="GameplayRoot"]
+
+[node name="EnemyPaths" type="Node2D" parent="GameplayRoot"]
+
+[node name="ArtRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="GroundArtLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="WallArtLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="PropArtLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="DecorBelowLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="DecorAboveLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="LightingLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="EntityRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Enemies" type="Node2D" parent="EntityRoot"]
+
+[node name="Interactables" type="Node2D" parent="EntityRoot"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -1200
+limit_top = -900
+limit_right = 1200
+limit_bottom = 900
+
+[node name="MissionController" type="Node" parent="."]
