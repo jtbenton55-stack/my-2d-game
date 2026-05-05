@@ -18,7 +18,7 @@ func _update_result_display() -> void:
 	var title: String = String(result.get("title", "Mission Complete"))
 	var subtitle: String = String(result.get("subtitle", ""))
 	var rewards: Array = Array(result.get("rewards", []))
-	var success: bool = bool(result.get("success", false))
+	var success: bool = result.get("success", false) == true
 	var rank: String = String(result.get("rank", ""))
 	
 	title_label.text = title

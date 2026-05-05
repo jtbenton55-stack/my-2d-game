@@ -1,6 +1,8 @@
 class_name MissionCodeGatePlaceholder
 extends "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd"
 
+const TacoBellDialogue := preload("res://src/missions/iso/runtime/TacoBellDialogue.gd")
+
 @export var gate_id: String = ""
 @export var objective_id: String = ""
 @export var correct_code: String = "2174"
@@ -17,6 +19,7 @@ var _input: LineEdit = null
 func _ready() -> void:
 	auto_trigger_on_enter = false
 	once_only = false
+	interaction_text = "Click to enter code."
 	super._ready()
 
 
@@ -34,12 +37,12 @@ func _has_required_clue() -> bool:
 
 
 func _has_bypass_item() -> bool:
-	return bypass_item_id != "" and bool(GameState.dialogue_flags.get("mission_access_item:" + bypass_item_id, false))
+	return bypass_item_id != "" and GameState.dialogue_flags.get("mission_access_item:" + bypass_item_id, false) == true
 
 
 func _show_feedback(text: String) -> void:
 	QuestManager.set_objective(text, mission_id)
-	DialogueManager.start_simple_dialogue([{ "speaker": display_name, "text": text }])
+	DialogueManager.start_simple_dialogue([{ "speaker": String(display_name), "text": text }])
 
 
 func _show_prompt() -> void:
@@ -106,19 +109,37 @@ func _unlock_gate() -> void:
 	var mission := get_tree().current_scene
 	if mission != null and mission.has_method("set_iso_access_item"):
 		mission.set_iso_access_item(gate_id)
-	_show_feedback(solved_text + " Code accepted: " + correct_code + ".")
+	if mission != null and mission.has_method("set_code_gate_open"):
+		mission.set_code_gate_open(gate_id, true)
+	var success_line := TacoBellDialogue.line("code_success_001", solved_text + " Code accepted: " + correct_code + ".", display_name)
+	_show_feedback(String(success_line.get("text", solved_text)))
 	remove_from_group("interactable")
 	set_deferred("monitoring", false)
 
 
 func _on_wrong_code() -> void:
+	var attempts := 0
+	var threshold := 2
+	var mission := get_tree().current_scene
+	if mission != null and mission.has_method("get_wrong_code_alarm_threshold"):
+		threshold = int(mission.call("get_wrong_code_alarm_threshold"))
 	if mission_id != "":
 		GameState.record_mission_performance_event(mission_id, "wrong_code_attempts", 1)
-		var attempts := int(GameState.mission_performance.get(mission_id, {}).get("wrong_code_attempts", 0))
+		attempts = int(GameState.mission_performance.get(mission_id, {}).get("wrong_code_attempts", 0))
+	if mission != null and mission.has_method("increment_attempt_counter"):
+		mission.call("increment_attempt_counter", "wrong_code", 1)
 		if attempts >= 2:
 			GameState.set_mission_alert_state(mission_id, "suspicious")
-		if attempts >= 3:
-			var controller := get_tree().get_first_node_in_group("iso_alert_controller")
-			if controller != null:
-				controller.call("register_detection_event", gate_id, 1.0, "wrong_code_alarm")
-	_show_feedback(wrong_code_text + " Find the route logic before trying again.")
+	EventBus.screen_shake.emit(2.8, 0.12)
+	EventBus.debug("Code gate warning flash RED: " + gate_id)
+	var warning_line := TacoBellDialogue.line("code_wrong_001", wrong_code_text, display_name)
+	if attempts >= threshold:
+		var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+		if controller != null:
+			controller.call("register_detection_event", gate_id, 1.0, "wrong_code_alarm")
+		if mission != null and mission.has_method("spawn_attack_guard_near_player"):
+			mission.call("spawn_attack_guard_near_player", gate_id)
+		var alarm_line := TacoBellDialogue.line("alarm_triggered_001", "Alarm tripped.", "Security")
+		_show_feedback(String(warning_line.get("text")) + " Wrong attempts: " + str(attempts) + ". " + String(alarm_line.get("text")))
+		return
+	_show_feedback(String(warning_line.get("text")) + " Wrong attempts: " + str(attempts) + ".")

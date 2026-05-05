@@ -1,0 +1,103 @@
+{
+  "entries": [
+    {
+      "dialogue_id": "louis_intro_001",
+      "speaker": "Louis",
+      "text": "Bentley, we got a problem. This delivery bag carries Sterling route ink.",
+      "trigger": "mission_start",
+      "mission_step": "intro",
+      "tags": ["taco_bell", "louis", "intro"],
+      "notes": "Opening handoff."
+    },
+    {
+      "dialogue_id": "bentley_scent_tutorial_001",
+      "speaker": "Bentley",
+      "text": "Click a scent marker and I will sniff it. The freshest route is not always obvious.",
+      "trigger": "scent_tutorial",
+      "mission_step": "scent_setup",
+      "tags": ["taco_bell", "bentley", "tutorial"],
+      "notes": "Teach scent interaction."
+    },
+    {
+      "dialogue_id": "scent_fake_001",
+      "speaker": "Bentley",
+      "text": "This trail feels planted. I can smell cleaner and old rubber, not the fresh route.",
+      "trigger": "fake_scent",
+      "mission_step": "scent",
+      "tags": ["taco_bell", "scent", "fake"],
+      "notes": "Subtle fake scent feedback."
+    },
+    {
+      "dialogue_id": "scent_real_001",
+      "speaker": "Bentley",
+      "text": "This is it. Fresh route scent moving toward the garage.",
+      "trigger": "real_scent",
+      "mission_step": "scent",
+      "tags": ["taco_bell", "scent", "real"],
+      "notes": "Strong positive scent feedback."
+    },
+    {
+      "dialogue_id": "code_wrong_001",
+      "speaker": "Garage Keypad",
+      "text": "Wrong code. The keypad flashes red.",
+      "trigger": "code_wrong",
+      "mission_step": "garage_code",
+      "tags": ["taco_bell", "code", "warning"],
+      "notes": "Wrong code warning."
+    },
+    {
+      "dialogue_id": "alarm_triggered_001",
+      "speaker": "Security",
+      "text": "Alarm tripped. Guards are moving to your position.",
+      "trigger": "alarm",
+      "mission_step": "security",
+      "tags": ["taco_bell", "alarm"],
+      "notes": "Alarm trigger line."
+    },
+    {
+      "dialogue_id": "code_success_001",
+      "speaker": "Garage Keypad",
+      "text": "Access granted. Office barrier unlocked.",
+      "trigger": "code_success",
+      "mission_step": "garage_code",
+      "tags": ["taco_bell", "code", "success"],
+      "notes": "Code gate success."
+    },
+    {
+      "dialogue_id": "ambush_trigger_001",
+      "speaker": "Garage",
+      "text": "Tripwire triggered. Ambush incoming from the service lane.",
+      "trigger": "ambush",
+      "mission_step": "ambush",
+      "tags": ["taco_bell", "ambush"],
+      "notes": "Ambush threshold feedback."
+    },
+    {
+      "dialogue_id": "route_locked_001",
+      "speaker": "Route",
+      "text": "Route locked. Complete its requirement first.",
+      "trigger": "route_locked",
+      "mission_step": "routes",
+      "tags": ["taco_bell", "route", "locked"],
+      "notes": "Generic route lock line."
+    },
+    {
+      "dialogue_id": "route_unlocked_001",
+      "speaker": "Route",
+      "text": "Route unlocked. Move through the passage and rejoin the main path.",
+      "trigger": "route_unlocked",
+      "mission_step": "routes",
+      "tags": ["taco_bell", "route", "unlocked"],
+      "notes": "Generic route success line."
+    },
+    {
+      "dialogue_id": "mission_complete_001",
+      "speaker": "Louis",
+      "text": "You brought the bag and the clues. The delivery route card is live.",
+      "trigger": "mission_complete",
+      "mission_step": "complete",
+      "tags": ["taco_bell", "completion"],
+      "notes": "Completion beat."
+    }
+  ]
+}

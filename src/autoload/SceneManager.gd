@@ -83,8 +83,8 @@ func start_pending_mission() -> void:
 
 func start_mission(mission_id: String) -> void:
 	var scene_path := GameState.get_mission_scene_path(mission_id)
-	if OS.is_debug_build() and mission_id == "taco_bell_drop" and bool(GameState.dialogue_flags.get("dev_force_iso_taco_bell", true)):
-		scene_path = "res://scenes/missions_iso/TacoBellIsoBlockout.tscn"
+	if OS.is_debug_build() and mission_id == "taco_bell_drop" and GameState.dialogue_flags.get("dev_force_iso_taco_bell", true) == true:
+		scene_path = "res://scenes/missions_iso/TacoBellIso_Editable.tscn"
 	GameState.start_mission(mission_id)
 	change_scene(scene_path)
 

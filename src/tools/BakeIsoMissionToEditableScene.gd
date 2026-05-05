@@ -19,11 +19,11 @@ func _run() -> void:
 		push_error("BakeIsoMissionToEditableScene: source scene root does not support bake_to_editable_scene().")
 		return
 	var baked: Dictionary = instance.call("bake_to_editable_scene", OUTPUT_SCENE, true)
-	if not bool(baked.get("ok", false)):
+	if baked.get("ok", false) != true:
 		push_error("BakeIsoMissionToEditableScene: bake failed: " + str(baked))
 		return
 	if instance.has_method("bake_hand_edit_test_scene"):
 		var test: Dictionary = instance.call("bake_hand_edit_test_scene", OUTPUT_SCENE, OUTPUT_TEST_SCENE, true)
-		if not bool(test.get("ok", false)):
+		if test.get("ok", false) != true:
 			push_warning("BakeIsoMissionToEditableScene: test-scene bake failed: " + str(test))
 	print("BakeIsoMissionToEditableScene: wrote " + OUTPUT_SCENE)

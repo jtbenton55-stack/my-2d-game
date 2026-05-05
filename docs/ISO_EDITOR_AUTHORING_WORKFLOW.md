@@ -1,4 +1,4 @@
-# ISO Editor Authoring Workflow (Phase 2A.4B)
+# ISO Editor Authoring Workflow (Phase 2A.5)
 
 ## Core scene paths
 
@@ -73,6 +73,29 @@ Deleting required markers, duplicating IDs, changing runtime-only node structure
 Use unique `marker_id` values per gameplay marker; validator reports duplicates.
 30. How do I recover if I break the scene?  
 Re-run bake tool from blockout, or restore from git; use `TacoBellIso_Editable_Test.tscn` for destructive experiments.
+
+## Player-facing debug harness (Phase 2A.5)
+
+31. How do I open the dev test harness?  
+Run `TacoBellIso_Editable.tscn` and use the on-screen `IsoMissionDebugPanel` (debug builds only).
+32. What can I test from the harness?  
+Heat 0-3, mutation reroll, alarm trigger, extra guard spawn, Louis route lock/unlock, poop-bag grant/clear, and teleports (Start/Delivery Hub/Garage 1/Code Gate/Ambush/Bag Recovery/Exit).
+33. How do I restart the iso test scene quickly?  
+Use `Restart Taco Bell Iso` in `IsoMissionDebugPanel` (restarts `TacoBellIso_Editable.tscn`).
+34. What input is used for interaction/combat?  
+`E` = interact, `attack` action (default keyboard binding in this project is `J`) = attack.
+35. How do I test Bentley scent trails?  
+Use `Press E: Ask Bentley to sniff this trail.` on scent zones; fake trails increment `wrong_scent_trails_followed`, real trail grants `mission_access_item:real_scent_trail`.
+36. How do I test poop bag use?  
+Pick up any poop bag collectible (`Poop Bag collected. Count: X`), then interact with `PoopBagDecoy_loading_dock` to consume one and distract a nearby guard.
+37. How do I test code gate wrong/correct paths?  
+Interact with `Objective_solve_garage_office_code`; use keypad UI buttons (`Enter Wrong (Test)`, `Enter Correct (Test)`) or type code manually. Wrong attempts increment `wrong_code_attempts`; threshold escalates alert/alarm.
+38. How do I test routes/transitions?  
+`RouteAccess_louis_delivery_route_future_shortcut` is locked until `louis_delivery_route`; unlocked interaction teleports to disconnected route test area; use return transitions to safely re-enter main map.
+39. How do I test stealth visibility?  
+In debug builds, security camera cones and guard debug cones are visible; debug panel shows detection value/modifier and alert state.
+40. Known placeholder limits after 2A.5?  
+Bentley vent route remains a functional placeholder transition (no separate Bentley-control mode yet), and hideout shelf rendering for typed collectibles remains a separate UI pass.
 
 ## First safe edit tutorial
 

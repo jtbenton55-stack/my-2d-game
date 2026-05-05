@@ -1,6 +1,12 @@
 # Changelog
 
 ## 2026-05-03
+- **Taco Bell player-facing gameplay cleanup (Phase 2A.5):** Kept editable hybrid authoring contract intact while improving in-scene testability in `TacoBellIso_Editable.tscn`.
+- **Interaction priority hardening:** Player interaction scan now filters unavailable prompts, strongly deprioritizes completed nodes, and prefers higher-priority incomplete interactables to reduce nearby used-object steals.
+- **Dev launch + harness:** Debug mission launch now routes `taco_bell_drop` to `TacoBellIso_Editable.tscn`; `IsoMissionDebugPanel` now reports real scent route, active garage code, extra guard/camera booleans, and typed collectible counts.
+- **Gameplay feedback polish:** Added explicit clue pickup feedback line; code-gate wrong-attempt feedback now includes attempt count; route access messaging now has clear Louis locked/unlocked and vent test-route prompts.
+- **Stealth/combat visibility:** `MissionAlertController` now folds cover tiles into detection modifier, and guards render a debug cone in debug builds; validator now checks guard combat compatibility against player attack pipeline.
+- **Validator expansion for player-facing QA:** Added `clustered_interactables`, `overlapping_interaction_radii`, `priority_conflicts`, `guard_combat_compatibility`, and `heat_test_harness_available` fields/checks with required-system failures as errors.
 - **Taco Bell editable scene blocker closure (Phase 2A.4B):** Fixed duplicate marker IDs in baked `MarkerRoot` with canonical marker id mapping and deterministic `_NN` suffixing; added bake-time marker dedupe + marker position normalization.
 - **Hybrid source-of-truth enforcement:** `IsoMissionBase` now builds a marker index at runtime and resolves positions marker-id-first/link-first (`linked_clue_id`, `linked_collectible_id`, `linked_objective_id`, `linked_route_id`, `linked_guard_id`) before definition fallback, and emits per-object resolution telemetry (`object_id`, `object_type`, `resolved_from`, marker id, marker position, spawn position, delta).
 - **Hand-edit proof fixes:** Moved clue and moved poop bag in `TacoBellIso_Editable_Test.tscn` now spawn from moved marker positions with zero runtime mismatch; moved guard/patrol/exit marker proofs now resolve from scene markers as expected.

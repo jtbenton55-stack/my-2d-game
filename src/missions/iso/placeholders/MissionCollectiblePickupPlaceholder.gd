@@ -9,14 +9,22 @@ var collectible_type: String = "polaroid"
 @export var required := false
 
 
+func _ready() -> void:
+	if interaction_text.strip_edges() == "":
+		interaction_text = "Click to pick up"
+	super._ready()
+
+
 func _complete(player: Node = null) -> void:
 	var id := collectible_id if collectible_id != "" else placeholder_id
 	if TypedMissionCollectibleHelper.collect(id, collectible_type, mission_id, display_name):
 		AudioManager.play_sfx("item_pickup", global_position)
 		_emit_collectible_feedback(id)
-	super._complete(player)
-	set_deferred("monitoring", false)
-	visible = false
+		super._complete(player)
+		set_deferred("monitoring", false)
+		visible = false
+		return
+	DialogueManager.start_simple_dialogue([{ "speaker": "Collectible", "text": "Already collected: " + (display_name if display_name != "" else id) }])
 
 
 func _emit_collectible_feedback(id: String) -> void:

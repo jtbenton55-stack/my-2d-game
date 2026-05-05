@@ -57,7 +57,16 @@ Implemented additively beside the current story missions:
   - Moved clue (`clue_velvet_paw_stamp`) and moved poop bag (`poop_bag_dog_station`) now spawn at moved scene marker positions with no runtime position mismatch.
   - Enemy iso validator now checks all runtime-spawned guards and reports expected vs actual sprite/collision values.
   - Validator now flags hybrid marker ignores as errors and keeps overlap/boundary-transition findings as scoped warnings for editable scenes.
-- Still stubbed: real keypad UI, final enemy/patrol/camera AI polish, true vent traversal, future reward-card shortcut behavior, final art painting, hideout display UI for non-Polaroid typed collectibles.
+- Phase 2A.5 player-facing gameplay cleanup pass:
+  - Interaction priority now avoids completed-object steals by ranking incomplete/required interactables first.
+  - Debug harness expanded for gameplay QA: heat/mutation/alarm/extra-guard/route lock-state/poop bag/teleport controls plus live readouts for scent route, garage code, typed collectibles, and detection state.
+  - Code gate now has explicit wrong/correct test paths with wrong-attempt counter text and alarm escalation at threshold.
+  - Scent trails expose clear Bentley sniff messaging; fake trail increments wrong-scent counter, real trail sets mission access item for objective progression.
+  - Poop bags now have visible count/use flow with decoy consumption and guard distraction hook.
+  - Route access + transition placeholders now support locked/unlocked route test transfers to disconnected subareas and safe return.
+  - Alarm/ambush/camera-shake chain is testable via runtime triggers and debug panel actions; extra guard activation is observable.
+  - Validator expanded with gameplay-testability checks (`clustered_interactables`, `overlapping_interaction_radii`, `priority_conflicts`, `guard_combat_compatibility`, `heat_test_harness_available`).
+- Still stubbed: full bespoke keypad UI polish, final enemy/patrol/camera AI polish, true Bentley vent control mode, final art painting, hideout display UI for non-Polaroid typed collectibles.
 - Safe future switch criteria: after one manual QA pass in the editor, it is reasonable in a later phase to switch `GameState.mission_catalog["taco_bell_drop"].scene_path` to `res://scenes/missions_iso/TacoBellIsoBlockout.tscn`.
 
 ## Known Bible vs Current Code Mismatches

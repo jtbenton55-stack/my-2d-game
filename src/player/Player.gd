@@ -15,6 +15,11 @@ signal health_changed(current_health, max_health)
 @export var attack_cooldown := 0.35
 @export var max_health := 100
 @export var stealth_detection_multiplier := 0.5
+@export var click_interaction_radius := 72.0
+@export var case_joint_range := 220.0
+@export var case_joint_duration := 1.8
+@export var case_joint_cooldown := 9.0
+@export var poop_throw_range := 210.0
 
 var current_health := 100
 var facing := Vector2.DOWN
@@ -29,6 +34,12 @@ var stealth_indicator: ColorRect = null
 var _combat: Node = null
 ## Blocks duplicate damage for a short window after Bentley's one-shot save (multi-hit attacks).
 var _dental_save_grace_until_msec: int = 0
+var _stun_timer: float = 0.0
+var _guard_spam_pressure: float = 0.0
+var _case_joint_timer: float = 0.0
+var _case_joint_cooldown_timer: float = 0.0
+var _case_highlights: Dictionary = {}
+var _poop_bag_targeting := false
 
 func is_stealth_active() -> bool:
 	return is_stealth
@@ -52,6 +63,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_update_timers(delta)
+	if _stun_timer > 0.0:
+		_stun_timer -= delta
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	if not can_control:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -102,6 +118,38 @@ func _physics_process(delta: float) -> void:
 		elif not _should_skip_world_interact():
 			_try_interact()
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not can_control:
+		return
+	if event.is_action_pressed("case_the_joint"):
+		_try_case_the_joint()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("poop_bag_targeting"):
+		if _poop_bag_targeting:
+			_cancel_poop_bag_targeting("Throw canceled.")
+		else:
+			_enter_poop_bag_targeting()
+		get_viewport().set_input_as_handled()
+		return
+	if _poop_bag_targeting and event.is_action_pressed("ui_cancel"):
+		_cancel_poop_bag_targeting("Throw canceled.")
+		get_viewport().set_input_as_handled()
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if _poop_bag_targeting:
+			_try_throw_poop_bag(get_global_mouse_position())
+			get_viewport().set_input_as_handled()
+			return
+		if _should_skip_world_interact():
+			return
+		if _try_click_interact(get_global_mouse_position()):
+			get_viewport().set_input_as_handled()
+	elif _poop_bag_targeting and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		_cancel_poop_bag_targeting("Throw canceled.")
+		get_viewport().set_input_as_handled()
+
 func _update_timers(delta: float) -> void:
 	if not _uses_hitbox_combat():
 		if dodge_timer > 0.0:
@@ -112,6 +160,27 @@ func _update_timers(delta: float) -> void:
 			dodge_cooldown_timer -= delta
 		if attack_timer > 0.0:
 			attack_timer -= delta
+	if _case_joint_timer > 0.0:
+		_case_joint_timer -= delta
+		if _case_joint_timer <= 0.0:
+			_clear_case_highlights()
+	if _case_joint_cooldown_timer > 0.0:
+		_case_joint_cooldown_timer -= delta
+	_guard_spam_pressure = maxf(0.0, _guard_spam_pressure - delta * 0.8)
+
+
+func notify_attack_spam(amount: float = 0.25) -> void:
+	_guard_spam_pressure = clampf(_guard_spam_pressure + amount, 0.0, 1.0)
+
+
+func apply_guard_stun(base_chance: float = 0.1, duration: float = 0.5) -> bool:
+	var chance := clampf(base_chance + _guard_spam_pressure * 0.45, 0.0, 0.9)
+	if randf() > chance:
+		return false
+	_stun_timer = maxf(_stun_timer, duration)
+	DialogueManager.start_simple_dialogue([{ "speaker": "Jake", "text": "Stunned by baton strike!" }])
+	EventBus.screen_shake.emit(1.4, 0.08)
+	return true
 
 func _get_move_vector() -> Vector2:
 	var x := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -174,27 +243,195 @@ func _should_skip_world_interact() -> bool:
 	return false
 
 func _try_interact() -> void:
-	var best: Node = null
-	var best_dist := 999999.0
-	var best_priority := -999999
+	var candidates: Array = []
 	for node in get_tree().get_nodes_in_group("interactable"):
 		# Only consider nodes that actually implement interact; otherwise a large
 		# Area2D in "interactable" (e.g. trigger zones) wins by distance and blocks E.
 		if node is Node2D and node.has_method("interact"):
-			if node.has_method("is_interaction_available") and not bool(node.call("is_interaction_available", self)):
+			if node.has_method("is_interaction_available") and not _as_bool_safe(node.call("is_interaction_available", self)):
+				continue
+			if node.has_method("should_show_interaction_prompt") and not _as_bool_safe(node.call("should_show_interaction_prompt")):
 				continue
 			var dist := global_position.distance_to(node.global_position)
 			if dist >= 72.0:
 				continue
-			var priority := 0
+			var priority := 400
 			if node.has_method("get_interaction_priority"):
-				priority = int(node.call("get_interaction_priority", self))
-			if priority > best_priority or (priority == best_priority and dist < best_dist):
-				best = node
-				best_dist = dist
-				best_priority = priority
+				priority = _as_priority_safe(node.call("get_interaction_priority", self), node)
+			var completed := false
+			if node.has_method("is_completed"):
+				completed = _as_bool_safe(node.call("is_completed"))
+			elif node.has_method("get"):
+				completed = _as_bool_safe(node.get("completed"))
+			candidates.append({
+				"node": node,
+				"dist": dist,
+				"priority": priority,
+				"completed": completed,
+			})
+	if candidates.is_empty():
+		return
+	var incomplete: Array = []
+	for entry in candidates:
+		if not _as_bool_safe(entry["completed"]):
+			incomplete.append(entry)
+	var pool := incomplete if not incomplete.is_empty() else candidates
+	pool.sort_custom(func(a, b):
+		if int(a["priority"]) != int(b["priority"]):
+			return int(a["priority"]) > int(b["priority"])
+		return float(a["dist"]) < float(b["dist"])
+	)
+	var best: Node = pool[0]["node"] as Node
 	if best != null:
 		best.interact(self)
+
+
+func _try_click_interact(world_pos: Vector2) -> bool:
+	var candidates: Array = []
+	for node in get_tree().get_nodes_in_group("interactable"):
+		if not (node is Node2D and node.has_method("interact")):
+			continue
+		if node.has_method("is_interaction_available") and not _as_bool_safe(node.call("is_interaction_available", self)):
+			continue
+		var click_dist := world_pos.distance_to((node as Node2D).global_position)
+		if click_dist > 44.0:
+			continue
+		var priority := 400
+		if node.has_method("get_interaction_priority"):
+			priority = _as_priority_safe(node.call("get_interaction_priority", self), node)
+		candidates.append({"node": node, "click_dist": click_dist, "priority": priority})
+	if candidates.is_empty():
+		return false
+	candidates.sort_custom(func(a, b):
+		if int(a["priority"]) != int(b["priority"]):
+			return int(a["priority"]) > int(b["priority"])
+		return float(a["click_dist"]) < float(b["click_dist"])
+	)
+	if candidates.size() > 1 and OS.is_debug_build():
+		EventBus.warn("Ambiguous click interaction near %s (%d candidates)." % [str(world_pos), candidates.size()])
+	var target: Node2D = candidates[0]["node"] as Node2D
+	if target == null:
+		return false
+	var dist_to_player := global_position.distance_to(target.global_position)
+	if dist_to_player > click_interaction_radius:
+		DialogueManager.start_simple_dialogue([{ "speaker": "Jake", "text": "Move closer." }])
+		return true
+	target.interact(self)
+	return true
+
+
+func _try_case_the_joint() -> void:
+	if _case_joint_cooldown_timer > 0.0:
+		EventBus.objective_updated.emit("Focus not ready.")
+		return
+	_case_joint_cooldown_timer = case_joint_cooldown
+	_case_joint_timer = case_joint_duration
+	_clear_case_highlights()
+	var found := 0
+	for node in _collect_case_targets():
+		_highlight_case_target(node)
+		found += 1
+		if found >= 12:
+			break
+	EventBus.screen_shake.emit(0.55, 0.05)
+	EventBus.objective_updated.emit("Case the Joint: %d nearby points of interest." % found)
+
+
+func _collect_case_targets() -> Array:
+	var out: Array = []
+	var groups := ["interactable", "enemy", "iso_security_camera"]
+	for group_name in groups:
+		for node in get_tree().get_nodes_in_group(group_name):
+			if not (node is Node2D):
+				continue
+			if global_position.distance_to((node as Node2D).global_position) > case_joint_range:
+				continue
+			out.append(node)
+	return out
+
+
+func _highlight_case_target(node: Node) -> void:
+	if node == null or _case_highlights.has(node):
+		return
+	if node is CanvasItem:
+		_case_highlights[node] = (node as CanvasItem).modulate
+		(node as CanvasItem).modulate = Color(1.18, 1.12, 0.78, 1.0)
+
+
+func _clear_case_highlights() -> void:
+	for node in _case_highlights.keys():
+		if not is_instance_valid(node):
+			continue
+		if node is CanvasItem:
+			(node as CanvasItem).modulate = _case_highlights[node]
+	_case_highlights.clear()
+
+
+func _enter_poop_bag_targeting() -> void:
+	if GameState.get_poop_bag_count() <= 0:
+		EventBus.objective_updated.emit("No poop bags.")
+		return
+	_poop_bag_targeting = true
+	EventBus.objective_updated.emit("Click where to throw.")
+
+
+func _cancel_poop_bag_targeting(text: String = "Throw canceled.") -> void:
+	_poop_bag_targeting = false
+	if text != "":
+		EventBus.objective_updated.emit(text)
+
+
+func _try_throw_poop_bag(world_pos: Vector2) -> void:
+	if not _poop_bag_targeting:
+		return
+	if global_position.distance_to(world_pos) > poop_throw_range:
+		EventBus.objective_updated.emit("Too far.")
+		return
+	var scene := get_tree().current_scene
+	if scene == null or not scene.has_method("deploy_poop_bag_decoy_at"):
+		EventBus.objective_updated.emit("Can't throw there.")
+		return
+	if not scene.call("deploy_poop_bag_decoy_at", world_pos):
+		EventBus.objective_updated.emit("Can't throw there.")
+		return
+	if not GameState.try_consume_poop_bag():
+		EventBus.objective_updated.emit("No poop bags.")
+		return
+	if scene.has_method("increment_attempt_counter"):
+		scene.call("increment_attempt_counter", "poop_bags_used", 1)
+	_poop_bag_targeting = false
+	EventBus.objective_updated.emit("Poop bag deployed.")
+
+
+func _as_bool_safe(value: Variant) -> bool:
+	if value == null:
+		return false
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT:
+			return int(value) != 0
+		TYPE_FLOAT:
+			return absf(float(value)) > 0.00001
+		TYPE_STRING:
+			var text := String(value).strip_edges().to_lower()
+			if text == "" or text == "false" or text == "0" or text == "no":
+				return false
+			return true
+		_:
+			return true
+
+
+func _as_priority_safe(value: Variant, node: Node) -> int:
+	match typeof(value):
+		TYPE_INT:
+			return int(value)
+		TYPE_FLOAT:
+			return int(round(float(value)))
+		_:
+			if OS.is_debug_build():
+				push_warning("Invalid interaction priority from %s; using default 400." % [str(node.name)])
+			return 400
 
 func _update_sprite() -> void:
 	var sprite := get_node_or_null("AnimatedSprite2D")

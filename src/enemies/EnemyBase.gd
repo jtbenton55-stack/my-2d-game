@@ -16,6 +16,9 @@ signal health_changed(current: int, max_health: int)
 @export var attack_cooldown := 0.8
 @export var stealth_aggro_multiplier := 0.35
 @export var hit_recovery_delay: float = 0.42
+@export var debug_cone_angle_degrees: float = 80.0
+@export var hit_invulnerability_seconds: float = 0.3
+@export var stun_baton_base_chance: float = 0.12
 
 var health := 40
 var target: Node2D = null
@@ -24,12 +27,18 @@ var stunned_timer := 0.0
 var detection_multiplier := 1.0
 var _spotted_emitted := false
 var _aware := false
+var _hit_invuln_timer := 0.0
+var _health_bar: ProgressBar = null
+var _health_label: Label = null
 
 func _ready() -> void:
 	add_to_group("enemy")
 	health = max_health
 	target = get_tree().get_first_node_in_group("player") as Node2D
 	health_changed.emit(health, max_health)
+	_create_health_bar()
+	if OS.is_debug_build():
+		set_process(true)
 
 func _physics_process(delta: float) -> void:
 	if attack_timer > 0.0:
@@ -39,9 +48,13 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
+	if _hit_invuln_timer > 0.0:
+		_hit_invuln_timer -= delta
 	if target == null or not is_instance_valid(target):
 		target = get_tree().get_first_node_in_group("player") as Node2D
 	_update_ai(delta)
+	if OS.is_debug_build():
+		queue_redraw()
 
 func is_aware() -> bool:
 	return _aware
@@ -99,12 +112,18 @@ func _try_attack() -> void:
 		return
 	attack_timer = attack_cooldown
 	if target and target.has_method("take_damage"):
+		if target.has_method("apply_guard_stun"):
+			target.call("apply_guard_stun", stun_baton_base_chance, 0.55)
 		target.take_damage(attack_damage, self)
 
 func take_damage(amount: int, source: Node = null) -> void:
+	if _hit_invuln_timer > 0.0:
+		return
 	EventBus.debug("Guard hit.")
 	health = max(0, health - amount)
+	_hit_invuln_timer = hit_invulnerability_seconds
 	health_changed.emit(health, max_health)
+	_update_health_bar()
 	attack_timer = maxf(attack_timer, hit_recovery_delay)
 	AudioManager.play_sfx("enemy_hit", global_position)
 	if source is Node2D:
@@ -129,3 +148,49 @@ func set_detection_multiplier(mult: float) -> void:
 func _patrol_or_idle(_delta: float) -> void:
 	velocity = Vector2.ZERO
 	move_and_slide()
+
+
+func _draw() -> void:
+	if not OS.is_debug_build():
+		return
+	var half := deg_to_rad(debug_cone_angle_degrees * 0.5)
+	var facing_dir := Vector2.RIGHT
+	if target != null and is_instance_valid(target):
+		var to_target := target.global_position - global_position
+		if to_target.length() > 0.01:
+			facing_dir = to_target.normalized()
+	var left := facing_dir.rotated(-half) * aggro_range
+	var right := facing_dir.rotated(half) * aggro_range
+	var color := Color(1.0, 0.2, 0.2, 0.12 if _aware else 0.08)
+	draw_colored_polygon(PackedVector2Array([Vector2.ZERO, left, right]), color)
+
+
+func _create_health_bar() -> void:
+	if _health_bar != null:
+		return
+	_health_label = Label.new()
+	_health_label.name = "HealthLabel"
+	_health_label.text = "Guard"
+	_health_label.position = Vector2(-26, -74)
+	_health_label.size = Vector2(64, 14)
+	_health_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_health_label.add_theme_font_size_override("font_size", 10)
+	add_child(_health_label)
+	_health_bar = ProgressBar.new()
+	_health_bar.name = "HealthBar"
+	_health_bar.position = Vector2(-26, -60)
+	_health_bar.size = Vector2(52, 7)
+	_health_bar.max_value = max_health
+	_health_bar.value = health
+	_health_bar.show_percentage = false
+	add_child(_health_bar)
+
+
+func _update_health_bar() -> void:
+	if _health_bar == null:
+		return
+	_health_bar.max_value = max_health
+	_health_bar.value = health
+	if _health_label != null:
+		_health_label.visible = health > 0
+	_health_bar.visible = health > 0

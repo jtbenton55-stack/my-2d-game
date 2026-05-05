@@ -13,6 +13,8 @@ func _ready() -> void:
 	interaction_priority = 70
 	allow_repeat_interaction = true
 	available_when_completed = true
+	if interaction_text.strip_edges() == "":
+		interaction_text = "Click to deploy poop bag decoy."
 	super._ready()
 	add_to_group("iso_poop_decoy")
 

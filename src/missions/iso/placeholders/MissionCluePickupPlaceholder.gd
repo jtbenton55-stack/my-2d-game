@@ -11,6 +11,11 @@ extends "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd"
 
 func _complete(player: Node = null) -> void:
 	var id := clue_id if clue_id != "" else placeholder_id
+	if GameState.sterling_clues.has(id):
+		var existing: Dictionary = GameState.sterling_clues.get(id, {})
+		if existing.get("discovered", false) == true:
+			DialogueManager.start_simple_dialogue([{ "speaker": "Evidence", "text": "Already logged: " + (display_name if display_name != "" else id) }])
+			return
 	GameState.ensure_and_discover_sterling_clue(id, {
 		"title": display_name,
 		"description": clue_description if clue_description != "" else interaction_text,
@@ -27,4 +32,9 @@ func _complete(player: Node = null) -> void:
 		"is_required_for_mission_completion": true,
 		"discovered": true,
 	})
+	var line := "Clue recorded: " + (display_name if display_name != "" else id)
+	DialogueManager.start_simple_dialogue([{ "speaker": "Evidence", "text": line }])
+	var mission := get_tree().current_scene
+	if mission != null and mission.has_method("increment_attempt_counter"):
+		mission.call("increment_attempt_counter", "clues", 1)
 	super._complete(player)

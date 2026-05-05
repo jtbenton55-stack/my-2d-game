@@ -2,7 +2,7 @@
 
 Phase 1 adds a parallel data-driven isometric blockout framework. It does **not** replace the existing story mission scenes.
 
-## Editor-Authorable Iso Mission Workflow (Phase 2A.4)
+## Editor-Authorable Iso Mission Workflow (Phase 2A.5)
 
 Current Taco Bell mode is **hybrid**.
 
@@ -44,7 +44,15 @@ In authoring_mode = "hybrid", scene-authored marker positions are the source of 
 1. Run `MissionBlockoutValidator.validate(def, current_scene)`.
 2. Check debug fields: `authoring_mode`, `layout_source`, `marker_source`, `scene_markers_found`, `generated_markers_found`, `runtime_marker_to_object_counts`, `enemy_iso_scale_ok`, `overlapping_interactables`.
 3. Confirm `runtime_position_mismatches=[]` and `hybrid_ignored_scene_markers=[]` after marker moves.
-3. In debug builds, use `IsoMissionDebugPanel` (Tab key toggle) for heat, alarm, route, poop bag, and teleport smoke actions.
+4. In debug builds, use `IsoMissionDebugPanel` for heat, alarm, route, poop bag, code gate, and teleport smoke actions.
+5. Confirm player-facing checks: code-gate wrong/correct path, scent fake/real behavior, route lock/unlock behavior, alarm->extra guard escalation, and combat hit compatibility (`Player attacked` / `Guard hit`).
+
+### 2A.5 Gameplay-Testability Notes
+
+- `SceneManager.start_mission("taco_bell_drop")` now uses `TacoBellIso_Editable.tscn` in debug mode when `dev_force_iso_taco_bell` is enabled.
+- `IsoMissionDebugPanel` now reports active real scent route, active garage code, extra guard/camera booleans, and typed collectible counts.
+- Interaction selection now strongly deprioritizes completed interactables and prefers incomplete/required nodes.
+- Guard/camera stealth visibility is debug-visible (camera cones + guard cones) and alert controller reports detection modifier (light-zone + cover).
 
 ### Direct Answer: “Will manual edits persist?”
 

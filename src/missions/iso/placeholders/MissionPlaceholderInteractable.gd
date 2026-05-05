@@ -13,6 +13,8 @@ signal placeholder_completed(placeholder_id: String)
 @export var interaction_priority: int = 50
 @export var allow_repeat_interaction := false
 @export var available_when_completed := false
+@export var interaction_id: String = ""
+@export var interaction_state: String = "pending"
 
 var completed := false
 
@@ -47,6 +49,7 @@ func _complete(_player: Node = null) -> void:
 	if once_only:
 		remove_from_group("interactable")
 		set_deferred("monitoring", false)
+	interaction_state = "completed"
 
 
 func _on_body_entered(body: Node) -> void:
@@ -62,5 +65,15 @@ func is_interaction_available(_player: Node = null) -> bool:
 
 func get_interaction_priority(_player: Node = null) -> int:
 	if completed and not allow_repeat_interaction:
-		return interaction_priority - 40
+		return interaction_priority - 120
+	if get("required") == true:
+		return interaction_priority + 20
 	return interaction_priority
+
+
+func is_completed() -> bool:
+	return completed
+
+
+func should_show_interaction_prompt() -> bool:
+	return is_interaction_available()

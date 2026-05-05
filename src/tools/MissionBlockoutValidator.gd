@@ -68,7 +68,7 @@ static func validate(definition: Resource, scene_root: Node = null) -> Dictionar
 
 
 static func print_report(report: Dictionary) -> void:
-	var status := "PASS" if bool(report.get("ok", false)) else "FAIL"
+	var status := "PASS" if report.get("ok", false) == true else "FAIL"
 	print("[MissionBlockoutValidator] " + status + " " + String(report.get("mission_id", "")))
 	for err in report.get("errors", []):
 		push_error("[MissionBlockoutValidator] " + String(err))
@@ -84,7 +84,7 @@ static func write_markdown_report(report: Dictionary, path: String) -> void:
 	file.store_line("# Mission Blockout Validation")
 	file.store_line("")
 	file.store_line("- Mission: `" + String(report.get("mission_id", "")) + "`")
-	file.store_line("- Status: **" + ("PASS" if bool(report.get("ok", false)) else "FAIL") + "**")
+	file.store_line("- Status: **" + ("PASS" if report.get("ok", false) == true else "FAIL") + "**")
 	file.store_line("")
 	file.store_line("## Errors")
 	for err in report.get("errors", []):
@@ -277,7 +277,7 @@ static func _validate_boundary_integrity(definition: Resource, scene_root: Node,
 	report["debug"] = debug
 	if not boundary_ok:
 		_add_error(report, "GameplayRoot/BoundaryColliders must exist with generated edge colliders.")
-	if not bool(debug["outer_collision_surrounds_floor"]):
+	if debug["outer_collision_surrounds_floor"] != true:
 		if _is_editable_scene(scene_root):
 			_add_warning(report, "GameplayCollisionLayer does not fully surround the editable scene footprint (verify subareas).")
 		else:
@@ -398,7 +398,7 @@ static func _validate_passage_clearance(definition: Resource, scene_root: Node, 
 		_add_error(report, "Required route passages are narrower than " + str(MIN_REQUIRED_PASSAGE_WIDTH_CELLS) + " cells: " + "; ".join(narrow_required))
 	if not narrow_return.is_empty():
 		_add_error(report, "South return / exit approach clearance failed: " + "; ".join(narrow_return))
-	if not bool(player_info.get("iso_collision_override_active", false)):
+	if player_info.get("iso_collision_override_active", false) != true:
 		_add_warning(report, "Iso player collision override is not active; physical passage checks may be too optimistic.")
 
 
@@ -460,7 +460,7 @@ static func _validate_exit_setup(definition: Resource, scene_root: Node, report:
 		_add_error(report, "Exit trigger does not overlap the expected exit marker cell.")
 	if not exit_has_player_mask:
 		_add_error(report, "Exit collision_mask must include the Player layer.")
-	if not bool(debug["exit_uses_real_completion_path"]):
+	if debug["exit_uses_real_completion_path"] != true:
 		_add_error(report, "Exit cannot call a real mission completion path.")
 
 
@@ -568,7 +568,7 @@ static func _validate_cover_collision(scene_root: Node, report: Dictionary) -> v
 	report["debug"] = debug
 	if cover_cells.is_empty():
 		_add_warning(report, "No intentional cover cells found in GameplayCollisionLayer.")
-	elif not bool(debug["cover_tile_has_collision"]):
+	elif debug["cover_tile_has_collision"] != true:
 		_add_error(report, "Cover cells exist but the cover tile has no collision polygon.")
 
 
@@ -625,17 +625,51 @@ static func _validate_runtime_systems(_definition: Resource, scene_root: Node, r
 	debug["runtime_route_access_count"] = route_access.get_child_count() if route_access != null else 0
 	debug["runtime_transition_count"] = transitions.get_child_count() if transitions != null else 0
 	debug["runtime_debug_ui_count"] = debug_ui.get_child_count() if debug_ui != null else 0
+	debug["heat_test_harness_available"] = int(debug["runtime_debug_ui_count"]) > 0 or scene_root.get_node_or_null("IsoMissionDebugPanel") != null
 	debug["enemy_iso_scale_ok"] = enemy_iso_scale_ok
 	debug["enemy_iso_expected_scale"] = expected_scale
 	debug["enemy_iso_actual_scale"] = actual_scale
 	debug["enemy_iso_expected_collision_size"] = expected_collision
 	debug["enemy_iso_actual_collision_size"] = actual_collision
 	debug["position_resolutions"] = meta_debug.get("position_resolutions", [])
+	debug["garage_beam_state_exposed"] = meta_debug.has("garage_beam_armed") and meta_debug.has("garage_beam_triggered")
+	debug["garage_beam_triggered_state_source"] = "attempt_runtime_state" if meta_debug.has("attempt_runtime_state") else ""
+	debug["case_the_joint_action_exists"] = InputMap.has_action("case_the_joint")
+	debug["q_bound_to_heavy_attack"] = _action_has_key("heavy", KEY_Q)
+	debug["bentley_command_inputs_exist"] = InputMap.has_action("bentley_bark") and InputMap.has_action("bentley_sniff") and InputMap.has_action("bentley_fetch") and InputMap.has_action("bentley_toggle_stay")
+	debug["poop_bag_targeting_action_exists"] = InputMap.has_action("poop_bag_targeting")
+	var pause_menu := scene_root.get_node_or_null("PauseMenu")
+	var pause_button_labels: Array[String] = []
+	if pause_menu != null:
+		for node in pause_menu.find_children("*", "Button", true, false):
+			pause_button_labels.append(String((node as Button).text))
+	debug["pause_menu_button_labels"] = pause_button_labels
+	debug["pause_menu_has_objectives"] = pause_button_labels.has("Objectives")
+	debug["pause_menu_has_scheme_cards"] = pause_button_labels.has("Scheme Cards")
+	debug["pause_menu_has_clues"] = pause_button_labels.has("Clues")
+	var combat := _combat_compatibility(scene_root)
+	debug["guard_combat_compatibility"] = combat
+	var first_guard := spawned_guards.get_child(0) if spawned_guards != null and spawned_guards.get_child_count() > 0 else null
+	var has_guard_label := false
+	var guard_label_safe_offset := false
+	if first_guard != null:
+		var label := first_guard.get_node_or_null("HealthLabel") as Label
+		has_guard_label = label != null
+		guard_label_safe_offset = label != null and label.position.y <= -56.0
+	debug["guard_health_label_exists"] = has_guard_label
+	debug["guard_health_label_safe_offset"] = guard_label_safe_offset
+	var code_gate_barrier := scene_root.get_node_or_null("GameplayRoot/RuntimeSystems/TransitionTriggers/CodeGateBarrier_garage_office_code") as Node2D
+	var garage_beam := scene_root.get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam") as Node2D
+	var code_beam_distance := -1.0
+	if code_gate_barrier != null and garage_beam != null:
+		code_beam_distance = code_gate_barrier.global_position.distance_to(garage_beam.global_position)
+	debug["code_gate_beam_separation_distance"] = code_beam_distance
+	debug["code_gate_beam_separated"] = code_beam_distance < 0.0 or code_beam_distance >= 120.0
 	report["debug"] = debug
 	if int(debug["runtime_spawned_guard_count"]) < 1:
 		_add_error(report, "Expected at least one spawned guard runtime object.")
-	if int(debug["runtime_spawned_camera_count"]) < 1:
-		_add_error(report, "Expected at least one spawned security camera runtime object.")
+	if int(debug["runtime_spawned_camera_count"]) < 2:
+		_add_error(report, "Expected at least two spawned security cameras in distinct zones.")
 	if int(debug["runtime_light_zone_count"]) < 3:
 		_add_warning(report, "Expected at least three light zones (shadow/flicker/bright) for Taco Bell proof target.")
 	if int(debug["runtime_encounter_zone_count"]) < 1:
@@ -644,8 +678,30 @@ static func _validate_runtime_systems(_definition: Resource, scene_root: Node, r
 		_add_warning(report, "Expected route access runtime points (keycard/vent/future shortcut).")
 	if int(debug["runtime_transition_count"]) < 1:
 		_add_warning(report, "Expected at least one transition placeholder runtime trigger.")
-	if not bool(debug["enemy_iso_scale_ok"]):
+	if debug["heat_test_harness_available"] != true:
+		_add_error(report, "Debug heat/restart harness is missing (IsoMissionDebugPanel/RuntimeSystems DebugUI).")
+	if debug["enemy_iso_scale_ok"] != true:
 		_add_error(report, "Runtime guard does not match expected iso enemy profile (scale/collision).")
+	if combat.get("ok", false) != true:
+		_add_error(report, "Player/guard combat compatibility failed: " + str(combat))
+	if debug["garage_beam_state_exposed"] != true:
+		_add_warning(report, "Garage beam one-shot state is not reported in runtime debug metadata.")
+	if debug["case_the_joint_action_exists"] != true:
+		_add_error(report, "Missing case_the_joint input action (Q mechanic).")
+	if debug["q_bound_to_heavy_attack"] == true:
+		_add_error(report, "Q is still bound to heavy attack; should be Case the Joint.")
+	if debug["bentley_command_inputs_exist"] != true:
+		_add_error(report, "Bentley command hotkeys are missing (bark/sniff/fetch/stay).")
+	if debug["poop_bag_targeting_action_exists"] != true:
+		_add_error(report, "Poop bag throw targeting input action is missing.")
+	if debug["pause_menu_has_objectives"] != true or debug["pause_menu_has_scheme_cards"] != true or debug["pause_menu_has_clues"] != true:
+		_add_warning(report, "Pause menu should expose Objectives, Scheme Cards, and Clues submenus.")
+	if debug["guard_health_label_exists"] != true:
+		_add_error(report, "Guard health bars are missing labels.")
+	if debug["guard_health_label_safe_offset"] != true:
+		_add_warning(report, "Guard health label offset overlaps the head silhouette.")
+	if debug["code_gate_beam_separated"] != true:
+		_add_error(report, "Code gate and garage beam are too close; separate zones for fairness.")
 
 
 static func _validate_authoring_contract(definition: Resource, scene_root: Node, report: Dictionary) -> void:
@@ -749,6 +805,8 @@ static func _validate_interaction_runtime_priority(scene_root: Node, report: Dic
 	var interactables := _collect_interactable_nodes(scene_root)
 	var overlap_ids: Array[String] = []
 	var conflicts: Array[String] = []
+	var clustered: Array[String] = []
+	var inaccessible_required: Array[String] = []
 	for i in range(interactables.size()):
 		for j in range(i + 1, interactables.size()):
 			var a: Node = interactables[i]
@@ -759,15 +817,30 @@ static func _validate_interaction_runtime_priority(scene_root: Node, report: Dic
 			if d > 72.0:
 				continue
 			overlap_ids.append(String(a.name) + " <-> " + String(b.name))
+			if d < 48.0:
+				clustered.append(String(a.name) + " <-> " + String(b.name))
 			var ap := int(a.call("get_interaction_priority", null)) if a.has_method("get_interaction_priority") else 0
 			var bp := int(b.call("get_interaction_priority", null)) if b.has_method("get_interaction_priority") else 0
 			if ap == bp:
 				conflicts.append(String(a.name) + " vs " + String(b.name) + " equal priority")
+			var a_required := _node_required(a)
+			var b_required := _node_required(b)
+			var a_completed := _node_completed(a)
+			var b_completed := _node_completed(b)
+			if a_required and not a_completed and ap <= bp:
+				inaccessible_required.append(String(a.name) + " <= " + String(b.name))
+			if b_required and not b_completed and bp <= ap:
+				inaccessible_required.append(String(b.name) + " <= " + String(a.name))
 	debug["overlapping_interactables"] = overlap_ids
+	debug["overlapping_interaction_radii"] = overlap_ids
+	debug["clustered_interactables"] = clustered
 	debug["interaction_priority_conflicts"] = conflicts
+	debug["priority_conflicts"] = conflicts
 	report["debug"] = debug
 	if overlap_ids.size() > 0:
 		_add_warning(report, "Interactables overlap within 72px and may compete for input: " + str(overlap_ids.slice(0, min(8, overlap_ids.size()))))
+	if not inaccessible_required.is_empty():
+		_add_error(report, "Required interaction priority conflicts: " + ", ".join(inaccessible_required.slice(0, min(8, inaccessible_required.size()))))
 	var mismatches := _runtime_position_mismatches(scene_root)
 	var ignored := _hybrid_scene_marker_ignored(scene_root, debug.get("position_resolutions", []))
 	debug["runtime_position_mismatches"] = mismatches
@@ -777,6 +850,36 @@ static func _validate_interaction_runtime_priority(scene_root: Node, report: Dic
 		_add_error(report, "Runtime position mismatch vs marker nodes: " + ", ".join(mismatches))
 	if not ignored.is_empty():
 		_add_error(report, "Hybrid mode ignored scene marker for: " + ", ".join(ignored))
+
+
+static func _combat_compatibility(scene_root: Node) -> Dictionary:
+	var out := {"ok": false, "player_attack": false, "guard_take_damage": false, "guard_enemy_group": false}
+	var player := scene_root.get_tree().get_first_node_in_group("player")
+	var guard_parent := scene_root.get_node_or_null("EntityRoot/Enemies")
+	var guard: Node = null
+	if guard_parent != null and guard_parent.get_child_count() > 0:
+		guard = guard_parent.get_child(0)
+	out["player_attack"] = player != null and player.has_method("_attack")
+	out["guard_take_damage"] = guard != null and guard.has_method("take_damage")
+	out["guard_enemy_group"] = guard != null and guard.is_in_group("enemy")
+	out["ok"] = out["player_attack"] == true and out["guard_take_damage"] == true and out["guard_enemy_group"] == true
+	return out
+
+
+static func _node_required(node: Node) -> bool:
+	if node == null or not node.has_method("get"):
+		return false
+	return node.get("required") == true
+
+
+static func _node_completed(node: Node) -> bool:
+	if node == null:
+		return false
+	if node.has_method("is_completed"):
+		return node.call("is_completed") == true
+	if node.has_method("get"):
+		return node.get("completed") == true
+	return false
 
 
 static func _collect_interactable_nodes(root: Node) -> Array:
@@ -894,6 +997,17 @@ static func _safe_marker_string(value: Variant) -> String:
 	if text == "<null>":
 		return ""
 	return text
+
+
+static func _action_has_key(action_name: String, keycode: Key) -> bool:
+	if not InputMap.has_action(action_name):
+		return false
+	for event in InputMap.action_get_events(action_name):
+		if event is InputEventKey:
+			var code: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+			if code == keycode:
+				return true
+	return false
 
 
 static func _validate_typed_system_data(definition: Resource, report: Dictionary) -> void:
@@ -1211,7 +1325,7 @@ static func _exit_cell(definition: Resource) -> Vector2i:
 static func _required_target_ids_and_cells(items: Array, id_property: String) -> Dictionary:
 	var out := {}
 	for item in items:
-		if item == null or not bool(item.get("required")):
+		if item == null or item.get("required") != true:
 			continue
 		out[String(item.get(id_property))] = item.marker_cell
 	return out

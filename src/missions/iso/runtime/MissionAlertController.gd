@@ -5,6 +5,7 @@ signal alert_state_changed(state: String)
 signal alert_event(kind: String, source_id: String)
 
 const VALID_STATES := ["normal", "suspicious", "alerted", "resolved"]
+const COVER_TILE := Vector2i(2, 0)
 
 @export var mission_id: String = ""
 @export var suspicious_decay_seconds: float = 6.0
@@ -12,8 +13,12 @@ const VALID_STATES := ["normal", "suspicious", "alerted", "resolved"]
 var alert_state: String = "normal"
 var alert_score: float = 0.0
 var player_detection_modifier: float = 1.0
+var _zone_detection_modifier: float = 1.0
+var _cover_detection_modifier: float = 1.0
+var _sneak_detection_modifier: float = 1.0
 var last_detection_source: String = ""
 var _suspicious_timer: float = 0.0
+var _last_guard_spawn_msec: int = 0
 
 
 func _ready() -> void:
@@ -26,6 +31,8 @@ func _process(delta: float) -> void:
 		_suspicious_timer -= delta
 		if _suspicious_timer <= 0.0:
 			set_alert_state("resolved")
+	_update_cover_modifier()
+	_update_sneak_modifier()
 
 
 func set_alert_state(next_state: String) -> void:
@@ -53,20 +60,91 @@ func register_detection_event(source_id: String, amount: float, kind: String = "
 	_emit_detection_state()
 
 
+func accumulate_exposure(source_id: String, amount: float, kind: String = "camera_detected") -> void:
+	alert_score = clampf(alert_score + amount, 0.0, 1.0)
+	last_detection_source = source_id
+	if alert_score > 0.01 and alert_state == "normal":
+		set_alert_state("suspicious")
+	if alert_score >= 1.0:
+		set_alert_state("alerted")
+		record_alarm_event(kind, source_id)
+		alert_score = 0.0
+	_emit_detection_state()
+
+
+func decay_exposure(amount: float) -> void:
+	alert_score = maxf(0.0, alert_score - amount)
+	if alert_score <= 0.01 and alert_state == "suspicious":
+		set_alert_state("resolved")
+	_emit_detection_state()
+
+
 func record_alarm_event(kind: String = "alarm", source_id: String = "") -> void:
 	var mid := mission_id if mission_id != "" else String(GameState.current_mission_id)
+	var scene := get_tree().current_scene
 	if mid != "":
 		GameState.record_mission_performance_event(mid, "alarms_triggered", 1)
 		GameState.set_mission_alert_state(mid, "alerted")
+		if scene != null and scene.has_method("increment_attempt_counter"):
+			scene.call("increment_attempt_counter", "alarms", 1)
 		if kind == "guard_detected":
 			GameState.record_mission_performance_event(mid, "guards_alerted", 1)
+			if scene != null and scene.has_method("increment_attempt_counter"):
+				scene.call("increment_attempt_counter", "guards_alerted", 1)
+		if kind == "camera_detected":
+			GameState.record_mission_performance_event(mid, "cameras_triggered", 1)
+			if scene != null and scene.has_method("increment_attempt_counter"):
+				scene.call("increment_attempt_counter", "cameras_triggered", 1)
 	EventBus.debug("Alarm event %s source=%s" % [kind, source_id])
 	EventBus.debug("Camera shake: intensity 2.0 duration 0.12 (alarm)")
 	EventBus.screen_shake.emit(2.0, 0.12)
+	var now := Time.get_ticks_msec()
+	var allow_guard_spawn := true
+	if scene != null and scene.has_method("can_spawn_alarm_guard_for_source"):
+		allow_guard_spawn = scene.call("can_spawn_alarm_guard_for_source", source_id) == true
+	if allow_guard_spawn and now - _last_guard_spawn_msec >= 1800:
+		_last_guard_spawn_msec = now
+		if scene != null and scene.has_method("spawn_attack_guard_near_player"):
+			scene.call("spawn_attack_guard_near_player", source_id)
 
 
 func set_detection_modifier(modifier: float) -> void:
-	player_detection_modifier = clampf(modifier, 0.1, 3.0)
+	_zone_detection_modifier = clampf(modifier, 0.1, 3.0)
+	_recompute_detection_modifier()
+	_emit_detection_state()
+
+
+func _update_cover_modifier() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var collision := scene.get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	if player == null or collision == null:
+		return
+	var cell := collision.local_to_map(collision.to_local(player.global_position))
+	var atlas := collision.get_cell_atlas_coords(cell)
+	var next_cover := 0.7 if atlas == COVER_TILE else 1.0
+	if absf(next_cover - _cover_detection_modifier) <= 0.001:
+		return
+	_cover_detection_modifier = next_cover
+	_recompute_detection_modifier()
+	_emit_detection_state()
+
+
+func _recompute_detection_modifier() -> void:
+	player_detection_modifier = clampf(_zone_detection_modifier * _cover_detection_modifier * _sneak_detection_modifier, 0.1, 3.0)
+
+
+func _update_sneak_modifier() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player == null or not player.has_method("is_stealth_active"):
+		return
+	var next := 0.55 if player.call("is_stealth_active") == true else 1.15
+	if absf(next - _sneak_detection_modifier) <= 0.001:
+		return
+	_sneak_detection_modifier = next
+	_recompute_detection_modifier()
 	_emit_detection_state()
 
 
@@ -79,3 +157,12 @@ func _sync_state() -> void:
 
 func _emit_detection_state() -> void:
 	EventBus.detection_state_changed.emit(alert_score, 1.0, alert_state, player_detection_modifier, last_detection_source)
+
+
+func reset_attempt_state() -> void:
+	alert_state = "normal"
+	alert_score = 0.0
+	last_detection_source = ""
+	_suspicious_timer = 0.0
+	_last_guard_spawn_msec = 0
+	_sync_state()

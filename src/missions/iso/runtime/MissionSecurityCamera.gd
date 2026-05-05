@@ -10,11 +10,16 @@ signal player_detected(source_id: String)
 @export var sight_range: float = 180.0
 @export var fov_angle_degrees: float = 70.0
 @export var enabled := true
+@export var sweep_min_degrees: float = -45.0
+@export var sweep_max_degrees: float = 45.0
+@export var sweep_speed: float = 0.85
 
 var _player: Node2D = null
 var _detection_value := 0.0
 var _controller: MissionAlertController = null
 var _debug_cone: Polygon2D = null
+var _base_rotation := 0.0
+var _sweep_t := 0.0
 
 
 func _ready() -> void:
@@ -29,6 +34,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_controller = _find_controller()
+	_base_rotation = global_rotation
 	_create_debug_cone()
 	set_process(true)
 
@@ -36,19 +42,28 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not enabled:
 		return
+	_sweep_t += delta * sweep_speed
+	var span := clampf(sweep_max_degrees - sweep_min_degrees, 1.0, 180.0)
+	var center := (sweep_max_degrees + sweep_min_degrees) * 0.5
+	var amp := span * 0.5
+	global_rotation = _base_rotation + deg_to_rad(center + sin(_sweep_t) * amp)
 	if _player != null and is_instance_valid(_player) and _is_in_cone(_player.global_position) and _has_los(_player.global_position):
 		var mod := 1.0
 		if _controller != null:
 			mod = _controller.player_detection_modifier
 		_detection_value = clampf(_detection_value + detection_rate * mod * delta, 0.0, 2.0)
+		if _controller != null:
+			_controller.accumulate_exposure(camera_id, detection_rate * mod * delta, "camera_detected")
 		if _detection_value >= detection_threshold:
 			player_detected.emit(camera_id)
 			EventBus.debug("Camera detected player: " + camera_id)
-			if _controller != null:
-				_controller.register_detection_event(camera_id, 1.0, "camera_detected")
 			_detection_value = 0.0
 	else:
 		_detection_value = maxf(0.0, _detection_value - detection_decay * delta)
+		if _controller != null:
+			_controller.decay_exposure(detection_decay * delta)
+	if _debug_cone != null:
+		_debug_cone.visible = OS.is_debug_build()
 
 
 func set_camera_enabled(active: bool) -> void:

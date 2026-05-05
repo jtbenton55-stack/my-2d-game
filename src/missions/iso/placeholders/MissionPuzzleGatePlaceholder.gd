@@ -14,7 +14,7 @@ func _complete(player: Node = null) -> void:
 		interaction_text = unlocked_text
 		super._complete(player)
 		return
-	if required_item_id != "" and not bool(GameState.dialogue_flags.get("mission_access_item:" + required_item_id, false)):
+	if required_item_id != "" and GameState.dialogue_flags.get("mission_access_item:" + required_item_id, false) != true:
 		QuestManager.set_objective(locked_text, mission_id)
 		DialogueManager.start_simple_dialogue([{ "speaker": display_name, "text": locked_text }])
 		return

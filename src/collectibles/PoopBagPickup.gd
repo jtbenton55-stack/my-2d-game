@@ -11,6 +11,9 @@ func _on_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 	GameState.add_poop_bag()
+	var scene := get_tree().current_scene
+	if scene != null and scene.has_method("increment_attempt_counter"):
+		scene.call("increment_attempt_counter", "poop_bags_collected", 1)
 	AudioManager.play_sfx("item_pickup", global_position)
 	EventBus.objective_updated.emit("+1 Bentley poop bag. Bentley pretends he didn't notice.")
 	queue_free()

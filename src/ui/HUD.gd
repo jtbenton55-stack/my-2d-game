@@ -29,7 +29,9 @@ func _ready() -> void:
 	_on_health_changed(GameState.player_health, GameState.player_max_health)
 	if objective_marker:
 		objective_marker.visible = false
-	_rebuild_cards_panel()
+	var cards_column := get_node_or_null("CardsColumn") as CanvasItem
+	if cards_column != null:
+		cards_column.visible = false
 
 func _exit_tree() -> void:
 	if EventBus.card_triggered.is_connected(_on_card_triggered):
@@ -97,22 +99,22 @@ func _on_detection_state_changed(current: float, max_value: float, state: String
 	if detection_meter == null:
 		return
 	detection_meter.max_value = max_value
-	detection_meter.value = current
-	detection_meter.tooltip_text = "Detection %.2f/%s | state=%s | mod=%.2f | source=%s" % [
-		current,
-		str(max_value),
+	detection_meter.value = maxf(0.0, max_value - current)
+	detection_meter.tooltip_text = "Stealth %s | modifier=%.2f | source=%s" % [
 		state,
 		modifier,
 		source_id
 	]
+	var label := detection_meter.get_node_or_null("Label") as Label
+	if label != null:
+		label.text = "STEALTH: %s" % state.to_upper()
 
 func _on_cards_changed(_cards: Array) -> void:
-	_rebuild_cards_panel()
+	# Main HUD no longer shows always-on card list; card detail stays in dedicated menus/debug.
+	pass
 
 func _on_card_triggered(card_id: String, status: String, message: String) -> void:
-	var status_lbl := _card_status_labels.get(card_id) as Label
-	if status_lbl:
-		status_lbl.text = _display_status(status)
+	var _unused := [card_id, status]
 	if message != "":
 		_show_card_toast(message)
 
@@ -133,43 +135,6 @@ func _rebuild_cards_panel() -> void:
 		return
 	for child in cards_panel.get_children():
 		child.queue_free()
-	for card_id in GameState.selected_cards:
-		var card = CardManager.get_card(card_id)
-		if card == null:
-			continue
-		var chip := PanelContainer.new()
-		chip.custom_minimum_size = Vector2(248, 0)
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color(0.08, 0.1, 0.14, 0.88)
-		sb.set_corner_radius_all(4)
-		sb.content_margin_left = 8
-		sb.content_margin_top = 6
-		sb.content_margin_right = 8
-		sb.content_margin_bottom = 6
-		chip.add_theme_stylebox_override("panel", sb)
-		var inner := VBoxContainer.new()
-		inner.add_theme_constant_override("separation", 2)
-		var title := Label.new()
-		title.text = card.display_name
-		title.add_theme_font_size_override("font_size", 12)
-		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		var desc := Label.new()
-		desc.text = card.description
-		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		desc.add_theme_font_size_override("font_size", 10)
-		desc.add_theme_color_override("font_color", Color(0.75, 0.78, 0.82))
-		desc.custom_minimum_size = Vector2(232, 0)
-		var status_row := Label.new()
-		status_row.name = "StatusLabel"
-		status_row.text = "READY"
-		status_row.add_theme_font_size_override("font_size", 10)
-		status_row.add_theme_color_override("font_color", Color(0.55, 0.95, 0.65))
-		_card_status_labels[card_id] = status_row
-		inner.add_child(title)
-		inner.add_child(desc)
-		inner.add_child(status_row)
-		chip.add_child(inner)
-		cards_panel.add_child(chip)
 
 func _show_card_toast(message: String) -> void:
 	if card_toast == null:

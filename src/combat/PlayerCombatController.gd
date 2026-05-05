@@ -84,9 +84,9 @@ func _card_is_active(card_id: String) -> bool:
 	if cm == null:
 		return false
 	if cm.has_method("is_card_active"):
-		return bool(cm.call("is_card_active", card_id))
+		return cm.call("is_card_active", card_id) == true
 	if cm.has_method("is_selected"):
-		return bool(cm.call("is_selected", card_id))
+		return cm.call("is_selected", card_id) == true
 	return false
 
 
@@ -121,8 +121,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("finisher"):
 		_request_finisher()
-	elif event.is_action_pressed("heavy"):
-		_request_heavy()
 	elif event.is_action_pressed("attack"):
 		_request_light_or_takedown()
 	elif event.is_action_pressed("dodge"):
@@ -194,7 +192,7 @@ func _try_stealth_takedown() -> bool:
 	for body in _stealth_zone.get_overlapping_bodies():
 		if not body.is_in_group("enemy"):
 			continue
-		if body.has_method("is_aware") and bool(body.call("is_aware")):
+		if body.has_method("is_aware") and body.call("is_aware") == true:
 			continue
 		if not _is_behind_enemy(body as Node2D):
 			continue
@@ -222,6 +220,8 @@ func _request_light_or_takedown() -> void:
 	if not can_act:
 		return
 	if _light_cd > 0.0:
+		if _player != null and _player.has_method("notify_attack_spam"):
+			_player.call("notify_attack_spam", 0.22)
 		return
 	if _try_stealth_takedown():
 		return

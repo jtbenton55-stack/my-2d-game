@@ -1,6 +1,8 @@
 class_name MissionEncounterTrigger
 extends Area2D
 
+const TacoBellDialogue := preload("res://src/missions/iso/runtime/TacoBellDialogue.gd")
+
 signal encounter_triggered(encounter_id: String)
 
 @export var encounter_id: String = ""
@@ -30,16 +32,27 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if one_shot and _triggered:
 		return
+	var scene := get_tree().current_scene
+	if one_shot and scene != null and scene.has_method("is_runtime_encounter_triggered"):
+		if scene.call("is_runtime_encounter_triggered", encounter_id) == true:
+			_triggered = true
+			monitoring = false
+			return
 	_triggered = true
+	if scene != null and scene.has_method("mark_runtime_encounter_triggered"):
+		scene.call("mark_runtime_encounter_triggered", encounter_id)
 	encounter_triggered.emit(encounter_id)
 	if dialogue_line != "":
-		DialogueManager.start_simple_dialogue([{ "speaker": "Garage", "text": dialogue_line }])
+		var ambush := TacoBellDialogue.line("ambush_trigger_001", dialogue_line, "Garage")
+		DialogueManager.start_simple_dialogue([ambush])
 	if trigger_alert and _controller != null:
 		_controller.set_alert_state("alerted")
 		_controller.record_alarm_event("ambush", encounter_id)
 	if spawn_guard:
 		_spawn_encounter_guard()
 	EventBus.screen_shake.emit(shake_intensity, shake_duration)
+	if one_shot:
+		monitoring = false
 
 
 func _spawn_encounter_guard() -> void:

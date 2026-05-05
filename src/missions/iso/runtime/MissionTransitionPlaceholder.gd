@@ -12,7 +12,7 @@ extends "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd"
 
 
 func _ready() -> void:
-	auto_trigger_on_enter = false
+	auto_trigger_on_enter = transition_id.begins_with("route_")
 	once_only = false
 	interaction_priority = 75
 	allow_repeat_interaction = true
@@ -22,19 +22,19 @@ func _ready() -> void:
 
 
 func _complete(player: Node = null) -> void:
-	if required_access != "" and not bool(GameState.dialogue_flags.get(required_access, false)):
+	if required_access != "" and GameState.dialogue_flags.get(required_access, false) != true:
 		_show(locked_message)
 		return
-	var text := "Future transition: " + display_name
+	var text := "Transition available: " + display_name
 	if target_subarea != "":
 		text += " -> " + target_subarea
 	elif target_scene != "":
 		text += " -> " + target_scene
 	if is_placeholder:
-		text += " (placeholder only)"
+		text = "Future transition: " + display_name + " (placeholder only)"
 	var mission := get_tree().current_scene
 	if mission != null and mission.has_method("handle_transition_trigger") and target_spawn_id != "":
-		var used := bool(mission.handle_transition_trigger(transition_id, target_spawn_id, return_spawn_id))
+		var used: bool = mission.handle_transition_trigger(transition_id, target_spawn_id, return_spawn_id) == true
 		if used:
 			text += " Transitioned."
 	_show(text)

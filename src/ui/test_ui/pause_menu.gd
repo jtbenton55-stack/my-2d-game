@@ -3,9 +3,12 @@ extends CanvasLayer
 @onready var resume_button: Button = $Overlay/CenterContainer/VBoxContainer/ResumeButton
 @onready var exit_button: Button = $Overlay/CenterContainer/VBoxContainer/ExitButton
 
+var objectives_button: Button = null
+var scheme_cards_button: Button = null
+var clues_button: Button = null
 var controls_button: Button = null
-var controls_panel: Panel = null
-var controls_label: Label = null
+var info_panel: Panel = null
+var info_label: Label = null
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -29,8 +32,8 @@ func _pause_game() -> void:
 
 func _resume_game() -> void:
 	get_tree().paused = false
-	if controls_panel:
-		controls_panel.hide()
+	if info_panel:
+		info_panel.hide()
 	hide()
 
 func _exit_to_hideout() -> void:
@@ -39,18 +42,20 @@ func _exit_to_hideout() -> void:
 
 func _setup_controls_menu() -> void:
 	var menu := $Overlay/CenterContainer/VBoxContainer
-	controls_button = Button.new()
-	controls_button.custom_minimum_size = Vector2(240, 52)
-	controls_button.text = "Controls"
-	menu.add_child(controls_button)
-	menu.move_child(controls_button, exit_button.get_index())
-	controls_button.pressed.connect(_toggle_controls_panel)
-	
-	controls_panel = Panel.new()
-	controls_panel.custom_minimum_size = Vector2(560, 420)
-	controls_panel.hide()
-	menu.add_child(controls_panel)
-	menu.move_child(controls_panel, controls_button.get_index() + 1)
+	objectives_button = _add_menu_button(menu, "Objectives", exit_button.get_index())
+	scheme_cards_button = _add_menu_button(menu, "Scheme Cards", exit_button.get_index() + 1)
+	clues_button = _add_menu_button(menu, "Clues", exit_button.get_index() + 2)
+	controls_button = _add_menu_button(menu, "Controls", exit_button.get_index() + 3)
+	objectives_button.pressed.connect(func(): _toggle_info_panel("objectives"))
+	scheme_cards_button.pressed.connect(func(): _toggle_info_panel("scheme_cards"))
+	clues_button.pressed.connect(func(): _toggle_info_panel("clues"))
+	controls_button.pressed.connect(func(): _toggle_info_panel("controls"))
+
+	info_panel = Panel.new()
+	info_panel.custom_minimum_size = Vector2(560, 420)
+	info_panel.hide()
+	menu.add_child(info_panel)
+	menu.move_child(info_panel, controls_button.get_index() + 1)
 	
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -58,18 +63,38 @@ func _setup_controls_menu() -> void:
 	margin.add_theme_constant_override("margin_top", 14)
 	margin.add_theme_constant_override("margin_right", 18)
 	margin.add_theme_constant_override("margin_bottom", 14)
-	controls_panel.add_child(margin)
+	info_panel.add_child(margin)
 	
-	controls_label = Label.new()
-	controls_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	controls_label.add_theme_font_size_override("font_size", 16)
-	controls_label.text = _controls_text()
-	margin.add_child(controls_label)
+	info_label = Label.new()
+	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	info_label.add_theme_font_size_override("font_size", 16)
+	margin.add_child(info_label)
 
-func _toggle_controls_panel() -> void:
-	if controls_panel == null:
+func _add_menu_button(menu: VBoxContainer, text: String, index: int) -> Button:
+	var button := Button.new()
+	button.custom_minimum_size = Vector2(240, 52)
+	button.text = text
+	menu.add_child(button)
+	menu.move_child(button, index)
+	return button
+
+func _toggle_info_panel(kind: String) -> void:
+	if info_panel == null or info_label == null:
 		return
-	controls_panel.visible = not controls_panel.visible
+	if info_panel.visible and String(info_panel.get_meta("kind", "")) == kind:
+		info_panel.hide()
+		return
+	info_panel.set_meta("kind", kind)
+	match kind:
+		"objectives":
+			info_label.text = _objectives_text()
+		"scheme_cards":
+			info_label.text = _scheme_cards_text()
+		"clues":
+			info_label.text = _clues_text()
+		_:
+			info_label.text = _controls_text()
+	info_panel.show()
 
 func _controls_text() -> String:
 	var lines: Array[String] = [
@@ -79,17 +104,67 @@ func _controls_text() -> String:
 		"",
 		"Combat (hitbox melee)",
 		"  Light attack / combo: %s (J = keyboard jab; mouse / gamepad also work)" % _bindings("attack", "J / Mouse"),
-		"  Heavy attack: %s" % _bindings("heavy", "Q / Mouse 2"),
+		"  Case the Joint pulse: %s" % _bindings("case_the_joint", "Q"),
 		"  Dash (invulnerable frames): %s (hold a move direction or dash won't start)" % _bindings("dodge", "Space"),
 		"  Style finisher (STYLE bar full in HUD): %s" % _bindings("finisher", "R"),
 		"  Stealth walk: hold %s and use WASD together (slower, quieter movement)" % _bindings("stealth", "Shift"),
 		"  Stealth takedown: stealth + behind unaware enemy + %s" % _bindings("attack", "J / light attack"),
-		"  Bentley ability / sniff: %s" % _bindings("bentley_ability", "F"),
+		"  Bentley Bark / Sniff / Fetch / Stay-Heel: %s / %s / %s / %s" % [_bindings("bentley_bark", "1"), _bindings("bentley_sniff", "2"), _bindings("bentley_fetch", "3"), _bindings("bentley_toggle_stay", "4")],
+		"  Bentley fallback bark: %s" % _bindings("bentley_ability", "F"),
+		"  Poop bag throw targeting: %s (left click throw, right click or Esc cancel)" % _bindings("poop_bag_targeting", "T"),
 		"",
 		"Menus",
 		"  Pause / resume: %s" % _bindings("pause", "Esc"),
 		"  Toggle controls overlay: F1 (hidden by default)"
 	]
+	return "\n".join(lines)
+
+
+func _objectives_text() -> String:
+	var mission_id := String(GameState.current_mission_id)
+	var active: String = String(QuestManager.get_current_objective(mission_id)) if QuestManager.has_method("get_current_objective") else "No active objective."
+	var done: Array = QuestManager.get_completed_objectives(mission_id) if QuestManager.has_method("get_completed_objectives") else []
+	var lines: Array[String] = [
+		"Current Objective",
+		"  %s" % String(active),
+		"",
+		"Completed Objectives",
+	]
+	if done.is_empty():
+		lines.append("  None yet.")
+	else:
+		for entry in done:
+			lines.append("  - " + String(entry))
+	return "\n".join(lines)
+
+
+func _scheme_cards_text() -> String:
+	var lines: Array[String] = ["Active / Unlocked Scheme Cards"]
+	if GameState.selected_cards.is_empty():
+		lines.append("  Equipped: none")
+	else:
+		lines.append("  Equipped: " + ", ".join(GameState.selected_cards))
+	lines.append("")
+	lines.append("Unlocked")
+	if GameState.unlocked_cards.is_empty():
+		lines.append("  none")
+	else:
+		for card_id in GameState.unlocked_cards:
+			lines.append("  - " + String(card_id))
+	return "\n".join(lines)
+
+
+func _clues_text() -> String:
+	var lines: Array[String] = ["Found Clues"]
+	var found := 0
+	for clue_id in GameState.sterling_clues.keys():
+		var clue: Dictionary = GameState.sterling_clues.get(clue_id, {})
+		if clue.get("discovered", false) != true:
+			continue
+		found += 1
+		lines.append("  - %s: %s" % [String(clue.get("title", clue_id)), String(clue.get("description", ""))])
+	if found == 0:
+		lines.append("  none")
 	return "\n".join(lines)
 
 func _bindings(action_name: String, fallback: String) -> String:

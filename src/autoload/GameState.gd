@@ -98,6 +98,23 @@ const POLAROID_LEGACY_IDS: Dictionary = {
 }
 
 
+func _as_bool_data(value: Variant) -> bool:
+	if value == null:
+		return false
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT:
+			return int(value) != 0
+		TYPE_FLOAT:
+			return absf(float(value)) > 0.00001
+		TYPE_STRING:
+			var text := String(value).strip_edges().to_lower()
+			return text == "true" or text == "1" or text == "yes" or text == "y"
+		_:
+			return false
+
+
 func normalize_polaroid_id(polaroid_id: String) -> String:
 	return String(POLAROID_LEGACY_IDS.get(polaroid_id, polaroid_id))
 
@@ -312,7 +329,7 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 	var rewards: Array[String] = ["+1 intel point", "Attempt %d logged for the crew board" % attempt_count]
 	if attempt_count >= 2 and unlock_card("two_letters_away"):
 		rewards.append("Unlocked card: Two Letters Away")
-	if attempt_count >= 3 and not bool(dialogue_flags.get("jake_failure_boost", false)):
+	if attempt_count >= 3 and not _as_bool_data(dialogue_flags.get("jake_failure_boost", false)):
 		dialogue_flags["jake_failure_boost"] = true
 		player_max_health += 10
 		player_health = player_max_health
@@ -614,10 +631,10 @@ func from_dict(data: Dictionary) -> void:
 	evidence_board_data = Dictionary(data.get("evidence_board_data", {}))
 	equipped_items = _as_string_array(data.get("equipped_items", []))
 	velvet_paw_resume_data = Dictionary(data.get("velvet_paw_resume_data", {}))
-	velvet_paw_club_hostile = bool(data.get("velvet_paw_club_hostile", false))
-	velvet_paw_basement_shard_collected = bool(data.get("velvet_paw_basement_shard_collected", false))
-	velvet_paw_basement_keycard_collected = bool(data.get("velvet_paw_basement_keycard_collected", false))
-	velvet_paw_stealth_run_broken = bool(data.get("velvet_paw_stealth_run_broken", false))
+	velvet_paw_club_hostile = _as_bool_data(data.get("velvet_paw_club_hostile", false))
+	velvet_paw_basement_shard_collected = _as_bool_data(data.get("velvet_paw_basement_shard_collected", false))
+	velvet_paw_basement_keycard_collected = _as_bool_data(data.get("velvet_paw_basement_keycard_collected", false))
+	velvet_paw_stealth_run_broken = _as_bool_data(data.get("velvet_paw_stealth_run_broken", false))
 	mission_mutation_state = Dictionary(data.get("mission_mutation_state", {}))
 	sterling_clues = Dictionary(data.get("sterling_clues", {}))
 	evidence_clues = Dictionary(data.get("evidence_clues", {}))
@@ -689,7 +706,7 @@ func unlock_scheme_card(card_id: String, data: Dictionary = {}) -> bool:
 
 
 func has_scheme_card(card_id: String) -> bool:
-	return unlocked_cards.has(card_id) or bool(unlocked_scheme_cards.get(card_id, {}).get("is_unlocked", false))
+	return unlocked_cards.has(card_id) or _as_bool_data(unlocked_scheme_cards.get(card_id, {}).get("is_unlocked", false))
 
 
 func record_evidence_clue(clue_id: String, data: Dictionary) -> void:
@@ -730,7 +747,7 @@ func record_typed_collectible(collectible_id: String, collectible_type: String, 
 		"mission_id": data.get("mission_id", current_mission_id),
 		"display_name": data.get("display_name", _pretty_id(collectible_id)),
 		"description": data.get("description", ""),
-		"hidden": bool(data.get("hidden", false)),
+		"hidden": _as_bool_data(data.get("hidden", false)),
 		"reward_effect": data.get("reward_effect", ""),
 		"collection_group": data.get("collection_group", collectible_type),
 		"found_state": "found",
@@ -761,7 +778,7 @@ func unlock_crew_assist(assist_id: String, data: Dictionary = {}) -> void:
 
 
 func has_crew_assist(assist_id: String) -> bool:
-	return bool(crew_assists.get(assist_id, {}).get("is_unlocked", false))
+	return _as_bool_data(crew_assists.get(assist_id, {}).get("is_unlocked", false))
 
 
 func set_mission_alert_state(mission_id: String, state: String) -> void:
@@ -787,6 +804,7 @@ func begin_mission_performance(mission_id: String) -> void:
 		"started_at": Time.get_unix_time_from_system(),
 		"completed_at": 0,
 		"alarms_triggered": 0,
+		"cameras_triggered": 0,
 		"guards_alerted": 0,
 		"wrong_scent_trails_followed": 0,
 		"wrong_code_attempts": 0,

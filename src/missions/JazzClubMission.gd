@@ -259,22 +259,22 @@ func _build_velvet_resume_payload() -> Dictionary:
 func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 	var raw_step := int(d.get("current_step", int(MissionStep.INTRO)))
 	current_step = clampi(raw_step, 0, int(MissionStep.COMPLETE)) as MissionStep
-	ledger_collected = bool(d.get("ledger_collected", false))
-	music_puzzle_solved = bool(d.get("music_puzzle_solved", false))
+	ledger_collected = _as_bool_data(d.get("ledger_collected", false))
+	music_puzzle_solved = _as_bool_data(d.get("music_puzzle_solved", false))
 	clues_found = int(d.get("clues_found", 0))
 	wrong_puzzle_attempts = int(d.get("wrong_puzzle_attempts", 0))
-	bouncer_alerted = bool(d.get("bouncer_alerted", false))
-	yordano_triggered = bool(d.get("yordano_triggered", false))
-	staff_badge_secured = bool(d.get("staff_badge_secured", false))
-	sound_check_done = bool(d.get("sound_check_done", false))
-	ledger_decoy_cleared = bool(d.get("ledger_decoy_cleared", false))
-	staff_route_announced = bool(d.get("staff_route_announced", false))
-	social_floor_reacted = bool(d.get("social_floor_reacted", false))
-	secret_velvet_collectible = bool(d.get("secret_velvet_collectible", false))
-	club_owner_defeated = bool(d.get("club_owner_defeated", false))
-	club_owner_spawned = bool(d.get("club_owner_spawned", false))
-	basement_vault_opened = bool(d.get("basement_vault_opened", false))
-	floor2_access_unlocked = bool(d.get("floor2_access_unlocked", false))
+	bouncer_alerted = _as_bool_data(d.get("bouncer_alerted", false))
+	yordano_triggered = _as_bool_data(d.get("yordano_triggered", false))
+	staff_badge_secured = _as_bool_data(d.get("staff_badge_secured", false))
+	sound_check_done = _as_bool_data(d.get("sound_check_done", false))
+	ledger_decoy_cleared = _as_bool_data(d.get("ledger_decoy_cleared", false))
+	staff_route_announced = _as_bool_data(d.get("staff_route_announced", false))
+	social_floor_reacted = _as_bool_data(d.get("social_floor_reacted", false))
+	secret_velvet_collectible = _as_bool_data(d.get("secret_velvet_collectible", false))
+	club_owner_defeated = _as_bool_data(d.get("club_owner_defeated", false))
+	club_owner_spawned = _as_bool_data(d.get("club_owner_spawned", false))
+	basement_vault_opened = _as_bool_data(d.get("basement_vault_opened", false))
+	floor2_access_unlocked = _as_bool_data(d.get("floor2_access_unlocked", false))
 	_jazz_dbg(
 		"H2",
 		"resume_applied",
@@ -344,6 +344,23 @@ func _apply_velvet_paw_resume_data(d: Dictionary) -> void:
 				QuestManager.set_objective("Bass drop time. Escape through the basement exit before the bouncers regroup.", mission_id)
 			_:
 				pass
+
+
+func _as_bool_data(value: Variant) -> bool:
+	if value == null:
+		return false
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT:
+			return int(value) != 0
+		TYPE_FLOAT:
+			return absf(float(value)) > 0.00001
+		TYPE_STRING:
+			var text := String(value).strip_edges().to_lower()
+			return text == "true" or text == "1" or text == "yes" or text == "y"
+		_:
+			return false
 
 
 func _place_ledger_after_boss_victory() -> void:

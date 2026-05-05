@@ -137,7 +137,7 @@ func load_state(data: Dictionary) -> void:
 func _import_discovered_sterling_clues() -> void:
 	for clue_id in GameState.sterling_clues.keys():
 		var d: Dictionary = GameState.sterling_clues[clue_id]
-		if not bool(d.get("discovered", false)):
+		if not _as_bool_data(d.get("discovered", false)):
 			continue
 		if _board_has_clue_card(clue_id):
 			continue
@@ -154,3 +154,20 @@ func _board_has_clue_card(clue_id: String) -> bool:
 		if card.has_meta("sterling_clue_id") and String(card.get_meta("sterling_clue_id")) == clue_id:
 			return true
 	return false
+
+
+func _as_bool_data(value: Variant) -> bool:
+	if value == null:
+		return false
+	match typeof(value):
+		TYPE_BOOL:
+			return value
+		TYPE_INT:
+			return int(value) != 0
+		TYPE_FLOAT:
+			return absf(float(value)) > 0.00001
+		TYPE_STRING:
+			var text := String(value).strip_edges().to_lower()
+			return text == "true" or text == "1" or text == "yes" or text == "y"
+		_:
+			return false

@@ -58,12 +58,17 @@ func _update_label() -> void:
 	text += _action_bindings("move_down", "Move down")
 	text += _action_bindings("interact", "Interact / dialogue")
 	text += _action_bindings("attack", "Light attack / combo")
-	text += _action_bindings("heavy", "Heavy attack")
+	text += _action_bindings("case_the_joint", "Case the Joint")
 	text += _action_bindings("dodge", "Dash")
 	text += _action_bindings("finisher", "Finisher (style full)")
 	text += _action_bindings("stealth", "Stealth walk (hold + WASD)")
 	text += "Stealth takedown: stealth + behind unaware + light attack\n"
-	text += _action_bindings("bentley_ability", "Bentley ability")
+	text += _action_bindings("bentley_bark", "Bentley Bark")
+	text += _action_bindings("bentley_sniff", "Bentley Sniff")
+	text += _action_bindings("bentley_fetch", "Bentley Fetch")
+	text += _action_bindings("bentley_toggle_stay", "Bentley Stay/Heel")
+	text += _action_bindings("poop_bag_targeting", "Poop bag throw mode")
+	text += _action_bindings("bentley_ability", "Bentley bark (fallback)")
 
 	info_label.text = text
 

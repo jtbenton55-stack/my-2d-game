@@ -11,9 +11,15 @@ extends CharacterBody2D
 @export var bark_stun_time := 2.0
 @export var distraction_duration := 5.0
 @export var distraction_cooldown := 10.0
+@export var sniff_cooldown := 4.0
+@export var fetch_cooldown := 5.0
+@export var fetch_range := 170.0
 
 var ability_meter := 100.0
 var target: Node2D = null
+var _sniff_cd := 0.0
+var _fetch_cd := 0.0
+var _stay_mode := false
 
 func _ready() -> void:
 	add_to_group("bentley")
@@ -32,10 +38,15 @@ func _find_target() -> void:
 func _physics_process(delta: float) -> void:
 	if target == null or not is_instance_valid(target):
 		_find_target()
+	_sniff_cd = maxf(0.0, _sniff_cd - delta)
+	_fetch_cd = maxf(0.0, _fetch_cd - delta)
 	_recharge(delta)
-	_follow(delta)
-	if _ability_pressed():
-		bark_stun()
+	_handle_commands()
+	if not _stay_mode:
+		_follow(delta)
+	else:
+		velocity = Vector2.ZERO
+		move_and_slide()
 
 func _follow(delta: float) -> void:
 	if target == null:
@@ -107,3 +118,69 @@ func _clamp_to_scene_bounds() -> void:
 	var margin := 24.0
 	global_position.x = clamp(global_position.x, float(camera.limit_left) + margin, float(camera.limit_right) - margin)
 	global_position.y = clamp(global_position.y, float(camera.limit_top) + margin, float(camera.limit_bottom) - margin)
+
+
+func _handle_commands() -> void:
+	if _command_pressed("bentley_bark") or _ability_pressed():
+		if not bark_stun():
+			EventBus.objective_updated.emit("Bentley needs a breather.")
+	if _command_pressed("bentley_sniff"):
+		if _sniff_cd > 0.0:
+			EventBus.objective_updated.emit("Bentley is still sniffing.")
+		else:
+			_sniff_cd = sniff_cooldown
+			EventBus.objective_updated.emit("Bentley sniffs the trail.")
+			sniff()
+	if _command_pressed("bentley_fetch"):
+		_try_fetch()
+	if _command_pressed("bentley_toggle_stay"):
+		_stay_mode = not _stay_mode
+		if _stay_mode:
+			EventBus.objective_updated.emit("Bentley waits.")
+		else:
+			EventBus.objective_updated.emit("Bentley returns.")
+
+
+func _try_fetch() -> void:
+	if _fetch_cd > 0.0:
+		EventBus.objective_updated.emit("Bentley needs a second.")
+		return
+	_fetch_cd = fetch_cooldown
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var nearest: Node2D = null
+	var nearest_dist := INF
+	for node in get_tree().get_nodes_in_group("interactable"):
+		if not (node is Node2D):
+			continue
+		var dist := global_position.distance_to((node as Node2D).global_position)
+		if dist > fetch_range or dist >= nearest_dist:
+			continue
+		if not _is_fetchable_node(node):
+			continue
+		nearest = node
+		nearest_dist = dist
+	if nearest == null:
+		EventBus.objective_updated.emit("Nothing nearby to fetch.")
+		return
+	global_position = nearest.global_position + Vector2(-8, -8)
+	if nearest.has_method("interact"):
+		nearest.interact(player if player != null else self)
+	EventBus.objective_updated.emit("Bentley fetches it!")
+
+
+func _is_fetchable_node(node: Node) -> bool:
+	if node == null or not node.has_method("get"):
+		return false
+	var placeholder_id := String(node.get("placeholder_id"))
+	var clue_id := String(node.get("clue_id"))
+	var collectible_id := String(node.get("collectible_id"))
+	var ctype := String(node.get("collectible_type"))
+	if clue_id != "" or collectible_id != "":
+		return true
+	if ctype == "poop_bag" or ctype == "tiny_icon" or ctype == "glow_guy":
+		return true
+	return placeholder_id.contains("poop_bag") or placeholder_id.contains("keycard")
+
+
+func _command_pressed(action: String) -> bool:
+	return InputMap.has_action(action) and Input.is_action_just_pressed(action)

@@ -45,6 +45,7 @@ const ALARM_STATE_SUSPICIOUS := "suspicious"
 const ALARM_STATE_ALERTED := "alerted"
 const ALARM_STATE_RESOLVED := "resolved"
 const ISO_MARKER_SCRIPT := preload("res://src/missions/iso/authoring/IsoMissionMarker.gd")
+const TacoBellDialogue := preload("res://src/missions/iso/runtime/TacoBellDialogue.gd")
 const MARKER_CATEGORIES: Array[String] = [
 	"Spawns",
 	"Objectives",
@@ -89,6 +90,9 @@ var _markers_by_id: Dictionary = {}
 var _markers_by_type: Dictionary = {}
 var _markers_by_link: Dictionary = {}
 var _bake_marker_ids: Dictionary = {}
+var _heat_profile: Dictionary = {}
+var _code_gate_blockers: Dictionary = {}
+var _attempt_runtime_state: Dictionary = {}
 
 
 func _ready() -> void:
@@ -96,6 +100,7 @@ func _ready() -> void:
 	_apply_blockout_tileset()
 	if mission_definition != null:
 		mission_id = mission_definition.mission_id
+		GameState.start_mission(mission_id)
 		objective_text = _initial_objective_text()
 		if auto_generate_from_definition:
 			_generate_from_definition()
@@ -137,7 +142,9 @@ func _ensure_iso_structure() -> void:
 	_ensure_node(layout_root, "CoverLayer", TileMapLayer.new())
 	_ensure_node(layout_root, "CollisionBarrierLayer", TileMapLayer.new())
 	_ensure_node(layout_root, "MarkerTileLayer", TileMapLayer.new())
-	_ensure_node(layout_root, "DebugLabelLayer", TileMapLayer.new())
+	var debug_layer := _ensure_node(layout_root, "DebugLabelLayer", TileMapLayer.new()) as CanvasItem
+	if debug_layer != null:
+		debug_layer.visible = OS.is_debug_build()
 	var marker_root := _ensure_node(gameplay, "MarkerRoot", Node2D.new())
 	for category in MARKER_CATEGORIES:
 		_ensure_node(marker_root, category, Node2D.new())
@@ -150,7 +157,9 @@ func _ensure_iso_structure() -> void:
 	_ensure_node(runtime, "EncounterZones", Node2D.new())
 	_ensure_node(runtime, "RouteAccessPoints", Node2D.new())
 	_ensure_node(runtime, "TransitionTriggers", Node2D.new())
-	_ensure_node(runtime, "DebugLabels", Node2D.new())
+	var debug_labels := _ensure_node(runtime, "DebugLabels", Node2D.new()) as CanvasItem
+	if debug_labels != null:
+		debug_labels.visible = OS.is_debug_build()
 	_ensure_node(runtime, "DebugUI", Node2D.new())
 	for layer_name in ["GroundArtLayer", "WallArtLayer", "PropArtLayer", "DecorBelowLayer", "DecorAboveLayer", "LightingLayer", "LightingArtLayer"]:
 		var layer := _ensure_node(art, layer_name, TileMapLayer.new()) as TileMapLayer
@@ -267,6 +276,7 @@ func _generate_from_definition() -> void:
 	var pool: Dictionary = mission_definition.mutation_pool()
 	if not pool.is_empty():
 		_active_mutations = MissionMutationHelper.roll(mission_definition.mission_id, pool)
+	_apply_heat_profile()
 	var mode := get_authoring_mode()
 	_runtime_marker_source = "scene_markers" if mode == "scene_authored" or mode == "hybrid" else "definition"
 	_reset_marker_index()
@@ -301,6 +311,7 @@ func _paint_zones() -> void:
 	var collision_layer := $GameplayRoot/GameplayCollisionLayer as TileMapLayer
 	var marker_layer := $GameplayRoot/GameplayMarkersLayer as TileMapLayer
 	var labels := $GameplayRoot/ZoneLabels as Node2D
+	labels.visible = OS.is_debug_build()
 	var mode := get_authoring_mode()
 	var preserve_scene_layout := mode == "scene_authored" or mode == "hybrid"
 	if preserve_scene_layout and floor_layer.get_used_cells().size() > 0:
@@ -559,7 +570,7 @@ func _create_code_objective(parent: Node2D, objective: Resource) -> void:
 	node.correct_code = String(_active_mutations.get("garage_code", "2174"))
 	node.required_clue_id = "route_manifest_half"
 	node.bypass_item_id = "garage_staff_keycard"
-	node.wrong_code_text = "Wrong code. The keypad chirps and flashes red."
+	node.wrong_code_text = "Wrong code. Keypad flashes red and security starts to react."
 	node.solved_text = objective.completion_text
 	node.global_position = _resolve_point_position(objective.marker_cell, "CODE_GATE", String(objective.objective_id))
 	node.interaction_priority = 90
@@ -584,7 +595,7 @@ func _create_clue_pickups() -> void:
 		node.connects_to = clue.connects_to
 		node.unlocks_or_modifies = clue.unlocks_or_modifies
 		node.final_tower_relevance = clue.final_tower_relevance
-		node.interaction_text = "Evidence clue logged: " + clue.display_name
+		node.interaction_text = "Click to inspect clue: " + clue.display_name
 		node.global_position = _resolve_point_position(clue.marker_cell, "CLUE", String(clue.clue_id), {
 			"linked_clue_id": String(clue.clue_id),
 			"canonical_marker_id": "clue_" + String(clue.clue_id),
@@ -620,7 +631,7 @@ func _create_collectible_pickups() -> void:
 		node.mission_id = mission_definition.mission_id
 		node.display_name = collectible.display_name
 		node.required = collectible.required
-		node.interaction_text = collectible.completion_text
+		node.interaction_text = "Click to pick up " + collectible.display_name + "."
 		var marker_cell: Vector2i = collectible.marker_cell
 		if String(collectible.collectible_id) == "taco_bell_midnight_market_rain":
 			marker_cell = _mutated_hidden_collectible_cell(hidden_slot, marker_cell)
@@ -760,13 +771,19 @@ func _create_route_test_subareas() -> void:
 	for x in range(louis_origin.x - 1, louis_origin.x + 8):
 		collision_layer.set_cell(Vector2i(x, louis_origin.y - 1), SOURCE_ID, TILE_WALL)
 		collision_layer.set_cell(Vector2i(x, louis_origin.y + 4), SOURCE_ID, TILE_WALL)
+	for y in range(louis_origin.y - 1, louis_origin.y + 5):
+		collision_layer.set_cell(Vector2i(louis_origin.x - 1, y), SOURCE_ID, TILE_WALL)
+		collision_layer.set_cell(Vector2i(louis_origin.x + 7, y), SOURCE_ID, TILE_WALL)
 	for x in range(vent_origin.x - 1, vent_origin.x + 7):
 		collision_layer.set_cell(Vector2i(x, vent_origin.y - 1), SOURCE_ID, TILE_WALL)
 		collision_layer.set_cell(Vector2i(x, vent_origin.y + 4), SOURCE_ID, TILE_WALL)
+	for y in range(vent_origin.y - 1, vent_origin.y + 5):
+		collision_layer.set_cell(Vector2i(vent_origin.x - 1, y), SOURCE_ID, TILE_WALL)
+		collision_layer.set_cell(Vector2i(vent_origin.x + 6, y), SOURCE_ID, TILE_WALL)
 	_ensure_subarea_spawn_marker("route_louis_entry", _map_to_global(louis_origin + Vector2i(1, 1)))
-	_ensure_subarea_spawn_marker("route_louis_return", _map_to_global(Vector2i(10, -4)))
+	_ensure_subarea_spawn_marker("route_louis_return", _map_to_global(Vector2i(20, -4)))
 	_ensure_subarea_spawn_marker("route_vent_entry", _map_to_global(vent_origin + Vector2i(1, 1)))
-	_ensure_subarea_spawn_marker("route_vent_return", _map_to_global(Vector2i(24, -5)))
+	_ensure_subarea_spawn_marker("route_vent_return", _map_to_global(Vector2i(26, -6)))
 
 
 func _ensure_subarea_spawn_marker(spawn_id: String, spawn_position: Vector2) -> void:
@@ -828,6 +845,7 @@ func _add_debug_label(node: Node2D, text: String) -> void:
 	label.modulate = Color(1.0, 1.0, 1.0, 0.9)
 	label.position = Vector2(-64, -42)
 	label.size = Vector2(128, 20)
+	label.visible = OS.is_debug_build()
 	node.add_child(label)
 
 
@@ -845,23 +863,23 @@ func _scent_trail_cells() -> Dictionary:
 func _scent_display_name(trail_id: String) -> String:
 	match trail_id:
 		"trash_area":
-			return "Fake Scent A"
+			return "Oily paw prints"
 		"loading_dock":
-			return "Fake Scent B"
+			return "Sweet sauce smell"
 		"parking_garage":
-			return "Real Scent Trail"
+			return "Cold service alley"
 		_:
-			return trail_id.replace("_", " ").capitalize()
+			return "Bentley notices something"
 
 
 func _fake_scent_text(trail_id: String) -> String:
 	match trail_id:
 		"trash_area":
-			return "Bentley sneezes. This smells like raccoons and regret."
+			return "Bentley sniffs the air, then glances back at you."
 		"loading_dock":
-			return "Bentley sits down judgmentally. Decoy bag."
+			return "Bentley paces in a small circle. He seems unsure."
 		_:
-			return "Bentley refuses the trail. Wrong scent, no softlock."
+			return "Bentley gives a low huff. Not a clear signal."
 
 
 func _spawn_label(spawn_id: String) -> String:
@@ -928,6 +946,92 @@ func set_iso_access_item(id: String) -> void:
 	if id == "":
 		return
 	GameState.dialogue_flags["mission_access_item:" + id] = true
+
+
+func get_wrong_code_alarm_threshold() -> int:
+	return int(_heat_profile.get("wrong_code_threshold", 2))
+
+
+func get_fake_scent_penalty() -> int:
+	return int(_heat_profile.get("fake_scent_penalty", 1))
+
+
+func spawn_attack_guard_near_player(source_id: String = "wrong_code") -> void:
+	if not can_spawn_alarm_guard_for_source(source_id):
+		return
+	var player_node := get_tree().get_first_node_in_group("player") as Node2D
+	if player_node == null:
+		return
+	var spawn_def := MissionSpawnDefinition.new()
+	spawn_def.spawn_id = "attack_guard_" + source_id + "_" + str(Time.get_ticks_msec())
+	spawn_def.marker_cell = Vector2i.ZERO
+	spawn_def.scene_path = "res://scenes/characters/guard.tscn"
+	_spawn_guard_for_spawn(spawn_def)
+	var enemies := get_node_or_null("EntityRoot/Enemies") as Node2D
+	if enemies == null or enemies.get_child_count() <= 0:
+		return
+	var guard := enemies.get_child(enemies.get_child_count() - 1) as Node2D
+	if guard == null:
+		return
+	guard.global_position = player_node.global_position + Vector2(72, 0)
+	GameState.record_mission_performance_event(mission_definition.mission_id, "guards_alerted", 1)
+	_attempt_runtime_state["guards_alerted"] = int(_attempt_runtime_state.get("guards_alerted", 0)) + 1
+	_attempt_runtime_state["attack_guard_spawned"] = int(_attempt_runtime_state.get("attack_guard_spawned", 0)) + 1
+	if source_id.begins_with("alarm_"):
+		_attempt_runtime_state["alarm_guard_spawned:" + source_id] = true
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null:
+		controller.call("register_detection_event", source_id, 1.0, "guard_detected")
+
+
+func set_code_gate_open(gate_id: String, open: bool) -> void:
+	var blocker := _code_gate_blockers.get(gate_id, null) as StaticBody2D
+	if blocker == null:
+		return
+	blocker.set_deferred("collision_layer", 0 if open else 4)
+	blocker.set_deferred("visible", not open)
+
+
+func deploy_poop_bag_decoy_at(world_pos: Vector2, radius: float = 120.0) -> bool:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer == null:
+		return false
+	var cell := floor_layer.local_to_map(floor_layer.to_local(world_pos))
+	if floor_layer.get_cell_source_id(cell) < 0:
+		return false
+	var clamped_pos := floor_layer.to_global(floor_layer.map_to_local(cell))
+	var props := get_node_or_null("EntityRoot/DynamicProps") as Node2D
+	if props == null:
+		props = self
+	var marker := Node2D.new()
+	marker.name = "PoopBagThrown_%d" % Time.get_ticks_msec()
+	marker.global_position = clamped_pos
+	var ring := Polygon2D.new()
+	ring.color = Color(0.58, 0.35, 0.12, 0.42)
+	var pts := PackedVector2Array()
+	var steps := 14
+	for i in range(steps):
+		var t := TAU * float(i) / float(steps)
+		pts.append(Vector2(cos(t), sin(t)) * 10.0)
+	ring.polygon = pts
+	marker.add_child(ring)
+	props.add_child(marker)
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if not (enemy is Node2D):
+			continue
+		if (enemy as Node2D).global_position.distance_to(clamped_pos) > radius:
+			continue
+		if enemy.has_method("stun"):
+			enemy.call("stun", 1.8)
+		if enemy.has_method("set"):
+			enemy.set("target", null)
+	_attempt_runtime_state["poop_bags_used"] = int(_attempt_runtime_state.get("poop_bags_used", 0)) + 1
+	var timer := get_tree().create_timer(5.0)
+	timer.timeout.connect(func():
+		if is_instance_valid(marker):
+			marker.queue_free()
+	)
+	return true
 
 
 func complete_level() -> void:
@@ -1020,7 +1124,7 @@ func _record_runtime_completion_metadata() -> void:
 		})
 		DialogueManager.start_simple_dialogue([{
 			"speaker": "Mission",
-			"text": "Scheme Card unlocked: " + String(reward.display_name)
+			"text": String(TacoBellDialogue.line("mission_complete_001", "Scheme Card unlocked: " + String(reward.display_name), "Mission").get("text"))
 		}])
 		if reward_id == "louis_delivery_route":
 			GameState.unlock_crew_assist("louis_delivery_route_assist", {
@@ -1080,7 +1184,7 @@ func _spawn_player_if_needed() -> void:
 func _apply_iso_player_profile() -> void:
 	if player == null:
 		return
-	if not bool(player.get_meta("iso_blockout_profile_applied", false)):
+	if player.get_meta("iso_blockout_profile_applied", false) != true:
 		var sprite := player.get_node_or_null("AnimatedSprite2D") as Node2D
 		if sprite != null:
 			sprite.scale *= ISO_PLAYER_VISUAL_SCALE
@@ -1116,10 +1220,16 @@ func _setup_runtime_systems() -> void:
 	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
 	if runtime == null:
 		return
+	_reset_attempt_runtime_state()
 	for child_name in ["SpawnedGuards", "SpawnedCameras", "LightZones", "DetectionZones", "AlarmZones", "EncounterZones", "RouteAccessPoints", "TransitionTriggers", "DebugLabels"]:
 		var bucket := runtime.get_node_or_null(child_name)
 		if bucket != null:
 			_clear_children(bucket)
+	for blocker_id in _code_gate_blockers.keys():
+		var blocker := _code_gate_blockers[blocker_id] as Node
+		if blocker != null and is_instance_valid(blocker):
+			blocker.queue_free()
+	_code_gate_blockers.clear()
 	_runtime_spawned_ids.clear()
 	_runtime_counts.clear()
 	_reset_marker_index()
@@ -1130,8 +1240,16 @@ func _setup_runtime_systems() -> void:
 	_spawn_route_access_points()
 	_spawn_transition_placeholder()
 	_spawn_poop_bag_decoy()
+	_spawn_scent_tutorial_prompt()
 	_spawn_camera_terminal()
+	_spawn_code_gate_blockers()
+	_spawn_route_flavor_interactables()
 	if int(_runtime_counts.get("cameras", 0)) <= 0:
+		_spawn_fallback_camera(alert)
+	var min_cameras := 2
+	if _heat_profile.get("extra_camera", false) == true:
+		min_cameras = 3
+	while int(_runtime_counts.get("cameras", 0)) < min_cameras:
 		_spawn_fallback_camera(alert)
 	_apply_iso_profile_to_all_runtime_guards()
 	if int(_runtime_counts.get("guards", 0)) <= 0:
@@ -1279,6 +1397,10 @@ func _spawn_security_camera(cell: Vector2i, camera_id: String) -> void:
 	camera.name = _node_name("SecurityCamera", camera_id)
 	camera.global_position = _resolve_point_position(cell, "SECURITY_CAMERA", camera_id)
 	camera.set("camera_id", camera_id)
+	var rate_mult := float(_heat_profile.get("camera_rate_mult", 1.0))
+	var sweep_mult := float(_heat_profile.get("camera_sweep_mult", 1.0))
+	camera.set("detection_rate", float(camera.get("detection_rate")) * rate_mult)
+	camera.set("sweep_speed", float(camera.get("sweep_speed")) * sweep_mult)
 	var parent := get_node_or_null("EntityRoot/Cameras") as Node2D
 	if parent == null:
 		parent = get_node_or_null("EntityRoot/Interactables") as Node2D
@@ -1307,19 +1429,24 @@ func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
 	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
 	if runtime == null:
 		return
+	var resolved_alarm_id := alarm_id
+	var target_cell := cell
+	if alarm_id.contains("alarm_zone_placeholder"):
+		resolved_alarm_id = "garage_entry_beam"
+		target_cell = Vector2i(8, 2)
 	var area := Area2D.new()
-	area.name = _node_name("AlarmZone", alarm_id)
+	area.name = _node_name("AlarmZone", resolved_alarm_id)
 	area.collision_layer = 0
 	area.collision_mask = 1
-	area.global_position = _resolve_point_position(cell, "ALARM_ZONE", alarm_id)
+	area.global_position = _resolve_point_position(target_cell, "ALARM_ZONE", resolved_alarm_id)
 	var shape := CollisionShape2D.new()
 	var rect := RectangleShape2D.new()
-	rect.size = Vector2(100, 72)
+	rect.size = Vector2(96, 52) if _is_alarm_zone_one_shot(resolved_alarm_id) else Vector2(100, 72)
 	shape.shape = rect
 	area.add_child(shape)
-	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(alarm_id))
+	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(resolved_alarm_id, area))
 	runtime.add_child(area)
-	_register_runtime("alarm_zones", alarm_id)
+	_register_runtime("alarm_zones", resolved_alarm_id)
 
 
 func _spawn_encounter_trigger(cell: Vector2i, encounter_id: String) -> void:
@@ -1389,8 +1516,15 @@ func _spawn_route_access_points() -> void:
 		route.set("route_id", gate_id)
 		route.set("is_future_placeholder", gate_id.contains("future_shortcut"))
 		route.set("required_card", "louis_delivery_route" if gate_id.contains("future_shortcut") else "")
-		route.set("locked_message", gate.locked_text)
-		route.set("unlocked_message", gate.unlocked_text)
+		if gate_id.contains("future_shortcut"):
+			route.set("locked_message", "Locked: requires Louis Delivery Route.")
+			route.set("unlocked_message", "Louis Delivery Route available. Route recognized. Functional test route available.")
+		elif gate_id.contains("vent_route"):
+			route.set("locked_message", "Send Bentley through the vent? Route is currently blocked.")
+			route.set("unlocked_message", "Send Bentley through the vent? Bentley opens the shortcut.")
+		else:
+			route.set("locked_message", gate.locked_text)
+			route.set("unlocked_message", gate.unlocked_text)
 		route.set("target_spawn_id", "route_louis_entry" if gate_id.contains("future_shortcut") else "route_vent_entry")
 		route.set("return_spawn_id", "route_louis_return" if gate_id.contains("future_shortcut") else "route_vent_return")
 		route.global_position = _resolve_point_position(gate.marker_cell, "ROUTE_ACCESS", gate_id)
@@ -1407,6 +1541,8 @@ func _spawn_route_access_points() -> void:
 	keycard_route.set("required_item", "garage_staff_keycard")
 	keycard_route.set("locked_message", "Need staff keycard (or alternate bypass) for this route.")
 	keycard_route.set("unlocked_message", "Keycard route unlocked.")
+	keycard_route.set("target_spawn_id", "route_louis_entry")
+	keycard_route.set("return_spawn_id", "route_louis_return")
 	var security_zone: Resource = _zone_by_id("security_booth_keycard_room")
 	if security_zone != null:
 		var center: Vector2i = security_zone.origin + Vector2i(int(security_zone.size.x / 2), int(security_zone.size.y / 2))
@@ -1512,12 +1648,97 @@ func _spawn_camera_terminal() -> void:
 	_register_runtime("camera_terminals", "security_booth_terminal")
 
 
-func _spawn_fallback_camera(_alert_controller: Node) -> void:
-	var zone: Resource = _zone_by_id("parking_garage_floor_1")
-	if zone == null:
+func _spawn_scent_tutorial_prompt() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/RouteAccessPoints") as Node2D
+	if runtime == null:
 		return
-	var center: Vector2i = zone.origin + Vector2i(maxi(1, zone.size.x - 2), 1)
-	_spawn_security_camera(center, "garage_fallback_camera")
+	var script := load("res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd") as Script
+	if script == null:
+		return
+	var node := script.new() as Area2D
+	node.name = "ScentTutorial_delivery_alley"
+	node.set("mission_id", mission_definition.mission_id)
+	node.set("display_name", "Bentley")
+	node.set("placeholder_id", "scent_tutorial_delivery_alley")
+	node.set("interaction_text", "Click to ask Bentley to sniff this trail.")
+	node.set("objective_update", "Click scent trails and let Bentley confirm the freshest route.")
+	node.set("auto_trigger_on_enter", true)
+	node.set("once_only", true)
+	node.global_position = _map_to_global(Vector2i(-2, -4))
+	_add_area_shape(node, 24.0)
+	runtime.add_child(node)
+	_register_runtime("route_access_points", "scent_tutorial_delivery_alley")
+
+
+func _spawn_code_gate_blockers() -> void:
+	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/TransitionTriggers") as Node2D
+	if runtime == null:
+		return
+	var blocker := StaticBody2D.new()
+	blocker.name = "CodeGateBarrier_garage_office_code"
+	blocker.collision_layer = 4
+	blocker.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(84, 28)
+	shape.shape = rect
+	blocker.add_child(shape)
+	blocker.global_position = _resolve_point_position(Vector2i(21, -3), "CODE_GATE", "code_gate_garage_office")
+	runtime.add_child(blocker)
+	_code_gate_blockers["garage_office_code"] = blocker
+
+
+func _spawn_route_flavor_interactables() -> void:
+	var parent := get_node_or_null("EntityRoot/Interactables") as Node2D
+	if parent == null:
+		return
+	var placeholder_script := load("res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd") as Script
+	if placeholder_script == null:
+		return
+	var louis := placeholder_script.new() as Area2D
+	louis.name = "Flavor_route_louis_corridor"
+	louis.set("placeholder_id", "flavor_route_louis_corridor")
+	louis.set("mission_id", mission_definition.mission_id)
+	louis.set("display_name", "Delivery Crates")
+	louis.set("interaction_text", "Click to inspect the delivery crates.")
+	louis.set("objective_update", "Delivery corridor inspected.")
+	louis.global_position = _spawn_points_by_id.get("route_louis_entry", _map_to_global(Vector2i(59, -1))) + Vector2(64, 0)
+	_add_area_shape(louis, 18.0)
+	parent.add_child(louis)
+	var vent := placeholder_script.new() as Area2D
+	vent.name = "Flavor_route_vent_passage"
+	vent.set("placeholder_id", "flavor_route_vent_passage")
+	vent.set("mission_id", mission_definition.mission_id)
+	vent.set("display_name", "Vent Service Hatch")
+	vent.set("interaction_text", "Click to inspect the vent service hatch.")
+	vent.set("objective_update", "Vent passage inspected.")
+	vent.global_position = _spawn_points_by_id.get("route_vent_entry", _map_to_global(Vector2i(59, 11))) + Vector2(52, 0)
+	_add_area_shape(vent, 18.0)
+	parent.add_child(vent)
+	var reward_script := load("res://src/missions/iso/placeholders/MissionCollectiblePickupPlaceholder.gd") as Script
+	if reward_script != null:
+		var reward := reward_script.new() as Area2D
+		reward.name = "Collectible_route_louis_reward"
+		reward.set("placeholder_id", "collectible_route_louis_reward")
+		reward.set("collectible_id", "route_louis_tip_coin")
+		reward.set("collectible_type", "tiny_icon")
+		reward.set("mission_id", mission_definition.mission_id)
+		reward.set("display_name", "Delivery Tip Token")
+		reward.set("interaction_text", "Click to pocket the delivery tip token.")
+		reward.global_position = _spawn_points_by_id.get("route_louis_entry", _map_to_global(Vector2i(59, -1))) + Vector2(96, -18)
+		_add_area_shape(reward, 16.0)
+		parent.add_child(reward)
+
+
+func _spawn_fallback_camera(_alert_controller: Node) -> void:
+	var index := int(_runtime_counts.get("cameras", 0))
+	var slots := [
+		Vector2i(8, 0),   # garage entry lane
+		Vector2i(21, -5), # office/code approach
+		Vector2i(-5, 8),  # bypass/return corridor
+	]
+	var center: Vector2i = slots[mini(index, slots.size() - 1)]
+	_spawn_security_camera(center, "garage_fallback_camera_%d" % index)
 
 
 func _spawn_fallback_guard() -> void:
@@ -1538,12 +1759,19 @@ func _on_runtime_guard_spotted(spawn_id: String) -> void:
 	EventBus.screen_shake.emit(0.9, 0.08)
 
 
-func _on_runtime_alarm_zone_entered(body: Node, alarm_id: String) -> void:
+func _on_runtime_alarm_zone_entered(body: Node, alarm_id: String, area: Area2D) -> void:
 	if not body.is_in_group("player"):
 		return
+	if _is_alarm_zone_one_shot(alarm_id):
+		if _is_runtime_flag_true("alarm_triggered:" + alarm_id):
+			return
+		_attempt_runtime_state["alarm_triggered:" + alarm_id] = true
+		_attempt_runtime_state["ambush_triggered"] = int(_attempt_runtime_state.get("ambush_triggered", 0)) + 1
+		if area != null:
+			area.set_deferred("monitoring", false)
 	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
 	if controller != null:
-		controller.call("register_detection_event", alarm_id, 1.0, "alarm_zone")
+		controller.call("register_detection_event", "alarm_" + alarm_id, 1.0, "alarm_zone")
 
 
 func _zone_by_id(id: String) -> Resource:
@@ -1559,18 +1787,89 @@ func _register_runtime(bucket: String, id: String) -> void:
 
 
 func _runtime_debug_summary() -> Dictionary:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	var cameras := get_node_or_null("EntityRoot/Cameras")
+	var runtime_guard_count := enemies.get_child_count() if enemies != null else 0
+	var camera_count := cameras.get_child_count() if cameras != null else 0
 	return {
 		"marker_to_runtime_counts": _runtime_counts.duplicate(true),
 		"spawned_runtime_ids": _runtime_spawned_ids.keys(),
 		"authoring_mode": get_authoring_mode(),
 		"layout_source": _resolved_layout_source(),
 		"marker_source": _runtime_marker_source,
+		"heat_profile": _heat_profile.duplicate(true),
 		"scene_markers_found": _scene_marker_count,
 		"generated_markers_found": _generated_marker_count,
 		"using_scene_authored_layout": get_authoring_mode() == "hybrid" or get_authoring_mode() == "scene_authored",
 		"using_scene_authored_markers": _runtime_marker_source == "scene_markers",
 		"position_resolutions": _runtime_position_resolutions.duplicate(true),
+		"extra_guard_active": runtime_guard_count > 1,
+		"extra_camera_active": camera_count > 1,
+		"attempt_runtime_state": _attempt_runtime_state.duplicate(true),
+		"garage_beam_armed": not _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
+		"garage_beam_triggered": _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
 	}
+
+
+func _reset_attempt_runtime_state() -> void:
+	_attempt_runtime_state = {
+		"alarms": 0,
+		"wrong_code": 0,
+		"guards_alerted": 0,
+		"cameras_triggered": 0,
+		"wrong_scent": 0,
+		"attack_guard_spawned": 0,
+		"ambush_triggered": 0,
+		"poop_bags_collected": 0,
+		"poop_bags_used": 0,
+	}
+	GameState.begin_mission_performance(mission_definition.mission_id)
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null and controller.has_method("reset_attempt_state"):
+		controller.call("reset_attempt_state")
+
+
+func _is_runtime_flag_true(key: String) -> bool:
+	return _attempt_runtime_state.get(key, false) == true
+
+
+func _is_alarm_zone_one_shot(alarm_id: String) -> bool:
+	return alarm_id == "garage_entry_beam"
+
+
+func mark_runtime_encounter_triggered(encounter_id: String) -> void:
+	if encounter_id == "":
+		return
+	_attempt_runtime_state["encounter_triggered:" + encounter_id] = true
+	_attempt_runtime_state["ambush_triggered"] = int(_attempt_runtime_state.get("ambush_triggered", 0)) + 1
+
+
+func is_runtime_encounter_triggered(encounter_id: String) -> bool:
+	if encounter_id == "":
+		return false
+	return _is_runtime_flag_true("encounter_triggered:" + encounter_id)
+
+
+func can_spawn_alarm_guard_for_source(source_id: String) -> bool:
+	if source_id.begins_with("alarm_garage_entry_beam"):
+		return _is_runtime_flag_true("alarm_guard_spawned:alarm_garage_entry_beam") != true
+	return true
+
+
+func increment_attempt_counter(counter_id: String, amount: int = 1) -> void:
+	if counter_id == "" or amount == 0:
+		return
+	_attempt_runtime_state[counter_id] = int(_attempt_runtime_state.get(counter_id, 0)) + amount
+
+
+func get_attempt_counter(counter_id: String) -> int:
+	if counter_id == "":
+		return 0
+	return int(_attempt_runtime_state.get(counter_id, 0))
+
+
+func get_runtime_debug_summary() -> Dictionary:
+	return _runtime_debug_summary()
 
 
 func _resolved_layout_source() -> String:
@@ -1773,11 +2072,21 @@ func _normalized_marker_type(value: String) -> String:
 
 func _ensure_dev_harness() -> void:
 	if not OS.is_debug_build() or not dev_harness_enabled:
+		for node in get_tree().get_nodes_in_group("iso_debug_hud"):
+			if is_instance_valid(node):
+				node.queue_free()
 		return
 	var runtime := get_node_or_null("GameplayRoot/RuntimeSystems/DebugUI") as Node2D
 	if runtime == null:
 		return
-	if get_node_or_null("IsoMissionDebugPanel") != null:
+	for node in get_tree().get_nodes_in_group("iso_debug_hud"):
+		if node.get_parent() != self and is_instance_valid(node):
+			node.queue_free()
+	var existing := get_node_or_null("IsoMissionDebugPanel")
+	if existing != null:
+		for dup in get_tree().get_nodes_in_group("iso_debug_hud"):
+			if dup != existing and is_instance_valid(dup):
+				dup.queue_free()
 		return
 	var script := load("res://src/missions/iso/runtime/IsoMissionDebugPanel.gd") as Script
 	if script == null:
@@ -2374,6 +2683,42 @@ func _initial_objective_text() -> String:
 	if fails >= 1:
 		return base_text + " Louis hint (tier 1): check trail reactions and route manifest logic."
 	return base_text
+
+
+func _apply_heat_profile() -> void:
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var profile := {
+		"wrong_code_threshold": 2,
+		"camera_rate_mult": 1.0,
+		"camera_sweep_mult": 1.0,
+		"extra_camera": false,
+		"extra_guard_pressure": false,
+		"fake_scent_penalty": 1,
+	}
+	if heat == 1:
+		profile["camera_rate_mult"] = 1.08
+		profile["camera_sweep_mult"] = 1.12
+	elif heat == 2:
+		profile["wrong_code_threshold"] = 2
+		profile["camera_rate_mult"] = 1.22
+		profile["camera_sweep_mult"] = 1.3
+		profile["extra_camera"] = true
+		profile["extra_guard_pressure"] = true
+		profile["fake_scent_penalty"] = 2
+	elif heat >= 3:
+		profile["wrong_code_threshold"] = 1
+		profile["camera_rate_mult"] = 1.38
+		profile["camera_sweep_mult"] = 1.55
+		profile["extra_camera"] = true
+		profile["extra_guard_pressure"] = true
+		profile["fake_scent_penalty"] = 2
+	_heat_profile = profile
+	_active_mutations["wrong_code_threshold"] = int(profile.get("wrong_code_threshold", 2))
+	_active_mutations["camera_rate_mult"] = float(profile.get("camera_rate_mult", 1.0))
+	_active_mutations["camera_sweep_mult"] = float(profile.get("camera_sweep_mult", 1.0))
+	_active_mutations["extra_camera_active"] = profile.get("extra_camera", false) == true
+	_active_mutations["extra_guard_pressure"] = profile.get("extra_guard_pressure", false) == true
+	_active_mutations["fake_scent_penalty"] = int(profile.get("fake_scent_penalty", 1))
 
 
 func _default_exit_cell() -> Vector2i:
