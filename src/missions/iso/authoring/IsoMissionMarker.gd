@@ -66,12 +66,25 @@ extends Node2D
 @export var group_id: String = ""
 @export var interactable := true
 @export var marker_purpose: String = "gameplay"
+@export var editor_display_name: String = ""
+@export var debug_label: String = ""
+@export var authoring_note: String = ""
 @export var order: int = 0
 @export var interaction_text: String = ""
 @export var locked_message: String = ""
 @export var unlocked_message: String = ""
 @export var runtime_scene: String = ""
 @export var runtime_class: String = ""
+@export var route_id: String = ""
+@export var route_role: String = ""
+@export var linked_entry_spawn_id: String = ""
+@export var linked_return_trigger_id: String = ""
+@export var linked_return_destination_id: String = ""
+@export var bypasses_challenge_id: String = ""
+@export var scent_group_id: String = ""
+@export var scent_role: String = ""
+@export var heat_level_applicability: String = ""
+@export var player_facing_label: String = ""
 @export var radius: float = 18.0:
 	set(value):
 		radius = maxf(4.0, value)
@@ -133,11 +146,15 @@ func _refresh_label() -> void:
 	if not show_editor_label:
 		_label.visible = false
 		return
-	var short := marker_type.to_upper()
+	var short := debug_label.strip_edges().to_upper()
+	if short == "":
+		short = marker_type.to_upper()
 	if short.length() > 16:
 		short = short.substr(0, 16)
 	var parts: Array[String] = [short]
-	if marker_id != "":
+	if editor_display_name.strip_edges() != "":
+		parts.append(editor_display_name.strip_edges())
+	elif marker_id != "":
 		parts.append(marker_id)
 	elif display_name != "":
 		parts.append(display_name)

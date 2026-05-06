@@ -1,0 +1,6265 @@
+{
+  "build_cover_adjustments": [],
+  "build_editor_only_placeholders_created": [
+    {
+      "abs_cell": [
+        53,
+        6
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "ALARM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "ALARM_outdoor_escalation_node",
+      "marker_tile_abbr": "ALARM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/ALARM_outdoor_escalation_node",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        130,
+        40
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BAG",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BAG_louis_service_corridor",
+      "marker_tile_abbr": "BAG",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BAG_louis_service_corridor",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        92,
+        53
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BAG",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BAG_south_return",
+      "marker_tile_abbr": "BAG",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BAG_south_return",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        126,
+        45
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BENTLEY_SWITCH",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BENTLEY_SWITCH_alarm_override",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BENTLEY_SWITCH_alarm_override",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        204,
+        -44
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BENTLEY_SWITCH",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BENTLEY_SWITCH_camera_shutoff",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BENTLEY_SWITCH_camera_shutoff",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        199,
+        -44
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BENTLEY_SWITCH",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BENTLEY_SWITCH_door_release",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BENTLEY_SWITCH_door_release",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        209,
+        64
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BENTLEY_SWITCH",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BENTLEY_SWITCH_exit_release",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BENTLEY_SWITCH_exit_release",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        74,
+        23
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BENTLEY_SWITCH",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BENTLEY_SWITCH_outdoor_floodlight_breaker",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        130,
+        3
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "BLOCK",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "BLOCK_code_gate",
+      "marker_tile_abbr": "BLOCK",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/BLOCK_code_gate",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        227,
+        7
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_bag_room",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_bag_room",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        212,
+        35
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_garage_lower",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_garage_lower",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        170,
+        2
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_garage_upper",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_garage_upper",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        35,
+        9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_market_01",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_market_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        60,
+        -29
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_trash_alley",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_trash_alley",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        200,
+        -18
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CAM",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CAM_upper_high_heat",
+      "marker_tile_abbr": "CAM",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CAM_upper_high_heat",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        112,
+        -29
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CLUE",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CLUE_camera_schedule",
+      "marker_tile_abbr": "CLUE",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CLUE_camera_schedule",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        70,
+        16
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CLUE",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CLUE_delivery_receipt",
+      "marker_tile_abbr": "CLUE",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CLUE_delivery_receipt",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        112,
+        40
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CLUE",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CLUE_louis_route_flavor",
+      "marker_tile_abbr": "CLUE",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CLUE_louis_route_flavor",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        198,
+        -24
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CLUE",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CLUE_security_memo",
+      "marker_tile_abbr": "CLUE",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CLUE_security_memo",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        109,
+        -27
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CONTROL",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CONTROL_alarm_panel",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CONTROL_alarm_panel",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        114,
+        -27
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CONTROL",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CONTROL_camera_terminal",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CONTROL_camera_terminal",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        121,
+        -22
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CONTROL",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "CONTROL_door_controls",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/CONTROL_door_controls",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        22,
+        -41
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "FLOOD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "FLOOD_dog_station",
+      "marker_tile_abbr": "FLOOD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/FLOOD_dog_station",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        190,
+        2
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "FLOOD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "FLOOD_garage_center",
+      "marker_tile_abbr": "FLOOD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/FLOOD_garage_center",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        38,
+        31
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "FLOOD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "FLOOD_loading_dock",
+      "marker_tile_abbr": "FLOOD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/FLOOD_loading_dock",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        10,
+        -6
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "FLOOD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "FLOOD_market_01",
+      "marker_tile_abbr": "FLOOD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/FLOOD_market_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        108,
+        -20
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GLOW",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GLOW_kiosk",
+      "marker_tile_abbr": "GLOW",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GLOW_kiosk",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        25,
+        -16
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GLOW",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GLOW_market_shop",
+      "marker_tile_abbr": "GLOW",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GLOW_market_shop",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        168,
+        17
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_ambush_spawn",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_ambush_spawn",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        234,
+        16
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_bag_room",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_bag_room",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        205,
+        22
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_garage_patrol_02",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_garage_patrol_02",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        55,
+        36
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_loading_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_loading_patrol_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        12,
+        4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_market_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_market_patrol_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        58,
+        -36
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_trash_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_trash_patrol_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        194,
+        -25
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "GUARD",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "GUARD_upper_platform",
+      "marker_tile_abbr": "GUARD",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/GUARD_upper_platform",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        27,
+        17
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "HELP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "HELP_bentley_utility",
+      "marker_tile_abbr": "HELP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/HELP_bentley_utility",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        113,
+        1
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "HELP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "HELP_code_gate",
+      "marker_tile_abbr": "HELP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/HELP_code_gate",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        41,
+        37
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "HELP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "HELP_poop_bag_throw",
+      "marker_tile_abbr": "HELP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/HELP_poop_bag_throw",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        68,
+        4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "HELP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "HELP_scent_tutorial",
+      "marker_tile_abbr": "HELP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/HELP_scent_tutorial",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        -12,
+        6
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "HELP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "HELP_start_controls",
+      "marker_tile_abbr": "HELP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/HELP_start_controls",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        243,
+        27
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_bag_room",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_bag_room",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        185,
+        10
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_garage_bright_01",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_garage_bright_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        208,
+        20
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_garage_bright_02",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_garage_bright_02",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        178,
+        29
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_garage_shadow_01",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_garage_shadow_01",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        20,
+        2
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_market_bright_zone",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_market_bright_zone",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        206,
+        -28
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "LIGHT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "LIGHT_upper_platform",
+      "marker_tile_abbr": "LIGHT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/LIGHT_upper_platform",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        71,
+        7
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "OBJ",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "OBJ_scent_decision",
+      "marker_tile_abbr": "OBJ",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/OBJ_scent_decision",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        165,
+        6
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_ambush_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_ambush_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        182,
+        6
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_ambush_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_ambush_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        182,
+        27
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_ambush_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_ambush_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        165,
+        27
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_ambush_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_ambush_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        230,
+        9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_bag_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_bag_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        248,
+        9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_bag_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_bag_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        248,
+        33
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_bag_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_bag_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        230,
+        33
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_bag_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_bag_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        170,
+        31
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_garage_01_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_garage_01_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        194,
+        9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_garage_02_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_garage_02_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        214,
+        9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_garage_02_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_garage_02_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        214,
+        34
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_garage_02_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_garage_02_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        194,
+        34
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_garage_02_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_garage_02_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        40,
+        32
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_loading_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_loading_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        65,
+        32
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_loading_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_loading_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        65,
+        46
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_loading_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_loading_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        40,
+        46
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_loading_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_loading_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        2,
+        4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_market_01_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_market_01_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        23,
+        4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_market_01_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_market_01_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        23,
+        -4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_market_01_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_market_01_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        2,
+        -4
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_market_01_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_market_01_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        46,
+        -43
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_trash_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_trash_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        64,
+        -43
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_trash_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_trash_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        64,
+        -31
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_trash_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_trash_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        46,
+        -31
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_trash_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_trash_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        179,
+        -25
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_upper_A",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_upper_A",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        211,
+        -25
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_upper_B",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_upper_B",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        211,
+        -18
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_upper_C",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_upper_C",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        179,
+        -18
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PATROL",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PATROL_upper_D",
+      "marker_tile_abbr": "PATROL",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PATROL_upper_D",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        12,
+        -48
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "PHOTO",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "PHOTO_dog_station",
+      "marker_tile_abbr": "PHOTO",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/PHOTO_dog_station",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        -8,
+        52
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "ROUTE_DEST",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "ROUTE_DEST_final_exit",
+      "marker_tile_abbr": "ROUTE_DEST",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/ROUTE_DEST_final_exit",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        79,
+        28
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "ROUTE_IN",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "ROUTE_IN_louis_service_door",
+      "marker_tile_abbr": "DOOR",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/ROUTE_IN_louis_service_door",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        151,
+        22
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "ROUTE_RET",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "ROUTE_RET_louis_return_trigger",
+      "marker_tile_abbr": "DOOR",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/ROUTE_RET_louis_return_trigger",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        116,
+        3
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "CODE_INPUT",
+      "desired_tier": "real_if_safe",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "SAFE_CODE_INPUT_ZONE",
+      "marker_tile_abbr": "SWITCH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/SAFE_CODE_INPUT_ZONE",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        17,
+        -35
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "SCENT_FAKE",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "SCENT_FAKE_dog_station",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/SCENT_FAKE_dog_station",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        70,
+        7
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "SCENT_PATH",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "SCENT_PATH_hub_center",
+      "marker_tile_abbr": "SCENT_PATH",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/SCENT_PATH_hub_center",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        190,
+        -5
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "STAIRS_DN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "STAIRS_DN_destination",
+      "marker_tile_abbr": "STAIRS_DN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/STAIRS_DN_destination",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        190,
+        -16
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "STAIRS_DN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "STAIRS_DN_upper",
+      "marker_tile_abbr": "STAIRS_DN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/STAIRS_DN_upper",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        187,
+        -16
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "STAIRS_UP",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "STAIRS_UP_destination",
+      "marker_tile_abbr": "STAIRS_UP",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/STAIRS_UP_destination",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        49,
+        11
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "TINY",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "TINY_market_corner",
+      "marker_tile_abbr": "TINY",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/TINY_market_corner",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        162,
+        53
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "TINY",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "TINY_south_corridor",
+      "marker_tile_abbr": "TINY",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/TINY_south_corridor",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        28,
+        18
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_IN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_IN_bentley_A_market_grate",
+      "marker_tile_abbr": "VENT_IN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_IN_bentley_A_market_grate",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        64,
+        45
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_IN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_IN_bentley_B_loading_dock_sewer",
+      "marker_tile_abbr": "VENT_IN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_IN_bentley_B_loading_dock_sewer",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        146,
+        -9
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_IN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_IN_bentley_C_post_gate_duct",
+      "marker_tile_abbr": "VENT_IN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_IN_bentley_C_post_gate_duct",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        152,
+        62
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_IN",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_IN_bentley_D_south_corridor",
+      "marker_tile_abbr": "VENT_IN",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_IN_bentley_D_south_corridor",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        70,
+        21
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_OUT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_OUT_bentley_A_utility_pocket",
+      "marker_tile_abbr": "VENT_OUT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_OUT_bentley_A_utility_pocket",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        123,
+        45
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_OUT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_OUT_bentley_B_alarm_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_OUT_bentley_B_alarm_utility",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        196,
+        -45
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_OUT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_OUT_bentley_C_upper_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_OUT_bentley_C_upper_utility",
+      "owner_set": true
+    },
+    {
+      "abs_cell": [
+        205,
+        65
+      ],
+      "actual_tier": "editor_only_placeholder",
+      "category": "VENT_OUT",
+      "desired_tier": "editor_only_placeholder",
+      "has_iso_mission_marker_script": false,
+      "has_marker_type_field": false,
+      "manifest_id": "VENT_OUT_bentley_D_exit_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "merged_aliases": [],
+      "node_path": "GameplayRoot/MarkerRoot/EditorOnlyPlaceholders/VENT_OUT_bentley_D_exit_utility",
+      "owner_set": true
+    }
+  ],
+  "build_equivalence_collisions": [],
+  "build_idempotency": {
+    "equal": true,
+    "first_floor_count": 18269,
+    "second_floor_count": 18269
+  },
+  "build_marker_tile_placements": [
+    {
+      "abs_cell": [
+        161,
+        9
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        2
+      ],
+      "category": "ALARM",
+      "manifest_id": "ALARM_beam_escalation",
+      "marker_tile_abbr": "ALARM",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        53,
+        6
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        0,
+        2
+      ],
+      "category": "ALARM",
+      "manifest_id": "ALARM_outdoor_escalation_node",
+      "marker_tile_abbr": "ALARM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        161,
+        14
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        1,
+        2
+      ],
+      "category": "AMBUSH",
+      "manifest_id": "AMBUSH_security_beam",
+      "marker_tile_abbr": "AMBUSH",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        19,
+        -47
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        4
+      ],
+      "category": "BAG",
+      "manifest_id": "BAG_dog_station",
+      "marker_tile_abbr": "BAG",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        41,
+        43
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        4
+      ],
+      "category": "BAG",
+      "manifest_id": "BAG_loading_dock",
+      "marker_tile_abbr": "BAG",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        130,
+        40
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        3,
+        4
+      ],
+      "category": "BAG",
+      "manifest_id": "BAG_louis_service_corridor",
+      "marker_tile_abbr": "BAG",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        92,
+        53
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        3,
+        4
+      ],
+      "category": "BAG",
+      "manifest_id": "BAG_south_return",
+      "marker_tile_abbr": "BAG",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        126,
+        45
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "BENTLEY_SWITCH",
+      "manifest_id": "BENTLEY_SWITCH_alarm_override",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        204,
+        -44
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "BENTLEY_SWITCH",
+      "manifest_id": "BENTLEY_SWITCH_camera_shutoff",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        199,
+        -44
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "BENTLEY_SWITCH",
+      "manifest_id": "BENTLEY_SWITCH_door_release",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        209,
+        64
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "BENTLEY_SWITCH",
+      "manifest_id": "BENTLEY_SWITCH_exit_release",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        74,
+        23
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "BENTLEY_SWITCH",
+      "manifest_id": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        130,
+        3
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        3,
+        2
+      ],
+      "category": "BLOCK",
+      "manifest_id": "BLOCK_code_gate",
+      "marker_tile_abbr": "BLOCK",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        227,
+        7
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_bag_room",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        212,
+        35
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_garage_lower",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        170,
+        2
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_garage_upper",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        35,
+        9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_market_01",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        60,
+        -29
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_trash_alley",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        200,
+        -18
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        7,
+        0
+      ],
+      "category": "CAM",
+      "manifest_id": "CAM_upper_high_heat",
+      "marker_tile_abbr": "CAM",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        112,
+        -29
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_camera_schedule",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        117,
+        24
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_code_gate_nearby",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        70,
+        16
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_delivery_receipt",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        112,
+        40
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_louis_route_flavor",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        44,
+        38
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_route_manifest_half",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        117,
+        -24
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_sauce_packet",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        198,
+        -24
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_security_memo",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        57,
+        -39
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        4
+      ],
+      "category": "CLUE",
+      "manifest_id": "CLUE_sterling_delivery_token",
+      "marker_tile_abbr": "CLUE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        109,
+        -27
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "CONTROL",
+      "manifest_id": "CONTROL_alarm_panel",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        114,
+        -27
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "CONTROL",
+      "manifest_id": "CONTROL_camera_terminal",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        121,
+        -22
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "CONTROL",
+      "manifest_id": "CONTROL_door_controls",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        -8,
+        52
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        7,
+        4
+      ],
+      "category": "EXIT",
+      "manifest_id": "EXIT_mission_return_to_louis",
+      "marker_tile_abbr": "EXIT",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        22,
+        -41
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        0
+      ],
+      "category": "FLOOD",
+      "manifest_id": "FLOOD_dog_station",
+      "marker_tile_abbr": "FLOOD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        190,
+        2
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        0
+      ],
+      "category": "FLOOD",
+      "manifest_id": "FLOOD_garage_center",
+      "marker_tile_abbr": "FLOOD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        38,
+        31
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        0
+      ],
+      "category": "FLOOD",
+      "manifest_id": "FLOOD_loading_dock",
+      "marker_tile_abbr": "FLOOD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        10,
+        -6
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        0
+      ],
+      "category": "FLOOD",
+      "manifest_id": "FLOOD_market_01",
+      "marker_tile_abbr": "FLOOD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        129,
+        3
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        2
+      ],
+      "category": "GATE",
+      "manifest_id": "GATE_garage_code",
+      "marker_tile_abbr": "GATE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        245,
+        30
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        5,
+        4
+      ],
+      "category": "GLOW",
+      "manifest_id": "GLOW_bag_room",
+      "marker_tile_abbr": "GLOW",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        108,
+        -20
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        4
+      ],
+      "category": "GLOW",
+      "manifest_id": "GLOW_kiosk",
+      "marker_tile_abbr": "GLOW",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        25,
+        -16
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        4
+      ],
+      "category": "GLOW",
+      "manifest_id": "GLOW_market_shop",
+      "marker_tile_abbr": "GLOW",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        168,
+        17
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_ambush_spawn",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        234,
+        16
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_bag_room",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        181,
+        15
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_garage_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        205,
+        22
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_garage_patrol_02",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        55,
+        36
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_loading_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        12,
+        4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_market_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        58,
+        -36
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_trash_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        194,
+        -25
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        5,
+        0
+      ],
+      "category": "GUARD",
+      "manifest_id": "GUARD_upper_platform",
+      "marker_tile_abbr": "GUARD",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        27,
+        17
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        0
+      ],
+      "category": "HELP",
+      "manifest_id": "HELP_bentley_utility",
+      "marker_tile_abbr": "HELP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        113,
+        1
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        0
+      ],
+      "category": "HELP",
+      "manifest_id": "HELP_code_gate",
+      "marker_tile_abbr": "HELP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        41,
+        37
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        0
+      ],
+      "category": "HELP",
+      "manifest_id": "HELP_poop_bag_throw",
+      "marker_tile_abbr": "HELP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        68,
+        4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        0
+      ],
+      "category": "HELP",
+      "manifest_id": "HELP_scent_tutorial",
+      "marker_tile_abbr": "HELP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        -12,
+        6
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        0
+      ],
+      "category": "HELP",
+      "manifest_id": "HELP_start_controls",
+      "marker_tile_abbr": "HELP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        243,
+        27
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_bag_room",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        185,
+        10
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_garage_bright_01",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        208,
+        20
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_garage_bright_02",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        178,
+        29
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_garage_shadow_01",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        20,
+        2
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_market_bright_zone",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        206,
+        -28
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        0
+      ],
+      "category": "LIGHT",
+      "manifest_id": "LIGHT_upper_platform",
+      "marker_tile_abbr": "LIGHT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        240,
+        20
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        0
+      ],
+      "category": "OBJ",
+      "manifest_id": "OBJ_bag_recovery",
+      "marker_tile_abbr": "OBJ",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        121,
+        3
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        0
+      ],
+      "category": "OBJ",
+      "manifest_id": "OBJ_code_gate",
+      "marker_tile_abbr": "OBJ",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        18,
+        1
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        0
+      ],
+      "category": "OBJ",
+      "manifest_id": "OBJ_market_investigation",
+      "marker_tile_abbr": "OBJ",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        71,
+        7
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        0,
+        0
+      ],
+      "category": "OBJ",
+      "manifest_id": "OBJ_scent_decision",
+      "marker_tile_abbr": "OBJ",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        -13,
+        2
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        0
+      ],
+      "category": "OBJ",
+      "manifest_id": "OBJ_start_briefing",
+      "marker_tile_abbr": "OBJ",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        165,
+        6
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_ambush_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        182,
+        6
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_ambush_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        182,
+        27
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_ambush_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        165,
+        27
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_ambush_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        230,
+        9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_bag_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        248,
+        9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_bag_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        248,
+        33
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_bag_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        230,
+        33
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_bag_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        170,
+        5
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_01_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        208,
+        5
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_01_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        208,
+        31
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_01_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        170,
+        31
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_01_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        194,
+        9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_02_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        214,
+        9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_02_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        214,
+        34
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_02_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        194,
+        34
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_garage_02_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        40,
+        32
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_loading_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        65,
+        32
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_loading_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        65,
+        46
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_loading_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        40,
+        46
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_loading_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        2,
+        4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_market_01_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        23,
+        4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_market_01_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        23,
+        -4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_market_01_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        2,
+        -4
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_market_01_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        46,
+        -43
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_trash_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        64,
+        -43
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_trash_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        64,
+        -31
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_trash_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        46,
+        -31
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_trash_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        179,
+        -25
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_upper_A",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        211,
+        -25
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_upper_B",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        211,
+        -18
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_upper_C",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        179,
+        -18
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        0
+      ],
+      "category": "PATROL",
+      "manifest_id": "PATROL_upper_D",
+      "marker_tile_abbr": "PATROL",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        12,
+        -48
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        4,
+        4
+      ],
+      "category": "PHOTO",
+      "manifest_id": "PHOTO_dog_station",
+      "marker_tile_abbr": "PHOTO",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        -19,
+        24
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        4,
+        4
+      ],
+      "category": "PHOTO",
+      "manifest_id": "PHOTO_optional_market_nook",
+      "marker_tile_abbr": "PHOTO",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        211,
+        -22
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        4,
+        4
+      ],
+      "category": "PHOTO",
+      "manifest_id": "PHOTO_upper_platform",
+      "marker_tile_abbr": "PHOTO",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        148,
+        11
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        7,
+        2
+      ],
+      "category": "ROUTE_DEST",
+      "manifest_id": "ROUTE_DEST_louis_return_destination",
+      "marker_tile_abbr": "ROUTE_DEST",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        79,
+        28
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        4
+      ],
+      "category": "ROUTE_IN",
+      "manifest_id": "ROUTE_IN_louis_service_door",
+      "marker_tile_abbr": "DOOR",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        151,
+        22
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        4
+      ],
+      "category": "ROUTE_RET",
+      "manifest_id": "ROUTE_RET_louis_return_trigger",
+      "marker_tile_abbr": "DOOR",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        88,
+        40
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        5,
+        2
+      ],
+      "category": "ROUTE_SPAWN",
+      "manifest_id": "ROUTE_SPAWN_louis_entry",
+      "marker_tile_abbr": "ROUTE_SPAWN",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        116,
+        3
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        4
+      ],
+      "category": "CODE_INPUT",
+      "manifest_id": "SAFE_CODE_INPUT_ZONE",
+      "marker_tile_abbr": "SWITCH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        17,
+        -35
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        3,
+        0
+      ],
+      "category": "SCENT_FAKE",
+      "manifest_id": "SCENT_FAKE_dog_station",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        70,
+        7
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        4,
+        0
+      ],
+      "category": "SCENT_PATH",
+      "manifest_id": "SCENT_PATH_hub_center",
+      "marker_tile_abbr": "SCENT_PATH",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        190,
+        -5
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        4
+      ],
+      "category": "STAIRS_DN",
+      "manifest_id": "STAIRS_DN_destination",
+      "marker_tile_abbr": "STAIRS_DN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        190,
+        -16
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        1,
+        4
+      ],
+      "category": "STAIRS_DN",
+      "manifest_id": "STAIRS_DN_upper",
+      "marker_tile_abbr": "STAIRS_DN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        187,
+        -16
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        0,
+        4
+      ],
+      "category": "STAIRS_UP",
+      "manifest_id": "STAIRS_UP_destination",
+      "marker_tile_abbr": "STAIRS_UP",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        186,
+        -6
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        0,
+        4
+      ],
+      "category": "STAIRS_UP",
+      "manifest_id": "STAIRS_UP_main",
+      "marker_tile_abbr": "STAIRS_UP",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        64,
+        44
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        6,
+        4
+      ],
+      "category": "TINY",
+      "manifest_id": "TINY_loading_dock",
+      "marker_tile_abbr": "TINY",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        49,
+        11
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        4
+      ],
+      "category": "TINY",
+      "manifest_id": "TINY_market_corner",
+      "marker_tile_abbr": "TINY",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        162,
+        53
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        6,
+        4
+      ],
+      "category": "TINY",
+      "manifest_id": "TINY_south_corridor",
+      "marker_tile_abbr": "TINY",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        28,
+        18
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        2
+      ],
+      "category": "VENT_IN",
+      "manifest_id": "VENT_IN_bentley_A_market_grate",
+      "marker_tile_abbr": "VENT_IN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        64,
+        45
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        2
+      ],
+      "category": "VENT_IN",
+      "manifest_id": "VENT_IN_bentley_B_loading_dock_sewer",
+      "marker_tile_abbr": "VENT_IN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        146,
+        -9
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        2
+      ],
+      "category": "VENT_IN",
+      "manifest_id": "VENT_IN_bentley_C_post_gate_duct",
+      "marker_tile_abbr": "VENT_IN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        152,
+        62
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        8,
+        2
+      ],
+      "category": "VENT_IN",
+      "manifest_id": "VENT_IN_bentley_D_south_corridor",
+      "marker_tile_abbr": "VENT_IN",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        70,
+        21
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        2
+      ],
+      "category": "VENT_OUT",
+      "manifest_id": "VENT_OUT_bentley_A_utility_pocket",
+      "marker_tile_abbr": "VENT_OUT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        123,
+        45
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        2
+      ],
+      "category": "VENT_OUT",
+      "manifest_id": "VENT_OUT_bentley_B_alarm_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        196,
+        -45
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        2
+      ],
+      "category": "VENT_OUT",
+      "manifest_id": "VENT_OUT_bentley_C_upper_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        205,
+        65
+      ],
+      "associated_runtime_marker": false,
+      "atlas_coords": [
+        9,
+        2
+      ],
+      "category": "VENT_OUT",
+      "manifest_id": "VENT_OUT_bentley_D_exit_utility",
+      "marker_tile_abbr": "VENT_OUT",
+      "placeholder": true
+    },
+    {
+      "abs_cell": [
+        179,
+        30
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        4
+      ],
+      "category": "BAG",
+      "manifest_id": "poop_bag_garage_pet_bin",
+      "marker_tile_abbr": "BAG",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        46,
+        26
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        0
+      ],
+      "category": "SCENT_FAKE",
+      "manifest_id": "scent_fake_loading_dock",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        52,
+        -27
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        0
+      ],
+      "category": "SCENT_FAKE",
+      "manifest_id": "scent_fake_trash_area",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        56,
+        -38
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        0
+      ],
+      "category": "SCENT_FAKE",
+      "manifest_id": "scent_fake_trash_area_02",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        44,
+        37
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        3,
+        0
+      ],
+      "category": "SCENT_FAKE",
+      "manifest_id": "scent_fake_trash_area_03",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        84,
+        6
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        2,
+        0
+      ],
+      "category": "SCENT_REAL",
+      "manifest_id": "scent_real_parking_garage",
+      "marker_tile_abbr": "SCENT_REAL",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        93,
+        6
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        4,
+        0
+      ],
+      "category": "SCENT_PATH",
+      "manifest_id": "scent_real_parking_garage_02",
+      "marker_tile_abbr": "SCENT_PATH",
+      "placeholder": false
+    },
+    {
+      "abs_cell": [
+        101,
+        5
+      ],
+      "associated_runtime_marker": true,
+      "atlas_coords": [
+        4,
+        0
+      ],
+      "category": "SCENT_PATH",
+      "manifest_id": "scent_real_parking_garage_03",
+      "marker_tile_abbr": "SCENT_PATH",
+      "placeholder": false
+    }
+  ],
+  "build_marker_tile_suppressed": [
+    {
+      "abs_cell": [
+        -8,
+        52
+      ],
+      "category": "OBJ",
+      "existing_at_cell": "EXIT_mission_return_to_louis",
+      "manifest_id": "OBJ_return_to_louis",
+      "marker_tile_abbr": "OBJ",
+      "reason": "cell_already_has_marker_tile"
+    },
+    {
+      "abs_cell": [
+        161,
+        14
+      ],
+      "category": "OBJ",
+      "existing_at_cell": "AMBUSH_security_beam",
+      "manifest_id": "OBJ_security_beam",
+      "marker_tile_abbr": "OBJ",
+      "reason": "cell_already_has_marker_tile"
+    },
+    {
+      "abs_cell": [
+        -8,
+        52
+      ],
+      "category": "ROUTE_DEST",
+      "existing_at_cell": "EXIT_mission_return_to_louis",
+      "manifest_id": "ROUTE_DEST_final_exit",
+      "marker_tile_abbr": "ROUTE_DEST",
+      "reason": "cell_already_has_marker_tile"
+    },
+    {
+      "abs_cell": [
+        -15,
+        2
+      ],
+      "category": "SPAWN",
+      "manifest_id": "bentley_spawn_main",
+      "marker_tile_abbr": "",
+      "reason": "spawn_or_empty_abbr"
+    },
+    {
+      "abs_cell": [
+        -18,
+        1
+      ],
+      "category": "SPAWN",
+      "manifest_id": "default_spawn_if_required",
+      "marker_tile_abbr": "",
+      "reason": "spawn_or_empty_abbr"
+    },
+    {
+      "abs_cell": [
+        -18,
+        1
+      ],
+      "category": "SPAWN",
+      "manifest_id": "player_spawn_main",
+      "marker_tile_abbr": "",
+      "reason": "spawn_or_empty_abbr"
+    }
+  ],
+  "build_missing_required_runtime_markers": [],
+  "build_optional_visual_reference": {
+    "found": true,
+    "path": "res://docs/reference/taco_bell_mission_layout_map.png",
+    "used_for_coordinates": false
+  },
+  "build_runtime_marker_movement": [
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "alarmzone_alarm_zone_placeholder"
+      ],
+      "category": "ALARM",
+      "desired_tier": "real_existing",
+      "manifest_id": "ALARM_beam_escalation",
+      "marker_tile_abbr": "ALARM",
+      "matched_marker_id": "alarmzone_alarm_zone_placeholder",
+      "matched_node_path": "GameplayRoot/MarkerRoot/AlarmZones/alarmzone_alarm_zone_placeholder",
+      "merged_aliases": [],
+      "new_cell": [
+        161,
+        9
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "encounter_garage_floor_2_ambush_marker"
+      ],
+      "category": "AMBUSH",
+      "desired_tier": "real_existing",
+      "manifest_id": "AMBUSH_security_beam",
+      "marker_tile_abbr": "AMBUSH",
+      "matched_marker_id": "encounter_garage_floor_2_ambush_marker",
+      "matched_node_path": "GameplayRoot/MarkerRoot/EncounterZones/encounter_garage_floor_2_ambush_marker",
+      "merged_aliases": [],
+      "new_cell": [
+        161,
+        14
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "poop_bag_dog_station"
+      ],
+      "category": "BAG",
+      "desired_tier": "real_existing",
+      "manifest_id": "BAG_dog_station",
+      "marker_tile_abbr": "BAG",
+      "matched_marker_id": "poop_bag_dog_station",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/poop_bag_dog_station",
+      "merged_aliases": [],
+      "new_cell": [
+        19,
+        -47
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "poop_bag_lobby_trash"
+      ],
+      "category": "BAG",
+      "desired_tier": "real_existing",
+      "manifest_id": "BAG_loading_dock",
+      "marker_tile_abbr": "BAG",
+      "matched_marker_id": "poop_bag_lobby_trash",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/poop_bag_lobby_trash",
+      "merged_aliases": [],
+      "new_cell": [
+        41,
+        43
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "clue_velvet_paw_stamp"
+      ],
+      "category": "CLUE",
+      "desired_tier": "real_existing",
+      "manifest_id": "CLUE_code_gate_nearby",
+      "marker_tile_abbr": "CLUE",
+      "matched_marker_id": "clue_velvet_paw_stamp",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Clues/clue_velvet_paw_stamp",
+      "merged_aliases": [
+        "CLUE_velvet_paw_stamp"
+      ],
+      "new_cell": [
+        117,
+        24
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "clue_route_manifest_half"
+      ],
+      "category": "CLUE",
+      "desired_tier": "real_existing",
+      "manifest_id": "CLUE_route_manifest_half",
+      "marker_tile_abbr": "CLUE",
+      "matched_marker_id": "clue_route_manifest_half",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Clues/clue_route_manifest_half",
+      "merged_aliases": [],
+      "new_cell": [
+        44,
+        38
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "clue_sauce_packet_vp"
+      ],
+      "category": "CLUE",
+      "desired_tier": "real_existing",
+      "manifest_id": "CLUE_sauce_packet",
+      "marker_tile_abbr": "CLUE",
+      "matched_marker_id": "clue_sauce_packet_vp",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Clues/clue_sauce_packet_vp",
+      "merged_aliases": [],
+      "new_cell": [
+        117,
+        -24
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "clue_sterling_delivery_token"
+      ],
+      "category": "CLUE",
+      "desired_tier": "real_existing",
+      "manifest_id": "CLUE_sterling_delivery_token",
+      "marker_tile_abbr": "CLUE",
+      "matched_marker_id": "clue_sterling_delivery_token",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Clues/clue_sterling_delivery_token",
+      "merged_aliases": [],
+      "new_cell": [
+        57,
+        -39
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "exit_return_to_louis"
+      ],
+      "category": "EXIT",
+      "desired_tier": "real_existing",
+      "manifest_id": "EXIT_mission_return_to_louis",
+      "marker_tile_abbr": "EXIT",
+      "matched_marker_id": "exit_return_to_louis",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Exit/exit_return_to_louis",
+      "merged_aliases": [],
+      "new_cell": [
+        -8,
+        52
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "code_gate_garage_office"
+      ],
+      "category": "GATE",
+      "desired_tier": "real_existing",
+      "manifest_id": "GATE_garage_code",
+      "marker_tile_abbr": "GATE",
+      "matched_marker_id": "code_gate_garage_office",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Gates/code_gate_garage_office",
+      "merged_aliases": [],
+      "new_cell": [
+        129,
+        3
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "glow_guy_garage_stairs"
+      ],
+      "category": "GLOW",
+      "desired_tier": "real_existing",
+      "manifest_id": "GLOW_bag_room",
+      "marker_tile_abbr": "GLOW",
+      "matched_marker_id": "glow_guy_garage_stairs",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/glow_guy_garage_stairs",
+      "merged_aliases": [],
+      "new_cell": [
+        245,
+        30
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "garage_floor_1_guard_placeholder"
+      ],
+      "category": "GUARD",
+      "desired_tier": "real_existing",
+      "manifest_id": "GUARD_garage_patrol_01",
+      "marker_tile_abbr": "GUARD",
+      "matched_marker_id": "garage_floor_1_guard_placeholder",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Enemies/garage_floor_1_guard_placeholder",
+      "merged_aliases": [],
+      "new_cell": [
+        181,
+        15
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_retrieve_delivery_bag"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_bag_recovery",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_retrieve_delivery_bag",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_retrieve_delivery_bag",
+      "merged_aliases": [],
+      "new_cell": [
+        240,
+        20
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_enter_parking_garage",
+        "objective_get_garage_staff_keycard_or_bypass"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_code_gate",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_enter_parking_garage",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_enter_parking_garage",
+      "merged_aliases": [],
+      "new_cell": [
+        121,
+        3
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_inspect_sauce_packets_or_receipt"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_market_investigation",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_inspect_sauce_packets_or_receipt",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_inspect_sauce_packets_or_receipt",
+      "merged_aliases": [],
+      "new_cell": [
+        18,
+        1
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_escape_and_return_to_louis"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_return_to_louis",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_escape_and_return_to_louis",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_escape_and_return_to_louis",
+      "merged_aliases": [],
+      "new_cell": [
+        -8,
+        52
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_complete_without_triggering_garage_alarm"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_security_beam",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_complete_without_triggering_garage_alarm",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_complete_without_triggering_garage_alarm",
+      "merged_aliases": [],
+      "new_cell": [
+        161,
+        14
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "objective_talk_to_louis"
+      ],
+      "category": "OBJ",
+      "desired_tier": "real_existing",
+      "manifest_id": "OBJ_start_briefing",
+      "marker_tile_abbr": "OBJ",
+      "matched_marker_id": "objective_talk_to_louis",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/objective_talk_to_louis",
+      "merged_aliases": [],
+      "new_cell": [
+        -13,
+        2
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "patrol_garage_floor_1_guard_placeholder_01"
+      ],
+      "category": "PATROL",
+      "desired_tier": "real_existing",
+      "manifest_id": "PATROL_garage_01_A",
+      "marker_tile_abbr": "PATROL",
+      "matched_marker_id": "patrol_garage_floor_1_guard_placeholder_01",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_01",
+      "merged_aliases": [],
+      "new_cell": [
+        170,
+        5
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "patrol_garage_floor_1_guard_placeholder_02"
+      ],
+      "category": "PATROL",
+      "desired_tier": "real_existing",
+      "manifest_id": "PATROL_garage_01_B",
+      "marker_tile_abbr": "PATROL",
+      "matched_marker_id": "patrol_garage_floor_1_guard_placeholder_02",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_02",
+      "merged_aliases": [],
+      "new_cell": [
+        208,
+        5
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "patrol_garage_floor_1_guard_placeholder_03"
+      ],
+      "category": "PATROL",
+      "desired_tier": "real_existing",
+      "manifest_id": "PATROL_garage_01_C",
+      "marker_tile_abbr": "PATROL",
+      "matched_marker_id": "patrol_garage_floor_1_guard_placeholder_03",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_03",
+      "merged_aliases": [],
+      "new_cell": [
+        208,
+        31
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "hidden_polaroid_market_rain"
+      ],
+      "category": "PHOTO",
+      "desired_tier": "real_existing",
+      "manifest_id": "PHOTO_optional_market_nook",
+      "marker_tile_abbr": "PHOTO",
+      "matched_marker_id": "hidden_polaroid_market_rain",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/hidden_polaroid_market_rain",
+      "merged_aliases": [],
+      "new_cell": [
+        -19,
+        24
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "perfect_polaroid_garage_ambush"
+      ],
+      "category": "PHOTO",
+      "desired_tier": "real_existing",
+      "manifest_id": "PHOTO_upper_platform",
+      "marker_tile_abbr": "PHOTO",
+      "matched_marker_id": "perfect_polaroid_garage_ambush",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/perfect_polaroid_garage_ambush",
+      "merged_aliases": [],
+      "new_cell": [
+        211,
+        -22
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "spawn_route_louis_return"
+      ],
+      "category": "ROUTE_DEST",
+      "desired_tier": "real_existing",
+      "manifest_id": "ROUTE_DEST_louis_return_destination",
+      "marker_tile_abbr": "ROUTE_DEST",
+      "matched_marker_id": "spawn_route_louis_return",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Spawns/spawn_route_louis_return",
+      "merged_aliases": [],
+      "new_cell": [
+        148,
+        11
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "spawn_route_louis_entry"
+      ],
+      "category": "ROUTE_SPAWN",
+      "desired_tier": "real_existing",
+      "manifest_id": "ROUTE_SPAWN_louis_entry",
+      "marker_tile_abbr": "ROUTE_SPAWN",
+      "matched_marker_id": "spawn_route_louis_entry",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Spawns/spawn_route_louis_entry",
+      "merged_aliases": [],
+      "new_cell": [
+        88,
+        40
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "transition_garage_floor2_service_stairs"
+      ],
+      "category": "STAIRS_UP",
+      "desired_tier": "real_existing",
+      "manifest_id": "STAIRS_UP_main",
+      "marker_tile_abbr": "STAIRS_UP",
+      "matched_marker_id": "transition_garage_floor2_service_stairs",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Transitions/transition_garage_floor2_service_stairs",
+      "merged_aliases": [],
+      "new_cell": [
+        186,
+        -6
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "tiny_icon_louis_delivery"
+      ],
+      "category": "TINY",
+      "desired_tier": "real_existing",
+      "manifest_id": "TINY_loading_dock",
+      "marker_tile_abbr": "TINY",
+      "matched_marker_id": "tiny_icon_louis_delivery",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/tiny_icon_louis_delivery",
+      "merged_aliases": [],
+      "new_cell": [
+        64,
+        44
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SPAWN",
+      "desired_tier": "real_existing",
+      "manifest_id": "bentley_spawn_main",
+      "marker_tile_abbr": "",
+      "matched_marker_id": "bentley_spawn_main",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Spawns/bentley_spawn_main",
+      "merged_aliases": [],
+      "new_cell": [
+        -15,
+        2
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [
+        "default"
+      ],
+      "category": "SPAWN",
+      "desired_tier": "real_existing",
+      "manifest_id": "default_spawn_if_required",
+      "marker_tile_abbr": "",
+      "matched_marker_id": "default",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Spawns/default",
+      "merged_aliases": [],
+      "new_cell": [
+        -18,
+        1
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SPAWN",
+      "desired_tier": "real_existing",
+      "manifest_id": "player_spawn_main",
+      "marker_tile_abbr": "",
+      "matched_marker_id": "player_spawn_main",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Spawns/player_spawn_main",
+      "merged_aliases": [],
+      "new_cell": [
+        -18,
+        1
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "BAG",
+      "desired_tier": "real_existing",
+      "manifest_id": "poop_bag_garage_pet_bin",
+      "marker_tile_abbr": "BAG",
+      "matched_marker_id": "poop_bag_garage_pet_bin",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Collectibles/poop_bag_garage_pet_bin",
+      "merged_aliases": [],
+      "new_cell": [
+        179,
+        30
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_FAKE",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_fake_loading_dock",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "matched_marker_id": "scent_fake_loading_dock",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/scent_fake_loading_dock",
+      "merged_aliases": [
+        "SCENT_FAKE_loading_dock"
+      ],
+      "new_cell": [
+        46,
+        26
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_FAKE",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_fake_trash_area",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "matched_marker_id": "scent_fake_trash_area",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area",
+      "merged_aliases": [
+        "SCENT_FAKE_trash_alley"
+      ],
+      "new_cell": [
+        52,
+        -27
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_FAKE",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_fake_trash_area_02",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "matched_marker_id": "scent_fake_trash_area_02",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area_02",
+      "merged_aliases": [],
+      "new_cell": [
+        56,
+        -38
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_FAKE",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_fake_trash_area_03",
+      "marker_tile_abbr": "SCENT_FAKE",
+      "matched_marker_id": "scent_fake_trash_area_03",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area_03",
+      "merged_aliases": [],
+      "new_cell": [
+        44,
+        37
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_REAL",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_real_parking_garage",
+      "marker_tile_abbr": "SCENT_REAL",
+      "matched_marker_id": "scent_real_parking_garage",
+      "matched_node_path": "GameplayRoot/MarkerRoot/ScentTrails/scent_real_parking_garage",
+      "merged_aliases": [
+        "SCENT_REAL_garage_approach"
+      ],
+      "new_cell": [
+        84,
+        6
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_PATH",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_real_parking_garage_02",
+      "marker_tile_abbr": "SCENT_PATH",
+      "matched_marker_id": "scent_real_parking_garage_02",
+      "matched_node_path": "GameplayRoot/MarkerRoot/ScentTrails/scent_real_parking_garage_02",
+      "merged_aliases": [],
+      "new_cell": [
+        93,
+        6
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    },
+    {
+      "actual_tier": "real_existing",
+      "alias_of_legacy_marker_ids": [],
+      "category": "SCENT_PATH",
+      "desired_tier": "real_existing",
+      "manifest_id": "scent_real_parking_garage_03",
+      "marker_tile_abbr": "SCENT_PATH",
+      "matched_marker_id": "scent_real_parking_garage_03",
+      "matched_node_path": "GameplayRoot/MarkerRoot/Objectives/scent_real_parking_garage_03",
+      "merged_aliases": [],
+      "new_cell": [
+        101,
+        5
+      ],
+      "placeholder_created": false,
+      "runtime_marker_found": true
+    }
+  ],
+  "build_source_protection": {
+    "hash_after": "6e4e9a790d257126b6f8a17587bacaf6",
+    "hash_before": "6e4e9a790d257126b6f8a17587bacaf6",
+    "mtime_after": 1778011645,
+    "mtime_before": 1778011645,
+    "unchanged": true
+  },
+  "build_summary": {
+    "counts": {
+      "collision_cell_count": 35,
+      "cover_cell_count": 37,
+      "editor_only_placeholders_created": 96,
+      "equivalence_collisions": 0,
+      "floor_cell_count": 18269,
+      "marker_tile_count": 128,
+      "missing_required_runtime_markers": 0,
+      "runtime_markers_moved": 38,
+      "used_rect_height": 126,
+      "used_rect_width": 283,
+      "used_rect_x": -30,
+      "used_rect_y": -55,
+      "wall_cell_count": 2283
+    },
+    "editor_only_placeholders_count": 96,
+    "equivalence_collisions": 0,
+    "errors": [],
+    "marker_tile_placements_count": 128,
+    "marker_tile_suppressed_count": 6,
+    "missing_required_runtime_markers": 0,
+    "runtime_marker_movement_count": 38,
+    "warnings": []
+  },
+  "build_vent_interfaces": [
+    {
+      "id": "vent_interface_A",
+      "player_block": true,
+      "stand_cell_main_side": [
+        28,
+        13
+      ],
+      "stand_cell_on_floor": true,
+      "vent_in_marker_id": "VENT_IN_bentley_A_market_grate"
+    },
+    {
+      "id": "vent_interface_B",
+      "player_block": true,
+      "stand_cell_main_side": [
+        64,
+        40
+      ],
+      "stand_cell_on_floor": true,
+      "vent_in_marker_id": "VENT_IN_bentley_B_loading_dock_sewer"
+    },
+    {
+      "id": "vent_interface_C",
+      "player_block": true,
+      "stand_cell_main_side": [
+        146,
+        -3
+      ],
+      "stand_cell_on_floor": true,
+      "vent_in_marker_id": "VENT_IN_bentley_C_post_gate_duct"
+    },
+    {
+      "id": "vent_interface_D",
+      "player_block": true,
+      "stand_cell_main_side": [
+        152,
+        57
+      ],
+      "stand_cell_on_floor": true,
+      "vent_in_marker_id": "VENT_IN_bentley_D_south_corridor"
+    }
+  ],
+  "pass": true,
+  "phase": "E_dry_run",
+  "validate": {
+    "abbr_rule_results": {
+      "CONTROL_alarm_panel_uses_SWITCH": true,
+      "CONTROL_camera_terminal_uses_SWITCH": true,
+      "CONTROL_door_controls_uses_SWITCH": true,
+      "ROUTE_IN_louis_service_door_uses_DOOR": true,
+      "ROUTE_RET_louis_return_trigger_uses_DOOR": true,
+      "all_BENTLEY_SWITCH_use_SWITCH": true,
+      "no_BENTLEY_SWITCH_uses_GATE": true,
+      "no_CONTROL_uses_GATE": true,
+      "only_GATE_garage_code_uses_GATE": true
+    },
+    "anchor_cell": [
+      -20,
+      0
+    ],
+    "bentley_routes_exist": {
+      "zone_bentley_route_a_passage": true,
+      "zone_bentley_route_b_passage": true,
+      "zone_bentley_route_c_passage": true,
+      "zone_bentley_route_d_passage": true
+    },
+    "builder_report_summary": {
+      "counts": {
+        "collision_cell_count": 35,
+        "cover_cell_count": 37,
+        "editor_only_placeholders_created": 96,
+        "equivalence_collisions": 0,
+        "floor_cell_count": 18269,
+        "marker_tile_count": 128,
+        "missing_required_runtime_markers": 0,
+        "runtime_markers_moved": 38,
+        "used_rect_height": 126,
+        "used_rect_width": 283,
+        "used_rect_x": -30,
+        "used_rect_y": -55,
+        "wall_cell_count": 2283
+      },
+      "editor_only_placeholders_count": 96,
+      "equivalence_collisions": 0,
+      "errors": [],
+      "marker_tile_placements_count": 128,
+      "marker_tile_suppressed_count": 6,
+      "missing_required_runtime_markers": 0,
+      "runtime_marker_movement_count": 38,
+      "warnings": []
+    },
+    "cache_safe_load_mode_used": true,
+    "camera_floodlight_spacing": {
+      "min_required": 12,
+      "violations": []
+    },
+    "code_gate_to_beam_distance": 43,
+    "counts": {
+      "collision_cell_count": 35,
+      "cover_cell_count": 37,
+      "floor_cell_count": 18269,
+      "marker_tile_count": 128,
+      "reachable_cell_count": 16681,
+      "used_rect_height": 126,
+      "used_rect_width": 283,
+      "used_rect_x": -30,
+      "used_rect_y": -55,
+      "wall_cell_count": 2283
+    },
+    "door_no_collision": true,
+    "editor_only_placeholder_audit": {
+      "label_children_without_owner": 0,
+      "parent_exists": true,
+      "placeholder_count": 96,
+      "placeholders_in_groups": 0,
+      "placeholders_with_marker_type": 0,
+      "placeholders_with_script": 0,
+      "placeholders_without_owner": 0
+    },
+    "entrypoint": "validate_scene_root",
+    "errors": [],
+    "hard_assertions": {
+      "CONTROL_alarm_panel_uses_SWITCH": true,
+      "CONTROL_camera_terminal_uses_SWITCH": true,
+      "CONTROL_door_controls_uses_SWITCH": true,
+      "CollisionBarrierLayer_exists": true,
+      "CoverLayer_exists": true,
+      "DOOR_marker_tile_has_no_collision": true,
+      "FloorLayer_exists": true,
+      "FloorLayer_not_empty": true,
+      "MarkerRoot_exists": true,
+      "MarkerTileLayer_exists": true,
+      "MarkerTileLayer_not_empty": true,
+      "ROUTE_IN_louis_service_door_uses_DOOR": true,
+      "ROUTE_RET_louis_return_trigger_uses_DOOR": true,
+      "SWITCH_marker_tile_has_no_collision": true,
+      "WallLayer_exists": true,
+      "WallLayer_not_empty": true,
+      "all_BENTLEY_SWITCH_use_SWITCH": true,
+      "all_required_main_routes_reachable": true,
+      "bentley_route_A_exists": true,
+      "bentley_route_B_exists": true,
+      "bentley_route_C_exists": true,
+      "bentley_route_D_exists": true,
+      "cache_safe_load_mode_used": true,
+      "camera_floodlight_spacing_meets_min": true,
+      "code_gate_to_beam_cell_distance_meets_min": true,
+      "dry_run_validator_used_in_memory_root": true,
+      "editor_only_placeholders_have_no_gameplay_groups": true,
+      "editor_only_placeholders_have_no_iso_mission_marker_script": true,
+      "editor_only_placeholders_have_no_marker_type_field": true,
+      "equivalence_collisions_count_zero": 0,
+      "floor_cell_count_meets_min": true,
+      "gate_marker_tile_count_equals_one": true,
+      "marker_vocabulary_includes_DOOR": true,
+      "marker_vocabulary_includes_SWITCH": true,
+      "missing_required_runtime_markers_count_zero": 0,
+      "no_BENTLEY_SWITCH_uses_GATE": true,
+      "no_CONTROL_uses_GATE": true,
+      "only_GATE_garage_code_uses_GATE": true,
+      "optional_visual_reference_NOT_used_for_coordinates": true,
+      "placeholder_children_have_owner": true,
+      "placeholder_nodes_have_owner": true,
+      "player_flood_fill_does_not_require_bentley_routes": true,
+      "poop_bag_garage_pet_bin_not_in_blocking_collision": true,
+      "random_old_marker_tiles_removed": true,
+      "safe_code_input_not_inside_beam_zone": true,
+      "source_scene_unchanged": true,
+      "target_scene_exists": true,
+      "target_scene_loads": true,
+      "unaccounted_marker_tile_count_zero": 0,
+      "used_rect_height_meets_min": true,
+      "used_rect_width_meets_min": true,
+      "vent_in_marker_cells_not_blocked": true,
+      "vent_interactable_stand_cells_available": true
+    },
+    "info": [],
+    "marker_tile_audit": {
+      "gate_tile_count": 1,
+      "per_abbr_tile_counts": {
+        "ALARM": 2,
+        "AMBUSH": 1,
+        "BAG": 5,
+        "BLOCK": 1,
+        "CAM": 6,
+        "CLUE": 8,
+        "DOOR": 2,
+        "EXIT": 1,
+        "FLOOD": 4,
+        "GATE": 1,
+        "GLOW": 3,
+        "GUARD": 8,
+        "HELP": 5,
+        "LIGHT": 6,
+        "OBJ": 5,
+        "PATROL": 32,
+        "PHOTO": 3,
+        "ROUTE_DEST": 1,
+        "ROUTE_SPAWN": 1,
+        "SCENT_FAKE": 5,
+        "SCENT_PATH": 3,
+        "SCENT_REAL": 1,
+        "STAIRS_DN": 2,
+        "STAIRS_UP": 2,
+        "SWITCH": 9,
+        "TINY": 3,
+        "VENT_IN": 4,
+        "VENT_OUT": 4
+      },
+      "unaccounted_cells": [],
+      "unaccounted_count": 0
+    },
+    "marker_vocabulary": {
+      "ALARM": true,
+      "AMBUSH": true,
+      "BAG": true,
+      "BLOCK": true,
+      "CAM": true,
+      "CLUE": true,
+      "DOOR": true,
+      "EXIT": true,
+      "FLOOD": true,
+      "GATE": true,
+      "GLOW": true,
+      "GUARD": true,
+      "HELP": true,
+      "LIGHT": true,
+      "OBJ": true,
+      "PATROL": true,
+      "PHOTO": true,
+      "ROUTE_DEST": true,
+      "ROUTE_IN": true,
+      "ROUTE_RET": true,
+      "ROUTE_SPAWN": true,
+      "SCENT_FAKE": true,
+      "SCENT_PATH": true,
+      "SCENT_REAL": true,
+      "STAIRS_DN": true,
+      "STAIRS_UP": true,
+      "SWITCH": true,
+      "TINY": true,
+      "VENT_IN": true,
+      "VENT_OUT": true
+    },
+    "optional_visual_reference": {
+      "found": true,
+      "path": "res://docs/reference/taco_bell_mission_layout_map.png",
+      "used_for_coordinates": false
+    },
+    "pass": true,
+    "phase": "complete",
+    "player_flood_fill_does_not_require_bentley_routes": true,
+    "poop_bag_garage_pet_bin_status": true,
+    "reachability": {
+      "optional": [
+        {
+          "center": [
+            -19,
+            22
+          ],
+          "reachable": true,
+          "zone": "zone_optional_market_nook"
+        },
+        {
+          "center": [
+            18,
+            -47
+          ],
+          "reachable": true,
+          "zone": "zone_dog_station_alley"
+        },
+        {
+          "center": [
+            54,
+            -38
+          ],
+          "reachable": true,
+          "zone": "zone_trash_alley"
+        },
+        {
+          "center": [
+            52,
+            39
+          ],
+          "reachable": true,
+          "zone": "zone_loading_dock_lane"
+        },
+        {
+          "center": [
+            114,
+            -25
+          ],
+          "reachable": true,
+          "zone": "zone_security_guard_kiosk_control"
+        },
+        {
+          "center": [
+            117,
+            24
+          ],
+          "reachable": true,
+          "zone": "zone_garage_office_code_clue"
+        },
+        {
+          "center": [
+            194,
+            -26
+          ],
+          "reachable": true,
+          "zone": "zone_garage_floor_2_upper_platform"
+        },
+        {
+          "center": [
+            220,
+            -24
+          ],
+          "reachable": true,
+          "zone": "zone_upper_platform_control_alcove"
+        }
+      ],
+      "required": [
+        {
+          "center": [
+            71,
+            8
+          ],
+          "label": "Delivery Alley Hub center",
+          "reachable": true,
+          "zone": "zone_delivery_alley_hub"
+        },
+        {
+          "center": [
+            116,
+            4
+          ],
+          "label": "Safe Code Input Pocket",
+          "reachable": true,
+          "zone": "zone_safe_code_input_pocket"
+        },
+        {
+          "center": [
+            128,
+            4
+          ],
+          "label": "Code Gate",
+          "reachable": true,
+          "zone": "zone_code_gate_chokepoint"
+        },
+        {
+          "center": [
+            145,
+            4
+          ],
+          "label": "Post-Gate Buffer",
+          "reachable": true,
+          "zone": "zone_post_gate_buffer"
+        },
+        {
+          "center": [
+            160,
+            14
+          ],
+          "label": "Security Beam",
+          "reachable": true,
+          "zone": "zone_security_beam_approach"
+        },
+        {
+          "center": [
+            177,
+            16
+          ],
+          "label": "Garage Floor 1 center",
+          "reachable": true,
+          "zone": "zone_garage_floor_1_west"
+        },
+        {
+          "center": [
+            239,
+            20
+          ],
+          "label": "Bag Recovery Room",
+          "reachable": true,
+          "zone": "zone_bag_recovery_room"
+        },
+        {
+          "center": [
+            123,
+            53
+          ],
+          "label": "South Return Corridor",
+          "reachable": true,
+          "zone": "zone_south_return_corridor_central"
+        },
+        {
+          "center": [
+            -8,
+            52
+          ],
+          "label": "Mission Exit",
+          "reachable": true,
+          "zone": "zone_return_to_louis_exit"
+        }
+      ]
+    },
+    "required_marker_safety": [
+      {
+        "abs_cell": [
+          -18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "player_spawn_main",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          -15,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "bentley_spawn_main",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          -18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "default_spawn_if_required",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -13,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_start_briefing",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_market_investigation",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          71,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_scent_decision",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          121,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          14
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_security_beam",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          240,
+          20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_bag_recovery",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_return_to_louis",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -12,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_start_controls",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          68,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_scent_tutorial",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          113,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          27,
+          17
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "HELP_bentley_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          41,
+          37
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_poop_bag_throw",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SCENT_PATH_hub_center",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          17,
+          -35
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SCENT_FAKE_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          52,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          46,
+          26
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_loading_dock",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          84,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          56,
+          -38
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area_02",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          44,
+          37
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area_03",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          93,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage_02",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          101,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage_03",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          44,
+          38
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_route_manifest_half",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          57,
+          -39
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_sterling_delivery_token",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          117,
+          24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_code_gate_nearby",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          117,
+          -24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_sauce_packet",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          112,
+          -29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_camera_schedule",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_delivery_receipt",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          198,
+          -24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_security_memo",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          19,
+          -47
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          41,
+          43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          30
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "poop_bag_garage_pet_bin",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          92,
+          53
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_south_return",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -19,
+          24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_optional_market_nook",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          12,
+          -48
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          25,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_market_shop",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          108,
+          -20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_kiosk",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          245,
+          30
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          49,
+          11
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "TINY_market_corner",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          44
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "TINY_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          162,
+          53
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "TINY_south_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          12,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_market_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          2,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          23,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          23,
+          -4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          2,
+          -4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          58,
+          -36
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_trash_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          46,
+          -43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          -43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          -31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          46,
+          -31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          55,
+          36
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_loading_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          40,
+          32
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          65,
+          32
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          65,
+          46
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          40,
+          46
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          10,
+          -6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_market_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          35,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_market_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          22,
+          -41
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          60,
+          -29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_trash_alley",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          38,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          20,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_market_bright_zone",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          53,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ALARM_outdoor_escalation_node",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          129,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GATE_garage_code",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          130,
+          3
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "BLOCK_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          116,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SAFE_CODE_INPUT_ZONE",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          109,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_alarm_panel",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          114,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_camera_terminal",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          121,
+          -22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_door_controls",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          14
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "AMBUSH_security_beam",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ALARM_beam_escalation",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          168,
+          17
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_ambush_spawn",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          165,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          182,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          182,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          165,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          181,
+          15
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_garage_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          205,
+          22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_garage_patrol_02",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          214,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          214,
+          34
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          34
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_garage_upper",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_garage_center",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          212,
+          35
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_garage_lower",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          185,
+          10
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_bright_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          178,
+          29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_shadow_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_bright_02",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          186,
+          -6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_UP_main",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          187,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_UP_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_DN_upper",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          -5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_DN_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          200,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_upper_high_heat",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          206,
+          -28
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          234,
+          16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          230,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          248,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          248,
+          33
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          230,
+          33
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          227,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          243,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          79,
+          28
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_IN_louis_service_door",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          88,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_SPAWN_louis_entry",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          151,
+          22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_RET_louis_return_trigger",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          148,
+          11
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_DEST_louis_return_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          112,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_louis_route_flavor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          130,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_louis_service_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          28,
+          18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_A_market_grate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          21
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_A_utility_pocket",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          74,
+          23
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_B_loading_dock_sewer",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          123,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_B_alarm_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          126,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_alarm_override",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          146,
+          -9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_C_post_gate_duct",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          196,
+          -45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_C_upper_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          199,
+          -44
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_door_release",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          204,
+          -44
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_camera_shutoff",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          152,
+          62
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_D_south_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          205,
+          65
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_D_exit_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          209,
+          64
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_exit_release",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "EXIT_mission_return_to_louis",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_DEST_final_exit",
+        "on_floor": true,
+        "required": false
+      }
+    ],
+    "required_node_presence": {
+      "ArtRoot": true,
+      "Camera2D": true,
+      "EntityRoot": true,
+      "GameplayRoot": true,
+      "GameplayRoot/LayoutRoot": true,
+      "GameplayRoot/LayoutRoot/CollisionBarrierLayer": true,
+      "GameplayRoot/LayoutRoot/CoverLayer": true,
+      "GameplayRoot/LayoutRoot/FloorLayer": true,
+      "GameplayRoot/LayoutRoot/MarkerTileLayer": true,
+      "GameplayRoot/LayoutRoot/WallLayer": true,
+      "GameplayRoot/MarkerRoot": true,
+      "GameplayRoot/RuntimeSystems": true
+    },
+    "safe_code_in_beam_zone": false,
+    "scene_root_in_memory": true,
+    "source_scene_protection": {
+      "hash_after": "6e4e9a790d257126b6f8a17587bacaf6",
+      "hash_before": "6e4e9a790d257126b6f8a17587bacaf6",
+      "mtime_after": 1778011645,
+      "mtime_before": 1778011645,
+      "unchanged": true
+    },
+    "spawn_node_cell": [
+      -18,
+      1
+    ],
+    "spawn_offset_used": [
+      2,
+      1
+    ],
+    "switch_no_collision": true,
+    "vent_audit": [
+      {
+        "id": "vent_interface_A",
+        "stand_cell": [
+          28,
+          13
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          28,
+          18
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_A_market_grate"
+      },
+      {
+        "id": "vent_interface_B",
+        "stand_cell": [
+          64,
+          40
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          64,
+          45
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_B_loading_dock_sewer"
+      },
+      {
+        "id": "vent_interface_C",
+        "stand_cell": [
+          146,
+          -3
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          146,
+          -9
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_C_post_gate_duct"
+      },
+      {
+        "id": "vent_interface_D",
+        "stand_cell": [
+          152,
+          57
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          152,
+          62
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_D_south_corridor"
+      }
+    ],
+    "warnings": []
+  }
+}

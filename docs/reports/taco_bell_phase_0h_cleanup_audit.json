@@ -1,0 +1,5166 @@
+{
+  "build_summary": {
+    "counts": {
+      "collision_cell_count": 35,
+      "cover_cell_count": 37,
+      "editor_only_placeholders_created": 96,
+      "equivalence_collisions": 0,
+      "floor_cell_count": 18269,
+      "marker_tile_count": 128,
+      "missing_required_runtime_markers": 0,
+      "runtime_markers_moved": 38,
+      "used_rect_height": 126,
+      "used_rect_width": 283,
+      "used_rect_x": -30,
+      "used_rect_y": -55,
+      "wall_cell_count": 2283
+    },
+    "editor_only_placeholders_created": 96,
+    "phase_0h_cleanup": {
+      "boundary_colliders": {
+        "child_count": 233,
+        "collision_shapes_disabled": 233,
+        "disabled": true,
+        "found": true,
+        "path": "GameplayRoot/BoundaryColliders",
+        "static_bodies_disabled": 233
+      },
+      "camera": {
+        "applied": true,
+        "found": true,
+        "limits_after": {
+          "bottom": 1705,
+          "left": -3550,
+          "right": 15330,
+          "top": -1079
+        },
+        "limits_before": {
+          "bottom": 512,
+          "left": -1696,
+          "right": 2560,
+          "top": -400
+        },
+        "margin_px": 384,
+        "path": "Camera2D"
+      },
+      "marker_labels": {
+        "extra_at_label_siblings_removed": 168,
+        "labels_kept_invisible": 56,
+        "labels_removed": 168,
+        "markers_processed": 56,
+        "show_editor_label_set_false": 56
+      },
+      "old_tilemap_layers": [
+        {
+          "cells_after": 0,
+          "cells_before": 1103,
+          "class": "TileMapLayer",
+          "cleared": true,
+          "collision_enabled": false,
+          "enabled": false,
+          "found": true,
+          "path": "GameplayRoot/GameplayFloorLayer",
+          "visible": false
+        },
+        {
+          "cells_after": 0,
+          "cells_before": 289,
+          "class": "TileMapLayer",
+          "cleared": true,
+          "collision_enabled": false,
+          "enabled": false,
+          "found": true,
+          "path": "GameplayRoot/GameplayCollisionLayer",
+          "visible": false
+        },
+        {
+          "cells_after": 0,
+          "cells_before": 37,
+          "class": "TileMapLayer",
+          "cleared": true,
+          "collision_enabled": false,
+          "enabled": false,
+          "found": true,
+          "path": "GameplayRoot/GameplayMarkersLayer",
+          "visible": false
+        },
+        {
+          "cells_after": 0,
+          "cells_before": 0,
+          "class": "TileMapLayer",
+          "cleared": true,
+          "collision_enabled": false,
+          "enabled": false,
+          "found": true,
+          "path": "GameplayRoot/LayoutRoot/DebugLabelLayer",
+          "visible": false
+        }
+      ],
+      "root_transform": {
+        "is_identity": false,
+        "left_unchanged_reason": "source_scene_has_same_non_identity_transform_resetting_would_shift_world_positions",
+        "position_before": [
+          -1310.0,
+          169.0
+        ],
+        "rotation_before": 0.0,
+        "scale_before": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "runtime_markers_moved": 38,
+    "saved": true
+  },
+  "elapsed_ms": 1085,
+  "mission_definition_update": {
+    "created": false,
+    "def_path": "res://assets/missions/taco_bell_iso_blockout_definition.tres",
+    "ok": true,
+    "origin": [
+      -18,
+      -63
+    ],
+    "reason": "already_at_target_state_idempotent_noop",
+    "size": [
+      298,
+      141
+    ],
+    "updated": false,
+    "zone_id": "level_bounds_max"
+  },
+  "pass": true,
+  "phase": "0H_cleanup_audit",
+  "source_scene_protection": {
+    "hash_after": "6e4e9a790d257126b6f8a17587bacaf6",
+    "hash_before": "6e4e9a790d257126b6f8a17587bacaf6",
+    "path": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "unchanged": true
+  },
+  "structural_smoke": {
+    "boundary_colliders": {
+      "process_mode": 4,
+      "static_body_count": 233,
+      "static_body_with_nonzero_collision_count": 0,
+      "visible": false
+    },
+    "camera_limits": {
+      "bottom": 1705,
+      "left": -3550,
+      "right": 15330,
+      "top": -1079
+    },
+    "errors": [],
+    "floor_cell_count": 18269,
+    "missing_required_nodes": [],
+    "old_layer_status": [
+      {
+        "path": "GameplayRoot/GameplayFloorLayer",
+        "used_cells": 0,
+        "visible": false
+      },
+      {
+        "path": "GameplayRoot/GameplayCollisionLayer",
+        "used_cells": 0,
+        "visible": false
+      },
+      {
+        "path": "GameplayRoot/GameplayMarkersLayer",
+        "used_cells": 0,
+        "visible": false
+      },
+      {
+        "path": "GameplayRoot/LayoutRoot/DebugLabelLayer",
+        "used_cells": 0,
+        "visible": false
+      }
+    ],
+    "pass": true,
+    "phase": "structural_smoke",
+    "required_node_presence": true,
+    "target_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "warnings": []
+  },
+  "target_scene": {
+    "backup_created": true,
+    "backup_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0h_backup.20260505_202007.tscn",
+    "existed_before": true,
+    "hash_after": "354f9c453492fa4281077b8d42c99d4c",
+    "hash_before": "6b8a1c45be16f86497c3d01926b705a2",
+    "path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+  },
+  "timestamp": "20260505_202008",
+  "validate_h": {
+    "abbr_rule_results": {
+      "CONTROL_alarm_panel_uses_SWITCH": true,
+      "CONTROL_camera_terminal_uses_SWITCH": true,
+      "CONTROL_door_controls_uses_SWITCH": true,
+      "ROUTE_IN_louis_service_door_uses_DOOR": true,
+      "ROUTE_RET_louis_return_trigger_uses_DOOR": true,
+      "all_BENTLEY_SWITCH_use_SWITCH": true,
+      "no_BENTLEY_SWITCH_uses_GATE": true,
+      "no_CONTROL_uses_GATE": true,
+      "only_GATE_garage_code_uses_GATE": true
+    },
+    "anchor_cell": [
+      -20,
+      0
+    ],
+    "bentley_routes_exist": {
+      "zone_bentley_route_a_passage": true,
+      "zone_bentley_route_b_passage": true,
+      "zone_bentley_route_c_passage": true,
+      "zone_bentley_route_d_passage": true
+    },
+    "builder_report_summary": {
+      "equivalence_collisions": 0,
+      "missing_required_runtime_markers": 0
+    },
+    "cache_safe_load_mode_used": true,
+    "camera_floodlight_spacing": {
+      "min_required": 12,
+      "violations": []
+    },
+    "code_gate_to_beam_distance": 43,
+    "counts": {
+      "collision_cell_count": 35,
+      "cover_cell_count": 37,
+      "floor_cell_count": 18269,
+      "marker_tile_count": 128,
+      "reachable_cell_count": 16681,
+      "used_rect_height": 126,
+      "used_rect_width": 283,
+      "used_rect_x": -30,
+      "used_rect_y": -55,
+      "wall_cell_count": 2283
+    },
+    "door_no_collision": true,
+    "editor_only_placeholder_audit": {
+      "label_children_without_owner": 0,
+      "parent_exists": true,
+      "placeholder_count": 96,
+      "placeholders_in_groups": 0,
+      "placeholders_with_marker_type": 0,
+      "placeholders_with_script": 0,
+      "placeholders_without_owner": 0
+    },
+    "entrypoint": "validate_scene_file",
+    "errors": [],
+    "hard_assertions": {
+      "CONTROL_alarm_panel_uses_SWITCH": true,
+      "CONTROL_camera_terminal_uses_SWITCH": true,
+      "CONTROL_door_controls_uses_SWITCH": true,
+      "CollisionBarrierLayer_exists": true,
+      "CoverLayer_exists": true,
+      "DOOR_marker_tile_has_no_collision": true,
+      "FloorLayer_exists": true,
+      "FloorLayer_not_empty": true,
+      "MarkerRoot_exists": true,
+      "MarkerTileLayer_exists": true,
+      "MarkerTileLayer_not_empty": true,
+      "ROUTE_IN_louis_service_door_uses_DOOR": true,
+      "ROUTE_RET_louis_return_trigger_uses_DOOR": true,
+      "SWITCH_marker_tile_has_no_collision": true,
+      "WallLayer_exists": true,
+      "WallLayer_not_empty": true,
+      "all_BENTLEY_SWITCH_use_SWITCH": true,
+      "all_required_main_routes_reachable": true,
+      "bentley_route_A_exists": true,
+      "bentley_route_B_exists": true,
+      "bentley_route_C_exists": true,
+      "bentley_route_D_exists": true,
+      "boundary_colliders_disabled": true,
+      "boundary_colliders_zero_collision_layers": true,
+      "cache_safe_load_mode_used": true,
+      "camera_floodlight_spacing_meets_min": true,
+      "camera_limits_cover_floor_used_rect": true,
+      "code_gate_blocker_ready_for_future_unlock": true,
+      "code_gate_has_associated_block_marker": true,
+      "code_gate_has_collision_barrier": true,
+      "code_gate_to_beam_cell_distance_meets_min": true,
+      "dry_run_validator_used_in_memory_root": true,
+      "editor_only_placeholders_have_no_gameplay_groups": true,
+      "editor_only_placeholders_have_no_iso_mission_marker_script": true,
+      "editor_only_placeholders_have_no_marker_type_field": true,
+      "equivalence_collisions_count_zero": 0,
+      "exactly_one_gate_tile": true,
+      "far_route_points_inside_camera_bounds": true,
+      "floor_cell_count_meets_min": true,
+      "gate_marker_tile_count_equals_one": true,
+      "key_marker_ids_inside_camera_bounds": true,
+      "level_bounds_zone_present_in_mission_definition": true,
+      "marker_labels_no_at_label_siblings": true,
+      "marker_labels_show_editor_label_false": true,
+      "marker_vocabulary_includes_DOOR": true,
+      "marker_vocabulary_includes_SWITCH": true,
+      "missing_required_runtime_markers_count_zero": 0,
+      "no_BENTLEY_SWITCH_uses_GATE": true,
+      "no_CONTROL_uses_GATE": true,
+      "no_unexpected_tilemap_layers_with_used_cells": true,
+      "old_collision_boundary_artifacts_not_visible": true,
+      "old_prototype_floor_tiles_not_visible": true,
+      "old_prototype_wall_tiles_not_visible": true,
+      "only_GATE_garage_code_uses_GATE": true,
+      "optional_visual_reference_NOT_used_for_coordinates": true,
+      "placeholder_children_have_owner": true,
+      "placeholder_nodes_have_owner": true,
+      "player_flood_fill_does_not_require_bentley_routes": true,
+      "poop_bag_garage_pet_bin_not_in_blocking_collision": true,
+      "random_old_marker_tiles_removed": true,
+      "root_transform_audit_recorded": true,
+      "safe_code_input_not_inside_beam_zone": true,
+      "source_scene_unchanged": true,
+      "target_scene_exists": true,
+      "target_scene_loads": true,
+      "unaccounted_marker_tile_count_zero": 0,
+      "used_rect_height_meets_min": true,
+      "used_rect_width_meets_min": true,
+      "validator_loaded_target_file": true,
+      "vent_in_marker_cells_not_blocked": true,
+      "vent_interactable_stand_cells_available": true
+    },
+    "info": [],
+    "marker_tile_audit": {
+      "gate_tile_count": 1,
+      "per_abbr_tile_counts": {
+        "ALARM": 2,
+        "AMBUSH": 1,
+        "BAG": 5,
+        "BLOCK": 1,
+        "CAM": 6,
+        "CLUE": 8,
+        "DOOR": 2,
+        "EXIT": 1,
+        "FLOOD": 4,
+        "GATE": 1,
+        "GLOW": 3,
+        "GUARD": 8,
+        "HELP": 5,
+        "LIGHT": 6,
+        "OBJ": 5,
+        "PATROL": 32,
+        "PHOTO": 3,
+        "ROUTE_DEST": 1,
+        "ROUTE_SPAWN": 1,
+        "SCENT_FAKE": 5,
+        "SCENT_PATH": 3,
+        "SCENT_REAL": 1,
+        "STAIRS_DN": 2,
+        "STAIRS_UP": 2,
+        "SWITCH": 9,
+        "TINY": 3,
+        "VENT_IN": 4,
+        "VENT_OUT": 4
+      },
+      "unaccounted_cells": [],
+      "unaccounted_count": 0
+    },
+    "marker_vocabulary": {
+      "ALARM": true,
+      "AMBUSH": true,
+      "BAG": true,
+      "BLOCK": true,
+      "CAM": true,
+      "CLUE": true,
+      "DOOR": true,
+      "EXIT": true,
+      "FLOOD": true,
+      "GATE": true,
+      "GLOW": true,
+      "GUARD": true,
+      "HELP": true,
+      "LIGHT": true,
+      "OBJ": true,
+      "PATROL": true,
+      "PHOTO": true,
+      "ROUTE_DEST": true,
+      "ROUTE_IN": true,
+      "ROUTE_RET": true,
+      "ROUTE_SPAWN": true,
+      "SCENT_FAKE": true,
+      "SCENT_PATH": true,
+      "SCENT_REAL": true,
+      "STAIRS_DN": true,
+      "STAIRS_UP": true,
+      "SWITCH": true,
+      "TINY": true,
+      "VENT_IN": true,
+      "VENT_OUT": true
+    },
+    "optional_visual_reference": {
+      "found": true,
+      "path": "res://docs/reference/taco_bell_mission_layout_map.png",
+      "used_for_coordinates": false
+    },
+    "pass": true,
+    "phase": "complete",
+    "phase_0h_audit": {
+      "at_label_sibling_count": 0,
+      "boundary_colliders": {
+        "found": true,
+        "path": "GameplayRoot/BoundaryColliders",
+        "process_mode": 4,
+        "static_body_count": 233,
+        "static_body_with_nonzero_collision_count": 0,
+        "visible": false
+      },
+      "boundary_colliders_disabled": true,
+      "boundary_static_bodies_with_nonzero_collision": 0,
+      "camera": {
+        "floor_world_rect": {
+          "max": [
+            14946,
+            1321
+          ],
+          "min": [
+            -3166,
+            -695
+          ]
+        },
+        "limits": {
+          "bottom": 1705,
+          "left": -3550,
+          "right": 15330,
+          "top": -1079
+        },
+        "path": "Camera2D"
+      },
+      "camera_limits_cover_used_rect": true,
+      "clusters": {
+        "cluster_count": 0,
+        "clusters": [],
+        "largest_cluster_size": 0
+      },
+      "code_gate_blocker_ready_for_future_unlock": true,
+      "code_gate_has_block_marker_row": true,
+      "code_gate_has_collision_barrier_cell": true,
+      "far_route_points_inside_camera_bounds": true,
+      "key_marker_ids_inside_camera_bounds": true,
+      "key_markers": [
+        {
+          "abs_cell": [
+            -18,
+            1
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "player_spawn_main",
+          "world": [
+            -2398,
+            201
+          ]
+        },
+        {
+          "abs_cell": [
+            70,
+            7
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "SCENT_PATH_hub_center",
+          "world": [
+            3234,
+            297
+          ]
+        },
+        {
+          "abs_cell": [
+            116,
+            3
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "SAFE_CODE_INPUT_ZONE",
+          "world": [
+            6178,
+            233
+          ]
+        },
+        {
+          "abs_cell": [
+            129,
+            3
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "GATE_garage_code",
+          "world": [
+            7010,
+            233
+          ]
+        },
+        {
+          "abs_cell": [
+            161,
+            14
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "AMBUSH_security_beam",
+          "world": [
+            9026,
+            409
+          ]
+        },
+        {
+          "abs_cell": [
+            240,
+            20
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "OBJ_bag_recovery",
+          "world": [
+            14082,
+            505
+          ]
+        },
+        {
+          "abs_cell": [
+            -8,
+            52
+          ],
+          "inside_camera_bounds": true,
+          "manifest_id": "EXIT_mission_return_to_louis",
+          "world": [
+            -1790,
+            1017
+          ]
+        }
+      ],
+      "level_bounds_zone": {
+        "origin": [
+          -18,
+          -63
+        ],
+        "size": [
+          298,
+          141
+        ],
+        "zone_id": "level_bounds_max"
+      },
+      "level_bounds_zone_present": true,
+      "marker_labels": {
+        "at_label_sibling_count": 0,
+        "editor_label_count": 56,
+        "markers_total": 56,
+        "markers_with_show_editor_label_true": 0
+      },
+      "markers_with_show_editor_label_true": 0,
+      "no_unexpected_tilemap_layers_with_used_cells": true,
+      "old_collision_layer_clean": true,
+      "old_floor_layer_clean": true,
+      "old_layer_inventory": [
+        {
+          "collision_enabled": false,
+          "enabled": false,
+          "path": "GameplayRoot/GameplayFloorLayer",
+          "used_cell_count": 0,
+          "visible": false
+        },
+        {
+          "collision_enabled": false,
+          "enabled": false,
+          "path": "GameplayRoot/GameplayCollisionLayer",
+          "used_cell_count": 0,
+          "visible": false
+        },
+        {
+          "collision_enabled": false,
+          "enabled": false,
+          "path": "GameplayRoot/GameplayMarkersLayer",
+          "used_cell_count": 0,
+          "visible": false
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "GameplayRoot/LayoutRoot/FloorLayer",
+          "used_cell_count": 18269,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "GameplayRoot/LayoutRoot/WallLayer",
+          "used_cell_count": 2283,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "GameplayRoot/LayoutRoot/CoverLayer",
+          "used_cell_count": 37,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "GameplayRoot/LayoutRoot/CollisionBarrierLayer",
+          "used_cell_count": 35,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "GameplayRoot/LayoutRoot/MarkerTileLayer",
+          "used_cell_count": 128,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": false,
+          "path": "GameplayRoot/LayoutRoot/DebugLabelLayer",
+          "used_cell_count": 0,
+          "visible": false
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/GroundArtLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/WallArtLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/PropArtLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/DecorBelowLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/DecorAboveLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/LightingLayer",
+          "used_cell_count": 0,
+          "visible": true
+        },
+        {
+          "collision_enabled": false,
+          "enabled": true,
+          "path": "ArtRoot/LightingArtLayer",
+          "used_cell_count": 0,
+          "visible": true
+        }
+      ],
+      "old_wall_layer_clean": true,
+      "root_transform": {
+        "is_identity": false,
+        "position": [
+          -1310.0,
+          169.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ]
+      },
+      "runtime_marker_audit": [
+        {
+          "actual_abs_cell": [
+            -18,
+            1
+          ],
+          "category": "SPAWN",
+          "expected_abs_cell": [
+            -18,
+            1
+          ],
+          "manifest_id": "player_spawn_main",
+          "marker_tile_abbr": "",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            2,
+            1
+          ],
+          "runtime_marker_name": "player_spawn_main",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -15,
+            2
+          ],
+          "category": "SPAWN",
+          "expected_abs_cell": [
+            -15,
+            2
+          ],
+          "manifest_id": "bentley_spawn_main",
+          "marker_tile_abbr": "",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            5,
+            2
+          ],
+          "runtime_marker_name": "bentley_spawn_main",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -18,
+            1
+          ],
+          "category": "SPAWN",
+          "expected_abs_cell": [
+            -18,
+            1
+          ],
+          "manifest_id": "default_spawn_if_required",
+          "marker_tile_abbr": "",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            2,
+            1
+          ],
+          "runtime_marker_name": "default",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -13,
+            2
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            -13,
+            2
+          ],
+          "manifest_id": "OBJ_start_briefing",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            7,
+            2
+          ],
+          "runtime_marker_name": "objective_talk_to_louis",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            18,
+            1
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            18,
+            1
+          ],
+          "manifest_id": "OBJ_market_investigation",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            38,
+            1
+          ],
+          "runtime_marker_name": "objective_inspect_sauce_packets_or_receipt",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            71,
+            7
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            71,
+            7
+          ],
+          "manifest_id": "OBJ_scent_decision",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            91,
+            7
+          ],
+          "runtime_marker_name": "OBJ_scent_decision",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            121,
+            3
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            121,
+            3
+          ],
+          "manifest_id": "OBJ_code_gate",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            141,
+            3
+          ],
+          "runtime_marker_name": "objective_enter_parking_garage",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            161,
+            14
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            161,
+            14
+          ],
+          "manifest_id": "OBJ_security_beam",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            181,
+            14
+          ],
+          "runtime_marker_name": "objective_complete_without_triggering_garage_alarm",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            240,
+            20
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            240,
+            20
+          ],
+          "manifest_id": "OBJ_bag_recovery",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            260,
+            20
+          ],
+          "runtime_marker_name": "objective_retrieve_delivery_bag",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -8,
+            52
+          ],
+          "category": "OBJ",
+          "expected_abs_cell": [
+            -8,
+            52
+          ],
+          "manifest_id": "OBJ_return_to_louis",
+          "marker_tile_abbr": "OBJ",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            12,
+            52
+          ],
+          "runtime_marker_name": "objective_escape_and_return_to_louis",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -12,
+            6
+          ],
+          "category": "HELP",
+          "expected_abs_cell": [
+            -12,
+            6
+          ],
+          "manifest_id": "HELP_start_controls",
+          "marker_tile_abbr": "HELP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            8,
+            6
+          ],
+          "runtime_marker_name": "HELP_start_controls",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            68,
+            4
+          ],
+          "category": "HELP",
+          "expected_abs_cell": [
+            68,
+            4
+          ],
+          "manifest_id": "HELP_scent_tutorial",
+          "marker_tile_abbr": "HELP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            88,
+            4
+          ],
+          "runtime_marker_name": "HELP_scent_tutorial",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            113,
+            1
+          ],
+          "category": "HELP",
+          "expected_abs_cell": [
+            113,
+            1
+          ],
+          "manifest_id": "HELP_code_gate",
+          "marker_tile_abbr": "HELP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            133,
+            1
+          ],
+          "runtime_marker_name": "HELP_code_gate",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            27,
+            17
+          ],
+          "category": "HELP",
+          "expected_abs_cell": [
+            27,
+            17
+          ],
+          "manifest_id": "HELP_bentley_utility",
+          "marker_tile_abbr": "HELP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            47,
+            17
+          ],
+          "runtime_marker_name": "HELP_bentley_utility",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            41,
+            37
+          ],
+          "category": "HELP",
+          "expected_abs_cell": [
+            41,
+            37
+          ],
+          "manifest_id": "HELP_poop_bag_throw",
+          "marker_tile_abbr": "HELP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            61,
+            37
+          ],
+          "runtime_marker_name": "HELP_poop_bag_throw",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            70,
+            7
+          ],
+          "category": "SCENT_PATH",
+          "expected_abs_cell": [
+            70,
+            7
+          ],
+          "manifest_id": "SCENT_PATH_hub_center",
+          "marker_tile_abbr": "SCENT_PATH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            90,
+            7
+          ],
+          "runtime_marker_name": "SCENT_PATH_hub_center",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            17,
+            -35
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            17,
+            -35
+          ],
+          "manifest_id": "SCENT_FAKE_dog_station",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            37,
+            -35
+          ],
+          "runtime_marker_name": "SCENT_FAKE_dog_station",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            52,
+            -27
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            52,
+            -27
+          ],
+          "manifest_id": "SCENT_FAKE_trash_alley",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            72,
+            -27
+          ],
+          "runtime_marker_name": "scent_fake_trash_area",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            46,
+            26
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            46,
+            26
+          ],
+          "manifest_id": "SCENT_FAKE_loading_dock",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            66,
+            26
+          ],
+          "runtime_marker_name": "scent_fake_loading_dock",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            84,
+            6
+          ],
+          "category": "SCENT_REAL",
+          "expected_abs_cell": [
+            84,
+            6
+          ],
+          "manifest_id": "SCENT_REAL_garage_approach",
+          "marker_tile_abbr": "SCENT_REAL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            104,
+            6
+          ],
+          "runtime_marker_name": "scent_real_parking_garage",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            46,
+            26
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            46,
+            26
+          ],
+          "manifest_id": "scent_fake_loading_dock",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            66,
+            26
+          ],
+          "runtime_marker_name": "scent_fake_loading_dock",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            52,
+            -27
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            52,
+            -27
+          ],
+          "manifest_id": "scent_fake_trash_area",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            72,
+            -27
+          ],
+          "runtime_marker_name": "scent_fake_trash_area",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            56,
+            -38
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            56,
+            -38
+          ],
+          "manifest_id": "scent_fake_trash_area_02",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            76,
+            -38
+          ],
+          "runtime_marker_name": "scent_fake_trash_area_02",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            44,
+            37
+          ],
+          "category": "SCENT_FAKE",
+          "expected_abs_cell": [
+            44,
+            37
+          ],
+          "manifest_id": "scent_fake_trash_area_03",
+          "marker_tile_abbr": "SCENT_FAKE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            64,
+            37
+          ],
+          "runtime_marker_name": "scent_fake_trash_area_03",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            84,
+            6
+          ],
+          "category": "SCENT_REAL",
+          "expected_abs_cell": [
+            84,
+            6
+          ],
+          "manifest_id": "scent_real_parking_garage",
+          "marker_tile_abbr": "SCENT_REAL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            104,
+            6
+          ],
+          "runtime_marker_name": "scent_real_parking_garage",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            93,
+            6
+          ],
+          "category": "SCENT_PATH",
+          "expected_abs_cell": [
+            93,
+            6
+          ],
+          "manifest_id": "scent_real_parking_garage_02",
+          "marker_tile_abbr": "SCENT_PATH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            113,
+            6
+          ],
+          "runtime_marker_name": "scent_real_parking_garage_02",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            101,
+            5
+          ],
+          "category": "SCENT_PATH",
+          "expected_abs_cell": [
+            101,
+            5
+          ],
+          "manifest_id": "scent_real_parking_garage_03",
+          "marker_tile_abbr": "SCENT_PATH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            121,
+            5
+          ],
+          "runtime_marker_name": "scent_real_parking_garage_03",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            44,
+            38
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            44,
+            38
+          ],
+          "manifest_id": "CLUE_route_manifest_half",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            64,
+            38
+          ],
+          "runtime_marker_name": "clue_route_manifest_half",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            57,
+            -39
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            57,
+            -39
+          ],
+          "manifest_id": "CLUE_sterling_delivery_token",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            77,
+            -39
+          ],
+          "runtime_marker_name": "clue_sterling_delivery_token",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            117,
+            24
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            117,
+            24
+          ],
+          "manifest_id": "CLUE_velvet_paw_stamp",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            137,
+            24
+          ],
+          "runtime_marker_name": "clue_velvet_paw_stamp",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            117,
+            -24
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            117,
+            -24
+          ],
+          "manifest_id": "CLUE_sauce_packet",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            137,
+            -24
+          ],
+          "runtime_marker_name": "clue_sauce_packet_vp",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            112,
+            -29
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            112,
+            -29
+          ],
+          "manifest_id": "CLUE_camera_schedule",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            132,
+            -29
+          ],
+          "runtime_marker_name": "CLUE_camera_schedule",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            70,
+            16
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            70,
+            16
+          ],
+          "manifest_id": "CLUE_delivery_receipt",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            90,
+            16
+          ],
+          "runtime_marker_name": "CLUE_delivery_receipt",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            198,
+            -24
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            198,
+            -24
+          ],
+          "manifest_id": "CLUE_security_memo",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            218,
+            -24
+          ],
+          "runtime_marker_name": "CLUE_security_memo",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            19,
+            -47
+          ],
+          "category": "BAG",
+          "expected_abs_cell": [
+            19,
+            -47
+          ],
+          "manifest_id": "BAG_dog_station",
+          "marker_tile_abbr": "BAG",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            39,
+            -47
+          ],
+          "runtime_marker_name": "poop_bag_dog_station",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            41,
+            43
+          ],
+          "category": "BAG",
+          "expected_abs_cell": [
+            41,
+            43
+          ],
+          "manifest_id": "BAG_loading_dock",
+          "marker_tile_abbr": "BAG",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            61,
+            43
+          ],
+          "runtime_marker_name": "poop_bag_lobby_trash",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            179,
+            30
+          ],
+          "category": "BAG",
+          "expected_abs_cell": [
+            179,
+            30
+          ],
+          "manifest_id": "poop_bag_garage_pet_bin",
+          "marker_tile_abbr": "BAG",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            199,
+            30
+          ],
+          "runtime_marker_name": "poop_bag_garage_pet_bin",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            92,
+            53
+          ],
+          "category": "BAG",
+          "expected_abs_cell": [
+            92,
+            53
+          ],
+          "manifest_id": "BAG_south_return",
+          "marker_tile_abbr": "BAG",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            112,
+            53
+          ],
+          "runtime_marker_name": "BAG_south_return",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -19,
+            24
+          ],
+          "category": "PHOTO",
+          "expected_abs_cell": [
+            -19,
+            24
+          ],
+          "manifest_id": "PHOTO_optional_market_nook",
+          "marker_tile_abbr": "PHOTO",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            1,
+            24
+          ],
+          "runtime_marker_name": "hidden_polaroid_market_rain",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            12,
+            -48
+          ],
+          "category": "PHOTO",
+          "expected_abs_cell": [
+            12,
+            -48
+          ],
+          "manifest_id": "PHOTO_dog_station",
+          "marker_tile_abbr": "PHOTO",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            32,
+            -48
+          ],
+          "runtime_marker_name": "PHOTO_dog_station",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            211,
+            -22
+          ],
+          "category": "PHOTO",
+          "expected_abs_cell": [
+            211,
+            -22
+          ],
+          "manifest_id": "PHOTO_upper_platform",
+          "marker_tile_abbr": "PHOTO",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            231,
+            -22
+          ],
+          "runtime_marker_name": "perfect_polaroid_garage_ambush",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            25,
+            -16
+          ],
+          "category": "GLOW",
+          "expected_abs_cell": [
+            25,
+            -16
+          ],
+          "manifest_id": "GLOW_market_shop",
+          "marker_tile_abbr": "GLOW",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            45,
+            -16
+          ],
+          "runtime_marker_name": "GLOW_market_shop",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            108,
+            -20
+          ],
+          "category": "GLOW",
+          "expected_abs_cell": [
+            108,
+            -20
+          ],
+          "manifest_id": "GLOW_kiosk",
+          "marker_tile_abbr": "GLOW",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            128,
+            -20
+          ],
+          "runtime_marker_name": "GLOW_kiosk",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            245,
+            30
+          ],
+          "category": "GLOW",
+          "expected_abs_cell": [
+            245,
+            30
+          ],
+          "manifest_id": "GLOW_bag_room",
+          "marker_tile_abbr": "GLOW",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            265,
+            30
+          ],
+          "runtime_marker_name": "glow_guy_garage_stairs",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            49,
+            11
+          ],
+          "category": "TINY",
+          "expected_abs_cell": [
+            49,
+            11
+          ],
+          "manifest_id": "TINY_market_corner",
+          "marker_tile_abbr": "TINY",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            69,
+            11
+          ],
+          "runtime_marker_name": "TINY_market_corner",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            64,
+            44
+          ],
+          "category": "TINY",
+          "expected_abs_cell": [
+            64,
+            44
+          ],
+          "manifest_id": "TINY_loading_dock",
+          "marker_tile_abbr": "TINY",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            84,
+            44
+          ],
+          "runtime_marker_name": "tiny_icon_louis_delivery",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            162,
+            53
+          ],
+          "category": "TINY",
+          "expected_abs_cell": [
+            162,
+            53
+          ],
+          "manifest_id": "TINY_south_corridor",
+          "marker_tile_abbr": "TINY",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            182,
+            53
+          ],
+          "runtime_marker_name": "TINY_south_corridor",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            12,
+            4
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            12,
+            4
+          ],
+          "manifest_id": "GUARD_market_patrol_01",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            32,
+            4
+          ],
+          "runtime_marker_name": "GUARD_market_patrol_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            2,
+            4
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            2,
+            4
+          ],
+          "manifest_id": "PATROL_market_01_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            22,
+            4
+          ],
+          "runtime_marker_name": "PATROL_market_01_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            23,
+            4
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            23,
+            4
+          ],
+          "manifest_id": "PATROL_market_01_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            43,
+            4
+          ],
+          "runtime_marker_name": "PATROL_market_01_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            23,
+            -4
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            23,
+            -4
+          ],
+          "manifest_id": "PATROL_market_01_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            43,
+            -4
+          ],
+          "runtime_marker_name": "PATROL_market_01_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            2,
+            -4
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            2,
+            -4
+          ],
+          "manifest_id": "PATROL_market_01_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            22,
+            -4
+          ],
+          "runtime_marker_name": "PATROL_market_01_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            58,
+            -36
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            58,
+            -36
+          ],
+          "manifest_id": "GUARD_trash_patrol_01",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            78,
+            -36
+          ],
+          "runtime_marker_name": "GUARD_trash_patrol_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            46,
+            -43
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            46,
+            -43
+          ],
+          "manifest_id": "PATROL_trash_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            66,
+            -43
+          ],
+          "runtime_marker_name": "PATROL_trash_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            64,
+            -43
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            64,
+            -43
+          ],
+          "manifest_id": "PATROL_trash_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            84,
+            -43
+          ],
+          "runtime_marker_name": "PATROL_trash_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            64,
+            -31
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            64,
+            -31
+          ],
+          "manifest_id": "PATROL_trash_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            84,
+            -31
+          ],
+          "runtime_marker_name": "PATROL_trash_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            46,
+            -31
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            46,
+            -31
+          ],
+          "manifest_id": "PATROL_trash_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            66,
+            -31
+          ],
+          "runtime_marker_name": "PATROL_trash_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            55,
+            36
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            55,
+            36
+          ],
+          "manifest_id": "GUARD_loading_patrol_01",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            75,
+            36
+          ],
+          "runtime_marker_name": "GUARD_loading_patrol_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            40,
+            32
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            40,
+            32
+          ],
+          "manifest_id": "PATROL_loading_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            60,
+            32
+          ],
+          "runtime_marker_name": "PATROL_loading_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            65,
+            32
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            65,
+            32
+          ],
+          "manifest_id": "PATROL_loading_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            85,
+            32
+          ],
+          "runtime_marker_name": "PATROL_loading_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            65,
+            46
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            65,
+            46
+          ],
+          "manifest_id": "PATROL_loading_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            85,
+            46
+          ],
+          "runtime_marker_name": "PATROL_loading_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            40,
+            46
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            40,
+            46
+          ],
+          "manifest_id": "PATROL_loading_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            60,
+            46
+          ],
+          "runtime_marker_name": "PATROL_loading_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            10,
+            -6
+          ],
+          "category": "FLOOD",
+          "expected_abs_cell": [
+            10,
+            -6
+          ],
+          "manifest_id": "FLOOD_market_01",
+          "marker_tile_abbr": "FLOOD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            30,
+            -6
+          ],
+          "runtime_marker_name": "FLOOD_market_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            35,
+            9
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            35,
+            9
+          ],
+          "manifest_id": "CAM_market_01",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            55,
+            9
+          ],
+          "runtime_marker_name": "CAM_market_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            22,
+            -41
+          ],
+          "category": "FLOOD",
+          "expected_abs_cell": [
+            22,
+            -41
+          ],
+          "manifest_id": "FLOOD_dog_station",
+          "marker_tile_abbr": "FLOOD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            42,
+            -41
+          ],
+          "runtime_marker_name": "FLOOD_dog_station",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            60,
+            -29
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            60,
+            -29
+          ],
+          "manifest_id": "CAM_trash_alley",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            80,
+            -29
+          ],
+          "runtime_marker_name": "CAM_trash_alley",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            38,
+            31
+          ],
+          "category": "FLOOD",
+          "expected_abs_cell": [
+            38,
+            31
+          ],
+          "manifest_id": "FLOOD_loading_dock",
+          "marker_tile_abbr": "FLOOD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            58,
+            31
+          ],
+          "runtime_marker_name": "FLOOD_loading_dock",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            20,
+            2
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            20,
+            2
+          ],
+          "manifest_id": "LIGHT_market_bright_zone",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            40,
+            2
+          ],
+          "runtime_marker_name": "LIGHT_market_bright_zone",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            53,
+            6
+          ],
+          "category": "ALARM",
+          "expected_abs_cell": [
+            53,
+            6
+          ],
+          "manifest_id": "ALARM_outdoor_escalation_node",
+          "marker_tile_abbr": "ALARM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            73,
+            6
+          ],
+          "runtime_marker_name": "ALARM_outdoor_escalation_node",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            129,
+            3
+          ],
+          "category": "GATE",
+          "expected_abs_cell": [
+            129,
+            3
+          ],
+          "manifest_id": "GATE_garage_code",
+          "marker_tile_abbr": "GATE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            149,
+            3
+          ],
+          "runtime_marker_name": "code_gate_garage_office",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            130,
+            3
+          ],
+          "category": "BLOCK",
+          "expected_abs_cell": [
+            130,
+            3
+          ],
+          "manifest_id": "BLOCK_code_gate",
+          "marker_tile_abbr": "BLOCK",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            150,
+            3
+          ],
+          "runtime_marker_name": "BLOCK_code_gate",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            116,
+            3
+          ],
+          "category": "CODE_INPUT",
+          "expected_abs_cell": [
+            116,
+            3
+          ],
+          "manifest_id": "SAFE_CODE_INPUT_ZONE",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            136,
+            3
+          ],
+          "runtime_marker_name": "SAFE_CODE_INPUT_ZONE",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            117,
+            24
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            117,
+            24
+          ],
+          "manifest_id": "CLUE_code_gate_nearby",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            137,
+            24
+          ],
+          "runtime_marker_name": "clue_velvet_paw_stamp",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            109,
+            -27
+          ],
+          "category": "CONTROL",
+          "expected_abs_cell": [
+            109,
+            -27
+          ],
+          "manifest_id": "CONTROL_alarm_panel",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            129,
+            -27
+          ],
+          "runtime_marker_name": "CONTROL_alarm_panel",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            114,
+            -27
+          ],
+          "category": "CONTROL",
+          "expected_abs_cell": [
+            114,
+            -27
+          ],
+          "manifest_id": "CONTROL_camera_terminal",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            134,
+            -27
+          ],
+          "runtime_marker_name": "CONTROL_camera_terminal",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            121,
+            -22
+          ],
+          "category": "CONTROL",
+          "expected_abs_cell": [
+            121,
+            -22
+          ],
+          "manifest_id": "CONTROL_door_controls",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            141,
+            -22
+          ],
+          "runtime_marker_name": "CONTROL_door_controls",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            161,
+            14
+          ],
+          "category": "AMBUSH",
+          "expected_abs_cell": [
+            161,
+            14
+          ],
+          "manifest_id": "AMBUSH_security_beam",
+          "marker_tile_abbr": "AMBUSH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            181,
+            14
+          ],
+          "runtime_marker_name": "encounter_garage_floor_2_ambush_marker",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            161,
+            9
+          ],
+          "category": "ALARM",
+          "expected_abs_cell": [
+            161,
+            9
+          ],
+          "manifest_id": "ALARM_beam_escalation",
+          "marker_tile_abbr": "ALARM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            181,
+            9
+          ],
+          "runtime_marker_name": "alarmzone_alarm_zone_placeholder",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            168,
+            17
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            168,
+            17
+          ],
+          "manifest_id": "GUARD_ambush_spawn",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            188,
+            17
+          ],
+          "runtime_marker_name": "GUARD_ambush_spawn",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            165,
+            6
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            165,
+            6
+          ],
+          "manifest_id": "PATROL_ambush_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            185,
+            6
+          ],
+          "runtime_marker_name": "PATROL_ambush_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            182,
+            6
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            182,
+            6
+          ],
+          "manifest_id": "PATROL_ambush_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            202,
+            6
+          ],
+          "runtime_marker_name": "PATROL_ambush_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            182,
+            27
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            182,
+            27
+          ],
+          "manifest_id": "PATROL_ambush_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            202,
+            27
+          ],
+          "runtime_marker_name": "PATROL_ambush_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            165,
+            27
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            165,
+            27
+          ],
+          "manifest_id": "PATROL_ambush_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            185,
+            27
+          ],
+          "runtime_marker_name": "PATROL_ambush_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            181,
+            15
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            181,
+            15
+          ],
+          "manifest_id": "GUARD_garage_patrol_01",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            201,
+            15
+          ],
+          "runtime_marker_name": "garage_floor_1_guard_placeholder",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            170,
+            5
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            170,
+            5
+          ],
+          "manifest_id": "PATROL_garage_01_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            190,
+            5
+          ],
+          "runtime_marker_name": "patrol_garage_floor_1_guard_placeholder_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            208,
+            5
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            208,
+            5
+          ],
+          "manifest_id": "PATROL_garage_01_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            228,
+            5
+          ],
+          "runtime_marker_name": "patrol_garage_floor_1_guard_placeholder_02",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            208,
+            31
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            208,
+            31
+          ],
+          "manifest_id": "PATROL_garage_01_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            228,
+            31
+          ],
+          "runtime_marker_name": "patrol_garage_floor_1_guard_placeholder_03",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            170,
+            31
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            170,
+            31
+          ],
+          "manifest_id": "PATROL_garage_01_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            190,
+            31
+          ],
+          "runtime_marker_name": "PATROL_garage_01_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            205,
+            22
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            205,
+            22
+          ],
+          "manifest_id": "GUARD_garage_patrol_02",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            225,
+            22
+          ],
+          "runtime_marker_name": "GUARD_garage_patrol_02",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            194,
+            9
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            194,
+            9
+          ],
+          "manifest_id": "PATROL_garage_02_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            214,
+            9
+          ],
+          "runtime_marker_name": "PATROL_garage_02_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            214,
+            9
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            214,
+            9
+          ],
+          "manifest_id": "PATROL_garage_02_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            234,
+            9
+          ],
+          "runtime_marker_name": "PATROL_garage_02_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            214,
+            34
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            214,
+            34
+          ],
+          "manifest_id": "PATROL_garage_02_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            234,
+            34
+          ],
+          "runtime_marker_name": "PATROL_garage_02_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            194,
+            34
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            194,
+            34
+          ],
+          "manifest_id": "PATROL_garage_02_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            214,
+            34
+          ],
+          "runtime_marker_name": "PATROL_garage_02_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            170,
+            2
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            170,
+            2
+          ],
+          "manifest_id": "CAM_garage_upper",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            190,
+            2
+          ],
+          "runtime_marker_name": "CAM_garage_upper",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            190,
+            2
+          ],
+          "category": "FLOOD",
+          "expected_abs_cell": [
+            190,
+            2
+          ],
+          "manifest_id": "FLOOD_garage_center",
+          "marker_tile_abbr": "FLOOD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            210,
+            2
+          ],
+          "runtime_marker_name": "FLOOD_garage_center",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            212,
+            35
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            212,
+            35
+          ],
+          "manifest_id": "CAM_garage_lower",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            232,
+            35
+          ],
+          "runtime_marker_name": "CAM_garage_lower",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            185,
+            10
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            185,
+            10
+          ],
+          "manifest_id": "LIGHT_garage_bright_01",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            205,
+            10
+          ],
+          "runtime_marker_name": "LIGHT_garage_bright_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            178,
+            29
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            178,
+            29
+          ],
+          "manifest_id": "LIGHT_garage_shadow_01",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            198,
+            29
+          ],
+          "runtime_marker_name": "LIGHT_garage_shadow_01",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            208,
+            20
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            208,
+            20
+          ],
+          "manifest_id": "LIGHT_garage_bright_02",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            228,
+            20
+          ],
+          "runtime_marker_name": "LIGHT_garage_bright_02",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            186,
+            -6
+          ],
+          "category": "STAIRS_UP",
+          "expected_abs_cell": [
+            186,
+            -6
+          ],
+          "manifest_id": "STAIRS_UP_main",
+          "marker_tile_abbr": "STAIRS_UP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            206,
+            -6
+          ],
+          "runtime_marker_name": "transition_garage_floor2_service_stairs",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            187,
+            -16
+          ],
+          "category": "STAIRS_UP",
+          "expected_abs_cell": [
+            187,
+            -16
+          ],
+          "manifest_id": "STAIRS_UP_destination",
+          "marker_tile_abbr": "STAIRS_UP",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            207,
+            -16
+          ],
+          "runtime_marker_name": "STAIRS_UP_destination",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            190,
+            -16
+          ],
+          "category": "STAIRS_DN",
+          "expected_abs_cell": [
+            190,
+            -16
+          ],
+          "manifest_id": "STAIRS_DN_upper",
+          "marker_tile_abbr": "STAIRS_DN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            210,
+            -16
+          ],
+          "runtime_marker_name": "STAIRS_DN_upper",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            190,
+            -5
+          ],
+          "category": "STAIRS_DN",
+          "expected_abs_cell": [
+            190,
+            -5
+          ],
+          "manifest_id": "STAIRS_DN_destination",
+          "marker_tile_abbr": "STAIRS_DN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            210,
+            -5
+          ],
+          "runtime_marker_name": "STAIRS_DN_destination",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            194,
+            -25
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            194,
+            -25
+          ],
+          "manifest_id": "GUARD_upper_platform",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            214,
+            -25
+          ],
+          "runtime_marker_name": "GUARD_upper_platform",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            179,
+            -25
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            179,
+            -25
+          ],
+          "manifest_id": "PATROL_upper_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            199,
+            -25
+          ],
+          "runtime_marker_name": "PATROL_upper_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            211,
+            -25
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            211,
+            -25
+          ],
+          "manifest_id": "PATROL_upper_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            231,
+            -25
+          ],
+          "runtime_marker_name": "PATROL_upper_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            211,
+            -18
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            211,
+            -18
+          ],
+          "manifest_id": "PATROL_upper_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            231,
+            -18
+          ],
+          "runtime_marker_name": "PATROL_upper_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            179,
+            -18
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            179,
+            -18
+          ],
+          "manifest_id": "PATROL_upper_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            199,
+            -18
+          ],
+          "runtime_marker_name": "PATROL_upper_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            200,
+            -18
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            200,
+            -18
+          ],
+          "manifest_id": "CAM_upper_high_heat",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            220,
+            -18
+          ],
+          "runtime_marker_name": "CAM_upper_high_heat",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            206,
+            -28
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            206,
+            -28
+          ],
+          "manifest_id": "LIGHT_upper_platform",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            226,
+            -28
+          ],
+          "runtime_marker_name": "LIGHT_upper_platform",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            234,
+            16
+          ],
+          "category": "GUARD",
+          "expected_abs_cell": [
+            234,
+            16
+          ],
+          "manifest_id": "GUARD_bag_room",
+          "marker_tile_abbr": "GUARD",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            254,
+            16
+          ],
+          "runtime_marker_name": "GUARD_bag_room",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            230,
+            9
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            230,
+            9
+          ],
+          "manifest_id": "PATROL_bag_A",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            250,
+            9
+          ],
+          "runtime_marker_name": "PATROL_bag_A",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            248,
+            9
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            248,
+            9
+          ],
+          "manifest_id": "PATROL_bag_B",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            268,
+            9
+          ],
+          "runtime_marker_name": "PATROL_bag_B",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            248,
+            33
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            248,
+            33
+          ],
+          "manifest_id": "PATROL_bag_C",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            268,
+            33
+          ],
+          "runtime_marker_name": "PATROL_bag_C",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            230,
+            33
+          ],
+          "category": "PATROL",
+          "expected_abs_cell": [
+            230,
+            33
+          ],
+          "manifest_id": "PATROL_bag_D",
+          "marker_tile_abbr": "PATROL",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            250,
+            33
+          ],
+          "runtime_marker_name": "PATROL_bag_D",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            227,
+            7
+          ],
+          "category": "CAM",
+          "expected_abs_cell": [
+            227,
+            7
+          ],
+          "manifest_id": "CAM_bag_room",
+          "marker_tile_abbr": "CAM",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            247,
+            7
+          ],
+          "runtime_marker_name": "CAM_bag_room",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            243,
+            27
+          ],
+          "category": "LIGHT",
+          "expected_abs_cell": [
+            243,
+            27
+          ],
+          "manifest_id": "LIGHT_bag_room",
+          "marker_tile_abbr": "LIGHT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            263,
+            27
+          ],
+          "runtime_marker_name": "LIGHT_bag_room",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            79,
+            28
+          ],
+          "category": "ROUTE_IN",
+          "expected_abs_cell": [
+            79,
+            28
+          ],
+          "manifest_id": "ROUTE_IN_louis_service_door",
+          "marker_tile_abbr": "DOOR",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            99,
+            28
+          ],
+          "runtime_marker_name": "ROUTE_IN_louis_service_door",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            88,
+            40
+          ],
+          "category": "ROUTE_SPAWN",
+          "expected_abs_cell": [
+            88,
+            40
+          ],
+          "manifest_id": "ROUTE_SPAWN_louis_entry",
+          "marker_tile_abbr": "ROUTE_SPAWN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            108,
+            40
+          ],
+          "runtime_marker_name": "spawn_route_louis_entry",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            151,
+            22
+          ],
+          "category": "ROUTE_RET",
+          "expected_abs_cell": [
+            151,
+            22
+          ],
+          "manifest_id": "ROUTE_RET_louis_return_trigger",
+          "marker_tile_abbr": "DOOR",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            171,
+            22
+          ],
+          "runtime_marker_name": "ROUTE_RET_louis_return_trigger",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            148,
+            11
+          ],
+          "category": "ROUTE_DEST",
+          "expected_abs_cell": [
+            148,
+            11
+          ],
+          "manifest_id": "ROUTE_DEST_louis_return_destination",
+          "marker_tile_abbr": "ROUTE_DEST",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            168,
+            11
+          ],
+          "runtime_marker_name": "spawn_route_louis_return",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            112,
+            40
+          ],
+          "category": "CLUE",
+          "expected_abs_cell": [
+            112,
+            40
+          ],
+          "manifest_id": "CLUE_louis_route_flavor",
+          "marker_tile_abbr": "CLUE",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            132,
+            40
+          ],
+          "runtime_marker_name": "CLUE_louis_route_flavor",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            130,
+            40
+          ],
+          "category": "BAG",
+          "expected_abs_cell": [
+            130,
+            40
+          ],
+          "manifest_id": "BAG_louis_service_corridor",
+          "marker_tile_abbr": "BAG",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            150,
+            40
+          ],
+          "runtime_marker_name": "BAG_louis_service_corridor",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            28,
+            18
+          ],
+          "category": "VENT_IN",
+          "expected_abs_cell": [
+            28,
+            18
+          ],
+          "manifest_id": "VENT_IN_bentley_A_market_grate",
+          "marker_tile_abbr": "VENT_IN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            48,
+            18
+          ],
+          "runtime_marker_name": "VENT_IN_bentley_A_market_grate",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            70,
+            21
+          ],
+          "category": "VENT_OUT",
+          "expected_abs_cell": [
+            70,
+            21
+          ],
+          "manifest_id": "VENT_OUT_bentley_A_utility_pocket",
+          "marker_tile_abbr": "VENT_OUT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            90,
+            21
+          ],
+          "runtime_marker_name": "VENT_OUT_bentley_A_utility_pocket",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            74,
+            23
+          ],
+          "category": "BENTLEY_SWITCH",
+          "expected_abs_cell": [
+            74,
+            23
+          ],
+          "manifest_id": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            94,
+            23
+          ],
+          "runtime_marker_name": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            64,
+            45
+          ],
+          "category": "VENT_IN",
+          "expected_abs_cell": [
+            64,
+            45
+          ],
+          "manifest_id": "VENT_IN_bentley_B_loading_dock_sewer",
+          "marker_tile_abbr": "VENT_IN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            84,
+            45
+          ],
+          "runtime_marker_name": "VENT_IN_bentley_B_loading_dock_sewer",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            123,
+            45
+          ],
+          "category": "VENT_OUT",
+          "expected_abs_cell": [
+            123,
+            45
+          ],
+          "manifest_id": "VENT_OUT_bentley_B_alarm_utility",
+          "marker_tile_abbr": "VENT_OUT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            143,
+            45
+          ],
+          "runtime_marker_name": "VENT_OUT_bentley_B_alarm_utility",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            126,
+            45
+          ],
+          "category": "BENTLEY_SWITCH",
+          "expected_abs_cell": [
+            126,
+            45
+          ],
+          "manifest_id": "BENTLEY_SWITCH_alarm_override",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            146,
+            45
+          ],
+          "runtime_marker_name": "BENTLEY_SWITCH_alarm_override",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            146,
+            -9
+          ],
+          "category": "VENT_IN",
+          "expected_abs_cell": [
+            146,
+            -9
+          ],
+          "manifest_id": "VENT_IN_bentley_C_post_gate_duct",
+          "marker_tile_abbr": "VENT_IN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            166,
+            -9
+          ],
+          "runtime_marker_name": "VENT_IN_bentley_C_post_gate_duct",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            196,
+            -45
+          ],
+          "category": "VENT_OUT",
+          "expected_abs_cell": [
+            196,
+            -45
+          ],
+          "manifest_id": "VENT_OUT_bentley_C_upper_utility",
+          "marker_tile_abbr": "VENT_OUT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            216,
+            -45
+          ],
+          "runtime_marker_name": "VENT_OUT_bentley_C_upper_utility",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            199,
+            -44
+          ],
+          "category": "BENTLEY_SWITCH",
+          "expected_abs_cell": [
+            199,
+            -44
+          ],
+          "manifest_id": "BENTLEY_SWITCH_door_release",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            219,
+            -44
+          ],
+          "runtime_marker_name": "BENTLEY_SWITCH_door_release",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            204,
+            -44
+          ],
+          "category": "BENTLEY_SWITCH",
+          "expected_abs_cell": [
+            204,
+            -44
+          ],
+          "manifest_id": "BENTLEY_SWITCH_camera_shutoff",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            224,
+            -44
+          ],
+          "runtime_marker_name": "BENTLEY_SWITCH_camera_shutoff",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            152,
+            62
+          ],
+          "category": "VENT_IN",
+          "expected_abs_cell": [
+            152,
+            62
+          ],
+          "manifest_id": "VENT_IN_bentley_D_south_corridor",
+          "marker_tile_abbr": "VENT_IN",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            172,
+            62
+          ],
+          "runtime_marker_name": "VENT_IN_bentley_D_south_corridor",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            205,
+            65
+          ],
+          "category": "VENT_OUT",
+          "expected_abs_cell": [
+            205,
+            65
+          ],
+          "manifest_id": "VENT_OUT_bentley_D_exit_utility",
+          "marker_tile_abbr": "VENT_OUT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            225,
+            65
+          ],
+          "runtime_marker_name": "VENT_OUT_bentley_D_exit_utility",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            209,
+            64
+          ],
+          "category": "BENTLEY_SWITCH",
+          "expected_abs_cell": [
+            209,
+            64
+          ],
+          "manifest_id": "BENTLEY_SWITCH_exit_release",
+          "marker_tile_abbr": "SWITCH",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            229,
+            64
+          ],
+          "runtime_marker_name": "BENTLEY_SWITCH_exit_release",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -8,
+            52
+          ],
+          "category": "EXIT",
+          "expected_abs_cell": [
+            -8,
+            52
+          ],
+          "manifest_id": "EXIT_mission_return_to_louis",
+          "marker_tile_abbr": "EXIT",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            12,
+            52
+          ],
+          "runtime_marker_name": "exit_return_to_louis",
+          "status": "real_existing_position_ok"
+        },
+        {
+          "actual_abs_cell": [
+            -8,
+            52
+          ],
+          "category": "ROUTE_DEST",
+          "expected_abs_cell": [
+            -8,
+            52
+          ],
+          "manifest_id": "ROUTE_DEST_final_exit",
+          "marker_tile_abbr": "ROUTE_DEST",
+          "matched_runtime_marker": true,
+          "rel_cell": [
+            12,
+            52
+          ],
+          "runtime_marker_name": "ROUTE_DEST_final_exit",
+          "status": "real_existing_position_ok"
+        }
+      ],
+      "unexpected_tilemap_layers": []
+    },
+    "player_flood_fill_does_not_require_bentley_routes": true,
+    "poop_bag_garage_pet_bin_status": true,
+    "reachability": {
+      "optional": [
+        {
+          "center": [
+            -19,
+            22
+          ],
+          "reachable": true,
+          "zone": "zone_optional_market_nook"
+        },
+        {
+          "center": [
+            18,
+            -47
+          ],
+          "reachable": true,
+          "zone": "zone_dog_station_alley"
+        },
+        {
+          "center": [
+            54,
+            -38
+          ],
+          "reachable": true,
+          "zone": "zone_trash_alley"
+        },
+        {
+          "center": [
+            52,
+            39
+          ],
+          "reachable": true,
+          "zone": "zone_loading_dock_lane"
+        },
+        {
+          "center": [
+            114,
+            -25
+          ],
+          "reachable": true,
+          "zone": "zone_security_guard_kiosk_control"
+        },
+        {
+          "center": [
+            117,
+            24
+          ],
+          "reachable": true,
+          "zone": "zone_garage_office_code_clue"
+        },
+        {
+          "center": [
+            194,
+            -26
+          ],
+          "reachable": true,
+          "zone": "zone_garage_floor_2_upper_platform"
+        },
+        {
+          "center": [
+            220,
+            -24
+          ],
+          "reachable": true,
+          "zone": "zone_upper_platform_control_alcove"
+        }
+      ],
+      "required": [
+        {
+          "center": [
+            71,
+            8
+          ],
+          "label": "Delivery Alley Hub center",
+          "reachable": true,
+          "zone": "zone_delivery_alley_hub"
+        },
+        {
+          "center": [
+            116,
+            4
+          ],
+          "label": "Safe Code Input Pocket",
+          "reachable": true,
+          "zone": "zone_safe_code_input_pocket"
+        },
+        {
+          "center": [
+            128,
+            4
+          ],
+          "label": "Code Gate",
+          "reachable": true,
+          "zone": "zone_code_gate_chokepoint"
+        },
+        {
+          "center": [
+            145,
+            4
+          ],
+          "label": "Post-Gate Buffer",
+          "reachable": true,
+          "zone": "zone_post_gate_buffer"
+        },
+        {
+          "center": [
+            160,
+            14
+          ],
+          "label": "Security Beam",
+          "reachable": true,
+          "zone": "zone_security_beam_approach"
+        },
+        {
+          "center": [
+            177,
+            16
+          ],
+          "label": "Garage Floor 1 center",
+          "reachable": true,
+          "zone": "zone_garage_floor_1_west"
+        },
+        {
+          "center": [
+            239,
+            20
+          ],
+          "label": "Bag Recovery Room",
+          "reachable": true,
+          "zone": "zone_bag_recovery_room"
+        },
+        {
+          "center": [
+            123,
+            53
+          ],
+          "label": "South Return Corridor",
+          "reachable": true,
+          "zone": "zone_south_return_corridor_central"
+        },
+        {
+          "center": [
+            -8,
+            52
+          ],
+          "label": "Mission Exit",
+          "reachable": true,
+          "zone": "zone_return_to_louis_exit"
+        }
+      ]
+    },
+    "required_marker_safety": [
+      {
+        "abs_cell": [
+          -18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "player_spawn_main",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          -15,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "bentley_spawn_main",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          -18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "default_spawn_if_required",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -13,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_start_briefing",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          18,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_market_investigation",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          71,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_scent_decision",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          121,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          14
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_security_beam",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          240,
+          20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_bag_recovery",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "OBJ_return_to_louis",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -12,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_start_controls",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          68,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_scent_tutorial",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          113,
+          1
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          27,
+          17
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "HELP_bentley_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          41,
+          37
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "HELP_poop_bag_throw",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SCENT_PATH_hub_center",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          17,
+          -35
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SCENT_FAKE_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          52,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          46,
+          26
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_loading_dock",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          84,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          56,
+          -38
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area_02",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          44,
+          37
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_fake_trash_area_03",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          93,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage_02",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          101,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "scent_real_parking_garage_03",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          44,
+          38
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_route_manifest_half",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          57,
+          -39
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_sterling_delivery_token",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          117,
+          24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_code_gate_nearby",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          117,
+          -24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_sauce_packet",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          112,
+          -29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_camera_schedule",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_delivery_receipt",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          198,
+          -24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_security_memo",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          19,
+          -47
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          41,
+          43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          30
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "poop_bag_garage_pet_bin",
+        "on_floor": true,
+        "required": true
+      },
+      {
+        "abs_cell": [
+          92,
+          53
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_south_return",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -19,
+          24
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_optional_market_nook",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          12,
+          -48
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PHOTO_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          25,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_market_shop",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          108,
+          -20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_kiosk",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          245,
+          30
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GLOW_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          49,
+          11
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "TINY_market_corner",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          44
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "TINY_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          162,
+          53
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "TINY_south_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          12,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_market_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          2,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          23,
+          4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          23,
+          -4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          2,
+          -4
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_market_01_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          58,
+          -36
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_trash_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          46,
+          -43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          -43
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          -31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          46,
+          -31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_trash_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          55,
+          36
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_loading_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          40,
+          32
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          65,
+          32
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          65,
+          46
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          40,
+          46
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_loading_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          10,
+          -6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_market_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          35,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_market_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          22,
+          -41
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_dog_station",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          60,
+          -29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_trash_alley",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          38,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_loading_dock",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          20,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_market_bright_zone",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          53,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ALARM_outdoor_escalation_node",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          129,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GATE_garage_code",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          130,
+          3
+        ],
+        "in_collision": true,
+        "in_wall": false,
+        "manifest_id": "BLOCK_code_gate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          116,
+          3
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "SAFE_CODE_INPUT_ZONE",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          109,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_alarm_panel",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          114,
+          -27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_camera_terminal",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          121,
+          -22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CONTROL_door_controls",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          14
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "AMBUSH_security_beam",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          161,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ALARM_beam_escalation",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          168,
+          17
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_ambush_spawn",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          165,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          182,
+          6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          182,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          165,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_ambush_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          181,
+          15
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_garage_patrol_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          31
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_01_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          205,
+          22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_garage_patrol_02",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          214,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          214,
+          34
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          34
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_garage_02_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          170,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_garage_upper",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          2
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "FLOOD_garage_center",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          212,
+          35
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_garage_lower",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          185,
+          10
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_bright_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          178,
+          29
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_shadow_01",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          208,
+          20
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_garage_bright_02",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          186,
+          -6
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_UP_main",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          187,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_UP_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          -16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_DN_upper",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          190,
+          -5
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "STAIRS_DN_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          194,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -25
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          211,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          179,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_upper_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          200,
+          -18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_upper_high_heat",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          206,
+          -28
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_upper_platform",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          234,
+          16
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "GUARD_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          230,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_A",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          248,
+          9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_B",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          248,
+          33
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_C",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          230,
+          33
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "PATROL_bag_D",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          227,
+          7
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CAM_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          243,
+          27
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "LIGHT_bag_room",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          79,
+          28
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_IN_louis_service_door",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          88,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_SPAWN_louis_entry",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          151,
+          22
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_RET_louis_return_trigger",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          148,
+          11
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_DEST_louis_return_destination",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          112,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "CLUE_louis_route_flavor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          130,
+          40
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BAG_louis_service_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          28,
+          18
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_A_market_grate",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          70,
+          21
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_A_utility_pocket",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          74,
+          23
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_outdoor_floodlight_breaker",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          64,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_B_loading_dock_sewer",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          123,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_B_alarm_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          126,
+          45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_alarm_override",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          146,
+          -9
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_C_post_gate_duct",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          196,
+          -45
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_C_upper_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          199,
+          -44
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_door_release",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          204,
+          -44
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_camera_shutoff",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          152,
+          62
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_IN_bentley_D_south_corridor",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          205,
+          65
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "VENT_OUT_bentley_D_exit_utility",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          209,
+          64
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "BENTLEY_SWITCH_exit_release",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "EXIT_mission_return_to_louis",
+        "on_floor": true,
+        "required": false
+      },
+      {
+        "abs_cell": [
+          -8,
+          52
+        ],
+        "in_collision": false,
+        "in_wall": false,
+        "manifest_id": "ROUTE_DEST_final_exit",
+        "on_floor": true,
+        "required": false
+      }
+    ],
+    "required_node_presence": {
+      "ArtRoot": true,
+      "Camera2D": true,
+      "EntityRoot": true,
+      "GameplayRoot": true,
+      "GameplayRoot/LayoutRoot": true,
+      "GameplayRoot/LayoutRoot/CollisionBarrierLayer": true,
+      "GameplayRoot/LayoutRoot/CoverLayer": true,
+      "GameplayRoot/LayoutRoot/FloorLayer": true,
+      "GameplayRoot/LayoutRoot/MarkerTileLayer": true,
+      "GameplayRoot/LayoutRoot/WallLayer": true,
+      "GameplayRoot/MarkerRoot": true,
+      "GameplayRoot/RuntimeSystems": true
+    },
+    "safe_code_in_beam_zone": false,
+    "scene_root_in_memory": false,
+    "source_scene_protection": {
+      "hash_after": "6e4e9a790d257126b6f8a17587bacaf6",
+      "hash_before": "6e4e9a790d257126b6f8a17587bacaf6",
+      "unchanged": true
+    },
+    "spawn_node_cell": [
+      -18,
+      1
+    ],
+    "spawn_offset_used": [
+      2,
+      1
+    ],
+    "switch_no_collision": true,
+    "vent_audit": [
+      {
+        "id": "vent_interface_A",
+        "stand_cell": [
+          28,
+          13
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          28,
+          18
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_A_market_grate"
+      },
+      {
+        "id": "vent_interface_B",
+        "stand_cell": [
+          64,
+          40
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          64,
+          45
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_B_loading_dock_sewer"
+      },
+      {
+        "id": "vent_interface_C",
+        "stand_cell": [
+          146,
+          -3
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          146,
+          -9
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_C_post_gate_duct"
+      },
+      {
+        "id": "vent_interface_D",
+        "stand_cell": [
+          152,
+          57
+        ],
+        "stand_cell_blocked": false,
+        "stand_cell_on_floor": true,
+        "vent_cell": [
+          152,
+          62
+        ],
+        "vent_cell_blocked": false,
+        "vent_cell_on_floor": true,
+        "vent_in_marker_id": "VENT_IN_bentley_D_south_corridor"
+      }
+    ],
+    "warnings": []
+  }
+}

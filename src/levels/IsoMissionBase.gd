@@ -2,8 +2,8 @@ extends "res://src/levels/LevelBase.gd"
 ## Reusable data-driven isometric blockout base.
 ## GameplayRoot owns collision/markers; ArtRoot is intentionally visual-only.
 
-const BLOCKOUT_TILESET_PATH := "res://assets/tilesets/iso_blockout/IsoBlockoutTileset.tres"
-const BLOCKOUT_ATLAS_PATH := "res://assets/tilesets/iso_blockout/iso_blockout_atlas.png"
+const BLOCKOUT_TILESET_PATH := "res://assets/tilesets/iso_blockout_clean/IsoBlockoutTileset_Clean.tres"
+const BLOCKOUT_ATLAS_PATH := "res://assets/tilesets/iso_blockout_clean/iso_blockout_atlas_clean.png"
 const SOURCE_ID := 0
 
 const TILE_FLOOR := Vector2i(0, 0)
