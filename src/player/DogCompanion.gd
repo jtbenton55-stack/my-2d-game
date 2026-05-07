@@ -169,17 +169,29 @@ func _try_fetch() -> void:
 
 
 func _is_fetchable_node(node: Node) -> bool:
-	if node == null or not node.has_method("get"):
+	if node == null:
 		return false
-	var placeholder_id := String(node.get("placeholder_id"))
-	var clue_id := String(node.get("clue_id"))
-	var collectible_id := String(node.get("collectible_id"))
-	var ctype := String(node.get("collectible_type"))
+	var placeholder_id := _string_property_or_meta(node, "placeholder_id")
+	var clue_id := _string_property_or_meta(node, "clue_id")
+	var collectible_id := _string_property_or_meta(node, "collectible_id")
+	var ctype := _string_property_or_meta(node, "collectible_type")
+	if ctype == "":
+		ctype = _string_property_or_meta(node, "category").to_lower()
 	if clue_id != "" or collectible_id != "":
 		return true
 	if ctype == "poop_bag" or ctype == "tiny_icon" or ctype == "glow_guy":
 		return true
 	return placeholder_id.contains("poop_bag") or placeholder_id.contains("keycard")
+
+
+func _string_property_or_meta(node: Node, key: String) -> String:
+	if node.has_meta(key):
+		return String(node.get_meta(key))
+	for property in node.get_property_list():
+		if String(property.get("name", "")) == key:
+			var value = node.get(key)
+			return "" if value == null else String(value)
+	return ""
 
 
 func _command_pressed(action: String) -> bool:

@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://dyxgplbh27qhy"]
+[gd_scene format=4 uid="uid://c5lla1pvpio8y"]
 
 [ext_resource type="Script" uid="uid://dwrxlvn7pvun6" path="res://src/levels/IsoMissionBase.gd" id="1_rng4a"]
 [ext_resource type="Resource" uid="uid://qpg3cipd6dvw" path="res://assets/missions/taco_bell_iso_blockout_definition.tres" id="2_6c13t"]

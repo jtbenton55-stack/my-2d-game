@@ -1,0 +1,184 @@
+{
+  "phase": "0J_RECOVERY_ONLY",
+  "status": "RECOVERY_ONLY_NO_GAMEPLAY_FIXES_APPLIED",
+  "timestamp": "2026-05-06T05:47:06-04:00",
+  "git": {
+    "branch": "vertical-slice-prototype",
+    "tracking": "up_to_date_with_origin_vertical_slice_prototype",
+    "working_tree_before_recovery_outputs": "clean",
+    "head": {
+      "hash": "d4538229fdef113a3b06e549666115963dce10a3",
+      "date": "2026-05-06 04:43:33 -0400",
+      "subject": "Enhance Taco Bell mission with new layout and asset updates. Introduced a new expanded layout JSON for mission design, added clean blockout TileSet and atlas for improved visual fidelity, and included marker authoring assets for better gameplay integration. Updated mission definition to incorporate new resource references and added documentation for tile palette usage and marker legend. Conducted validation checks to ensure layout integrity and reachability."
+    }
+  },
+  "paths": {
+    "source_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "duplicate_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "mission_definition": "res://assets/missions/taco_bell_iso_blockout_definition.tres",
+    "layout_manifest": "res://assets/missions/layouts/taco_bell_expanded_layout_v6.json",
+    "after_crash_backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.manual_after_crash_backup.20260506_054020.tscn",
+    "report_md": "res://docs/reports/taco_bell_phase_0j_crash_recovery_audit.md",
+    "report_json": "res://docs/reports/taco_bell_phase_0j_crash_recovery_audit.json"
+  },
+  "hashes": {
+    "source_scene": {
+      "md5": "6E4E9A790D257126B6F8A17587BACAF6",
+      "size_bytes": 706399,
+      "last_modified": "2026-05-05 16:07:25"
+    },
+    "duplicate_scene": {
+      "md5": "E97A7C97AC4645F6DABED353FBC03D4C",
+      "size_bytes": 1017313,
+      "last_modified": "2026-05-05 23:50:31"
+    },
+    "after_crash_backup": {
+      "md5": "E97A7C97AC4645F6DABED353FBC03D4C",
+      "size_bytes": 1017313,
+      "created": true
+    },
+    "mission_definition": {
+      "md5": "63A102D20E30BDA5A6CAA2B3B0934752",
+      "size_bytes": 30325,
+      "last_modified": "2026-05-05 22:43:19"
+    },
+    "layout_manifest": {
+      "md5": "61BC8C2EE5123BCA21503D5333306427",
+      "size_bytes": 69278,
+      "last_modified": "2026-05-05 22:04:09"
+    },
+    "phase_0j_helpers": [
+      {
+        "path": "res://src/missions/iso/runtime/Phase0JCodeGateInteractable.gd",
+        "md5": "500A022E7CE81D14992F197810CD58F9",
+        "size_bytes": 3239,
+        "last_modified": "2026-05-06 00:28:34",
+        "classification": "partial_incomplete_helper",
+        "safe_to_keep": true,
+        "wired_into_duplicate_scene": false
+      },
+      {
+        "path": "res://src/missions/iso/runtime/Phase0JDetectionHazard.gd",
+        "md5": "B6DB11A448A639247D42316533CB9BF0",
+        "size_bytes": 1692,
+        "last_modified": "2026-05-06 00:28:47",
+        "classification": "partial_incomplete_helper",
+        "safe_to_keep": true,
+        "wired_into_duplicate_scene": false
+      },
+      {
+        "path": "res://src/missions/iso/runtime/Phase0JRouteSafeguard.gd",
+        "md5": "A6E10DB168AD604556DC404C296AE92A",
+        "size_bytes": 4235,
+        "last_modified": "2026-05-06 00:29:47",
+        "classification": "partial_incomplete_helper",
+        "safe_to_keep": true,
+        "wired_into_duplicate_scene": false
+      },
+      {
+        "path": "res://src/tools/editor/EditorOnlyRoomLabel.gd",
+        "md5": "A27C93B78E7CD6CBDC84F50A434CAE67",
+        "size_bytes": 2001,
+        "last_modified": "2026-05-06 00:28:47",
+        "classification": "partial_incomplete_editor_helper",
+        "safe_to_keep": true,
+        "wired_into_duplicate_scene": false
+      }
+    ]
+  },
+  "source_scene_protection": {
+    "phase_0i_baseline_md5": "6E4E9A790D257126B6F8A17587BACAF6",
+    "current_md5": "6E4E9A790D257126B6F8A17587BACAF6",
+    "untouched": true
+  },
+  "duplicate_scene_status": {
+    "modified_after_phase_0j_helpers_created": false,
+    "contains_phase_0j_references": false,
+    "contains_editor_only_room_label_references": false,
+    "phase_0j_helpers_wired_into_scene": false,
+    "structural_sanity": {
+      "gd_scene_header_present": true,
+      "line_count": 7682,
+      "section_header_count": 1120,
+      "ending_not_obviously_truncated": true
+    },
+    "godot_mcp_read_scene": {
+      "attempted": true,
+      "godot_version": "4.6.2.stable.official.71f334935",
+      "result": "structural_output_produced_with_compile_errors_due_to_autoload_globals",
+      "compile_error_summary": [
+        "Identifier not found: GameState",
+        "Identifier not found: EventBus",
+        "Identifier not found: AudioManager",
+        "Identifier not found: DialogueManager"
+      ],
+      "loadability_status": "partial_structurally_parseable_not_full_runtime_validated"
+    }
+  },
+  "mcp_runtime_availability": {
+    "godot_full_control_mcp_available": true,
+    "godot_full_control_version": "4.6.2.stable.official.71f334935",
+    "godot_runtime_bridge_connected": false,
+    "godot_runtime_bridge_ping_result": "Bridge not connected. Launch the game first.",
+    "local_godot_on_path_found_by_shell": false
+  },
+  "files_changed_or_partially_created_by_crashed_phase_0j_attempt": [
+    "res://src/missions/iso/runtime/Phase0JCodeGateInteractable.gd",
+    "res://src/missions/iso/runtime/Phase0JDetectionHazard.gd",
+    "res://src/missions/iso/runtime/Phase0JRouteSafeguard.gd",
+    "res://src/tools/editor/EditorOnlyRoomLabel.gd"
+  ],
+  "safe_to_keep": [
+    "res://src/missions/iso/runtime/Phase0JCodeGateInteractable.gd",
+    "res://src/missions/iso/runtime/Phase0JDetectionHazard.gd",
+    "res://src/missions/iso/runtime/Phase0JRouteSafeguard.gd",
+    "res://src/tools/editor/EditorOnlyRoomLabel.gd"
+  ],
+  "partial_or_incomplete": [
+    {
+      "path": "res://src/missions/iso/runtime/Phase0JCodeGateInteractable.gd",
+      "reason": "Not wired into scene and not runtime-validated; likely DialogueManager access issue needs bounded gate subpass."
+    },
+    {
+      "path": "res://src/missions/iso/runtime/Phase0JDetectionHazard.gd",
+      "reason": "Not wired into scene and not runtime-validated."
+    },
+    {
+      "path": "res://src/missions/iso/runtime/Phase0JRouteSafeguard.gd",
+      "reason": "Not wired into scene and not runtime-validated."
+    },
+    {
+      "path": "res://src/tools/editor/EditorOnlyRoomLabel.gd",
+      "reason": "Not wired into scene and not saved-node owner validated."
+    }
+  ],
+  "recommended_next_bounded_subpass": {
+    "id": "0J-A",
+    "title": "Runtime validation harness + manual-preservation baseline",
+    "scope": [
+      "Back up the current duplicate again with a 0j_a_before timestamp.",
+      "Produce the manual-preservation inventory/delta report from the current duplicate without gameplay changes.",
+      "Create or run the smallest possible Godot-executed validation harness that can instantiate the duplicate with project autoloads available.",
+      "Record which validation paths are available: full-control MCP, live runtime bridge, headless project execution, fallback structural parse only.",
+      "Stop and report before collision/gate/interactable changes."
+    ],
+    "reason": "Prevent another broad static PASS. Establish runtime validation before touching gameplay."
+  },
+  "assertions": {
+    "recovery_only_no_gameplay_fixes_applied": true,
+    "git_status_checked": true,
+    "working_tree_clean_before_recovery_outputs": true,
+    "after_crash_duplicate_backup_created": true,
+    "source_scene_hash_recorded": true,
+    "duplicate_scene_hash_recorded": true,
+    "mission_definition_hash_recorded": true,
+    "phase_0j_helper_script_hashes_recorded": true,
+    "source_scene_matches_phase_0i_baseline": true,
+    "duplicate_scene_contains_phase_0j_references": false,
+    "phase_0j_helpers_wired_into_duplicate_scene": false,
+    "godot_full_control_mcp_available": true,
+    "godot_runtime_bridge_connected": false,
+    "duplicate_structurally_parseable_by_godot_tooling": true,
+    "full_runtime_validation_performed": false
+  }
+}

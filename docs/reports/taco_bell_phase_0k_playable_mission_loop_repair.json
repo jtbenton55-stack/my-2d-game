@@ -1,0 +1,168 @@
+{
+  "phase": "0K v2",
+  "status": "PARTIAL",
+  "status_reason": "Core mission loop pieces were added and runtime-validated: objective data source, Bentley key 3 crash guard, three-option code gate, Louis exit token, delivery bag objective, active cameras, and active guards. Bounds cleanup is only audited/broadly constrained, not a full tile/flood-fill cleanup, and pause menu UI rendering is manual_check_required though its data source now populates.",
+  "backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0k_backup.20260506_180122.tscn",
+  "git_status_before": "Working tree already had Phase0J scene/runtime/report changes and backups; no commit made.",
+  "git_status_after": "0K modified duplicate scene, QuestManager, DogCompanion, Phase0J objective/code helpers, and added Phase0K runtime scripts/reports.",
+  "hashes": {
+    "source_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_before": "12EE2E9F39021A084EB0A05A6B5C0D7E",
+    "duplicate_after": "A96822E218C0B9A6D022649C7F299D27"
+  },
+  "wall_collision": {
+    "path": "GameplayRoot/GeneratedRuntimeCollision/WallCollision",
+    "shape_count_before": 2368,
+    "shape_count_after": 2368,
+    "preserved": true
+  },
+  "baseline_counts": {
+    "GeneratedRuntimeMarkerLabels": 188,
+    "GeneratedRuntimeInteractables_before": 49,
+    "GeneratedRuntimeMarkerDebugInteractables": 139,
+    "CAM_markers": 6,
+    "GUARD_markers": 7
+  },
+  "shared_scripts_modified": [
+    {
+      "file": "res://src/autoload/QuestManager.gd",
+      "functions": ["add_objective", "set_current_objective", "complete_objective_id", "get_current_objective", "get_completed_objectives"],
+      "reason": "pause_menu.gd already called QuestManager getters that did not exist, so a duplicate-scene-only adapter could populate QuestManager.objectives but the pause menu still had no readable API.",
+      "risk": "Low; adds compatibility getters/setters while preserving existing set_objective/complete_objective behavior."
+    },
+    {
+      "file": "res://src/player/DogCompanion.gd",
+      "functions": ["_is_fetchable_node", "_string_property_or_meta"],
+      "reason": "Bentley fetch on key 3 scanned arbitrary interactables and read properties that Phase0J interactables may not define. Scene-local repair cannot intercept DogCompanion's direct input handler safely.",
+      "risk": "Low; fetch now checks exported properties or metadata safely and falls back to normal no-target feedback."
+    }
+  ],
+  "objectives": {
+    "pause_menu_data_source": "QuestManager.get_current_objective(mission_id), QuestManager.get_completed_objectives(mission_id)",
+    "data_source_populates": true,
+    "ui_render_verified": false,
+    "ui_render_status": "manual_check_required",
+    "validation": {
+      "QuestManager_getters_exist": true,
+      "delivery_bag_completed_entries": ["Recover the delivery bag", "Objective updated: Delivery Bag Recovered"],
+      "current_objective_non_empty": true
+    }
+  },
+  "bentley": {
+    "key_3_action": "bentley_fetch",
+    "root_cause": "unsafe property reads while scanning interactable nodes",
+    "fix": "DogCompanion now reads exported properties/metadata only when present.",
+    "validation": "Calling _try_fetch() on Bentley did not crash and left the node valid."
+  },
+  "code_gate": {
+    "options": ["2174", "0420", "9021"],
+    "correct_code": "0420",
+    "in_game_correct_hint_removed": true,
+    "wrong_option_fails": true,
+    "correct_option_unlocks": true,
+    "gate_unlock_not_regressed": true
+  },
+  "louis_exit": {
+    "node_path": "GameplayRoot/GeneratedRuntimeInteractables/LouisExitToken",
+    "position": [800, 848],
+    "requirements": ["delivery_bag_collected", "code_gate_unlocked"],
+    "blocks_before_requirements": true,
+    "allows_after_requirements": true
+  },
+  "delivery_bag": {
+    "node_path": "GameplayRoot/GeneratedRuntimeInteractables/DeliveryBagObjective",
+    "position": [16672, 336],
+    "bag_room_cell": [260, 20],
+    "visible": true,
+    "interactable": true,
+    "objective_bag_count_after_collect": 1,
+    "updates_completion_controller": true,
+    "does_not_double_count": true
+  },
+  "cameras": {
+    "cam_markers_found": 6,
+    "active_camera_nodes_total_runtime": 8,
+    "phase0k_cameras_spawned": 6,
+    "all_runtime_cameras_have_visible_cone_in_debug": true,
+    "detection_hook": "MissionSecurityCamera accumulates exposure through MissionAlertController when available."
+  },
+  "guards": {
+    "guard_markers_found": 7,
+    "phase0k_guards_spawned": 7,
+    "patrol_points_per_guard": [4, 4, 4, 4, 4, 4, 4],
+    "behavior": "simple active CharacterBody2D patrol token using nearest PATROL markers or fallback local patrol."
+  },
+  "bounds_cleanup": {
+    "status": "PARTIAL_AUDIT_ONLY",
+    "moved_markers": 0,
+    "hidden_markers": 0,
+    "required_added_nodes_inside_reported_walkable_area": ["LouisExitToken", "DeliveryBagObjective"],
+    "remaining_risk": "No full FloorLayer flood-fill / wall-collision bounds cleanup was completed in this pass."
+  },
+  "runtime_validation": {
+    "read_scene": "PASS",
+    "wall_count": 2368,
+    "louis_exists": true,
+    "bag_exists": true,
+    "helpers_exist": true,
+    "code_gate_options_no_hint": true,
+    "bentley_try_fetch_no_crash": true,
+    "counts_still_monotonic": true,
+    "red_hud_preserved": true,
+    "purple_runtime_labels_count": 188
+  },
+  "files_changed": [
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "res://src/autoload/QuestManager.gd",
+    "res://src/player/DogCompanion.gd",
+    "res://src/missions/iso/runtime/Phase0JObjectiveAdapter.gd",
+    "res://src/missions/iso/runtime/Phase0JCodeInputUI.gd",
+    "res://src/missions/iso/runtime/Phase0JCodeGateController.gd",
+    "res://src/missions/iso/runtime/Phase0KMissionCompletionController.gd",
+    "res://src/missions/iso/runtime/Phase0KLouisExitInteractable.gd",
+    "res://src/missions/iso/runtime/Phase0KBagObjectiveInteractable.gd",
+    "res://src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "res://src/missions/iso/runtime/Phase0KGuardSpawner.gd",
+    "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd",
+    "res://src/tools/editor/TacoBellPhase0KPlayableMissionLoopRepair.gd"
+  ],
+  "assertions": {
+    "duplicate_backed_up_before_0k": "PASS",
+    "source_scene_unchanged": "PASS",
+    "wall_collision_preserved": "PASS",
+    "objective_data_source_populates": "PASS",
+    "pause_menu_UI_render_verified_or_manual_check_required": "MANUAL_CHECK_REQUIRED",
+    "key_3_no_crash": "PASS",
+    "code_gate_three_options_no_hint": "PASS",
+    "louis_exit_logic_works": "PASS_RUNTIME_CONTROLLER",
+    "delivery_bag_objective_works": "PASS",
+    "active_cameras_spawned": "PASS",
+    "active_guards_spawned": "PASS",
+    "no_required_markers_out_of_bounds": "PARTIAL_AUDIT_ONLY",
+    "core_regressions_passed": "PASS",
+    "report_md_written": "PASS",
+    "report_json_written": "PASS"
+  },
+  "manual_playtest_checklist": [
+    "Run TacoBellIso_Editable_RedesignTest.tscn.",
+    "Confirm walls still work.",
+    "Confirm no obvious required/interactable markers are outside the playable map.",
+    "Confirm red HUD/debug text is still readable.",
+    "Press key 3 / Bentley action and confirm no crash.",
+    "Go to code gate and confirm at least three code options appear.",
+    "Confirm the UI does not tell you which option is correct.",
+    "Choose/type wrong code and confirm wrong-code feedback.",
+    "Choose/type 0420 and confirm gate unlocks.",
+    "Go to bag room, find visible delivery bag, and press E.",
+    "Open pause menu Objectives submenu and confirm objective appears or updates.",
+    "Find Louis token at exit.",
+    "Press E on Louis before completing requirements and confirm locked/missing message.",
+    "Complete required bag/gate objectives and press E on Louis again.",
+    "Walk near CAM marker areas and confirm active camera cones sweep/search.",
+    "Walk near GUARD marker areas and confirm guards are present and patrol.",
+    "Confirm counts still do not subtract incorrectly.",
+    "Confirm repeated interactions do not crash.",
+    "Confirm purple marker labels remain readable and do not block movement."
+  ]
+}

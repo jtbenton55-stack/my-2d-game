@@ -1,0 +1,202 @@
+{
+  "phase": "0J-B",
+  "status": "PARTIAL_MANUAL_CHECK_REQUIRED",
+  "pass": false,
+  "summary": {
+    "fixed_structurally": [
+      "Generated wall collision proxy root",
+      "Generated boundary collision root",
+      "Full-size code gate blocker shape",
+      "Future-unlockable code gate metadata"
+    ],
+    "not_touched": [
+      "interactables_collectibles",
+      "q_interact_global_system",
+      "guards_combat",
+      "cameras_detection",
+      "bentley_routes",
+      "louis_routes",
+      "save_load",
+      "source_scene",
+      "tile_layer_painting"
+    ]
+  },
+  "hashes": {
+    "source_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_before": "D2A987CE31F17DF237B5E9C491761ED0",
+    "duplicate_after": "6F52A6BC466F04BDD334F1DB498C4CFF",
+    "mission_definition_before": "63A102D20E30BDA5A6CAA2B3B0934752",
+    "mission_definition_after": "63A102D20E30BDA5A6CAA2B3B0934752",
+    "runner": "7850C1F66491C878B7AE498BF9226BFC",
+    "validation_harness_after": "443026DBC02D9852FD273DD9893FABE3"
+  },
+  "backup": {
+    "created": true,
+    "path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0jb_backup.20260506_063114.tscn",
+    "md5": "D2A987CE31F17DF237B5E9C491761ED0"
+  },
+  "manual_preservation": {
+    "map_regenerated_or_repainted": false,
+    "tile_map_data_property_count": 5,
+    "manual_tile_layers_modified": false,
+    "manual_marker_positions_modified": false,
+    "phase0ja_editor_labels_preserved": true,
+    "phase0ja_editor_label_count": 31,
+    "phase0ja_runtime_hider_preserved": true
+  },
+  "audit": {
+    "player": {
+      "scene": "res://scenes/characters/player.tscn",
+      "node": "Player",
+      "script": "res://src/player/Player.gd",
+      "class": "CharacterBody2D",
+      "collision_shape": {
+        "path": "Player/CollisionShape2D",
+        "type": "RectangleShape2D",
+        "size": [32, 32]
+      },
+      "collision_layer": 1,
+      "collision_mask": 7,
+      "collision_mask_includes_walls": true,
+      "movement_method": "move_and_slide"
+    },
+    "physics_layers": {
+      "Player": {"layer": 1, "bitmask": 1},
+      "Enemies": {"layer": 2, "bitmask": 2},
+      "Walls": {"layer": 3, "bitmask": 4},
+      "Interactables": {"layer": 4, "bitmask": 8},
+      "Detection": {"layer": 5, "bitmask": 16}
+    },
+    "thin_wall_leak_hypothesis": "Player mask includes Walls, so leaks are likely caused by narrow/gapped isometric tile collision or disabled old boundary bodies rather than player mask configuration."
+  },
+  "wall_collision": {
+    "root_path": "GameplayRoot/GeneratedRuntimeCollision/WallCollision",
+    "exists": true,
+    "body_count": 12,
+    "shape_count": 12,
+    "walls_bitmask": 4,
+    "generated_from_current_duplicate_cells": "partial_current_scene_world_bands",
+    "strategy": "conservative invisible StaticBody2D strip proxies at representative current-scene wall bands",
+    "no_squeeze_margin": "72px strip thickness, based on 32x32 player collision plus overlap",
+    "manual_check_required": true
+  },
+  "boundary_collision": {
+    "root_path": "GameplayRoot/GeneratedRuntimeCollision/BoundaryCollision",
+    "created": true,
+    "body_count": 4,
+    "shape_count": 4,
+    "walls_bitmask": 4,
+    "strategy": "four large outer boundary strips around broad floor extents",
+    "player_cannot_leave_floor_bounds": "manual_check_required"
+  },
+  "code_gate": {
+    "path": "GameplayRoot/GeneratedRuntimeCollision/GateBlockers/BLOCK_code_gate",
+    "exists": true,
+    "position_source": "current_scene_editor_only_placeholder",
+    "world_position": [8384, 64],
+    "shape_count": 1,
+    "shape_size": [224, 768],
+    "walls_bitmask": 4,
+    "future_unlockable": true,
+    "metadata": {
+      "generated_by": "Phase0J-B",
+      "manifest_id": "BLOCK_code_gate",
+      "linked_gate_id": "GATE_garage_code",
+      "linked_input_id": "SAFE_CODE_INPUT_ZONE",
+      "blocker_type": "code_gate_corridor_barrier",
+      "position_source": "current_scene_editor_only_placeholder"
+    },
+    "not_walkaroundable": "manual_check_required",
+    "does_not_block_unrelated_rooms": "manual_check_required",
+    "basic_unlock": {
+      "implemented": false,
+      "deferred_reason": "0J-B avoided interactable/Q changes; 0J-C should trace the real input and add a scene-local controller if appropriate."
+    }
+  },
+  "validation": {
+    "method": "MCP_run_project_partial_plus_static_structure",
+    "godot_full_control_mcp_used": true,
+    "runtime_bridge_used": false,
+    "scene_launched": true,
+    "debug_output_loaded_level": true,
+    "new_0jb_script_errors_observed": false,
+    "read_scene_known_limitation": "isolated read_scene reports existing autoload global compile errors",
+    "thin_wall_tests": "manual_check_required",
+    "gate_walkaround_tests": "manual_check_required",
+    "wall_validation_results_recorded": true,
+    "gate_validation_results_recorded": true
+  },
+  "manual_playtest_checklist": [
+    "Run res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn.",
+    "Try to walk through a thin one-line wall near spawn.",
+    "Try to wiggle through the thin wall rows that previously leaked.",
+    "Try to walk outside the floor bounds at the north, south, west, and east extremes.",
+    "Go to the Code Gate label area.",
+    "Confirm the gate blocks the full path, not just one square.",
+    "Try walking around the top and bottom sides of the gate.",
+    "Confirm the gate is still locked on scene reload.",
+    "Confirm room labels still do not show during runtime."
+  ],
+  "files_changed": [
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0jb_backup.20260506_063114.tscn",
+    "res://src/tools/editor/TacoBellPhase0JBCollisionGate.gd",
+    "res://src/tools/editor/TacoBellPhase0JValidationHarness.gd",
+    "res://docs/reports/taco_bell_phase_0jb_collision_gate.md",
+    "res://docs/reports/taco_bell_phase_0jb_collision_gate.json"
+  ],
+  "assertions": {
+    "source_scene_exists": true,
+    "duplicate_scene_exists": true,
+    "validation_harness_exists": true,
+    "duplicate_backed_up_before_changes": true,
+    "source_hash_before_recorded": true,
+    "duplicate_hash_before_recorded": true,
+    "git_status_before_recorded": true,
+    "phase0ja_editor_labels_preserved": true,
+    "player_audited": true,
+    "project_physics_layers_confirmed": true,
+    "wall_layer_audited": true,
+    "floor_layer_audited": true,
+    "existing_collision_audited": true,
+    "thin_wall_leak_cause_reported": true,
+    "phase0jb_runner_created": true,
+    "phase0jb_runner_rerunnable": true,
+    "phase0jb_runner_only_clears_phase0jb_generated_subtrees": "documented",
+    "phase0jb_runner_does_not_repaint_tile_layers": true,
+    "wall_collision_proxy_root_exists": true,
+    "wall_collision_proxy_body_count_gt_zero": true,
+    "wall_collision_proxy_shape_count_gt_zero": true,
+    "wall_collision_proxy_uses_confirmed_walls_bitmask": true,
+    "wall_collision_generated_from_current_duplicate_cells": "partial_current_scene_world_bands",
+    "player_collision_margin_computed_or_fallback_reported": true,
+    "manual_tile_layers_not_modified_by_wall_generation": true,
+    "boundary_collision_root_exists_or_not_needed_with_reason": true,
+    "boundary_collision_uses_walls_layer_if_created": true,
+    "player_cannot_leave_floor_bounds_or_manual_check_required": "manual_check_required",
+    "code_gate_current_position_found": true,
+    "code_gate_blocker_root_exists": true,
+    "code_gate_blocker_shape_count_gt_zero": true,
+    "code_gate_barrier_uses_walls_bitmask": true,
+    "code_gate_blocks_full_corridor_width_or_manual_check_required": "manual_check_required",
+    "code_gate_not_walkaroundable_or_manual_check_required": "manual_check_required",
+    "code_gate_does_not_block_unrelated_rooms_or_manual_check_required": "manual_check_required",
+    "code_gate_blocker_future_unlockable": true,
+    "code_gate_basic_unlock_implemented_or_deferred_with_reason": "deferred",
+    "validation_harness_extended_for_0jb": true,
+    "validation_harness_reports_wall_collision": true,
+    "validation_harness_reports_code_gate": true,
+    "validation_harness_does_not_modify_scene_during_validation": true,
+    "phase0jb_validation_attempted": true,
+    "wall_validation_results_recorded": true,
+    "gate_validation_results_recorded": true,
+    "manual_playtest_checklist_written": true,
+    "phase0jb_report_md_written": true,
+    "phase0jb_report_json_written": true,
+    "assertion_ledger_written": true,
+    "files_changed_list_written": true,
+    "next_pass_recommendation_written": true
+  },
+  "recommended_next_pass": "0J-C — interaction trace + all pickups/interactables only"
+}

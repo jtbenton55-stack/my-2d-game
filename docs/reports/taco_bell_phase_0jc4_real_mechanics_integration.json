@@ -1,0 +1,155 @@
+{
+  "phase": "0J-C4",
+  "status": "PARTIAL",
+  "status_reason": "Implementation is in place and the duplicate scene statically loads, but the MCP game_eval server timed out during full all-49 runtime validation after one fresh adapter-backed collection proof. Report does not overclaim full runtime/menu validation.",
+  "backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0jc4_backup.20260506_142928.tscn",
+  "hashes": {
+    "source_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_before": "1BECC6ACF1F7A63CDC80E9AD3420CA43",
+    "duplicate_after": "B002A8C4E1E412C6A107C15C93075952",
+    "wall_helper_before": "3AC4BE6FB31F7234407EAA4CA5712866",
+    "wall_helper_after": "3AC4BE6FB31F7234407EAA4CA5712866"
+  },
+  "protection": {
+    "source_scene_unchanged": true,
+    "wall_collision_preserved": true,
+    "wall_collision_shape_count_before": 2368,
+    "wall_collision_shape_count_after": 2368,
+    "map_regenerated_or_repainted": false,
+    "runtime_labels_preserved": true
+  },
+  "real_system_audit": {
+    "CollectibleManager.gd": {
+      "api": ["collect_polaroid(polaroid_id)", "is_collected(polaroid_id)", "get_collected_polaroids()"],
+      "menu_effect": "PolaroidGallery reads GameState.collected_polaroids.",
+      "safe_to_call_scene_local": true
+    },
+    "GameState.gd": {
+      "api": ["add_poop_bag()", "get_poop_bag_count()", "ensure_and_discover_sterling_clue(clue_id, data)", "record_typed_collectible(collectible_id, collectible_type, data)", "record_mission_performance_event(mission_id, key, delta)", "collect_polaroid(polaroid_id)"],
+      "menu_effect": "Pause Clues panel reads sterling_clues; PolaroidGallery reads collected_polaroids; typed_collectibles persist but no dedicated pause tab was found.",
+      "safe_to_call_scene_local": true
+    },
+    "QuestManager.gd": {
+      "api": ["set_objective(text, quest_id)", "complete_objective(quest_id)"],
+      "menu_effect": "Pause objectives panel references QuestManager APIs if present; current QuestManager is minimal.",
+      "safe_to_call_scene_local": true
+    },
+    "TypedMissionCollectible.gd": {
+      "api": ["collect(collectible_id, collectible_type, mission_id, display_name)"],
+      "menu_effect": "Updates GameState typed collectibles, poop bags, clues, polaroids, and mission performance depending on type.",
+      "safe_to_call_scene_local": true
+    },
+    "pause_menu.gd": {
+      "api": ["Esc opens pause", "Objectives button", "Clues button", "Scheme Cards button"],
+      "menu_effect": "Clues are visible through GameState.sterling_clues; no general typed collectible tab found.",
+      "safe_to_call_scene_local": false
+    }
+  },
+  "category_integration_map": {
+    "poop_bag": {"effect": "GameState.add_poop_bag + typed_collectibles + local count", "status": "REAL_STATE_INTEGRATED_LOCAL_MENU"},
+    "BAG": {"effect": "treated as poop_bag/tool pickup", "status": "REAL_STATE_INTEGRATED_LOCAL_MENU"},
+    "CLUE_intel": {"effect": "GameState.ensure_and_discover_sterling_clue + typed_collectibles + local count", "status": "REAL_MENU_INTEGRATED_FOR_CLUES"},
+    "PHOTO_Polaroid": {"effect": "CollectibleManager.collect_polaroid + typed_collectibles + local count", "status": "REAL_MENU_INTEGRATED_FOR_POLAROIDS"},
+    "GLOW": {"effect": "TypedMissionCollectible/GameState.typed_collectibles + local count", "status": "LOCAL_STATE_ONLY_MENU_MISSING"},
+    "TINY": {"effect": "TypedMissionCollectible/GameState.typed_collectibles + local count", "status": "LOCAL_STATE_ONLY_MENU_MISSING"},
+    "objective_delivery_bag": {"effect": "Phase0J local objective flag + QuestManager objective text + typed clue record", "status": "LOCAL_OBJECTIVE_STATE_WITH_QUEST_MESSAGE"},
+    "SAFE_CODE_INPUT_ZONE": {"effect": "Phase0JCodeInputUI + Phase0JCodeGateController + MissionStateAdapter gate flag", "status": "CODE_INPUT_READY"},
+    "non_collectible_debug": {"effect": "Phase0JMechanicRouter updates inspected state; old route/combat/detection mechanics deferred", "status": "INSPECT_ONLY_DEFERRED"}
+  },
+  "runtime_nodes": {
+    "mission_state_adapter": "GameplayRoot/RuntimeHelpers/Phase0JMissionStateAdapter",
+    "collectible_menu_adapter": "GameplayRoot/RuntimeHelpers/Phase0JCollectibleMenuAdapter",
+    "objective_adapter": "GameplayRoot/RuntimeHelpers/Phase0JObjectiveAdapter",
+    "mechanic_router": "GameplayRoot/RuntimeHelpers/Phase0JMechanicRouter",
+    "collectible_count": 49,
+    "debug_marker_count": 139,
+    "label_count": 188
+  },
+  "validation": {
+    "read_scene_static_load": "PASS",
+    "fresh_scene_in_memory_has_c4_nodes": "PASS",
+    "fresh_adapter_backed_collection_sample": {
+      "sample": "GLOW_market_shop",
+      "adapter_found": true,
+      "local_count_changed": true,
+      "typed_collectibles_updated": true,
+      "menu_updated": false,
+      "warning": "No dedicated Glow/Tiny typed collectible menu tab found."
+    },
+    "all_49_runtime_validation": "MANUAL_REQUIRED",
+    "reason": "MCP game_eval timed out on longer validation snippets after the fresh sample; static wiring and adapter code are present but full runtime proof could not complete.",
+    "double_count_prevention": "Implemented in Phase0JMissionStateAdapter.has_collected/collected_ids; full all-49 runtime proof manual_required.",
+    "code_gate": "Implemented; full C4 gate-state adapter proof manual_required due MCP timeout. Prior C2 gate UI/collision validation passed."
+  },
+  "collectible_results": {
+    "all_49_have_adapter_paths": true,
+    "all_49_call_mission_state_adapter": true,
+    "per_category_counts": {
+      "poop_bag": 9,
+      "evidence_clue": 20,
+      "intel_objective_bag": 1,
+      "polaroid": 6,
+      "glow_guy": 6,
+      "tiny_icon": 6,
+      "code_input": 1
+    },
+    "menu_status": {
+      "clues": "REAL_MENU_INTEGRATED_FOR_CLUES",
+      "polaroids": "REAL_MENU_INTEGRATED_FOR_POLAROIDS",
+      "poop_bags": "REAL_STATE_INTEGRATED_LOCAL_MENU",
+      "glow_guy": "LOCAL_STATE_ONLY_MENU_MISSING",
+      "tiny_icon": "LOCAL_STATE_ONLY_MENU_MISSING",
+      "objective_bag": "LOCAL_OBJECTIVE_STATE_WITH_QUEST_MESSAGE"
+    }
+  },
+  "old_map_parity_audit": {
+    "ROUTE": "INSPECT_ONLY_DEFERRED; MissionRouteAccessPoint exists but wrapping transitions is route-pass work.",
+    "VENT": "INSPECT_ONLY_DEFERRED; Bentley route mechanic deferred.",
+    "SWITCH": "INSPECT_ONLY_DEFERRED; utility/Bentley switch effects deferred.",
+    "DOOR": "INSPECT_ONLY_DEFERRED; door/route behavior deferred.",
+    "EXIT": "INSPECT_ONLY_DEFERRED; exit flow not changed.",
+    "GUARD_PATROL": "SEPARATE_PASS_REQUIRED",
+    "CAMERA_FLOOD_ALARM": "SEPARATE_PASS_REQUIRED",
+    "COVER_BLOCK_HELP_OBJ_SPAWN": "INSPECT_ONLY_DEFERRED or NO_OLD_MECHANIC_FOUND"
+  },
+  "assertions": {
+    "duplicate_scene_exists": "PASS",
+    "source_scene_exists": "PASS",
+    "duplicate_backed_up_before_0jc4": "PASS",
+    "source_hash_before_recorded": "PASS",
+    "duplicate_hash_before_recorded": "PASS",
+    "wall_collision_shape_count_before == 2368": "PASS",
+    "current_marker_coverage_recorded": "PASS",
+    "collectible_menu_system_audited": "PASS",
+    "objective_system_audited": "PASS",
+    "clue_intel_system_audited": "PASS",
+    "polaroid_system_audited": "PASS",
+    "old_map_mechanics_audited": "PASS",
+    "callable_APIs_reported": "PASS",
+    "category_integration_map_created": "PASS",
+    "mission_state_adapter_exists": "PASS",
+    "collectible_menu_adapter_exists": "PASS",
+    "objective_adapter_exists": "PASS",
+    "every_collectible_calls_mission_state_adapter": "PASS_STATIC",
+    "representative_state_validation_completed": "PARTIAL",
+    "all_49_collectibles_adapter_tested": "MANUAL_REQUIRED",
+    "double_count_prevention_tested": "PARTIAL",
+    "real_menu_update_verified_or_local_only_reported": "PASS",
+    "message_only_interactions_count == 0_FOR_collectibles": "PASS_STATIC",
+    "report_md_written": "PASS",
+    "report_json_written": "PASS"
+  },
+  "manual_menu_instructions": {
+    "open_pause_menu": "Esc",
+    "clues": "Pause -> Clues",
+    "polaroids": "Open PolaroidGallery from existing hideout/gallery flow; it reads GameState.collected_polaroids.",
+    "poop_bags": "Verify in C4 debug HUD count; no dedicated pause tool tab found.",
+    "glow_tiny": "Verify in C4 debug HUD/typed state; no dedicated pause tab found."
+  },
+  "warnings": [
+    "0J-C4 is PARTIAL because full all-49 runtime validation could not complete after MCP game_eval timeouts.",
+    "No dedicated real pause collectible tab was found for Glow Guys, Tiny icons, or poop bag tools; local/typed state and HUD counts are implemented.",
+    "Non-collectible marker old mechanics are audited and routed to inspected/deferred state rather than unsafe transition/combat/detection wrappers."
+  ]
+}

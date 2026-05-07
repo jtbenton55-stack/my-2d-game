@@ -1,0 +1,152 @@
+{
+  "phase": "0J-C5",
+  "status": "PARTIAL",
+  "status_reason": "Count monotonicity, red HUD/debug text, code UI instructions, and objective adapter state updates were repaired and runtime-validated. Pause menu Objectives still cannot populate without a shared QuestManager or pause_menu patch because the menu checks for getters that QuestManager does not implement.",
+  "backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0jc5_backup.20260506_171341.tscn",
+  "protection": {
+    "source_hash_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_hash_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_hash_before": "12EE2E9F39021A084EB0A05A6B5C0D7E",
+    "duplicate_hash_after": "12EE2E9F39021A084EB0A05A6B5C0D7E",
+    "wall_helper_hash_after": "3AC4BE6FB31F7234407EAA4CA5712866",
+    "wall_collision_shape_count_before": 2368,
+    "wall_collision_shape_count_after": 2368,
+    "map_regenerated_or_repainted": false
+  },
+  "coverage": {
+    "collectible_interactables": 49,
+    "debug_markers": 139,
+    "runtime_labels": 188
+  },
+  "count_subtraction_root_cause": "C4 maintained mutable category_counts deltas separately from per-category collected dictionaries. Different category aliases and HUD-side counter mutation could diverge from the canonical collected IDs, so displayed counts were not guaranteed to be monotonic or derived from a single source of truth.",
+  "fix": {
+    "counts_are_set_derived": true,
+    "canonical_sets": ["poop_bag", "bag", "evidence_clue", "polaroid", "glow_guy", "tiny_icon", "objective_bag"],
+    "normalization_function": "Phase0JMissionStateAdapter.normalize_category(raw_category, item_id, payload)",
+    "get_all_counts_uses_set_sizes": true,
+    "monotonicity_guard": "Phase0JMissionStateAdapter.assert_monotonic_counts(previous_counts, new_counts)",
+    "hud_source": "Phase0JMissionStateAdapter.get_all_counts()"
+  },
+  "category_normalization": {
+    "BAG": "bag unless payload/count_group indicates poop_bag",
+    "poop|poop bag|poop_bag": "poop_bag",
+    "PHOTO|photo|Polaroid|polaroid": "polaroid",
+    "CLUE|clue|intel|evidence_clue": "evidence_clue",
+    "GLOW|glow|Glow Guy|glow_guy": "glow_guy",
+    "TINY|tiny|Tiny Icon|tiny_icon": "tiny_icon",
+    "OBJ_bag_recovery|delivery_bag|objective_bag": "objective_bag"
+  },
+  "runtime_validation": {
+    "read_scene": "PASS",
+    "scene_run_helpers": {
+      "has_state": true,
+      "has_hud": true,
+      "has_code_ui": true,
+      "wall_body_children": 2368
+    },
+    "monotonic_sequence": {
+      "initial": {"poop_bag": 0, "bag": 0, "evidence_clue": 0, "polaroid": 0, "glow_guy": 0, "tiny_icon": 0, "objective_bag": 0},
+      "after_glow": {"glow_guy": 1},
+      "after_poop": {"glow_guy": 1, "poop_bag": 1},
+      "after_tiny": {"glow_guy": 1, "poop_bag": 1, "tiny_icon": 1},
+      "duplicate_glow_already_done": true,
+      "glow_stable_after_poop": true,
+      "glow_stable_after_duplicate": true,
+      "monotonic_checks": true
+    },
+    "code_ui": {
+      "opened": true,
+      "wrong_code_result": false,
+      "correct_code_result": true,
+      "controller_unlocked": true,
+      "state_gate_unlocked": true
+    },
+    "red_text": {
+      "phase0j_hud_labels_red": true,
+      "iso_left_debug_labels_red": true,
+      "dark_panel_or_outline": true
+    },
+    "objective_adapter": {
+      "local_objective_record_updated": true,
+      "quest_manager_objectives_updated": true,
+      "pause_menu_getters_available": false,
+      "pause_menu_population": "manual_check_required_blocked_without_shared_patch"
+    }
+  },
+  "pause_objective_source": {
+    "script": "res://src/ui/test_ui/pause_menu.gd",
+    "method": "_objectives_text()",
+    "reads": ["QuestManager.get_current_objective(mission_id)", "QuestManager.get_completed_objectives(mission_id)"],
+    "problem": "QuestManager does not define either getter, so pause menu falls back to 'No active objective.' even when QuestManager.set_objective() updates HUD/objectives dictionary.",
+    "shared_patch_required": true,
+    "proposed_minimal_patch": "Add get_current_objective(mission_id) and get_completed_objectives(mission_id) to QuestManager, or update pause_menu.gd to read QuestManager.active_objective/objectives. This was not done in C5 due absolute rules."
+  },
+  "assertions": {
+    "duplicate_backed_up_before_0jc5": "PASS",
+    "source_hash_recorded_before": "PASS",
+    "wall_collision_shape_count_before == 2368": "PASS",
+    "runtime_helpers_inventory_recorded": "PASS",
+    "transparent_left_debug_menu_audited": "PASS",
+    "pause_objective_source_audited": "PASS",
+    "count_subtraction_root_cause_reported": "PASS",
+    "all_count_decrement_paths_identified": "PASS",
+    "category_aliases_audited": "PASS",
+    "duplicate_candidate_ids_audited": "PASS_STATIC",
+    "count_reset_paths_audited": "PASS",
+    "counts_are_set_derived": "PASS",
+    "collection_never_decrements_any_category": "PASS",
+    "category_normalization_function_exists": "PASS",
+    "duplicate_collect_does_not_increment_or_decrement": "PASS",
+    "get_all_counts_uses_set_sizes": "PASS",
+    "monotonicity_guard_exists": "PASS",
+    "HUD_reads_counts_from_MissionStateAdapter": "PASS",
+    "HUD_has_no_independent_decrement_logic": "PASS",
+    "HUD_displays_all_C5_categories": "PASS",
+    "HUD_counts_match_adapter_counts": "PASS",
+    "HUD_displays_counts_source": "PASS",
+    "phase0j_debug_HUD_text_is_red": "PASS",
+    "transparent_left_debug_menu_text_is_red": "PASS",
+    "red_text_has_dark_outline_or_dark_panel": "PASS",
+    "dynamically_created_HUD_labels_receive_red_style": "PASS",
+    "pause_objectives_data_source_identified": "PASS",
+    "objective_adapter_calls_real_objective_API_or_reports_missing": "PASS",
+    "objective_interaction_updates_objective_state": "PASS",
+    "objective_update_refreshes_pause_menu_or_manual_check_required": "MANUAL_REQUIRED",
+    "code_UI_still_opens": "PASS",
+    "code_0420_still_unlocks_gate": "PASS",
+    "code_UI_instructions_visible": "PASS",
+    "code_UI_current_input_visible": "PASS",
+    "count_monotonicity_test_ran": "PASS",
+    "collecting_new_item_never_decrements_existing_category": "PASS",
+    "duplicate_collect_never_decrements": "PASS",
+    "HUD_counts_match_adapter_after_sequence": "PASS",
+    "objective_adapter_state_test_ran": "PASS",
+    "representative_objectives_update_local_state": "PASS",
+    "objective_menu_data_source_updated_or_manual_required": "MANUAL_REQUIRED",
+    "red_text_validation_ran": "PASS",
+    "phase0j_HUD_visible_labels_red": "PASS",
+    "transparent_left_menu_visible_labels_red": "PASS",
+    "report_md_written": "PASS",
+    "report_json_written": "PASS"
+  },
+  "manual_playtest_checklist": [
+    "Run TacoBellIso_Editable_RedesignTest.tscn.",
+    "Confirm walls still work.",
+    "Confirm the HUD text is red and readable.",
+    "Confirm the transparent left-side menu/debug text is red and readable.",
+    "Collect one Glow Guy and confirm glow_guy count increments.",
+    "Collect one poop bag and confirm poop_bag increments while glow_guy does not decrease.",
+    "Collect one tiny item and confirm prior counts do not decrease.",
+    "Re-interact with collected items and confirm no increments or decrements.",
+    "Collect one clue and confirm clue/evidence submenu still updates.",
+    "Interact with one objective marker and open pause menu Objectives.",
+    "Confirm objective state updates in HUD; pause menu population is manual/blocked unless shared patch is approved.",
+    "Go to code gate, verify instructions/current input, enter wrong code, then 0420.",
+    "Confirm gate unlocks and debug HUD counts match collected items."
+  ],
+  "warnings": [
+    "Pause menu Objectives cannot be fully fixed scene-locally because it calls QuestManager getter methods that do not exist.",
+    "No shared/global script was modified in this pass.",
+    "C5 is PARTIAL solely because pause Objectives submenu population requires an approved shared patch."
+  ]
+}

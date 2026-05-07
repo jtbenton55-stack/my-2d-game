@@ -122,16 +122,18 @@ func _controls_text() -> String:
 
 func _objectives_text() -> String:
 	var mission_id := String(GameState.current_mission_id)
-	var active: String = String(QuestManager.get_current_objective(mission_id)) if QuestManager.has_method("get_current_objective") else "No active objective."
+	var active: Array = QuestManager.get_active_objectives(mission_id) if QuestManager.has_method("get_active_objectives") else []
 	var done: Array = QuestManager.get_completed_objectives(mission_id) if QuestManager.has_method("get_completed_objectives") else []
-	var lines: Array[String] = [
-		"Current Objective",
-		"  %s" % String(active),
-		"",
-		"Completed Objectives",
-	]
+	var lines: Array[String] = ["Active Objectives"]
+	if active.is_empty():
+		lines.append("  No active objectives.")
+	else:
+		for entry in active:
+			lines.append("  - " + String(entry))
+	lines.append("")
+	lines.append("Completed Objectives")
 	if done.is_empty():
-		lines.append("  None yet.")
+		lines.append("  No completed objectives yet.")
 	else:
 		for entry in done:
 			lines.append("  - " + String(entry))

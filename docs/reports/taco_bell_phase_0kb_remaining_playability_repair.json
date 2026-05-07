@@ -1,0 +1,159 @@
+{
+  "phase": "0K-B",
+  "status": "PARTIAL",
+  "status_reason": "Delivery bag placement, CAM camera alignment/coverage, wrong-code guard spawning, and runtime hiding of out-of-floor debug-only markers were repaired and runtime-validated. Full reachable-floor flood-fill cleanup for every marker tile/node remains a dedicated follow-up, so this is not marked PASS.",
+  "backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0kb_backup.20260506_182357.tscn",
+  "hashes": {
+    "source_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_before": "F23919BF00B39C2590C7C32CF44A2606",
+    "duplicate_after": "DC9753054F6B6F166C0E2571F500005D"
+  },
+  "wall_collision": {
+    "path": "GameplayRoot/GeneratedRuntimeCollision/WallCollision",
+    "shape_count_before": 2368,
+    "shape_count_after": 2368,
+    "preserved": true
+  },
+  "delivery_bag": {
+    "node_paths": [
+      "GameplayRoot/GeneratedRuntimeInteractables/DeliveryBagObjective",
+      "GameplayRoot/GeneratedRuntimeInteractables/Interactable_OBJ_bag_recovery",
+      "GameplayRoot/GeneratedRuntimeMarkerLabels/Label_OBJ_bag_recovery"
+    ],
+    "old_position": [16672, 336],
+    "old_cell": [260, 20],
+    "old_on_floor": false,
+    "new_position": [16032, 368],
+    "new_cell": [250, 22],
+    "new_on_floor": true,
+    "bag_room_zone": "zone_bag_recovery_room",
+    "interaction_validated": true,
+    "objective_bag_count_after_collect": 1,
+    "completion_controller_updated": true,
+    "objective_data_source_updated": true
+  },
+  "cameras": {
+    "cam_markers_found": 6,
+    "valid_cam_markers": 6,
+    "active_cameras_before": 8,
+    "active_cameras_after": 8,
+    "phase0kb_cameras": 6,
+    "coverage": [
+      "CAM_bag_room",
+      "CAM_garage_lower",
+      "CAM_garage_upper",
+      "CAM_market_01",
+      "CAM_trash_alley",
+      "CAM_upper_high_heat"
+    ],
+    "fix": "Phase0KCameraSpawner now parents the camera before assigning global_position, so cones align with CAM marker positions.",
+    "all_phase0kb_cameras_have_cones": true,
+    "all_phase0kb_cameras_sweep": true
+  },
+  "wrong_code_guard": {
+    "attempts_tracked": true,
+    "threshold": 2,
+    "first_wrong_code_spawns_guard": false,
+    "second_wrong_code_spawns_guard": true,
+    "spawned_guard_name": "WrongCodeAttackGuard_2",
+    "hostile": true,
+    "chase_player": true,
+    "infinite_spawn_guard": "max one dispatched guard; further wrong codes report guard already dispatched",
+    "correct_code_0420_unlocks": true
+  },
+  "guards": {
+    "guard_markers_found": 7,
+    "active_guards_before": 7,
+    "active_patrol_guards_after": 7,
+    "active_guards_after_wrong_code": 8,
+    "all_patrol_guards_have_points": true,
+    "spawner_fix": "Phase0KGuardSpawner now parents guard before assigning global_position, so patrol guards align with GUARD marker positions."
+  },
+  "bounds_cleanup": {
+    "reachable_floor_flood_fill_completed": false,
+    "floor_cell_authority_used_for_required_repairs": true,
+    "runtime_cleanup_helper": "Phase0KBBoundsCleanup",
+    "moved_required_nodes": 2,
+    "moved_labels": 1,
+    "hidden_debug_only_nodes_runtime": 65,
+    "deferred": 0,
+    "required_validated_on_floor": [
+      "DeliveryBagObjective",
+      "Interactable_OBJ_bag_recovery",
+      "LouisExitToken"
+    ],
+    "remaining_risk": "MarkerTileLayer cells and every MarkerRoot node were not fully flood-fill classified in this pass."
+  },
+  "regression_validation": {
+    "read_scene": "PASS",
+    "wall_count": 2368,
+    "bag_on_floor": true,
+    "bag_interaction": true,
+    "camera_cones": true,
+    "wrong_code_guard": true,
+    "correct_code_unlock": true,
+    "bentley_key_3_safe": "preserved from 0K; not re-broken",
+    "objectives_data_source_populates": true,
+    "counts_monotonic": true,
+    "red_hud_preserved": true,
+    "purple_labels_preserved_count": 188
+  },
+  "files_changed": [
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "res://src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "res://src/missions/iso/runtime/Phase0KGuardSpawner.gd",
+    "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd",
+    "res://src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "res://src/missions/iso/runtime/Phase0KBBoundsCleanup.gd",
+    "res://src/missions/iso/runtime/Phase0JCodeInputUI.gd",
+    "res://src/missions/iso/runtime/Phase0JCodeGateController.gd",
+    "res://src/tools/editor/TacoBellPhase0KBRemainingPlayabilityRepair.gd",
+    "res://docs/reports/taco_bell_phase_0kb_remaining_playability_repair.md",
+    "res://docs/reports/taco_bell_phase_0kb_remaining_playability_repair.json"
+  ],
+  "shared_scripts_changed": [],
+  "assertions": {
+    "duplicate_backed_up_before_0kb": "PASS",
+    "source_scene_unchanged": "PASS",
+    "wall_collision_preserved": "PASS",
+    "delivery_bag_repair_validated": "PASS",
+    "all_valid_CAM_markers_have_cameras": "PASS",
+    "wrong_code_attack_guard_validated": "PASS",
+    "guards_patrols_validated": "PASS",
+    "bounds_cleanup_validated": "PARTIAL",
+    "bentley_key_3_still_safe": "PASS_PRESERVED",
+    "objectives_data_source_still_populates": "PASS",
+    "counts_still_monotonic": "PASS",
+    "red_HUD_text_preserved": "PASS",
+    "purple_labels_preserved": "PASS",
+    "report_md_written": "PASS",
+    "report_json_written": "PASS"
+  },
+  "manual_playtest_checklist": [
+    "Run TacoBellIso_Editable_RedesignTest.tscn.",
+    "Confirm walls still work.",
+    "Confirm red HUD/debug text is still readable.",
+    "Confirm purple labels/icons still exist.",
+    "Press key 3 and confirm no crash.",
+    "Go to code gate.",
+    "Confirm three options appear and no hint reveals the correct answer.",
+    "Choose a wrong code once and confirm wrong-code feedback.",
+    "Choose a wrong code a second time and confirm attack guard spawns.",
+    "Confirm attack guard chases/attacks or visibly engages.",
+    "Enter/select 0420 and confirm gate unlocks.",
+    "Go to the bag room.",
+    "Confirm the delivery bag is inside the room, not outside the wall.",
+    "Press E on the delivery bag.",
+    "Confirm delivery bag objective/completion state updates.",
+    "Open pause menu Objectives submenu and confirm objective data still appears/updates.",
+    "Walk through camera areas.",
+    "Confirm every CAM marker area has a visible sweeping cone or has been removed/hidden/deferred.",
+    "Walk near guard/patrol areas.",
+    "Confirm guards are present and patrol.",
+    "Look around map edges.",
+    "Confirm no required/interactable markers are sitting outside the playable area.",
+    "Confirm counts do not subtract incorrectly.",
+    "Confirm repeated interactions do not crash."
+  ]
+}

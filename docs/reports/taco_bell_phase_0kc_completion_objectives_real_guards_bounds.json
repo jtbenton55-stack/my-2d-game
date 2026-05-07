@@ -1,0 +1,113 @@
+{
+  "phase": "0K-C",
+  "status": "PARTIAL",
+  "status_reason": "Mission completion, running objective lists, real guard-style visuals, wrong-code hostile guard behavior, and expanded runtime bounds cleanup were implemented and runtime-validated. Bounds cleanup uses FloorLayer floor-cell authority and runtime visibility/move repair, but not a persisted MarkerTileLayer rewrite or physics wall flood-fill, so this remains PARTIAL.",
+  "backup": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0kc_backup.20260506_195828.tscn",
+  "hashes": {
+    "source_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "duplicate_before": "80A8783662280451BACBFE857548197F",
+    "duplicate_after": "80A8783662280451BACBFE857548197F"
+  },
+  "wall_collision": {
+    "before": 2368,
+    "after": 2368,
+    "preserved": true
+  },
+  "mission_completion": {
+    "method": "Phase0KLouisExitInteractable calls Phase0KMissionCompletionController.complete_mission_and_exit(), which calls GameState.complete_mission('taco_bell_drop') and SceneManager.show_mission_result(result).",
+    "incomplete_louis_blocks": true,
+    "complete_sets_exit_unlocked": true,
+    "complete_sets_mission_completed": true,
+    "gamestate_completed_mission": true,
+    "mission_result_written": true
+  },
+  "objectives": {
+    "running_active_list": true,
+    "completed_list": true,
+    "pause_menu_sections": ["Active Objectives", "Completed Objectives"],
+    "validation_sequence": {
+      "after_add_A_B": ["Objective A", "Objective B"],
+      "after_complete_A_active": ["Objective B"],
+      "after_complete_A_completed": ["Objective A"],
+      "after_add_C_active": ["Objective B", "Objective C"]
+    }
+  },
+  "guards": {
+    "script": "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd",
+    "real_guard_visual_style": ["BlackBodyOutline", "RedBody", "WhiteCircleHead", "RedScanningCone"],
+    "patrol_guard_count": 7,
+    "wrong_code_attack_guard": {
+      "spawns_on_second_wrong_code": true,
+      "hostile": true,
+      "chase_player": true,
+      "uses_real_guard_visual_style": true,
+      "label_only_or_triangle_fake_removed": true
+    },
+    "all_patrol_guards_visuals_validated": true,
+    "all_patrol_guards_have_points": true
+  },
+  "bounds_cleanup": {
+    "helper": "Phase0KBBoundsCleanup",
+    "floor_cell_authority": "GameplayRoot/LayoutRoot/FloorLayer",
+    "reachable_floor_count": 18269,
+    "audited_runtime_nodes": 378,
+    "moved_runtime_nodes": 18,
+    "hidden_runtime_nodes": 106,
+    "required_validated_on_floor": ["DeliveryBagObjective", "Interactable_OBJ_bag_recovery", "LouisExitToken"],
+    "full_physics_flood_fill": false,
+    "remaining_exceptions": "No required bag/Louis/code-critical nodes found off floor in validation; possible MarkerTileLayer authoring cells still need a bounds-only persisted cleanup."
+  },
+  "regressions": {
+    "delivery_bag_still_on_floor": true,
+    "code_gate_0420_unlocks": true,
+    "camera_cones_preserved": true,
+    "bentley_key_3_still_safe": true,
+    "red_hud_preserved": true,
+    "counts_monotonic": true,
+    "purple_labels_count": 188
+  },
+  "shared_scripts_changed": [
+    {
+      "file": "res://src/autoload/QuestManager.gd",
+      "reason": "Needed active/completed objective lists instead of replacing a single current objective.",
+      "functions": ["add_objective", "complete_objective_id", "get_active_objectives", "get_completed_objectives", "has_objective", "is_objective_completed"],
+      "risk": "Low; preserves existing single current objective compatibility while adding list getters."
+    },
+    {
+      "file": "res://src/ui/test_ui/pause_menu.gd",
+      "reason": "Needed to render Active Objectives and Completed Objectives sections.",
+      "functions": ["_objectives_text"],
+      "risk": "Low; falls back to empty-list text if no objectives exist."
+    }
+  ],
+  "files_changed": [
+    "res://src/autoload/QuestManager.gd",
+    "res://src/ui/test_ui/pause_menu.gd",
+    "res://src/missions/iso/runtime/Phase0KMissionCompletionController.gd",
+    "res://src/missions/iso/runtime/Phase0KLouisExitInteractable.gd",
+    "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd",
+    "res://src/missions/iso/runtime/Phase0KBBoundsCleanup.gd",
+    "res://src/tools/editor/TacoBellPhase0KCCompletionObjectivesRealGuardsBounds.gd",
+    "res://docs/reports/taco_bell_phase_0kc_completion_objectives_real_guards_bounds.md",
+    "res://docs/reports/taco_bell_phase_0kc_completion_objectives_real_guards_bounds.json",
+    "res://docs/reports/taco_bell_phase_0kc_marker_authoring_contract.md"
+  ],
+  "assertions": {
+    "duplicate_backed_up_before_0kc": "PASS",
+    "source_scene_unchanged": "PASS",
+    "wall_collision_preserved": "PASS",
+    "louis_exit_completion_works": "PASS",
+    "running_objective_lists_work": "PASS",
+    "wrong_code_real_guard_works": "PASS",
+    "all_guards_use_real_visual_or_reported_exception": "PASS",
+    "camera_cones_preserved": "PASS",
+    "bounds_cleanup_validated": "PARTIAL",
+    "bentley_key_3_still_safe": "PASS",
+    "red_HUD_text_preserved": "PASS",
+    "counts_still_monotonic": "PASS",
+    "marker_authoring_contract_written": "PASS",
+    "report_md_written": "PASS",
+    "report_json_written": "PASS"
+  }
+}

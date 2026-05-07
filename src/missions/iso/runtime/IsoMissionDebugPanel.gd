@@ -2,6 +2,9 @@ class_name IsoMissionDebugPanel
 extends CanvasLayer
 
 @export var mission_id: String = ""
+@export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
+@export var debug_outline_color := Color(0.0, 0.0, 0.0, 1.0)
+@export var debug_outline_size := 3
 
 var _mission: Node = null
 var _compact_panel: Panel = null
@@ -56,6 +59,7 @@ func _build_ui() -> void:
 	_compact_panel.offset_top = -84.0
 	_compact_panel.offset_right = 306.0
 	_compact_panel.offset_bottom = 84.0
+	_apply_dark_panel_style(_compact_panel)
 	add_child(_compact_panel)
 	var compact := Label.new()
 	compact.name = "Status"
@@ -64,10 +68,12 @@ func _build_ui() -> void:
 	compact.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_status = compact
 	_compact_panel.add_child(compact)
+	_apply_red_text_style(compact)
 	_details_panel = Panel.new()
 	_details_panel.name = "DebugDetailsPanel"
 	_details_panel.position = Vector2(14, 190)
 	_details_panel.size = Vector2(340, 220)
+	_apply_dark_panel_style(_details_panel)
 	add_child(_details_panel)
 	_details = RichTextLabel.new()
 	_details.position = Vector2(8, 8)
@@ -75,6 +81,7 @@ func _build_ui() -> void:
 	_details.fit_content = false
 	_details.scroll_active = true
 	_details_panel.add_child(_details)
+	_apply_red_text_style(_details)
 
 
 func toggle_compact_hud() -> void:
@@ -132,6 +139,7 @@ func _refresh_status() -> void:
 		int(attempt.get("guards_alerted", perf.get("guards_alerted", 0))),
 		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0)))
 	]
+	_apply_red_text_style(_status)
 	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d\n(F9 toggle details, F10 toggle compact HUD)" % [
 		def_mode,
 		String(get_tree().current_scene.scene_file_path),
@@ -147,6 +155,7 @@ func _refresh_status() -> void:
 		int(perf.get("wrong_scent_trails_followed", 0)),
 		int(perf.get("collectibles_found", 0))
 	]
+	_apply_red_text_style(_details)
 
 
 func _typed_collectible_summary() -> Dictionary:
@@ -168,6 +177,28 @@ func _typed_collectible_summary() -> Dictionary:
 		elif ctype == "tiny_icon":
 			out["tiny_icon"] = int(out["tiny_icon"]) + 1
 	return out
+
+
+func _apply_dark_panel_style(panel: Panel) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0, 0, 0, 0.72)
+	style.border_color = Color(0.5, 0, 0, 0.9)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(6)
+	panel.add_theme_stylebox_override("panel", style)
+
+
+func _apply_red_text_style(control: Control) -> void:
+	if control is Label:
+		var label := control as Label
+		label.add_theme_color_override("font_color", debug_text_color)
+		label.add_theme_color_override("font_outline_color", debug_outline_color)
+		label.add_theme_constant_override("outline_size", debug_outline_size)
+	elif control is RichTextLabel:
+		var rich := control as RichTextLabel
+		rich.add_theme_color_override("default_color", debug_text_color)
+		rich.add_theme_color_override("font_outline_color", debug_outline_color)
+		rich.add_theme_constant_override("outline_size", debug_outline_size)
 
 
 func _on_restart() -> void:

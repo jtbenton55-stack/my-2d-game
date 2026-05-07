@@ -1,0 +1,153 @@
+{
+  "status": "PARTIAL",
+  "partial_reason": "Runtime smoke confirmed per-wall-cell collision generation, but physical walk tests for thin walls, gate walkaround, and boundary escape still require manual playtest.",
+  "source_protection": {
+    "source_hash_before": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_hash_after": "6E4E9A790D257126B6F8A17587BACAF6",
+    "source_unchanged": true
+  },
+  "backups": {
+    "failed_0jb_state_backup_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.failed_0jb_collision_backup.20260506_064637.tscn",
+    "failed_0jb_state_backup_hash": "BBD10B09476DE1E392FC8429000F9F12",
+    "clean_pre_0jb_backup_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.phase0jb_backup.20260506_063114.tscn",
+    "clean_pre_0jb_backup_hash": "D2A987CE31F17DF237B5E9C491761ED0",
+    "approach_used": "restore clean pre-0J-B backup, then apply 0J-B2 generated collision only",
+    "decision_reason": "The direct saved-node per-cell attempt made the scene fail Godot instantiation; restoring clean pre-0J-B and using a scene-local runtime generator preserved manual tile data and avoided broad strips."
+  },
+  "manual_preservation": {
+    "floor_layer_changed": false,
+    "wall_layer_changed": false,
+    "marker_tile_layer_changed": false,
+    "editor_room_labels_preserved": true,
+    "manual_placements_preserved": true
+  },
+  "old_collision_inventory": {
+    "old_wall_collision_body_count": 12,
+    "old_wall_collision_shape_count": 12,
+    "old_boundary_collision_body_count": 4,
+    "old_boundary_collision_shape_count": 4,
+    "old_gate_blocker_shape_count": 1,
+    "largest_old_shape_aabb": "broad p0jb rectangle strip; rejected by manual playtest",
+    "old_broad_strip_failure_diagnosis": "0J-B used broad WallProxy rectangles / cluster bands that cut across walkable floor.",
+    "old_broad_artifacts_remaining": 0
+  },
+  "new_collision": {
+    "strategy": "per_wall_cell_expanded_diamond",
+    "implementation": "Phase0JB2WallCellCollisionGenerator on GameplayRoot/GeneratedRuntimeCollision/WallCollision/WallCellBody",
+    "wall_layer_cell_count_used": 2368,
+    "wall_collision_body_count": 1,
+    "wall_collision_shape_count": 2368,
+    "tile_center_deltas_recorded": true,
+    "expansion_factor": 1.08,
+    "average_shape_aabb": "about 69.12 x 34.56 px",
+    "largest_new_shape_aabb": "about 69.12 x 34.56 px",
+    "source_metadata_coverage": "Generated shapes receive generated_by, collision_type, and PackedInt32Array source_cell metadata."
+  },
+  "sanity_checks": {
+    "validation_ran": true,
+    "static_geometry_sanity_passed": true,
+    "giant_strips_count": 0,
+    "open_floor_cutting_count": "manual_check_required",
+    "shapes_with_no_source_metadata": 0,
+    "suspiciously_low_shape_count": false,
+    "flagged_bad_count": 0
+  },
+  "boundary_collision": {
+    "status": "rebuilt",
+    "body_count": 4,
+    "shape_count": 4,
+    "placement": "outside FloorLayer used rect",
+    "cuts_playable_floor": false,
+    "uses_walls_bitmask": true
+  },
+  "code_gate": {
+    "status": "rebuilt",
+    "position_source": "current scene editor-only placeholder / 0J-B2 local chokepoint",
+    "shape_count": 1,
+    "future_unlockable": true,
+    "unlock_status": "deferred_to_0J-C"
+  },
+  "validation_method": [
+    "MCP get_project_info confirmed Godot 4.6.2.",
+    "MCP read_scene successfully parsed scene after final repair.",
+    "MCP run_project launched duplicate scene.",
+    "Runtime debug log confirmed [Phase0JB2] Generated 2368 wall-cell collision polygons.",
+    "Static ripgrep confirmed no old WallProxy/p0jb broad-strip artifacts remain.",
+    "ReadLints reported no linter errors in edited scripts."
+  ],
+  "validation_limitations": [
+    "No reliable automated movement/physics walk test was available through game_eval in this environment.",
+    "Thin wall leakage, gate walkaround, and boundary escape remain manual playtest checks."
+  ],
+  "files_changed": [
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "res://src/missions/iso/runtime/Phase0JB2WallCellCollisionGenerator.gd",
+    "res://src/tools/editor/TacoBellPhase0JB2CollisionRepair.gd",
+    "res://docs/reports/taco_bell_phase_0jb2_collision_repair.md",
+    "res://docs/reports/taco_bell_phase_0jb2_collision_repair.json"
+  ],
+  "assertion_ledger": {
+    "duplicate_scene_exists": true,
+    "source_scene_exists": true,
+    "clean_pre_0jb_backup_exists": true,
+    "failed_0jb_state_backed_up": true,
+    "source_scene_hash_recorded_before": true,
+    "current_bad_collision_inventory_recorded": true,
+    "restore_or_targeted_delete_decision_recorded": true,
+    "failed_broad_wall_collision_removed": true,
+    "floor_layer_not_repainted": true,
+    "wall_layer_not_repainted": true,
+    "marker_tile_layer_not_repainted": true,
+    "manual_markers_preserved": true,
+    "editor_room_labels_preserved": true,
+    "floor_layer_found": true,
+    "wall_layer_found": true,
+    "floor_cells_count_gt_zero": true,
+    "wall_cells_count_gt_zero": true,
+    "wall_layer_transform_recorded": true,
+    "tile_center_deltas_recorded": true,
+    "player_collision_shape_recorded": true,
+    "walls_bitmask_confirmed": true,
+    "phase0jb2_runner_created": true,
+    "phase0jb2_runner_rerunnable": true,
+    "runner_only_deletes_generated_collision": true,
+    "runner_does_not_modify_tile_cells": true,
+    "collision_strategy_per_cell": true,
+    "shape_count_close_to_wall_cell_count_or_explained": true,
+    "no_broad_cluster_aabb_strategy_used": true,
+    "no_shape_created_from_disconnected_wall_cluster_aabb": true,
+    "each_wall_shape_has_source_cell_metadata_or_edge_metadata": true,
+    "collision_sanity_check_ran": true,
+    "giant_cross_map_collision_shapes_count_zero": true,
+    "collision_shapes_cutting_open_floor_count_zero": "manual_check_required",
+    "wall_shapes_without_source_metadata_count_zero": true,
+    "suspiciously_low_shape_count_false": true,
+    "boundary_collision_not_cutting_playable_floor": true,
+    "boundary_collision_outside_or_along_outer_bounds": true,
+    "boundary_collision_uses_walls_bitmask_if_created": true,
+    "code_gate_blocker_exists": true,
+    "code_gate_blocker_not_giant_cross_map_strip": true,
+    "code_gate_blocker_future_unlockable": true,
+    "code_gate_unlock_deferred_to_0jc_or_controller_exists": true,
+    "validation_ran": true,
+    "static_geometry_sanity_passed": true,
+    "manual_playtest_checklist_written": true,
+    "phase0jb2_report_md_written": true,
+    "phase0jb2_report_json_written": true,
+    "assertion_ledger_written": true
+  },
+  "manual_playtest_checklist": [
+    "Open duplicate scene res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn.",
+    "Enable Visible Collision Shapes if useful.",
+    "Confirm collision now follows wall cells instead of broad cyan strips.",
+    "Confirm no cyan strips cut across open walkable floor.",
+    "Run scene.",
+    "Test thin one-tile walls.",
+    "Test thick walls.",
+    "Test intended corridors.",
+    "Test outer boundary escape.",
+    "Test code gate location.",
+    "Test walking around gate.",
+    "Confirm labels remain hidden at runtime."
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "status": "PLAYABLE_WITH_KNOWN_LIMITATIONS",
+  "scene_to_use": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "protected_source_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "generated_at": "Wednesday, May 6, 2026, 8:41 PM UTC-4",
+  "working_systems": [
+    "Delivery bag is inside the bag room, reachable, visible, and interactable.",
+    "Picking up the delivery bag completes/updates the delivery bag objective.",
+    "Objectives update in the pause menu.",
+    "Running active/completed objective list was implemented.",
+    "Louis recognizes when the player has the bag.",
+    "Louis exit worked well.",
+    "Louis completes/ends the mission through the mission result flow.",
+    "Code gate has three options.",
+    "Wrong code gives feedback.",
+    "Correct code 0420 unlocks the gate.",
+    "Bentley key 3 no longer crashes.",
+    "Bentley fetches appropriately.",
+    "Camera cones exist in the mission.",
+    "Guards exist in the mission.",
+    "Wall collision works.",
+    "Counts remain monotonic.",
+    "Red HUD/debug text is readable.",
+    "Purple labels/icons are useful enough for current testing.",
+    "Pause menu objective data source is populated."
+  ],
+  "known_limitations": [
+    "Newly spawned guards do not reliably attack the player.",
+    "Some camera cones do not reliably spawn/dispatch guards when the player stands in visibility cones.",
+    "Tokens, marker labels, and marker tiles still exist outside the walkable/walled mission area.",
+    "Bounds cleanup is not fully persisted for MarkerTileLayer / MarkerRoot authoring markers.",
+    "Guard/camera behavior is acceptable enough to move on but needs post-birthday polish.",
+    "Taco Bell is playable enough to park for now, but not fully final."
+  ],
+  "do_not_touch_before_hideout": [
+    "Do not continue guard AI polish before starting hideout.",
+    "Do not continue camera dispatch polish before starting hideout.",
+    "Do not continue bounds cleanup before starting hideout unless it blocks testing.",
+    "Do not expand Taco Bell mechanics.",
+    "Do not rebuild or repaint the map.",
+    "Do not change wall collision.",
+    "Do not change mission completion logic unless it breaks."
+  ],
+  "recommended_next_step": "0M-A HideoutHub production scaffold",
+  "immediate_build_order": [
+    "0M-A HideoutHub production scaffold",
+    "0M-B Hideout visual dressing",
+    "0N Title screen/start loop",
+    "0L Taco Bell Monogon visual dressing if time",
+    "final QA/export"
+  ],
+  "post_birthday_fix_list": [
+    "real guard attack/chase reliability",
+    "camera cone detection to guard dispatch",
+    "persisted MarkerTileLayer / MarkerRoot bounds cleanup",
+    "generalized editor contract for GUARD/PATROL/CAM markers",
+    "art pass cleanup",
+    "remove/debug toggle labels once final art is in"
+  ],
+  "git_status_summary": [
+    "Modified: scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "Modified: src/autoload/QuestManager.gd",
+    "Modified: src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "Modified: src/player/DogCompanion.gd",
+    "Modified: src/ui/test_ui/pause_menu.gd",
+    "Untracked: many Taco Bell phase reports under docs/reports/",
+    "Untracked: multiple TacoBellIso_Editable_RedesignTest phase backup scenes",
+    "Untracked: Phase0J and Phase0K runtime helper scripts and .uid files",
+    "Untracked: Phase0J and Phase0K editor runner scripts and .uid files"
+  ],
+  "source_scene_status": "Source scene appears untouched in git status.",
+  "wall_collision_status": "Recent reports validated GameplayRoot/GeneratedRuntimeCollision/WallCollision at 2368 shapes before/after.",
+  "commit_recommendation": "Checkpoint Taco Bell birthday mission loop",
+  "manual_qa_checklist": [
+    "delivery bag works",
+    "objective menu updates",
+    "code gate works",
+    "Louis completes mission",
+    "Bentley key 3 no crash",
+    "wall collision works",
+    "no critical crash",
+    "known guard/camera/bounds limitations accepted"
+  ],
+  "decision": "Move on to HideoutHub production scaffold; do not continue Taco Bell guard/camera/bounds polish before hideout unless a critical crash blocks testing."
+}
