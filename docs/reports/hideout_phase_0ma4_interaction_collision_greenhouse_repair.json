@@ -1,0 +1,201 @@
+{
+  "phase": "0M-A4",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0ma4_backup.20260506_235451.tscn",
+  "hideout_scene_modified": true,
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.phase0ma4_backup.20260506_235451.tscn",
+    "res://src/hideout/HideoutInteractionBridge.gd",
+    "res://src/tools/editor/HideoutPhase0MA4Validator.gd",
+    "res://docs/reports/hideout_phase_0ma4_interaction_collision_greenhouse_repair.md",
+    "res://docs/reports/hideout_phase_0ma4_interaction_collision_greenhouse_repair.json"
+  ],
+  "files_modified": [
+    "res://scenes/hideout/HideoutHub.tscn",
+    "res://src/hideout/ScrollableStationPanel.gd",
+    "res://src/hideout/HideoutInteractable.gd",
+    "res://src/hideout/HideoutStationCatalog.gd",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/HideoutMissionBoardController.gd"
+  ],
+  "baseline": {
+    "git_status_recorded": true,
+    "taco_bell_scenes_not_modified_before": true,
+    "player_interaction_contract_recorded": true,
+    "hideout_interactable_inventory_recorded": true,
+    "collision_baseline_recorded": true,
+    "baseline_interactable_count": 18
+  },
+  "interaction_root_cause": {
+    "primary": "ScrollableStationPanel added itself to blocking_ui while hidden, causing Player.gd to skip all world interactions.",
+    "secondary": [
+      "Player.gd has a hard 72 px native interaction distance.",
+      "Wall-mounted station visual origins can be too far from standing spots.",
+      "MissionBoard needed a clear Start The Taco Bell Drop action."
+    ],
+    "audited": true,
+    "failure_mode_reported": true
+  },
+  "player_contract": {
+    "input_action": "interact",
+    "scans_group_interactable": true,
+    "requires_node2d": true,
+    "requires_interact_method": true,
+    "distance_radius": 72,
+    "filters_is_interaction_available": true,
+    "filters_should_show_interaction_prompt": true,
+    "sorts_get_interaction_priority": true,
+    "ignores_when_blocking_ui_exists": true,
+    "area_overlap_required": false
+  },
+  "hideout_interactable": {
+    "in_global_interactable_group": true,
+    "in_hideout_interactable_group": true,
+    "has_interact_method": true,
+    "routes_to_hideout_manager": true,
+    "safe_fallback": true,
+    "does_not_crash_if_manager_missing": true,
+    "exports_station_id": true,
+    "interaction_radius": 144
+  },
+  "interaction_bridge": {
+    "created": true,
+    "script": "res://src/hideout/HideoutInteractionBridge.gd",
+    "node_path": "HideoutHubRoot/GameplayRoot/Managers/HideoutInteractionBridge",
+    "limited_to_hideout_hub": true,
+    "uses_hideout_interactable_group": true,
+    "calls_interact": true,
+    "radius": 144
+  },
+  "station_proxies": {
+    "count": 18,
+    "all_required_exist": true,
+    "all_have_station_id": true,
+    "all_in_interactable_group": true,
+    "all_in_hideout_interactable_group": true,
+    "all_have_interact": true,
+    "all_have_panel_title_body": true,
+    "manual_reachability_check_required": true,
+    "entries": {
+      "entry_exit_door": {"station": [760, 430], "proxy": [700, 390], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "generic panel"},
+      "bentley_care_station": {"station": [520, 330], "proxy": [500, 390], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "care controller"},
+      "loot_crate_drop_zone": {"station": [210, 350], "proxy": [210, 300], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "generic panel"},
+      "bentley": {"station": [-760, 350], "proxy": [-720, 350], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "character controller"},
+      "jake": {"station": [-560, 300], "proxy": [-520, 300], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "character controller"},
+      "mere": {"station": [-420, 300], "proxy": [-380, 300], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "character controller"},
+      "mission_board": {"station": [520, -410], "proxy": [500, -340], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "mission controller", "runtime_open_confirmed": true},
+      "evidence_board_big_case": {"station": [0, -405], "proxy": [0, -330], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "evidence controller"},
+      "planning_table": {"station": [0, 20], "proxy": [0, 120], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "scheme controller"},
+      "polaroid_wall": {"station": [-850, -230], "proxy": [-760, -230], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "collectible controller"},
+      "glow_guy_shelf": {"station": [-880, -40], "proxy": [-780, -40], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "collectible controller"},
+      "tiny_icon_shelf": {"station": [-880, 110], "proxy": [-780, 110], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "collectible controller"},
+      "poop_bag_care_display": {"station": [-840, 250], "proxy": [-750, 250], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "collectible controller"},
+      "store_terminal": {"station": [790, -80], "proxy": [710, -80], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "store controller"},
+      "open_decor_zone": {"station": [470, 120], "proxy": [470, 120], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "generic panel"},
+      "heat_scanner": {"station": [650, -260], "proxy": [620, -220], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "generic panel"},
+      "louis": {"station": [820, 130], "proxy": [760, 130], "fresh_enabled": false, "louis_unlocked_enabled": true, "route": "character controller", "runtime_unlocked_open_confirmed": true},
+      "test_interactable": {"station": [320, 255], "proxy": [320, 205], "fresh_enabled": true, "louis_unlocked_enabled": true, "route": "generic panel"}
+    }
+  },
+  "scrollable_panel": {
+    "open_method_exists": true,
+    "close_method_exists": true,
+    "close_panel_alias_exists": true,
+    "visible_when_opened": true,
+    "hidden_when_closed": true,
+    "blocking_ui_only_when_open": true,
+    "runtime_open_close_confirmed": true
+  },
+  "mission_board": {
+    "opens": true,
+    "has_11_missions": true,
+    "start_action_label": "Start The Taco Bell Drop",
+    "launch_function_exists": true,
+    "launch_path_exact": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "runtime_launch_confirmed": true,
+    "no_route_selection": true,
+    "no_assist_selection": true,
+    "no_fresh_heat_controls": true
+  },
+  "collision": {
+    "boundary_walls_exists": true,
+    "path": "HideoutHubRoot/GameplayRoot/Navigation/Collision/BoundaryWalls",
+    "method": "StaticBody2D with rotated RectangleShape2D per floor polygon edge",
+    "shape_count": 17,
+    "thickness": 64,
+    "overlap_margin": 48,
+    "collision_follows_outer_floor_edges": true,
+    "collision_has_corner_overlap": true,
+    "manual_edge_walk_required": true,
+    "polygon_points": [
+      [-960, -250],
+      [-820, -430],
+      [-500, -430],
+      [-430, -690],
+      [430, -690],
+      [500, -430],
+      [790, -430],
+      [960, -260],
+      [960, 340],
+      [800, 500],
+      [470, 500],
+      [330, 420],
+      [-360, 420],
+      [-500, 520],
+      [-900, 520],
+      [-1040, 360],
+      [-1040, -120]
+    ]
+  },
+  "greenhouse": {
+    "old_top_y": -610,
+    "new_top_y": -690,
+    "glass_band_position": [0, -635],
+    "expanded_north": true,
+    "walkable_area_created": true,
+    "not_blocked_by_collision": "manual_check_required"
+  },
+  "big_case": {
+    "old_position": [0, -455],
+    "new_position": [0, -405],
+    "new_proxy_position": [0, -330],
+    "moved_south_inward": true,
+    "still_center_north": true
+  },
+  "louis": {
+    "hidden_fresh": true,
+    "interaction_disabled_fresh": true,
+    "visible_unlocked": true,
+    "proxy_enabled_unlocked": true,
+    "interactable_unlocked": true,
+    "runtime_unlocked_interaction_confirmed": true
+  },
+  "validator": {
+    "created": true,
+    "path": "res://src/tools/editor/HideoutPhase0MA4Validator.gd",
+    "run_or_static_checked": true
+  },
+  "monogon_readiness": {
+    "gameplay_art_separation_preserved": true,
+    "station_logic_not_bound_to_visual_tile": true,
+    "collision_separate_from_replaceable_art": true,
+    "visual_layers_preserved": ["FloorLayer", "WallLayer", "PropLayer", "DecorationLayer", "CollectibleLayer", "CharacterVisualLayer", "ForegroundLayer", "LightingLayer"]
+  },
+  "known_placeholders": [
+    "graybox visuals only",
+    "no Monogon art",
+    "no store economy",
+    "no drag/drop decoration",
+    "no real scheme-card gameplay effects",
+    "manual boundary collision playtest still required"
+  ],
+  "risks": [
+    "Native Player.gd still uses 72 px; bridge uses 144 px for hideout-only fallback.",
+    "Boundary collision needs manual walk-around validation.",
+    "Generated station nodes are runtime-created.",
+    "SceneManager.HIDEOUT_SCENE still points to older hideout scene."
+  ],
+  "recommended_next_step_if_passes": "0M-B - Hideout visual dressing / Monogon-style prop pass",
+  "recommended_next_step_if_fails": "0M-A5 - focused fix for the specific failed interaction/collision issue"
+}

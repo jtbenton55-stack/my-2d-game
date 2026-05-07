@@ -1,0 +1,180 @@
+{
+  "phase": "0M-A v3",
+  "status": "PARTIAL",
+  "scene_path": "res://scenes/hideout/HideoutHub.tscn",
+  "taco_bell_scene_to_launch": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "protected_taco_bell_source_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "taco_bell_scenes_modified": false,
+  "audit": {
+    "completed": true,
+    "player_scene": "res://scenes/characters/player.tscn",
+    "player_script": "res://src/player/Player.gd",
+    "interaction_pattern": "Player scans global interactable group, checks is_interaction_available(player), then calls interact(self).",
+    "interact_action": "interact",
+    "case_the_joint_action": "case_the_joint, not used for hideout station panels",
+    "scene_transition_pattern": "SceneManager.change_scene(path) / get_tree().change_scene_to_file(path)",
+    "mission_launch_method": "GameState.start_mission('taco_bell_drop') then SceneManager.change_scene(frozen duplicate Taco Bell scene)",
+    "scrollable_ui_pattern": "Reusable PanelContainer with ScrollContainer and RichTextLabel",
+    "existing_hideout_scene_status": "res://scenes/hideout/hideout.tscn exists as older simple hub; HideoutHub.tscn is new",
+    "taco_bell_freeze_status": "PLAYABLE_WITH_KNOWN_LIMITATIONS",
+    "monogon_asset_status": "Available under assets/tilesets/iso_vertical_slice/source/monogon/",
+    "assertions": {
+      "audit_completed": true,
+      "player_scene_identified": true,
+      "interaction_pattern_identified": true,
+      "scene_transition_pattern_identified": true,
+      "scrollable_UI_pattern_identified_or_fallback_defined": true,
+      "existing_hideout_scene_status_reported": true,
+      "Taco_Bell_freeze_report_read": true,
+      "Monogon_asset_status_reported": true
+    }
+  },
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.tscn",
+    "res://src/hideout/HideoutStationCatalog.gd",
+    "res://src/hideout/HideoutInteractable.gd",
+    "res://src/hideout/ScrollableStationPanel.gd",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/HideoutMissionBoardController.gd",
+    "res://src/hideout/HideoutEvidenceBoardController.gd",
+    "res://src/hideout/HideoutSchemeCardController.gd",
+    "res://src/hideout/HideoutCollectibleController.gd",
+    "res://src/hideout/HideoutCareController.gd",
+    "res://src/hideout/HideoutStoreController.gd",
+    "res://src/hideout/HideoutCharacterController.gd",
+    "res://src/hideout/HideoutDebugController.gd",
+    "res://src/hideout/HideoutPlacementZone.gd",
+    "res://src/tools/editor/HideoutPhase0MAValidator.gd",
+    "res://docs/reports/hideout_phase_0ma_production_scaffold.md",
+    "res://docs/reports/hideout_phase_0ma_production_scaffold.json",
+    "res://docs/reports/hideout_birthday_build_manual_test.md"
+  ],
+  "files_modified": [],
+  "playable_spine": {
+    "HideoutHub_loads": true,
+    "no_parse_errors": true,
+    "player_spawns": true,
+    "player_moves": "manual_check_required",
+    "collision_works": "manual_check_required",
+    "collision_bodies": 8,
+    "test_interactable_opens_panel": true,
+    "panel_closes": true,
+    "gameplay_art_layer_separation_exists": true
+  },
+  "station_catalog": {
+    "exists": true,
+    "required_entries_exist": true,
+    "every_station_has_classification": true,
+    "has_monogon_art_tags_or_notes": true,
+    "station_count_including_test": 18,
+    "classifications": {
+      "entry_exit_door": "PANEL_ONLY",
+      "bentley_care_station": "FUNCTIONAL",
+      "loot_crate_drop_zone": "DEBUG_STATE_VISUAL",
+      "bentley": "PANEL_ONLY",
+      "jake": "PANEL_ONLY",
+      "mere": "PANEL_ONLY",
+      "louis": "DEBUG_STATE_VISUAL",
+      "mission_board": "FUNCTIONAL",
+      "evidence_board_big_case": "FUNCTIONAL",
+      "planning_table": "FUNCTIONAL",
+      "polaroid_wall": "PANEL_ONLY",
+      "glow_guy_shelf": "PANEL_ONLY",
+      "tiny_icon_shelf": "PANEL_ONLY",
+      "poop_bag_care_display": "PANEL_ONLY",
+      "store_terminal": "FUNCTIONAL",
+      "open_decor_zone": "FUTURE_PLACEHOLDER",
+      "heat_scanner": "DEBUG_STATE_VISUAL",
+      "test_interactable": "PANEL_ONLY"
+    }
+  },
+  "mission_board": {
+    "has_11_slots": true,
+    "taco_bell_launch_configured": true,
+    "taco_bell_launch_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "no_route_selection": true,
+    "no_assist_selection": true,
+    "no_fresh_heat_controls": true,
+    "avoids_forbidden_labels": true
+  },
+  "evidence_board": {
+    "title": "The Big Case",
+    "uses_vague_language": true,
+    "forbidden_sterling_progression_labels_absent": true
+  },
+  "scheme_cards": {
+    "active_slots": ["Plan Card", "Trick Card", "Comfort/Chaos Card"],
+    "placeholder_card_count": 10,
+    "gameplay_effects_implemented": false
+  },
+  "care_station": {
+    "beside_entry_exit": true,
+    "actions": ["Wipe paws", "Give treat", "Brush Bentley", "Restock poop bags", "View poop bag collection"],
+    "flags": ["bentley_wiped", "bentley_brushed", "treat_packed", "poop_bags_stocked"]
+  },
+  "characters": {
+    "fresh_visible": ["Bentley", "Jake", "Mere"],
+    "fresh_hidden": ["Louis"],
+    "louis_unlocked_visible_runtime_confirmed": true
+  },
+  "collectibles": {
+    "displays_created": ["PolaroidWall", "GlowGuyShelf", "TinyIconShelf", "PoopBagCareDisplay"],
+    "taco_bell_completed_visuals": true,
+    "missing_silhouettes": true
+  },
+  "placement": {
+    "zones_created": 11,
+    "snap_marker_containers_created": 10,
+    "mission_card_markers": 11,
+    "drag_drop_implemented": false
+  },
+  "store": {
+    "scaffold_created": true,
+    "categories_count": 8,
+    "taco_bell_decor_unlocks_count": 8,
+    "economy_implemented": false
+  },
+  "debug_states": {
+    "trigger_method": "DebugHideoutPanel buttons",
+    "states": ["fresh", "taco_bell_completed", "missing_items", "high_heat", "louis_unlocked"]
+  },
+  "runtime_validation": {
+    "godot_runtime_bridge_scene_change_ok": true,
+    "runtime_errors_after_load": 0,
+    "runtime_warnings_after_load": 0,
+    "hideout_interactables": 18,
+    "louis_hidden_by_default": true,
+    "louis_unlocked_visible": true,
+    "scroll_container_exists": true,
+    "collision_bodies": 8,
+    "mission_card_slots": 11,
+    "test_panel_opened": true,
+    "panel_closed": true
+  },
+  "monogon_readiness": {
+    "visual_layers_ready": ["FloorLayer", "WallLayer", "PropLayer", "DecorationLayer", "CollectibleLayer", "CharacterVisualLayer", "ForegroundLayer", "LightingLayer"],
+    "gameplay_layers_not_to_replace": ["Navigation", "Collision", "WalkableArea", "Stations", "PlacementZones", "SnapMarkers", "Managers"],
+    "recommended_packs_zones": {
+      "cyberpunk_interior": ["mission board", "planning table", "store terminal", "heat scanner", "monitors", "neon panels", "security tech"],
+      "house_interior": ["cozy lounge", "couch/chairs", "rugs", "Bentley bed", "domestic shelves", "warm props"],
+      "cyberpunk_city_building_street": ["entry/exit", "rooftop garage boundary", "windows", "vents", "industrial props", "exterior city-view greenhouse edge"]
+    },
+    "assertions": {
+      "Monogon_ready_visual_layer_separation_exists": true,
+      "gameplay_logic_not_bound_to_visual_tiles": true,
+      "collision_is_separate_from_replaceable_art": true,
+      "stations_use_markers_or_interactables_not_tile_identity": true,
+      "Monogon_Readiness_report_section_written": true
+    }
+  },
+  "known_placeholders": [
+    "graybox visuals only",
+    "fake progression states only",
+    "no store economy",
+    "no scheme-card gameplay effects",
+    "no drag/drop decoration",
+    "other mission slots are placeholders",
+    "manual player movement and collision check still required"
+  ],
+  "recommended_next_step": "0M-B - Hideout visual dressing / Monogon-style prop pass"
+}

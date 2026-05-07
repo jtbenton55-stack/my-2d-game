@@ -1,0 +1,179 @@
+{
+  "phase": "0M-A3",
+  "status": "PARTIAL",
+  "reference_image": {
+    "found": true,
+    "path": "res://docs/reference/hideout_hub_layout_reference.png",
+    "runtime_dependency": false,
+    "gdignore_created": true
+  },
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0ma3_backup.20260506_232103.tscn",
+  "hideout_scene_modified": true,
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.phase0ma3_backup.20260506_232103.tscn",
+    "res://docs/reference/.gdignore",
+    "res://src/tools/editor/HideoutPhase0MA3Validator.gd",
+    "res://docs/reports/hideout_phase_0ma3_reference_layout_interaction_repair.md",
+    "res://docs/reports/hideout_phase_0ma3_reference_layout_interaction_repair.json"
+  ],
+  "files_modified": [
+    "res://scenes/hideout/HideoutHub.tscn",
+    "res://src/hideout/HideoutStationCatalog.gd",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/HideoutInteractable.gd"
+  ],
+  "baseline": {
+    "git_status_recorded": true,
+    "taco_bell_scenes_not_modified_before": true,
+    "node_tree_recorded": true,
+    "player_node_path": "HideoutHubRoot/GameplayRoot/Characters/Player",
+    "gameplay_art_structure_recorded": true,
+    "interactable_count": 18,
+    "required_station_count": 18,
+    "interaction_contract_recorded": true
+  },
+  "layout": {
+    "matches_reference_topology": "partial",
+    "floor_shape_non_square_irregular": true,
+    "greenhouse_alcove_north": true,
+    "evidence_board_center_north": true,
+    "mission_board_northeast": true,
+    "planning_table_center": true,
+    "west_collectible_stack": true,
+    "cozy_lounge_southwest": true,
+    "store_terminal_east": true,
+    "entry_exit_southeast": true,
+    "bentley_care_station_beside_entry": true,
+    "open_decor_area_center_east": true,
+    "floor_polygon_points": [
+      [-960, -250],
+      [-820, -430],
+      [-470, -430],
+      [-390, -610],
+      [390, -610],
+      [470, -430],
+      [790, -430],
+      [960, -260],
+      [960, 340],
+      [800, 500],
+      [470, 500],
+      [330, 420],
+      [-360, 420],
+      [-500, 520],
+      [-900, 520],
+      [-1040, 360],
+      [-1040, -120]
+    ]
+  },
+  "station_coordinates": {
+    "entry_exit_door": {"visual": [760, 430], "proxy": [720, 390]},
+    "bentley_care_station": {"visual": [520, 330], "proxy": [505, 285]},
+    "loot_crate_drop_zone": {"visual": [210, 350], "proxy": [210, 285]},
+    "bentley": {"visual": [-760, 350], "proxy": [-710, 345]},
+    "jake": {"visual": [-560, 300], "proxy": [-525, 265]},
+    "mere": {"visual": [-420, 300], "proxy": [-455, 265]},
+    "louis": {"visual": [820, 130], "proxy": [780, 120]},
+    "mission_board": {"visual": [520, -410], "proxy": [520, -330]},
+    "evidence_board_big_case": {"visual": [0, -455], "proxy": [0, -370]},
+    "planning_table": {"visual": [0, 20], "proxy": [0, 120]},
+    "polaroid_wall": {"visual": [-850, -230], "proxy": [-780, -215]},
+    "glow_guy_shelf": {"visual": [-880, -40], "proxy": [-805, -40]},
+    "tiny_icon_shelf": {"visual": [-880, 110], "proxy": [-805, 110]},
+    "poop_bag_care_display": {"visual": [-840, 250], "proxy": [-765, 250]},
+    "store_terminal": {"visual": [790, -80], "proxy": [720, -70]},
+    "open_decor_zone": {"visual": [470, 120], "proxy": [380, 120]},
+    "heat_scanner": {"visual": [650, -260], "proxy": [610, -215]},
+    "test_interactable": {"visual": [320, 255], "proxy": [320, 205]}
+  },
+  "z_order": {
+    "ArtRoot": -250,
+    "FloorLayer": -300,
+    "WallLayer": -200,
+    "PropLayer": -100,
+    "DecorationLayer": -80,
+    "CollectibleLayer": -60,
+    "CharacterVisualLayer": 10,
+    "ForegroundLayer": 150,
+    "LightingLayer": 200,
+    "GameplayRoot/Characters": 20,
+    "GameplayRoot/Stations": 25,
+    "GameplayRoot/Characters/Player": 30,
+    "UI": "CanvasLayer"
+  },
+  "interaction_contract": {
+    "player_searches_group_interactable": true,
+    "requires_node2d": true,
+    "requires_interact_method": true,
+    "distance_threshold": 72,
+    "checks_is_interaction_available": true,
+    "checks_should_show_interaction_prompt": true,
+    "uses_get_interaction_priority": true,
+    "checks_is_completed": true,
+    "blocking_ui_blocks_world_interaction": true
+  },
+  "interaction_repair": {
+    "required_interactables_repaired": true,
+    "required_interactable_count": 18,
+    "all_required_stations_in_global_interactable_group": true,
+    "all_required_stations_implement_interact": true,
+    "all_required_stations_open_scrollable_panels": "manual_check_required",
+    "proxy_is_station_node": true,
+    "visuals_separate_from_proxy": true
+  },
+  "runtime_validation": {
+    "scene_load_ok": true,
+    "hideout_interactables": 18,
+    "player_z_index": 30,
+    "floor_z_index": -300,
+    "mission_board_in_interactable_group": true,
+    "mission_board_has_interact": true,
+    "mission_board_panel_opened": true,
+    "scrollable_panel_close_works": true,
+    "louis_hidden_fresh": true,
+    "louis_visible_unlocked": true,
+    "hideout_lints_clean": true,
+    "known_mcp_noise": "McpInteractionServer port 9090 conflict during bridge launch"
+  },
+  "mission_board": {
+    "has_11_missions": true,
+    "taco_bell_launch_preserved": true,
+    "taco_bell_launch_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "no_route_selection": true,
+    "no_assist_selection": true,
+    "no_fresh_heat_controls": true,
+    "forbidden_labels_absent": true
+  },
+  "debug_states": {
+    "preserved": true,
+    "fresh_bentley_jake_mere_visible": true,
+    "fresh_louis_hidden": true,
+    "louis_unlocked_visible_near_store": true
+  },
+  "monogon_readiness": {
+    "gameplay_art_separation_preserved": true,
+    "visual_layers_preserved": ["FloorLayer", "WallLayer", "PropLayer", "DecorationLayer", "CollectibleLayer", "CharacterVisualLayer", "ForegroundLayer", "LightingLayer"],
+    "station_logic_not_bound_to_visual_tile": true,
+    "collision_separate_from_replaceable_art": true
+  },
+  "validator": {
+    "created": true,
+    "path": "res://src/tools/editor/HideoutPhase0MA3Validator.gd",
+    "static_validation_completed": true
+  },
+  "known_placeholders": [
+    "graybox visuals only",
+    "no final Monogon art",
+    "no store economy",
+    "no drag/drop decoration",
+    "no real scheme-card gameplay effects",
+    "manual walk-up E interaction validation still required"
+  ],
+  "risks": [
+    "Full station reachability needs manual playtest.",
+    "Runtime-generated stations are not visible as serialized child nodes before play.",
+    "SceneManager still targets the older hideout scene.",
+    "Collision approximates the floor outline rather than matching every polygon edge."
+  ],
+  "recommended_next_step": "0M-B - Hideout visual dressing / Monogon-style prop pass"
+}

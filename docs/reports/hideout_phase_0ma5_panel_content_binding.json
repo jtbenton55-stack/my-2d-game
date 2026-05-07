@@ -1,0 +1,115 @@
+{
+  "phase": "0M-A5",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0ma5_backup.20260507_003509.tscn",
+  "hideout_scene_modified": false,
+  "taco_bell_scenes_modified": false,
+  "empty_popup_root_cause": "Panel and generated interactables disagreed on button data shape. ScrollableStationPanel expected string buttons and HideoutInteractable.panel_buttons was Array[String], while 0M-A5 catalog uses dictionary buttons with id/label/action.",
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.phase0ma5_backup.20260507_003509.tscn",
+    "res://src/tools/editor/HideoutPhase0MA5Validator.gd",
+    "res://docs/reports/hideout_phase_0ma5_panel_content_binding.md",
+    "res://docs/reports/hideout_phase_0ma5_panel_content_binding.json"
+  ],
+  "files_modified": [
+    "res://src/hideout/HideoutStationCatalog.gd",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/ScrollableStationPanel.gd",
+    "res://src/hideout/HideoutInteractable.gd"
+  ],
+  "canonical_panel_contract_defined": true,
+  "allowed_button_actions_defined": true,
+  "unknown_button_actions_do_not_crash": true,
+  "station_id_normalization_aliases": true,
+  "required_station_panels_populated": {
+    "count": 18,
+    "all_titles_non_empty": true,
+    "all_bodies_non_empty": true,
+    "all_button_lists_non_empty": true
+  },
+  "station_content": {
+    "entry_exit_door": {"title": "Entry / Exit", "body_non_empty": true, "button_count": 1, "actions": ["close"], "classification": "PANEL_ONLY"},
+    "bentley_care_station": {"title": "Bentley Care Station", "body_non_empty": true, "button_count": 6, "actions": ["care_wipe_paws", "care_give_treat", "care_brush", "care_restock_poop_bags", "care_view_poop_bags", "close"], "classification": "FUNCTIONAL"},
+    "loot_crate_drop_zone": {"title": "Loot Crate Drop Zone", "body_non_empty": true, "button_count": 2, "actions": ["inspect", "close"], "classification": "DEBUG_STATE_VISUAL"},
+    "bentley": {"title": "Bentley", "body_non_empty": true, "button_count": 3, "actions": ["talk", "inspect", "close"], "classification": "PANEL_ONLY"},
+    "jake": {"title": "Jake", "body_non_empty": true, "button_count": 2, "actions": ["talk", "close"], "classification": "PANEL_ONLY"},
+    "mere": {"title": "Mere", "body_non_empty": true, "button_count": 2, "actions": ["talk", "close"], "classification": "PANEL_ONLY"},
+    "mission_board": {"title": "Mission Board", "body_non_empty": true, "button_count": 3, "actions": ["launch_taco_bell", "show_known_info", "close"], "classification": "FUNCTIONAL"},
+    "evidence_board_big_case": {"title": "The Big Case", "body_non_empty": true, "button_count": 3, "actions": ["show_evidence", "show_missing_evidence", "close"], "classification": "FUNCTIONAL"},
+    "planning_table": {"title": "Planning Table", "body_non_empty": true, "button_count": 3, "actions": ["show_scheme_cards", "show_active_slots", "close"], "classification": "FUNCTIONAL"},
+    "polaroid_wall": {"title": "Polaroid Wall", "body_non_empty": true, "button_count": 2, "actions": ["show_collection", "close"], "classification": "PANEL_ONLY"},
+    "glow_guy_shelf": {"title": "Glow Guy Shelf", "body_non_empty": true, "button_count": 2, "actions": ["show_collection", "close"], "classification": "PANEL_ONLY"},
+    "tiny_icon_shelf": {"title": "Tiny Icon Shelf", "body_non_empty": true, "button_count": 2, "actions": ["show_collection", "close"], "classification": "PANEL_ONLY"},
+    "poop_bag_care_display": {"title": "Poop Bag Display", "body_non_empty": true, "button_count": 3, "actions": ["care_view_poop_bags", "care_restock_poop_bags", "close"], "classification": "PANEL_ONLY"},
+    "store_terminal": {"title": "Store Terminal", "body_non_empty": true, "button_count": 8, "actions": ["show_store_category", "close"], "classification": "FUNCTIONAL"},
+    "open_decor_zone": {"title": "Open Decor Area", "body_non_empty": true, "button_count": 2, "actions": ["show_placement_zones", "close"], "classification": "FUTURE_PLACEHOLDER"},
+    "heat_scanner": {"title": "Heat Scanner", "body_non_empty": true, "button_count": 2, "actions": ["view_heat", "close"], "classification": "DEBUG_STATE_VISUAL"},
+    "louis": {"title": "Louis", "body_non_empty": true, "button_count": 2, "actions": ["show_store_category", "close"], "classification": "DEBUG_STATE_VISUAL"},
+    "test_interactable": {"title": "Test Interactable", "body_non_empty": true, "button_count": 1, "actions": ["close"], "classification": "PANEL_ONLY"}
+  },
+  "scrollable_station_panel": {
+    "open_panel_exists": true,
+    "close_panel_exists": true,
+    "is_open_exists": true,
+    "sets_title_node_text": true,
+    "sets_body_node_text": true,
+    "populates_buttons": true,
+    "adds_blocking_ui_only_while_open": true,
+    "removes_blocking_ui_on_close": true,
+    "runtime_button_count_for_mission_board": 3
+  },
+  "hideout_manager": {
+    "open_station_exists": true,
+    "uses_station_catalog_content": true,
+    "never_opens_blank_known_station": true,
+    "handles_panel_actions": true,
+    "unknown_station_fallback_exists": true,
+    "catalog_fallback_used_when_controller_empty": true
+  },
+  "mission_board": {
+    "panel_non_empty": true,
+    "lists_11_missions": true,
+    "start_taco_bell_button_exists": true,
+    "launch_taco_bell_function_exists": true,
+    "launch_taco_bell_path_exact": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "runtime_launch_confirmed": true,
+    "forbidden_options_absent": true
+  },
+  "controller_fallbacks": {
+    "specialized_controllers_do_not_open_empty_panels": true,
+    "catalog_fallback_used_when_controller_empty": true
+  },
+  "runtime_validation": {
+    "scene_load_ok": true,
+    "mission_board_title": "Mission Board",
+    "mission_board_body_contains_final_job": true,
+    "mission_board_button_count": 3,
+    "mission_board_first_button": "Start The Taco Bell Drop",
+    "care_wipe_paws_feedback_confirmed": true,
+    "blocking_ui_count_after_close": 0,
+    "taco_bell_launch_scene_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "lints_clean": true,
+    "known_mcp_noise": "McpInteractionServer port 9090 conflict can appear during bridge launch."
+  },
+  "validator": {
+    "created": true,
+    "path": "res://src/tools/editor/HideoutPhase0MA5Validator.gd",
+    "confirms_non_empty_station_content": true,
+    "confirms_mission_board_launch_action": true,
+    "confirms_forbidden_labels_absent": true
+  },
+  "known_placeholders": [
+    "Store categories are placeholder feedback.",
+    "Scheme-card effects are not implemented.",
+    "Decoration placement is not implemented.",
+    "Collection rearranging is not implemented.",
+    "Character dialogue is panel text."
+  ],
+  "risks": [
+    "Manual walk-up test should verify all 18 station panels in-game.",
+    "Specialized controllers remain optional; catalog is canonical.",
+    "ASCII punctuation is used in code strings."
+  ],
+  "recommended_next_step_if_passes": "0M-B - Hideout visual dressing / Monogon-style prop pass",
+  "recommended_next_step_if_fails": "0M-A6 - focused panel content fix"
+}
