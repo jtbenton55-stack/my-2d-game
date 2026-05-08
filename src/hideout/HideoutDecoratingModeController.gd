@@ -199,28 +199,54 @@ func remove_selected_placed_item() -> void:
 		placement_feedback = "No placed item selected."
 		_update_hud()
 		return
+	remove_placed_item_by_id(selected_placed_id, "selected")
+
+func remove_placed_item_by_id(placed_id: String, reason: String = "") -> void:
+	if state_controller == null or placed_id == "":
+		return
 	var kept: Array[Dictionary] = []
+	var removed := false
+	var removed_item_id := ""
 	for placed in state_controller.get("placed_items"):
-		if String(placed.get("placed_id", "")) != selected_placed_id:
+		if String(placed.get("placed_id", "")) != placed_id:
 			kept.append(placed)
+		else:
+			removed = true
+			removed_item_id = String(placed.get("item_id", ""))
+	if not removed:
+		placement_feedback = "Selected decor was not found."
+		_update_hud()
+		return
 	state_controller.set("placed_items", kept)
-	state_controller.set("selected_placed_id", "")
-	selected_placed_id = ""
-	carrying_existing_placed_id = ""
-	_remove_preview()
+	if selected_placed_id == placed_id:
+		selected_placed_id = ""
+		state_controller.set("selected_placed_id", "")
+	if carrying_existing_placed_id == placed_id:
+		carrying_existing_placed_id = ""
+		carrying_item_id = ""
+		_remove_preview()
 	mode_state = STATE_ACTIVE_IDLE
 	rebuild_placed_visuals()
-	placement_feedback = "Removed selected decor. Owned inventory unchanged."
+	var reason_suffix := " (%s)" % reason if reason != "" else ""
+	placement_feedback = "Removed %s%s. Owned inventory unchanged." % [StoreController.new().item_display_name(removed_item_id), reason_suffix]
 	_update_hud()
 
 func clear_all_placed_decor() -> void:
 	if state_controller != null:
-		state_controller.set("placed_items", [])
-		state_controller.set("selected_placed_id", "")
+		var ids: Array[String] = []
+		for placed in state_controller.get("placed_items"):
+			ids.append(String(placed.get("placed_id", "")))
+		for placed_id in ids:
+			remove_placed_item_by_id(placed_id, "clear_all")
 	selected_placed_id = ""
+	carrying_existing_placed_id = ""
+	carrying_item_id = ""
+	if state_controller != null:
+		state_controller.set("selected_placed_id", "")
 	_remove_preview()
+	mode_state = STATE_ACTIVE_IDLE if is_decorating_mode else STATE_INACTIVE
 	rebuild_placed_visuals()
-	placement_feedback = "Placed decor cleared."
+	placement_feedback = "Placed decor cleared. Owned inventory unchanged."
 	_update_hud()
 
 func is_in_decorating_mode() -> bool:
@@ -323,6 +349,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_placed_decor_clicked(placed_id: String) -> void:
 	if not is_decorating_mode:
+		return
+	if carrying_item_id != "":
 		return
 	start_moving_placed_item(placed_id)
 
@@ -505,14 +533,14 @@ func _ensure_grid_overlay() -> void:
 func _ensure_hud() -> void:
 	if hud_node != null or ui_root == null:
 		return
-	var panel := PanelContainer.new()
-	panel.name = "DecoratingModeHUD"
-	panel.visible = false
-	panel.mouse_filter = Control.MOUSE_FILTER_PASS
-	panel.offset_left = 16
-	panel.offset_top = 16
-	panel.offset_right = 430
-	panel.offset_bottom = 420
+	var hud_panel := PanelContainer.new()
+	hud_panel.name = "DecoratingModeHUD"
+	hud_panel.visible = false
+	hud_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	hud_panel.offset_left = 16
+	hud_panel.offset_top = 16
+	hud_panel.offset_right = 430
+	hud_panel.offset_bottom = 420
 	var margin := MarginContainer.new()
 	margin.name = "MarginContainer"
 	margin.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -520,7 +548,7 @@ func _ensure_hud() -> void:
 	margin.add_theme_constant_override("margin_top", 8)
 	margin.add_theme_constant_override("margin_right", 10)
 	margin.add_theme_constant_override("margin_bottom", 8)
-	panel.add_child(margin)
+	hud_panel.add_child(margin)
 	var root := VBoxContainer.new()
 	root.name = "VBoxContainer"
 	root.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -581,8 +609,8 @@ func _ensure_hud() -> void:
 	_hud_item_list.name = "ItemList"
 	_hud_item_list.mouse_filter = Control.MOUSE_FILTER_PASS
 	item_scroll.add_child(_hud_item_list)
-	ui_root.add_child(panel)
-	hud_node = panel
+	ui_root.add_child(hud_panel)
+	hud_node = hud_panel
 
 func _show_hud_and_grid() -> void:
 	if grid_overlay_node != null and grid_overlay_node.has_method("show_grid"):

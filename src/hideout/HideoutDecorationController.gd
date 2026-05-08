@@ -120,23 +120,35 @@ func remove_selected() -> String:
 	var selected_id := String(state_controller.get("selected_placed_id"))
 	if selected_id == "":
 		return "No placed item is selected."
+	return remove_placed_item_by_id(selected_id, "open_decor")
+
+func remove_placed_item_by_id(placed_id: String, _reason: String = "") -> String:
+	if state_controller == null:
+		return "Decoration state is unavailable."
+	if placed_id == "":
+		return "No placed item is selected."
 	var kept: Array[Dictionary] = []
 	var removed := false
 	for placed in state_controller.get("placed_items"):
-		if String(placed.get("placed_id", "")) != selected_id:
+		if String(placed.get("placed_id", "")) != placed_id:
 			kept.append(placed)
 		else:
 			removed = true
 	if not removed:
 		return "Selected placed item was not found."
 	state_controller.set("placed_items", kept)
-	state_controller.set("selected_placed_id", "")
+	if String(state_controller.get("selected_placed_id")) == placed_id:
+		state_controller.set("selected_placed_id", "")
 	_rebuild_visuals()
 	return DialogueBank.get_random_line("decoration_remove_success")
 
 func clear_all() -> String:
 	if state_controller != null:
-		state_controller.set("placed_items", [])
+		var ids: Array[String] = []
+		for placed in state_controller.get("placed_items"):
+			ids.append(String(placed.get("placed_id", "")))
+		for placed_id in ids:
+			remove_placed_item_by_id(placed_id, "clear_all")
 		state_controller.set("selected_placed_id", "")
 	_rebuild_visuals()
 	return "Placed decor cleared."
@@ -233,6 +245,7 @@ func _rebuild_visuals() -> void:
 		click_area.add_child(shape)
 		click_area.input_event.connect(func(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 			if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+				_viewport.set_input_as_handled()
 				select_placed(String(placed.get("placed_id", "")))
 		)
 		holder.add_child(click_area)

@@ -50,6 +50,7 @@ func _build_visual(walls_layer_bitmask: int) -> void:
 	click_area.add_child(click_shape)
 	click_area.input_event.connect(func(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			_viewport.set_input_as_handled()
 			decor_clicked.emit(placed_id)
 	)
 	add_child(click_area)

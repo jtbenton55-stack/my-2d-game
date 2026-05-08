@@ -1,0 +1,116 @@
+{
+  "phase": "0M-D3-FIX3",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md3fix3_backup.20260508_000529.tscn",
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.phase0md3fix3_backup.20260508_000529.tscn",
+    "res://src/tools/editor/HideoutPhase0MD3Fix3Validator.gd",
+    "res://docs/reports/hideout_phase_0md3_fix3_click_move_no_place_tuning.md",
+    "res://docs/reports/hideout_phase_0md3_fix3_click_move_no_place_tuning.json"
+  ],
+  "files_modified": [
+    "res://src/hideout/HideoutDecoratingModeController.gd",
+    "res://src/hideout/HideoutPlacedDecorItem.gd",
+    "res://src/hideout/HideoutDecorPlacementValidator.gd",
+    "res://src/hideout/HideoutDecorationController.gd"
+  ],
+  "placed_item_click": {
+    "before": "Area2D placed-item clicks could start moving without consuming the click event, allowing the same click to continue into controller input handling.",
+    "after": "Placed item Area2D clicks consume the event and route to start_moving_placed_item when idle.",
+    "selects_moves_not_removes": true,
+    "manual_check_required": true
+  },
+  "existing_item_move": {
+    "preserves_placed_id": true,
+    "updates_existing_entry": true,
+    "does_not_create_new_placed_id_when_moving": true,
+    "cancel_restores_original_position_rotation": true,
+    "manual_check_required": true
+  },
+  "canonical_remove": {
+    "method": "remove_placed_item_by_id(placed_id, reason)",
+    "decorating_mode_paths": ["R key", "Delete key", "HUD Remove Selected", "clear_all_placed_decor"],
+    "open_decor_fallback_paths": ["Open Decor Area Remove Selected", "Clear Placed Decor"],
+    "keeps_owned_inventory": true,
+    "refreshes_hud_picker": true,
+    "manual_check_required": true
+  },
+  "no_place_validation": {
+    "broad_access_path_rules_removed_or_disabled": true,
+    "station_access_corridor_zones_removed_or_disabled": true,
+    "main_corridor_broad_padding_removed": true,
+    "direct_proxy_padding_px": 6,
+    "critical_door_spawn_padding_px": 24,
+    "boundary_padding_px": 16,
+    "hard_safety_preserved": [
+      "entry_exit_door",
+      "player_spawn",
+      "boundary_margin",
+      "direct station/proxy overlap",
+      "existing placed item overlap",
+      "wall snap zones"
+    ]
+  },
+  "preservation": {
+    "store_purchase": true,
+    "case_cash": true,
+    "loot_crate": true,
+    "old_anchor_fallback": true,
+    "mission_board_launch": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "pause_exit_hideout": "res://scenes/hideout/HideoutHub.tscn",
+    "gameplay_root_art_root": true,
+    "taco_bell_scenes_modified": false
+  },
+  "validator": {
+    "path": "res://src/tools/editor/HideoutPhase0MD3Fix3Validator.gd",
+    "created": true,
+    "run_or_static_validated": true
+  },
+  "known_placeholders": [
+    "Placeholder decor visuals",
+    "Rect2 footprint validation",
+    "Hand-authored direct proxy rectangles may need spot tuning"
+  ],
+  "risks": [
+    "Manual testing still needed for Godot input ordering and movement feel",
+    "Direct proxy rectangles may permit closer placements than final art wants",
+    "Backup scene UID duplicate warnings are possible"
+  ],
+  "manual_playtest_checklist": [
+    "Open HideoutHub.tscn.",
+    "Buy/use Taco Bell Stool.",
+    "Open Open Decor Area.",
+    "Select Taco Bell Stool.",
+    "Enter Click-to-Place Mode.",
+    "Place item on valid open floor.",
+    "Click placed item again.",
+    "Confirm it does NOT disappear.",
+    "Confirm it becomes movable / follows mouse.",
+    "Move it somewhere else.",
+    "Place it.",
+    "Confirm item moved, not duplicated.",
+    "Press R/Delete/HUD Remove.",
+    "Confirm item disappears.",
+    "Confirm item remains owned.",
+    "Confirm item returns to HUD available owned item list.",
+    "Select it from HUD item picker again.",
+    "Place it again.",
+    "Move preview near Mission Board / Big Case / Polaroid Wall / Glow Guy Shelf / Open Decor Area / Loot Crate.",
+    "Confirm red blocked area is much smaller.",
+    "Confirm red only appears on direct overlap or close/tiny proxy overlap.",
+    "Confirm broad walking/access paths are no longer blocked.",
+    "Confirm door/player spawn/boundary still block placement.",
+    "Try placing on top of another placed item.",
+    "Confirm overlap prevention still works.",
+    "Try placing wall item if available.",
+    "Confirm wall snap rules still work.",
+    "Exit Decorating Mode using HUD Exit.",
+    "Confirm E interactions still work.",
+    "Confirm Store, Loot Crate, Open Decor, Planning Table, Mission Board still open.",
+    "Confirm MissionBoard launches Taco Bell.",
+    "Pause Taco Bell and exit to HideoutHub.",
+    "Confirm no Taco Bell scenes were modified."
+  ],
+  "recommended_next_step": "If manual 0M-D3-FIX3 test passes: 0M-B. If manual test fails: 0M-D3-FIX4."
+}
