@@ -1,0 +1,76 @@
+[gd_scene format=4 uid="uid://b3q5hahbwbmam"]
+
+[ext_resource type="TileSet" uid="uid://d3lsijqt58ye6" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres" id="1_ground"]
+[ext_resource type="TileSet" uid="uid://g520i3e3pmlk" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres" id="2_wall"]
+[ext_resource type="TileSet" uid="uid://b84807ofrjci7" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres" id="3_large"]
+[ext_resource type="TileSet" uid="uid://c6qb4k3clyg73" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres" id="4_prop"]
+[ext_resource type="TileSet" uid="uid://wjamiy0xvxjw" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogReviewOnlyPaint.tres" id="5_review"]
+
+[node name="PVGamesCatalogPaintableTileSetTest" type="Node2D" unique_id=979637905]
+
+[node name="Instructions" type="Label" parent="." unique_id=675097741]
+offset_left = -520.0
+offset_top = -340.0
+offset_right = -520.0
+offset_bottom = -340.0
+text = "Visual-only TileSet palette test scene. Use it to inspect paintable PVGames assets. Do not use contact sheet PNGs as source art. Do not add collision. READY_TO_PAINT and MODULAR_PART_OK tiles are intended for use; REVIEW_MANUALLY needs inspection; REJECT_JUNK is excluded from production palettes."
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=265248932]
+zoom = Vector2(0.8, 0.8)
+
+[node name="GroundRoadTileMapLayer" type="TileMapLayer" parent="." unique_id=1954071559]
+position = Vector2(-360, -80)
+tile_map_data = PackedByteArray("AAAPABIAAAAAAAAAAAA=")
+tile_set = ExtResource("1_ground")
+collision_enabled = false
+
+[node name="GroundRoadTileMapLayer_Label" type="Label" parent="." unique_id=73903347]
+offset_left = -405.0
+offset_top = 70.0
+offset_right = -405.0
+offset_bottom = 70.0
+text = "GroundRoadTileMapLayer"
+
+[node name="WallTileMapLayer" type="TileMapLayer" parent="." unique_id=1373014215]
+position = Vector2(-100, -80)
+tile_map_data = PackedByteArray("AAABAAYAZAAAAAAAAAACAAYAZQAAAAAAAAADAAYAawAAAAAAAAD//wYAewAAAAAAAAD9/wAAfwAAAAAAAAD///z/fQAAAAAAAAABAPj/fQAAAAAAAAA=")
+tile_set = ExtResource("2_wall")
+collision_enabled = false
+
+[node name="WallTileMapLayer_Label" type="Label" parent="." unique_id=1735697895]
+offset_left = -145.0
+offset_top = 70.0
+offset_right = -145.0
+offset_bottom = 70.0
+text = "WallTileMapLayer"
+
+[node name="LargeStructureTileMapLayer" type="TileMapLayer" parent="." unique_id=949700466]
+position = Vector2(170, -80)
+tile_map_data = PackedByteArray("AAD4//v/SgAAAAAAAAD7//f/SwAAAAAAAAACAPb/NgAAAAAAAAA=")
+tile_set = ExtResource("3_large")
+collision_enabled = false
+
+[node name="LargeStructureTileMapLayer_Label" type="Label" parent="." unique_id=366508803]
+offset_left = 125.0
+offset_top = 70.0
+offset_right = 125.0
+offset_bottom = 70.0
+text = "LargeStructureTileMapLayer"
+
+[node name="PropSignTileMapLayer" type="TileMapLayer" parent="." unique_id=1435260078]
+position = Vector2(420, -80)
+tile_set = ExtResource("4_prop")
+collision_enabled = false
+
+[node name="PropSignTileMapLayer_Label" type="Label" parent="." unique_id=1173745646]
+offset_left = 375.0
+offset_top = 70.0
+offset_right = 375.0
+offset_bottom = 70.0
+text = "PropSignTileMapLayer"
+
+[node name="ReviewOnlyTileMapLayer" type="TileMapLayer" parent="." unique_id=58541971]
+position = Vector2(670, -80)
+tile_map_data = PackedByteArray("AADt////CAAAAAAAAADw/xQAAAAAAAAAAAD3/xUABAAAAAAAAAA=")
+tile_set = ExtResource("5_review")
+collision_enabled = false

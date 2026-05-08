@@ -1,0 +1,146 @@
+{
+  "pass_fail_partial": "PASS",
+  "catalog_files_read": [
+    "res://docs/reports/pvgames_full_asset_catalog.json",
+    "res://docs/reports/pvgames_full_asset_catalog.csv"
+  ],
+  "total_catalog_assets": 6478,
+  "candidate_assets_derived": 2906,
+  "candidate_assets_found": 2906,
+  "missing_paths": 0,
+  "contact_sheet_paths_rejected": 0,
+  "candidate_source_rules_used": {
+    "pool_a": "TILESET_ATLAS",
+    "pool_b_terms": [
+      "Floor",
+      "Ground_Tile",
+      "Ground_Decal",
+      "Ground_LargeStreetChunk",
+      "Road",
+      "Wall",
+      "CityWalls",
+      "CityWallsCorner",
+      "CityWallsPost",
+      "SubwayWall",
+      "Fence",
+      "Ramp",
+      "Door",
+      "Window"
+    ],
+    "pool_c_terms": [
+      "Building",
+      "Building_Interior",
+      "Shack",
+      "MetroStation",
+      "SubwayPlatform",
+      "MetroTrain",
+      "Bridge",
+      "Billboard",
+      "BandStage",
+      "BandVan",
+      "ChargingStation",
+      "SateliteDish",
+      "SatelliteDish",
+      "LargePipe",
+      "Pipe",
+      "Kiosk",
+      "Clutter",
+      "MetroLine",
+      "SubwayRail"
+    ]
+  },
+  "classification_counts": {
+    "TRUE_TILE_ATLAS": 0,
+    "SINGLE_TILE_SPRITE": 1719,
+    "LARGE_STRUCTURE_SPRITE": 692,
+    "SPRITE_STAMP_BETTER": 140,
+    "SKIP_UNSAFE": 355
+  },
+  "tileset_resources_created": {
+    "ground_road": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+    "wall": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+    "large_structure": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+    "prop_sign": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+    "review_only": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogReviewOnlyPaint.tres"
+  },
+  "tile_counts_before_verification": {
+    "large_structure": 90,
+    "prop_sign": 100,
+    "wall": 160,
+    "ground_road": 120
+  },
+  "tile_counts_after_verification": {
+    "large_structure": 76,
+    "prop_sign": 100,
+    "wall": 160,
+    "ground_road": 120,
+    "review_only": 12
+  },
+  "tile_quality_counts": {
+    "READY_TO_PAINT": 176,
+    "REVIEW_MANUALLY": 12,
+    "REJECT_JUNK": 2,
+    "MODULAR_PART_OK": 280
+  },
+  "rejected_junk_tiles_removed_or_quarantined": 2,
+  "verification_contact_sheet_paths": {
+    "ground_road": [
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_ground_road_tiles_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_ground_road_tiles_002.png"
+    ],
+    "wall": [
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_wall_tiles_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_wall_tiles_002.png"
+    ],
+    "large_structure": [
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_large_structure_tiles_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_large_structure_tiles_002.png"
+    ],
+    "prop_sign": [
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_prop_sign_tiles_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_verification/pvgames_verified_prop_sign_tiles_002.png"
+    ]
+  },
+  "test_scene_path": "res://scenes/hideout/tools/PVGamesCatalogPaintableTileSetTest.tscn",
+  "hideout_modified": true,
+  "hideout_paint_layers_created": true,
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "collision_status": "No collision, physics layers, or navigation added to PVGames catalog TileSets or layers.",
+  "palette_contact_sheets": {
+    "ground_road": [
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_ground_road_paint_palette_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_ground_road_paint_palette_002.png"
+    ],
+    "wall": [
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_wall_paint_palette_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_wall_paint_palette_002.png"
+    ],
+    "large_structure": [
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_large_structure_paint_palette.png"
+    ],
+    "prop_sign": [
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_prop_sign_paint_palette_001.png",
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_prop_sign_paint_palette_002.png"
+    ],
+    "review_only": [
+      "res://docs/reports/pvgames_catalog_paintable_palettes/pvgames_catalog_review_only_paint_palette.png"
+    ]
+  },
+  "how_to_guide_path": "res://docs/reports/pvgames_catalog_paintable_tilesets_how_to_use.md",
+  "sprite_stamper_recommendation_report_path": "res://docs/reports/pvgames_catalog_assets_better_as_sprites_or_stamps.md",
+  "known_limitations": [
+    "True atlas slicing remains conservative; uncertain atlas sheets are not blindly sliced.",
+    "Large structure tiles may be awkward and should be tested in the dedicated scene first.",
+    "Automated visual verification catches blank/sparse/oversized problems but final art-direction review is still useful."
+  ],
+  "manual_test_checklist": [
+    "Open PVGamesCatalogPaintableTileSetTest.tscn.",
+    "Select each TileMapLayer and confirm the TileMap panel shows paintable assets.",
+    "Open verification sheets and compare READY_TO_PAINT/MODULAR_PART_OK tiles.",
+    "Paint one ground tile and one wall tile.",
+    "Confirm no collision exists.",
+    "If HideoutHub layers were added, use EditorGuideLayer, paint one small test tile, erase it, and run HideoutHub."
+  ],
+  "recommended_next_step": "Open the test scene and inspect/paint one tile from each verified palette before using the HideoutHub paint layers."
+}
