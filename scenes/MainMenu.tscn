@@ -1,25 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://main_menu_openclaw"]
+[gd_scene format=3 uid="uid://dyx062pwpmtiy"]
 
-[ext_resource type="Script" path="res://src/ui/MainMenu.gd" id="1_mainmenu"]
-[ext_resource type="Theme" uid="uid://mainmenu_theme_01" path="res://assets/themes/main_menu_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://bwv6tdm0qpkq0" path="res://src/ui/MainMenu.gd" id="1_mainmenu"]
+[ext_resource type="Theme" uid="uid://x6gydl3d7sa7" path="res://assets/themes/main_menu_theme.tres" id="2_theme"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1477165381]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_mainmenu")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=113068411]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.05, 0.05, 0.07, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2039661594]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,66 +34,68 @@ offset_left = -200.0
 offset_top = -160.0
 offset_right = 200.0
 offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=820091332]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
 theme_override_colors/font_color = Color(0.9, 0.4, 1, 1)
 theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.3, 1)
 theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 64
 text = "UNTITLED HEIST"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="SubtitleLabel" type="Label" parent="VBoxContainer"]
+[node name="SubtitleLabel" type="Label" parent="VBoxContainer" unique_id=630892746]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 theme_override_colors/font_color = Color(0.9, 0.4, 1, 1)
 theme_override_colors/font_outline_color = Color(0.2, 0.1, 0.3, 1)
 theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
 text = "RPG"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Spacer" type="Control" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=252247314]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=2053229139]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ContinueButton")
 focus_next = NodePath("../ContinueButton")
 text = "New Game"
 
-[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=1369885831]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 focus_neighbor_top = NodePath("../NewGameButton")
 focus_neighbor_bottom = NodePath("../SettingsButton")
-focus_previous = NodePath("../NewGameButton")
 focus_next = NodePath("../SettingsButton")
+focus_previous = NodePath("../NewGameButton")
 text = "Continue"
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=102742656]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ContinueButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
-focus_previous = NodePath("../ContinueButton")
 focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../ContinueButton")
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=341814571]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_previous = NodePath("../SettingsButton")
 text = "Quit"
 
-[node name="VersionLabel" type="Label" parent="."]
+[node name="VersionLabel" type="Label" parent="." unique_id=2085430108]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -100,12 +106,14 @@ offset_left = -150.0
 offset_top = -40.0
 offset_right = -20.0
 offset_bottom = -20.0
-theme_override_font_sizes/font_size = 14
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.5, 1)
+theme_override_font_sizes/font_size = 14
 text = "v0.1.0"
 horizontal_alignment = 2
 
-[node name="SettingsPanel" type="Panel" parent="."]
+[node name="SettingsPanel" type="Panel" parent="." unique_id=205733814]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -117,8 +125,10 @@ offset_left = -250.0
 offset_top = -140.0
 offset_right = 250.0
 offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SettingsTitle" type="Label" parent="SettingsPanel"]
+[node name="SettingsTitle" type="Label" parent="SettingsPanel" unique_id=1714713418]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -127,13 +137,14 @@ offset_left = -200.0
 offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 60.0
-theme_override_font_sizes/font_size = 32
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0.9, 0.4, 1, 1)
+theme_override_font_sizes/font_size = 32
 text = "Settings"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="VolumeLabel" type="Label" parent="SettingsPanel"]
+[node name="VolumeLabel" type="Label" parent="SettingsPanel" unique_id=1681827376]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -142,11 +153,12 @@ offset_left = -200.0
 offset_top = 80.0
 offset_right = 200.0
 offset_bottom = 110.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 20
 text = "Master Volume"
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="SettingsPanel"]
+[node name="MasterSlider" type="HSlider" parent="SettingsPanel" unique_id=330271939]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -155,12 +167,12 @@ offset_left = -200.0
 offset_top = 120.0
 offset_right = 200.0
 offset_bottom = 150.0
-min_value = 0.0
+grow_horizontal = 2
 max_value = 1.0
 step = 0.001
 value = 1.0
 
-[node name="BackButton" type="Button" parent="SettingsPanel"]
+[node name="BackButton" type="Button" parent="SettingsPanel" unique_id=1653189904]
 custom_minimum_size = Vector2(160, 50)
 layout_mode = 1
 anchors_preset = 7
@@ -172,4 +184,6 @@ offset_left = -80.0
 offset_top = -70.0
 offset_right = 80.0
 offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Back"
