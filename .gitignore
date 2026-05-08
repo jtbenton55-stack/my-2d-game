@@ -5,6 +5,16 @@ extended_editor_settings.tres
 # Imported assets
 *.import
 
+# Local-only purchased art source packs
+# These source PNGs are required locally by generated TileSets, but should not be redistributed via Git.
+assets/tilesets/cyber_city_core_tilesets/**/*.png
+assets/tilesets/cyber_city_core_tilesets/**/*.png.import
+assets/tilesets/monogon_isometric_tilesets/**/*.png
+assets/tilesets/monogon_isometric_tilesets/**/*.png.import
+
+# Godot-generated translation sidecars from browsing CSV/report files
+*.translation
+
 # Mono/C# specifics (if you ever use them)
 .mono/
 bin/
