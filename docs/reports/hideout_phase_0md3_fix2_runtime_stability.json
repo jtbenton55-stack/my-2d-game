@@ -1,0 +1,96 @@
+{
+  "phase": "0M-D3-FIX2",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md3fix2_backup.20260507_224126.tscn",
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://src/tools/editor/HideoutPhase0MD3Fix2Validator.gd",
+    "res://docs/reports/hideout_phase_0md3_fix2_runtime_stability.md",
+    "res://docs/reports/hideout_phase_0md3_fix2_runtime_stability.json"
+  ],
+  "files_modified": [
+    "res://src/hideout/HideoutDecoratingModeController.gd",
+    "res://src/hideout/HideoutDecorPlacementValidator.gd"
+  ],
+  "readonly_dictionary_crash_fix": {
+    "crash_location": "HideoutDecoratingModeController.gd:_hit_test_placed_item",
+    "cause": "Temporary rotation data was assigned into a potentially read-only store catalog dictionary.",
+    "fix": "Duplicate item dictionary before adding temporary rotation data.",
+    "hit_test_returns": "placed_id string",
+    "no_temp_fields_written_to_placed_dictionaries": true
+  },
+  "placed_item_reselect_move": {
+    "controller_hit_test": true,
+    "updates_by_placed_id": true,
+    "preserves_placed_id": true,
+    "ignores_own_footprint_while_moving": true,
+    "manual_check_required": true
+  },
+  "display_audit": {
+    "completed": true,
+    "project_side_cause_found": false,
+    "statement": "Systemwide fuzziness appears external to the Godot project. No project-side viewport/camera/stretch mutation was found.",
+    "mutations_found": [],
+    "read_only_matches": ["get_canvas_transform().affine_inverse() mouse-world fallback"],
+    "grid_hud_preview_cleanup": true
+  },
+  "no_place_zone_padding": {
+    "normal_before_px": 24,
+    "normal_after_px": 12,
+    "critical_door_spawn_px": 24,
+    "corridor_px": 20,
+    "boundary_px": 16,
+    "zones_removed": false
+  },
+  "preservation": {
+    "store_purchase": true,
+    "case_cash": true,
+    "loot_crate": true,
+    "old_anchor_fallback": true,
+    "mission_board_launch": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "pause_exit_hideout": "res://scenes/hideout/HideoutHub.tscn",
+    "taco_bell_scenes_modified": false
+  },
+  "known_placeholders": [
+    "Placeholder decor visuals",
+    "Conservative Rect2 hit testing and validation",
+    "No-place constants may need manual spot tuning"
+  ],
+  "risks": [
+    "Placed-item click/reselect requires manual runtime confirmation",
+    "Tighter station padding may need per-station tuning",
+    "Backup scene UID duplicate warnings remain"
+  ],
+  "manual_playtest_checklist": [
+    "Open HideoutHub.tscn.",
+    "Buy/use Taco Bell Stool.",
+    "Open Open Decor Area.",
+    "Select Taco Bell Stool.",
+    "Enter Click-to-Place Mode.",
+    "Confirm HUD/grid/preview appear.",
+    "Place item on valid open floor.",
+    "Click placed item again.",
+    "Confirm no crash.",
+    "Confirm item becomes movable.",
+    "Move it somewhere else.",
+    "Confirm item moved, not duplicated.",
+    "Right-click/Esc while moving and confirm original position restores.",
+    "Place it again.",
+    "Press R/Delete/HUD Remove.",
+    "Confirm item disappears and remains owned.",
+    "Move preview near Mission Board / Big Case / Polaroid Wall / Glow Guy Shelf.",
+    "Confirm red blocked area is tighter than before.",
+    "Confirm station access is still protected.",
+    "Try placing on invalid red spot.",
+    "Confirm it snaps to nearest open spot or reports no open spot.",
+    "Exit Decorating Mode using HUD Exit.",
+    "Confirm grid/HUD/preview disappear.",
+    "Confirm E interactions still work in HideoutHub.",
+    "Launch Taco Bell from MissionBoard.",
+    "Confirm Taco Bell still launches.",
+    "Pause Taco Bell and exit to hideout.",
+    "Confirm it returns to HideoutHub.",
+    "Confirm no Taco Bell scenes were modified."
+  ],
+  "recommended_next_step": "If manual 0M-D3-FIX2 test passes: 0M-B. If manual test fails: 0M-D3-FIX3."
+}

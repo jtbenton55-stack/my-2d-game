@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ckbgn06lxpb82"]
+[gd_scene format=3 uid="uid://baa5vd4xn780c"]
 
 [ext_resource type="Script" uid="uid://b4yoa3a4xdqne" path="res://src/hideout/HideoutManager.gd" id="1_manager"]
 [ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v5" path="res://scenes/characters/player.tscn" id="2_player"]

@@ -75,23 +75,23 @@ func _collect_scripts(path: String, results: Array, include_addons: bool) -> voi
 		return
 
 	dir.list_dir_begin()
-	var name := dir.get_next()
-	while name != "":
-		if name.begins_with("."):
-			name = dir.get_next()
+	var entry_name := dir.get_next()
+	while entry_name != "":
+		if entry_name.begins_with("."):
+			entry_name = dir.get_next()
 			continue
 
-		var full_path := path.path_join(name)
+		var full_path := path.path_join(entry_name)
 
 		if dir.current_is_dir():
-			if name == "addons" and not include_addons:
-				name = dir.get_next()
+			if entry_name == "addons" and not include_addons:
+				entry_name = dir.get_next()
 				continue
 			_collect_scripts(full_path, results, include_addons)
-		elif name.ends_with(".gd"):
+		elif entry_name.ends_with(".gd"):
 			results.append(full_path)
 
-		name = dir.get_next()
+		entry_name = dir.get_next()
 	dir.list_dir_end()
 
 func _parse_script(path: String) -> Dictionary:
@@ -382,23 +382,23 @@ func _collect_scenes(path: String, results: Array, include_addons: bool) -> void
 		return
 
 	dir.list_dir_begin()
-	var name := dir.get_next()
-	while name != "":
-		if name.begins_with("."):
-			name = dir.get_next()
+	var entry_name := dir.get_next()
+	while entry_name != "":
+		if entry_name.begins_with("."):
+			entry_name = dir.get_next()
 			continue
 
-		var full_path := path.path_join(name)
+		var full_path := path.path_join(entry_name)
 
 		if dir.current_is_dir():
-			if name == "addons" and not include_addons:
-				name = dir.get_next()
+			if entry_name == "addons" and not include_addons:
+				entry_name = dir.get_next()
 				continue
 			_collect_scenes(full_path, results, include_addons)
-		elif name.ends_with(".tscn"):
+		elif entry_name.ends_with(".tscn"):
 			results.append(full_path)
 
-		name = dir.get_next()
+		entry_name = dir.get_next()
 	dir.list_dir_end()
 
 

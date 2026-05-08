@@ -42,6 +42,13 @@ var available_store_items: Array[String] = []
 var purchased_store_items: Array[String] = []
 var delivered_store_items: Array[String] = []
 var currency_debug_amount := 150
+var case_cash := 75
+var total_case_cash_earned := 75
+var total_case_cash_spent := 0
+var owned_placeable_items: Array[String] = []
+var placed_items: Array[Dictionary] = []
+var selected_placeable_item_id := ""
+var selected_placed_id := ""
 
 var louis_unlocked := false
 var jake_dialogue_state := "fresh"
@@ -124,6 +131,10 @@ func get_collectible_state() -> Dictionary:
 		"tiny_icon_drive_thru_bell": _collectible("Drive-Thru Bell", tiny_icon_drive_thru_bell_found, "A little bell-shaped absence.", "A tiny bell from a place that should have had better security."),
 		"poop_bag_fire_sauce_roll": _collectible("Fire Sauce Emergency Roll", poop_bag_fire_sauce_roll_found, "A roll-shaped void in Bentley logistics.", "For emergencies involving fire sauce, guilt, or both."),
 		"trophy_taco_bell_drop": _collectible("The Taco Bell Drop Trophy", trophy_taco_bell_found, "A blank trophy stand waiting for a bad idea to become history.", "Proof that delivery logistics can escalate into a full operation."),
+		"polaroid_future_placeholder": _collectible("Future Mission Polaroid", false, "A blank frame waiting for a later bad idea.", "A future mission photo."),
+		"glow_guy_future_placeholder": _collectible("Future Glow Guy", false, "An empty tiny shelf with dramatic lighting.", "A future glowing little witness."),
+		"tiny_icon_future_placeholder": _collectible("Future Tiny Icon", false, "A tiny silhouette for future nonsense.", "A future tiny icon."),
+		"poop_bag_future_placeholder": _collectible("Future Specialty Roll", false, "A roll-shaped promise.", "A future specialty poop bag."),
 	}
 
 func get_scheme_card_state() -> Dictionary:
@@ -150,6 +161,10 @@ func get_store_state() -> Dictionary:
 		"purchased_store_items": purchased_store_items.duplicate(),
 		"delivered_store_items": delivered_store_items.duplicate(),
 		"currency_debug_amount": currency_debug_amount,
+		"case_cash": case_cash,
+		"total_case_cash_earned": total_case_cash_earned,
+		"total_case_cash_spent": total_case_cash_spent,
+		"owned_placeable_items": owned_placeable_items.duplicate(),
 	}
 
 func get_character_state(character_id: String) -> Dictionary:
@@ -165,27 +180,77 @@ func get_character_state(character_id: String) -> Dictionary:
 			state = "louis_unlocked" if louis_unlocked else "fresh"
 	return {"character_id": character_id, "dialogue_state": state, "visible": character_id != "louis" or louis_unlocked}
 
-func equip_card(card_id: String, slot_type: String) -> void:
+func get_current_scheme_loadout() -> Dictionary:
+	return {
+		"plan": equipped_plan_card,
+		"trick": equipped_trick_card,
+		"comfort_chaos": equipped_comfort_chaos_card,
+	}
+
+func equip_card(card_id: String, slot_type: String) -> bool:
 	if not unlocked_scheme_cards.has(card_id):
-		return
+		return false
 	match slot_type:
-		"Plan":
+		"plan":
 			equipped_plan_card = card_id
-		"Trick":
+		"trick":
 			equipped_trick_card = card_id
-		"Comfort/Chaos":
+		"comfort_chaos":
 			equipped_comfort_chaos_card = card_id
+		_:
+			return false
+	_clear_duplicate_card_from_other_slots(card_id, slot_type)
+	return true
 
 func clear_loadout() -> void:
 	equipped_plan_card = ""
 	equipped_trick_card = ""
 	equipped_comfort_chaos_card = ""
 
-func purchase_item(item_id: String) -> bool:
+func clear_scheme_slot(slot_type: String) -> void:
+	match slot_type:
+		"plan":
+			equipped_plan_card = ""
+		"trick":
+			equipped_trick_card = ""
+		"comfort_chaos":
+			equipped_comfort_chaos_card = ""
+
+func purchase_item(item_id: String, cost: int = 0) -> bool:
 	if not available_store_items.has(item_id) or purchased_store_items.has(item_id):
 		return false
+	if cost > 0 and not spend_case_cash(cost, "purchase:%s" % item_id):
+		return false
 	purchased_store_items.append(item_id)
+	delivered_store_items.append(item_id)
+	if not owned_placeable_items.has(item_id):
+		owned_placeable_items.append(item_id)
 	return true
+
+func get_case_cash() -> int:
+	return case_cash
+
+func add_case_cash(amount: int, _reason: String = "") -> void:
+	if amount <= 0:
+		return
+	case_cash += amount
+	total_case_cash_earned += amount
+	currency_debug_amount = case_cash
+
+func can_spend_case_cash(amount: int) -> bool:
+	return amount >= 0 and case_cash >= amount
+
+func spend_case_cash(amount: int, _reason: String = "") -> bool:
+	if not can_spend_case_cash(amount):
+		return false
+	case_cash -= amount
+	total_case_cash_spent += amount
+	currency_debug_amount = case_cash
+	return true
+
+func award_taco_bell_debug_payout() -> void:
+	if case_cash < 150:
+		add_case_cash(150 - case_cash, "debug:taco_bell_completed_floor")
 
 func _reset_base() -> void:
 	taco_bell_available = true
@@ -219,7 +284,15 @@ func _reset_base() -> void:
 	available_store_items = []
 	purchased_store_items = []
 	delivered_store_items = []
-	currency_debug_amount = 150
+	var current_cash := case_cash
+	case_cash = maxi(current_cash, 75)
+	total_case_cash_earned = maxi(total_case_cash_earned, case_cash)
+	total_case_cash_spent = maxi(total_case_cash_spent, 0)
+	currency_debug_amount = case_cash
+	owned_placeable_items = []
+	placed_items = []
+	selected_placeable_item_id = ""
+	selected_placed_id = ""
 	louis_unlocked = false
 	heat_state = HEAT_LOW
 
@@ -239,12 +312,13 @@ func _apply_taco_bell_completed(missing_items: bool) -> void:
 	tiny_icon_sauce_packet_found = true
 	tiny_icon_drive_thru_bell_found = not missing_items
 	poop_bag_fire_sauce_roll_found = true
-	trophy_taco_bell_found = not missing_items
+	trophy_taco_bell_found = true
 	sauce_paw_cleanup_available = true
 	for card_id in ["fire_sauce_diversion", "drive_thru_timing_window", "security_booth_coupon", "baja_blast_nerves"]:
 		if not unlocked_scheme_cards.has(card_id):
 			unlocked_scheme_cards.append(card_id)
 	available_store_items = ["taco_bell_stool", "employees_must_wash_paws_sign", "sauce_packet_rug", "neon_menu_panel", "mild_sauce_throw_pillow", "drive_thru_headset", "security_booth_monitor", "suspicious_fry_basket"]
+	award_taco_bell_debug_payout()
 
 func _update_dialogue_states() -> void:
 	jake_dialogue_state = current_debug_state
@@ -259,3 +333,11 @@ func _clue(display: String, state: String, description: String) -> Dictionary:
 
 func _collectible(display: String, found: bool, missing_text: String, found_text: String) -> Dictionary:
 	return {"display": display, "found": found, "missing_text": missing_text, "found_text": found_text}
+
+func _clear_duplicate_card_from_other_slots(card_id: String, active_slot: String) -> void:
+	if active_slot != "plan" and equipped_plan_card == card_id:
+		equipped_plan_card = ""
+	if active_slot != "trick" and equipped_trick_card == card_id:
+		equipped_trick_card = ""
+	if active_slot != "comfort_chaos" and equipped_comfort_chaos_card == card_id:
+		equipped_comfort_chaos_card = ""

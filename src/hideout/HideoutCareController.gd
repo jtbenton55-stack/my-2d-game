@@ -1,6 +1,8 @@
 extends Node
 class_name HideoutCareController
 
+const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
+
 var flags := {
 	"bentley_wiped": false,
 	"bentley_brushed": false,
@@ -18,7 +20,7 @@ func get_panel_data(state_controller: Node = null) -> Dictionary:
 			{"id": "brush_bentley", "label": "Brush Bentley", "action": "care_brush"},
 			{"id": "restock_poop_bags", "label": "Restock Poop Bags", "action": "care_restock_poop_bags"},
 			{"id": "view_poop_bags", "label": "View Poop Bag Collection", "action": "care_view_poop_bags"},
-			{"id": "back", "label": "Back", "action": "close"},
+			{"id": "close", "label": "Close", "action": "close"},
 		],
 	}
 
@@ -45,27 +47,27 @@ func wipe_paws(state_controller: Node = null) -> String:
 	if state_controller != null:
 		state_controller.set("bentley_wiped", true)
 		state_controller.set("bentley_mood", "relieved")
-	return "Paws wiped. No crime feet on the couch."
+	return DialogueBank.get_random_line("bentley_care_wipe_paws")
 
 func give_treat(state_controller: Node = null) -> String:
 	flags["treat_packed"] = true
 	if state_controller != null:
 		state_controller.set("treat_packed", true)
 		state_controller.set("bentley_mood", "focused")
-	return "Bentley accepts the treat with the seriousness of a witness protection deal."
+	return DialogueBank.get_random_line("bentley_care_give_treat")
 
 func brush_bentley(state_controller: Node = null) -> String:
 	flags["bentley_brushed"] = true
 	if state_controller != null:
 		state_controller.set("bentley_brushed", true)
 		state_controller.set("bentley_mood", "fluffy")
-	return "Bentley has been brushed. The operation is now 12% softer."
+	return DialogueBank.get_random_line("bentley_care_brush")
 
 func restock_poop_bags(state_controller: Node = null) -> String:
 	flags["poop_bags_stocked"] = true
 	if state_controller != null:
 		state_controller.set("poop_bags_stocked", true)
-	return "Poop bags restocked. Tactical readiness improved."
+	return DialogueBank.get_random_line("bentley_care_restock_poop_bags")
 
 func poop_bag_summary(state_controller: Node = null) -> String:
 	var collection := {}

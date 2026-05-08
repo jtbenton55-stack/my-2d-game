@@ -1,0 +1,116 @@
+{
+  "phase": "0M-D3-FIX",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md3fix_backup.20260507_211036.tscn",
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://src/tools/editor/HideoutPhase0MD3FixValidator.gd",
+    "res://docs/reports/hideout_phase_0md3_fix_decorating_runtime.md",
+    "res://docs/reports/hideout_phase_0md3_fix_decorating_runtime.json"
+  ],
+  "files_modified": [
+    "res://src/hideout/HideoutDecoratingModeController.gd"
+  ],
+  "hud": {
+    "readable_text": true,
+    "exit_button": true,
+    "cancel_button": true,
+    "remove_selected_button": true,
+    "clear_selection_button": true,
+    "owned_unplaced_item_picker": true
+  },
+  "preview_hover": {
+    "direct_snapped_mouse_follow": true,
+    "nearest_open_search_during_hover": false,
+    "no_place_zones_only_affect_validity_color_status": true
+  },
+  "confirm_placement": {
+    "nearest_open_search_only_on_invalid_left_click": true,
+    "places_at_nearest_open_when_found": true,
+    "keeps_carrying_when_no_open_spot": true
+  },
+  "placed_item_move": {
+    "controller_hit_test": true,
+    "preserves_placed_id": true,
+    "does_not_duplicate": true,
+    "cancel_restores_original_position_rotation": true
+  },
+  "remove_delete": {
+    "r_key": true,
+    "delete_key": true,
+    "hud_remove": true,
+    "owned_item_remains_owned": true,
+    "hud_inventory_refreshes": true
+  },
+  "cancel_exit": {
+    "right_click_cancel": true,
+    "esc_cancel_when_carrying": true,
+    "esc_exit_when_idle": true,
+    "hud_exit_button": true
+  },
+  "preservation": {
+    "store_purchase_adds_decor_inventory": true,
+    "loot_crate_inventory": true,
+    "old_anchor_buttons": true,
+    "mission_board_launch": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "pause_exit_hideout": "res://scenes/hideout/HideoutHub.tscn",
+    "gameplay_art_separation": true
+  },
+  "known_placeholders": [
+    "Plain placeholder HUD styling",
+    "Placeholder decor polygon visuals",
+    "Conservative Rect2 validation footprints",
+    "No-place zones may need manual tuning"
+  ],
+  "risks": [
+    "Mouse-world conversion must be verified under active camera",
+    "Wall item hover no longer auto-snaps to wall row during hover; validation still blocks invalid placement",
+    "Backup scene UID duplicate warnings remain editor noise"
+  ],
+  "manual_playtest_checklist": [
+    "Open HideoutHub.tscn.",
+    "Buy or use already-owned Taco Bell Stool.",
+    "Open Open Decor Area.",
+    "Select item.",
+    "Click Enter Click-to-Place Mode.",
+    "Confirm panel closes.",
+    "Confirm HUD has readable text.",
+    "Confirm HUD has Exit Decorating Mode button.",
+    "Confirm HUD has Cancel Placement button when carrying.",
+    "Confirm HUD has Remove Selected button when item selected.",
+    "Confirm HUD lists available owned unplaced item(s).",
+    "Confirm grid appears.",
+    "Move mouse around open floor.",
+    "Confirm preview follows mouse smoothly and only snaps to grid.",
+    "Move mouse over/near Mission Board, The Big Case, Polaroid Wall, Glow Guy Shelf, and other no-place zones.",
+    "Confirm preview does NOT fly around in weird rows/columns.",
+    "Confirm preview simply stays under snapped mouse position and turns red/blocked over invalid areas.",
+    "Left-click on valid open floor.",
+    "Confirm item places.",
+    "Confirm still in Decorating Mode.",
+    "Click placed item.",
+    "Confirm item becomes selected/movable.",
+    "Move mouse.",
+    "Confirm selected item follows mouse as preview.",
+    "Left-click to place it somewhere else.",
+    "Confirm item moved, not duplicated.",
+    "Try placing on invalid red spot.",
+    "Confirm nearest-open search only happens when clicking, not while hovering.",
+    "Confirm invalid click either snaps to nearby valid spot or says no open spot nearby.",
+    "Press R or Delete with item selected.",
+    "Confirm item disappears and remains owned.",
+    "Use HUD item picker to select it again.",
+    "Place it again.",
+    "Right-click while carrying and confirm cancel.",
+    "Press Esc while carrying and confirm cancel.",
+    "Press Esc while idle and confirm Decorating Mode exits.",
+    "Enter Decorating Mode again and press HUD Exit Decorating Mode.",
+    "Confirm Decorating Mode exits.",
+    "Confirm E interactions work afterward.",
+    "Confirm Store, Loot Crate, Open Decor, Planning Table, and Mission Board still open.",
+    "Confirm MissionBoard still launches Taco Bell.",
+    "Confirm pause exit still returns to HideoutHub.",
+    "Confirm no Taco Bell scenes were modified."
+  ],
+  "recommended_next_step": "If manual 0M-D3-FIX test passes: 0M-B. If it fails: 0M-D3-FIX2."
+}

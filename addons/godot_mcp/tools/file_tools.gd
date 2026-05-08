@@ -37,24 +37,24 @@ func list_dir(args: Dictionary) -> Dictionary:
 	var folders: PackedStringArray = []
 
 	dir.list_dir_begin()
-	var name := dir.get_next()
-	while name != "":
+	var entry_name := dir.get_next()
+	while entry_name != "":
 		# Skip hidden files unless requested
-		if not include_hidden and name.begins_with("."):
-			name = dir.get_next()
+		if not include_hidden and entry_name.begins_with("."):
+			entry_name = dir.get_next()
 			continue
 
 		# Skip .uid files
-		if name.ends_with(".uid"):
-			name = dir.get_next()
+		if entry_name.ends_with(".uid"):
+			entry_name = dir.get_next()
 			continue
 
 		if dir.current_is_dir():
-			folders.append(name)
+			folders.append(entry_name)
 		else:
-			files.append(name)
+			files.append(entry_name)
 
-		name = dir.get_next()
+		entry_name = dir.get_next()
 	dir.list_dir_end()
 
 	# Sort alphabetically
@@ -201,24 +201,24 @@ func _collect_files_recursive(path: String, glob_filter: String, out: PackedStri
 		return
 
 	dir.list_dir_begin()
-	var name := dir.get_next()
-	while name != "":
+	var entry_name := dir.get_next()
+	while entry_name != "":
 		# Skip hidden
-		if name.begins_with("."):
-			name = dir.get_next()
+		if entry_name.begins_with("."):
+			entry_name = dir.get_next()
 			continue
 
-		var full_path := path.path_join(name)
+		var full_path := path.path_join(entry_name)
 
 		if dir.current_is_dir():
 			_collect_files_recursive(full_path, glob_filter, out, depth + 1)
 		else:
-			var ext := "." + name.get_extension().to_lower()
+			var ext := "." + entry_name.get_extension().to_lower()
 			if not _SKIP_EXTENSIONS.has(ext):
 				if glob_filter.is_empty() or _matches_glob(full_path, glob_filter):
 					out.append(full_path)
 
-		name = dir.get_next()
+		entry_name = dir.get_next()
 	dir.list_dir_end()
 
 func _matches_glob(path: String, pattern: String) -> bool:

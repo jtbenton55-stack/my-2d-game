@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://cxbp0yoq3mngi" path="res://src/hideout/HideoutDebugController.gd" id="11_debug"]
 [ext_resource type="Script" uid="uid://cevl3trvym7wh" path="res://src/hideout/HideoutInteractionBridge.gd" id="12_bridge"]
 [ext_resource type="Script" uid="uid://dggjabb187qi3" path="res://src/hideout/HideoutStateController.gd" id="13_state"]
-[ext_resource type="Script" uid="uid://63gkruvgqi5w" path="res://src/hideout/HideoutDecorationController.gd" id="14_decor"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.02, 0.025, 0.035, 0.94)
@@ -113,9 +112,6 @@ script = ExtResource("11_debug")
 [node name="HideoutStateController" type="Node" parent="GameplayRoot/Managers" unique_id=2069836511]
 script = ExtResource("13_state")
 
-[node name="HideoutDecorationController" type="Node" parent="GameplayRoot/Managers" unique_id=1156261227]
-script = ExtResource("14_decor")
-
 [node name="ArtRoot" type="Node2D" parent="." unique_id=2000779595]
 z_index = -250
 
@@ -133,8 +129,6 @@ z_index = -100
 
 [node name="DecorationLayer" type="Node2D" parent="ArtRoot/World" unique_id=22219634]
 z_index = -80
-
-[node name="PlacedDecor" type="Node2D" parent="ArtRoot/World/DecorationLayer" unique_id=778562246]
 
 [node name="CollectibleLayer" type="Node2D" parent="ArtRoot/World" unique_id=1780186425]
 z_index = -60

@@ -1,0 +1,138 @@
+{
+  "phase": "0M-D3",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md3_backup.20260507_192506.tscn",
+  "taco_bell_scenes_modified": false,
+  "files_created": [
+    "res://src/hideout/HideoutDecoratingModeController.gd",
+    "res://src/hideout/HideoutPlacedDecorItem.gd",
+    "res://src/hideout/HideoutDecorGridOverlay.gd",
+    "res://src/hideout/HideoutDecorPlacementValidator.gd",
+    "res://src/tools/editor/HideoutPhase0MD3Validator.gd",
+    "res://docs/reports/hideout_phase_0md3_true_decorating_mode.md",
+    "res://docs/reports/hideout_phase_0md3_true_decorating_mode.json"
+  ],
+  "files_modified": [
+    "res://scenes/hideout/HideoutHub.tscn",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/HideoutDecorationController.gd",
+    "res://src/hideout/HideoutStoreController.gd"
+  ],
+  "decorating_mode": {
+    "controller": "res://src/hideout/HideoutDecoratingModeController.gd",
+    "states": ["inactive", "active_idle", "carrying_new_item", "carrying_existing_item", "selected_placed_item", "placement_invalid"],
+    "enter_action": "decor_enter_click_to_place_mode",
+    "aliases": ["decor_enter_placement_mode", "enter_click_to_place_mode", "decor_enter_click_to_place", "decor_place_mode"],
+    "panel_closes_on_enter": true,
+    "blocking_ui_removed_while_active": true
+  },
+  "snap_grid": {
+    "mode": "world_grid",
+    "grid_size_px": 16,
+    "iso_cell_snap_implemented": false
+  },
+  "preview": {
+    "ghost_preview": true,
+    "follows_mouse": "manual_check_required",
+    "valid_invalid_tint": true,
+    "removed_on_cancel_or_place": true
+  },
+  "rotation": {
+    "increment_degrees": 45,
+    "controls": ["Left Arrow", "Right Arrow", "Up Arrow", "Down Arrow"],
+    "collision_limitation": "Uses conservative axis-aligned footprint when rotated."
+  },
+  "metadata": {
+    "every_store_decor_item_has_footprint": true,
+    "every_store_decor_item_has_blocks_player": true,
+    "snap_mode_reserved_values": ["world_grid", "iso_cell", "wall_row", "shelf_anchor", "table_anchor"]
+  },
+  "no_place_zones": {
+    "method": "Rect2 world-space zones in code",
+    "zone_count": 29,
+    "protected_station_count": 16,
+    "door_protected": true,
+    "player_spawn_protected": true,
+    "boundary_corridor_protected": true
+  },
+  "nearest_open_search": {
+    "implemented": true,
+    "step_px": 16,
+    "max_radius_px": 256
+  },
+  "collision": {
+    "floor_standing_blocks_player": true,
+    "layer_bitmask": 4,
+    "layer_name": "Walls",
+    "non_blocking_exceptions": ["rug", "wall_item", "light", "shelf_item", "tabletop_item"]
+  },
+  "wall_snap": {
+    "implemented": true,
+    "zones": ["wall_snap_west", "wall_snap_east_store", "wall_snap_north_big_case", "wall_snap_greenhouse", "wall_snap_cozy_lounge"]
+  },
+  "preservation": {
+    "station_interactions": "static_preserved",
+    "mission_board_launch": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "pause_exit_hideout": "res://scenes/hideout/HideoutHub.tscn",
+    "store_purchase": true,
+    "case_cash": true,
+    "loot_crate_inventory": true,
+    "back_close": true,
+    "gameplay_art_separation": true
+  },
+  "known_placeholders": [
+    "Placeholder polygon decor visuals",
+    "World-space Rect2 validation zones need playtest tuning",
+    "Conservative axis-aligned rotated footprint collision",
+    "Scene-local/debug state only"
+  ],
+  "manual_playtest_checklist": [
+    "Open res://scenes/hideout/HideoutHub.tscn.",
+    "Confirm movement and collision still work.",
+    "Open Store Terminal.",
+    "Toggle Taco Bell Completed if needed.",
+    "Buy one decor item.",
+    "Confirm Case Cash decreases.",
+    "Open Loot Crate.",
+    "Confirm purchased item appears.",
+    "Open Open Decor Area.",
+    "Select purchased item.",
+    "Click Enter Click-to-Place Mode.",
+    "Confirm Open Decor panel closes.",
+    "Confirm Decorating Mode HUD appears.",
+    "Confirm faint grid appears.",
+    "Confirm item ghost/preview follows mouse.",
+    "Confirm preview snaps to grid.",
+    "Press Left/Right Arrow.",
+    "Confirm preview rotates in 45-degree increments.",
+    "Move preview near station/door/player spawn.",
+    "Confirm placement is blocked or snapped away from protected area.",
+    "Move preview to open floor.",
+    "Left-click to place item.",
+    "Confirm item appears.",
+    "Confirm still in Decorating Mode.",
+    "Try walking into placed item.",
+    "Confirm collision blocks the player for floor-standing decor.",
+    "Click placed item again in Decorating Mode.",
+    "Confirm it becomes selected/carryable.",
+    "Move it elsewhere.",
+    "Left-click to place it again.",
+    "Try placing it on top of another item or blocked zone.",
+    "Confirm overlap is prevented or nearest open spot is used.",
+    "Rotate placed/moving item again.",
+    "Remove/delete selected item using R/Delete or HUD/button.",
+    "Confirm item disappears from map.",
+    "Confirm item remains owned in inventory.",
+    "Try right-click cancel.",
+    "Try Esc cancel.",
+    "Confirm Esc exits Decorating Mode when not carrying item.",
+    "Reopen Open Decor Area.",
+    "Confirm old anchor-placement buttons still work as fallback.",
+    "Confirm Store, Loot Crate, Planning Table, Mission Board, Bentley Care still open.",
+    "Confirm MissionBoard still launches Taco Bell.",
+    "Pause Taco Bell and exit to hideout.",
+    "Confirm it returns to new HideoutHub.",
+    "Confirm no Taco Bell scenes were modified."
+  ],
+  "recommended_next_step": "If manual 0M-D3 test passes: 0M-B. If it fails: 0M-D3-FIX."
+}

@@ -6,6 +6,8 @@ const StateControllerScript = preload("res://src/hideout/HideoutStateController.
 const InteractableScript = preload("res://src/hideout/HideoutInteractable.gd")
 const PlacementZoneScript = preload("res://src/hideout/HideoutPlacementZone.gd")
 const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBridge.gd")
+const DecorationControllerScript = preload("res://src/hideout/HideoutDecorationController.gd")
+const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 
 @export var stations_path: NodePath
 @export var collision_path: NodePath
@@ -22,6 +24,8 @@ const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBri
 var current_state := "fresh"
 var current_station_id := ""
 var _state: Node = null
+var _decoration_controller: Node = null
+var _decorating_mode_controller: Node = null
 
 @onready var _stations: Node = get_node(stations_path)
 @onready var _collision: Node = get_node(collision_path)
@@ -47,6 +51,7 @@ func _ready() -> void:
 	_ensure_state_controller()
 	_position_player_spawn()
 	_build_world_layers()
+	_ensure_decoration_controller()
 	_build_navigation_collision()
 	_build_stations()
 	_build_placement_zones()
@@ -68,6 +73,8 @@ func open_station(station_id: String, interactable: Node = null, _player: Node =
 	var normalized_id := Catalog.normalize_station_id(station_id)
 	current_station_id = normalized_id
 	var panel_data := _panel_data_for(normalized_id, interactable)
+	if _panel.has_method("clear_history"):
+		_panel.clear_history()
 	_panel.open_panel(String(panel_data.get("title", "Hideout Station")), String(panel_data.get("body", "")), panel_data.get("buttons", []))
 
 func apply_debug_state(state_id: String) -> void:
@@ -110,6 +117,8 @@ func _specialized_panel_data_for(station_id: String) -> Dictionary:
 	match station_id:
 		"mission_board":
 			return _mission_board.get_panel_data(_state) if _mission_board.has_method("get_panel_data") else {}
+		"greenhouse_alcove":
+			return _greenhouse_panel_data()
 		"evidence_board_big_case":
 			return _evidence_board.get_panel_data(_state) if _evidence_board.has_method("get_panel_data") else {}
 		"planning_table":
@@ -118,6 +127,10 @@ func _specialized_panel_data_for(station_id: String) -> Dictionary:
 			return _care.get_panel_data(_state) if _care.has_method("get_panel_data") else {}
 		"store_terminal":
 			return _store.get_panel_data(_state) if _store.has_method("get_panel_data") else {}
+		"loot_crate_drop_zone":
+			return _decoration_controller.get_loot_crate_panel_data() if _decoration_controller != null and _decoration_controller.has_method("get_loot_crate_panel_data") else {}
+		"open_decor_zone":
+			return _decoration_controller.get_open_decor_panel_data() if _decoration_controller != null and _decoration_controller.has_method("get_open_decor_panel_data") else {}
 		"polaroid_wall", "glow_guy_shelf", "tiny_icon_shelf", "poop_bag_care_display":
 			return _collectibles.get_panel_data(station_id, _state) if _collectibles.has_method("get_panel_data") else {}
 		"bentley", "jake", "mere", "louis":
@@ -150,12 +163,27 @@ func _on_panel_action(action_id: String) -> void:
 
 func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 	_ensure_state_controller()
-	match action_id:
+	var parsed := _parse_action(action_id, payload)
+	var base_action := String(parsed.get("base", action_id))
+	var action_value := String(parsed.get("value", ""))
+	payload = parsed
+	match base_action:
+		"back":
+			if current_station_id in ["mission_board", "planning_table", "bentley_care_station", "store_terminal", "open_decor_zone", "loot_crate_drop_zone", "evidence_board_big_case", "polaroid_wall", "glow_guy_shelf", "tiny_icon_shelf", "poop_bag_care_display", "greenhouse_alcove"]:
+				open_station(current_station_id)
+			elif _panel.has_method("go_back"):
+				_panel.go_back()
 		"close":
 			if _panel.has_method("close_panel"):
 				_panel.close_panel()
 		"launch_taco_bell":
+			_open_subpanel(_mission_start_confirmation_data())
+		"confirm_launch_taco_bell":
+			_write_scheme_loadout_to_game_state()
 			_mission_board.launch_taco_bell()
+		"go_to_planning_table":
+			current_station_id = "planning_table"
+			_open_controller_panel(_scheme_cards.get_panel_data(_state))
 		"show_known_info":
 			_show_feedback("Known Info", "The Taco Bell Drop is ready for delivery. Recover the bag, watch the route, and do not overthink the sauce packets.")
 		"replay_mission":
@@ -169,17 +197,25 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"clean_getaway_attempt":
 			_show_feedback("Clean Getaway Attempt", "Clean Getaway Attempt is scaffolded as a replay goal. No real scoring changes are applied yet.")
 		"view_results":
-			_show_feedback("Mission Results", "The Taco Bell Drop result is tracked locally in debug state: completed=%s, heat=%s." % [str(_state.get("taco_bell_completed")), String(_state.get("heat_state"))])
+			_show_feedback("The Taco Bell Drop Results", "The Taco Bell Drop Results:\n- Base delivery payout: +50 Case Cash\n- Clean getaway bonus: pending\n- Clue bonus: pending\n- Collectible bonus: pending\n\nCurrent Case Cash: %d" % int(_state.get("case_cash")))
 		"show_scheme_cards":
 			_open_controller_panel(_scheme_cards.get_panel_data(_state))
 		"show_active_slots":
 			_show_feedback("Active Scheme Slots", _scheme_cards.get_panel_body(_state) if _scheme_cards.has_method("get_panel_body") else "Active slots unavailable.")
 		"equip_scheme_card":
-			var equip_message: String = _scheme_cards.equip_card(String(payload.get("card_id", "")), _state) if _scheme_cards.has_method("equip_card") else "Scheme card handled safely."
-			_show_feedback("Scheme Card Equipped", "%s\n\n%s" % [equip_message, _scheme_cards.get_panel_body(_state)])
+			var card_id := action_value if action_value != "" else String(payload.get("card_id", ""))
+			var equip_message: String = _scheme_cards.equip_card(card_id, _state) if _scheme_cards.has_method("equip_card") else "Scheme card handled safely."
+			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), equip_message)
+		"clear_scheme_slot":
+			var slot_type := action_value if action_value != "" else String(payload.get("slot_type", ""))
+			var clear_slot_message: String = _scheme_cards.clear_slot(slot_type, _state) if _scheme_cards.has_method("clear_slot") else "Slot clear handled safely."
+			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), clear_slot_message)
+		"clear_scheme_loadout":
+			var clear_all_message: String = _scheme_cards.clear_loadout(_state) if _scheme_cards.has_method("clear_loadout") else "Loadout clear handled safely."
+			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), clear_all_message)
 		"clear_loadout":
 			var clear_message: String = _scheme_cards.clear_loadout(_state) if _scheme_cards.has_method("clear_loadout") else "Loadout clear handled safely."
-			_show_feedback("Scheme Loadout", "%s\n\n%s" % [clear_message, _scheme_cards.get_panel_body(_state)])
+			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), clear_message)
 		"show_evidence":
 			_open_controller_panel(_evidence_board.get_panel_data(_state, "details"))
 		"mark_evidence_reviewed":
@@ -197,20 +233,80 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"care_restock_poop_bags":
 			_show_feedback("Bentley Care", "%s\n\n%s" % [_care.restock_poop_bags(_state), _care.get_panel_body(_state)])
 		"care_view_poop_bags":
-			_show_feedback("Poop Bag Collection", _care.poop_bag_summary(_state) if _care.has_method("poop_bag_summary") else "Poop bag collection handled safely.")
+			_open_subpanel({"title": "Poop Bag Collection", "body": _care.poop_bag_summary(_state) if _care.has_method("poop_bag_summary") else "Poop bag collection handled safely.", "buttons": [{"id": "back", "label": "Back", "action": "back"}, {"id": "close", "label": "Close", "action": "close"}]})
 		"inspect":
 			_show_feedback("Inspect", "This station is wired and ready for a later detailed system.")
 		"show_collection":
 			var view_id := String(payload.get("view", "summary"))
 			if current_station_id in ["polaroid_wall", "glow_guy_shelf", "tiny_icon_shelf", "poop_bag_care_display"]:
-				_open_controller_panel(_collectibles.get_panel_data(current_station_id, _state, view_id))
+				_open_subpanel(_collectibles.get_panel_data(current_station_id, _state, view_id))
 			else:
 				_show_feedback("Collection", "Decoration placement comes in a later pass.")
+		"show_found_collection":
+			var display_id := action_value if action_value != "" else current_station_id
+			_open_subpanel(_collectibles.get_panel_data(display_id, _state, "found"))
+		"show_missing_collection":
+			var missing_display_id := action_value if action_value != "" else current_station_id
+			_open_subpanel(_collectibles.get_panel_data(missing_display_id, _state, "missing"))
+		"arrange_later":
+			_show_feedback("Arrange Later", DialogueBank.get_random_line("arrange_later"))
 		"show_store_category":
-			_open_controller_panel(_store.get_panel_data(_state, String(payload.get("category_id", ""))))
+			_open_subpanel(_store.get_panel_data(_state, String(payload.get("category_id", ""))))
+		"store_view_category":
+			_open_subpanel(_store.get_panel_data(_state, action_value))
 		"buy_store_placeholder":
 			var purchase_message: String = _store.purchase_placeholder(String(payload.get("item_id", "")), _state) if _store.has_method("purchase_placeholder") else "Store purchase handled safely."
-			_show_feedback("Store Purchase", "%s\n\n%s" % [purchase_message, _store.get_panel_body(_state, String(payload.get("category_id", "")))])
+			_refresh_root_panel_with_feedback(_store.get_panel_data(_state, String(payload.get("category_id", ""))), purchase_message)
+		"store_buy_item":
+			var purchase_item_id := action_value if action_value != "" else String(payload.get("item_id", ""))
+			var buy_message: String = _store.purchase_placeholder(purchase_item_id, _state) if _store.has_method("purchase_placeholder") else "Store purchase handled safely."
+			var category_id := String(_store.item_by_id(purchase_item_id).get("category", "")) if _store.has_method("item_by_id") else ""
+			_refresh_root_panel_with_feedback(_store.get_panel_data(_state, category_id), buy_message)
+		"decor_select_item":
+			_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), _decoration_controller.select_item(action_value))
+		"decor_select_placed":
+			_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), _decoration_controller.select_placed(action_value))
+		"decor_enter_click_to_place_mode", "decor_enter_placement_mode", "enter_click_to_place_mode", "decor_enter_click_to_place", "decor_place_mode":
+			var selected_item_id := String(_state.get("selected_placeable_item_id"))
+			if selected_item_id == "":
+				_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), "Select an owned decor item first.")
+			else:
+				_ensure_decorating_mode_controller()
+				if _decorating_mode_controller != null:
+					_decorating_mode_controller.enter_decorating_mode(selected_item_id)
+		"decor_enter_decorating_mode":
+			_ensure_decorating_mode_controller()
+			if _decorating_mode_controller != null:
+				_decorating_mode_controller.enter_decorating_mode("")
+		"open_decor_inventory":
+			current_station_id = "open_decor_zone"
+			_open_controller_panel(_decoration_controller.get_open_decor_panel_data())
+		"decor_place_selected":
+			var place_message: String = _decoration_controller.place_selected()
+			_sync_decorating_visuals()
+			_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), place_message)
+		"decor_move_selected":
+			var move_message: String = _decoration_controller.move_selected()
+			_sync_decorating_visuals()
+			_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), move_message)
+		"decor_remove_selected":
+			if _decorating_mode_controller != null and _decorating_mode_controller.has_method("is_in_decorating_mode") and _decorating_mode_controller.is_in_decorating_mode():
+				_decorating_mode_controller.remove_selected_placed_item()
+				_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), "Removed selected decor. Owned inventory unchanged.")
+			else:
+				var remove_message: String = _decoration_controller.remove_selected()
+				_sync_decorating_visuals()
+				_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), remove_message)
+		"decor_clear_all":
+			if _decorating_mode_controller != null:
+				_decorating_mode_controller.clear_all_placed_decor()
+			_refresh_root_panel_with_feedback(_decoration_controller.get_open_decor_panel_data(), _decoration_controller.clear_all())
+		"greenhouse_take_breath":
+			_show_feedback("Greenhouse Alcove", DialogueBank.get_random_line("greenhouse_take_breath"))
+		"greenhouse_water_plants":
+			_show_feedback("Greenhouse Alcove", DialogueBank.get_random_line("greenhouse_water_plants"))
+		"greenhouse_inspect_skyline":
+			_show_feedback("Greenhouse Alcove", DialogueBank.get_random_line("greenhouse_inspect_skyline"))
 		"show_placement_zones":
 			_show_feedback("Placement Zones", "Placement zones are scaffolded, but drag/drop is not implemented yet.")
 		"view_heat":
@@ -221,7 +317,7 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 			_show_feedback(character_id.capitalize(), line)
 		_:
 			print("[HideoutManager] Unknown panel action '%s' payload=%s" % [action_id, payload])
-			_show_feedback("Placeholder", "Action '%s' is not implemented yet, but it did not crash." % action_id)
+			_show_feedback("Under Construction", "Action '%s' is under construction, but it did not crash." % action_id)
 
 func _build_world_layers() -> void:
 	_clear_children(_world.get_node("FloorLayer"))
@@ -288,6 +384,8 @@ func _build_stations() -> void:
 			station.add_to_group("hideout_collectible_display")
 		if String(entry["station_id"]) == "bentley_care_station":
 			station.add_to_group("hideout_care_station")
+		if String(entry["station_id"]) == "greenhouse_alcove":
+			station.add_to_group("hideout_greenhouse")
 		var shape := CollisionShape2D.new()
 		var rect := RectangleShape2D.new()
 		rect.size = Vector2(64, 64)
@@ -442,6 +540,47 @@ func _ensure_state_controller() -> void:
 		_state.name = "HideoutStateController"
 		get_parent().call_deferred("add_child", _state)
 
+func _ensure_decoration_controller() -> void:
+	if _decoration_controller != null and is_instance_valid(_decoration_controller):
+		return
+	_decoration_controller = get_node_or_null("../HideoutDecorationController")
+	if _decoration_controller == null:
+		_decoration_controller = DecorationControllerScript.new()
+		_decoration_controller.name = "HideoutDecorationController"
+		get_parent().add_child(_decoration_controller)
+	var decor_layer := _world.get_node_or_null("DecorationLayer")
+	var placed_container := decor_layer.get_node_or_null("PlacedDecor") if decor_layer != null else null
+	if decor_layer != null and placed_container == null:
+		placed_container = Node2D.new()
+		placed_container.name = "PlacedDecor"
+		decor_layer.add_child(placed_container)
+	if _decoration_controller.has_method("configure"):
+		_decoration_controller.configure(_state, placed_container)
+
+func _ensure_decorating_mode_controller() -> void:
+	if _decorating_mode_controller != null and is_instance_valid(_decorating_mode_controller):
+		return
+	_decorating_mode_controller = get_node_or_null("../HideoutDecoratingModeController")
+	if _decorating_mode_controller == null:
+		var controller_script: Script = load("res://src/hideout/HideoutDecoratingModeController.gd") as Script
+		if controller_script == null:
+			_show_feedback("Decorating Mode", "Decorating Mode script failed to load. Open Decor anchor buttons are still available.")
+			return
+		_decorating_mode_controller = controller_script.new()
+		_decorating_mode_controller.name = "HideoutDecoratingModeController"
+		get_parent().add_child(_decorating_mode_controller)
+	var decor_layer := _world.get_node_or_null("DecorationLayer")
+	var placed_container := decor_layer.get_node_or_null("PlacedDecor") if decor_layer != null else null
+	var ui_root := get_node_or_null("../../../UI") as CanvasLayer
+	if _decorating_mode_controller.has_method("configure"):
+		_decorating_mode_controller.configure(_state, placed_container, _panel, ui_root)
+
+func _sync_decorating_visuals() -> void:
+	if _decorating_mode_controller == null:
+		return
+	if _decorating_mode_controller.has_method("rebuild_placed_visuals"):
+		_decorating_mode_controller.rebuild_placed_visuals()
+
 func _build_interaction_bridge() -> void:
 	var existing := get_parent().get_node_or_null("HideoutInteractionBridge")
 	if existing != null:
@@ -487,10 +626,79 @@ func _non_empty_controller_body(controller: Node, method_name: String, args: Arr
 	return text
 
 func _show_feedback(title: String, message: String) -> void:
-	_panel.open_panel(title, message, [{"id": "back", "label": "Back", "action": "close"}])
+	_panel.open_subpanel(title, message, [{"id": "back", "label": "Back", "action": "back"}, {"id": "close", "label": "Close", "action": "close"}])
 
 func _open_controller_panel(data: Dictionary) -> void:
-	_panel.open_panel(String(data.get("title", "Hideout Station")), String(data.get("body", "")), data.get("buttons", [{"id": "back", "label": "Back", "action": "close"}]))
+	_panel.open_panel(String(data.get("title", "Hideout Station")), String(data.get("body", "")), data.get("buttons", [{"id": "close", "label": "Close", "action": "close"}]))
+
+func _open_subpanel(data: Dictionary) -> void:
+	_panel.open_subpanel(String(data.get("title", "Hideout Station")), String(data.get("body", "")), data.get("buttons", [{"id": "back", "label": "Back", "action": "back"}, {"id": "close", "label": "Close", "action": "close"}]))
+
+func _refresh_root_panel_with_feedback(data: Dictionary, feedback: String) -> void:
+	var body := String(data.get("body", ""))
+	if feedback.strip_edges() != "":
+		body = "%s\n\n%s" % [feedback, body]
+	_panel.open_panel(String(data.get("title", "Hideout Station")), body, data.get("buttons", [{"id": "close", "label": "Close", "action": "close"}]))
+
+func _parse_action(action_id: String, payload: Dictionary) -> Dictionary:
+	var parsed := payload.duplicate(true)
+	var parts := action_id.split(":", false, 1)
+	parsed["base"] = parts[0]
+	parsed["value"] = parts[1] if parts.size() > 1 else ""
+	return parsed
+
+func _mission_start_confirmation_data() -> Dictionary:
+	var loadout: Dictionary = _state.get_current_scheme_loadout() if _state != null and _state.has_method("get_current_scheme_loadout") else {}
+	var plan: String = _scheme_cards.card_name(String(loadout.get("plan", ""))) if _scheme_cards.has_method("card_name") else "Empty"
+	var trick: String = _scheme_cards.card_name(String(loadout.get("trick", ""))) if _scheme_cards.has_method("card_name") else "Empty"
+	var comfort: String = _scheme_cards.card_name(String(loadout.get("comfort_chaos", ""))) if _scheme_cards.has_method("card_name") else "Empty"
+	var lines: Array[String] = [
+		"Ready for The Taco Bell Drop?",
+		"",
+		DialogueBank.get_random_line("mission_start_warning"),
+		"Double-check your scheme cards before starting.",
+		"",
+		"Current Plan Card: %s" % plan,
+		"Current Trick Card: %s" % trick,
+		"Current Comfort/Chaos Card: %s" % comfort,
+	]
+	if plan == "Empty" or trick == "Empty" or comfort == "Empty":
+		lines.append("")
+		lines.append("One or more scheme slots are empty.")
+	lines.append("")
+	lines.append("Routes and mission choices belong at the Planning Table, not the Mission Board.")
+	return {
+		"title": "Ready for The Taco Bell Drop?",
+		"body": "\n".join(lines),
+		"buttons": [
+			{"id": "confirm_launch", "label": "Start Mission", "action": "confirm_launch_taco_bell"},
+			{"id": "go_planning", "label": "Go to Planning Table", "action": "go_to_planning_table"},
+			{"id": "back", "label": "Back", "action": "back"},
+			{"id": "close", "label": "Close", "action": "close"},
+		],
+	}
+
+func _write_scheme_loadout_to_game_state() -> void:
+	if _state == null or not _state.has_method("get_current_scheme_loadout"):
+		return
+	var loadout: Dictionary = _state.get_current_scheme_loadout()
+	if get_node_or_null("/root/GameState") != null:
+		if GameState.has_method("set_current_scheme_loadout"):
+			GameState.set_current_scheme_loadout(loadout)
+		else:
+			GameState.set("current_scheme_loadout", loadout)
+
+func _greenhouse_panel_data() -> Dictionary:
+	return {
+		"title": "Greenhouse Alcove",
+		"body": "%s\n\nThe city looks beautiful from here, which is rude given the circumstances." % DialogueBank.get_random_line("greenhouse_interaction"),
+		"buttons": [
+			{"id": "take_breath", "label": "Take a Breath", "action": "greenhouse_take_breath"},
+			{"id": "water_plants", "label": "Water Suspicious Plants", "action": "greenhouse_water_plants"},
+			{"id": "inspect_skyline", "label": "Inspect the Skyline", "action": "greenhouse_inspect_skyline"},
+			{"id": "close", "label": "Close", "action": "close"},
+		],
+	}
 
 func _has_property(node: Object, property_name: String) -> bool:
 	for property in node.get_property_list():

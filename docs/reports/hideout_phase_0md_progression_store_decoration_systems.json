@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md_backup.20260507_060218.tscn",
+  "hideout_hub_scene_modified": true,
+  "taco_bell_scenes_modified": false,
+  "scheme_card_loadout_v2": {
+    "implemented": true,
+    "card_count": 10,
+    "action_format": [
+      "equip_scheme_card:<card_id>",
+      "clear_scheme_slot:plan",
+      "clear_scheme_slot:trick",
+      "clear_scheme_slot:comfort_chaos",
+      "clear_scheme_loadout"
+    ],
+    "cards": [
+      {"card_id": "bentley_sniff_pass", "display_name": "Bentley Sniff Pass", "slot_type": "plan", "unlock_condition": "fresh"},
+      {"card_id": "treat_based_negotiation", "display_name": "Treat-Based Negotiation", "slot_type": "trick", "unlock_condition": "fresh"},
+      {"card_id": "definitely_normal_hoodie", "display_name": "Definitely Normal Hoodie", "slot_type": "comfort_chaos", "unlock_condition": "fresh"},
+      {"card_id": "poop_bag_protocol", "display_name": "Poop Bag Protocol", "slot_type": "plan", "unlock_condition": "fresh"},
+      {"card_id": "jakes_sleep_deprived_insight", "display_name": "Jake's Sleep-Deprived Insight", "slot_type": "plan", "unlock_condition": "fresh"},
+      {"card_id": "meres_vibe_check", "display_name": "Mere's Vibe Check", "slot_type": "comfort_chaos", "unlock_condition": "fresh"},
+      {"card_id": "fire_sauce_diversion", "display_name": "Fire Sauce Diversion", "slot_type": "trick", "unlock_condition": "taco_bell_completed"},
+      {"card_id": "drive_thru_timing_window", "display_name": "Drive-Thru Timing Window", "slot_type": "plan", "unlock_condition": "taco_bell_completed"},
+      {"card_id": "security_booth_coupon", "display_name": "Security Booth Coupon", "slot_type": "trick", "unlock_condition": "taco_bell_completed"},
+      {"card_id": "baja_blast_nerves", "display_name": "Baja Blast Nerves", "slot_type": "comfort_chaos", "unlock_condition": "taco_bell_completed"}
+    ]
+  },
+  "mission_start_confirmation": {
+    "implemented": true,
+    "writes_loadout_to_game_state": true,
+    "launch_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+  },
+  "panel_navigation_stack": {
+    "implemented": true,
+    "back_returns_to_parent": true,
+    "close_closes_full_panel": true
+  },
+  "dialogue_bank": {
+    "created": true,
+    "context_count": 31,
+    "all_required_contexts_have_three_or_more_lines": true
+  },
+  "currency": {
+    "name": "Case Cash",
+    "fresh_start": 75,
+    "taco_bell_completed_minimum": 150,
+    "can_add": true,
+    "can_spend": true,
+    "cannot_go_negative": true
+  },
+  "storefront": {
+    "implemented": true,
+    "item_count": 8,
+    "items": [
+      {"item_id": "taco_bell_stool", "display_name": "Taco Bell Stool", "category": "Furniture", "cost": 35},
+      {"item_id": "employees_must_wash_paws_sign", "display_name": "Employees Must Wash Paws Sign", "category": "Wall Decor", "cost": 20},
+      {"item_id": "sauce_packet_rug", "display_name": "Sauce Packet Rug", "category": "Rugs", "cost": 45},
+      {"item_id": "neon_menu_panel", "display_name": "Neon Menu Panel", "category": "Lights", "cost": 60},
+      {"item_id": "mild_sauce_throw_pillow", "display_name": "Mild Sauce Throw Pillow", "category": "Bentley Items", "cost": 25},
+      {"item_id": "drive_thru_headset", "display_name": "Drive-Thru Headset", "category": "Care Station Upgrades", "cost": 30},
+      {"item_id": "security_booth_monitor", "display_name": "Security Booth Monitor", "category": "Collectible Displays", "cost": 50},
+      {"item_id": "suspicious_fry_basket", "display_name": "Suspicious Fry Basket", "category": "Mission Trophies", "cost": 40}
+    ],
+    "purchase_spends_case_cash": true,
+    "purchase_adds_inventory": true
+  },
+  "decoration": {
+    "controller_created": true,
+    "runtime_container": "res://scenes/hideout/HideoutHub.tscn::ArtRoot/World/DecorationLayer/PlacedDecor",
+    "placement_mode": "button-based",
+    "placeholder_not_monogon_art": true,
+    "anchors": [
+      "decor_anchor_furniture_01",
+      "decor_anchor_furniture_02",
+      "decor_anchor_furniture_03",
+      "decor_anchor_rug_01",
+      "decor_anchor_wall_01",
+      "decor_anchor_wall_02",
+      "decor_anchor_care_01",
+      "decor_anchor_shelf_01",
+      "decor_anchor_tabletop_01",
+      "decor_anchor_trophy_01"
+    ]
+  },
+  "greenhouse": {
+    "station_id": "greenhouse_alcove",
+    "implemented": true,
+    "actions": ["greenhouse_take_breath", "greenhouse_water_plants", "greenhouse_inspect_skyline"]
+  },
+  "display_population": {
+    "taco_bell_completed_populates_polaroid": true,
+    "taco_bell_completed_populates_glow_guy": true,
+    "taco_bell_completed_populates_tiny_icons": true,
+    "taco_bell_completed_populates_poop_bag": true,
+    "taco_bell_completed_populates_trophy": true
+  },
+  "validation": {
+    "godot_runtime_scene_load": "PASS",
+    "runtime_errors_after_final_checks": 0,
+    "planning_dynamic_buttons": "PASS",
+    "equip_updates_state": "PASS",
+    "mission_confirmation_opens": "PASS",
+    "store_purchase_inventory": "PASS",
+    "decor_placement_state": "PASS",
+    "greenhouse_opens": "PASS",
+    "lints": "PASS",
+    "validator_created": "PASS"
+  },
+  "known_placeholders": [
+    "Scheme cards do not alter mission gameplay yet.",
+    "Currency/store/decor state is local debug state, not final persistence.",
+    "Decoration placement is button-based, not drag/drop.",
+    "Decor visuals are placeholder rectangles and labels.",
+    "Mission reward bonuses are scaffold text except debug Case Cash floor."
+  ],
+  "risks": [
+    "State resets until SaveManager integration.",
+    "Full manual E-interaction walkaround is still required.",
+    "Decoration anchors are a starter list, not final authored placement data.",
+    "GameState was minimally extended with current_scheme_loadout."
+  ],
+  "recommended_next_step": "If manual 0M-D test passes: 0M-B — Hideout visual dressing / Monogon-style prop pass. If manual 0M-D test fails: 0M-D2 — focused fix for failed system."
+}

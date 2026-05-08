@@ -1,0 +1,129 @@
+{
+  "phase": "0M-D2",
+  "status": "PARTIAL",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0md2_backup.20260507_152122.tscn",
+  "project_backup_created": false,
+  "project_godot_modified": false,
+  "scene_manager_old_hideout_path": "res://scenes/hideout/hideout.tscn",
+  "scene_manager_new_hideout_path": "res://scenes/hideout/HideoutHub.tscn",
+  "pause_exit_path": "src/ui/PauseMenu.gd and src/ui/test_ui/pause_menu.gd call SceneManager.return_to_hideout()",
+  "taco_bell_scenes_modified": false,
+  "taco_bell_source_scene_modified": false,
+  "taco_bell_redesign_scene_modified": false,
+  "universal_panel_scrolling": {
+    "implemented": true,
+    "viewport_height_cap": "86%",
+    "body_scroll_container": true,
+    "action_button_scroll_container": true,
+    "close_fixed_outside_scroll": true,
+    "duplicate_close_stripped": true
+  },
+  "return_to_hideout": {
+    "fixed": true,
+    "canonical_path": "res://scenes/hideout/HideoutHub.tscn",
+    "pause_exit_uses_new_path": true,
+    "mission_result_return_uses_new_path": true
+  },
+  "storefront": {
+    "visual_cards_created": true,
+    "placeholder_icon": true,
+    "shows_name_category_cost_state_description": true,
+    "buy_button_only_for_unlocked_unowned": true,
+    "purchase_refreshes_panel": true,
+    "case_cash_displayed": true
+  },
+  "decoration": {
+    "type": "click-to-place anchor flow",
+    "owned_inventory_cards": true,
+    "placement_preview": true,
+    "placed_visual_created": true,
+    "placed_visual_collision": false,
+    "can_select_placed_again": true,
+    "can_move_placed": true,
+    "can_remove_placed": true,
+    "removed_item_stays_owned": true
+  },
+  "loot_crate": {
+    "shows_purchased_items": true,
+    "open_decor_inventory_button": true,
+    "owned_summary": true
+  },
+  "bentley_care": {
+    "state_updates_after_actions": true,
+    "parent_refreshes_after_back": true,
+    "implementation": "Back regenerates dynamic station root data for stateful panels"
+  },
+  "dialogic": {
+    "attempted": true,
+    "installed": false,
+    "enabled": false,
+    "source": "https://github.com/dialogic-godot/dialogic",
+    "version_or_release": "Dialogic 2.0 - Alpha 19",
+    "release_date": "2026-01-12",
+    "minimum_godot_version": "4.4",
+    "license": "MIT",
+    "adapter_created": true,
+    "fallback_preserved": true,
+    "deferred_reason": "Large alpha addon with Godot 4.6 compatibility history; deferred to avoid destabilizing this repair pass and touching project.godot."
+  },
+  "dialogue_counts": {
+    "jake": 24,
+    "mere": 24,
+    "bentley": 24,
+    "louis": 8
+  },
+  "validator": {
+    "created": true,
+    "path": "res://src/tools/editor/HideoutPhase0MD2Validator.gd",
+    "run": false,
+    "static_validated": true,
+    "reason_not_run": "Godot CLI is not available on shell PATH."
+  },
+  "files_created": [
+    "res://scenes/hideout/HideoutHub.phase0md2_backup.20260507_152122.tscn",
+    "res://src/hideout/HideoutDialogicAdapter.gd",
+    "res://src/tools/editor/HideoutPhase0MD2Validator.gd",
+    "res://docs/reports/hideout_phase_0md2_ux_dialogic_decoration_repair.md",
+    "res://docs/reports/hideout_phase_0md2_ux_dialogic_decoration_repair.json"
+  ],
+  "files_modified": [
+    "res://src/autoload/SceneManager.gd",
+    "res://src/hideout/ScrollableStationPanel.gd",
+    "res://src/hideout/HideoutManager.gd",
+    "res://src/hideout/HideoutStoreController.gd",
+    "res://src/hideout/HideoutDecorationController.gd",
+    "res://src/hideout/HideoutDialogueBank.gd",
+    "res://src/hideout/HideoutCharacterController.gd"
+  ],
+  "known_placeholders": [
+    "Visual storefront cards are text/placeholder icon cards.",
+    "Decor placement is click-to-place anchor flow, not true drag/drop.",
+    "Placed decor has no collision and does not block movement.",
+    "Dialogic plugin is not installed; adapter falls back to HideoutDialogueBank."
+  ],
+  "risks": [
+    "Runtime UI sizing needs manual verification at target viewport.",
+    "Clickable placed decor needs in-game mouse selection validation.",
+    "Dialogic installation should be isolated in a future pass.",
+    "Working tree already contained pre-existing 0M-D changes."
+  ],
+  "manual_playtest_checklist": [
+    "Open HideoutHub.tscn.",
+    "Open Planning Table and confirm scrollable Close is reachable.",
+    "Equip cards and confirm no cut-off.",
+    "Open Store Terminal and confirm item cards show icon/name/cost/status.",
+    "Toggle Taco Bell Completed if needed and buy one item.",
+    "Confirm Case Cash decreases.",
+    "Open Loot Crate or Open Decor Area and confirm purchased item appears.",
+    "Click-place item onto hideout map.",
+    "Select placed item again, move it, then remove it.",
+    "Use Bentley Care actions, press Back, and confirm parent values refresh.",
+    "Confirm Back returns to parent and Close closes full panel.",
+    "Launch Taco Bell and pause-exit back to HideoutHub.",
+    "Interact with Jake/Mere/Bentley/Louis repeatedly and confirm varied dialogue.",
+    "Confirm E still works after panels close.",
+    "Confirm MissionBoard still launches RedesignTest.",
+    "Confirm Taco Bell scenes remain unmodified."
+  ],
+  "recommended_next_step": "If manual 0M-D2 test passes: 0M-B Hideout visual dressing / Monogon-style prop pass. If Dialogic is next: 0M-D3 Dialogic dialogue migration pass. If manual test fails: 0M-D2-FIX."
+}

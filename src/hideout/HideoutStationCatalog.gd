@@ -9,8 +9,11 @@ const CLASS_DEBUG_STATE_VISUAL := "DEBUG_STATE_VISUAL"
 const CLASS_FUTURE_PLACEHOLDER := "FUTURE_PLACEHOLDER"
 
 const ALLOWED_BUTTON_ACTIONS := [
+	"back",
 	"close",
 	"launch_taco_bell",
+	"confirm_launch_taco_bell",
+	"go_to_planning_table",
 	"show_known_info",
 	"show_scheme_cards",
 	"show_active_slots",
@@ -24,6 +27,8 @@ const ALLOWED_BUTTON_ACTIONS := [
 	"view_results",
 	"replay_mission",
 	"equip_scheme_card",
+	"clear_scheme_slot",
+	"clear_scheme_loadout",
 	"clear_loadout",
 	"care_wipe_paws",
 	"care_give_treat",
@@ -34,6 +39,19 @@ const ALLOWED_BUTTON_ACTIONS := [
 	"show_collection",
 	"show_store_category",
 	"buy_store_placeholder",
+	"store_view_category",
+	"store_buy_item",
+	"decor_select_item",
+	"decor_place_selected",
+	"decor_move_selected",
+	"decor_remove_selected",
+	"decor_clear_all",
+	"greenhouse_take_breath",
+	"greenhouse_water_plants",
+	"greenhouse_inspect_skyline",
+	"show_found_collection",
+	"show_missing_collection",
+	"arrange_later",
 	"show_placement_zones",
 	"view_heat",
 	"talk",
@@ -54,6 +72,7 @@ const STATION_ALIASES := {
 	"StoreTerminal": "store_terminal",
 	"OpenDecorZone": "open_decor_zone",
 	"HeatScanner": "heat_scanner",
+	"GreenhouseAlcove": "greenhouse_alcove",
 	"Louis": "louis",
 	"Jake": "jake",
 	"Mere": "mere",
@@ -72,6 +91,7 @@ static func stations() -> Array[Dictionary]:
 		_station("louis", "LOUIS", "character", "I know a guy who knows a guy who sells lamps. Crime lamps.", CLASS_DEBUG_STATE_VISUAL, Vector2(820, 130), Vector2(760, 130), "Louis", "StoreDeliveryZone", ["character", "hidden_until_louis_unlocked"], ["cyberpunk_store_vendor"]),
 		_station("mission_board", "MISSION BOARD", "mission_board", "Choose the next mission, replay completed missions, review completion status, and check missing clues or collectibles.", CLASS_FUNCTIONAL, Vector2(520, -410), Vector2(500, -340), "MissionBoard", "WallZone_North", ["mission", "board"], ["cyberpunk_monitor_wall", "neon_panels"]),
 		_station("evidence_board_big_case", "THE BIG CASE", "evidence_board", "Review clues, missing evidence, and the vague larger pattern connecting everything.", CLASS_FUNCTIONAL, Vector2(0, -405), Vector2(0, -330), "EvidenceBoard_TheBigCase", "WallZone_North", ["evidence", "board"], ["cyberpunk_corkboard", "detective_wall"]),
+		_station("greenhouse_alcove", "GREENHOUSE ALCOVE", "greenhouse", "The greenhouse makes the whole operation feel almost emotionally sustainable.", CLASS_PANEL_ONLY, Vector2(0, -610), Vector2(0, -520), "GreenhouseAlcove", "WallZone_North", ["greenhouse", "quiet"], ["greenhouse_glass", "city_view"]),
 		_station("planning_table", "PLANNING TABLE", "scheme_cards", "View and equip scheme cards before missions. Routes and mission choices belong here, not on the mission board.", CLASS_FUNCTIONAL, Vector2(0, 20), Vector2(0, 120), "PlanningTable", "TableZone_Planning", ["planning", "cards"], ["cyberpunk_table", "blueprint_table"]),
 		_station("polaroid_wall", "POLAROID WALL", "collectibles", "View and eventually rearrange mission Polaroids.", CLASS_PANEL_ONLY, Vector2(-850, -230), Vector2(-760, -230), "PolaroidWall", "PolaroidWallZone", ["collectible", "wall_item"], ["house_interior_photo_wall"]),
 		_station("glow_guy_shelf", "GLOW GUY SHELF", "collectibles", "View and eventually rearrange Glow Guy collectibles.", CLASS_PANEL_ONLY, Vector2(-880, -40), Vector2(-780, -40), "GlowGuyShelf", "ShelfZone_GlowGuys", ["collectible", "shelf_item"], ["house_interior_shelf", "neon_toys"]),
@@ -100,17 +120,31 @@ static func missions() -> Array[Dictionary]:
 
 static func scheme_cards() -> Array[Dictionary]:
 	return [
-		{"card_id": "bentley_sniff_pass", "name": "Bentley Sniff Pass", "slot_type": "Plan", "unlock": "fresh", "description": "Reveals nearby scent trails for a short duration."},
-		{"card_id": "treat_based_negotiation", "name": "Treat-Based Negotiation", "slot_type": "Trick", "unlock": "fresh", "description": "Bentley distracts one nearby guard or NPC briefly."},
-		{"card_id": "definitely_normal_hoodie", "name": "Definitely Normal Hoodie", "slot_type": "Comfort/Chaos", "unlock": "fresh", "description": "Slightly reduces detection buildup when walking, not running."},
-		{"card_id": "poop_bag_protocol", "name": "Poop Bag Protocol", "slot_type": "Plan", "unlock": "fresh", "description": "Start the mission with one extra poop bag use."},
-		{"card_id": "jakes_sleep_deprived_insight", "name": "Jake's Sleep-Deprived Insight", "slot_type": "Plan", "unlock": "fresh", "description": "Highlights one suspicious interactable or clue zone per mission."},
-		{"card_id": "meres_vibe_check", "name": "Mere's Vibe Check", "slot_type": "Comfort/Chaos", "unlock": "fresh", "description": "Gives a subtle warning when entering a very risky area."},
-		{"card_id": "fire_sauce_diversion", "name": "Fire Sauce Diversion", "slot_type": "Trick", "unlock": "taco_bell_completed", "description": "Drop a spicy distraction that pulls one guard or NPC away briefly."},
-		{"card_id": "drive_thru_timing_window", "name": "Drive-Thru Timing Window", "slot_type": "Plan", "unlock": "taco_bell_completed", "description": "Slows or offsets one patrol cycle near service counters or windows."},
-		{"card_id": "security_booth_coupon", "name": "Security Booth Coupon", "slot_type": "Trick", "unlock": "taco_bell_completed", "description": "Temporarily loops one camera if activated near a camera node."},
-		{"card_id": "baja_blast_nerves", "name": "Baja Blast Nerves", "slot_type": "Comfort/Chaos", "unlock": "taco_bell_completed", "description": "Short speed boost after being detected, but increases noise slightly."},
+		_card("bentley_sniff_pass", "Bentley Sniff Pass", "plan", "fresh", "Reveals nearby scent trails for a short duration.", "Brief scent-trail reveal.", "starter", 1),
+		_card("treat_based_negotiation", "Treat-Based Negotiation", "trick", "fresh", "Bentley distracts one nearby guard or NPC briefly.", "Short Bentley distraction.", "starter", 2),
+		_card("definitely_normal_hoodie", "Definitely Normal Hoodie", "comfort_chaos", "fresh", "Slightly reduces detection buildup when walking, not running.", "Lower walking detection buildup.", "starter", 3),
+		_card("poop_bag_protocol", "Poop Bag Protocol", "plan", "fresh", "Start the mission with one extra poop bag use.", "Extra poop bag use.", "starter", 4),
+		_card("jakes_sleep_deprived_insight", "Jake's Sleep-Deprived Insight", "plan", "fresh", "Highlights one suspicious interactable or clue zone per mission.", "One suspicious clue hint.", "starter", 5),
+		_card("meres_vibe_check", "Mere's Vibe Check", "comfort_chaos", "fresh", "Gives a subtle warning when entering a very risky area.", "Risk area warning.", "starter", 6),
+		_card("fire_sauce_diversion", "Fire Sauce Diversion", "trick", "taco_bell_completed", "Drop a spicy distraction that pulls one guard or NPC away briefly.", "Spicy guard diversion.", "taco_bell_drop", 7),
+		_card("drive_thru_timing_window", "Drive-Thru Timing Window", "plan", "taco_bell_completed", "Slows or offsets one patrol cycle near service counters or windows.", "Patrol timing offset.", "taco_bell_drop", 8),
+		_card("security_booth_coupon", "Security Booth Coupon", "trick", "taco_bell_completed", "Temporarily loops one camera if activated near a camera node.", "Temporary camera loop.", "taco_bell_drop", 9),
+		_card("baja_blast_nerves", "Baja Blast Nerves", "comfort_chaos", "taco_bell_completed", "Short speed boost after being detected, but increases noise slightly.", "Risky detection speed boost.", "taco_bell_drop", 10),
 	]
+
+static func _card(card_id: String, display_name: String, slot_type: String, unlock_condition: String, description: String, short_effect_summary: String, source_mission: String, sort_order: int) -> Dictionary:
+	return {
+		"card_id": card_id,
+		"display_name": display_name,
+		"name": display_name,
+		"slot_type": slot_type,
+		"unlock_condition": unlock_condition,
+		"unlock": unlock_condition,
+		"description": description,
+		"short_effect_summary": short_effect_summary,
+		"source_mission": source_mission,
+		"sort_order": sort_order,
+	}
 
 static func normalize_station_id(raw_id: String) -> String:
 	var cleaned := raw_id.strip_edges()
@@ -208,6 +242,12 @@ static func _panel_content() -> Dictionary:
 			"body": "View and equip scheme cards before missions. Routes and mission choices belong here, not on the mission board.\n\nStarter Scheme Cards:\n1. Bentley Sniff Pass - Reveals nearby scent trails for a short duration.\n2. Treat-Based Negotiation - Bentley distracts one nearby guard or NPC briefly.\n3. Definitely Normal Hoodie - Slightly reduces detection buildup when walking, not running.\n4. Poop Bag Protocol - Start the mission with one extra poop bag use.\n5. Jake's Sleep-Deprived Insight - Highlights one suspicious interactable or clue zone per mission.\n6. Mere's Vibe Check - Gives a subtle warning when entering a very risky area.\n7. Fire Sauce Diversion - Drop a spicy distraction that pulls one guard or NPC away briefly.\n8. Drive-Thru Timing Window - Slows or offsets one patrol cycle near service counters or windows.\n9. Security Booth Coupon - Temporarily loops one camera if activated near a camera node.\n10. Baja Blast Nerves - Short speed boost after being detected, but increases noise slightly.",
 			"buttons": [_button("view_scheme_cards", "View Scheme Cards", "show_scheme_cards"), _button("view_active_slots", "View Active Slots", "show_active_slots"), _button("back", "Back", "close")],
 			"classification": CLASS_FUNCTIONAL,
+		},
+		"greenhouse_alcove": {
+			"title": "Greenhouse Alcove",
+			"body": "The greenhouse makes the whole operation feel almost emotionally sustainable. The city looks beautiful from here, which is rude given the circumstances.",
+			"buttons": [_button("take_breath", "Take a Breath", "greenhouse_take_breath"), _button("water_plants", "Water Suspicious Plants", "greenhouse_water_plants"), _button("inspect_skyline", "Inspect the Skyline", "greenhouse_inspect_skyline"), _button("close", "Close", "close")],
+			"classification": CLASS_PANEL_ONLY,
 		},
 		"polaroid_wall": {
 			"title": "Polaroid Wall",

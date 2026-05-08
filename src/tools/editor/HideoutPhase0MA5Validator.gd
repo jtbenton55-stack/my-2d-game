@@ -86,7 +86,7 @@ static func _all_required_station_content_non_empty() -> bool:
 
 static func _mission_board_lists_11_missions() -> bool:
 	var body := String(Catalog.get_panel_data("mission_board").get("body", ""))
-	for name in [
+	for mission_name in [
 		"The Taco Bell Drop",
 		"Velvet Paw Jazz Club",
 		"Rewrite Room",
@@ -99,7 +99,7 @@ static func _mission_board_lists_11_missions() -> bool:
 		"Shadow Solo Contract",
 		"The Final Job",
 	]:
-		if not body.contains(name):
+		if not body.contains(mission_name):
 			return false
 	return true
 

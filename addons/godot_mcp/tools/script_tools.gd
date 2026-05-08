@@ -231,19 +231,19 @@ func _collect_scripts(path: String, out: Array) -> void:
 		return
 
 	dir.list_dir_begin()
-	var name := dir.get_next()
-	while name != "":
-		if name.begins_with("."):
-			name = dir.get_next()
+	var entry_name := dir.get_next()
+	while entry_name != "":
+		if entry_name.begins_with("."):
+			entry_name = dir.get_next()
 			continue
 
-		var full_path := path.path_join(name)
+		var full_path := path.path_join(entry_name)
 		if dir.current_is_dir():
 			_collect_scripts(full_path, out)
-		elif name.ends_with(".gd"):
+		elif entry_name.ends_with(".gd"):
 			out.append(full_path)
 
-		name = dir.get_next()
+		entry_name = dir.get_next()
 	dir.list_dir_end()
 
 # =============================================================================

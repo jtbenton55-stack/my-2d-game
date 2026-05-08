@@ -36,6 +36,7 @@ var player_max_health: int = 100
 var player_health: int = 100
 var current_mission_id: String = ""
 var pending_mission_id: String = ""
+var current_scheme_loadout: Dictionary = {"plan": "", "trick": "", "comfort_chaos": ""}
 var is_in_mission: bool = false
 var last_mission_result: Dictionary = {}
 var player_position: Vector2 = Vector2.ZERO
@@ -285,6 +286,17 @@ func start_mission(mission_id: String) -> void:
 	EventBus.mission_started.emit(mission_id)
 	EventBus.debug("Mission started: " + mission_id)
 	EventBus.game_state_changed.emit()
+
+func set_current_scheme_loadout(loadout_dict: Dictionary) -> void:
+	current_scheme_loadout = {
+		"plan": String(loadout_dict.get("plan", "")),
+		"trick": String(loadout_dict.get("trick", "")),
+		"comfort_chaos": String(loadout_dict.get("comfort_chaos", "")),
+	}
+	EventBus.game_state_changed.emit()
+
+func get_current_scheme_loadout() -> Dictionary:
+	return current_scheme_loadout.duplicate(true)
 
 func complete_mission(mission_id = "") -> Dictionary:
 	if mission_id == "":

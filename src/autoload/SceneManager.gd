@@ -3,7 +3,7 @@ extends Node
 enum Transition { NONE, FADE }
 
 const TITLE_SCENE := "res://scenes/MainMenu.tscn"
-const HIDEOUT_SCENE := "res://scenes/hideout/hideout.tscn"
+const HIDEOUT_SCENE := "res://scenes/hideout/HideoutHub.tscn"
 const CITY_HUB_SCENE := "res://scenes/CityHub.tscn"
 const MISSION_SELECT_SCENE := "res://scenes/ui/MissionSelect.tscn"
 const SCHEME_CARD_SCENE := "res://scenes/ui/SchemeCardMenu.tscn"

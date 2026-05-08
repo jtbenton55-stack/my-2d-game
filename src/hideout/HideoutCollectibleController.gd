@@ -2,10 +2,10 @@ extends Node
 class_name HideoutCollectibleController
 
 const DISPLAY_MAP := {
-	"polaroid_wall": ["polaroid_taco_bell"],
-	"glow_guy_shelf": ["glow_guy_taco_bell"],
-	"tiny_icon_shelf": ["tiny_icon_sauce_packet", "tiny_icon_drive_thru_bell"],
-	"poop_bag_care_display": ["poop_bag_fire_sauce_roll"],
+	"polaroid_wall": ["polaroid_taco_bell", "polaroid_future_placeholder"],
+	"glow_guy_shelf": ["glow_guy_taco_bell", "glow_guy_future_placeholder"],
+	"tiny_icon_shelf": ["tiny_icon_sauce_packet", "tiny_icon_drive_thru_bell", "tiny_icon_future_placeholder"],
+	"poop_bag_care_display": ["poop_bag_fire_sauce_roll", "poop_bag_future_placeholder"],
 	"mission_trophy_display": ["trophy_taco_bell_drop"],
 }
 
@@ -14,10 +14,10 @@ func get_panel_data(station_id: String, state_controller: Node = null, view_id: 
 		"title": _title_for(station_id),
 		"body": get_panel_body(station_id, state_controller, view_id),
 		"buttons": [
-			{"id": "view_found", "label": "View Found", "action": "show_collection", "view": "found"},
-			{"id": "view_missing", "label": "View Missing", "action": "show_collection", "view": "missing"},
-			{"id": "arrange_later", "label": "Arrange Later", "action": "show_collection", "view": "arrange"},
-			{"id": "back", "label": "Back", "action": "close"},
+			{"id": "view_found", "label": "View Found", "action": "show_found_collection:%s" % station_id, "view": "found"},
+			{"id": "view_missing", "label": "View Missing", "action": "show_missing_collection:%s" % station_id, "view": "missing"},
+			{"id": "arrange_later", "label": "Arrange Later", "action": "arrange_later"},
+			{"id": "close", "label": "Close", "action": "close"},
 		],
 	}
 

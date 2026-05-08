@@ -22,10 +22,9 @@ func get_panel_body(state_controller = null) -> String:
 	]
 	for mission in Catalog.missions():
 		var slot := int(mission.get("slot", 0))
-		var mission_id := String(mission.get("mission_id", ""))
 		var name := String(mission.get("display_name", "Mission"))
-		var status := _mission_status_text(mission_id, state_controller)
-		lines.append("%02d. %s [%s] - %s" % [slot, name, mission_id, status])
+		var status := _mission_status_text(String(mission.get("mission_id", "")), state_controller)
+		lines.append("%02d. %s - %s" % [slot, name, status])
 	lines.append("")
 	var taco_status := _status_for("taco_bell_drop", state_controller)
 	lines.append("Selected Mission: The Taco Bell Drop")
@@ -45,7 +44,7 @@ func get_buttons(state_controller: Node = null) -> Array:
 	var status := _status_for("taco_bell_drop", state_controller)
 	if not status.get("completed", false):
 		return [
-			{"id": "start_taco_bell", "label": "Start Mission", "action": "launch_taco_bell"},
+			{"id": "start_taco_bell", "label": "Start The Taco Bell Drop", "action": "launch_taco_bell"},
 			{"id": "known_info", "label": "View Known Info", "action": "show_known_info"},
 			{"id": "back", "label": "Back", "action": "close"},
 		]
