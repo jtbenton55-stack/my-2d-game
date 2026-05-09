@@ -66,13 +66,16 @@ func apply_debug_state(state_id: String) -> void:
 	match current_debug_state:
 		"taco_bell_completed":
 			_apply_taco_bell_completed(false)
+			louis_unlocked = true
 		"taco_bell_missing_items":
 			_apply_taco_bell_completed(true)
+			louis_unlocked = true
 		"high_heat":
 			_apply_taco_bell_completed(false)
 			heat_state = HEAT_HIGH
 			taco_bell_heat = 3
 			taco_bell_lower_heat_available = true
+			louis_unlocked = true
 		"louis_unlocked":
 			louis_unlocked = true
 		_:

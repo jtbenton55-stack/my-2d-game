@@ -9,6 +9,7 @@ const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBri
 const DecorationControllerScript = preload("res://src/hideout/HideoutDecorationController.gd")
 const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+const DialogueBoxScene = preload("res://scenes/ui/DialogueBox.tscn")
 const StorefrontPanelScene = preload("res://scenes/ui/HideoutStorefrontPanel.tscn")
 
 # Phase 0M-C3 - speaker IDs that should bypass the panel and fire the
@@ -67,6 +68,8 @@ func _ready() -> void:
 	_build_snap_markers()
 	_build_required_markers()
 	_build_interaction_bridge()
+	_ensure_dialogue_box()
+	call_deferred("_ensure_dialogue_box")
 	_setup_debug_panel()
 	if _panel.has_signal("panel_action_pressed"):
 		_panel.panel_action_pressed.connect(_on_panel_action_pressed)
@@ -96,13 +99,14 @@ func open_station(station_id: String, interactable: Node = null, _player: Node =
 	_panel.open_panel(String(panel_data.get("title", "Hideout Station")), String(panel_data.get("body", "")), panel_data.get("buttons", []))
 
 func _open_character_portrait_dialogue(speaker_id: String) -> void:
+	_ensure_dialogue_box()
 	# Build a short sequence (3 lines) so the player gets a small dialogue
 	# experience but can advance through it quickly with E.
 	var lines: Array = HideoutCharacterDialogueBankScript.build_short_sequence(speaker_id, 3)
 	if lines.is_empty():
 		return
 	if DialogueManager.has_method("start_simple_dialogue"):
-		DialogueManager.start_simple_dialogue(lines)
+		DialogueManager.call_deferred("start_simple_dialogue", lines)
 
 func _open_storefront() -> void:
 	if _panel != null and _panel.has_method("close_panel") and _panel.has_method("is_open") and _panel.is_open():
@@ -128,14 +132,15 @@ func apply_debug_state(state_id: String) -> void:
 	if _state != null and _state.has_method("apply_debug_state"):
 		_state.apply_debug_state(state_id)
 	current_state = String(_state.get("current_debug_state")) if _state != null else state_id
+	var louis_visible := _is_louis_visible_in_state(current_state)
 	var louis := _stations.get_node_or_null("Louis")
 	if louis:
-		louis.visible = current_state == "louis_unlocked"
+		louis.visible = louis_visible
 		if _has_property(louis, "disabled"):
-			louis.set("disabled", current_state != "louis_unlocked")
+			louis.set("disabled", not louis_visible)
 	var louis_visual := _world.get_node_or_null("PropLayer/Visual_Louis")
 	if louis_visual:
-		louis_visual.visible = current_state == "louis_unlocked"
+		louis_visual.visible = louis_visible
 	_set_visual_tint("HeatScanner", Color(1, 0.12, 0.1, 1) if current_state == "high_heat" else Color(0.25, 0.8, 1, 1))
 	for id in ["PolaroidWall", "GlowGuyShelf", "TinyIconShelf", "PoopBagCareDisplay", "EvidenceBoard_TheBigCase", "MissionBoard", "StoreTerminal", "BentleyCareStation", "LootCrateDropZone"]:
 		_set_visual_tint(id, _state_color(current_state, id))
@@ -638,6 +643,28 @@ func _build_interaction_bridge() -> void:
 	bridge.name = "HideoutInteractionBridge"
 	bridge.set("player_path", NodePath("../../Characters/Player"))
 	get_parent().add_child(bridge)
+
+func _ensure_dialogue_box() -> void:
+	var scene_root := _scene_root()
+	if scene_root == null:
+		return
+	var existing := scene_root.get_node_or_null("DialogueBox")
+	if existing != null and is_instance_valid(existing):
+		return
+	var dialogue_box := DialogueBoxScene.instantiate()
+	dialogue_box.name = "DialogueBox"
+	scene_root.add_child(dialogue_box)
+
+func _scene_root() -> Node:
+	if get_tree().current_scene != null:
+		return get_tree().current_scene
+	var node := self
+	while node.get_parent() != null and node.get_parent() != get_tree().root:
+		node = node.get_parent()
+	return node
+
+func _is_louis_visible_in_state(state_id: String) -> bool:
+	return state_id in ["taco_bell_completed", "taco_bell_missing_items", "high_heat", "louis_unlocked"]
 
 func _update_prompt() -> void:
 	var player := get_tree().get_first_node_in_group("player") as Node2D

@@ -31,11 +31,11 @@
       "notes": "Bald guy with shades and a dapper jacket - delivery driver swagger, streetwise energy."
     },
     "bentley": {
-      "portrait_id": "portrait_bentley_placeholder",
+      "portrait_id": "portrait_bentley_cyber_dog",
       "speaker_name": "Bentley",
-      "png_path": "res://assets/portraits/generated_slices/portrait_bentley_placeholder.png",
+      "png_path": "res://assets/portraits/generated_slices/portrait_bentley_cyber_dog.png",
       "atlas_path": "",
-      "notes": "Generated placeholder card. No dog portrait exists in the source pack yet."
+      "notes": "Birthday-build Bentley portrait supplied by the user: cyber-eyed black-and-white pixel dog."
     },
     "fallback": {
       "portrait_id": "portrait_fallback_silhouette",

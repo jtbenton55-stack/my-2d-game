@@ -1,0 +1,162 @@
+[
+  {
+    "id": "C1",
+    "top": 3,
+    "bottom": 5,
+    "hair": 1,
+    "score": 35,
+    "bbox": [
+      84,
+      57,
+      122,
+      150
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_5/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_1/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C2",
+    "top": 10,
+    "bottom": 5,
+    "hair": 3,
+    "score": 40,
+    "bbox": [
+      80,
+      56,
+      122,
+      150
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_5/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_10/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_3/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C3",
+    "top": 13,
+    "bottom": 5,
+    "hair": 3,
+    "score": 40,
+    "bbox": [
+      80,
+      56,
+      122,
+      150
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_5/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_13/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_3/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C4",
+    "top": 17,
+    "bottom": 8,
+    "hair": 5,
+    "score": 40,
+    "bbox": [
+      80,
+      56,
+      122,
+      149
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_8/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_17/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_5/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C5",
+    "top": 24,
+    "bottom": 13,
+    "hair": 7,
+    "score": 40,
+    "bbox": [
+      80,
+      56,
+      122,
+      148
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C6",
+    "top": 6,
+    "bottom": 18,
+    "hair": 10,
+    "score": 38,
+    "bbox": [
+      80,
+      55,
+      122,
+      148
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_18/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_6/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_10/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C7",
+    "top": 21,
+    "bottom": 13,
+    "hair": 13,
+    "score": 38,
+    "bbox": [
+      80,
+      56,
+      122,
+      148
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_21/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_13/Spritesheet.png"
+    ]
+  },
+  {
+    "id": "C8",
+    "top": 13,
+    "bottom": 18,
+    "hair": 14,
+    "score": 40,
+    "bbox": [
+      80,
+      55,
+      122,
+      148
+    ],
+    "paths": [
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_18/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_13/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_14/Spritesheet.png"
+    ]
+  }
+]

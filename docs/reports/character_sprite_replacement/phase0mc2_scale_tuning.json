@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "player_scene_path": "res://scenes/characters/player.tscn",
+  "backup_path": "res://scenes/characters/player.phase0mc2_scale_backup.20260509_165530.tscn",
+  "scale_comparison_sandbox": "res://scenes/hideout/tools/PlayerVisualScaleComparison_0MC2.tscn",
+  "sprite_path": "res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png",
+  "sprite_size": [
+    46,
+    96
+  ],
+  "previous_scale": [
+    1.0,
+    1.0
+  ],
+  "previous_offset": [
+    0,
+    -20
+  ],
+  "candidate_scales_tested": [
+    {
+      "id": "current",
+      "scale": 1.0,
+      "offset": [
+        0,
+        -20
+      ]
+    },
+    {
+      "id": "A",
+      "scale": 1.25,
+      "offset": [
+        0,
+        -32
+      ]
+    },
+    {
+      "id": "B",
+      "scale": 1.35,
+      "offset": [
+        0,
+        -37
+      ],
+      "selected": true
+    },
+    {
+      "id": "C",
+      "scale": 1.5,
+      "offset": [
+        0,
+        -44
+      ]
+    }
+  ],
+  "chosen_scale": [
+    1.35,
+    1.35
+  ],
+  "chosen_offset": [
+    0,
+    -37
+  ],
+  "baseline_calculation": "Centered Sprite2D with height 96. Current feet/base = -20 + 96/2 = 28. Candidate offset = 28 - (96*scale/2); 1.35 gives -36.8, rounded to -37.",
+  "collision_modified": false,
+  "player_gd_modified": false,
+  "taco_bell_scenes_modified": false,
+  "c3_dialogue_preserved": true,
+  "c1_storefront_preserved": true,
+  "files_created": [
+    "res://scenes/hideout/tools/PlayerVisualScaleComparison_0MC2.tscn",
+    "res://scenes/characters/player.phase0mc2_scale_backup.20260509_165530.tscn",
+    "res://docs/reports/character_sprite_replacement/phase0mc2_scale_tuning.md",
+    "res://docs/reports/character_sprite_replacement/phase0mc2_scale_tuning.json"
+  ],
+  "files_modified": [
+    "res://scenes/characters/player.tscn",
+    "res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2_metadata.json"
+  ],
+  "manual_test_checklist": [
+    "Open HideoutHub.tscn",
+    "Run HideoutHub",
+    "Confirm the player is larger and easier to see",
+    "Confirm she does not look giant",
+    "Confirm her feet/base look grounded",
+    "Move up/down/left/right",
+    "Confirm controls feel unchanged",
+    "Confirm collision feels unchanged",
+    "Walk near walls/props",
+    "Confirm nothing visually catastrophic happens",
+    "Talk to Jake/Mere/Bentley",
+    "Open Neon Nook",
+    "Launch Taco Bell",
+    "Pause/exit back to HideoutHub"
+  ]
+}

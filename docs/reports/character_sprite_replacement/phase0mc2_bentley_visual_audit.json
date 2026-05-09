@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "bentley_map_visual_present": false,
+  "station_id": "bentley",
+  "interaction_preserved": true,
+  "dialogue_preserved": true,
+  "replacement": "skipped"
+}

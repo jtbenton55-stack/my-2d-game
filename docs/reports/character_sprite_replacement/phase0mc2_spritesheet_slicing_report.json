@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "blind_slicing": false,
+  "source_frame_rect": {
+    "x": 0,
+    "y": 0,
+    "w": 200,
+    "h": 200
+  },
+  "spriteframes_created": false,
+  "idle_animation_exists_or_static_fallback_used": true
+}

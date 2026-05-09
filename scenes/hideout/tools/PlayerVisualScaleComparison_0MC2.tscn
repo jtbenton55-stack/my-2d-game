@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png" id="1_player"]
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/old_player_token_reference_0mc2.png" id="2_old"]
+
+[node name="PlayerVisualScaleComparison_0MC2" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 820.0
+offset_bottom = 500.0
+color = Color(0.08, 0.085, 0.105, 1)
+
+[node name="BaselineGuide" type="Line2D" parent="."]
+position = Vector2(0, 320)
+points = PackedVector2Array(40, 0, 780, 0)
+width = 3.0
+default_color = Color(1, 0.82, 0.2, 1)
+
+[node name="Title" type="Label" parent="."]
+position = Vector2(36, 24)
+text = "0M-C2 Scale Comparison - all candidates align feet/base to the yellow guide"
+
+[node name="CollisionNote" type="Label" parent="."]
+position = Vector2(36, 52)
+text = "Collision changed: NO. Player.gd changed: NO. Only PlayerVisual_Parmida scale/position candidates are shown."
+
+[node name="Visual_0" type="Sprite2D" parent="."]
+position = Vector2(130, 272.0)
+scale = Vector2(1.00, 1.00)
+texture_filter = 1
+texture = ExtResource("1_player")
+
+[node name="Label_0" type="Label" parent="."]
+position = Vector2(58, 352)
+text = "Current scale 1.00\noffset: (0, -20)\nsprite: res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png\ncollision changed: NO"
+
+[node name="Visual_1" type="Sprite2D" parent="."]
+position = Vector2(300, 260.0)
+scale = Vector2(1.25, 1.25)
+texture_filter = 1
+texture = ExtResource("1_player")
+
+[node name="Label_1" type="Label" parent="."]
+position = Vector2(228, 352)
+text = "Candidate A scale 1.25\noffset: (0, -32)\nsprite: res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png\ncollision changed: NO"
+
+[node name="Visual_2" type="Sprite2D" parent="."]
+position = Vector2(470, 255.2)
+scale = Vector2(1.35, 1.35)
+texture_filter = 1
+texture = ExtResource("1_player")
+
+[node name="Label_2" type="Label" parent="."]
+position = Vector2(398, 352)
+text = "Candidate B scale 1.35 SELECTED\noffset: (0, -37)\nsprite: res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png\ncollision changed: NO"
+
+[node name="Visual_3" type="Sprite2D" parent="."]
+position = Vector2(640, 248.0)
+scale = Vector2(1.50, 1.50)
+texture_filter = 1
+texture = ExtResource("1_player")
+
+[node name="Label_3" type="Label" parent="."]
+position = Vector2(568, 352)
+text = "Candidate C scale 1.50\noffset: (0, -44)\nsprite: res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png\ncollision changed: NO"
+
+[node name="OldReference" type="Sprite2D" parent="."]
+position = Vector2(60, 276)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("2_old")
+
+[node name="OldReferenceLabel" type="Label" parent="."]
+position = Vector2(30, 352)
+text = "Old token ref\nnot production"

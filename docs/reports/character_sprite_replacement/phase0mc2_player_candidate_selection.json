@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "selected": "C5",
+  "strategy": "B/C",
+  "contact_sheet": "res://docs/reports/character_sprite_replacement/phase0mc2_player_candidate_contact_sheet.png",
+  "bad_side_scroller_art_selected": false,
+  "collision_changes_required": false
+}

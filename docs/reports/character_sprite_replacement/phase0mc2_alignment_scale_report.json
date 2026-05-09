@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "old_visual_anchor": {
+    "position": [
+      0,
+      -16
+    ],
+    "scale": [
+      0.68,
+      0.68
+    ],
+    "approx_bottom_y": 27.5
+  },
+  "new_visual": {
+    "position": [
+      0,
+      -20
+    ],
+    "scale": [
+      1,
+      1
+    ],
+    "size": [
+      46,
+      96
+    ]
+  },
+  "collision_modified": false
+}

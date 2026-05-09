@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/old_player_token_reference_0mc2.png" id="1_old"]
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png" id="2_new"]
+
+[node name="CharacterVisualSandbox_0MC2" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 760.0
+offset_bottom = 460.0
+color = Color(0.08, 0.085, 0.105, 1)
+
+[node name="BaselineGuide" type="Line2D" parent="."]
+position = Vector2(0, 280)
+points = PackedVector2Array(40, 0, 720, 0)
+width = 3.0
+default_color = Color(1, 0.82, 0.2, 1)
+
+[node name="OldPlaceholderVisual_0MC2_BackupReference" type="Sprite2D" parent="."]
+position = Vector2(180, 236)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("1_old")
+
+[node name="PlayerVisual_Parmida" type="Sprite2D" parent="."]
+position = Vector2(460, 232)
+texture_filter = 1
+texture = ExtResource("2_new")
+
+[node name="PropReference_Back" type="Polygon2D" parent="."]
+position = Vector2(560, 230)
+z_index = -1
+color = Color(0.2, 0.35, 0.5, 0.85)
+polygon = PackedVector2Array(-38, -80, 38, -80, 38, 50, -38, 50)
+
+[node name="PropReference_Front" type="Polygon2D" parent="."]
+position = Vector2(540, 292)
+z_index = 2
+color = Color(0.48, 0.28, 0.16, 0.9)
+polygon = PackedVector2Array(-34, -16, 34, -16, 34, 18, -34, 18)
+
+[node name="Title" type="Label" parent="."]
+position = Vector2(40, 24)
+text = "0M-C2 Character Visual Sandbox - static generated Parmida candidate"
+
+[node name="OldLabel" type="Label" parent="."]
+position = Vector2(92, 330)
+text = "Old placeholder visual
+scale 0.68
+kept as fallback"
+
+[node name="NewLabel" type="Label" parent="."]
+position = Vector2(360, 330)
+text = "PlayerVisual_Parmida
+source: generated composite C5
+PNG 46x96, scale 1.0, offset (0,-20)
+static Sprite2D, nearest filter
+feet align to yellow guide"
+
+[node name="StrategyLabel" type="Label" parent="."]
+position = Vector2(40, 60)
+text = "Strategy B/C: one generated composite, one static frame. No animation, no collision/input/camera changes."

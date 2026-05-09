@@ -1,0 +1,51 @@
+{
+  "selected_candidate_id": "C5",
+  "strategy": "B/C generated composite, static frame",
+  "generated_png": "res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png",
+  "old_reference_png": "res://assets/characters/generated_player_visuals/old_player_token_reference_0mc2.png",
+  "source_layers": [
+    "res://assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+    "res://assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+    "res://assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+    "res://assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+    "res://assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png"
+  ],
+  "source_frame_rect": {
+    "x": 0,
+    "y": 0,
+    "w": 200,
+    "h": 200
+  },
+  "source_sheet_size": [
+    10000,
+    10000
+  ],
+  "crop_bbox_in_frame": [
+    80,
+    56,
+    122,
+    148
+  ],
+  "generated_size": [
+    46,
+    96
+  ],
+  "has_alpha": true,
+  "transparent_background": true,
+  "recommended_node": "PlayerVisual_Parmida",
+  "recommended_scale": [
+    1.35,
+    1.35
+  ],
+  "recommended_position": [
+    0,
+    -37
+  ],
+  "recommended_texture_filter": "nearest",
+  "animation": "none_static_only",
+  "direction_mapping": "none",
+  "collision_changes_required": false,
+  "selection_reason": "Dark cyber-noir female map sprite; transparent, readable, same-size layers align; animation layout not needed for reveal-safe static visual.",
+  "alignment_reason": "Generated sprite is 46x96. With centered Sprite2D at position y=-20, feet/base lands near y=28, matching the old token bottom at approximately y=27.5. Collision is unchanged.",
+  "scale_tuning": "0M-C2-SCALE selected 1.35 because 1.0 was 25-50% too small; y offset preserves the same feet/base baseline."
+}

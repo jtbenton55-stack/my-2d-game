@@ -115,7 +115,7 @@ const _LINES_BY_SPEAKER := {
 const _PORTRAIT_ID_BY_SPEAKER := {
 	"jake": "jake",
 	"parmida": "parmida",
-	"mere": "mere",
+	"mere": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
 	"bentley": "bentley",
 	"louis": "louis",
 }

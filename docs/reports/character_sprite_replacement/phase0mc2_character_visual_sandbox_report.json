@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "sandbox_scene": "res://scenes/hideout/tools/CharacterVisualSandbox_0MC2.tscn",
+  "sandbox_passed": true,
+  "production_promotion_allowed": true,
+  "production_promotion_performed": true,
+  "texture_resolves": true,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "old_vs_new_comparison": "res://docs/reports/character_sprite_replacement/phase0mc2_old_vs_new_visual_comparison.png"
+}

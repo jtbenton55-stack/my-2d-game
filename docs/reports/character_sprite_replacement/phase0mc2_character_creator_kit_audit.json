@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "png_count": 384,
+  "spritesheet_count": 192,
+  "female_spritesheets": 98,
+  "structure": "layered paperdoll spritesheets",
+  "docs_found": false,
+  "complete_ready_characters_found": false,
+  "assembly_requires_runtime_paperdoll": false,
+  "safe_route": "one static generated composite"
+}

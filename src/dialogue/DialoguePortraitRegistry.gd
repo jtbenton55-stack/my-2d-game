@@ -39,7 +39,11 @@ static func _ensure_loaded() -> void:
 		for key in (portraits as Dictionary).keys():
 			var entry_variant: Variant = (portraits as Dictionary)[key]
 			if entry_variant is Dictionary:
-				_entries[String(key).to_lower()] = entry_variant
+				var entry := entry_variant as Dictionary
+				_entries[String(key).to_lower()] = entry
+				var portrait_id := String(entry.get("portrait_id", "")).strip_edges().to_lower()
+				if portrait_id != "":
+					_entries[portrait_id] = entry
 
 static func _normalize(speaker_id: String) -> String:
 	return speaker_id.strip_edges().to_lower()

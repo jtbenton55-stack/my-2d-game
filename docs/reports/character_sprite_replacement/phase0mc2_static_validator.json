@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "label": "reveal-safe backup exists",
+      "ok": true
+    },
+    {
+      "label": "current branch is c2",
+      "ok": true
+    },
+    {
+      "label": "player root preserved",
+      "ok": true
+    },
+    {
+      "label": "player script preserved",
+      "ok": true
+    },
+    {
+      "label": "new visual exists in player scene",
+      "ok": true
+    },
+    {
+      "label": "old visual preserved hidden",
+      "ok": true
+    },
+    {
+      "label": "main collision shape still exists",
+      "ok": true
+    },
+    {
+      "label": "root collision layer/mask unchanged",
+      "ok": true
+    },
+    {
+      "label": "sandbox exists",
+      "ok": true
+    },
+    {
+      "label": "sandbox report exists",
+      "ok": true
+    },
+    {
+      "label": "generated visual exists",
+      "ok": true
+    },
+    {
+      "label": "generated visual has alpha",
+      "ok": true
+    },
+    {
+      "label": "Taco Bell scenes unmodified",
+      "ok": true
+    },
+    {
+      "label": "raw purchased source assets unmodified",
+      "ok": true
+    }
+  ]
+}
