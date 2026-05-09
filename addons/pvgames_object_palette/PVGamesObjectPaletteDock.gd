@@ -3,7 +3,7 @@ extends VBoxContainer
 
 const OBJECT_INDEX_PATH := "res://docs/reports/pvgames_editable_object_palette/pvgames_editable_object_palette_index_by_container.json"
 const ICON_INDEX_PATH := "res://docs/reports/pvgames_icon_library/pvgames_verified_icon_catalog.json"
-const EDITABLE_OBJECT_SCENE := "res://scenes/hideout/tools/PVGEditableObject.tscn"
+const EDITABLE_OBJECT_SCRIPT := "res://src/hideout/PVGEditableObject.gd"
 const OBJECT_CONTAINERS := ["BehindPlayerObjects", "OccludableObjects", "ForegroundObjects", "ReviewObjects"]
 const ICON_CONTAINERS := ["BehindPlayerIcons", "OccludableIcons", "ForegroundIcons", "ReviewIcons"]
 const CATEGORIES := ["wall", "barrier", "prop", "sign", "terminal", "furniture", "large_structure", "foreground", "review", "security", "hazard", "mission", "evidence", "store", "inventory", "scheme_card", "big_case", "map_pin", "keypad", "terminal", "door", "tech", "cyber", "doomsday", "decor"]
@@ -359,8 +359,8 @@ func _ensure_container(scene_root: Node, entry: Dictionary, container_name: Stri
 	return obj
 
 func _create_node(entry: Dictionary, pos: Vector2, scale: Vector2, rot: float, z: int) -> Node2D:
-	var packed := load(EDITABLE_OBJECT_SCENE) as PackedScene
-	var node := packed.instantiate() as Node2D if packed != null else Node2D.new()
+	var editable_object_script := load(EDITABLE_OBJECT_SCRIPT) as Script
+	var node := editable_object_script.new() as Node2D if editable_object_script != null else Node2D.new()
 	if node.has_method("set_metadata_from_index_entry"):
 		node.set_metadata_from_index_entry({"object_id": entry.id, "source_set": entry.source_set, "source_png_path": entry.source_path, "recommended_object_category": entry.category, "recommended_container": entry.recommended_container, "recommended_pivot_mode": entry.pivot_mode, "notes": "created_by=PVGamesObjectPaletteDock; entry_type=%s" % entry.entry_type, "recommended_z_index": z})
 	node.position = pos

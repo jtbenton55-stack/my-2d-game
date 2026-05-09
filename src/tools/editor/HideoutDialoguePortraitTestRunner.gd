@@ -6,7 +6,7 @@ extends Node
 ## through the new content. Press E (the project's `interact` action) to
 ## advance.
 
-const HideoutCharacterDialogueBank = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
 
 @onready var _jake_btn := get_node_or_null("UI/ButtonRoot/JakeButton") as Button
 @onready var _parmida_btn := get_node_or_null("UI/ButtonRoot/ParmidaButton") as Button
@@ -33,7 +33,7 @@ func _ready() -> void:
 		_no_portrait_btn.pressed.connect(_speak_no_portrait)
 
 func _speak(speaker_id: String) -> void:
-	var lines: Array = HideoutCharacterDialogueBank.build_short_sequence(speaker_id, 3)
+	var lines: Array = HideoutCharacterDialogueBankScript.build_short_sequence(speaker_id, 3)
 	if lines.is_empty():
 		return
 	DialogueManager.start_simple_dialogue(lines)

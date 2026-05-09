@@ -1,0 +1,748 @@
+[
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_beanbagchair_1_f065e4c4",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/BeanBagChair_1.png",
+    "source_filename": "BeanBagChair_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "neon_lounge_beanbag",
+    "chosen_store_item_name": "Neon Lounge Beanbag",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_couch_1_eba6de45",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Couch_1.png",
+    "source_filename": "Couch_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "suspiciously_comfortable_couch",
+    "chosen_store_item_name": "Suspiciously Comfortable Couch",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_lamp_1_da727acb",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Lamp_1.png",
+    "source_filename": "Lamp_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "planning_table_mood_lamp",
+    "chosen_store_item_name": "Planning Table Mood Lamp",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_bookshelf_1_4ad72509",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bookshelf_1.png",
+    "source_filename": "Bookshelf_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "tiny_black_market_bookshelf",
+    "chosen_store_item_name": "Tiny Black-Market Bookshelf",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_sidetable_3_2f7fd9de",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/SideTable_3.png",
+    "source_filename": "SideTable_3.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "cyber_side_table",
+    "chosen_store_item_name": "Cyber Side Table",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Chair_12.png",
+    "source_filename": "Chair_12.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "mission_debrief_chair",
+    "chosen_store_item_name": "Mission Debrief Chair",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_10_f51e3946",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_10.png",
+    "source_filename": "Sign_10.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "soft_strength_neon_sign",
+    "chosen_store_item_name": "Soft Strength Neon Sign",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_11_24c0ba08",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_11.png",
+    "source_filename": "Sign_11.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "kindness_not_weakness_emblem",
+    "chosen_store_item_name": "Kindness Is Not Weakness Emblem",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_cardboardsign_1_1cb77466",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardSign_1.png",
+    "source_filename": "CardboardSign_1.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "birthday_command_badge",
+    "chosen_store_item_name": "Birthday Command Badge",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_roadsign_1_8f8237ac",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/RoadSign_1.png",
+    "source_filename": "RoadSign_1.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "do_not_panic_security_decal",
+    "chosen_store_item_name": "\"Do Not Panic\" Security Decal",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_1_74f63b2d",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_1.png",
+    "source_filename": "Sign_1.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "greenhouse_glow_sticker",
+    "chosen_store_item_name": "Greenhouse Glow Sticker",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_monitor_1_4f8643c0",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Monitor_1.png",
+    "source_filename": "Monitor_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "mini_mission_monitor",
+    "chosen_store_item_name": "Mini Mission Monitor",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_terminal_1_9fbdca2b",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Terminal_1.png",
+    "source_filename": "Terminal_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "tiny_terminal_that_looks_important",
+    "chosen_store_item_name": "Tiny Terminal That Looks Important",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_cctv_1_8d967054",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CCTV_1.png",
+    "source_filename": "CCTV_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "overdramatic_security_scanner",
+    "chosen_store_item_name": "Overdramatic Security Scanner",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_map_pin_map_1_41a760f1",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_1.png",
+    "source_filename": "Map_1.png",
+    "primary_category": "map_pin",
+    "quality_classification": "READY_UI_ICON",
+    "recommended_uses": [
+      "map_pin",
+      "objective_marker"
+    ],
+    "chosen_store_item": "hologram_map_pin",
+    "chosen_store_item_name": "Hologram Map Pin",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_newsscreen_1_51d8340d",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/NewsScreen_1.png",
+    "source_filename": "NewsScreen_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "news_screen_of_mild_concern",
+    "chosen_store_item_name": "News Screen of Mild Concern",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_lamp_2_a7e94569",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Lamp_2.png",
+    "source_filename": "Lamp_2.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "greenhouse_quiet_light",
+    "chosen_store_item_name": "Greenhouse Quiet Light",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_pottedplant_1_fec4a233",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_1.png",
+    "source_filename": "PottedPlant_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "self_important_little_fern",
+    "chosen_store_item_name": "Self-Important Little Fern",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_pottedplant_4_0f523ce7",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_4.png",
+    "source_filename": "PottedPlant_4.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "plant_watering_reminder_beacon",
+    "chosen_store_item_name": "Plant Watering Reminder Beacon",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_pottedplant_7_06b79bb9",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_7.png",
+    "source_filename": "PottedPlant_7.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "cyber_terrarium_charm",
+    "chosen_store_item_name": "Cyber Terrarium Charm",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_foodshelves_1_b8b8eef3",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/FoodShelves_1.png",
+    "source_filename": "FoodShelves_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "bentleys_tactical_snack_permit",
+    "chosen_store_item_name": "Bentley's Tactical Snack Permit",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_1_74f63b2d",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_1.png",
+    "source_filename": "Sign_1.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "shiba_security_badge",
+    "chosen_store_item_name": "Shiba Security Badge",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_10_f51e3946",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_10.png",
+    "source_filename": "Sign_10.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "mom_protection_protocol_sticker",
+    "chosen_store_item_name": "Mom Protection Protocol Sticker",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_screen_1_f0fe793f",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Screen_1.png",
+    "source_filename": "Screen_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "suspicious_louis_detector",
+    "chosen_store_item_name": "Suspicious Louis Detector",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_bed_1_846b5ba7",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bed_1.png",
+    "source_filename": "Bed_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "tiny_throne_for_tiny_king",
+    "chosen_store_item_name": "Tiny Throne for a Tiny King",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_streetfood_7_fa94ca5d",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_7.png",
+    "source_filename": "StreetFood_7.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "resident_survival_sugar_pack",
+    "chosen_store_item_name": "Resident Survival Sugar Pack",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_computer_1_f4133522",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Computer_1.png",
+    "source_filename": "Computer_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "forgetful_genius_checklist",
+    "chosen_store_item_name": "Forgetful Genius Checklist",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_box_3_4769302c",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Box_3.png",
+    "source_filename": "Box_3.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "backup_poop_bag_reminder",
+    "chosen_store_item_name": "Backup Poop Bag Reminder",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_antiquebox_1_c36f301e",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/AntiqueBox_1.png",
+    "source_filename": "AntiqueBox_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "sweet_tooth_contraband_box",
+    "chosen_store_item_name": "Sweet Tooth Contraband Box",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_11_24c0ba08",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_11.png",
+    "source_filename": "Sign_11.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "loved_into_architecture_mini_sign",
+    "chosen_store_item_name": "\"Loved Into Architecture\" Mini Sign",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_pottedtree_1_7158a22b",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedTree_1.png",
+    "source_filename": "PottedTree_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "gentle_genius_desk_charm",
+    "chosen_store_item_name": "Gentle Genius Desk Charm",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_mobilelight_1_3b0a0a8a",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/MobileLight_1.png",
+    "source_filename": "MobileLight_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "quiet_courage_light",
+    "chosen_store_item_name": "Quiet Courage Light",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_map_pin_map_1_41a760f1",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_1.png",
+    "source_filename": "Map_1.png",
+    "primary_category": "map_pin",
+    "quality_classification": "READY_UI_ICON",
+    "recommended_uses": [
+      "map_pin",
+      "objective_marker"
+    ],
+    "chosen_store_item": "spiritually_unlocked_door_map",
+    "chosen_store_item_name": "Spiritually Unlocked Door Map",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_computerstation_1_daf610b6",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/ComputerStation_1.png",
+    "source_filename": "ComputerStation_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "totally_legal_delivery_shortcut",
+    "chosen_store_item_name": "Totally Legal Delivery Shortcut",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_cardboardbox_1_8ad64848",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_1.png",
+    "source_filename": "CardboardBox_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "rewards_points_alibi",
+    "chosen_store_item_name": "Rewards Points Alibi",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_terminal_hangingscreen_1_0a6e5836",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/HangingScreen_1.png",
+    "source_filename": "HangingScreen_1.png",
+    "primary_category": "terminal",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "store_terminal",
+      "screen_graphic",
+      "terminal",
+      "world_decal"
+    ],
+    "chosen_store_item": "route_b_dont_ask",
+    "chosen_store_item_name": "Route B: Don't Ask",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Arcade_3.png",
+    "source_filename": "Arcade_3.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "tiny_heist_trophy",
+    "chosen_store_item_name": "Tiny Heist Trophy",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CoffeeTable_1.png",
+    "source_filename": "CoffeeTable_1.png",
+    "primary_category": "cyber",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "scheme_card",
+      "screen_graphic",
+      "world_decal"
+    ],
+    "chosen_store_item": "desk_sized_master_plan",
+    "chosen_store_item_name": "Desk-Sized Master Plan",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  },
+  {
+    "icon_id": "pvg_icon_cyber_city_icons_decor_sign_1_74f63b2d",
+    "source_set": "cyber_city_icons",
+    "source_png_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Sign_1.png",
+    "source_filename": "Sign_1.png",
+    "primary_category": "decor",
+    "quality_classification": "READY_BOTH",
+    "recommended_uses": [
+      "signage",
+      "wall_sticker",
+      "world_decal"
+    ],
+    "chosen_store_item": "suspiciously_official_badge",
+    "chosen_store_item_name": "Suspiciously Official Badge",
+    "reason_selected": "Clear CyberCity icon that reads as furniture, decor, terminal, plant, sign, gadget, or safe knick-knack.",
+    "is_cybercity_primary": true,
+    "is_doomsday_safe_exception": false,
+    "doomsday_exception_reason": ""
+  }
+]

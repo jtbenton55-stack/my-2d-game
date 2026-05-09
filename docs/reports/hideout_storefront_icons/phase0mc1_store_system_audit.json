@@ -1,0 +1,34 @@
+{
+  "phase": "0M-C1",
+  "store_station_id": "store_terminal",
+  "existing_store_ui_path": "res://src/hideout/ScrollableStationPanel.gd (text fallback panel)",
+  "existing_store_script_path": "res://src/hideout/HideoutStoreController.gd",
+  "store_data_paths_before": [
+    "res://src/hideout/HideoutStoreController.gd const ITEMS"
+  ],
+  "store_data_paths_after": [
+    "res://data/store/birthday_store_items.json",
+    "res://src/hideout/HideoutStoreController.gd"
+  ],
+  "store_opening_path": "HideoutInteractable -> HideoutManager.open_station('store_terminal')",
+  "purchase_function": "HideoutStoreController.purchase_placeholder(item_id, state_controller) -> HideoutStateController.purchase_item(item_id, cost)",
+  "currency_source": "HideoutStateController.case_cash via get_store_state()/get_case_cash()",
+  "owned_item_storage": "HideoutStateController.purchased_store_items, delivered_store_items, owned_placeable_items",
+  "available_item_storage": "HideoutStateController.available_store_items plus 0M-C1 enabled birthday catalog items",
+  "decorating_mode_integration": "Purchased item ids continue to land in owned_placeable_items; placement remains separate through existing decorating mode.",
+  "existing_categories": [
+    "furniture",
+    "wall_decor",
+    "rugs",
+    "lights",
+    "bentley_items",
+    "care_station_upgrades",
+    "collectible_displays",
+    "mission_trophies"
+  ],
+  "risks": [
+    "Existing store was text-card based and not icon driven.",
+    "Purchase state is HideoutStateController local/debug state, matching the existing system.",
+    "The polished panel should be opened only for store_terminal so other station panels stay unchanged."
+  ]
+}

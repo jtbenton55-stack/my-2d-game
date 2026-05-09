@@ -26,7 +26,6 @@
 [ext_resource type="TileSet" uid="uid://njdg4s38yojw" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres" id="24_cs_wall_tileset"]
 [ext_resource type="TileSet" uid="uid://e8g35aemoodk" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres" id="25_cs_large_tileset"]
 [ext_resource type="TileSet" uid="uid://dn76r6jrjcmyy" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres" id="26_cs_prop_tileset"]
-[ext_resource type="PackedScene" path="res://scenes/hideout/tools/PVGEditableObject.tscn" id="26_h7giq"]
 [ext_resource type="Script" uid="uid://0mwvcpwcvuh4" path="res://src/hideout/PVGEditableObject.gd" id="27_ku8k1"]
 [ext_resource type="Texture2D" uid="uid://nkxohjsee5a2" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_1.png" id="28_nfamd"]
 [ext_resource type="Texture2D" uid="uid://bh5bn5jf261m5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building23_2.png" id="29_70353"]
@@ -61,8 +60,6 @@
 [ext_resource type="Texture2D" uid="uid://ektqpsr408ar" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_5.png" id="51_ao004"]
 [ext_resource type="Texture2D" uid="uid://6bqil6t2n0k4" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk9_2.png" id="51_g2604"]
 [ext_resource type="Texture2D" uid="uid://bdhf5srcxtcvx" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table4_1.png" id="52_rrb2h"]
-[ext_resource type="Texture2D" uid="uid://cs5a4qiox1j78" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_2.png" id="52_txdng"]
-[ext_resource type="Texture2D" uid="uid://bb01dsj84jphi" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_1.png" id="53_pgjbv"]
 [ext_resource type="Texture2D" uid="uid://d4i22fp7anara" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_1.png" id="53_u70oh"]
 [ext_resource type="Texture2D" uid="uid://cr1mcsuagyfb0" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/WallTable1_3.png" id="54_hl6s5"]
 [ext_resource type="Texture2D" uid="uid://3cqv8yul7d3q" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_5.png" id="55_djpe6"]
@@ -71,14 +68,19 @@
 [ext_resource type="Texture2D" uid="uid://c1k7dp1ihos8y" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_5.png" id="58_djpe6"]
 [ext_resource type="Texture2D" uid="uid://bmuw6qm6lke1d" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png" id="58_hl6s5"]
 [ext_resource type="Texture2D" uid="uid://uagyims0ionw" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/DoorGarage6_2.png" id="59_hl6s5"]
+[ext_resource type="Texture2D" uid="uid://ckkaipdxupap3" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor37_1.png" id="59_npk65"]
 [ext_resource type="Texture2D" uid="uid://s4ikcr6c7gat" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png" id="59_v56th"]
 [ext_resource type="Texture2D" uid="uid://bcn2idkxwh3mq" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor6_1.png" id="60_npk65"]
+[ext_resource type="Texture2D" uid="uid://ckq366ssnqajb" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_8.png" id="60_wvg0s"]
+[ext_resource type="Texture2D" uid="uid://b5hdc158qj3b1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_8.png" id="61_csla5"]
+[ext_resource type="Texture2D" uid="uid://c7hmjvj82shwx" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor22_1.png" id="62_2sbhc"]
+[ext_resource type="Texture2D" uid="uid://nul0xneson5p" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor25_1.png" id="63_wnxwy"]
+[ext_resource type="Texture2D" uid="uid://ck7ybdjrjh7ol" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_5.png" id="64_wnxwy"]
 [ext_resource type="Texture2D" uid="uid://bjehpx3gvjaye" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard2.png" id="65_obwmw"]
 [ext_resource type="Texture2D" uid="uid://canhdtdufnf3" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard3.png" id="66_1ef1v"]
 [ext_resource type="Texture2D" uid="uid://djvi87ragu4hu" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/ComputerStation_1.png" id="67_g2604"]
 [ext_resource type="Texture2D" uid="uid://cjk8l0wp4rf83" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug3.png" id="68_5nexi"]
 [ext_resource type="Texture2D" uid="uid://dqi8gfgo32tx6" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug2.png" id="69_u70oh"]
-[ext_resource type="Texture2D" uid="uid://bc4kq3lojw7el" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Box_3.png" id="70_xreo1"]
 [ext_resource type="Texture2D" uid="uid://b6iljqbc0jr0y" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_1.png" id="71_4m6lb"]
 [ext_resource type="Texture2D" uid="uid://58fc7f643njj" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_2.png" id="72_e70ah"]
 [ext_resource type="Texture2D" uid="uid://n5u0uilmu5jd" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Shelf1.png" id="73_bcpxl"]
@@ -87,13 +89,11 @@
 [ext_resource type="Texture2D" uid="uid://crkrlf54fsuw5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Microwave1.png" id="79_v56th"]
 [ext_resource type="Texture2D" uid="uid://dh4pd5pv8eloe" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/TV3.png" id="81_c45sx"]
 [ext_resource type="Texture2D" uid="uid://wwbaouh7pf5k" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/BeanBagChair_1.png" id="82_hxikw"]
-[ext_resource type="Texture2D" uid="uid://baq25gm8igmpj" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Chair_12.png" id="83_apwit"]
 [ext_resource type="Texture2D" uid="uid://7f2ejjl6v1ob" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/FoodShelves_1.png" id="84_d0ede"]
 [ext_resource type="Texture2D" uid="uid://cdbrtfqm50gn5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_7.png" id="85_a635s"]
 [ext_resource type="Texture2D" uid="uid://c3c2gbo2hgxfl" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_6.png" id="86_npk65"]
 [ext_resource type="Texture2D" uid="uid://dnbivk6pbgpmm" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/SideTable_3.png" id="87_wvg0s"]
 [ext_resource type="Texture2D" uid="uid://bygrhbomrw4py" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Table_3.png" id="88_csla5"]
-[ext_resource type="Texture2D" uid="uid://c4f4otjrf861t" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CoffeeTable_1.png" id="89_2sbhc"]
 [ext_resource type="Texture2D" uid="uid://ckeexbw76bl66" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png" id="90_wnxwy"]
 [ext_resource type="Texture2D" uid="uid://d1eb5i617iwre" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Dumpster_2.png" id="94_djpe6"]
 [ext_resource type="Texture2D" uid="uid://rjr3cnqsc1bf" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_1.png" id="96_wvg0s"]
@@ -102,6 +102,9 @@
 [ext_resource type="Texture2D" uid="uid://c2tyqhs1rmejl" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_4.png" id="99_wnxwy"]
 [ext_resource type="Texture2D" uid="uid://d3mjnbpd1378m" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_5.png" id="100_qocmc"]
 [ext_resource type="Texture2D" uid="uid://dv63ra5n3ngqw" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant3.png" id="101_3n2ya"]
+[ext_resource type="Texture2D" uid="uid://m48ibe2br23s" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug1.png" id="102_wvg0s"]
+[ext_resource type="Texture2D" uid="uid://dx444wlmbuh6m" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Soap_1.png" id="103_2sbhc"]
+[ext_resource type="Texture2D" uid="uid://b121xpg10evvd" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Vacuum1.png" id="104_wnxwy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.02, 0.025, 0.035, 0.94)
@@ -904,7 +907,7 @@ z_index = -120
 [node name="OccludableObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=367402865]
 z_index = 90
 
-[node name="PVG_Object_LargeStructure_3_1_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=774595148 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_3_1_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=774595148]
 z_index = 95
 position = Vector2(-1240, 118.000015)
 scale = Vector2(0.65, 0.65)
@@ -924,7 +927,7 @@ position = Vector2(-524.61523, -153.84619)
 scale = Vector2(2.0643349, 2.0384617)
 texture = ExtResource("28_nfamd")
 
-[node name="PVG_Object_LargeStructure_3_2_0034" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=163772763 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_3_2_0034" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=163772763]
 z_index = 95
 position = Vector2(1500, 6)
 scale = Vector2(2.1000001, 1.8000001)
@@ -944,7 +947,7 @@ position = Vector2(63.333405, -40.555565)
 scale = Vector2(1.0739635, 1.0988673)
 texture = ExtResource("29_70353")
 
-[node name="PVG_Object_Wall_1_3_0851" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=378799167 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_1_3_0851" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=378799167]
 z_index = 90
 position = Vector2(9, -823)
 scale = Vector2(7, 5.3)
@@ -962,7 +965,7 @@ metadata/id = "pvg_obj_central_security_wall_interior_window1_3_0851"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_3_0851" unique_id=852973556]
 texture = ExtResource("30_avso3")
 
-[node name="PVG_Object_Wall_1_6_0764" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=229684534 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_1_6_0764" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=229684534]
 z_index = 90
 position = Vector2(510.00006, -605.00006)
 rotation = 0.6950806
@@ -981,7 +984,7 @@ metadata/id = "pvg_obj_central_security_wall_interior_window1_6_0764"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_6_0764" unique_id=1501076596]
 texture = ExtResource("31_dk1m2")
 
-[node name="PVG_Object_Wall_5_5_0905" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=422958438 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_5_5_0905" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=422958438]
 z_index = 90
 position = Vector2(877, 335)
 scale = Vector2(1.3000001, 1.6)
@@ -1000,7 +1003,7 @@ metadata/id = "pvg_obj_central_security_wall_door5_5_0905"
 position = Vector2(25.384613, 23.125)
 texture = ExtResource("33_88tc3")
 
-[node name="PVG_Object_Furniture_2_2_1005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1543099820 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Furniture_2_2_1005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1543099820]
 z_index = -300
 position = Vector2(512, -330)
 scale = Vector2(2.1512222, 1.7987306)
@@ -1019,7 +1022,7 @@ metadata/id = "pvg_obj_central_security_furniture_table2_2_1005"
 position = Vector2(8.367336, -7.2273192)
 texture = ExtResource("36_url7a")
 
-[node name="PVG_Object_Sign_9_1_0091" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=654656121 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_9_1_0091" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=654656121]
 z_index = -1
 position = Vector2(570, -1292)
 script = ExtResource("27_ku8k1")
@@ -1038,7 +1041,7 @@ position = Vector2(9, -317)
 scale = Vector2(1.3840988, 1.8142761)
 texture = ExtResource("37_vin0w")
 
-[node name="PVG_Object_Sign_7_8_0186" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=557366050 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_7_8_0186" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=557366050]
 z_index = -1
 position = Vector2(-371, -1325)
 scale = Vector2(1.8067561, 2.376509)
@@ -1056,7 +1059,7 @@ metadata/id = "pvg_obj_core_sign_billboard17_8_0186"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_7_8_0186" unique_id=374416631]
 texture = ExtResource("38_st5vc")
 
-[node name="PVG_Object_Sign_1_1_0529" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=288777895 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_1_1_0529" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=288777895]
 z_index = -1
 position = Vector2(67, -1145)
 scale = Vector2(1.0625008, 1.2485547)
@@ -1075,7 +1078,7 @@ metadata/id = "pvg_obj_core_sign_billboard1_1_0529"
 scale = Vector2(1.1291786, 1.3105127)
 texture = ExtResource("39_dcob4")
 
-[node name="PVG_Object_Sign_4_1_0526" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1454767770 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_4_1_0526" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1454767770]
 z_index = -1
 position = Vector2(-33, -1543)
 script = ExtResource("27_ku8k1")
@@ -1094,7 +1097,7 @@ position = Vector2(972.00006, 260)
 scale = Vector2(1.5969654, 0.937906)
 texture = ExtResource("40_xews0")
 
-[node name="PVG_Object_Sign_0_1_0122" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=867540454 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_0_1_0122" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=867540454]
 z_index = -200
 position = Vector2(-690, -1434.0001)
 scale = Vector2(2.0624955, 2.0732896)
@@ -1114,7 +1117,7 @@ position = Vector2(-206.06105, -120.09894)
 scale = Vector2(1.2369998, 1.3985779)
 texture = ExtResource("41_o5iga")
 
-[node name="PVG_Object_Sign_4_6_0133" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=262295994 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Sign_4_6_0133" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=262295994]
 z_index = -250
 position = Vector2(188.00002, -1385.0001)
 scale = Vector2(1.074054, 2.196374)
@@ -1132,7 +1135,7 @@ metadata/id = "pvg_obj_core_sign_billboard4_6_0133"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_4_6_0133" unique_id=682581638]
 texture = ExtResource("42_3gv0o")
 
-[node name="PVG_Object_LargeStructure_4_6_0015" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1503817269 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_4_6_0015" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1503817269]
 z_index = -300
 position = Vector2(-70, -1337.0001)
 scale = Vector2(0.8856168, 0.8782242)
@@ -1150,7 +1153,7 @@ metadata/id = "pvg_obj_core_large_structure_building24_6_0015"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_4_6_0015" unique_id=1002507228]
 texture = ExtResource("43_7w0ex")
 
-[node name="PVG_Object_LargeStructure_6_1_0020" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=561186150 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_6_1_0020" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=561186150]
 z_index = -300
 position = Vector2(492, -1589)
 script = ExtResource("27_ku8k1")
@@ -1169,7 +1172,7 @@ position = Vector2(16, 82)
 scale = Vector2(1.0078386, 1)
 texture = ExtResource("44_sxvhr")
 
-[node name="PVG_Object_LargeStructure_0_5_0024" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=184677859 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_0_5_0024" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=184677859]
 z_index = -350
 scale = Vector2(0.65, 0.65)
 script = ExtResource("27_ku8k1")
@@ -1188,7 +1191,7 @@ position = Vector2(-1466.1538, -1833.8462)
 scale = Vector2(1.6446434, 1.9564716)
 texture = ExtResource("45_47dms")
 
-[node name="PVG_Object_LargeStructure_6_2_0008" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=673933388 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_6_2_0008" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=673933388]
 z_index = -400
 position = Vector2(-535, -1687)
 scale = Vector2(0.7710027, 0.91985124)
@@ -1206,7 +1209,7 @@ metadata/id = "pvg_obj_core_large_structure_building36_2_0008"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_6_2_0008" unique_id=836522609]
 texture = ExtResource("46_ino2u")
 
-[node name="PVG_Object_LargeStructure_6_1_0005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773765093 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_6_1_0005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773765093]
 z_index = 10
 position = Vector2(640, -978)
 scale = Vector2(0.65, 0.65)
@@ -1226,37 +1229,7 @@ position = Vector2(46.153854, 46.153854)
 scale = Vector2(1.3083252, 1.4703147)
 texture = ExtResource("47_6jbeu")
 
-[node name="PVG_Object_LargeStructure_0_1_0014" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1236401989 instance=ExtResource("26_h7giq")]
-z_index = 10
-position = Vector2(-570, -944)
-scale = Vector2(0.5644715, 1.0704964)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk10_1.png"
-object_category = "large_structure"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
-
-[node name="PVG_Object_LargeStructure_1_1_0056" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=973095505 instance=ExtResource("26_h7giq")]
-z_index = -10
-position = Vector2(-989, -669)
-scale = Vector2(1.1622045, 1.7912499)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk1_1.png"
-object_category = "large_structure"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
-
-[node name="PVG_Object_LargeStructure_3_1_0053" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773034299 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_3_1_0053" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773034299]
 z_index = 10
 position = Vector2(1187, -658)
 scale = Vector2(1.7356356, 1.7748846)
@@ -1275,7 +1248,7 @@ metadata/id = "pvg_obj_core_large_structure_buildingkiosk3_1_0053"
 position = Vector2(39.75489, -19.156178)
 texture = ExtResource("50_1ef1v")
 
-[node name="PVG_Object_LargeStructure_9_2_0052" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1383761606 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_9_2_0052" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1383761606]
 z_index = -500
 position = Vector2(-44, -1614)
 script = ExtResource("27_ku8k1")
@@ -1294,7 +1267,7 @@ position = Vector2(22, -512)
 scale = Vector2(1.4211019, 3.0334358)
 texture = ExtResource("51_g2604")
 
-[node name="PVG_Object_Furniture_4_1_1036" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1455202124 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Furniture_4_1_1036" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1455202124]
 z_index = -10
 position = Vector2(-508, -39)
 scale = Vector2(1.5818455, 1.7563657)
@@ -1313,7 +1286,7 @@ metadata/id = "pvg_obj_central_security_furniture_table4_1_1036"
 position = Vector2(4.425211, -65.47611)
 texture = ExtResource("52_rrb2h")
 
-[node name="PVG_Object_LargeStructure_1_5_1165" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1400726292 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_1_5_1165" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1400726292]
 z_index = -5
 position = Vector2(898.00006, 212)
 scale = Vector2(1.7151325, 1.5499574)
@@ -1333,57 +1306,7 @@ position = Vector2(-20.98967, -7.0969715)
 scale = Vector2(0.9309471, 0.83411056)
 texture = ExtResource("51_ao004")
 
-[node name="PVG_Object_Furniture_1_3_0427" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=724631454 instance=ExtResource("26_h7giq")]
-z_index = -50
-position = Vector2(-408, -326)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_furniture_interior_floor11_3_0427"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_3.png"
-object_category = "furniture"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_furniture_interior_floor11_3_0427"
-
-[node name="PVG_Object_Furniture_1_2_0355" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=109277486 instance=ExtResource("26_h7giq")]
-z_index = -50
-position = Vector2(-362.99997, -401)
-scale = Vector2(0.9595323, 0.6757297)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_furniture_interior_floor11_2_0355"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_2.png"
-object_category = "furniture"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_furniture_interior_floor11_2_0355"
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_2_0355" unique_id=1255407691]
-texture = ExtResource("52_txdng")
-
-[node name="PVG_Object_Furniture_1_1_0379" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=65294444 instance=ExtResource("26_h7giq")]
-z_index = -50
-position = Vector2(-551, -326)
-scale = Vector2(2.1992455, 0.87978673)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_furniture_interior_floor11_1_0379"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_1.png"
-object_category = "furniture"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_furniture_interior_floor11_1_0379"
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_1_0379" unique_id=1320635084]
-texture = ExtResource("53_pgjbv")
-
-[node name="PVG_Object_Wall_1_3_0236_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=609735083 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_1_3_0236_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=609735083]
 z_index = -20
 position = Vector2(-427, -473)
 script = ExtResource("27_ku8k1")
@@ -1402,7 +1325,7 @@ position = Vector2(-19, 26)
 scale = Vector2(1.3482593, 1.7778682)
 texture = ExtResource("54_hl6s5")
 
-[node name="PVG_Object_Wall_1_5_0779_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=44885493 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_1_5_0779_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=44885493]
 z_index = -15
 position = Vector2(-521, -563)
 rotation = -0.7853982
@@ -1423,7 +1346,7 @@ position = Vector2(6.4713535, -7.2117395)
 scale = Vector2(1.0937623, 1.3059582)
 texture = ExtResource("55_djpe6")
 
-[node name="PVG_Object_LargeStructure_0_1_0014_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=2054689573 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_0_1_0014_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=2054689573]
 z_index = -20
 position = Vector2(-542, -720)
 scale = Vector2(0.65, 0.65)
@@ -1443,7 +1366,7 @@ position = Vector2(-18.461538, -367.69232)
 scale = Vector2(1, 2.411886)
 texture = ExtResource("48_rrb2h")
 
-[node name="PVG_Object_LargeStructure_1_1_0056_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1285615023 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_LargeStructure_1_1_0056_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1285615023]
 z_index = -16
 position = Vector2(-1027, -536)
 script = ExtResource("27_ku8k1")
@@ -1462,7 +1385,7 @@ position = Vector2(-24.999998, -155)
 scale = Vector2(1.460766, 2.305906)
 texture = ExtResource("49_obwmw")
 
-[node name="PVG_Object_Wall_3_5_0888" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1991475614 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_5_0888" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1991475614]
 z_index = -15
 position = Vector2(-936, -380)
 scale = Vector2(1.6178513, 3.3696575)
@@ -1481,7 +1404,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_5_0888"
 position = Vector2(1.8543053, -2.9676647)
 texture = ExtResource("58_djpe6")
 
-[node name="PVG_Object_Wall_3_3_0926" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1744776884 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_3_0926" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1744776884]
 z_index = 88
 position = Vector2(-695, -501)
 scale = Vector2(1.3063004, 3.0867417)
@@ -1499,7 +1422,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926" unique_id=128624749]
 texture = ExtResource("59_v56th")
 
-[node name="PVG_Object_Wall_3_4_0912" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=912398473 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_4_0912" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=912398473]
 z_index = -15
 position = Vector2(-1052, 34.000008)
 scale = Vector2(1.0188991, 3.505517)
@@ -1517,7 +1440,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_4_0912"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_4_0912" unique_id=1722550697]
 texture = ExtResource("57_pgjbv")
 
-[node name="PVG_Object_Wall_3_6_0896" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1799987056 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_6_0896" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1799987056]
 z_index = -15
 position = Vector2(-973, 384.00003)
 scale = Vector2(1.4047881, 2.188838)
@@ -1535,7 +1458,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_6_0896"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_6_0896" unique_id=107171506]
 texture = ExtResource("58_hl6s5")
 
-[node name="PVG_Object_Wall_3_3_0926_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=339272599 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_3_0926_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=339272599]
 z_index = -15
 position = Vector2(-675, 499)
 scale = Vector2(2.0911481, 2.342464)
@@ -1555,7 +1478,7 @@ position = Vector2(-14.824392, -0.42690092)
 scale = Vector2(0.8925415, 1)
 texture = ExtResource("59_v56th")
 
-[node name="PVG_Object_Wall_3_5_0888_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=703578637 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_5_0888_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=703578637]
 z_index = -16
 position = Vector2(-456, 427.99997)
 scale = Vector2(1.9152958, 1.925288)
@@ -1573,7 +1496,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_5_0888"
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_5_0888_0002" unique_id=2005265243]
 texture = ExtResource("58_djpe6")
 
-[node name="PVG_Object_Wall_3_3_0926_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=959667872 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_3_0926_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=959667872]
 z_index = -15
 position = Vector2(61, 321)
 script = ExtResource("27_ku8k1")
@@ -1592,7 +1515,7 @@ position = Vector2(90, 54)
 scale = Vector2(1.9045367, 2.1233864)
 texture = ExtResource("59_v56th")
 
-[node name="PVG_Object_Wall_3_6_0896_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=109953791 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_6_0896_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=109953791]
 z_index = -16
 position = Vector2(416, 331)
 script = ExtResource("27_ku8k1")
@@ -1612,7 +1535,7 @@ rotation = -0.2617994
 scale = Vector2(1.9, 1.9)
 texture = ExtResource("58_hl6s5")
 
-[node name="PVG_Object_Wall_3_3_0926_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1424295731 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_3_0926_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1424295731]
 z_index = 89
 position = Vector2(698, 454)
 scale = Vector2(1.7702423, 2.1725326)
@@ -1631,7 +1554,7 @@ metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
 scale = Vector2(0.88528115, 0.9106354)
 texture = ExtResource("59_v56th")
 
-[node name="PVG_Object_Wall_3_4_0912_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=456437533 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_4_0912_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=456437533]
 z_index = 89
 position = Vector2(964, 299)
 script = ExtResource("27_ku8k1")
@@ -1650,7 +1573,7 @@ position = Vector2(6, -235)
 scale = Vector2(0.82210517, 3.763071)
 texture = ExtResource("57_pgjbv")
 
-[node name="PVG_Object_Wall_3_6_0896_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1518638469 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_6_0896_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1518638469]
 z_index = -15
 position = Vector2(899, -269)
 script = ExtResource("27_ku8k1")
@@ -1669,7 +1592,7 @@ position = Vector2(17, -38.999985)
 scale = Vector2(0.9727243, 3.6974475)
 texture = ExtResource("58_hl6s5")
 
-[node name="PVG_Object_Wall_3_3_0926_0004" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=980250181 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_3_3_0926_0004" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=980250181]
 z_index = -15
 position = Vector2(652.99994, -485)
 scale = Vector2(1.3935676, 2.4633973)
@@ -1689,7 +1612,7 @@ position = Vector2(40.184673, -5.2772646)
 scale = Vector2(1.1582706, 1.0688555)
 texture = ExtResource("59_v56th")
 
-[node name="PVG_Object_Wall_6_2_0209" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=25819809 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Wall_6_2_0209" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=25819809]
 z_index = -15
 position = Vector2(-178.99998, 351)
 scale = Vector2(1.6815207, 1.4714183)
@@ -1708,20 +1631,7 @@ metadata/id = "pvg_obj_core_wall_doorgarage6_2_0209"
 position = Vector2(-2.3788083, 4.0776987)
 texture = ExtResource("59_hl6s5")
 
-[node name="PVG_Object_Furniture_2_4_0449" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1025795822 instance=ExtResource("26_h7giq")]
-z_index = -300
-script = ExtResource("27_ku8k1")
-object_id = "pvg_obj_core_furniture_interior_floor22_4_0449"
-source_set = "core"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor22_4.png"
-object_category = "furniture"
-recommended_container = "OccludableObjects"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "object"
-metadata/id = "pvg_obj_core_furniture_interior_floor22_4_0449"
-
-[node name="PVG_Object_Furniture_6_1_0398" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=491437542 instance=ExtResource("26_h7giq")]
+[node name="PVG_Object_Furniture_6_1_0398" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=491437542]
 z_index = -300
 script = ExtResource("27_ku8k1")
 object_id = "pvg_obj_core_furniture_interior_floor6_1_0398"
@@ -1739,6 +1649,114 @@ position = Vector2(18, -564)
 scale = Vector2(3.1350136, 1.3079957)
 texture = ExtResource("60_npk65")
 
+[node name="PVG_Object_Furniture_7_1_0390_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1672157516]
+z_index = -350
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor37_1_0390"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor37_1.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor37_1_0390"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_7_1_0390_0001" unique_id=1382004108]
+position = Vector2(-34.000015, -334)
+scale = Vector2(6.0186334, 1)
+texture = ExtResource("59_npk65")
+
+[node name="PVG_Object_Furniture_1_8_0951" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=224048123]
+z_index = 90
+position = Vector2(-477, 297)
+scale = Vector2(1.96175, 2.190612)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_chair1_8_0951"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_8.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_chair1_8_0951"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_8_0951" unique_id=59373732]
+texture = ExtResource("60_wvg0s")
+
+[node name="PVG_Object_Furniture_2_8_0949" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=579792078]
+z_index = 90
+position = Vector2(-575, 212)
+scale = Vector2(2.8688655, 2.2374046)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_chair2_8_0949"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_8.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_chair2_8_0949"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_2_8_0949" unique_id=1555352408]
+texture = ExtResource("61_csla5")
+
+[node name="PVG_Object_Furniture_2_1_0380" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=930972615]
+z_index = -350
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor22_1_0380"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor22_1.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor22_1_0380"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_2_1_0380" unique_id=85231531]
+position = Vector2(-694.99994, 98.37501)
+scale = Vector2(2.152174, 2.915236)
+texture = ExtResource("62_2sbhc")
+
+[node name="PVG_Object_Furniture_5_1_0383" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=512689078]
+z_index = -350
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor25_1_0383"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor25_1.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor25_1_0383"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_5_1_0383" unique_id=1272019464]
+position = Vector2(304, 96.00001)
+scale = Vector2(4.270186, 2.8969958)
+texture = ExtResource("63_wnxwy")
+
+[node name="PVG_Object_Furniture_1_5_0929" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=193568380]
+z_index = 20
+position = Vector2(-40, 127.000015)
+scale = Vector2(2.2014153, 2.9087713)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_chair1_5_0929"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_5.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_chair1_5_0929"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_5_0929" unique_id=372017076]
+texture = ExtResource("64_wnxwy")
+
 [node name="ForegroundObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=64110276]
 z_index = 160
 
@@ -1750,7 +1768,7 @@ z_index = -40
 [node name="BehindPlayerIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects" unique_id=1514420313]
 z_index = -120
 
-[node name="PVG_Icon_MapPin_41a760f1" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1333512494 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_MapPin_41a760f1" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1333512494]
 z_index = -120
 position = Vector2(698, -416)
 scale = Vector2(0.5, 0.5)
@@ -1773,7 +1791,7 @@ position = Vector2(56, 618)
 scale = Vector2(1, 1.0234375)
 texture = ExtResource("53_u70oh")
 
-[node name="PVG_Icon_MapPin_a21fba71_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1710040995 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_MapPin_a21fba71_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1710040995]
 z_index = -1
 position = Vector2(526, -386)
 rotation = -1.5707964
@@ -1797,7 +1815,7 @@ position = Vector2(-17.753572, -2.4243846)
 scale = Vector2(0.5980786, 1.0439786)
 texture = ExtResource("36_v57vr")
 
-[node name="PVG_Icon_MapPin_bbd055d5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1839721058 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_MapPin_bbd055d5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1839721058]
 z_index = -1
 position = Vector2(449, -404)
 scale = Vector2(0.1694959, 0.12384216)
@@ -1821,7 +1839,7 @@ texture = ExtResource("56_4m6lb")
 [node name="OccludableIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects" unique_id=822494296]
 z_index = 90
 
-[node name="PVG_Icon_Cyber_302dde3d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2018585846 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_302dde3d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2018585846]
 z_index = 90
 position = Vector2(405.00003, -660.0001)
 rotation = -0.10932452
@@ -1844,7 +1862,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 position = Vector2(-236.38528, -46.065662)
 texture = ExtResource("38_ysnbw")
 
-[node name="PVG_Icon_Cyber_06b79bb9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1759904504 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_06b79bb9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1759904504]
 z_index = 90
 position = Vector2(-399, -718)
 scale = Vector2(0.4, 0.3)
@@ -1866,7 +1884,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 position = Vector2(175, 40)
 texture = ExtResource("39_yhu53")
 
-[node name="PVG_Icon_Doomsday_c960828b" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1226151919 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_c960828b" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1226151919]
 z_index = 90
 position = Vector2(153, -688)
 scale = Vector2(0.3, 0.3)
@@ -1887,7 +1905,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_c960828b" unique_id=261560530]
 texture = ExtResource("40_dcmvo")
 
-[node name="PVG_Icon_Doomsday_915f41b9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1051484019 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_915f41b9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1051484019]
 z_index = 90
 position = Vector2(-160, -713)
 scale = Vector2(0.5, 0.5)
@@ -1909,7 +1927,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 position = Vector2(34, 52)
 texture = ExtResource("41_xjisj")
 
-[node name="PVG_Icon_Doomsday_9d177bed" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=327057349 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_9d177bed" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=327057349]
 z_index = 90
 position = Vector2(69, -602)
 scale = Vector2(0.5, 0.5)
@@ -1932,7 +1950,7 @@ position = Vector2(34, 78)
 scale = Vector2(0.73828125, 0.81640625)
 texture = ExtResource("42_iuoe0")
 
-[node name="PVG_Icon_Doomsday_22974227" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2071604772 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_22974227" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2071604772]
 z_index = 90
 position = Vector2(298, -615)
 scale = Vector2(0.2, 0.3)
@@ -1953,7 +1971,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_22974227" unique_id=100016963]
 texture = ExtResource("43_2fd4q")
 
-[node name="PVG_Icon_Doomsday_abd0f90d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1714138350 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_abd0f90d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1714138350]
 z_index = 90
 scale = Vector2(0.5, 0.5)
 script = ExtResource("27_ku8k1")
@@ -1975,7 +1993,7 @@ position = Vector2(-314, -1136)
 scale = Vector2(0.4765625, 0.6171875)
 texture = ExtResource("44_url7a")
 
-[node name="PVG_Icon_Doomsday_7f4a8177" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1639315981 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_7f4a8177" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1639315981]
 z_index = 90
 position = Vector2(-253, -606)
 scale = Vector2(0.5, 0.5)
@@ -1996,7 +2014,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_7f4a8177" unique_id=1454357098]
 texture = ExtResource("45_vin0w")
 
-[node name="PVG_Icon_Doomsday_180d97fe" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=551291941 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_180d97fe" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=551291941]
 z_index = -10
 position = Vector2(93, -377)
 scale = Vector2(0.6728077, 0.51812446)
@@ -2017,7 +2035,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_180d97fe" unique_id=1065967111]
 texture = ExtResource("65_obwmw")
 
-[node name="PVG_Icon_Doomsday_d392bfbc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=391015140 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_d392bfbc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=391015140]
 z_index = -10
 position = Vector2(-126, -387)
 scale = Vector2(0.76785135, 0.43013826)
@@ -2038,7 +2056,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_d392bfbc" unique_id=1398116050]
 texture = ExtResource("66_1ef1v")
 
-[node name="PVG_Icon_Terminal_daf610b6" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=167467719 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Terminal_daf610b6" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=167467719]
 z_index = -10
 position = Vector2(-9, 4)
 scale = Vector2(0.5, 0.5)
@@ -2059,29 +2077,7 @@ metadata/recommended_uses = ["store_terminal", "screen_graphic", "terminal", "wo
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Terminal_daf610b6" unique_id=1370056438]
 texture = ExtResource("67_g2604")
 
-[node name="PVG_Icon_Doomsday_808825b3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=144961970 instance=ExtResource("26_h7giq")]
-z_index = -10
-position = Vector2(468, 96)
-scale = Vector2(0.94686806, 0.9650959)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
-source_set = "doomsday_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug3.png"
-object_category = "doomsday"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
-metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_808825b3" unique_id=1362450246]
-scale = Vector2(0.76931334, 0.75157714)
-texture = ExtResource("68_5nexi")
-
-[node name="PVG_Icon_Doomsday_fd75fa51" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2032211170 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_fd75fa51" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2032211170]
 z_index = -10
 position = Vector2(797, 397.00003)
 rotation = -0.2617994
@@ -2103,29 +2099,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_fd75fa51" unique_id=2100146489]
 texture = ExtResource("69_u70oh")
 
-[node name="PVG_Icon_Cyber_4769302c" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2145349475 instance=ExtResource("26_h7giq")]
-z_index = 89
-position = Vector2(199, 331)
-scale = Vector2(0.28140682, 0.277303)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
-source_set = "cyber_city_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Box_3.png"
-object_category = "cyber"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
-metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_4769302c" unique_id=1311009905]
-position = Vector2(-575.67896, -389.46564)
-texture = ExtResource("70_xreo1")
-
-[node name="PVG_Icon_Cyber_8ad64848" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=918338700 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_8ad64848" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=918338700]
 z_index = -10
 position = Vector2(757, 91)
 scale = Vector2(0.23477949, 0.2405009)
@@ -2148,7 +2122,7 @@ position = Vector2(204.66766, 223.63374)
 scale = Vector2(0.6331034, 0.7598743)
 texture = ExtResource("71_4m6lb")
 
-[node name="PVG_Icon_Cyber_834bce8a" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1856690371 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_834bce8a" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1856690371]
 z_index = -10
 position = Vector2(861, 152)
 scale = Vector2(0.21276149, 0.33980936)
@@ -2171,7 +2145,7 @@ position = Vector2(-167.9508, 1.484375)
 scale = Vector2(0.7111368, 0.72990835)
 texture = ExtResource("72_e70ah")
 
-[node name="PVG_Icon_Doomsday_142cffbb" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1158691167 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_142cffbb" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1158691167]
 z_index = -15
 position = Vector2(910, 83)
 scale = Vector2(0.4170963, 0.40569174)
@@ -2194,7 +2168,7 @@ position = Vector2(-60.870148, -23.592926)
 scale = Vector2(1.061924, 1.2751036)
 texture = ExtResource("73_bcpxl")
 
-[node name="PVG_Icon_Cyber_fdcf64a0" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1953634418 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_fdcf64a0" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1953634418]
 z_index = -10
 position = Vector2(-878, -210)
 scale = Vector2(0.42907882, 0.31051403)
@@ -2215,7 +2189,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_fdcf64a0" unique_id=1396945386]
 texture = ExtResource("74_vergk")
 
-[node name="PVG_Icon_Cyber_4ad72509" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1581604796 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_4ad72509" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1581604796]
 z_index = -10
 position = Vector2(-912, -44.999996)
 scale = Vector2(0.4252466, 0.35802117)
@@ -2236,7 +2210,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_4ad72509" unique_id=403355629]
 texture = ExtResource("75_o8gqa")
 
-[node name="PVG_Icon_Doomsday_5ca6ba73" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1191240048 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_5ca6ba73" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1191240048]
 z_index = -5
 position = Vector2(-368, -454)
 scale = Vector2(0.21791624, 0.29856586)
@@ -2259,7 +2233,7 @@ position = Vector2(-316.6354, -70.33627)
 scale = Vector2(0.69819504, 0.6784787)
 texture = ExtResource("79_v56th")
 
-[node name="PVG_Icon_Cyber_a17e25a5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=998548150 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_a17e25a5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=998548150]
 z_index = -10
 position = Vector2(-789, -394)
 scale = Vector2(-0.4201502, 0.33244175)
@@ -2282,7 +2256,7 @@ position = Vector2(-3651.0752, 267.7161)
 scale = Vector2(-0.8105308, 1.0836837)
 texture = ExtResource("37_25xoh")
 
-[node name="PVG_Icon_Doomsday_b7fa2519" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=848414642 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_b7fa2519" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=848414642]
 z_index = -10
 position = Vector2(-911.00006, 331)
 scale = Vector2(0.3110509, 0.26315394)
@@ -2305,7 +2279,7 @@ position = Vector2(176.82016, -19.000284)
 scale = Vector2(0.6910939, 0.731728)
 texture = ExtResource("81_c45sx")
 
-[node name="PVG_Icon_Cyber_f065e4c4" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1132347601 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_f065e4c4" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1132347601]
 z_index = 88
 position = Vector2(-761, 370)
 scale = Vector2(0.29595053, 0.25264633)
@@ -2328,30 +2302,7 @@ position = Vector2(54.06308, -138.5336)
 scale = Vector2(-0.7553038, 0.6096611)
 texture = ExtResource("82_hxikw")
 
-[node name="PVG_Icon_Cyber_033a41e2" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=342705691 instance=ExtResource("26_h7giq")]
-z_index = -10
-position = Vector2(-577.00006, 294)
-scale = Vector2(-0.24606185, 0.37693056)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
-source_set = "cyber_city_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Chair_12.png"
-object_category = "cyber"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
-metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_033a41e2" unique_id=1831147129]
-position = Vector2(-40.64044, -119.38538)
-scale = Vector2(0.84378487, 0.744403)
-texture = ExtResource("83_apwit")
-
-[node name="PVG_Icon_Cyber_b8b8eef3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=180044878 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_b8b8eef3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=180044878]
 z_index = -15
 position = Vector2(-659, -420)
 scale = Vector2(0.60782385, 0.3776817)
@@ -2374,7 +2325,7 @@ position = Vector2(-59.227684, 82.0797)
 scale = Vector2(0.8164354, 0.9437187)
 texture = ExtResource("84_d0ede")
 
-[node name="PVG_Icon_Cyber_fa94ca5d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=772937203 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_fa94ca5d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=772937203]
 z_index = -5
 position = Vector2(-499, -140)
 scale = Vector2(0.09049655, 0.14692642)
@@ -2395,7 +2346,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_fa94ca5d" unique_id=1517302941]
 texture = ExtResource("85_a635s")
 
-[node name="PVG_Icon_Cyber_7ee2614d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2138989007 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_7ee2614d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2138989007]
 z_index = -5
 position = Vector2(-527.99994, -186.99998)
 scale = Vector2(0.070957564, 0.12173643)
@@ -2416,7 +2367,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_7ee2614d" unique_id=1870160601]
 texture = ExtResource("86_npk65")
 
-[node name="PVG_Icon_Cyber_2f7fd9de" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1690537166 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_2f7fd9de" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1690537166]
 z_index = -10
 scale = Vector2(0.5, 0.5)
 script = ExtResource("27_ku8k1")
@@ -2438,7 +2389,7 @@ position = Vector2(-1862, 227.99998)
 scale = Vector2(0.51606613, 0.41011965)
 texture = ExtResource("87_wvg0s")
 
-[node name="PVG_Icon_Cyber_c8b7d3bc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1441280445 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_c8b7d3bc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1441280445]
 z_index = -10
 position = Vector2(-876, 226.00002)
 scale = Vector2(0.25843862, 0.19553268)
@@ -2459,30 +2410,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_c8b7d3bc" unique_id=2047073619]
 texture = ExtResource("88_csla5")
 
-[node name="PVG_Icon_Cyber_5b8def5f" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=952587452 instance=ExtResource("26_h7giq")]
-z_index = -10
-position = Vector2(-583, 394)
-scale = Vector2(0.37496012, 0.4051748)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
-source_set = "cyber_city_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CoffeeTable_1.png"
-object_category = "cyber"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
-metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_5b8def5f" unique_id=230510339]
-position = Vector2(-53.339005, -113.53125)
-scale = Vector2(0.72805524, 0.7332102)
-texture = ExtResource("89_2sbhc")
-
-[node name="PVG_Icon_Cyber_d6aa5c09_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=622714636 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_d6aa5c09_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=622714636]
 z_index = -10
 position = Vector2(-526, -404)
 scale = Vector2(-0.34763202, 0.33725086)
@@ -2503,25 +2431,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_d6aa5c09_0001" unique_id=2121187239]
 texture = ExtResource("90_wnxwy")
 
-[node name="PVG_Icon_Cyber_d6aa5c09_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1844537433 instance=ExtResource("26_h7giq")]
-z_index = -5
-position = Vector2(-282, -233)
-scale = Vector2(0.5, 0.5)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
-source_set = "cyber_city_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png"
-object_category = "cyber"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
-metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
-
-[node name="PVG_Icon_Cyber_65d41c5d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=863923471 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_65d41c5d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=863923471]
 z_index = 90
 position = Vector2(-1145, 479)
 scale = Vector2(0.5, 0.5)
@@ -2542,7 +2452,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_65d41c5d" unique_id=1828664003]
 texture = ExtResource("94_djpe6")
 
-[node name="PVG_Icon_Cyber_fec4a233" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=249214382 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_fec4a233" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=249214382]
 z_index = -15
 position = Vector2(253.00003, -528)
 scale = Vector2(0.4281796, 0.43041298)
@@ -2563,7 +2473,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_fec4a233" unique_id=1051087814]
 texture = ExtResource("96_wvg0s")
 
-[node name="PVG_Icon_Cyber_7b1d8f21" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=535340979 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_7b1d8f21" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=535340979]
 z_index = 20
 position = Vector2(-150, -601)
 scale = Vector2(0.5, 0.5)
@@ -2585,7 +2495,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 position = Vector2(232, 34)
 texture = ExtResource("97_csla5")
 
-[node name="PVG_Icon_Cyber_a717066d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2144107942 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_a717066d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2144107942]
 z_index = 88
 position = Vector2(-330, -537)
 scale = Vector2(0.5, 0.5)
@@ -2606,7 +2516,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_a717066d" unique_id=1429198365]
 texture = ExtResource("98_2sbhc")
 
-[node name="PVG_Icon_Cyber_0f523ce7" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1560144649 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_0f523ce7" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1560144649]
 z_index = 90
 position = Vector2(446, -585)
 scale = Vector2(0.5, 0.5)
@@ -2627,7 +2537,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_0f523ce7" unique_id=1542442019]
 texture = ExtResource("99_wnxwy")
 
-[node name="PVG_Icon_Cyber_01332d05" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1655244742 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_01332d05" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1655244742]
 z_index = 90
 position = Vector2(88, -767)
 scale = Vector2(0.5, 0.5)
@@ -2649,7 +2559,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 position = Vector2(-6, 40)
 texture = ExtResource("100_qocmc")
 
-[node name="PVG_Icon_Cyber_302dde3d_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1796905065 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Cyber_302dde3d_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1796905065]
 z_index = 95
 position = Vector2(-247.99998, -684)
 scale = Vector2(0.31115258, 0.2872137)
@@ -2670,7 +2580,7 @@ metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_302dde3d_0001" unique_id=728692101]
 texture = ExtResource("38_ysnbw")
 
-[node name="PVG_Icon_Doomsday_b9254b88" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1629951016 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_b9254b88" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1629951016]
 z_index = 90
 position = Vector2(391, -499)
 scale = Vector2(0.5, 0.5)
@@ -2692,7 +2602,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 position = Vector2(-22, 6)
 texture = ExtResource("101_3n2ya")
 
-[node name="PVG_Icon_Doomsday_b9254b88_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1405420765 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_b9254b88_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1405420765]
 z_index = 70
 position = Vector2(217, -673)
 scale = Vector2(0.5, 0.5)
@@ -2714,24 +2624,7 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 position = Vector2(18, -12)
 texture = ExtResource("101_3n2ya")
 
-[node name="PVG_Icon_Doomsday_b9254b88_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1677164250 instance=ExtResource("26_h7giq")]
-z_index = 50
-scale = Vector2(0.5, 0.5)
-script = ExtResource("27_ku8k1")
-object_id = "pvg_icon_doomsday_icons_doomsday_plant3_b9254b88"
-source_set = "doomsday_icons"
-source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant3.png"
-object_category = "doomsday"
-recommended_container = "OccludableIcons"
-notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
-metadata/created_by = "PVGamesObjectPaletteDock"
-metadata/entry_type = "icon"
-metadata/id = "pvg_icon_doomsday_icons_doomsday_plant3_b9254b88"
-metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant3_b9254b88"
-metadata/quality = "READY_BOTH"
-metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
-
-[node name="PVG_Icon_Doomsday_b9254b88_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1646356067 instance=ExtResource("26_h7giq")]
+[node name="PVG_Icon_Doomsday_b9254b88_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1646356067]
 z_index = 30
 scale = Vector2(0.5, 0.5)
 script = ExtResource("27_ku8k1")
@@ -2751,6 +2644,94 @@ metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
 [node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_b9254b88_0003" unique_id=552936437]
 position = Vector2(-190, -1402)
 texture = ExtResource("101_3n2ya")
+
+[node name="PVG_Icon_Cyber_577a0ea8" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1726896362]
+z_index = -10
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_soap_1_577a0ea8"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Soap_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_soap_1_577a0ea8"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_soap_1_577a0ea8"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_577a0ea8" unique_id=1344411625]
+position = Vector2(836, 576)
+scale = Vector2(0.0937499, 0.1406249)
+texture = ExtResource("103_2sbhc")
+
+[node name="PVG_Icon_Doomsday_53a35aa8" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=644826220]
+z_index = -10
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_vacuum1_53a35aa8"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Vacuum1.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_vacuum1_53a35aa8"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_vacuum1_53a35aa8"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_53a35aa8" unique_id=1728582958]
+position = Vector2(722, 487.99997)
+scale = Vector2(0.5234377, 0.6093751)
+texture = ExtResource("104_wnxwy")
+
+[node name="PVG_Icon_Doomsday_f5709eba_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1944109195]
+z_index = -200
+position = Vector2(209, 121)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_floorrug1_f5709eba"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug1.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_floorrug1_f5709eba"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_floorrug1_f5709eba"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_f5709eba_0001" unique_id=502097722]
+position = Vector2(-1784, 417.99994)
+scale = Vector2(2.359375, 1.4296871)
+texture = ExtResource("102_wvg0s")
+
+[node name="PVG_Icon_Doomsday_808825b3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=251698297]
+z_index = -200
+position = Vector2(237, 72)
+scale = Vector2(1.7658976, 0.9551321)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug3.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_808825b3" unique_id=146423764]
+texture = ExtResource("68_5nexi")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1620826501]
 
@@ -2846,6 +2827,7 @@ visible = false
 text = "Placement mode placeholder"
 
 [node name="DebugHideoutPanel" type="PanelContainer" parent="UI" unique_id=2096971]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

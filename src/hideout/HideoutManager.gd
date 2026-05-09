@@ -8,7 +8,8 @@ const PlacementZoneScript = preload("res://src/hideout/HideoutPlacementZone.gd")
 const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBridge.gd")
 const DecorationControllerScript = preload("res://src/hideout/HideoutDecorationController.gd")
 const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
-const HideoutCharacterDialogueBank = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+const StorefrontPanelScene = preload("res://scenes/ui/HideoutStorefrontPanel.tscn")
 
 # Phase 0M-C3 - speaker IDs that should bypass the panel and fire the
 # DialogueBox (with left-side portrait support) directly.
@@ -33,6 +34,7 @@ var current_station_id := ""
 var _state: Node = null
 var _decoration_controller: Node = null
 var _decorating_mode_controller: Node = null
+var _storefront_panel: Node = null
 
 @onready var _stations: Node = get_node(stations_path)
 @onready var _collision: Node = get_node(collision_path)
@@ -85,6 +87,9 @@ func open_station(station_id: String, interactable: Node = null, _player: Node =
 	if normalized_id in _PORTRAIT_DIALOGUE_CHARACTER_IDS:
 		_open_character_portrait_dialogue(normalized_id)
 		return
+	if normalized_id == "store_terminal":
+		_open_storefront()
+		return
 	var panel_data := _panel_data_for(normalized_id, interactable)
 	if _panel.has_method("clear_history"):
 		_panel.clear_history()
@@ -93,11 +98,30 @@ func open_station(station_id: String, interactable: Node = null, _player: Node =
 func _open_character_portrait_dialogue(speaker_id: String) -> void:
 	# Build a short sequence (3 lines) so the player gets a small dialogue
 	# experience but can advance through it quickly with E.
-	var lines: Array = HideoutCharacterDialogueBank.build_short_sequence(speaker_id, 3)
+	var lines: Array = HideoutCharacterDialogueBankScript.build_short_sequence(speaker_id, 3)
 	if lines.is_empty():
 		return
 	if DialogueManager.has_method("start_simple_dialogue"):
 		DialogueManager.start_simple_dialogue(lines)
+
+func _open_storefront() -> void:
+	if _panel != null and _panel.has_method("close_panel") and _panel.has_method("is_open") and _panel.is_open():
+		_panel.close_panel()
+	if _storefront_panel == null or not is_instance_valid(_storefront_panel):
+		var root := get_tree().current_scene
+		var ui_root := root.get_node_or_null("UI") if root != null else null
+		if ui_root == null:
+			push_warning("[HideoutManager] Could not find UI root for storefront; falling back to text store panel.")
+			var panel_data := _panel_data_for("store_terminal")
+			_panel.open_panel(String(panel_data.get("title", "Store Terminal")), String(panel_data.get("body", "")), panel_data.get("buttons", []))
+			return
+		_storefront_panel = StorefrontPanelScene.instantiate()
+		_storefront_panel.name = "HideoutStorefrontPanel"
+		ui_root.add_child(_storefront_panel)
+	if _storefront_panel.has_method("set_store_context"):
+		_storefront_panel.set_store_context(_store, _state)
+	if _storefront_panel.has_method("open_store"):
+		_storefront_panel.open_store()
 
 func apply_debug_state(state_id: String) -> void:
 	_ensure_state_controller()
@@ -707,7 +731,7 @@ func _write_scheme_loadout_to_game_state() -> void:
 	if _state == null or not _state.has_method("get_current_scheme_loadout"):
 		return
 	var loadout: Dictionary = _state.get_current_scheme_loadout()
-	if get_node_or_null("/root/GameState") != null:
+	if is_inside_tree() and get_tree().root.get_node_or_null("GameState") != null:
 		if GameState.has_method("set_current_scheme_loadout"):
 			GameState.set_current_scheme_loadout(loadout)
 		else:

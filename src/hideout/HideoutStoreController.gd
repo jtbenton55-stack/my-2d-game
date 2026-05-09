@@ -3,12 +3,23 @@ class_name HideoutStoreController
 
 const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 
+const BIRTHDAY_STORE_ITEMS_PATH := "res://data/store/birthday_store_items.json"
+
 const CATEGORIES := {
 	"furniture": "Furniture",
+	"neon_signs": "Neon Signs",
 	"wall_decor": "Wall Decor",
 	"rugs": "Rugs",
 	"lights": "Lights",
 	"bentley_items": "Bentley Items",
+	"bentley": "Bentley",
+	"jake": "Jake's Emergency Shelf",
+	"parmida_mere": "Parmida / Mere",
+	"louis": "Louis Delivery Nonsense",
+	"desk_gadgets": "Desk Gadgets",
+	"plants_greenhouse": "Plants / Greenhouse",
+	"mission_room": "Mission Room",
+	"knick_knacks": "Knick-Knacks",
 	"care_station_upgrades": "Care Station Upgrades",
 	"collectible_displays": "Collectible Displays",
 	"mission_trophies": "Mission Trophies",
@@ -25,9 +36,13 @@ const ITEMS := [
 	{"item_id": "suspicious_fry_basket", "display_name": "Suspicious Fry Basket", "category": "mission_trophies", "cost": 40, "unlock_condition": "taco_bell_completed", "placeable": true, "placement_tags": ["mission_trophy", "shelf_item", "tabletop_item"], "footprint_width_px": 40, "footprint_height_px": 32, "blocks_player": false, "can_rotate": true, "snap_mode": "world_grid", "wall_only": false, "placement_category": "mission_trophy", "description": "Nobody knows why it is suspicious. That is what makes it suspicious.", "monogon_future_art_hint": "small trophy/tabletop prop"},
 ]
 
+var _birthday_catalog_loaded := false
+var _birthday_items: Array = []
+var _birthday_items_by_id: Dictionary = {}
+
 func get_panel_data(state_controller: Node = null, category_id: String = "") -> Dictionary:
 	return {
-		"title": "Store Terminal",
+		"title": "Neon Nook",
 		"body": get_panel_body(state_controller, category_id),
 		"buttons": get_buttons(category_id, state_controller),
 	}
@@ -36,24 +51,24 @@ func get_panel_body(state_controller = null, category_id: String = "") -> String
 	var louis := state_controller != null and bool(state_controller.get("louis_unlocked"))
 	var store := _store_state(state_controller)
 	var lines: Array[String] = [
-		"Store Terminal",
+		"Neon Nook",
 		"",
 		"Vendor: %s" % ("Louis's suspicious lamp network" if louis else "Anonymous catalog terminal"),
 		"Case Cash: %d" % int(store.get("case_cash", store.get("currency_debug_amount", 0))),
-		"Money, favors, and suspiciously liquid reimbursement.",
+		"Furniture, cozy contraband, little birthday-safe CyberCity objects.",
 		"",
 	]
 	if category_id == "":
 		lines.append("Categories:")
-		for key in CATEGORIES.keys():
-			lines.append("- %s" % CATEGORIES[key])
+		for key in get_available_categories():
+			lines.append("- %s" % CATEGORIES.get(key, key.capitalize()))
 		lines.append("")
-		lines.append("Visual Storefront Cards:")
-		for item in ITEMS:
+		lines.append("Icon Storefront Preview:")
+		for item in get_storefront_items():
 			lines.append(_store_card_text(item, state_controller))
 	else:
 		lines.append("%s Visual Item Cards:" % CATEGORIES.get(category_id, "Store Category"))
-		for item in ITEMS:
+		for item in get_storefront_items():
 			if String(item.get("category", "")) != category_id:
 				continue
 			lines.append(_store_card_text(item, state_controller))
@@ -61,29 +76,28 @@ func get_panel_body(state_controller = null, category_id: String = "") -> String
 		lines.append("")
 		lines.append("Louis flavor: everything fell off a truck. Emotionally.")
 	lines.append("")
-	lines.append("Purchases are local/debug state only; final persistence comes later.")
+	lines.append("Purchases use the existing Case Cash + owned item state.")
 	return "\n".join(lines)
 
 func get_buttons(category_id: String = "", state_controller: Node = null) -> Array:
 	if category_id == "":
-		return [
-			{"id": "furniture", "label": "View Furniture", "action": "store_view_category:furniture", "category_id": "furniture"},
-			{"id": "wall_decor", "label": "View Wall Decor", "action": "store_view_category:wall_decor", "category_id": "wall_decor"},
-			{"id": "rugs", "label": "View Rugs", "action": "store_view_category:rugs", "category_id": "rugs"},
-			{"id": "lights", "label": "View Lights", "action": "store_view_category:lights", "category_id": "lights"},
-			{"id": "bentley_items", "label": "View Bentley Items", "action": "store_view_category:bentley_items", "category_id": "bentley_items"},
-			{"id": "care_station_upgrades", "label": "View Care Station Upgrades", "action": "store_view_category:care_station_upgrades", "category_id": "care_station_upgrades"},
-			{"id": "collectible_displays", "label": "View Collectible Displays", "action": "store_view_category:collectible_displays", "category_id": "collectible_displays"},
-			{"id": "mission_trophies", "label": "View Mission Trophies", "action": "store_view_category:mission_trophies", "category_id": "mission_trophies"},
-			{"id": "close", "label": "Close", "action": "close"},
-		]
+		var category_buttons: Array = []
+		for category_id_key in get_available_categories():
+			category_buttons.append({
+				"id": category_id_key,
+				"label": "View %s" % CATEGORIES.get(category_id_key, category_id_key.capitalize()),
+				"action": "store_view_category:%s" % category_id_key,
+				"category_id": category_id_key,
+			})
+		category_buttons.append({"id": "close", "label": "Close", "action": "close"})
+		return category_buttons
 	var buttons: Array = []
-	for item in ITEMS:
+	for item in get_storefront_items():
 		if String(item.get("category", "")) == category_id:
 			var item_id := String(item.get("item_id", ""))
 			var store := _store_state(state_controller)
 			if _is_available(item_id, state_controller) and not store.get("purchased_store_items", []).has(item_id):
-				buttons.append({"id": "buy_%s" % item_id, "label": "Buy Card: %s" % String(item.get("display_name", item_id)), "action": "store_buy_item:%s" % item_id, "item_id": item_id, "category_id": category_id})
+				buttons.append({"id": "buy_%s" % item_id, "label": "Buy: %s" % String(item.get("display_name", item_id)), "action": "store_buy_item:%s" % item_id, "item_id": item_id, "category_id": category_id})
 	buttons.append({"id": "back", "label": "Back", "action": "back"})
 	buttons.append({"id": "close", "label": "Close", "action": "close"})
 	return buttons
@@ -96,9 +110,10 @@ func purchase_placeholder(item_id: String, state_controller: Node = null) -> Str
 		return "Locked. Complete The Taco Bell Drop to unlock."
 	if state_controller != null and state_controller.get("purchased_store_items").has(item_id):
 		return "Already owned."
-	var cost := int(item.get("cost", 0))
+	var cost := item_cost(item)
 	if state_controller != null and state_controller.has_method("can_spend_case_cash") and not state_controller.can_spend_case_cash(cost):
 		return DialogueBank.get_random_line("store_insufficient_funds")
+	_ensure_available_for_purchase(item_id, state_controller)
 	if state_controller != null and state_controller.has_method("purchase_item") and state_controller.purchase_item(item_id, cost):
 		return "%s\n%s added to decor inventory." % [DialogueBank.get_random_line("store_purchase_success"), String(item.get("display_name", item_id))]
 	return "Purchase handled safely, but the item was not added."
@@ -110,24 +125,111 @@ func item_display_name(item_id: String) -> String:
 	var item := _item(item_id)
 	return String(item.get("display_name", item_id))
 
+func get_storefront_items() -> Array:
+	_ensure_birthday_catalog_loaded()
+	var out: Array = []
+	for item in _birthday_items:
+		if item is Dictionary and bool((item as Dictionary).get("enabled", true)):
+			out.append((item as Dictionary).duplicate(true))
+	# Keep older Taco Bell placeholder items available to the text fallback and
+	# owned-state logic, but the polished storefront intentionally uses the
+	# curated birthday catalog above.
+	return out
+
+func get_available_categories() -> Array:
+	var seen := {}
+	var categories: Array = []
+	for item in get_storefront_items():
+		var category := String((item as Dictionary).get("category", "knick_knacks"))
+		if seen.has(category):
+			continue
+		seen[category] = true
+		categories.append(category)
+	return categories
+
+func get_case_cash(state_controller: Node = null) -> int:
+	var store := _store_state(state_controller)
+	return int(store.get("case_cash", store.get("currency_debug_amount", 0)))
+
+func is_item_owned(item_id: String, state_controller: Node = null) -> bool:
+	var store := _store_state(state_controller)
+	return store.get("purchased_store_items", []).has(item_id)
+
+func is_item_available(item_id: String, state_controller: Node = null) -> bool:
+	return _is_available(item_id, state_controller)
+
+func item_cost(item: Dictionary) -> int:
+	if item.has("price"):
+		return int(item.get("price", 0))
+	return int(item.get("cost", 0))
+
+func item_icon_id(item: Dictionary) -> String:
+	return String(item.get("icon_id", ""))
+
 func _store_state(state_controller: Node = null) -> Dictionary:
 	if state_controller != null and state_controller.has_method("get_store_state"):
 		return state_controller.get_store_state()
 	return {"available_store_items": [], "purchased_store_items": [], "currency_debug_amount": 0}
 
 func _is_available(item_id: String, state_controller: Node = null) -> bool:
+	var item := _item(item_id)
+	if item.is_empty():
+		return false
+	if String(item.get("unlock_condition", "")) == "" and bool(item.get("enabled", true)):
+		return true
 	if state_controller == null:
 		return false
-	var item := _item(item_id)
 	if String(item.get("unlock_condition", "")) == "taco_bell_completed" and bool(state_controller.get("taco_bell_completed")):
 		return true
 	return state_controller.get("available_store_items").has(item_id)
 
 func _item(item_id: String) -> Dictionary:
+	_ensure_birthday_catalog_loaded()
+	if _birthday_items_by_id.has(item_id):
+		return (_birthday_items_by_id[item_id] as Dictionary).duplicate(true)
 	for item in ITEMS:
 		if String(item.get("item_id", "")) == item_id:
 			return item
 	return {}
+
+func _ensure_birthday_catalog_loaded() -> void:
+	if _birthday_catalog_loaded:
+		return
+	_birthday_catalog_loaded = true
+	_birthday_items.clear()
+	_birthday_items_by_id.clear()
+	if not FileAccess.file_exists(BIRTHDAY_STORE_ITEMS_PATH):
+		push_warning("[HideoutStoreController] Birthday store catalog missing: %s" % BIRTHDAY_STORE_ITEMS_PATH)
+		return
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(BIRTHDAY_STORE_ITEMS_PATH))
+	if not parsed is Dictionary:
+		push_warning("[HideoutStoreController] Birthday store catalog did not parse as Dictionary.")
+		return
+	for raw_item in (parsed as Dictionary).get("items", []):
+		if not raw_item is Dictionary:
+			continue
+		var item := (raw_item as Dictionary).duplicate(true)
+		var item_id := String(item.get("item_id", ""))
+		if item_id == "":
+			continue
+		_birthday_items.append(item)
+		_birthday_items_by_id[item_id] = item
+
+func _ensure_available_for_purchase(item_id: String, state_controller: Node = null) -> void:
+	if state_controller == null or not _has_property(state_controller, "available_store_items"):
+		return
+	var available: Array = state_controller.get("available_store_items")
+	if not available.has(item_id):
+		available.append(item_id)
+		state_controller.set("available_store_items", available)
+
+func _has_property(node: Object, property_name: String) -> bool:
+	if node == null:
+		return false
+	for property in node.get_property_list():
+		if String(property.get("name", "")) == property_name:
+			return true
+	return false
 
 func _store_card_text(item: Dictionary, state_controller: Node = null) -> String:
 	var item_id := String(item.get("item_id", ""))
@@ -140,7 +242,7 @@ func _store_card_text(item: Dictionary, state_controller: Node = null) -> String
 		"+--------------------------------------------------+",
 		"| [ICON] %s" % String(item.get("display_name", item_id)),
 		"| Category: %s" % CATEGORIES.get(String(item.get("category", "")), "Store"),
-		"| Cost: %d Case Cash" % int(item.get("cost", 0)),
+		"| Cost: %d Case Cash" % item_cost(item),
 		"| State: %s" % state_text,
 		"| %s" % String(item.get("description", "")),
 	]

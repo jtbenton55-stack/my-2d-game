@@ -1,0 +1,225 @@
+{
+  "phase": "0M-C1",
+  "pass": true,
+  "failures": [],
+  "checks": [
+    {
+      "label": "exists: src/hideout/HideoutStoreController.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/ui/HideoutStorefrontPanel.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: scenes/ui/HideoutStorefrontPanel.tscn",
+      "ok": true
+    },
+    {
+      "label": "exists: src/hideout/HideoutManager.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: data/store/birthday_store_items.json",
+      "ok": true
+    },
+    {
+      "label": "exists: src/icons/PVGamesIconLibrary.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/dialogue/HideoutCharacterDialogueBank.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/dialogue/DialoguePortraitRegistry.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: scenes/hideout/tools/HideoutStorefrontIconTest.tscn",
+      "ok": true
+    },
+    {
+      "label": "B9 icon catalog exists",
+      "ok": true
+    },
+    {
+      "label": "TacoBellIso_Editable.tscn exists",
+      "ok": true
+    },
+    {
+      "label": "TacoBellIso_Editable_RedesignTest.tscn exists",
+      "ok": true
+    },
+    {
+      "label": "item count >= 25",
+      "ok": true
+    },
+    {
+      "label": "item count <= 40",
+      "ok": true
+    },
+    {
+      "label": "item ids unique",
+      "ok": true
+    },
+    {
+      "label": "every item has icon_id",
+      "ok": true
+    },
+    {
+      "label": "every icon_id valid",
+      "ok": true
+    },
+    {
+      "label": "CyberCity icons are primary source",
+      "ok": true
+    },
+    {
+      "label": "Doomsday icons not used",
+      "ok": true
+    },
+    {
+      "label": "No REJECT_JUNK icons used",
+      "ok": true
+    },
+    {
+      "label": "All selected source textures exist",
+      "ok": true
+    },
+    {
+      "label": "descriptions avoid obvious generic filler",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Furniture / cozy hideout (12/5)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Neon lights / signs / wall decor (12/5)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Desk gadgets / terminals / screens (13/4)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Plants / greenhouse / cozy items (6/3)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Bentley items (7/4)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Jake sweet-tooth / poop-bag / forgetfulness (9/4)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Parmida/Mere birthday / kindness / soft-strength (11/4)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: Louis delivery nonsense (6/3)",
+      "ok": true
+    },
+    {
+      "label": "theme covered: General heist / mission-room knick-knacks (15/3)",
+      "ok": true
+    },
+    {
+      "label": "Storefront loads PVGamesIconLibrary",
+      "ok": true
+    },
+    {
+      "label": "Storefront has ScrollContainer",
+      "ok": true
+    },
+    {
+      "label": "Storefront item cards include icon/name/description/price/category",
+      "ok": true
+    },
+    {
+      "label": "Store status feedback exists",
+      "ok": true
+    },
+    {
+      "label": "Store station wired to storefront",
+      "ok": true
+    },
+    {
+      "label": "C3 character dialogue route preserved",
+      "ok": true
+    },
+    {
+      "label": "Purchase flow uses existing purchase_item",
+      "ok": true
+    },
+    {
+      "label": "Insufficient funds path uses existing Case Cash check",
+      "ok": true
+    },
+    {
+      "label": "Owned state checked via purchased_store_items",
+      "ok": true
+    }
+  ],
+  "theme_counts": {
+    "furniture_cozy": {
+      "label": "Furniture / cozy hideout",
+      "minimum": 5,
+      "count": 12,
+      "pass": true
+    },
+    "neon_wall": {
+      "label": "Neon lights / signs / wall decor",
+      "minimum": 5,
+      "count": 12,
+      "pass": true
+    },
+    "desk_gadgets": {
+      "label": "Desk gadgets / terminals / screens",
+      "minimum": 4,
+      "count": 13,
+      "pass": true
+    },
+    "plants": {
+      "label": "Plants / greenhouse / cozy items",
+      "minimum": 3,
+      "count": 6,
+      "pass": true
+    },
+    "bentley": {
+      "label": "Bentley items",
+      "minimum": 4,
+      "count": 7,
+      "pass": true
+    },
+    "jake": {
+      "label": "Jake sweet-tooth / poop-bag / forgetfulness",
+      "minimum": 4,
+      "count": 9,
+      "pass": true
+    },
+    "parmida": {
+      "label": "Parmida/Mere birthday / kindness / soft-strength",
+      "minimum": 4,
+      "count": 11,
+      "pass": true
+    },
+    "louis": {
+      "label": "Louis delivery nonsense",
+      "minimum": 3,
+      "count": 6,
+      "pass": true
+    },
+    "mission_room": {
+      "label": "General heist / mission-room knick-knacks",
+      "minimum": 3,
+      "count": 15,
+      "pass": true
+    }
+  },
+  "missing_icons": [],
+  "ran_via": "python static validator (Godot CLI not required)"
+}

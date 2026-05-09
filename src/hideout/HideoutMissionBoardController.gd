@@ -66,7 +66,7 @@ func get_buttons(state_controller: Node = null) -> Array:
 
 func launch_taco_bell() -> void:
 	GameState.start_mission("taco_bell_drop")
-	if get_node_or_null("/root/SceneManager") != null:
+	if is_inside_tree() and get_tree().root.get_node_or_null("SceneManager") != null:
 		SceneManager.change_scene(TACO_BELL_SCENE)
 	else:
 		get_tree().change_scene_to_file(TACO_BELL_SCENE)
