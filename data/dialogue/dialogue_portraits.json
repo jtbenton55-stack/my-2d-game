@@ -1,0 +1,48 @@
+{
+  "phase": "0M-C3",
+  "comment": "Speaker -> portrait mapping for the hideout dialogue UI. Both 'parmida' and 'mere' resolve to the same portrait by design.",
+  "portraits": {
+    "jake": {
+      "portrait_id": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r0_c2",
+      "speaker_name": "Jake",
+      "png_path": "res://assets/portraits/generated_slices/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r0_c2.png",
+      "atlas_path": "res://assets/portraits/generated_slices/atlas_textures/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r0_c2.tres",
+      "notes": "Brown-haired suited guy with stubble - tired but heroic. Best male cyberpunk fit for Jake."
+    },
+    "parmida": {
+      "portrait_id": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+      "speaker_name": "Parmida",
+      "png_path": "res://assets/portraits/generated_slices/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1.png",
+      "atlas_path": "res://assets/portraits/generated_slices/atlas_textures/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1.tres",
+      "notes": "Hooded dark-haired woman with kind pink eyes - warm, intelligent, quietly brave."
+    },
+    "mere": {
+      "portrait_id": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+      "speaker_name": "Mere",
+      "png_path": "res://assets/portraits/generated_slices/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1.png",
+      "atlas_path": "res://assets/portraits/generated_slices/atlas_textures/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1.tres",
+      "notes": "Mere shares Parmida's portrait - same character, two valid speaker IDs."
+    },
+    "louis": {
+      "portrait_id": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0",
+      "speaker_name": "Louis",
+      "png_path": "res://assets/portraits/generated_slices/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0.png",
+      "atlas_path": "res://assets/portraits/generated_slices/atlas_textures/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0.tres",
+      "notes": "Bald guy with shades and a dapper jacket - delivery driver swagger, streetwise energy."
+    },
+    "bentley": {
+      "portrait_id": "portrait_bentley_placeholder",
+      "speaker_name": "Bentley",
+      "png_path": "res://assets/portraits/generated_slices/portrait_bentley_placeholder.png",
+      "atlas_path": "",
+      "notes": "Generated placeholder card. No dog portrait exists in the source pack yet."
+    },
+    "fallback": {
+      "portrait_id": "portrait_fallback_silhouette",
+      "speaker_name": "",
+      "png_path": "res://assets/portraits/generated_slices/portrait_fallback_silhouette.png",
+      "atlas_path": "",
+      "notes": "Fallback silhouette card used when no portrait is registered for the speaker_id."
+    }
+  }
+}

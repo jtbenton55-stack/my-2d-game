@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/hideout/PVGEditableObject.gd" id="1_obj"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Female.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Male.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Female.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Male.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_12_Female.png" id="6_tex"]
+
+[node name="PVGamesIconWorldStamperTest" type="Node2D"]
+[node name="ArtRoot" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="ArtRoot"]
+[node name="PVG_EditableObjects" type="Node2D" parent="ArtRoot/World"]
+[node name="IconObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects"]
+[node name="BehindPlayerIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects"]
+z_index = -120
+[node name="OccludableIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects"]
+z_index = 90
+[node name="ForegroundIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects"]
+z_index = 160
+[node name="ReviewIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects"]
+z_index = -40
+
+[node name="PVG_Icon_cyber_2" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons"]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+z_index = 90
+script = ExtResource("1_obj")
+object_id = "pvg_icon_cyber_city_icons_cyber_accessory_10_female_aa10aeea"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Female.png"
+object_category = "icon_cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesIconWorldStamperTest; icon_id=pvg_icon_cyber_city_icons_cyber_accessory_10_female_aa10aeea"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_cyber_2"]
+texture = ExtResource("2_tex")
+centered = true
+
+[node name="PVG_Icon_cyber_3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons"]
+position = Vector2(120, 0)
+scale = Vector2(1, 1)
+z_index = 90
+script = ExtResource("1_obj")
+object_id = "pvg_icon_cyber_city_icons_cyber_accessory_10_male_c6399393"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Male.png"
+object_category = "icon_cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesIconWorldStamperTest; icon_id=pvg_icon_cyber_city_icons_cyber_accessory_10_male_c6399393"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_cyber_3"]
+texture = ExtResource("3_tex")
+centered = true
+
+[node name="PVG_Icon_cyber_4" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons"]
+position = Vector2(240, 0)
+scale = Vector2(1, 1)
+z_index = 90
+script = ExtResource("1_obj")
+object_id = "pvg_icon_cyber_city_icons_cyber_accessory_11_female_1ac6291a"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Female.png"
+object_category = "icon_cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesIconWorldStamperTest; icon_id=pvg_icon_cyber_city_icons_cyber_accessory_11_female_1ac6291a"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_cyber_4"]
+texture = ExtResource("4_tex")
+centered = true
+
+[node name="PVG_Icon_cyber_5" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons"]
+position = Vector2(360, 0)
+scale = Vector2(1, 1)
+z_index = 90
+script = ExtResource("1_obj")
+object_id = "pvg_icon_cyber_city_icons_cyber_accessory_11_male_90235adf"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Male.png"
+object_category = "icon_cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesIconWorldStamperTest; icon_id=pvg_icon_cyber_city_icons_cyber_accessory_11_male_90235adf"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_cyber_5"]
+texture = ExtResource("5_tex")
+centered = true
+
+[node name="PVG_Icon_cyber_6" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons"]
+position = Vector2(480, 0)
+scale = Vector2(1, 1)
+z_index = 90
+script = ExtResource("1_obj")
+object_id = "pvg_icon_cyber_city_icons_cyber_accessory_12_female_5be7e731"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_12_Female.png"
+object_category = "icon_cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesIconWorldStamperTest; icon_id=pvg_icon_cyber_city_icons_cyber_accessory_12_female_5be7e731"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_cyber_6"]
+texture = ExtResource("6_tex")
+centered = true

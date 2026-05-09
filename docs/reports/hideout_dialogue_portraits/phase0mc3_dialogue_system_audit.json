@@ -1,0 +1,30 @@
+{
+  "phase": "0M-C3",
+  "dialogue_manager_path": "res://src/autoload/DialogueManager.gd",
+  "dialogue_ui_scene_path": "res://scenes/ui/DialogueBox.tscn",
+  "dialogue_ui_script_path": "res://src/ui/DialogueBox.gd",
+  "dialogue_resource_path": "res://src/dialogue/DialogueResource.gd",
+  "hideout_dialogue_bank_path": "res://src/hideout/HideoutDialogueBank.gd",
+  "hideout_character_controller_path": "res://src/hideout/HideoutCharacterController.gd",
+  "hideout_interactable_path": "res://src/hideout/HideoutInteractable.gd",
+  "legacy_hideout_level_path": "res://src/levels/Hideout.gd",
+  "event_bus_path": "res://src/utils/EventBus.gd",
+  "trigger_paths": {
+    "production_hideout": "HideoutManager.open_station(station_id) -> ScrollableStationPanel",
+    "legacy_level": "Hideout._show_crew_dialogue(crew_id) -> DialogueManager.start_simple_dialogue([...])"
+  },
+  "speaker_names_supported": true,
+  "portrait_support_existed_before_pass": false,
+  "interactables_present": {
+    "jake": true,
+    "parmida": "uses 'mere' station id",
+    "mere": true,
+    "bentley": true,
+    "louis": "exists, gated by louis_unlocked state"
+  },
+  "risks": [
+    "DialogueBox.tscn UID must remain stable (instanced via preload elsewhere)",
+    "dialogue_line_changed signature must remain backward compatible",
+    "Louis station is hidden until louis_unlocked - dialogue must keep that gating"
+  ]
+}

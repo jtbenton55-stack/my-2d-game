@@ -1,0 +1,80 @@
+{
+  "phase": "0M-C3",
+  "scan_root": "res://assets/portraits/",
+  "sheets": [
+    {
+      "source_sheet_path": "res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_6_diffe_7628536f-4c34-4f9f-8bf7-1f087ecea19c_0.png",
+      "filename": "Sak_pixel_art_character_portrait_pack_cyberpunk_theme_6_diffe_7628536f-4c34-4f9f-8bf7-1f087ecea19c_0.png",
+      "width": 1456,
+      "height": 816,
+      "is_sheet": true,
+      "columns": 4,
+      "rows": 2,
+      "slice_count": 8,
+      "ready_count": 8,
+      "review_count": 0,
+      "rejected_count": 0,
+      "notes": "Canonical 1456x816 sheet; using 4x2 grid as instructed."
+    },
+    {
+      "source_sheet_path": "res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77-bb2d-889d27000089_0.png",
+      "filename": "Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77-bb2d-889d27000089_0.png",
+      "width": 1456,
+      "height": 816,
+      "is_sheet": true,
+      "columns": 4,
+      "rows": 2,
+      "slice_count": 8,
+      "ready_count": 8,
+      "review_count": 0,
+      "rejected_count": 0,
+      "notes": "Canonical 1456x816 sheet; using 4x2 grid as instructed."
+    },
+    {
+      "source_sheet_path": "res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77-bb2d-889d27000089_2.png",
+      "filename": "Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77-bb2d-889d27000089_2.png",
+      "width": 1456,
+      "height": 816,
+      "is_sheet": true,
+      "columns": 4,
+      "rows": 2,
+      "slice_count": 8,
+      "ready_count": 8,
+      "review_count": 0,
+      "rejected_count": 0,
+      "notes": "Canonical 1456x816 sheet; using 4x2 grid as instructed."
+    },
+    {
+      "source_sheet_path": "res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_1599ac83-652d-49a0-9070-4931a779031c_1.png",
+      "filename": "Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_1599ac83-652d-49a0-9070-4931a779031c_1.png",
+      "width": 1456,
+      "height": 816,
+      "is_sheet": true,
+      "columns": 4,
+      "rows": 2,
+      "slice_count": 8,
+      "ready_count": 8,
+      "review_count": 0,
+      "rejected_count": 0,
+      "notes": "Canonical 1456x816 sheet; using 4x2 grid as instructed."
+    },
+    {
+      "source_sheet_path": "res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_efb0a77e-b2dd-416a-b99a-1968bce934b7_2.png",
+      "filename": "Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_efb0a77e-b2dd-416a-b99a-1968bce934b7_2.png",
+      "width": 1456,
+      "height": 816,
+      "is_sheet": true,
+      "columns": 4,
+      "rows": 2,
+      "slice_count": 8,
+      "ready_count": 8,
+      "review_count": 0,
+      "rejected_count": 0,
+      "notes": "Canonical 1456x816 sheet; using 4x2 grid as instructed."
+    }
+  ],
+  "skipped_subfolders": [
+    "Don't like"
+  ],
+  "policy": "Top-level portrait sheets only. Files inside the 'Don't like' subfolder are intentionally skipped."
+}

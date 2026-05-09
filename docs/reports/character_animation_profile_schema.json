@@ -1,0 +1,18 @@
+{
+  "animation_name": "walk_south",
+  "direction": "south",
+  "frame_paths": [],
+  "sprite_sheet_region": {
+    "row": 0,
+    "columns": 4,
+    "frame_width": 0,
+    "frame_height": 0
+  },
+  "fps": 8,
+  "loop": true,
+  "foot_anchor": [
+    0.5,
+    0.9
+  ],
+  "notes": "4-direction minimum, 8-direction preferred."
+}

@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "quarantine_container_path": "ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5",
+  "quarantine_container_visible": false,
+  "old_visuals_found": [
+    {
+      "path_before": "ArtRoot/World/HideoutPVGamesVisualHelper",
+      "path_after": "ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5/HideoutPVGamesVisualHelper",
+      "classification": "QUARANTINE_OLD_VISUAL",
+      "reason": "Old 0M-B automatic PVGames visual dressing helper generated runtime PVGames props, glows, and labels.",
+      "disabled": true
+    }
+  ],
+  "preserved_new_paint_system": [
+    "ArtRoot/World/EditorGuideLayer",
+    "ArtRoot/World/PVG_CatalogPaintLayers",
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogGroundRoadPaintLayer",
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogWallPaintLayer",
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogLargeStructurePaintLayer",
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogPropSignPaintLayer",
+    "ArtRoot/World/PVG_DepthPaintLayers"
+  ],
+  "gameplay_nodes_quarantined": false,
+  "notes": "No gameplay, collision, station proxy, UI, or prompt nodes were moved."
+}

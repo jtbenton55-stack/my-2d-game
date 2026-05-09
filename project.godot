@@ -52,7 +52,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-runtime-bridge/plugin.cfg", "res://addons/godot_mcp/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-runtime-bridge/plugin.cfg", "res://addons/godot_mcp/plugin.cfg", "res://addons/pvgames_object_palette/plugin.cfg")
 
 [input]
 

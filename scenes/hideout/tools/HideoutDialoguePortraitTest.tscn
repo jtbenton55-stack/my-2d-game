@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://b_hideout_c3_portrait_test"]
+
+[ext_resource type="Script" path="res://src/tools/editor/HideoutDialoguePortraitTestRunner.gd" id="1_runner"]
+[ext_resource type="PackedScene" uid="uid://dialoguebox_v2" path="res://scenes/ui/DialogueBox.tscn" id="2_dlgbox"]
+
+[node name="HideoutDialoguePortraitTest" type="Node"]
+script = ExtResource("1_runner")
+
+[node name="DialogueBox" parent="." instance=ExtResource("2_dlgbox")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ButtonRoot" type="VBoxContainer" parent="UI"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 320.0
+
+[node name="TitleLabel" type="Label" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "0M-C3 Dialogue Portrait Test"
+
+[node name="HelpLabel" type="Label" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Click each button, then press E to advance dialogue."
+autowrap_mode = 3
+
+[node name="JakeButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Talk to Jake"
+
+[node name="ParmidaButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Talk to Parmida"
+
+[node name="MereButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Talk to Mere"
+
+[node name="BentleyButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Pet Bentley"
+
+[node name="LouisButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Talk to Louis"
+
+[node name="FallbackButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Unknown speaker (fallback)"
+
+[node name="NoPortraitButton" type="Button" parent="UI/ButtonRoot"]
+layout_mode = 2
+text = "Plain dialogue (no portrait)"

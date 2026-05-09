@@ -1,0 +1,163 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_1.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Pipe1_2.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png" id="3_tex"]
+
+[node name="PVGamesEditableObjectMasterPalette" type="Control"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = 20
+offset_top = 10
+offset_right = 1220
+offset_bottom = 34
+text = "PVGames Editable Object Master Palette"
+
+
+[node name="Warning" type="Label" parent="."]
+offset_left = 20
+offset_top = 42
+offset_right = 1620
+offset_bottom = 66
+text = "Palette/browser scenes only. Do not drag all previews into production HideoutHub. Use object_id with dry-run stamper first."
+
+
+[node name="BehindPlayerObjects_Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 84
+offset_right = 1820
+offset_bottom = 108
+text = "BehindPlayerObjects: 0 objects | index scene: res://scenes/hideout/tools/PVGamesEditableObjectPalette_BehindPlayerObjects.tscn | pages: 1"
+
+
+[node name="OccludableObjects_Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 112
+offset_right = 1820
+offset_bottom = 136
+text = "OccludableObjects: 1119 objects | index scene: res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects.tscn | pages: 9"
+
+
+[node name="ForegroundObjects_Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 140
+offset_right = 1820
+offset_bottom = 164
+text = "ForegroundObjects: 1 objects | index scene: res://scenes/hideout/tools/PVGamesEditableObjectPalette_ForegroundObjects.tscn | pages: 1"
+
+
+[node name="ReviewObjects_Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 168
+offset_right = 1820
+offset_bottom = 192
+text = "ReviewObjects: 153 objects | index scene: res://scenes/hideout/tools/PVGamesEditableObjectPalette_ReviewObjects.tscn | pages: 2"
+
+
+[node name="SampleCards" type="GridContainer" parent="."]
+offset_left = 20.0
+offset_top = 220.0
+offset_right = 1560.0
+offset_bottom = 900.0
+columns = 4
+
+[node name="Card_001_pvg_obj_central_security_furniture_chair1_1_0935" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_1_0935"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_1.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_1_0935"
+
+[node name="Details" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "Chair1_1.png"
+
+
+[node name="Card_002_pvg_obj_core_foreground_pipe1_2_0560" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_foreground_pipe1_2_0560"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Pipe1_2.png"
+metadata/source_set = "core"
+metadata/object_category = "foreground"
+metadata/recommended_container = "ForegroundObjects"
+metadata/recommended_z_index = 160
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "pvg_obj_core_foreground_pipe1_2_0560"
+
+[node name="Details" type="Label" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "core | foreground | z 160 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "ForegroundObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "Pipe1_2.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_002_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbag1_5_0614"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("3_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "pvg_obj_central_security_barrier_sandbag1_5_0614"
+
+[node name="Details" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "Sandbag1_5.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "no, baked perspective warning"

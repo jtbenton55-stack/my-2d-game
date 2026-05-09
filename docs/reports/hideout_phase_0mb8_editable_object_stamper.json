@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "hideout_hub_modified": true,
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0mb8_editable_object_stamper_backup.20260509_020814.tscn",
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "object_index_paths": [
+    "res://docs/reports/pvgames_editable_object_asset_index.md",
+    "res://docs/reports/pvgames_editable_object_asset_index.json",
+    "res://docs/reports/pvgames_editable_object_asset_index.csv"
+  ],
+  "object_candidates_indexed": 1273,
+  "core_candidates_indexed": 608,
+  "central_security_candidates_indexed": 665,
+  "editable_object_script_path": "res://src/hideout/PVGEditableObject.gd",
+  "editable_object_scene_path": "res://scenes/hideout/tools/PVGEditableObject.tscn",
+  "stamper_tool_path": "res://src/tools/editor/PVGamesObjectStamperTool.gd",
+  "runner_path": "res://src/tools/editor/PVGamesObjectStamperRunner.gd",
+  "runner_default_mode": "dry_run_list",
+  "test_scene_path": "res://scenes/hideout/tools/PVGamesObjectStamperTest.tscn",
+  "palette_browser_path": "res://scenes/hideout/tools/PVGamesEditableObjectPaletteBrowser.tscn",
+  "palette_browser_skipped_reason": "",
+  "hideout_object_container_paths": [
+    "ArtRoot/World/PVG_EditableObjects",
+    "ArtRoot/World/PVG_EditableObjects/BehindPlayerObjects",
+    "ArtRoot/World/PVG_EditableObjects/OccludableObjects",
+    "ArtRoot/World/PVG_EditableObjects/ForegroundObjects",
+    "ArtRoot/World/PVG_EditableObjects/ReviewObjects"
+  ],
+  "production_hideout_received_sample_objects": false,
+  "objects_individually_selectable": true,
+  "center_pivot_supported": true,
+  "visible_alpha_center_pivot_supported": true,
+  "move_scale_rotate_z_duplicate_delete_supported": true,
+  "convert_tile_cell_to_object": "dry-run implemented; conversion implemented when source PNG matches index, with erase_original default false",
+  "collision_added": false,
+  "source_pngs_modified": false,
+  "tilesets_modified": false,
+  "how_to_guide_path": "res://docs/reports/pvgames_editable_object_stamper_how_to.md",
+  "validator_result": "static validation passed; Godot CLI unavailable on PATH",
+  "risks_limitations": [
+    "Rotation can still look odd for dimetric art with baked perspective.",
+    "The palette browser is a lightweight placeholder; the index and runner dry_run_list are the main browser.",
+    "Tile-cell conversion depends on resolving the TileSetAtlasSource texture path."
+  ],
+  "manual_test_checklist": [
+    "Open PVGamesObjectStamperTest.tscn.",
+    "Select one sample object and move/scale/rotate it.",
+    "Confirm only that object changes.",
+    "Open HideoutHub and confirm PVG_EditableObjects containers exist.",
+    "Run the stamper runner in dry_run_list and dry_run_stamp before any stamp."
+  ],
+  "recommended_next_step": "Run the test scene checklist, then use dry_run_list to pick one wall/barrier object for a first production Hideout stamp.",
+  "sample_objects": [
+    "pvg_obj_core_wall_interior_wall11_2_0189",
+    "pvg_obj_central_security_barrier_sandbag1_5_0614",
+    "pvg_obj_central_security_terminal_biometricscanner1_3_0966",
+    "pvg_obj_core_large_structure_building13_1_0001"
+  ],
+  "godot_cli_available": false
+}

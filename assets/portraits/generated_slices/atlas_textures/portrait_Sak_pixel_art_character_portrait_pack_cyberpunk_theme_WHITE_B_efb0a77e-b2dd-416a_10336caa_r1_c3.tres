@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/portraits/Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_efb0a77e-b2dd-416a-b99a-1968bce934b7_2.png" id="1_src"]
+
+[resource]
+atlas = ExtResource("1_src")
+region = Rect2(1092, 408, 364, 408)

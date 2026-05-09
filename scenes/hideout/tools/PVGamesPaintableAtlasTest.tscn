@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://pvgames_paintable_atlas_test"]
+
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres" id="1_floor"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres" id="2_wall"]
+
+[node name="PVGamesPaintableAtlasTest" type="Node2D"]
+
+[node name="Title" type="Label" parent="."]
+position = Vector2(-320, -240)
+text = "PVGames paintable test scene - visual-only TileMapLayer samples"
+
+[node name="FloorPaintLayer" type="TileMapLayer" parent="."]
+position = Vector2(-160, 0)
+tile_set = ExtResource("1_floor")
+collision_enabled = false
+
+[node name="WallPaintLayer" type="TileMapLayer" parent="."]
+position = Vector2(220, 0)
+tile_set = ExtResource("2_wall")
+collision_enabled = false
+
+[node name="Note" type="Label" parent="."]
+position = Vector2(-320, 180)
+text = "Sources are actual PVGames PNGs under assets/tilesets, not docs/reports contact sheets. Collision is disabled."

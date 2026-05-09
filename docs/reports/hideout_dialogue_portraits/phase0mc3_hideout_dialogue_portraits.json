@@ -1,0 +1,106 @@
+{
+  "phase": "0M-C3",
+  "status": "PASS",
+  "summary": "Hideout portrait sheet slicing + birthday dialogue polish complete. Left-side portraits added to dialogue UI; 12+ funny/clever lines per anchor character; Taco Bell scenes and gameplay scripts untouched.",
+  "dialogue_system_audited": true,
+  "dialogue_manager_path": "res://src/autoload/DialogueManager.gd",
+  "dialogue_ui_scene_path": "res://scenes/ui/DialogueBox.tscn",
+  "dialogue_ui_script_path": "res://src/ui/DialogueBox.gd",
+  "dialogue_data_paths": [
+    "res://src/dialogue/HideoutCharacterDialogueBank.gd",
+    "res://data/dialogue/dialogue_portraits.json",
+    "res://src/hideout/HideoutDialogueBank.gd"
+  ],
+  "portrait_source_folder": "res://assets/portraits/",
+  "portrait_sheets_found": 5,
+  "portrait_slices_created": 40,
+  "portrait_extra_placeholders_created": [
+    "res://assets/portraits/generated_slices/portrait_bentley_placeholder.png",
+    "res://assets/portraits/generated_slices/portrait_fallback_silhouette.png"
+  ],
+  "atlas_textures_created": 40,
+  "portrait_slice_catalog_path": "res://docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_slice_catalog.md",
+  "portrait_contact_sheet_path": "res://docs/reports/hideout_dialogue_portraits/portrait_slices_contact_sheet.png",
+  "portrait_registry_paths": [
+    "res://src/dialogue/DialoguePortraitRegistry.gd",
+    "res://data/dialogue/dialogue_portraits.json"
+  ],
+  "portrait_assignments": {
+    "jake": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r0_c2",
+    "parmida": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+    "mere": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+    "bentley": "portrait_bentley_placeholder",
+    "louis": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0",
+    "fallback": "portrait_fallback_silhouette"
+  },
+  "missing_portrait_assets": [
+    {
+      "speaker": "bentley",
+      "reason": "No dog portrait in source pack; placeholder card generated.",
+      "fallback_path": "res://assets/portraits/generated_slices/portrait_bentley_placeholder.png"
+    }
+  ],
+  "fallback_portrait_supported": true,
+  "dialogue_ui_modified": true,
+  "portrait_appears_left_side": true,
+  "existing_dialogue_calls_preserved": true,
+  "missing_portrait_no_crash": true,
+  "dialogue_line_counts": {
+    "jake": 15,
+    "parmida": 15,
+    "mere": 15,
+    "bentley": 15,
+    "louis": 15
+  },
+  "min_required_per_character": 12,
+  "hideouthub_modified": false,
+  "hideout_backup_path": "res://scenes/hideout/HideoutHub.phase0mc3_portrait_dialogue_backup.20260509_065454.tscn",
+  "dialogue_ui_backup_path": "res://scenes/ui/DialogueBox.phase0mc3_portrait_dialogue_backup.20260509_065454.tscn",
+  "character_dialogue_wired": {
+    "jake": "wired via HideoutManager.open_station for production hideout + Hideout.gd._show_crew_dialogue for legacy level",
+    "parmida": "wired via the 'mere' station id (same character) + Hideout.gd._show_crew_dialogue",
+    "mere": "wired via HideoutManager.open_station for production hideout + Hideout.gd._show_crew_dialogue for legacy level",
+    "bentley": "wired via HideoutManager.open_station for production hideout + Hideout.gd._show_crew_dialogue (legacy)",
+    "louis": "wired via HideoutManager.open_station; gating by louis_unlocked state preserved exactly as before"
+  },
+  "test_scene_path": "res://scenes/hideout/tools/HideoutDialoguePortraitTest.tscn",
+  "missionboard_launch_preserved": true,
+  "pause_return_preserved": true,
+  "existing_station_interactions_preserved": true,
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "collision_modified": false,
+  "store_decor_scheme_systems_modified": false,
+  "source_portrait_files_modified": false,
+  "validator_created": true,
+  "validator_run_via": "src/tools/editor/hideout_dialogue_portrait_static_validator.py (Godot CLI unavailable in this environment)",
+  "validator_static_results_path": "res://docs/reports/hideout_dialogue_portraits/phase0mc3_static_validator.json",
+  "validator_static_pass": true,
+  "files_created": [
+    "src/dialogue/DialoguePortraitRegistry.gd",
+    "src/dialogue/HideoutCharacterDialogueBank.gd",
+    "src/tools/editor/hideout_dialogue_portrait_builder.py",
+    "src/tools/editor/hideout_dialogue_portrait_static_validator.py",
+    "src/tools/editor/HideoutDialoguePortraitTestRunner.gd",
+    "src/tools/editor/HideoutDialoguePortraitValidator.gd",
+    "scenes/hideout/tools/HideoutDialoguePortraitTest.tscn",
+    "data/dialogue/dialogue_portraits.json",
+    "assets/portraits/generated_slices/portrait_*.png (42)",
+    "assets/portraits/generated_slices/atlas_textures/portrait_*.tres (40)",
+    "docs/reports/hideout_dialogue_portraits/phase0mc3_*.{md,json,csv,png}",
+    "docs/reports/hideout_dialogue_portraits/portrait_slices_contact_sheet.png"
+  ],
+  "files_modified": [
+    "src/utils/EventBus.gd",
+    "src/autoload/DialogueManager.gd",
+    "src/ui/DialogueBox.gd",
+    "scenes/ui/DialogueBox.tscn",
+    "src/hideout/HideoutManager.gd",
+    "src/levels/Hideout.gd"
+  ],
+  "risks": [
+    "Bentley still uses a placeholder portrait card; replace with real Shiba art in a future pass.",
+    "Godot CLI unavailable; only static validation was performed automatically. Run HideoutDialoguePortraitValidator.gd inside the editor to confirm runtime parity.",
+    "Portrait registry caches textures; if a portrait png is replaced on disk, end the dialogue and re-trigger to force a fresh load."
+  ]
+}

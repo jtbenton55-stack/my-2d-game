@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "source_folders_found": [
+    "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons",
+    "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons"
+  ],
+  "source_folders_missing": [],
+  "total_source_images_scanned": 1644,
+  "png_import_files_counted": 1644,
+  "individual_icon_file_count": 1644,
+  "atlas_sheet_file_count": 0,
+  "ui_panel_large_graphic_file_count": 0,
+  "skip_unsafe_count": 0,
+  "verified_icon_entry_count": 1644,
+  "quality_counts": {
+    "READY_BOTH": 1584,
+    "READY_UI_ICON": 60
+  },
+  "use_case_category_counts": {
+    "cyber": 629,
+    "security": 31,
+    "decor": 89,
+    "store": 5,
+    "currency": 4,
+    "terminal": 48,
+    "tech": 38,
+    "hazard": 12,
+    "evidence": 5,
+    "map_pin": 8,
+    "health": 23,
+    "comedy": 12,
+    "doomsday": 736,
+    "bentley": 1,
+    "keypad": 1,
+    "mission": 2
+  },
+  "icon_catalog_paths": [
+    "res://docs/reports/pvgames_icon_library/pvgames_verified_icon_catalog.md",
+    "res://docs/reports/pvgames_icon_library/pvgames_verified_icon_catalog.json",
+    "res://docs/reports/pvgames_icon_library/pvgames_verified_icon_catalog.csv"
+  ],
+  "atlas_texture_resources_created": 0,
+  "atlas_texture_folder": "res://assets/icons/pvgames_icon_library/atlas_textures",
+  "contact_sheets_folder": "res://docs/reports/pvgames_icon_library/contact_sheets",
+  "icon_library_script_path": "res://src/icons/PVGamesIconLibrary.gd",
+  "builder_path": "res://src/tools/editor/PVGamesIconLibraryBuilder.gd",
+  "runner_path": "res://src/tools/editor/PVGamesIconLibraryRunner.gd",
+  "runner_default_mode": "dry_run_summary",
+  "ui_test_scene_path": "res://scenes/hideout/tools/PVGamesIconLibraryTest.tscn",
+  "world_icon_test_scene_path": "res://scenes/hideout/tools/PVGamesIconWorldStamperTest.tscn",
+  "icon_stamper_bridge_path": "res://src/tools/editor/PVGamesIconObjectStamperBridge.gd",
+  "b8b_dock_found": true,
+  "b8b_dock_integration_completed": true,
+  "existing_object_dock_workflow_preserved": true,
+  "hideout_hub_modified": false,
+  "hideout_backup_path": "",
+  "hideout_icon_containers_created": false,
+  "hideout_icon_containers_created_or_skipped_reason": "Skipped; B8B dock creates IconObjects containers in the edited scene on demand. No production icons placed.",
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "source_pngs_modified": false,
+  "tilesets_modified": false,
+  "collision_added": false,
+  "asset_installation_guide_updated": true,
+  "future_feature_queue_report_path": "res://docs/reports/pvgames_icon_library/future_feature_queue_after_b9.md",
+  "validator_result": "static validation pass; Godot CLI unavailable on PATH",
+  "risks_limitations": [
+    "No atlas slicing performed; individual source PNGs were sufficient.",
+    "Dock runtime should be manually tested in Godot.",
+    "Some UI-first icons may look flat if stamped as world decals."
+  ],
+  "manual_test_checklist": [
+    "Inspect contact sheets.",
+    "Open PVGamesIconLibraryTest.tscn.",
+    "Open PVGamesIconWorldStamperTest.tscn.",
+    "Filter dock Asset Type to Icons.",
+    "Dry-run stamp a warning/store icon.",
+    "Stamp one icon in a test scene only."
+  ],
+  "recommended_next_step": "Enable the dock, filter Asset Type to Icons, and test one icon dry-run/stamp in PVGamesIconWorldStamperTest.tscn.",
+  "validator_failures": []
+}

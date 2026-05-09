@@ -1,0 +1,268 @@
+[gd_scene format=3 uid="uid://pvgames_geometry_audit_test"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_8.png" id="18"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_7.png" id="17"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_6.png" id="16"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_5.png" id="15"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_4.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_3.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_2.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrier1_1.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_6.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_5.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_4.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_3.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_2.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_1.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Floor1_4.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Floor1_3.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Floor1_2.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Floor1_1.png" id="1"]
+
+[node name="PVGamesTileGeometryAuditTest" type="Node2D"]
+
+[node name="Square_48x48_visual_grid_test" type="Label" parent="."]
+position = Vector2(0, 0)
+text = "Square 48x48 visual-grid test"
+
+[node name="48x24_diamond_isometric_attempt" type="Label" parent="."]
+position = Vector2(620, 0)
+text = "48x24 diamond/isometric attempt"
+
+[node name="Free_Sprite2D_parallax_placement_test" type="Label" parent="."]
+position = Vector2(0, 420)
+text = "Free Sprite2D/parallax placement test"
+
+[node name="SquareGridVertical_0" type="Line2D" parent="."]
+points = PackedVector2Array(0, 48, 0, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_48" type="Line2D" parent="."]
+points = PackedVector2Array(48, 48, 48, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_96" type="Line2D" parent="."]
+points = PackedVector2Array(96, 48, 96, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_144" type="Line2D" parent="."]
+points = PackedVector2Array(144, 48, 144, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_192" type="Line2D" parent="."]
+points = PackedVector2Array(192, 48, 192, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_240" type="Line2D" parent="."]
+points = PackedVector2Array(240, 48, 240, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_288" type="Line2D" parent="."]
+points = PackedVector2Array(288, 48, 288, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridVertical_336" type="Line2D" parent="."]
+points = PackedVector2Array(336, 48, 336, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_48" type="Line2D" parent="."]
+points = PackedVector2Array(0, 48, 336, 48)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_96" type="Line2D" parent="."]
+points = PackedVector2Array(0, 96, 336, 96)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_144" type="Line2D" parent="."]
+points = PackedVector2Array(0, 144, 336, 144)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_192" type="Line2D" parent="."]
+points = PackedVector2Array(0, 192, 336, 192)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_240" type="Line2D" parent="."]
+points = PackedVector2Array(0, 240, 336, 240)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_288" type="Line2D" parent="."]
+points = PackedVector2Array(0, 288, 336, 288)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="SquareGridHorizontal_336" type="Line2D" parent="."]
+points = PackedVector2Array(0, 336, 336, 336)
+width = 1.0
+default_color = Color(0.25, 0.9, 1, 0.35)
+
+[node name="DiamondGuideDown_0" type="Line2D" parent="."]
+points = PackedVector2Array(620, 60, 476, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_0" type="Line2D" parent="."]
+points = PackedVector2Array(476, 60, 620, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_1" type="Line2D" parent="."]
+points = PackedVector2Array(668, 60, 524, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_1" type="Line2D" parent="."]
+points = PackedVector2Array(524, 60, 668, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_2" type="Line2D" parent="."]
+points = PackedVector2Array(716, 60, 572, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_2" type="Line2D" parent="."]
+points = PackedVector2Array(572, 60, 716, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_3" type="Line2D" parent="."]
+points = PackedVector2Array(764, 60, 620, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_3" type="Line2D" parent="."]
+points = PackedVector2Array(620, 60, 764, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_4" type="Line2D" parent="."]
+points = PackedVector2Array(812, 60, 668, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_4" type="Line2D" parent="."]
+points = PackedVector2Array(668, 60, 812, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_5" type="Line2D" parent="."]
+points = PackedVector2Array(860, 60, 716, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_5" type="Line2D" parent="."]
+points = PackedVector2Array(716, 60, 860, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideDown_6" type="Line2D" parent="."]
+points = PackedVector2Array(908, 60, 764, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="DiamondGuideUp_6" type="Line2D" parent="."]
+points = PackedVector2Array(764, 60, 908, 132)
+width = 1.0
+default_color = Color(1, 0.85, 0.2, 0.35)
+
+[node name="Sample_1_Floor1_1" type="Sprite2D" parent="."]
+position = Vector2(0, 60)
+texture = ExtResource("1")
+z_index = 0
+
+[node name="Sample_2_Floor1_2" type="Sprite2D" parent="."]
+position = Vector2(620, 70)
+texture = ExtResource("2")
+z_index = 0
+
+[node name="Sample_3_Floor1_3" type="Sprite2D" parent="."]
+position = Vector2(0, 480)
+texture = ExtResource("3")
+z_index = 0
+
+[node name="Sample_4_Floor1_4" type="Sprite2D" parent="."]
+position = Vector2(48, 60)
+texture = ExtResource("4")
+z_index = 0
+
+[node name="Sample_5_FloorMat1_1" type="Sprite2D" parent="."]
+position = Vector2(644, 82)
+texture = ExtResource("5")
+z_index = 0
+
+[node name="Sample_6_FloorMat1_2" type="Sprite2D" parent="."]
+position = Vector2(72, 480)
+texture = ExtResource("6")
+z_index = 0
+
+[node name="Sample_7_FloorMat1_3" type="Sprite2D" parent="."]
+position = Vector2(96, 60)
+texture = ExtResource("7")
+z_index = 0
+
+[node name="Sample_8_FloorMat1_4" type="Sprite2D" parent="."]
+position = Vector2(668, 94)
+texture = ExtResource("8")
+z_index = 0
+
+[node name="Sample_9_FloorMat1_5" type="Sprite2D" parent="."]
+position = Vector2(144, 480)
+texture = ExtResource("9")
+z_index = 0
+
+[node name="Sample_10_FloorMat1_6" type="Sprite2D" parent="."]
+position = Vector2(144, 60)
+texture = ExtResource("10")
+z_index = 0
+
+[node name="Sample_11_Barrier1_1" type="Sprite2D" parent="."]
+position = Vector2(692, 106)
+texture = ExtResource("11")
+z_index = 0
+
+[node name="Sample_12_Barrier1_2" type="Sprite2D" parent="."]
+position = Vector2(216, 480)
+texture = ExtResource("12")
+z_index = 0
+
+[node name="Sample_13_Barrier1_3" type="Sprite2D" parent="."]
+position = Vector2(192, 60)
+texture = ExtResource("13")
+z_index = 0
+
+[node name="Sample_14_Barrier1_4" type="Sprite2D" parent="."]
+position = Vector2(716, 118)
+texture = ExtResource("14")
+z_index = 0
+
+[node name="Sample_15_Barrier1_5" type="Sprite2D" parent="."]
+position = Vector2(288, 480)
+texture = ExtResource("15")
+z_index = 0
+
+[node name="Sample_16_Barrier1_6" type="Sprite2D" parent="."]
+position = Vector2(240, 60)
+texture = ExtResource("16")
+z_index = 0
+
+[node name="Sample_17_Barrier1_7" type="Sprite2D" parent="."]
+position = Vector2(740, 130)
+texture = ExtResource("17")
+z_index = 0
+
+[node name="Sample_18_Barrier1_8" type="Sprite2D" parent="."]
+position = Vector2(360, 480)
+texture = ExtResource("18")
+z_index = 0

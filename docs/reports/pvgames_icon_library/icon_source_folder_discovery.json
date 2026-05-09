@@ -1,0 +1,28 @@
+{
+  "candidate_folders": [
+    {
+      "folder_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons",
+      "parent_folder": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items",
+      "png_count": 805,
+      "png_import_count": 805,
+      "other_image_count": 0,
+      "likely_source_pack": "cyber_city_icons",
+      "likely_structure": "individual_icons",
+      "confidence": "high",
+      "reason": "Found 805 PNG files under expected PVGames icon pack folder.",
+      "accepted": true
+    },
+    {
+      "folder_path": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons",
+      "parent_folder": "res://assets/tilesets/cyber_city_core_tilesets/Store_Items",
+      "png_count": 839,
+      "png_import_count": 839,
+      "other_image_count": 0,
+      "likely_source_pack": "doomsday_icons",
+      "likely_structure": "individual_icons",
+      "confidence": "high",
+      "reason": "Found 839 PNG files under expected PVGames icon pack folder.",
+      "accepted": true
+    }
+  ]
+}

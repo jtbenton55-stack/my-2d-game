@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Pipe1_2.png" id="1_tex"]
+
+[node name="PVGamesEditableObjectPalette_ForegroundObjects" type="Control"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = 20
+offset_top = 10
+offset_right = 1220
+offset_bottom = 34
+text = "ForegroundObjects Editable Object Palette"
+
+
+[node name="Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 42
+offset_right = 1520
+offset_bottom = 66
+text = "1 objects. Open page scenes below for full visual browsing. Previews are not production Hideout objects."
+
+
+[node name="Page_001" type="Label" parent="."]
+offset_left = 20
+offset_top = 78
+offset_right = 1520
+offset_bottom = 102
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_ForegroundObjects_Page001.tscn"
+
+
+[node name="SampleCards" type="GridContainer" parent="."]
+offset_left = 20.0
+offset_top = 128.0
+offset_right = 1560.0
+offset_bottom = 900.0
+columns = 4
+
+[node name="Card_001_pvg_obj_core_foreground_pipe1_2_0560" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_foreground_pipe1_2_0560"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Pipe1_2.png"
+metadata/source_set = "core"
+metadata/object_category = "foreground"
+metadata/recommended_container = "ForegroundObjects"
+metadata/recommended_z_index = 160
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "pvg_obj_core_foreground_pipe1_2_0560"
+
+[node name="Details" type="Label" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "core | foreground | z 160 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "ForegroundObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "Pipe1_2.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_001_pvg_obj_core_foreground_pipe1_2_0560/VBox"]
+text = "no, baked perspective warning"

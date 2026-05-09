@@ -1,0 +1,938 @@
+[gd_scene format=3 uid="uid://do0tk3214nb36"]
+
+[ext_resource type="Script" uid="uid://b4yoa3a4xdqne" path="res://src/hideout/HideoutManager.gd" id="1_manager"]
+[ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v5" path="res://scenes/characters/player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://bpnbrytsfvnwr" path="res://src/hideout/ScrollableStationPanel.gd" id="3_panel"]
+[ext_resource type="Script" uid="uid://tiay00gopj42" path="res://src/hideout/HideoutMissionBoardController.gd" id="4_mission"]
+[ext_resource type="Script" uid="uid://wytk0q2ikyod" path="res://src/hideout/HideoutEvidenceBoardController.gd" id="5_evidence"]
+[ext_resource type="Script" uid="uid://coa0wt4dv5g4i" path="res://src/hideout/HideoutSchemeCardController.gd" id="6_scheme"]
+[ext_resource type="Script" uid="uid://g4ppepln6skj" path="res://src/hideout/HideoutCollectibleController.gd" id="7_collect"]
+[ext_resource type="Script" uid="uid://qeb4nduhbol2" path="res://src/hideout/HideoutCareController.gd" id="8_care"]
+[ext_resource type="Script" uid="uid://c1e3dkafq7764" path="res://src/hideout/HideoutStoreController.gd" id="9_store"]
+[ext_resource type="Script" uid="uid://dhqn4o1a3jw6m" path="res://src/hideout/HideoutCharacterController.gd" id="10_chars"]
+[ext_resource type="Script" uid="uid://cxbp0yoq3mngi" path="res://src/hideout/HideoutDebugController.gd" id="11_debug"]
+[ext_resource type="Script" uid="uid://cevl3trvym7wh" path="res://src/hideout/HideoutInteractionBridge.gd" id="12_bridge"]
+[ext_resource type="Script" uid="uid://dggjabb187qi3" path="res://src/hideout/HideoutStateController.gd" id="13_state"]
+[ext_resource type="Script" uid="uid://63gkruvgqi5w" path="res://src/hideout/HideoutDecorationController.gd" id="14_decor"]
+[ext_resource type="Script" uid="uid://b60vd6dxqsi3w" path="res://src/hideout/HideoutPVGamesVisualHelper.gd" id="15_pvgames"]
+[ext_resource type="Script" uid="uid://cbods3qqdl07u" path="res://src/tools/editor/HideoutEditorGuideLayer.gd" id="16_editor_guide"]
+[ext_resource type="TileSet" uid="uid://ibltak3562ys" path="res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres" id="17_pvg_floor_tileset"]
+[ext_resource type="TileSet" uid="uid://dqa7xhhif1qms" path="res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres" id="18_pvg_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://d3lsijqt58ye6" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres" id="19_catalog_ground_tileset"]
+[ext_resource type="TileSet" uid="uid://g520i3e3pmlk" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres" id="20_catalog_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://b84807ofrjci7" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres" id="21_catalog_large_tileset"]
+[ext_resource type="TileSet" uid="uid://c6qb4k3clyg73" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres" id="22_catalog_prop_tileset"]
+[ext_resource type="TileSet" uid="uid://blmypg5mkbaou" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres" id="23_cs_ground_tileset"]
+[ext_resource type="TileSet" uid="uid://njdg4s38yojw" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres" id="24_cs_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://e8g35aemoodk" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres" id="25_cs_large_tileset"]
+[ext_resource type="TileSet" uid="uid://dn76r6jrjcmyy" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres" id="26_cs_prop_tileset"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.02, 0.025, 0.035, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.2, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HideoutHubRoot" type="Node2D" unique_id=487578141]
+
+[node name="GameplayRoot" type="Node2D" parent="." unique_id=1201344027]
+
+[node name="Navigation" type="Node2D" parent="GameplayRoot" unique_id=1191231718]
+
+[node name="Collision" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1689018670]
+
+[node name="WalkableArea" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1437087878]
+
+[node name="InteractionAreas" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1019855838]
+
+[node name="SpawnMarkers" type="Node2D" parent="GameplayRoot" unique_id=658206176]
+
+[node name="Marker_PlayerSpawn_Return" type="Marker2D" parent="GameplayRoot/SpawnMarkers" unique_id=1768419331]
+position = Vector2(650, 300)
+
+[node name="Marker_PlayerSpawn_FromMenu" type="Marker2D" parent="GameplayRoot/SpawnMarkers" unique_id=642429949]
+position = Vector2(610, 300)
+
+[node name="Stations" type="Node2D" parent="GameplayRoot" unique_id=825694065]
+z_index = 25
+
+[node name="Characters" type="Node2D" parent="GameplayRoot" unique_id=1690159642]
+z_index = 20
+
+[node name="Player" parent="GameplayRoot/Characters" unique_id=1775997568 instance=ExtResource("2_player")]
+z_index = 30
+position = Vector2(650, 360)
+
+[node name="Camera2D" type="Camera2D" parent="GameplayRoot/Characters/Player" unique_id=35175795]
+position = Vector2(0, -40)
+zoom = Vector2(0.85, 0.85)
+
+[node name="PlacementZones" type="Node2D" parent="GameplayRoot" unique_id=244743811]
+z_index = 5
+
+[node name="SnapMarkers" type="Node2D" parent="GameplayRoot" unique_id=400577326]
+
+[node name="Managers" type="Node" parent="GameplayRoot" unique_id=802787308]
+
+[node name="HideoutManager" type="Node" parent="GameplayRoot/Managers" unique_id=976281017]
+script = ExtResource("1_manager")
+stations_path = NodePath("../../Stations")
+collision_path = NodePath("../../Navigation/Collision")
+walkable_area_path = NodePath("../../Navigation/WalkableArea")
+interaction_areas_path = NodePath("../../Navigation/InteractionAreas")
+placement_zones_path = NodePath("../../PlacementZones")
+snap_markers_path = NodePath("../../SnapMarkers")
+characters_path = NodePath("../../Characters")
+art_world_path = NodePath("../../../ArtRoot/World")
+panel_path = NodePath("../../../UI/ScrollableStationPanel")
+prompt_path = NodePath("../../../UI/InteractionPrompt")
+debug_buttons_path = NodePath("../../../UI/DebugHideoutPanel/MarginContainer/VBoxContainer/Buttons")
+
+[node name="HideoutInteractionBridge" type="Node" parent="GameplayRoot/Managers" unique_id=1357120433]
+script = ExtResource("12_bridge")
+player_path = NodePath("../../Characters/Player")
+
+[node name="HideoutMissionBoardController" type="Node" parent="GameplayRoot/Managers" unique_id=1753002472]
+script = ExtResource("4_mission")
+
+[node name="HideoutEvidenceBoardController" type="Node" parent="GameplayRoot/Managers" unique_id=771512984]
+script = ExtResource("5_evidence")
+
+[node name="HideoutSchemeCardController" type="Node" parent="GameplayRoot/Managers" unique_id=644333784]
+script = ExtResource("6_scheme")
+
+[node name="HideoutCollectibleController" type="Node" parent="GameplayRoot/Managers" unique_id=233466571]
+script = ExtResource("7_collect")
+
+[node name="HideoutCareController" type="Node" parent="GameplayRoot/Managers" unique_id=458735003]
+script = ExtResource("8_care")
+
+[node name="HideoutStoreController" type="Node" parent="GameplayRoot/Managers" unique_id=609467248]
+script = ExtResource("9_store")
+
+[node name="HideoutCharacterController" type="Node" parent="GameplayRoot/Managers" unique_id=296757617]
+script = ExtResource("10_chars")
+
+[node name="HideoutDebugController" type="Node" parent="GameplayRoot/Managers" unique_id=2110207345]
+script = ExtResource("11_debug")
+
+[node name="HideoutStateController" type="Node" parent="GameplayRoot/Managers" unique_id=2069836511]
+script = ExtResource("13_state")
+
+[node name="HideoutDecorationController" type="Node" parent="GameplayRoot/Managers" unique_id=1156261227]
+script = ExtResource("14_decor")
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=2000779595]
+
+[node name="World" type="Node2D" parent="ArtRoot" unique_id=1637675921]
+y_sort_enabled = true
+
+[node name="FloorLayer" type="Node2D" parent="ArtRoot/World" unique_id=695721113]
+z_index = -300
+
+[node name="PVGamesFloorPaintLayer" type="TileMapLayer" parent="ArtRoot/World/FloorLayer" unique_id=876231211]
+z_index = 20
+tile_set = ExtResource("17_pvg_floor_tileset")
+collision_enabled = false
+
+[node name="WallLayer" type="Node2D" parent="ArtRoot/World" unique_id=1688318956]
+z_index = -200
+
+[node name="PVGamesWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/WallLayer" unique_id=548706521]
+z_index = 20
+tile_set = ExtResource("18_pvg_wall_tileset")
+collision_enabled = false
+
+[node name="PropLayer" type="Node2D" parent="ArtRoot/World" unique_id=1318158258]
+z_index = -100
+
+[node name="DecorationLayer" type="Node2D" parent="ArtRoot/World" unique_id=22219634]
+z_index = -80
+
+[node name="PlacedDecor" type="Node2D" parent="ArtRoot/World/DecorationLayer" unique_id=778562246]
+
+[node name="CollectibleLayer" type="Node2D" parent="ArtRoot/World" unique_id=1780186425]
+z_index = -60
+
+[node name="CharacterVisualLayer" type="Node2D" parent="ArtRoot/World" unique_id=1196946030]
+z_index = 10
+
+[node name="ForegroundLayer" type="Node2D" parent="ArtRoot/World" unique_id=1044232327]
+z_index = 150
+
+[node name="LightingLayer" type="Node2D" parent="ArtRoot/World" unique_id=205896582]
+z_index = 200
+
+[node name="EditorGuideLayer" type="Node2D" parent="ArtRoot/World" unique_id=335662116]
+z_index = 260
+script = ExtResource("16_editor_guide")
+
+[node name="GuideTitle" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1841614425]
+offset_left = -1040.0
+offset_top = -760.0
+offset_right = -1040.0
+offset_bottom = -760.0
+theme_override_colors/font_color = Color(0.4, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "EDITOR ART PLACEMENT GUIDE - visual only, hidden on play"
+
+[node name="PlayableFloorFootprint" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1523757165]
+color = Color(0.1, 0.55, 0.75, 0.14)
+polygon = PackedVector2Array(-960, -250, -820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430, 960, -260, 960, 340, 800, 500, 470, 500, 330, 420, -360, 420, -500, 520, -900, 520, -1040, 360, -1040, -120)
+
+[node name="PlayableBoundaryOutline" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=701183974]
+points = PackedVector2Array(-960, -250, -820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430, 960, -260, 960, 340, 800, 500, 470, 500, 330, 420, -360, 420, -500, 520, -900, 520, -1040, 360, -1040, -120, -960, -250)
+width = 8.0
+default_color = Color(0.3, 0.95, 1, 0.75)
+
+[node name="WallPaintGuideNorth" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1176717041]
+points = PackedVector2Array(-820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430)
+width = 5.0
+default_color = Color(1, 0.72, 0.18, 0.78)
+
+[node name="WallPaintGuideWest" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1461864710]
+points = PackedVector2Array(-960, -250, -820, -430, -1040, -120, -1040, 360, -900, 520)
+width = 5.0
+default_color = Color(1, 0.72, 0.18, 0.65)
+
+[node name="WallPaintHintNorth" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1171600893]
+offset_left = -205.0
+offset_top = -735.0
+offset_right = -205.0
+offset_bottom = -735.0
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 0.9)
+theme_override_font_sizes/font_size = 18
+text = "Paint walls/windows along this edge"
+
+[node name="DecorHint" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=2073313152]
+offset_left = 245.0
+offset_top = 330.0
+offset_right = 245.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(0.6, 1, 0.85, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "Keep open for decor placement"
+
+[node name="GuideBox_EntryExitDoor" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1288005719]
+position = Vector2(760, 430)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -95, 110, -95, 110, 95, -110, 95)
+
+[node name="GuideOutline_EntryExitDoor" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1247705996]
+position = Vector2(760, 430)
+points = PackedVector2Array(-110, -95, 110, -95, 110, 95, -110, 95, -110, -95)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_EntryExitDoor" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1666003911]
+offset_left = 658.0
+offset_top = 341.0
+offset_right = 658.0
+offset_bottom = 341.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "ENTRY / EXIT"
+
+[node name="GuideHint_EntryExitDoor" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1357200236]
+offset_left = 658.0
+offset_top = 501.0
+offset_right = 658.0
+offset_bottom = 501.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Paint door/wall art here; keep gameplay marker"
+
+[node name="GuideBox_BentleyCareStation" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1539817313]
+position = Vector2(520, 330)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-85, -55, 85, -55, 85, 55, -85, 55)
+
+[node name="GuideOutline_BentleyCareStation" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2009978995]
+position = Vector2(520, 330)
+points = PackedVector2Array(-85, -55, 85, -55, 85, 55, -85, 55, -85, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_BentleyCareStation" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=226603092]
+offset_left = 443.0
+offset_top = 281.0
+offset_right = 443.0
+offset_bottom = 281.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "BENTLEY CARE"
+
+[node name="GuideHint_BentleyCareStation" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1600862795]
+offset_left = 443.0
+offset_top = 361.0
+offset_right = 443.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Care props/signage; leave proxy clear"
+
+[node name="GuideBox_LootCrateDropZone" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1428362090]
+position = Vector2(210, 350)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-75, -60, 75, -60, 75, 60, -75, 60)
+
+[node name="GuideOutline_LootCrateDropZone" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=174121459]
+position = Vector2(210, 350)
+points = PackedVector2Array(-75, -60, 75, -60, 75, 60, -75, 60, -75, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_LootCrateDropZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1304438674]
+offset_left = 143.0
+offset_top = 296.0
+offset_right = 143.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "LOOT CRATE"
+
+[node name="GuideHint_LootCrateDropZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=704961271]
+offset_left = 143.0
+offset_top = 386.0
+offset_right = 143.0
+offset_bottom = 386.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Delivery crates and reward props"
+
+[node name="GuideBox_Bentley" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=284909801]
+position = Vector2(-760, 350)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-80, -60, 80, -60, 80, 60, -80, 60)
+
+[node name="GuideOutline_Bentley" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=131456582]
+position = Vector2(-760, 350)
+points = PackedVector2Array(-80, -60, 80, -60, 80, 60, -80, 60, -80, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Bentley" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1180777345]
+offset_left = -832.0
+offset_top = 296.0
+offset_right = -832.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "BENTLEY"
+
+[node name="GuideHint_Bentley" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=389200460]
+offset_left = -832.0
+offset_top = 386.0
+offset_right = -832.0
+offset_bottom = 386.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Cozy dog zone"
+
+[node name="GuideBox_Jake" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1208478859]
+position = Vector2(-560, 300)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50)
+
+[node name="GuideOutline_Jake" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=262867205]
+position = Vector2(-560, 300)
+points = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50, -65, -50)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Jake" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=547375368]
+offset_left = -617.0
+offset_top = 256.0
+offset_right = -617.0
+offset_bottom = 256.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "JAKE"
+
+[node name="GuideHint_Jake" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=663812862]
+offset_left = -617.0
+offset_top = 326.0
+offset_right = -617.0
+offset_bottom = 326.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Character corner"
+
+[node name="GuideBox_Mere" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1099168646]
+position = Vector2(-420, 300)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50)
+
+[node name="GuideOutline_Mere" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1914371996]
+position = Vector2(-420, 300)
+points = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50, -65, -50)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Mere" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=779352391]
+offset_left = -477.0
+offset_top = 256.0
+offset_right = -477.0
+offset_bottom = 256.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "MERE"
+
+[node name="GuideHint_Mere" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=482321660]
+offset_left = -477.0
+offset_top = 326.0
+offset_right = -477.0
+offset_bottom = 326.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Character corner"
+
+[node name="GuideBox_MissionBoard" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1954767098]
+position = Vector2(520, -410)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-115, -60, 115, -60, 115, 60, -115, 60)
+
+[node name="GuideOutline_MissionBoard" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=673119993]
+position = Vector2(520, -410)
+points = PackedVector2Array(-115, -60, 115, -60, 115, 60, -115, 60, -115, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_MissionBoard" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=545536441]
+offset_left = 413.0
+offset_top = -464.0
+offset_right = 413.0
+offset_bottom = -464.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "MISSION BOARD"
+
+[node name="GuideHint_MissionBoard" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1785893077]
+offset_left = 413.0
+offset_top = -374.0
+offset_right = 413.0
+offset_bottom = -374.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Screens, signs, planning glow"
+
+[node name="GuideBox_EvidenceBoard_TheBigCase" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1833386915]
+position = Vector2(0, -405)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-130, -60, 130, -60, 130, 60, -130, 60)
+
+[node name="GuideOutline_EvidenceBoard_TheBigCase" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2129918386]
+position = Vector2(0, -405)
+points = PackedVector2Array(-130, -60, 130, -60, 130, 60, -130, 60, -130, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_EvidenceBoard_TheBigCase" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=395537753]
+offset_left = -122.0
+offset_top = -459.0
+offset_right = -122.0
+offset_bottom = -459.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "THE BIG CASE"
+
+[node name="GuideHint_EvidenceBoard_TheBigCase" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1729002831]
+offset_left = -122.0
+offset_top = -369.0
+offset_right = -122.0
+offset_bottom = -369.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Evidence board/back wall"
+
+[node name="GuideBox_GreenhouseAlcove" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=501862791]
+position = Vector2(0, -610)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-380, -70, 380, -70, 380, 70, -380, 70)
+
+[node name="GuideOutline_GreenhouseAlcove" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1857519609]
+position = Vector2(0, -610)
+points = PackedVector2Array(-380, -70, 380, -70, 380, 70, -380, 70, -380, -70)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_GreenhouseAlcove" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=796867747]
+offset_left = -372.0
+offset_top = -674.0
+offset_right = -372.0
+offset_bottom = -674.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "GREENHOUSE"
+
+[node name="GuideHint_GreenhouseAlcove" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=2137073035]
+offset_left = -372.0
+offset_top = -564.0
+offset_right = -372.0
+offset_bottom = -564.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Glass, plants, soft lighting"
+
+[node name="GuideBox_PlanningTable" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2053745132]
+position = Vector2(0, 20)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-210, -115, 210, -115, 210, 115, -210, 115)
+
+[node name="GuideOutline_PlanningTable" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=897673387]
+position = Vector2(0, 20)
+points = PackedVector2Array(-210, -115, 210, -115, 210, 115, -210, 115, -210, -115)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PlanningTable" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=240151706]
+offset_left = -202.0
+offset_top = -89.0
+offset_right = -202.0
+offset_bottom = -89.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "PLANNING TABLE"
+
+[node name="GuideHint_PlanningTable" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=694898606]
+offset_left = -202.0
+offset_top = 111.0
+offset_right = -202.0
+offset_bottom = 111.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Tabletop props and screens"
+
+[node name="GuideBox_PolaroidWall" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2013991210]
+position = Vector2(-850, -230)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -65, 110, -65, 110, 65, -110, 65)
+
+[node name="GuideOutline_PolaroidWall" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1258207280]
+position = Vector2(-850, -230)
+points = PackedVector2Array(-110, -65, 110, -65, 110, 65, -110, 65, -110, -65)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PolaroidWall" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1327192907]
+offset_left = -952.0
+offset_top = -289.0
+offset_right = -952.0
+offset_bottom = -289.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "POLAROID WALL"
+
+[node name="GuideHint_PolaroidWall" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1992356615]
+offset_left = -952.0
+offset_top = -189.0
+offset_right = -952.0
+offset_bottom = -189.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Photo wall/display frames"
+
+[node name="GuideBox_GlowGuyShelf" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=441425502]
+position = Vector2(-880, -40)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_GlowGuyShelf" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1728822806]
+position = Vector2(-880, -40)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_GlowGuyShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=35759332]
+offset_left = -982.0
+offset_top = -89.0
+offset_right = -982.0
+offset_bottom = -89.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "GLOW GUY SHELF"
+
+[node name="GuideHint_GlowGuyShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=163664999]
+offset_left = -982.0
+offset_top = -9.0
+offset_right = -982.0
+offset_bottom = -9.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Collectible shelf"
+
+[node name="GuideBox_TinyIconShelf" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1994835849]
+position = Vector2(-880, 110)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_TinyIconShelf" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1253682739]
+position = Vector2(-880, 110)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_TinyIconShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=351319601]
+offset_left = -982.0
+offset_top = 61.0
+offset_right = -982.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "TINY ICON SHELF"
+
+[node name="GuideHint_TinyIconShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1054005448]
+offset_left = -982.0
+offset_top = 141.0
+offset_right = -982.0
+offset_bottom = 141.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Small collectible shelf"
+
+[node name="GuideBox_PoopBagCareDisplay" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=939590900]
+position = Vector2(-840, 250)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_PoopBagCareDisplay" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=514317475]
+position = Vector2(-840, 250)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PoopBagCareDisplay" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=536238477]
+offset_left = -942.0
+offset_top = 201.0
+offset_right = -942.0
+offset_bottom = 201.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "POOP BAG DISPLAY"
+
+[node name="GuideHint_PoopBagCareDisplay" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=679150118]
+offset_left = -942.0
+offset_top = 281.0
+offset_right = -942.0
+offset_bottom = 281.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Care display/storage"
+
+[node name="GuideBox_StoreTerminal" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=625095797]
+position = Vector2(790, -80)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-125, -85, 125, -85, 125, 85, -125, 85)
+
+[node name="GuideOutline_StoreTerminal" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=829647629]
+position = Vector2(790, -80)
+points = PackedVector2Array(-125, -85, 125, -85, 125, 85, -125, 85, -125, -85)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_StoreTerminal" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=350957862]
+offset_left = 673.0
+offset_top = -159.0
+offset_right = 673.0
+offset_bottom = -159.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "STORE"
+
+[node name="GuideHint_StoreTerminal" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=41717680]
+offset_left = 673.0
+offset_top = -19.0
+offset_right = 673.0
+offset_bottom = -19.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Store tech, monitors, neon"
+
+[node name="GuideBox_OpenDecorZone" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=174086434]
+position = Vector2(470, 120)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-220, -175, 220, -175, 220, 175, -220, 175)
+
+[node name="GuideOutline_OpenDecorZone" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1883077384]
+position = Vector2(470, 120)
+points = PackedVector2Array(-220, -175, 220, -175, 220, 175, -220, 175, -220, -175)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_OpenDecorZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=340428035]
+offset_left = 258.0
+offset_top = -49.0
+offset_right = 258.0
+offset_bottom = -49.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "OPEN DECOR AREA"
+
+[node name="GuideHint_OpenDecorZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1271525801]
+offset_left = 258.0
+offset_top = 271.0
+offset_right = 258.0
+offset_bottom = 271.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Keep open for placed decor"
+
+[node name="GuideBox_CozyLounge" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=599581390]
+position = Vector2(-640, 360)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-235, -130, 235, -130, 235, 130, -235, 130)
+
+[node name="GuideOutline_CozyLounge" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1683823824]
+position = Vector2(-640, 360)
+points = PackedVector2Array(-235, -130, 235, -130, 235, 130, -235, 130, -235, -130)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_CozyLounge" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=617255933]
+offset_left = -867.0
+offset_top = 236.0
+offset_right = -867.0
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "COZY LOUNGE"
+
+[node name="GuideHint_CozyLounge" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1561453558]
+offset_left = -867.0
+offset_top = 466.0
+offset_right = -867.0
+offset_bottom = 466.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Lounge props/rugs"
+
+[node name="PVG_CatalogPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1492308786]
+
+[node name="PVGamesCatalogGroundRoadPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=1414846209]
+z_index = -300
+tile_set = ExtResource("19_catalog_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=877163169]
+z_index = -220
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogLargeStructurePaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=2140304340]
+z_index = -120
+tile_set = ExtResource("21_catalog_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogPropSignPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=1242013829]
+z_index = -60
+tile_set = ExtResource("22_catalog_prop_tileset")
+collision_enabled = false
+
+[node name="PVG_DepthPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1588477820]
+
+[node name="PVGamesBehindGroundPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=1216829381]
+z_index = -300
+position = Vector2(-30, -78)
+scale = Vector2(6.4, 5.6)
+tile_map_data = PackedByteArray(0, 0, 243, 255, 22, 0, 32, 0, 0, 0, 0, 0, 0, 96, 246, 255, 22, 0, 32, 0, 0, 0, 0, 0, 0, 96, 248, 255, 22, 0, 32, 0, 0, 0, 0, 0, 0, 96, 255, 255, 255, 255, 42, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("19_catalog_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesBehindWallBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=357116061]
+z_index = -240
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesOccludableWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=304160166]
+z_index = 80
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesOccludablePropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=1071222869]
+z_index = 90
+tile_set = ExtResource("22_catalog_prop_tileset")
+collision_enabled = false
+
+[node name="PVGamesForegroundOverlayPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=838537374]
+z_index = 160
+tile_set = ExtResource("21_catalog_large_tileset")
+collision_enabled = false
+
+[node name="QuarantinedOldPVGamesVisuals_0MB5" type="Node2D" parent="ArtRoot/World" unique_id=1041315078]
+visible = false
+z_index = -500
+
+[node name="HideoutPVGamesVisualHelper" type="Node2D" parent="ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5" unique_id=528586659]
+script = ExtResource("15_pvgames")
+
+[node name="PVG_CentralSecurityPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1342333687]
+z_index = -300
+
+[node name="PVGamesCentralSecurityGroundRoadPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=1726944010]
+z_index = -300
+tile_set = ExtResource("23_cs_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityWallBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=175129730]
+z_index = -220
+tile_set = ExtResource("24_cs_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityLargeStructureBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=465097052]
+z_index = -140
+tile_set = ExtResource("25_cs_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityPropSignBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=1747241538]
+z_index = -80
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="PVG_CentralSecurityDepthPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1995359129]
+
+[node name="PVGamesCentralSecurityOccludableWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=1088793325]
+z_index = 80
+tile_set = ExtResource("24_cs_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityOccludablePropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=837329748]
+z_index = 90
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityOccludableLargeStructurePaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=756833384]
+z_index = 95
+tile_set = ExtResource("25_cs_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityForegroundOverlayPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=37120011]
+z_index = 160
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1620826501]
+
+[node name="InteractionPrompt" type="Label" parent="UI" unique_id=462409134]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = -54.0
+theme_override_colors/font_color = Color(1, 0.95, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 22
+text = "Press E"
+horizontal_alignment = 1
+
+[node name="ScrollableStationPanel" type="PanelContainer" parent="UI" unique_id=2103726926]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -260.0
+offset_right = 360.0
+offset_bottom = 260.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("3_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScrollableStationPanel" unique_id=795619302]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollableStationPanel/MarginContainer" unique_id=767290402]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1241497996]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 26
+text = "Station"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1616954876]
+custom_minimum_size = Vector2(640, 310)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Body" type="RichTextLabel" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1300959722]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.92, 0.95, 1, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Body"
+fit_content = true
+scroll_active = false
+
+[node name="ActionButtons" type="VBoxContainer" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1349095276]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1470534485]
+layout_mode = 2
+text = "Close"
+
+[node name="MissionBoardPanel" type="PanelContainer" parent="UI" unique_id=1516700214]
+visible = false
+
+[node name="EvidencePanel" type="PanelContainer" parent="UI" unique_id=1890525482]
+visible = false
+
+[node name="SchemeCardPanel" type="PanelContainer" parent="UI" unique_id=975863348]
+visible = false
+
+[node name="StorePanel" type="PanelContainer" parent="UI" unique_id=196852850]
+visible = false
+
+[node name="CharacterDialoguePanel" type="PanelContainer" parent="UI" unique_id=1058117693]
+visible = false
+
+[node name="PlacementModeHUD" type="Label" parent="UI" unique_id=1719616079]
+visible = false
+text = "Placement mode placeholder"
+
+[node name="DebugHideoutPanel" type="PanelContainer" parent="UI" unique_id=2096971]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DebugHideoutPanel" unique_id=2128485971]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugHideoutPanel/MarginContainer" unique_id=603444663]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/DebugHideoutPanel/MarginContainer/VBoxContainer" unique_id=1982197683]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+text = "Debug Hideout States"
+
+[node name="Buttons" type="VBoxContainer" parent="UI/DebugHideoutPanel/MarginContainer/VBoxContainer" unique_id=1791195064]
+layout_mode = 2

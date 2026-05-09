@@ -9,10 +9,10 @@
 [node name="PVGamesCatalogPaintableTileSetTest" type="Node2D" unique_id=979637905]
 
 [node name="Instructions" type="Label" parent="." unique_id=675097741]
-offset_left = -520.0
-offset_top = -340.0
-offset_right = -520.0
-offset_bottom = -340.0
+offset_left = -313.0
+offset_top = 482.0
+offset_right = 2049.0
+offset_bottom = 505.0
 text = "Visual-only TileSet palette test scene. Use it to inspect paintable PVGames assets. Do not use contact sheet PNGs as source art. Do not add collision. READY_TO_PAINT and MODULAR_PART_OK tiles are intended for use; REVIEW_MANUALLY needs inspection; REJECT_JUNK is excluded from production palettes."
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=265248932]
@@ -20,7 +20,7 @@ zoom = Vector2(0.8, 0.8)
 
 [node name="GroundRoadTileMapLayer" type="TileMapLayer" parent="." unique_id=1954071559]
 position = Vector2(-360, -80)
-tile_map_data = PackedByteArray("AAAPABIAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAPABIAAAAAAAAAAAAQAEUAAAAAAAAAAAA=")
 tile_set = ExtResource("1_ground")
 collision_enabled = false
 

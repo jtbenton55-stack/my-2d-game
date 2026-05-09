@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "dock_path": "res://addons/pvgames_object_palette/PVGamesObjectPaletteDock.gd",
+  "icon_filters_added": true,
+  "icon_dry_run_stamping_added": true,
+  "icon_actual_stamping_added": true,
+  "existing_object_workflow_preserved": true
+}

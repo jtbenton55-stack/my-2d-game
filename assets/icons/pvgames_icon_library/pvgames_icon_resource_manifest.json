@@ -1,0 +1,6 @@
+{
+  "atlas_textures_created": 0,
+  "atlas_texture_folder": "res://assets/icons/pvgames_icon_library/atlas_textures",
+  "note": "All accepted icons are individual PNG references in this pass; no destructive cropping or AtlasTexture generation was needed.",
+  "individual_png_icon_count": 1644
+}

@@ -1,0 +1,124 @@
+{
+  "status": "PARTIAL",
+  "partial_reason": "Implemented and statically validated, but manual runtime playtest is still required.",
+  "backup_path": "res://scenes/hideout/HideoutHub.phase0mb5_backup.20260508_193821.tscn",
+  "hideout_hub_modified": true,
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": true,
+  "gameplay_scripts_modified_details": [
+    "res://src/hideout/HideoutManager.gd: added runtime graybox/debug visibility flags and depth layer z-order handling.",
+    "res://src/hideout/HideoutPVGamesVisualHelper.gd: added disabled-by-default flag for the old visual helper."
+  ],
+  "old_visual_nodes_found": [
+    "ArtRoot/World/HideoutPVGamesVisualHelper"
+  ],
+  "old_visual_nodes_quarantined": [
+    "ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5/HideoutPVGamesVisualHelper"
+  ],
+  "quarantine_container_path": "ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5",
+  "new_0mb4_paint_layers_preserved": true,
+  "runtime_graybox_debug_visual_source": "res://src/hideout/HideoutManager.gd builds runtime floor/wall/decor placeholders, station Visual_* boxes, and station proxy debug labels.",
+  "runtime_graybox_debug_visuals_hidden_in_play": true,
+  "runtime_graybox_debug_control": {
+    "show_runtime_graybox_debug": false,
+    "show_station_proxy_debug_labels": false
+  },
+  "editor_guide_hidden_in_play": true,
+  "station_interactions_preserved": true,
+  "player_node_path": "HideoutHubRoot/GameplayRoot/Characters/Player",
+  "player_visual_child_path": "HideoutHubRoot/GameplayRoot/Characters/Player/AnimatedSprite2D",
+  "player_rendering_before": {
+    "parent": "GameplayRoot/Characters",
+    "z_index": 30,
+    "z_as_relative": true,
+    "y_sort_enabled": false,
+    "sprite_child": "AnimatedSprite2D",
+    "sprite_position": "Vector2(0, -16)",
+    "sprite_z_index": 0,
+    "under_gameplay_root": true
+  },
+  "player_rendering_after": {
+    "parent": "GameplayRoot/Characters",
+    "z_index": 30,
+    "z_as_relative": true,
+    "y_sort_enabled": false,
+    "sprite_child": "AnimatedSprite2D",
+    "sprite_position": "Vector2(0, -16)",
+    "sprite_z_index": 0,
+    "under_gameplay_root": true
+  },
+  "reason_player_was_drawing_over_walls_props": "ArtRoot was at z_index -250 while GameplayRoot/player stayed above it; most world art was therefore below the player regardless of intended visual depth.",
+  "chosen_depth_sorting_solution": "occludable foreground approximation",
+  "player_moved": false,
+  "player_move_risk": "Moving the full Player is unsafe in this pass because camera, combat, collision, interaction, and manager paths depend on GameplayRoot/Characters/Player.",
+  "new_depth_layer_model": {
+    "always_behind_player": {
+      "z_range": "-300 to -180",
+      "examples": ["floors", "roads", "ground decals", "backdrop walls"]
+    },
+    "player": {
+      "z_index": 30
+    },
+    "occludable_above_player": {
+      "z_range": "80 to 90",
+      "examples": ["wall fronts", "counters", "shelves", "columns", "tall props"]
+    },
+    "always_in_front": {
+      "z_range": "160+",
+      "examples": ["overhead pipes", "foreground beams", "hanging signs", "lighting overlays"]
+    },
+    "ui": "CanvasLayer"
+  },
+  "occludable_layers_created": true,
+  "occludable_layer_paths": [
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindGroundPaintLayer",
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindWallBackdropPaintLayer",
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer",
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludablePropPaintLayer",
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer"
+  ],
+  "occludable_layers_visual_only": true,
+  "collision_added": false,
+  "ysort_enabled_where": "No new true shared Y-sort. Existing ArtRoot/World y_sort_enabled remains true, but depth behavior for this pass is z-index based.",
+  "y_sort_origin_base_sorting": "Documented in res://docs/reports/hideout_phase_0mb5_y_sort_origin_audit.md.",
+  "gameplay_root_touched": false,
+  "station_proxies_preserved": true,
+  "required_ui_prompts_preserved": true,
+  "depth_sort_test_scene": "res://scenes/hideout/tools/HideoutDepthSortTest_0MB5.tscn",
+  "validator": "res://src/tools/editor/HideoutDepthSorting0MB5Validator.gd",
+  "validator_run_or_static_validated": "Static validation passed. Godot CLI validator was not run because godot, godot4, and godot.console were not found on PATH.",
+  "reports_written": [
+    "res://docs/reports/hideout_phase_0mb5_runtime_graybox_cleanup_depth_sorting.md",
+    "res://docs/reports/hideout_phase_0mb5_runtime_graybox_cleanup_depth_sorting.json",
+    "res://docs/reports/hideout_phase_0mb5_quarantined_visuals.md",
+    "res://docs/reports/hideout_phase_0mb5_quarantined_visuals.json",
+    "res://docs/reports/hideout_phase_0mb5_y_sort_origin_audit.md"
+  ],
+  "risks_limitations": [
+    "Manual runtime playtest is still required.",
+    "Occludable layers draw above the player by z-index rather than dynamically sorting by Y.",
+    "Per-tile Y Sort Origin tuning is documented for a later true Y-sort pass."
+  ],
+  "manual_test_checklist": [
+    "Open HideoutHub.tscn.",
+    "Confirm old unwanted Cursor PVGames visuals are gone/hidden/quarantined.",
+    "Confirm EditorGuideLayer still exists in editor.",
+    "Run HideoutHub.",
+    "Confirm the large gray/green translucent boxes are NOT visible during play.",
+    "Confirm labels like GREENHOUSE ALCOVE, MISSION BOARD, THE BIG CASE, HEAT SCANNER are NOT visible during play unless intentionally in debug mode.",
+    "Confirm E prompts still appear.",
+    "Confirm all station interactions still work.",
+    "Confirm 0M-B4 catalog paint layers still exist.",
+    "Confirm no PVGames art is under GameplayRoot.",
+    "Paint one floor tile on the ground/floor paint layer.",
+    "Confirm player walks over floor tile.",
+    "Paint one wall/prop tile on the occludable wall/prop layer.",
+    "Walk below/in front of it and confirm player appears in front if appropriate.",
+    "Walk above/behind it and confirm player appears behind or covered if appropriate.",
+    "Confirm no collision was added.",
+    "Confirm MissionBoard launches Taco Bell.",
+    "Confirm pause exit returns to HideoutHub.",
+    "Confirm Taco Bell scenes were not modified."
+  ],
+  "recommended_next_step": "Run the manual runtime checklist in Godot, then decide whether the occludable approximation is enough or whether a player visual proxy/shared Y-sort prototype is needed."
+}

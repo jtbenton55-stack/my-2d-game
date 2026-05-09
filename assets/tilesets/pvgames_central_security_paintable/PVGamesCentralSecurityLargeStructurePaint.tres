@@ -1,0 +1,776 @@
+[gd_resource type="TileSet" format=3 uid="uid://e8g35aemoodk"]
+
+[ext_resource type="Texture2D" uid="uid://03a77qtbabmy" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_4.png" id="1_src"]
+[ext_resource type="Texture2D" uid="uid://cs0lf3agoktka" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_2.png" id="2_src"]
+[ext_resource type="Texture2D" uid="uid://ektqpsr408ar" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_5.png" id="3_src"]
+[ext_resource type="Texture2D" uid="uid://cfsedvswl51g6" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_7.png" id="4_src"]
+[ext_resource type="Texture2D" uid="uid://8fefhpdxx8fu" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_8.png" id="5_src"]
+[ext_resource type="Texture2D" uid="uid://d0wjf8br573s8" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_6.png" id="6_src"]
+[ext_resource type="Texture2D" uid="uid://crufm2tcnxw6s" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_6.png" id="7_src"]
+[ext_resource type="Texture2D" uid="uid://crn4h7rjpiqot" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_8.png" id="8_src"]
+[ext_resource type="Texture2D" uid="uid://br41hekwjavb1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_7.png" id="9_src"]
+[ext_resource type="Texture2D" uid="uid://dklpohdlxuxum" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeCase1_1.png" id="10_src"]
+[ext_resource type="Texture2D" uid="uid://incumqgqqs0v" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_1.png" id="11_src"]
+[ext_resource type="Texture2D" uid="uid://b62330npl88ma" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_6.png" id="12_src"]
+[ext_resource type="Texture2D" uid="uid://72i0imdvrq3p" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_5.png" id="13_src"]
+[ext_resource type="Texture2D" uid="uid://dilcj3fonsk3u" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_4.png" id="14_src"]
+[ext_resource type="Texture2D" uid="uid://xb71bhwcc8ig" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_2.png" id="15_src"]
+[ext_resource type="Texture2D" uid="uid://3k8fs4bwxkkh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_6.png" id="16_src"]
+[ext_resource type="Texture2D" uid="uid://c0kc52seiuu28" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_5.png" id="17_src"]
+[ext_resource type="Texture2D" uid="uid://b6vb4ch3go1ob" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_7.png" id="18_src"]
+[ext_resource type="Texture2D" uid="uid://bj1roivtb4bdh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_8.png" id="19_src"]
+[ext_resource type="Texture2D" uid="uid://lapkttud7sl1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure17_7.png" id="20_src"]
+[ext_resource type="Texture2D" uid="uid://dxdthxvcvqorl" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_2.png" id="21_src"]
+[ext_resource type="Texture2D" uid="uid://b6c11u4st736g" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_8.png" id="22_src"]
+[ext_resource type="Texture2D" uid="uid://dfixcj1sf4g53" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_7.png" id="23_src"]
+[ext_resource type="Texture2D" uid="uid://c3jsgo8kqx2o5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_1.png" id="24_src"]
+[ext_resource type="Texture2D" uid="uid://glyqtn85h5x6" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_3.png" id="25_src"]
+[ext_resource type="Texture2D" uid="uid://q8gwnibbyyel" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_4.png" id="26_src"]
+[ext_resource type="Texture2D" uid="uid://ch863pt4buo5i" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_2.png" id="27_src"]
+[ext_resource type="Texture2D" uid="uid://bkwfg8vjowkw4" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation1_4.png" id="28_src"]
+[ext_resource type="Texture2D" uid="uid://xkef3falf6r5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/ComputerStation2_6.png" id="29_src"]
+[ext_resource type="Texture2D" uid="uid://dx26vgm5t8giy" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_5.png" id="30_src"]
+[ext_resource type="Texture2D" uid="uid://c4x2uqo548m15" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_6.png" id="31_src"]
+[ext_resource type="Texture2D" uid="uid://d3l6fjsis02ki" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_6.png" id="32_src"]
+[ext_resource type="Texture2D" uid="uid://ugivdfusm4r8" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_1.png" id="33_src"]
+[ext_resource type="Texture2D" uid="uid://d2vib8505moh2" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_3.png" id="34_src"]
+[ext_resource type="Texture2D" uid="uid://2184ydfaulau" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_7.png" id="35_src"]
+[ext_resource type="Texture2D" uid="uid://eddj4780snej" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure18_2.png" id="36_src"]
+[ext_resource type="Texture2D" uid="uid://dbxjahmsel377" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_5.png" id="37_src"]
+[ext_resource type="Texture2D" uid="uid://3mnpbcthq6tg" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_4.png" id="38_src"]
+[ext_resource type="Texture2D" uid="uid://mu84sbdcqiby" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_7.png" id="39_src"]
+[ext_resource type="Texture2D" uid="uid://ct1oqi6vx2hof" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure13_8.png" id="40_src"]
+[ext_resource type="Texture2D" uid="uid://4uyxeysl1jml" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_1.png" id="41_src"]
+[ext_resource type="Texture2D" uid="uid://brpx4a0ydhdkq" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_1.png" id="42_src"]
+[ext_resource type="Texture2D" uid="uid://bg2sc4fgiye6c" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_4.png" id="43_src"]
+[ext_resource type="Texture2D" uid="uid://viec2t1okptb" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_2.png" id="44_src"]
+[ext_resource type="Texture2D" uid="uid://gux51be1l27m" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_3.png" id="45_src"]
+[ext_resource type="Texture2D" uid="uid://cha1i68i8qogx" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_5.png" id="46_src"]
+[ext_resource type="Texture2D" uid="uid://b03eg5prm8rlm" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure11_6.png" id="47_src"]
+[ext_resource type="Texture2D" uid="uid://b10jfww5uc1ar" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_1.png" id="48_src"]
+[ext_resource type="Texture2D" uid="uid://c40g8i8yi2hav" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure16_1.png" id="49_src"]
+[ext_resource type="Texture2D" uid="uid://b8b0pdef54gvv" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_3.png" id="50_src"]
+[ext_resource type="Texture2D" uid="uid://d3juidgdtahco" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_1.png" id="51_src"]
+[ext_resource type="Texture2D" uid="uid://cy8hqe5426l6c" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_4.png" id="52_src"]
+[ext_resource type="Texture2D" uid="uid://dsc0dqk5e6ed8" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure16_2.png" id="53_src"]
+[ext_resource type="Texture2D" uid="uid://dagw0opkc3l5o" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_6.png" id="54_src"]
+[ext_resource type="Texture2D" uid="uid://din8ft4g2qrxe" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_4.png" id="55_src"]
+[ext_resource type="Texture2D" uid="uid://bgicgrc0xlw36" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_2.png" id="56_src"]
+[ext_resource type="Texture2D" uid="uid://jkyur4g5vaxb" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_3.png" id="57_src"]
+[ext_resource type="Texture2D" uid="uid://dw5i3pektl8vd" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_8.png" id="58_src"]
+[ext_resource type="Texture2D" uid="uid://cgrpwpgj1xde5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_3.png" id="59_src"]
+[ext_resource type="Texture2D" uid="uid://crbcdoxxocofl" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_1.png" id="60_src"]
+[ext_resource type="Texture2D" uid="uid://bvbcrequ6vqmw" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_3.png" id="61_src"]
+[ext_resource type="Texture2D" uid="uid://dykgewegfu5ts" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_6.png" id="62_src"]
+[ext_resource type="Texture2D" uid="uid://dn0p8iymm8c54" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure12_2.png" id="63_src"]
+[ext_resource type="Texture2D" uid="uid://jamceqp0fgei" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure19_5.png" id="64_src"]
+[ext_resource type="Texture2D" uid="uid://cn8qb7mkdwtae" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_2.png" id="65_src"]
+[ext_resource type="Texture2D" uid="uid://duj1757knvng4" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_5.png" id="66_src"]
+[ext_resource type="Texture2D" uid="uid://c5dxuecod0rk" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_6.png" id="67_src"]
+[ext_resource type="Texture2D" uid="uid://dp7ka1i54vurh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_4.png" id="68_src"]
+[ext_resource type="Texture2D" uid="uid://cq6lcanpi3xsy" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_2.png" id="69_src"]
+[ext_resource type="Texture2D" uid="uid://c680ke1rf82i" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_4.png" id="70_src"]
+[ext_resource type="Texture2D" uid="uid://bjgd5caq6rt0l" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure6_4.png" id="71_src"]
+[ext_resource type="Texture2D" uid="uid://wdxukx3vvuwa" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_4.png" id="72_src"]
+[ext_resource type="Texture2D" uid="uid://bum6pn83p7rhu" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_2.png" id="73_src"]
+[ext_resource type="Texture2D" uid="uid://cj2k4eg205aos" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_2.png" id="74_src"]
+[ext_resource type="Texture2D" uid="uid://cyb1e4stl5vqy" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_3.png" id="75_src"]
+[ext_resource type="Texture2D" uid="uid://dc1x72rfee5p3" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_1.png" id="76_src"]
+[ext_resource type="Texture2D" uid="uid://dmqtfnpmj85dh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_3.png" id="77_src"]
+[ext_resource type="Texture2D" uid="uid://gm3s0em5x5d1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure16_4.png" id="78_src"]
+[ext_resource type="Texture2D" uid="uid://b7fvlyqnj5u35" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure16_3.png" id="79_src"]
+[ext_resource type="Texture2D" uid="uid://c66qxm56t3y0j" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_1.png" id="80_src"]
+[ext_resource type="Texture2D" uid="uid://bdu60qrprstld" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_5.png" id="81_src"]
+[ext_resource type="Texture2D" uid="uid://lwna1oc3fyhy" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure5_6.png" id="82_src"]
+[ext_resource type="Texture2D" uid="uid://p2t2q8kbtb5k" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_6.png" id="83_src"]
+[ext_resource type="Texture2D" uid="uid://d0slhd1eqwwf1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/MobileArmory1_8.png" id="84_src"]
+[ext_resource type="Texture2D" uid="uid://bwsmsrkj3gede" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_8.png" id="85_src"]
+[ext_resource type="Texture2D" uid="uid://c65wnvtwqs48u" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure7_5.png" id="86_src"]
+[ext_resource type="Texture2D" uid="uid://dgj6l5twfc6gp" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_1.png" id="87_src"]
+[ext_resource type="Texture2D" uid="uid://b1p6b4t8ai84g" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_8.png" id="88_src"]
+[ext_resource type="Texture2D" uid="uid://ctvjr13fl1krn" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_6.png" id="89_src"]
+[ext_resource type="Texture2D" uid="uid://dn4xkd0a8dra0" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__2.png" id="90_src"]
+[ext_resource type="Texture2D" uid="uid://ieai7qndsfp" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__3.png" id="91_src"]
+[ext_resource type="Texture2D" uid="uid://ceudkwpw33nab" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_5.png" id="92_src"]
+[ext_resource type="Texture2D" uid="uid://ce7g5m7bmgyqj" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_7.png" id="93_src"]
+[ext_resource type="Texture2D" uid="uid://bees1y4optfb5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure14_3.png" id="94_src"]
+[ext_resource type="Texture2D" uid="uid://dy37oepbd306w" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_4.png" id="95_src"]
+[ext_resource type="Texture2D" uid="uid://bwbdq4lr0bx3r" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__4.png" id="96_src"]
+[ext_resource type="Texture2D" uid="uid://bs7dl72kixmdi" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_2.png" id="97_src"]
+[ext_resource type="Texture2D" uid="uid://bfbuudg3dp2pw" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__5.png" id="98_src"]
+[ext_resource type="Texture2D" uid="uid://c6vl7dll1pbiv" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Watchtower1_2.png" id="99_src"]
+[ext_resource type="Texture2D" uid="uid://u3qcemgfgiky" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__7.png" id="100_src"]
+[ext_resource type="Texture2D" uid="uid://b8k032iyir6c5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Watchtower1_4.png" id="101_src"]
+[ext_resource type="Texture2D" uid="uid://cfs4luroox30b" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure9__8.png" id="102_src"]
+[ext_resource type="Texture2D" uid="uid://dnbm5nq26huvl" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_1.png" id="103_src"]
+[ext_resource type="Texture2D" uid="uid://ege4guidx6wj" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_3.png" id="104_src"]
+[ext_resource type="Texture2D" uid="uid://cj7218ewnbfty" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_7.png" id="105_src"]
+[ext_resource type="Texture2D" uid="uid://j8farrlsqvyt" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Structure2_5.png" id="106_src"]
+[ext_resource type="Texture2D" uid="uid://c81dihpflnt5b" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Watchtower1_1.png" id="107_src"]
+[ext_resource type="Texture2D" uid="uid://bo72opau1ybml" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Watchtower1_3.png" id="108_src"]
+[ext_resource type="Texture2D" uid="uid://btrsjy75bxhlm" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_4.png" id="109_src"]
+[ext_resource type="Texture2D" uid="uid://ds8yo6llj40e0" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_2.png" id="110_src"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0"]
+texture = ExtResource("1_src")
+texture_region_size = Vector2i(48, 66)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1"]
+texture = ExtResource("2_src")
+texture_region_size = Vector2i(52, 67)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10"]
+texture = ExtResource("11_src")
+texture_region_size = Vector2i(60, 89)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_100"]
+texture = ExtResource("101_src")
+texture_region_size = Vector2i(511, 648)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_101"]
+texture = ExtResource("102_src")
+texture_region_size = Vector2i(648, 635)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_102"]
+texture = ExtResource("103_src")
+texture_region_size = Vector2i(405, 653)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_103"]
+texture = ExtResource("104_src")
+texture_region_size = Vector2i(390, 655)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_104"]
+texture = ExtResource("105_src")
+texture_region_size = Vector2i(452, 672)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_105"]
+texture = ExtResource("106_src")
+texture_region_size = Vector2i(453, 672)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_106"]
+texture = ExtResource("107_src")
+texture_region_size = Vector2i(430, 686)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_107"]
+texture = ExtResource("108_src")
+texture_region_size = Vector2i(430, 690)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_108"]
+texture = ExtResource("109_src")
+texture_region_size = Vector2i(43, 66)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_109"]
+texture = ExtResource("110_src")
+texture_region_size = Vector2i(46, 68)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_11"]
+texture = ExtResource("12_src")
+texture_region_size = Vector2i(97, 87)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_12"]
+texture = ExtResource("13_src")
+texture_region_size = Vector2i(116, 92)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13"]
+texture = ExtResource("14_src")
+texture_region_size = Vector2i(113, 125)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_14"]
+texture = ExtResource("15_src")
+texture_region_size = Vector2i(132, 129)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_15"]
+texture = ExtResource("16_src")
+texture_region_size = Vector2i(153, 146)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_16"]
+texture = ExtResource("17_src")
+texture_region_size = Vector2i(154, 146)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_17"]
+texture = ExtResource("18_src")
+texture_region_size = Vector2i(150, 158)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18"]
+texture = ExtResource("19_src")
+texture_region_size = Vector2i(157, 158)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_19"]
+texture = ExtResource("20_src")
+texture_region_size = Vector2i(119, 163)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2"]
+texture = ExtResource("3_src")
+texture_region_size = Vector2i(69, 56)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20"]
+texture = ExtResource("21_src")
+texture_region_size = Vector2i(163, 150)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_21"]
+texture = ExtResource("22_src")
+texture_region_size = Vector2i(153, 165)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_22"]
+texture = ExtResource("23_src")
+texture_region_size = Vector2i(157, 165)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_23"]
+texture = ExtResource("24_src")
+texture_region_size = Vector2i(158, 166)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_24"]
+texture = ExtResource("25_src")
+texture_region_size = Vector2i(147, 167)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_25"]
+texture = ExtResource("26_src")
+texture_region_size = Vector2i(167, 151)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_26"]
+texture = ExtResource("27_src")
+texture_region_size = Vector2i(131, 178)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_27"]
+texture = ExtResource("28_src")
+texture_region_size = Vector2i(131, 182)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_28"]
+texture = ExtResource("29_src")
+texture_region_size = Vector2i(157, 187)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_29"]
+texture = ExtResource("30_src")
+texture_region_size = Vector2i(191, 158)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3"]
+texture = ExtResource("4_src")
+texture_region_size = Vector2i(70, 56)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_30"]
+texture = ExtResource("31_src")
+texture_region_size = Vector2i(194, 185)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_31"]
+texture = ExtResource("32_src")
+texture_region_size = Vector2i(195, 166)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_32"]
+texture = ExtResource("33_src")
+texture_region_size = Vector2i(196, 122)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_33"]
+texture = ExtResource("34_src")
+texture_region_size = Vector2i(200, 187)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_34"]
+texture = ExtResource("35_src")
+texture_region_size = Vector2i(206, 202)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_35"]
+texture = ExtResource("36_src")
+texture_region_size = Vector2i(135, 207)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_36"]
+texture = ExtResource("37_src")
+texture_region_size = Vector2i(213, 163)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_37"]
+texture = ExtResource("38_src")
+texture_region_size = Vector2i(221, 166)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38"]
+texture = ExtResource("39_src")
+texture_region_size = Vector2i(214, 226)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_39"]
+texture = ExtResource("40_src")
+texture_region_size = Vector2i(193, 227)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4"]
+texture = ExtResource("5_src")
+texture_region_size = Vector2i(71, 55)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_40"]
+texture = ExtResource("41_src")
+texture_region_size = Vector2i(266, 202)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_41"]
+texture = ExtResource("42_src")
+texture_region_size = Vector2i(120, 289)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_42"]
+texture = ExtResource("43_src")
+texture_region_size = Vector2i(123, 289)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_43"]
+texture = ExtResource("44_src")
+texture_region_size = Vector2i(124, 290)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_44"]
+texture = ExtResource("45_src")
+texture_region_size = Vector2i(121, 294)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45"]
+texture = ExtResource("46_src")
+texture_region_size = Vector2i(134, 297)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46"]
+texture = ExtResource("47_src")
+texture_region_size = Vector2i(135, 297)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_47"]
+texture = ExtResource("48_src")
+texture_region_size = Vector2i(302, 291)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48"]
+texture = ExtResource("49_src")
+texture_region_size = Vector2i(311, 242)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_49"]
+texture = ExtResource("50_src")
+texture_region_size = Vector2i(215, 318)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5"]
+texture = ExtResource("6_src")
+texture_region_size = Vector2i(73, 55)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_50"]
+texture = ExtResource("51_src")
+texture_region_size = Vector2i(211, 319)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_51"]
+texture = ExtResource("52_src")
+texture_region_size = Vector2i(325, 270)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_52"]
+texture = ExtResource("53_src")
+texture_region_size = Vector2i(328, 230)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_53"]
+texture = ExtResource("54_src")
+texture_region_size = Vector2i(333, 243)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_54"]
+texture = ExtResource("55_src")
+texture_region_size = Vector2i(338, 222)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_55"]
+texture = ExtResource("56_src")
+texture_region_size = Vector2i(341, 219)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_56"]
+texture = ExtResource("57_src")
+texture_region_size = Vector2i(265, 343)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_57"]
+texture = ExtResource("58_src")
+texture_region_size = Vector2i(331, 345)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58"]
+texture = ExtResource("59_src")
+texture_region_size = Vector2i(306, 346)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_59"]
+texture = ExtResource("60_src")
+texture_region_size = Vector2i(304, 354)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6"]
+texture = ExtResource("7_src")
+texture_region_size = Vector2i(77, 66)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_60"]
+texture = ExtResource("61_src")
+texture_region_size = Vector2i(306, 356)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_61"]
+texture = ExtResource("62_src")
+texture_region_size = Vector2i(358, 332)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_62"]
+texture = ExtResource("63_src")
+texture_region_size = Vector2i(359, 271)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63"]
+texture = ExtResource("64_src")
+texture_region_size = Vector2i(359, 330)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_64"]
+texture = ExtResource("65_src")
+texture_region_size = Vector2i(364, 357)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_65"]
+texture = ExtResource("66_src")
+texture_region_size = Vector2i(337, 377)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66"]
+texture = ExtResource("67_src")
+texture_region_size = Vector2i(337, 377)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_67"]
+texture = ExtResource("68_src")
+texture_region_size = Vector2i(383, 361)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_68"]
+texture = ExtResource("69_src")
+texture_region_size = Vector2i(233, 402)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_69"]
+texture = ExtResource("70_src")
+texture_region_size = Vector2i(345, 403)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7"]
+texture = ExtResource("8_src")
+texture_region_size = Vector2i(77, 67)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_70"]
+texture = ExtResource("71_src")
+texture_region_size = Vector2i(233, 404)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71"]
+texture = ExtResource("72_src")
+texture_region_size = Vector2i(244, 406)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_72"]
+texture = ExtResource("73_src")
+texture_region_size = Vector2i(251, 407)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_73"]
+texture = ExtResource("74_src")
+texture_region_size = Vector2i(347, 407)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_74"]
+texture = ExtResource("75_src")
+texture_region_size = Vector2i(407, 352)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_75"]
+texture = ExtResource("76_src")
+texture_region_size = Vector2i(303, 409)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_76"]
+texture = ExtResource("77_src")
+texture_region_size = Vector2i(304, 410)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_77"]
+texture = ExtResource("78_src")
+texture_region_size = Vector2i(412, 300)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_78"]
+texture = ExtResource("79_src")
+texture_region_size = Vector2i(414, 306)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_79"]
+texture = ExtResource("80_src")
+texture_region_size = Vector2i(414, 375)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8"]
+texture = ExtResource("9_src")
+texture_region_size = Vector2i(78, 65)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_80"]
+texture = ExtResource("81_src")
+texture_region_size = Vector2i(340, 424)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81"]
+texture = ExtResource("82_src")
+texture_region_size = Vector2i(342, 424)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_82"]
+texture = ExtResource("83_src")
+texture_region_size = Vector2i(450, 421)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_83"]
+texture = ExtResource("84_src")
+texture_region_size = Vector2i(452, 400)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_84"]
+texture = ExtResource("85_src")
+texture_region_size = Vector2i(395, 462)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_85"]
+texture = ExtResource("86_src")
+texture_region_size = Vector2i(400, 463)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_86"]
+texture = ExtResource("87_src")
+texture_region_size = Vector2i(315, 514)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87"]
+texture = ExtResource("88_src")
+texture_region_size = Vector2i(559, 479)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_88"]
+texture = ExtResource("89_src")
+texture_region_size = Vector2i(560, 416)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_89"]
+texture = ExtResource("90_src")
+texture_region_size = Vector2i(578, 540)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_9"]
+texture = ExtResource("10_src")
+texture_region_size = Vector2i(79, 48)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_90"]
+texture = ExtResource("91_src")
+texture_region_size = Vector2i(513, 579)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_91"]
+texture = ExtResource("92_src")
+texture_region_size = Vector2i(581, 419)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_92"]
+texture = ExtResource("93_src")
+texture_region_size = Vector2i(585, 483)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_93"]
+texture = ExtResource("94_src")
+texture_region_size = Vector2i(317, 595)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_94"]
+texture = ExtResource("95_src")
+texture_region_size = Vector2i(439, 618)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_95"]
+texture = ExtResource("96_src")
+texture_region_size = Vector2i(628, 540)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_96"]
+texture = ExtResource("97_src")
+texture_region_size = Vector2i(441, 639)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_97"]
+texture = ExtResource("98_src")
+texture_region_size = Vector2i(644, 637)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_98"]
+texture = ExtResource("99_src")
+texture_region_size = Vector2i(513, 645)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_99"]
+texture = ExtResource("100_src")
+texture_region_size = Vector2i(647, 635)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_0")
+sources/1 = SubResource("TileSetAtlasSource_1")
+sources/2 = SubResource("TileSetAtlasSource_2")
+sources/3 = SubResource("TileSetAtlasSource_3")
+sources/4 = SubResource("TileSetAtlasSource_4")
+sources/5 = SubResource("TileSetAtlasSource_5")
+sources/6 = SubResource("TileSetAtlasSource_6")
+sources/7 = SubResource("TileSetAtlasSource_7")
+sources/8 = SubResource("TileSetAtlasSource_8")
+sources/9 = SubResource("TileSetAtlasSource_9")
+sources/10 = SubResource("TileSetAtlasSource_10")
+sources/11 = SubResource("TileSetAtlasSource_11")
+sources/12 = SubResource("TileSetAtlasSource_12")
+sources/13 = SubResource("TileSetAtlasSource_13")
+sources/14 = SubResource("TileSetAtlasSource_14")
+sources/15 = SubResource("TileSetAtlasSource_15")
+sources/16 = SubResource("TileSetAtlasSource_16")
+sources/17 = SubResource("TileSetAtlasSource_17")
+sources/18 = SubResource("TileSetAtlasSource_18")
+sources/19 = SubResource("TileSetAtlasSource_19")
+sources/20 = SubResource("TileSetAtlasSource_20")
+sources/21 = SubResource("TileSetAtlasSource_21")
+sources/22 = SubResource("TileSetAtlasSource_22")
+sources/23 = SubResource("TileSetAtlasSource_23")
+sources/24 = SubResource("TileSetAtlasSource_24")
+sources/25 = SubResource("TileSetAtlasSource_25")
+sources/26 = SubResource("TileSetAtlasSource_26")
+sources/27 = SubResource("TileSetAtlasSource_27")
+sources/28 = SubResource("TileSetAtlasSource_28")
+sources/29 = SubResource("TileSetAtlasSource_29")
+sources/30 = SubResource("TileSetAtlasSource_30")
+sources/31 = SubResource("TileSetAtlasSource_31")
+sources/32 = SubResource("TileSetAtlasSource_32")
+sources/33 = SubResource("TileSetAtlasSource_33")
+sources/34 = SubResource("TileSetAtlasSource_34")
+sources/35 = SubResource("TileSetAtlasSource_35")
+sources/36 = SubResource("TileSetAtlasSource_36")
+sources/37 = SubResource("TileSetAtlasSource_37")
+sources/38 = SubResource("TileSetAtlasSource_38")
+sources/39 = SubResource("TileSetAtlasSource_39")
+sources/40 = SubResource("TileSetAtlasSource_40")
+sources/41 = SubResource("TileSetAtlasSource_41")
+sources/42 = SubResource("TileSetAtlasSource_42")
+sources/43 = SubResource("TileSetAtlasSource_43")
+sources/44 = SubResource("TileSetAtlasSource_44")
+sources/45 = SubResource("TileSetAtlasSource_45")
+sources/46 = SubResource("TileSetAtlasSource_46")
+sources/47 = SubResource("TileSetAtlasSource_47")
+sources/48 = SubResource("TileSetAtlasSource_48")
+sources/49 = SubResource("TileSetAtlasSource_49")
+sources/50 = SubResource("TileSetAtlasSource_50")
+sources/51 = SubResource("TileSetAtlasSource_51")
+sources/52 = SubResource("TileSetAtlasSource_52")
+sources/53 = SubResource("TileSetAtlasSource_53")
+sources/54 = SubResource("TileSetAtlasSource_54")
+sources/55 = SubResource("TileSetAtlasSource_55")
+sources/56 = SubResource("TileSetAtlasSource_56")
+sources/57 = SubResource("TileSetAtlasSource_57")
+sources/58 = SubResource("TileSetAtlasSource_58")
+sources/59 = SubResource("TileSetAtlasSource_59")
+sources/60 = SubResource("TileSetAtlasSource_60")
+sources/61 = SubResource("TileSetAtlasSource_61")
+sources/62 = SubResource("TileSetAtlasSource_62")
+sources/63 = SubResource("TileSetAtlasSource_63")
+sources/64 = SubResource("TileSetAtlasSource_64")
+sources/65 = SubResource("TileSetAtlasSource_65")
+sources/66 = SubResource("TileSetAtlasSource_66")
+sources/67 = SubResource("TileSetAtlasSource_67")
+sources/68 = SubResource("TileSetAtlasSource_68")
+sources/69 = SubResource("TileSetAtlasSource_69")
+sources/70 = SubResource("TileSetAtlasSource_70")
+sources/71 = SubResource("TileSetAtlasSource_71")
+sources/72 = SubResource("TileSetAtlasSource_72")
+sources/73 = SubResource("TileSetAtlasSource_73")
+sources/74 = SubResource("TileSetAtlasSource_74")
+sources/75 = SubResource("TileSetAtlasSource_75")
+sources/76 = SubResource("TileSetAtlasSource_76")
+sources/77 = SubResource("TileSetAtlasSource_77")
+sources/78 = SubResource("TileSetAtlasSource_78")
+sources/79 = SubResource("TileSetAtlasSource_79")
+sources/80 = SubResource("TileSetAtlasSource_80")
+sources/81 = SubResource("TileSetAtlasSource_81")
+sources/82 = SubResource("TileSetAtlasSource_82")
+sources/83 = SubResource("TileSetAtlasSource_83")
+sources/84 = SubResource("TileSetAtlasSource_84")
+sources/85 = SubResource("TileSetAtlasSource_85")
+sources/86 = SubResource("TileSetAtlasSource_86")
+sources/87 = SubResource("TileSetAtlasSource_87")
+sources/88 = SubResource("TileSetAtlasSource_88")
+sources/89 = SubResource("TileSetAtlasSource_89")
+sources/90 = SubResource("TileSetAtlasSource_90")
+sources/91 = SubResource("TileSetAtlasSource_91")
+sources/92 = SubResource("TileSetAtlasSource_92")
+sources/93 = SubResource("TileSetAtlasSource_93")
+sources/94 = SubResource("TileSetAtlasSource_94")
+sources/95 = SubResource("TileSetAtlasSource_95")
+sources/96 = SubResource("TileSetAtlasSource_96")
+sources/97 = SubResource("TileSetAtlasSource_97")
+sources/98 = SubResource("TileSetAtlasSource_98")
+sources/99 = SubResource("TileSetAtlasSource_99")
+sources/100 = SubResource("TileSetAtlasSource_100")
+sources/101 = SubResource("TileSetAtlasSource_101")
+sources/102 = SubResource("TileSetAtlasSource_102")
+sources/103 = SubResource("TileSetAtlasSource_103")
+sources/104 = SubResource("TileSetAtlasSource_104")
+sources/105 = SubResource("TileSetAtlasSource_105")
+sources/106 = SubResource("TileSetAtlasSource_106")
+sources/107 = SubResource("TileSetAtlasSource_107")
+sources/108 = SubResource("TileSetAtlasSource_108")
+sources/109 = SubResource("TileSetAtlasSource_109")

@@ -1,0 +1,362 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_1.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_3.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_5.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_6.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_7.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_8.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_1.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_3.png" id="8_tex"]
+
+[node name="PVGamesEditableObjectPalette_OccludableObjects" type="Control"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = 20
+offset_top = 10
+offset_right = 1220
+offset_bottom = 34
+text = "OccludableObjects Editable Object Palette"
+
+
+[node name="Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 42
+offset_right = 1520
+offset_bottom = 66
+text = "1119 objects. Open page scenes below for full visual browsing. Previews are not production Hideout objects."
+
+
+[node name="Page_001" type="Label" parent="."]
+offset_left = 20
+offset_top = 78
+offset_right = 1520
+offset_bottom = 102
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page001.tscn"
+
+
+[node name="Page_002" type="Label" parent="."]
+offset_left = 20
+offset_top = 104
+offset_right = 1520
+offset_bottom = 128
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page002.tscn"
+
+
+[node name="Page_003" type="Label" parent="."]
+offset_left = 20
+offset_top = 130
+offset_right = 1520
+offset_bottom = 154
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page003.tscn"
+
+
+[node name="Page_004" type="Label" parent="."]
+offset_left = 20
+offset_top = 156
+offset_right = 1520
+offset_bottom = 180
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page004.tscn"
+
+
+[node name="Page_005" type="Label" parent="."]
+offset_left = 20
+offset_top = 182
+offset_right = 1520
+offset_bottom = 206
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page005.tscn"
+
+
+[node name="Page_006" type="Label" parent="."]
+offset_left = 20
+offset_top = 208
+offset_right = 1520
+offset_bottom = 232
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page006.tscn"
+
+
+[node name="Page_007" type="Label" parent="."]
+offset_left = 20
+offset_top = 234
+offset_right = 1520
+offset_bottom = 258
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page007.tscn"
+
+
+[node name="Page_008" type="Label" parent="."]
+offset_left = 20
+offset_top = 260
+offset_right = 1520
+offset_bottom = 284
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page008.tscn"
+
+
+[node name="Page_009" type="Label" parent="."]
+offset_left = 20
+offset_top = 286
+offset_right = 1520
+offset_bottom = 310
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_OccludableObjects_Page009.tscn"
+
+
+[node name="SampleCards" type="GridContainer" parent="."]
+offset_left = 20.0
+offset_top = 336.0
+offset_right = 1560.0
+offset_bottom = 900.0
+columns = 4
+
+[node name="Card_001_pvg_obj_central_security_furniture_chair1_1_0935" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_1_0935"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_1.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_1_0935"
+
+[node name="Details" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_furniture_chair1_1_0935/VBox"]
+text = "Chair1_1.png"
+
+
+[node name="Card_002_pvg_obj_central_security_furniture_chair1_3_0939" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_3_0939"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_3.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_3_0939"
+
+[node name="Details" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_furniture_chair1_3_0939/VBox"]
+text = "Chair1_3.png"
+
+
+[node name="Card_003_pvg_obj_central_security_furniture_chair1_5_0929" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_5_0929"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("3_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_5_0929"
+
+[node name="Details" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_furniture_chair1_5_0929/VBox"]
+text = "Chair1_5.png"
+
+
+[node name="Card_004_pvg_obj_central_security_furniture_chair1_6_0950" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_6_0950"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_6.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("4_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_6_0950"
+
+[node name="Details" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_furniture_chair1_6_0950/VBox"]
+text = "Chair1_6.png"
+
+
+[node name="Card_005_pvg_obj_central_security_furniture_chair1_7_0940" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_7_0940"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_7.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("5_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_7_0940"
+
+[node name="Details" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_furniture_chair1_7_0940/VBox"]
+text = "Chair1_7.png"
+
+
+[node name="Card_006_pvg_obj_central_security_furniture_chair1_8_0951" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair1_8_0951"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair1_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("6_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951/VBox"]
+text = "pvg_obj_central_security_furniture_chair1_8_0951"
+
+[node name="Details" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_furniture_chair1_8_0951/VBox"]
+text = "Chair1_8.png"
+
+
+[node name="Card_007_pvg_obj_central_security_furniture_chair2_1_0941" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair2_1_0941"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_1.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("7_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941/VBox"]
+text = "pvg_obj_central_security_furniture_chair2_1_0941"
+
+[node name="Details" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_furniture_chair2_1_0941/VBox"]
+text = "Chair2_1.png"
+
+
+[node name="Card_008_pvg_obj_central_security_furniture_chair2_3_0942" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_furniture_chair2_3_0942"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Chair2_3.png"
+metadata/source_set = "central_security"
+metadata/object_category = "furniture"
+metadata/recommended_container = "OccludableObjects"
+metadata/recommended_z_index = 90
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("8_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942/VBox"]
+text = "pvg_obj_central_security_furniture_chair2_3_0942"
+
+[node name="Details" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942/VBox"]
+text = "central_security | furniture | z 90 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942/VBox"]
+text = "OccludableObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_furniture_chair2_3_0942/VBox"]
+text = "Chair2_3.png"

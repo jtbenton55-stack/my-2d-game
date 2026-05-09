@@ -1,0 +1,27 @@
+[gd_resource type="TileSet" format=3 uid="uid://dqa7xhhif1qms"]
+
+[ext_resource type="Texture2D" uid="uid://eggb5h1wlyj3" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CityWalls1_2.png" id="1_src"]
+[ext_resource type="Texture2D" uid="uid://tr88cleh7b4q" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CityWalls1_4.png" id="2_src"]
+[ext_resource type="Texture2D" uid="uid://btbknm6bmeuhs" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Door10_4.png" id="3_src"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0"]
+texture = ExtResource("1_src")
+texture_region_size = Vector2i(227, 180)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1"]
+texture = ExtResource("2_src")
+texture_region_size = Vector2i(230, 179)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2"]
+texture = ExtResource("3_src")
+texture_region_size = Vector2i(76, 116)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(128, 96)
+sources/0 = SubResource("TileSetAtlasSource_0")
+sources/1 = SubResource("TileSetAtlasSource_1")
+sources/2 = SubResource("TileSetAtlasSource_2")

@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "actual_source_pngs_used": true,
+  "contact_sheets_used_as_sources": false,
+  "tileset_resources_created": [
+    "res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres",
+    "res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres"
+  ],
+  "tilemap_layers_created": [
+    "res://scenes/hideout/HideoutHub.tscn::ArtRoot/World/FloorLayer/PVGamesFloorPaintLayer",
+    "res://scenes/hideout/HideoutHub.tscn::ArtRoot/World/WallLayer/PVGamesWallPaintLayer"
+  ],
+  "candidates": [
+    {
+      "asset_id": "pvg_floor_diamond_floormat1_2",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_2.png",
+      "region": [
+        67,
+        37
+      ],
+      "tile_size": [
+        64,
+        32
+      ],
+      "reason": "Measured diamond-ish floor mat; safe as a single visual-only paint tile.",
+      "category": "FLOOR_DIAMOND_OR_PATCH",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "pvg_floor_diamond_floormat1_4",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_4.png",
+      "region": [
+        63,
+        36
+      ],
+      "tile_size": [
+        64,
+        32
+      ],
+      "reason": "Measured diamond-ish floor mat variant; visual-only floor painting candidate.",
+      "category": "FLOOR_DIAMOND_OR_PATCH",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "pvg_floor_patch_floormat1_7",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/FloorMat1_7.png",
+      "region": [
+        76,
+        39
+      ],
+      "tile_size": [
+        64,
+        32
+      ],
+      "reason": "Small floor patch useful for guide/test paint marks; not gameplay collision.",
+      "category": "FLOOR_DIAMOND_OR_PATCH",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "pvg_wall_back_citywalls1_2",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CityWalls1_2.png",
+      "region": [
+        227,
+        180
+      ],
+      "tile_size": [
+        128,
+        96
+      ],
+      "reason": "Actual PVGames wall source used as a one-piece visual paint tile.",
+      "category": "WALL_OR_DOOR_WINDOW",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "pvg_wall_back_citywalls1_4",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CityWalls1_4.png",
+      "region": [
+        230,
+        179
+      ],
+      "tile_size": [
+        128,
+        96
+      ],
+      "reason": "Actual PVGames wall source used as a one-piece visual paint tile.",
+      "category": "WALL_OR_DOOR_WINDOW",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "pvg_door_window_door10_4",
+      "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Door10_4.png",
+      "region": [
+        76,
+        116
+      ],
+      "tile_size": [
+        64,
+        96
+      ],
+      "reason": "Door/window visual tile for wall-layer painting near entry/backdrop.",
+      "category": "WALL_OR_DOOR_WINDOW",
+      "decision": "created_visual_tileset_source",
+      "contact_sheet": false
+    },
+    {
+      "asset_id": "all_docs_reports_pvgames_palettes",
+      "path": "res://docs/reports/pvgames_palettes/*.png",
+      "category": "CONTACT_SHEET",
+      "decision": "excluded",
+      "contact_sheet": true,
+      "reason": "Contact sheets are browse-only menu images and must never be TileSet or Sprite2D production sources."
+    }
+  ]
+}

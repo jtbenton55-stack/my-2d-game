@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://b55kv6c174rlr"]
+
+[ext_resource type="PackedScene" path="res://scenes/hideout/tools/PVGEditableObject.tscn" id="1_lefgq"]
+[ext_resource type="Script" uid="uid://0mwvcpwcvuh4" path="res://src/hideout/PVGEditableObject.gd" id="2_e6d2s"]
+[ext_resource type="Texture2D" uid="uid://bsv7m0gugdofh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_FloorPanel1_7.png" id="3_20iri"]
+[ext_resource type="Texture2D" uid="uid://cp7tg15ci3qv5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png" id="4_e6d2s"]
+
+[node name="PVGamesObjectPaletteDockTest" type="Node2D" unique_id=847914544]
+
+[node name="Instructions" type="Label" parent="." unique_id=1957918494]
+offset_left = -520.0
+offset_top = -320.0
+offset_right = 820.0
+offset_bottom = -240.0
+text = "PVGames Object Palette Dock test scene. Enable the addon, select an object, dry-run, then stamp one object into ArtRoot/World/PVG_EditableObjects. Visual-only; no gameplay and no collision."
+autowrap_mode = 2
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=1789920512]
+
+[node name="World" type="Node2D" parent="ArtRoot" unique_id=595255236]
+
+[node name="PVG_EditableObjects" type="Node2D" parent="ArtRoot/World" unique_id=1945635906]
+
+[node name="BehindPlayerObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=1964737340]
+z_index = -120
+
+[node name="OccludableObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=968814773]
+z_index = 90
+
+[node name="PVG_Object_Wall_1_7_1107" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=684015372 instance=ExtResource("1_lefgq")]
+z_index = 90
+object_id = "pvg_obj_central_security_wall_interior_floorpanel1_7_1107"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_FloorPanel1_7.png"
+original_asset_id = "CS_0718"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "Use as an individually transformable Node2D/Sprite2D object; visual-only."
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/object_id = "pvg_obj_central_security_wall_interior_floorpanel1_7_1107"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_FloorPanel1_7.png"
+metadata/source_set = "central_security"
+metadata/category = "wall"
+metadata/recommended_container = "OccludableObjects"
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="Sprite2D2" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_7_1107" unique_id=884751605]
+position = Vector2(-214, -148)
+rotation = -3.0690732
+texture = ExtResource("3_20iri")
+
+[node name="ForegroundObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=1477733613]
+z_index = 160
+
+[node name="ReviewObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=16982304]
+z_index = -40
+
+[node name="IconObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=1156975172]
+
+[node name="BehindPlayerIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects" unique_id=727749578]
+z_index = -120
+
+[node name="PVG_Icon_MapPin_a21fba71" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=425969465 instance=ExtResource("1_lefgq")]
+z_index = -120
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_e6d2s")
+object_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/icon_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons/PVG_Icon_MapPin_a21fba71" unique_id=1168059972]
+position = Vector2(414.08344, -1079.0798)
+rotation = -2.8838184
+scale = Vector2(1.2, 0.90000004)
+texture = ExtResource("4_e6d2s")
+offset = Vector2(5.814087, -8.927185)

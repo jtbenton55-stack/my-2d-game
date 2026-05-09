@@ -35,6 +35,11 @@ signal dialogue_started(lines)
 @warning_ignore("unused_signal")
 signal dialogue_line_changed(speaker, text)
 @warning_ignore("unused_signal")
+## Phase 0M-C3 - emitted alongside `dialogue_line_changed` so the dialogue UI
+## can pick up the speaker's portrait_id (and any extra metadata) without
+## breaking the legacy two-arg signal that other listeners rely on.
+signal dialogue_line_changed_full(speaker, text, portrait_id, line_data)
+@warning_ignore("unused_signal")
 signal dialogue_ended
 @warning_ignore("unused_signal")
 signal card_selection_changed(selected_cards)

@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://bp80o5kfspnxx"]
+
+[ext_resource type="Script" uid="uid://0mwvcpwcvuh4" path="res://src/hideout/PVGEditableObject.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cltnntaeqicgn" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Wall11_2.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://begnldbnwp5qv" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png" id="3_tex"]
+[ext_resource type="Texture2D" uid="uid://coq46xn2jre1j" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/BiometricScanner1_3.png" id="4_tex"]
+[ext_resource type="Texture2D" uid="uid://nkxohjsee5a2" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_1.png" id="5_tex"]
+
+[node name="PVGamesObjectStamperTest" type="Node2D" unique_id=1530137388]
+
+[node name="Instructions" type="Label" parent="." unique_id=570179392]
+offset_left = -560.0
+offset_top = -340.0
+offset_right = 620.0
+offset_bottom = -230.0
+text = "PVGames editable objects: select one sample object, then move, scale, rotate, duplicate, or delete it independently. TileMapLayer remains for floors/repeated panels."
+autowrap_mode = 2
+
+[node name="PVG_EditableObjects" type="Node2D" parent="." unique_id=1144816682]
+
+[node name="BehindPlayerObjects" type="Node2D" parent="PVG_EditableObjects" unique_id=381499239]
+z_index = -120
+
+[node name="OccludableObjects" type="Node2D" parent="PVG_EditableObjects" unique_id=580495786]
+z_index = 90
+
+[node name="Sample_1_core_wall" type="Node2D" parent="PVG_EditableObjects/OccludableObjects" unique_id=1150448409]
+z_index = 90
+position = Vector2(-330, 0)
+script = ExtResource("1_script")
+object_id = "pvg_obj_core_wall_interior_wall11_2_0189"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Wall11_2.png"
+original_asset_id = "pvg_wall_back_interior_wall11_2_2dab58eb"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+alpha_bbox = Rect2(5, 3, 313, 155)
+notes = "Use as an individually transformable Node2D/Sprite2D object; visual-only."
+
+[node name="Sprite2D" type="Sprite2D" parent="PVG_EditableObjects/OccludableObjects/Sample_1_core_wall" unique_id=35792222]
+position = Vector2(-71.99999, -106.360596)
+rotation = 0.049608745
+scale = Vector2(0.9922118, 0.89877295)
+texture = ExtResource("2_tex")
+offset = Vector2(-1.2597961, 18.481419)
+
+[node name="Label_1" type="Label" parent="PVG_EditableObjects/OccludableObjects/Sample_1_core_wall" unique_id=653448616]
+offset_left = -80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = 80.0
+text = "wall: select parent node to transform only this object"
+
+[node name="Sample_3_central_security_terminal" type="Node2D" parent="PVG_EditableObjects/OccludableObjects" unique_id=594298954]
+z_index = 90
+position = Vector2(170, 0)
+rotation = 0.13962634
+script = ExtResource("1_script")
+object_id = "pvg_obj_central_security_terminal_biometricscanner1_3_0966"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/BiometricScanner1_3.png"
+original_asset_id = "CS_0051"
+object_category = "terminal"
+recommended_container = "OccludableObjects"
+alpha_bbox = Rect2(0, 0, 63, 93)
+notes = "Use as an individually transformable Node2D/Sprite2D object; visual-only."
+
+[node name="Sprite2D" type="Sprite2D" parent="PVG_EditableObjects/OccludableObjects/Sample_3_central_security_terminal" unique_id=1964183357]
+texture = ExtResource("4_tex")
+
+[node name="Label_3" type="Label" parent="PVG_EditableObjects/OccludableObjects/Sample_3_central_security_terminal" unique_id=850849117]
+offset_left = -80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = 80.0
+text = "terminal: select parent node to transform only this object"
+
+[node name="Sample_4_core_large_structure" type="Node2D" parent="PVG_EditableObjects/OccludableObjects" unique_id=710109517]
+z_index = 95
+position = Vector2(390, 0)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("1_script")
+object_id = "pvg_obj_core_large_structure_building13_1_0001"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_1.png"
+original_asset_id = "pvg_tileset_atlas_building13_1_7b8fbadd"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+alpha_bbox = Rect2(5, 4, 762, 787)
+notes = "Use as an individually transformable Node2D/Sprite2D object; visual-only."
+
+[node name="Sprite2D" type="Sprite2D" parent="PVG_EditableObjects/OccludableObjects/Sample_4_core_large_structure" unique_id=1386514474]
+position = Vector2(-4.3648376, 44.28392)
+rotation = -0.08633547
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_tex")
+offset = Vector2(204.0409, -27.286787)
+
+[node name="Label_4" type="Label" parent="PVG_EditableObjects/OccludableObjects/Sample_4_core_large_structure" unique_id=1310288147]
+offset_left = -80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = 80.0
+text = "large_structure: select parent node to transform only this object"
+
+[node name="ForegroundObjects" type="Node2D" parent="PVG_EditableObjects" unique_id=1039123255]
+z_index = 160
+
+[node name="ReviewObjects" type="Node2D" parent="PVG_EditableObjects" unique_id=243433302]
+z_index = -40
+
+[node name="Sample_2_central_security_barrier" type="Node2D" parent="PVG_EditableObjects/ReviewObjects" unique_id=720972053]
+z_index = -40
+position = Vector2(-80, 0)
+script = ExtResource("1_script")
+object_id = "pvg_obj_central_security_barrier_sandbag1_5_0614"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png"
+original_asset_id = "CS_1090"
+object_category = "barrier"
+recommended_container = "ReviewObjects"
+alpha_bbox = Rect2(0, 0, 59, 48)
+notes = "Use as an individually transformable Node2D/Sprite2D object; visual-only."
+
+[node name="Sprite2D" type="Sprite2D" parent="PVG_EditableObjects/ReviewObjects/Sample_2_central_security_barrier" unique_id=1678612081]
+rotation = 0.033079907
+texture = ExtResource("3_tex")
+
+[node name="Label_2" type="Label" parent="PVG_EditableObjects/ReviewObjects/Sample_2_central_security_barrier" unique_id=1454088111]
+offset_left = -80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = 80.0
+text = "barrier: select parent node to transform only this object"

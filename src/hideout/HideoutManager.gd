@@ -8,6 +8,11 @@ const PlacementZoneScript = preload("res://src/hideout/HideoutPlacementZone.gd")
 const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBridge.gd")
 const DecorationControllerScript = preload("res://src/hideout/HideoutDecorationController.gd")
 const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
+const HideoutCharacterDialogueBank = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+
+# Phase 0M-C3 - speaker IDs that should bypass the panel and fire the
+# DialogueBox (with left-side portrait support) directly.
+const _PORTRAIT_DIALOGUE_CHARACTER_IDS := ["jake", "mere", "parmida", "bentley", "louis"]
 
 @export var stations_path: NodePath
 @export var collision_path: NodePath
@@ -20,6 +25,8 @@ const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 @export var panel_path: NodePath
 @export var prompt_path: NodePath
 @export var debug_buttons_path: NodePath
+@export var show_runtime_graybox_debug := false
+@export var show_station_proxy_debug_labels := false
 
 var current_state := "fresh"
 var current_station_id := ""
@@ -72,10 +79,25 @@ func _process(_delta: float) -> void:
 func open_station(station_id: String, interactable: Node = null, _player: Node = null) -> void:
 	var normalized_id := Catalog.normalize_station_id(station_id)
 	current_station_id = normalized_id
+	# Phase 0M-C3: route the four anchor character interactions to the
+	# portrait-aware DialogueBox instead of the station panel. Other
+	# stations keep using the existing ScrollableStationPanel flow.
+	if normalized_id in _PORTRAIT_DIALOGUE_CHARACTER_IDS:
+		_open_character_portrait_dialogue(normalized_id)
+		return
 	var panel_data := _panel_data_for(normalized_id, interactable)
 	if _panel.has_method("clear_history"):
 		_panel.clear_history()
 	_panel.open_panel(String(panel_data.get("title", "Hideout Station")), String(panel_data.get("body", "")), panel_data.get("buttons", []))
+
+func _open_character_portrait_dialogue(speaker_id: String) -> void:
+	# Build a short sequence (3 lines) so the player gets a small dialogue
+	# experience but can advance through it quickly with E.
+	var lines: Array = HideoutCharacterDialogueBank.build_short_sequence(speaker_id, 3)
+	if lines.is_empty():
+		return
+	if DialogueManager.has_method("start_simple_dialogue"):
+		DialogueManager.start_simple_dialogue(lines)
 
 func apply_debug_state(state_id: String) -> void:
 	_ensure_state_controller()
@@ -320,15 +342,15 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 			_show_feedback("Under Construction", "Action '%s' is under construction, but it did not crash." % action_id)
 
 func _build_world_layers() -> void:
-	_clear_children(_world.get_node("FloorLayer"))
-	_clear_children(_world.get_node("WallLayer"))
-	_clear_children(_world.get_node("DecorationLayer"))
+	_clear_runtime_graybox_visuals()
+	if not show_runtime_graybox_debug:
+		return
 	var floor_layer := _world.get_node("FloorLayer")
-	var floor := Polygon2D.new()
-	floor.name = "IrregularGarageGreenhouseFloor"
-	floor.polygon = _floor_polygon()
-	floor.color = Color(0.12, 0.12, 0.13, 1)
-	floor_layer.add_child(floor)
+	var floor_poly := Polygon2D.new()
+	floor_poly.name = "IrregularGarageGreenhouseFloor"
+	floor_poly.polygon = _floor_polygon()
+	floor_poly.color = Color(0.12, 0.12, 0.13, 1)
+	floor_layer.add_child(floor_poly)
 	var guide := Line2D.new()
 	guide.name = "DashedCirculationPath"
 	guide.width = 4.0
@@ -353,11 +375,12 @@ func _build_navigation_collision() -> void:
 	walk.name = "WalkableAreaPolygon"
 	walk.polygon = _floor_polygon()
 	walk.color = Color(0.2, 0.45, 0.25, 0.18)
+	walk.visible = show_runtime_graybox_debug
 	_walkable_area.add_child(walk)
 
 func _build_stations() -> void:
 	_clear_children(_stations)
-	_clear_children(_world.get_node("PropLayer"))
+	_clear_runtime_station_visuals()
 	for entry in Catalog.stations():
 		var station = InteractableScript.new()
 		station.name = String(entry["node_name"])
@@ -399,9 +422,11 @@ func _build_stations() -> void:
 		proxy_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
 		proxy_label.add_theme_constant_override("outline_size", 4)
 		proxy_label.add_theme_font_size_override("font_size", 16)
+		proxy_label.visible = show_station_proxy_debug_labels
 		station.add_child(proxy_label)
 		_stations.add_child(station)
-		_make_station_visual(entry)
+		if show_runtime_graybox_debug:
+			_make_station_visual(entry)
 
 func _make_station_visual(entry: Dictionary) -> void:
 	var prop_layer := _world.get_node("PropLayer")
@@ -765,7 +790,7 @@ func _apply_world_z_order() -> void:
 	var gameplay_root := get_parent().get_parent()
 	if gameplay_root is Node2D:
 		gameplay_root.z_index = 0
-	_world.z_index = -250
+	_world.z_index = 0
 	var layer_z := {
 		"FloorLayer": -300,
 		"WallLayer": -200,
@@ -773,8 +798,14 @@ func _apply_world_z_order() -> void:
 		"DecorationLayer": -80,
 		"CollectibleLayer": -60,
 		"CharacterVisualLayer": 10,
+		"PVG_CatalogPaintLayers": -300,
+		"PVG_DepthPaintLayers": 0,
+		"PVG_CentralSecurityPaintLayers": -300,
+		"PVG_CentralSecurityDepthPaintLayers": 0,
+		"QuarantinedOldPVGamesVisuals_0MB5": -500,
 		"ForegroundLayer": 150,
 		"LightingLayer": 200,
+		"EditorGuideLayer": 260,
 	}
 	for layer_name in layer_z.keys():
 		var layer := _world.get_node_or_null(layer_name)
@@ -793,6 +824,35 @@ func _position_player_spawn() -> void:
 	var player := _characters.get_node_or_null("Player")
 	if player is Node2D:
 		player.position = Vector2(650, 360)
+
+func _clear_runtime_graybox_visuals() -> void:
+	for path in ["FloorLayer", "WallLayer", "DecorationLayer"]:
+		var layer := _world.get_node_or_null(path)
+		if layer != null:
+			for child in layer.get_children():
+				if not _is_runtime_graybox_visual(child):
+					continue
+				child.free()
+
+func _clear_runtime_station_visuals() -> void:
+	var prop_layer := _world.get_node_or_null("PropLayer")
+	if prop_layer == null:
+		return
+	for child in prop_layer.get_children():
+		if String(child.name).begins_with("Visual_"):
+			child.free()
+
+func _is_runtime_graybox_visual(node: Node) -> bool:
+	var node_name := String(node.name)
+	return node_name in [
+		"IrregularGarageGreenhouseFloor",
+		"DashedCirculationPath",
+		"GreenhouseAlcoveGlass",
+		"CozyLoungeRug",
+		"BentleyBedPlaceholder",
+		"SchemeCardSlotsPlaceholder",
+		"OpenDecorDashedZone",
+	] or node_name.begins_with("Label_")
 
 func _clear_children(parent: Node) -> void:
 	for child in parent.get_children():

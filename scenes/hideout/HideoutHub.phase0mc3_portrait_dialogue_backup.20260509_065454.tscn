@@ -1,0 +1,2868 @@
+[gd_scene format=4 uid="uid://shun0dp3vh7p"]
+
+[ext_resource type="Script" uid="uid://b4yoa3a4xdqne" path="res://src/hideout/HideoutManager.gd" id="1_manager"]
+[ext_resource type="PackedScene" uid="uid://bq5w7v5v5o5v5" path="res://scenes/characters/player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://bpnbrytsfvnwr" path="res://src/hideout/ScrollableStationPanel.gd" id="3_panel"]
+[ext_resource type="Script" uid="uid://tiay00gopj42" path="res://src/hideout/HideoutMissionBoardController.gd" id="4_mission"]
+[ext_resource type="Script" uid="uid://wytk0q2ikyod" path="res://src/hideout/HideoutEvidenceBoardController.gd" id="5_evidence"]
+[ext_resource type="Script" uid="uid://coa0wt4dv5g4i" path="res://src/hideout/HideoutSchemeCardController.gd" id="6_scheme"]
+[ext_resource type="Script" uid="uid://g4ppepln6skj" path="res://src/hideout/HideoutCollectibleController.gd" id="7_collect"]
+[ext_resource type="Script" uid="uid://qeb4nduhbol2" path="res://src/hideout/HideoutCareController.gd" id="8_care"]
+[ext_resource type="Script" uid="uid://c1e3dkafq7764" path="res://src/hideout/HideoutStoreController.gd" id="9_store"]
+[ext_resource type="Script" uid="uid://dhqn4o1a3jw6m" path="res://src/hideout/HideoutCharacterController.gd" id="10_chars"]
+[ext_resource type="Script" uid="uid://cxbp0yoq3mngi" path="res://src/hideout/HideoutDebugController.gd" id="11_debug"]
+[ext_resource type="Script" uid="uid://cevl3trvym7wh" path="res://src/hideout/HideoutInteractionBridge.gd" id="12_bridge"]
+[ext_resource type="Script" uid="uid://dggjabb187qi3" path="res://src/hideout/HideoutStateController.gd" id="13_state"]
+[ext_resource type="Script" uid="uid://63gkruvgqi5w" path="res://src/hideout/HideoutDecorationController.gd" id="14_decor"]
+[ext_resource type="Script" uid="uid://b60vd6dxqsi3w" path="res://src/hideout/HideoutPVGamesVisualHelper.gd" id="15_pvgames"]
+[ext_resource type="Script" uid="uid://cbods3qqdl07u" path="res://src/tools/editor/HideoutEditorGuideLayer.gd" id="16_editor_guide"]
+[ext_resource type="TileSet" uid="uid://ibltak3562ys" path="res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres" id="17_pvg_floor_tileset"]
+[ext_resource type="TileSet" uid="uid://dqa7xhhif1qms" path="res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres" id="18_pvg_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://d3lsijqt58ye6" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres" id="19_catalog_ground_tileset"]
+[ext_resource type="TileSet" uid="uid://g520i3e3pmlk" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres" id="20_catalog_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://b84807ofrjci7" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres" id="21_catalog_large_tileset"]
+[ext_resource type="TileSet" uid="uid://c6qb4k3clyg73" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres" id="22_catalog_prop_tileset"]
+[ext_resource type="TileSet" uid="uid://blmypg5mkbaou" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres" id="23_cs_ground_tileset"]
+[ext_resource type="TileSet" uid="uid://njdg4s38yojw" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres" id="24_cs_wall_tileset"]
+[ext_resource type="TileSet" uid="uid://e8g35aemoodk" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres" id="25_cs_large_tileset"]
+[ext_resource type="TileSet" uid="uid://dn76r6jrjcmyy" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres" id="26_cs_prop_tileset"]
+[ext_resource type="PackedScene" path="res://scenes/hideout/tools/PVGEditableObject.tscn" id="26_h7giq"]
+[ext_resource type="Script" uid="uid://0mwvcpwcvuh4" path="res://src/hideout/PVGEditableObject.gd" id="27_ku8k1"]
+[ext_resource type="Texture2D" uid="uid://nkxohjsee5a2" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_1.png" id="28_nfamd"]
+[ext_resource type="Texture2D" uid="uid://bh5bn5jf261m5" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building23_2.png" id="29_70353"]
+[ext_resource type="Texture2D" uid="uid://ds77r7g07git0" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_3.png" id="30_avso3"]
+[ext_resource type="Texture2D" uid="uid://c4u54kdtvke7p" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_6.png" id="31_dk1m2"]
+[ext_resource type="Texture2D" uid="uid://b8oc7qcwlbc33" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Door5_5.png" id="33_88tc3"]
+[ext_resource type="Texture2D" uid="uid://do7qjvfao3dri" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table2_2.png" id="36_url7a"]
+[ext_resource type="Texture2D" uid="uid://cp7tg15ci3qv5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png" id="36_v57vr"]
+[ext_resource type="Texture2D" uid="uid://cwft0n5bnnt55" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Arcade_3.png" id="37_25xoh"]
+[ext_resource type="Texture2D" uid="uid://cidbpqlrfu2uk" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard19_1.png" id="37_vin0w"]
+[ext_resource type="Texture2D" uid="uid://cq14kuydj2dc" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard17_8.png" id="38_st5vc"]
+[ext_resource type="Texture2D" uid="uid://cyd4ho56ayrge" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_6.png" id="38_ysnbw"]
+[ext_resource type="Texture2D" uid="uid://dultn5jxx81r4" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard1_1.png" id="39_dcob4"]
+[ext_resource type="Texture2D" uid="uid://ctwjkeqrh2ju8" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_7.png" id="39_yhu53"]
+[ext_resource type="Texture2D" uid="uid://4v2wkf3s0qrm" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant9.png" id="40_dcmvo"]
+[ext_resource type="Texture2D" uid="uid://dm4q5w6t1j6ki" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard14_1.png" id="40_xews0"]
+[ext_resource type="Texture2D" uid="uid://rpgw7yne0tkr" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard20_1.png" id="41_o5iga"]
+[ext_resource type="Texture2D" uid="uid://v1cp5dklnday" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant8.png" id="41_xjisj"]
+[ext_resource type="Texture2D" uid="uid://bgjn0t3i8gmbn" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard4_6.png" id="42_3gv0o"]
+[ext_resource type="Texture2D" uid="uid://c7g6dkfs2bldp" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant7.png" id="42_iuoe0"]
+[ext_resource type="Texture2D" uid="uid://b7r5kuaxh78on" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant6.png" id="43_2fd4q"]
+[ext_resource type="Texture2D" uid="uid://cfocnj0dhfy30" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building24_6.png" id="43_7w0ex"]
+[ext_resource type="Texture2D" uid="uid://intcx33vbtq7" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building26_1.png" id="44_sxvhr"]
+[ext_resource type="Texture2D" uid="uid://cxxgcvswjnw42" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant5.png" id="44_url7a"]
+[ext_resource type="Texture2D" uid="uid://dcdyuvbt24kjq" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building30_5.png" id="45_47dms"]
+[ext_resource type="Texture2D" uid="uid://new5geh04mj3" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant4.png" id="45_vin0w"]
+[ext_resource type="Texture2D" uid="uid://cbnech06p20hf" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building36_2.png" id="46_ino2u"]
+[ext_resource type="Texture2D" uid="uid://b62qxwj0lx28w" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building6_1.png" id="47_6jbeu"]
+[ext_resource type="Texture2D" uid="uid://d1idhupb2uy44" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk10_1.png" id="48_rrb2h"]
+[ext_resource type="Texture2D" uid="uid://c8t3lx2xylpm1" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk1_1.png" id="49_obwmw"]
+[ext_resource type="Texture2D" uid="uid://dbuqcnucqr5gp" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk3_1.png" id="50_1ef1v"]
+[ext_resource type="Texture2D" uid="uid://ektqpsr408ar" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_5.png" id="51_ao004"]
+[ext_resource type="Texture2D" uid="uid://6bqil6t2n0k4" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk9_2.png" id="51_g2604"]
+[ext_resource type="Texture2D" uid="uid://bdhf5srcxtcvx" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table4_1.png" id="52_rrb2h"]
+[ext_resource type="Texture2D" uid="uid://cs5a4qiox1j78" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_2.png" id="52_txdng"]
+[ext_resource type="Texture2D" uid="uid://bb01dsj84jphi" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_1.png" id="53_pgjbv"]
+[ext_resource type="Texture2D" uid="uid://d4i22fp7anara" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_1.png" id="53_u70oh"]
+[ext_resource type="Texture2D" uid="uid://cr1mcsuagyfb0" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/WallTable1_3.png" id="54_hl6s5"]
+[ext_resource type="Texture2D" uid="uid://3cqv8yul7d3q" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_5.png" id="55_djpe6"]
+[ext_resource type="Texture2D" uid="uid://7iu4u0417emg" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Map2.png" id="56_4m6lb"]
+[ext_resource type="Texture2D" uid="uid://68iw7hxa6ajh" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_4.png" id="57_pgjbv"]
+[ext_resource type="Texture2D" uid="uid://c1k7dp1ihos8y" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_5.png" id="58_djpe6"]
+[ext_resource type="Texture2D" uid="uid://bmuw6qm6lke1d" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png" id="58_hl6s5"]
+[ext_resource type="Texture2D" uid="uid://s4ikcr6c7gat" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png" id="59_v56th"]
+[ext_resource type="Texture2D" uid="uid://bjehpx3gvjaye" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard2.png" id="65_obwmw"]
+[ext_resource type="Texture2D" uid="uid://canhdtdufnf3" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard3.png" id="66_1ef1v"]
+[ext_resource type="Texture2D" uid="uid://djvi87ragu4hu" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/ComputerStation_1.png" id="67_g2604"]
+[ext_resource type="Texture2D" uid="uid://cjk8l0wp4rf83" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug3.png" id="68_5nexi"]
+[ext_resource type="Texture2D" uid="uid://dqi8gfgo32tx6" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug2.png" id="69_u70oh"]
+[ext_resource type="Texture2D" uid="uid://bc4kq3lojw7el" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Box_3.png" id="70_xreo1"]
+[ext_resource type="Texture2D" uid="uid://b6iljqbc0jr0y" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_1.png" id="71_4m6lb"]
+[ext_resource type="Texture2D" uid="uid://58fc7f643njj" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_2.png" id="72_e70ah"]
+[ext_resource type="Texture2D" uid="uid://n5u0uilmu5jd" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Shelf1.png" id="73_bcpxl"]
+[ext_resource type="Texture2D" uid="uid://k63bxnxi3eb0" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bookshelf_2.png" id="74_vergk"]
+[ext_resource type="Texture2D" uid="uid://cqsm46cgjerto" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bookshelf_1.png" id="75_o8gqa"]
+[ext_resource type="Texture2D" uid="uid://crkrlf54fsuw5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Microwave1.png" id="79_v56th"]
+[ext_resource type="Texture2D" uid="uid://dh4pd5pv8eloe" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/TV3.png" id="81_c45sx"]
+[ext_resource type="Texture2D" uid="uid://wwbaouh7pf5k" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/BeanBagChair_1.png" id="82_hxikw"]
+[ext_resource type="Texture2D" uid="uid://baq25gm8igmpj" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Chair_12.png" id="83_apwit"]
+[ext_resource type="Texture2D" uid="uid://7f2ejjl6v1ob" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/FoodShelves_1.png" id="84_d0ede"]
+[ext_resource type="Texture2D" uid="uid://cdbrtfqm50gn5" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_7.png" id="85_a635s"]
+[ext_resource type="Texture2D" uid="uid://c3c2gbo2hgxfl" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_6.png" id="86_npk65"]
+[ext_resource type="Texture2D" uid="uid://dnbivk6pbgpmm" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/SideTable_3.png" id="87_wvg0s"]
+[ext_resource type="Texture2D" uid="uid://bygrhbomrw4py" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Table_3.png" id="88_csla5"]
+[ext_resource type="Texture2D" uid="uid://c4f4otjrf861t" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CoffeeTable_1.png" id="89_2sbhc"]
+[ext_resource type="Texture2D" uid="uid://ckeexbw76bl66" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png" id="90_wnxwy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.02, 0.025, 0.035, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.2, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HideoutHubRoot" type="Node2D" unique_id=487578141]
+
+[node name="GameplayRoot" type="Node2D" parent="." unique_id=1201344027]
+
+[node name="Navigation" type="Node2D" parent="GameplayRoot" unique_id=1191231718]
+
+[node name="Collision" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1689018670]
+
+[node name="WalkableArea" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1437087878]
+
+[node name="InteractionAreas" type="Node2D" parent="GameplayRoot/Navigation" unique_id=1019855838]
+
+[node name="SpawnMarkers" type="Node2D" parent="GameplayRoot" unique_id=658206176]
+
+[node name="Marker_PlayerSpawn_Return" type="Marker2D" parent="GameplayRoot/SpawnMarkers" unique_id=1768419331]
+position = Vector2(650, 300)
+
+[node name="Marker_PlayerSpawn_FromMenu" type="Marker2D" parent="GameplayRoot/SpawnMarkers" unique_id=642429949]
+position = Vector2(610, 300)
+
+[node name="Stations" type="Node2D" parent="GameplayRoot" unique_id=825694065]
+z_index = 25
+
+[node name="Characters" type="Node2D" parent="GameplayRoot" unique_id=1690159642]
+z_index = 20
+
+[node name="Player" parent="GameplayRoot/Characters" unique_id=1775997568 instance=ExtResource("2_player")]
+z_index = 30
+position = Vector2(650, 360)
+
+[node name="Camera2D" type="Camera2D" parent="GameplayRoot/Characters/Player" unique_id=35175795]
+position = Vector2(0, -40)
+zoom = Vector2(0.85, 0.85)
+
+[node name="PlacementZones" type="Node2D" parent="GameplayRoot" unique_id=244743811]
+z_index = 5
+
+[node name="SnapMarkers" type="Node2D" parent="GameplayRoot" unique_id=400577326]
+
+[node name="Managers" type="Node" parent="GameplayRoot" unique_id=802787308]
+
+[node name="HideoutManager" type="Node" parent="GameplayRoot/Managers" unique_id=976281017]
+script = ExtResource("1_manager")
+stations_path = NodePath("../../Stations")
+collision_path = NodePath("../../Navigation/Collision")
+walkable_area_path = NodePath("../../Navigation/WalkableArea")
+interaction_areas_path = NodePath("../../Navigation/InteractionAreas")
+placement_zones_path = NodePath("../../PlacementZones")
+snap_markers_path = NodePath("../../SnapMarkers")
+characters_path = NodePath("../../Characters")
+art_world_path = NodePath("../../../ArtRoot/World")
+panel_path = NodePath("../../../UI/ScrollableStationPanel")
+prompt_path = NodePath("../../../UI/InteractionPrompt")
+debug_buttons_path = NodePath("../../../UI/DebugHideoutPanel/MarginContainer/VBoxContainer/Buttons")
+
+[node name="HideoutInteractionBridge" type="Node" parent="GameplayRoot/Managers" unique_id=1357120433]
+script = ExtResource("12_bridge")
+player_path = NodePath("../../Characters/Player")
+
+[node name="HideoutMissionBoardController" type="Node" parent="GameplayRoot/Managers" unique_id=1753002472]
+script = ExtResource("4_mission")
+
+[node name="HideoutEvidenceBoardController" type="Node" parent="GameplayRoot/Managers" unique_id=771512984]
+script = ExtResource("5_evidence")
+
+[node name="HideoutSchemeCardController" type="Node" parent="GameplayRoot/Managers" unique_id=644333784]
+script = ExtResource("6_scheme")
+
+[node name="HideoutCollectibleController" type="Node" parent="GameplayRoot/Managers" unique_id=233466571]
+script = ExtResource("7_collect")
+
+[node name="HideoutCareController" type="Node" parent="GameplayRoot/Managers" unique_id=458735003]
+script = ExtResource("8_care")
+
+[node name="HideoutStoreController" type="Node" parent="GameplayRoot/Managers" unique_id=609467248]
+script = ExtResource("9_store")
+
+[node name="HideoutCharacterController" type="Node" parent="GameplayRoot/Managers" unique_id=296757617]
+script = ExtResource("10_chars")
+
+[node name="HideoutDebugController" type="Node" parent="GameplayRoot/Managers" unique_id=2110207345]
+script = ExtResource("11_debug")
+
+[node name="HideoutStateController" type="Node" parent="GameplayRoot/Managers" unique_id=2069836511]
+script = ExtResource("13_state")
+
+[node name="HideoutDecorationController" type="Node" parent="GameplayRoot/Managers" unique_id=1156261227]
+script = ExtResource("14_decor")
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=2000779595]
+
+[node name="World" type="Node2D" parent="ArtRoot" unique_id=1637675921]
+y_sort_enabled = true
+
+[node name="FloorLayer" type="Node2D" parent="ArtRoot/World" unique_id=695721113]
+z_index = -300
+
+[node name="PVGamesFloorPaintLayer" type="TileMapLayer" parent="ArtRoot/World/FloorLayer" unique_id=876231211]
+z_index = 20
+tile_set = ExtResource("17_pvg_floor_tileset")
+collision_enabled = false
+
+[node name="WallLayer" type="Node2D" parent="ArtRoot/World" unique_id=1688318956]
+z_index = -200
+
+[node name="PVGamesWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/WallLayer" unique_id=548706521]
+z_index = 20
+tile_set = ExtResource("18_pvg_wall_tileset")
+collision_enabled = false
+
+[node name="PropLayer" type="Node2D" parent="ArtRoot/World" unique_id=1318158258]
+z_index = -100
+
+[node name="DecorationLayer" type="Node2D" parent="ArtRoot/World" unique_id=22219634]
+z_index = -80
+
+[node name="PlacedDecor" type="Node2D" parent="ArtRoot/World/DecorationLayer" unique_id=778562246]
+
+[node name="CollectibleLayer" type="Node2D" parent="ArtRoot/World" unique_id=1780186425]
+z_index = -60
+
+[node name="CharacterVisualLayer" type="Node2D" parent="ArtRoot/World" unique_id=1196946030]
+z_index = 10
+
+[node name="ForegroundLayer" type="Node2D" parent="ArtRoot/World" unique_id=1044232327]
+z_index = 150
+
+[node name="LightingLayer" type="Node2D" parent="ArtRoot/World" unique_id=205896582]
+z_index = 200
+
+[node name="EditorGuideLayer" type="Node2D" parent="ArtRoot/World" unique_id=335662116]
+z_index = 260
+script = ExtResource("16_editor_guide")
+
+[node name="GuideTitle" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1841614425]
+offset_left = -1040.0
+offset_top = -760.0
+offset_right = -1040.0
+offset_bottom = -760.0
+theme_override_colors/font_color = Color(0.4, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "EDITOR ART PLACEMENT GUIDE - visual only, hidden on play"
+
+[node name="PlayableFloorFootprint" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1523757165]
+color = Color(0.1, 0.55, 0.75, 0.14)
+polygon = PackedVector2Array(-960, -250, -820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430, 960, -260, 960, 340, 800, 500, 470, 500, 330, 420, -360, 420, -500, 520, -900, 520, -1040, 360, -1040, -120)
+
+[node name="PlayableBoundaryOutline" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=701183974]
+points = PackedVector2Array(-960, -250, -820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430, 960, -260, 960, 340, 800, 500, 470, 500, 330, 420, -360, 420, -500, 520, -900, 520, -1040, 360, -1040, -120, -960, -250)
+width = 8.0
+default_color = Color(0.3, 0.95, 1, 0.75)
+
+[node name="WallPaintGuideNorth" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1176717041]
+points = PackedVector2Array(-820, -430, -500, -430, -430, -690, 430, -690, 500, -430, 790, -430)
+width = 5.0
+default_color = Color(1, 0.72, 0.18, 0.78)
+
+[node name="WallPaintGuideWest" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1461864710]
+points = PackedVector2Array(-960, -250, -820, -430, -1040, -120, -1040, 360, -900, 520)
+width = 5.0
+default_color = Color(1, 0.72, 0.18, 0.65)
+
+[node name="WallPaintHintNorth" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1171600893]
+offset_left = -205.0
+offset_top = -735.0
+offset_right = -205.0
+offset_bottom = -735.0
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 0.9)
+theme_override_font_sizes/font_size = 18
+text = "Paint walls/windows along this edge"
+
+[node name="DecorHint" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=2073313152]
+offset_left = 245.0
+offset_top = 330.0
+offset_right = 245.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(0.6, 1, 0.85, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "Keep open for decor placement"
+
+[node name="GuideBox_EntryExitDoor" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1288005719]
+position = Vector2(760, 430)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -95, 110, -95, 110, 95, -110, 95)
+
+[node name="GuideOutline_EntryExitDoor" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1247705996]
+position = Vector2(760, 430)
+points = PackedVector2Array(-110, -95, 110, -95, 110, 95, -110, 95, -110, -95)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_EntryExitDoor" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1666003911]
+offset_left = 658.0
+offset_top = 341.0
+offset_right = 658.0
+offset_bottom = 341.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "ENTRY / EXIT"
+
+[node name="GuideHint_EntryExitDoor" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1357200236]
+offset_left = 658.0
+offset_top = 501.0
+offset_right = 658.0
+offset_bottom = 501.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Paint door/wall art here; keep gameplay marker"
+
+[node name="GuideBox_BentleyCareStation" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1539817313]
+position = Vector2(520, 330)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-85, -55, 85, -55, 85, 55, -85, 55)
+
+[node name="GuideOutline_BentleyCareStation" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2009978995]
+position = Vector2(520, 330)
+points = PackedVector2Array(-85, -55, 85, -55, 85, 55, -85, 55, -85, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_BentleyCareStation" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=226603092]
+offset_left = 443.0
+offset_top = 281.0
+offset_right = 443.0
+offset_bottom = 281.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "BENTLEY CARE"
+
+[node name="GuideHint_BentleyCareStation" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1600862795]
+offset_left = 443.0
+offset_top = 361.0
+offset_right = 443.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Care props/signage; leave proxy clear"
+
+[node name="GuideBox_LootCrateDropZone" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1428362090]
+position = Vector2(210, 350)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-75, -60, 75, -60, 75, 60, -75, 60)
+
+[node name="GuideOutline_LootCrateDropZone" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=174121459]
+position = Vector2(210, 350)
+points = PackedVector2Array(-75, -60, 75, -60, 75, 60, -75, 60, -75, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_LootCrateDropZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1304438674]
+offset_left = 143.0
+offset_top = 296.0
+offset_right = 143.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "LOOT CRATE"
+
+[node name="GuideHint_LootCrateDropZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=704961271]
+offset_left = 143.0
+offset_top = 386.0
+offset_right = 143.0
+offset_bottom = 386.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Delivery crates and reward props"
+
+[node name="GuideBox_Bentley" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=284909801]
+position = Vector2(-760, 350)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-80, -60, 80, -60, 80, 60, -80, 60)
+
+[node name="GuideOutline_Bentley" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=131456582]
+position = Vector2(-760, 350)
+points = PackedVector2Array(-80, -60, 80, -60, 80, 60, -80, 60, -80, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Bentley" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1180777345]
+offset_left = -832.0
+offset_top = 296.0
+offset_right = -832.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "BENTLEY"
+
+[node name="GuideHint_Bentley" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=389200460]
+offset_left = -832.0
+offset_top = 386.0
+offset_right = -832.0
+offset_bottom = 386.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Cozy dog zone"
+
+[node name="GuideBox_Jake" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1208478859]
+position = Vector2(-560, 300)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50)
+
+[node name="GuideOutline_Jake" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=262867205]
+position = Vector2(-560, 300)
+points = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50, -65, -50)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Jake" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=547375368]
+offset_left = -617.0
+offset_top = 256.0
+offset_right = -617.0
+offset_bottom = 256.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "JAKE"
+
+[node name="GuideHint_Jake" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=663812862]
+offset_left = -617.0
+offset_top = 326.0
+offset_right = -617.0
+offset_bottom = 326.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Character corner"
+
+[node name="GuideBox_Mere" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1099168646]
+position = Vector2(-420, 300)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50)
+
+[node name="GuideOutline_Mere" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1914371996]
+position = Vector2(-420, 300)
+points = PackedVector2Array(-65, -50, 65, -50, 65, 50, -65, 50, -65, -50)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_Mere" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=779352391]
+offset_left = -477.0
+offset_top = 256.0
+offset_right = -477.0
+offset_bottom = 256.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "MERE"
+
+[node name="GuideHint_Mere" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=482321660]
+offset_left = -477.0
+offset_top = 326.0
+offset_right = -477.0
+offset_bottom = 326.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Character corner"
+
+[node name="GuideBox_MissionBoard" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1954767098]
+position = Vector2(520, -410)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-115, -60, 115, -60, 115, 60, -115, 60)
+
+[node name="GuideOutline_MissionBoard" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=673119993]
+position = Vector2(520, -410)
+points = PackedVector2Array(-115, -60, 115, -60, 115, 60, -115, 60, -115, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_MissionBoard" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=545536441]
+offset_left = 413.0
+offset_top = -464.0
+offset_right = 413.0
+offset_bottom = -464.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "MISSION BOARD"
+
+[node name="GuideHint_MissionBoard" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1785893077]
+offset_left = 413.0
+offset_top = -374.0
+offset_right = 413.0
+offset_bottom = -374.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Screens, signs, planning glow"
+
+[node name="GuideBox_EvidenceBoard_TheBigCase" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1833386915]
+position = Vector2(0, -405)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-130, -60, 130, -60, 130, 60, -130, 60)
+
+[node name="GuideOutline_EvidenceBoard_TheBigCase" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2129918386]
+position = Vector2(0, -405)
+points = PackedVector2Array(-130, -60, 130, -60, 130, 60, -130, 60, -130, -60)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_EvidenceBoard_TheBigCase" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=395537753]
+offset_left = -122.0
+offset_top = -459.0
+offset_right = -122.0
+offset_bottom = -459.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "THE BIG CASE"
+
+[node name="GuideHint_EvidenceBoard_TheBigCase" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1729002831]
+offset_left = -122.0
+offset_top = -369.0
+offset_right = -122.0
+offset_bottom = -369.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Evidence board/back wall"
+
+[node name="GuideBox_GreenhouseAlcove" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=501862791]
+position = Vector2(0, -610)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-380, -70, 380, -70, 380, 70, -380, 70)
+
+[node name="GuideOutline_GreenhouseAlcove" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1857519609]
+position = Vector2(0, -610)
+points = PackedVector2Array(-380, -70, 380, -70, 380, 70, -380, 70, -380, -70)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_GreenhouseAlcove" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=796867747]
+offset_left = -372.0
+offset_top = -674.0
+offset_right = -372.0
+offset_bottom = -674.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "GREENHOUSE"
+
+[node name="GuideHint_GreenhouseAlcove" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=2137073035]
+offset_left = -372.0
+offset_top = -564.0
+offset_right = -372.0
+offset_bottom = -564.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Glass, plants, soft lighting"
+
+[node name="GuideBox_PlanningTable" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2053745132]
+position = Vector2(0, 20)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-210, -115, 210, -115, 210, 115, -210, 115)
+
+[node name="GuideOutline_PlanningTable" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=897673387]
+position = Vector2(0, 20)
+points = PackedVector2Array(-210, -115, 210, -115, 210, 115, -210, 115, -210, -115)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PlanningTable" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=240151706]
+offset_left = -202.0
+offset_top = -89.0
+offset_right = -202.0
+offset_bottom = -89.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "PLANNING TABLE"
+
+[node name="GuideHint_PlanningTable" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=694898606]
+offset_left = -202.0
+offset_top = 111.0
+offset_right = -202.0
+offset_bottom = 111.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Tabletop props and screens"
+
+[node name="GuideBox_PolaroidWall" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=2013991210]
+position = Vector2(-850, -230)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -65, 110, -65, 110, 65, -110, 65)
+
+[node name="GuideOutline_PolaroidWall" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1258207280]
+position = Vector2(-850, -230)
+points = PackedVector2Array(-110, -65, 110, -65, 110, 65, -110, 65, -110, -65)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PolaroidWall" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1327192907]
+offset_left = -952.0
+offset_top = -289.0
+offset_right = -952.0
+offset_bottom = -289.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "POLAROID WALL"
+
+[node name="GuideHint_PolaroidWall" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1992356615]
+offset_left = -952.0
+offset_top = -189.0
+offset_right = -952.0
+offset_bottom = -189.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Photo wall/display frames"
+
+[node name="GuideBox_GlowGuyShelf" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=441425502]
+position = Vector2(-880, -40)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_GlowGuyShelf" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1728822806]
+position = Vector2(-880, -40)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_GlowGuyShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=35759332]
+offset_left = -982.0
+offset_top = -89.0
+offset_right = -982.0
+offset_bottom = -89.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "GLOW GUY SHELF"
+
+[node name="GuideHint_GlowGuyShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=163664999]
+offset_left = -982.0
+offset_top = -9.0
+offset_right = -982.0
+offset_bottom = -9.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Collectible shelf"
+
+[node name="GuideBox_TinyIconShelf" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1994835849]
+position = Vector2(-880, 110)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_TinyIconShelf" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1253682739]
+position = Vector2(-880, 110)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_TinyIconShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=351319601]
+offset_left = -982.0
+offset_top = 61.0
+offset_right = -982.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "TINY ICON SHELF"
+
+[node name="GuideHint_TinyIconShelf" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1054005448]
+offset_left = -982.0
+offset_top = 141.0
+offset_right = -982.0
+offset_bottom = 141.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Small collectible shelf"
+
+[node name="GuideBox_PoopBagCareDisplay" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=939590900]
+position = Vector2(-840, 250)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55)
+
+[node name="GuideOutline_PoopBagCareDisplay" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=514317475]
+position = Vector2(-840, 250)
+points = PackedVector2Array(-110, -55, 110, -55, 110, 55, -110, 55, -110, -55)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_PoopBagCareDisplay" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=536238477]
+offset_left = -942.0
+offset_top = 201.0
+offset_right = -942.0
+offset_bottom = 201.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "POOP BAG DISPLAY"
+
+[node name="GuideHint_PoopBagCareDisplay" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=679150118]
+offset_left = -942.0
+offset_top = 281.0
+offset_right = -942.0
+offset_bottom = 281.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Care display/storage"
+
+[node name="GuideBox_StoreTerminal" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=625095797]
+position = Vector2(790, -80)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-125, -85, 125, -85, 125, 85, -125, 85)
+
+[node name="GuideOutline_StoreTerminal" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=829647629]
+position = Vector2(790, -80)
+points = PackedVector2Array(-125, -85, 125, -85, 125, 85, -125, 85, -125, -85)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_StoreTerminal" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=350957862]
+offset_left = 673.0
+offset_top = -159.0
+offset_right = 673.0
+offset_bottom = -159.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "STORE"
+
+[node name="GuideHint_StoreTerminal" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=41717680]
+offset_left = 673.0
+offset_top = -19.0
+offset_right = 673.0
+offset_bottom = -19.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Store tech, monitors, neon"
+
+[node name="GuideBox_OpenDecorZone" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=174086434]
+position = Vector2(470, 120)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-220, -175, 220, -175, 220, 175, -220, 175)
+
+[node name="GuideOutline_OpenDecorZone" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1883077384]
+position = Vector2(470, 120)
+points = PackedVector2Array(-220, -175, 220, -175, 220, 175, -220, 175, -220, -175)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_OpenDecorZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=340428035]
+offset_left = 258.0
+offset_top = -49.0
+offset_right = 258.0
+offset_bottom = -49.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "OPEN DECOR AREA"
+
+[node name="GuideHint_OpenDecorZone" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1271525801]
+offset_left = 258.0
+offset_top = 271.0
+offset_right = 258.0
+offset_bottom = 271.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Keep open for placed decor"
+
+[node name="GuideBox_CozyLounge" type="Polygon2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=599581390]
+position = Vector2(-631, 336)
+color = Color(0.95, 0.35, 0.95, 0.12)
+polygon = PackedVector2Array(-235, -130, 235, -130, 235, 130, -235, 130)
+
+[node name="GuideOutline_CozyLounge" type="Line2D" parent="ArtRoot/World/EditorGuideLayer" unique_id=1683823824]
+position = Vector2(-640, 360)
+points = PackedVector2Array(-235, -130, 235, -130, 235, 130, -235, 130, -235, -130)
+width = 3.0
+default_color = Color(1, 0.55, 1, 0.62)
+
+[node name="GuideLabel_CozyLounge" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=617255933]
+offset_left = -867.0
+offset_top = 236.0
+offset_right = -867.0
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(1, 0.95, 0.65, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "COZY LOUNGE"
+
+[node name="GuideHint_CozyLounge" type="Label" parent="ArtRoot/World/EditorGuideLayer" unique_id=1561453558]
+offset_left = -867.0
+offset_top = 466.0
+offset_right = -867.0
+offset_bottom = 466.0
+theme_override_colors/font_color = Color(0.7, 1, 0.95, 0.74)
+theme_override_font_sizes/font_size = 11
+text = "Lounge props/rugs"
+
+[node name="PVG_CatalogPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1492308786]
+
+[node name="PVGamesCatalogGroundRoadPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=1414846209]
+z_index = -300
+tile_set = ExtResource("19_catalog_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=877163169]
+z_index = -220
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogLargeStructurePaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=2140304340]
+z_index = -120
+tile_set = ExtResource("21_catalog_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCatalogPropSignPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CatalogPaintLayers" unique_id=1242013829]
+z_index = -60
+tile_set = ExtResource("22_catalog_prop_tileset")
+collision_enabled = false
+
+[node name="PVG_DepthPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1588477820]
+
+[node name="PVGamesBehindGroundPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=1216829381]
+z_index = -300
+position = Vector2(-44, 290)
+scale = Vector2(5.8, 2.1000001)
+tile_map_data = PackedByteArray("AADz/xYAIAAAAAAAAGD2/xYAIAAAAAAAAGD4/xYAIAAAAAAAAGD/////EAAAAAAAAAABABQAAAAAAAAAAAD9/xQAAAAAAAAAAAAFABQAAAAAAAAAAAD5/xQAAAAAAAAAAAD6/+b/EAAAAAAAAAD6/+f/EAAAAAAAAAD6/+j/EAAAAAAAAAD6/+n/EAAAAAAAAAD6/+r/EAAAAAAAAAD6/+v/EAAAAAAAAAD6/+z/EAAAAAAAAAD6/+3/EAAAAAAAAAD6/+7/EAAAAAAAAAD6/+//EAAAAAAAAAD6//D/EAAAAAAAAAD6//H/EAAAAAAAAAD6//L/EAAAAAAAAAD6//P/EAAAAAAAAAD6//T/EAAAAAAAAAD6//X/EAAAAAAAAAD6//b/EAAAAAAAAAD6//f/EAAAAAAAAAD6//j/EAAAAAAAAAD6//n/EAAAAAAAAAD6//r/EAAAAAAAAAD6//v/EAAAAAAAAAD6//z/EAAAAAAAAAD6//3/EAAAAAAAAAD6//7/EAAAAAAAAAD6////EAAAAAAAAAD6/wAAEAAAAAAAAAD6/wEAEAAAAAAAAAD6/wIAEAAAAAAAAAD7/+b/EAAAAAAAAAD7/+f/EAAAAAAAAAD7/+j/EAAAAAAAAAD7/+n/EAAAAAAAAAD7/+r/EAAAAAAAAAD7/+v/EAAAAAAAAAD7/+z/EAAAAAAAAAD7/+3/EAAAAAAAAAD7/+7/EAAAAAAAAAD7/+//EAAAAAAAAAD7//D/EAAAAAAAAAD7//H/EAAAAAAAAAD7//L/EAAAAAAAAAD7//P/EAAAAAAAAAD7//T/EAAAAAAAAAD7//X/EAAAAAAAAAD7//b/EAAAAAAAAAD7//f/EAAAAAAAAAD7//j/EAAAAAAAAAD7//n/EAAAAAAAAAD7//r/EAAAAAAAAAD7//v/EAAAAAAAAAD7//z/EAAAAAAAAAD7//3/EAAAAAAAAAD7//7/EAAAAAAAAAD7////EAAAAAAAAAD7/wAAEAAAAAAAAAD7/wEAEAAAAAAAAAD7/wIAEAAAAAAAAAD8/+b/EAAAAAAAAAD8/+f/EAAAAAAAAAD8/+j/EAAAAAAAAAD8/+n/EAAAAAAAAAD8/+r/EAAAAAAAAAD8/+v/EAAAAAAAAAD8/+z/EAAAAAAAAAD8/+3/EAAAAAAAAAD8/+7/EAAAAAAAAAD8/+//EAAAAAAAAAD8//D/EAAAAAAAAAD8//H/EAAAAAAAAAD8//L/EAAAAAAAAAD8//P/EAAAAAAAAAD8//T/EAAAAAAAAAD8//X/EAAAAAAAAAD8//b/EAAAAAAAAAD8//f/EAAAAAAAAAD8//j/EAAAAAAAAAD8//n/EAAAAAAAAAD8//r/EAAAAAAAAAD8//v/EAAAAAAAAAD8//z/EAAAAAAAAAD8//3/EAAAAAAAAAD8//7/EAAAAAAAAAD8////EAAAAAAAAAD8/wAAEAAAAAAAAAD8/wEAEAAAAAAAAAD8/wIAEAAAAAAAAAD9/+b/EAAAAAAAAAD9/+f/EAAAAAAAAAD9/+j/EAAAAAAAAAD9/+n/EAAAAAAAAAD9/+r/EAAAAAAAAAD9/+v/EAAAAAAAAAD9/+z/EAAAAAAAAAD9/+3/EAAAAAAAAAD9/+7/EAAAAAAAAAD9/+//EAAAAAAAAAD9//D/EAAAAAAAAAD9//H/EAAAAAAAAAD9//L/EAAAAAAAAAD9//P/EAAAAAAAAAD9//T/EAAAAAAAAAD9//X/EAAAAAAAAAD9//b/EAAAAAAAAAD9//f/EAAAAAAAAAD9//j/EAAAAAAAAAD9//n/EAAAAAAAAAD9//r/EAAAAAAAAAD9//v/EAAAAAAAAAD9//z/EAAAAAAAAAD9//3/EAAAAAAAAAD9//7/EAAAAAAAAAD9////EAAAAAAAAAD9/wAAEAAAAAAAAAD9/wEAEAAAAAAAAAD9/wIAEAAAAAAAAAD+/+b/EAAAAAAAAAD+/+f/EAAAAAAAAAD+/+j/EAAAAAAAAAD+/+n/EAAAAAAAAAD+/+r/EAAAAAAAAAD+/+v/EAAAAAAAAAD+/+z/EAAAAAAAAAD+/+3/EAAAAAAAAAD+/+7/EAAAAAAAAAD+/+//EAAAAAAAAAD+//D/EAAAAAAAAAD+//H/EAAAAAAAAAD+//L/EAAAAAAAAAD+//P/EAAAAAAAAAD+//T/EAAAAAAAAAD+//X/EAAAAAAAAAD+//b/EAAAAAAAAAD+//f/EAAAAAAAAAD+//j/EAAAAAAAAAD+//n/EAAAAAAAAAD+//r/EAAAAAAAAAD+//v/EAAAAAAAAAD+//z/EAAAAAAAAAD+//3/EAAAAAAAAAD+//7/EAAAAAAAAAD+////EAAAAAAAAAD+/wAAEAAAAAAAAAD+/wEAEAAAAAAAAAD+/wIAEAAAAAAAAAD//+b/EAAAAAAAAAD//+f/EAAAAAAAAAD//+j/EAAAAAAAAAD//+n/EAAAAAAAAAD//+r/EAAAAAAAAAD//+v/EAAAAAAAAAD//+z/EAAAAAAAAAD//+3/EAAAAAAAAAD//+7/EAAAAAAAAAD//+//EAAAAAAAAAD///D/EAAAAAAAAAD///H/EAAAAAAAAAD///L/EAAAAAAAAAD///P/EAAAAAAAAAD///T/EAAAAAAAAAD///X/EAAAAAAAAAD///b/EAAAAAAAAAD///f/EAAAAAAAAAD///j/EAAAAAAAAAD///n/EAAAAAAAAAD///r/EAAAAAAAAAD///v/EAAAAAAAAAD///z/EAAAAAAAAAD///3/EAAAAAAAAAD///7/EAAAAAAAAAD//wAAEAAAAAAAAAD//wEAEAAAAAAAAAD//wIAEAAAAAAAAAAAAOb/EAAAAAAAAAAAAOf/EAAAAAAAAAAAAOj/EAAAAAAAAAAAAOn/EAAAAAAAAAAAAOr/EAAAAAAAAAAAAOv/EAAAAAAAAAAAAOz/EAAAAAAAAAAAAO3/EAAAAAAAAAAAAO7/EAAAAAAAAAAAAO//EAAAAAAAAAAAAPD/EAAAAAAAAAAAAPH/EAAAAAAAAAAAAPL/EAAAAAAAAAAAAPP/EAAAAAAAAAAAAPT/EAAAAAAAAAAAAPX/EAAAAAAAAAAAAPb/EAAAAAAAAAAAAPf/EAAAAAAAAAAAAPj/EAAAAAAAAAAAAPn/EAAAAAAAAAAAAPr/EAAAAAAAAAAAAPv/EAAAAAAAAAAAAPz/EAAAAAAAAAAAAP3/EAAAAAAAAAAAAP7/EAAAAAAAAAAAAP//EAAAAAAAAAAAAAAAEAAAAAAAAAAAAAEAEAAAAAAAAAAAAAIAEAAAAAAAAAABAOb/EAAAAAAAAAABAOf/EAAAAAAAAAABAOj/EAAAAAAAAAABAOn/EAAAAAAAAAABAOr/EAAAAAAAAAABAOv/EAAAAAAAAAABAOz/EAAAAAAAAAABAO3/EAAAAAAAAAABAO7/EAAAAAAAAAABAO//EAAAAAAAAAABAPD/EAAAAAAAAAABAPH/EAAAAAAAAAABAPL/EAAAAAAAAAABAPP/EAAAAAAAAAABAPT/EAAAAAAAAAABAPX/EAAAAAAAAAABAPb/EAAAAAAAAAABAPf/EAAAAAAAAAABAPj/EAAAAAAAAAABAPn/EAAAAAAAAAABAPr/EAAAAAAAAAABAPv/EAAAAAAAAAABAPz/EAAAAAAAAAABAP3/EAAAAAAAAAABAP7/EAAAAAAAAAABAP//EAAAAAAAAAABAAAAEAAAAAAAAAABAAEAEAAAAAAAAAABAAIAEAAAAAAAAAACAOb/EAAAAAAAAAACAOf/EAAAAAAAAAACAOj/EAAAAAAAAAACAOn/EAAAAAAAAAACAOr/EAAAAAAAAAACAOv/EAAAAAAAAAACAOz/EAAAAAAAAAACAO3/EAAAAAAAAAACAO7/EAAAAAAAAAACAO//EAAAAAAAAAACAPD/EAAAAAAAAAACAPH/EAAAAAAAAAACAPL/EAAAAAAAAAACAPP/EAAAAAAAAAACAPT/EAAAAAAAAAACAPX/EAAAAAAAAAACAPb/EAAAAAAAAAACAPf/EAAAAAAAAAACAPj/EAAAAAAAAAACAPn/EAAAAAAAAAACAPr/EAAAAAAAAAACAPv/EAAAAAAAAAACAPz/EAAAAAAAAAACAP3/EAAAAAAAAAACAP7/EAAAAAAAAAACAP//EAAAAAAAAAACAAAAEAAAAAAAAAACAAEAEAAAAAAAAAACAAIAEAAAAAAAAAADAOb/EAAAAAAAAAADAOf/EAAAAAAAAAADAOj/EAAAAAAAAAADAOn/EAAAAAAAAAADAOr/EAAAAAAAAAADAOv/EAAAAAAAAAADAOz/EAAAAAAAAAADAO3/EAAAAAAAAAADAO7/EAAAAAAAAAADAO//EAAAAAAAAAADAPD/EAAAAAAAAAADAPH/EAAAAAAAAAADAPL/EAAAAAAAAAADAPP/EAAAAAAAAAADAPT/EAAAAAAAAAADAPX/EAAAAAAAAAADAPb/EAAAAAAAAAADAPf/EAAAAAAAAAADAPj/EAAAAAAAAAADAPn/EAAAAAAAAAADAPr/EAAAAAAAAAADAPv/EAAAAAAAAAADAPz/EAAAAAAAAAADAP3/EAAAAAAAAAADAP7/EAAAAAAAAAADAP//EAAAAAAAAAADAAAAEAAAAAAAAAADAAEAEAAAAAAAAAADAAIAEAAAAAAAAAAEAOb/EAAAAAAAAAAEAOf/EAAAAAAAAAAEAOj/EAAAAAAAAAAEAOn/EAAAAAAAAAAEAOr/EAAAAAAAAAAEAOv/EAAAAAAAAAAEAOz/EAAAAAAAAAAEAO3/EAAAAAAAAAAEAO7/EAAAAAAAAAAEAO//EAAAAAAAAAAEAPD/EAAAAAAAAAAEAPH/EAAAAAAAAAAEAPL/EAAAAAAAAAAEAPP/EAAAAAAAAAAEAPT/EAAAAAAAAAAEAPX/EAAAAAAAAAAEAPb/EAAAAAAAAAAEAPf/EAAAAAAAAAAEAPj/EAAAAAAAAAAEAPn/EAAAAAAAAAAEAPr/EAAAAAAAAAAEAPv/EAAAAAAAAAAEAPz/EAAAAAAAAAAEAP3/EAAAAAAAAAAEAP7/EAAAAAAAAAAEAP//EAAAAAAAAAAEAAAAEAAAAAAAAAAEAAEAEAAAAAAAAAAEAAIAEAAAAAAAAAAFAOb/EAAAAAAAAAAFAOf/EAAAAAAAAAAFAOj/EAAAAAAAAAAFAOn/EAAAAAAAAAAFAOr/EAAAAAAAAAAFAOv/EAAAAAAAAAAFAOz/EAAAAAAAAAAFAO3/EAAAAAAAAAAFAO7/EAAAAAAAAAAFAO//EAAAAAAAAAAFAPD/EAAAAAAAAAAFAPH/EAAAAAAAAAAFAPL/EAAAAAAAAAAFAPP/EAAAAAAAAAAFAPT/EAAAAAAAAAAFAPX/EAAAAAAAAAAFAPb/EAAAAAAAAAAFAPf/EAAAAAAAAAAFAPj/EAAAAAAAAAAFAPn/EAAAAAAAAAAFAPr/EAAAAAAAAAAFAPv/EAAAAAAAAAAFAPz/EAAAAAAAAAAFAP3/EAAAAAAAAAAFAP7/EAAAAAAAAAAFAP//EAAAAAAAAAAFAAAAEAAAAAAAAAAFAAEAEAAAAAAAAAAFAAIAEAAAAAAAAAD3/8n/EAAAAAAAAAD3/8r/EAAAAAAAAAD3/8v/EAAAAAAAAAD3/8z/EAAAAAAAAAD3/83/EAAAAAAAAAD3/87/EAAAAAAAAAD3/8//EAAAAAAAAAD3/9D/EAAAAAAAAAD3/9H/EAAAAAAAAAD3/9L/EAAAAAAAAAD3/9P/EAAAAAAAAAD3/9T/EAAAAAAAAAD3/9X/EAAAAAAAAAD3/9b/EAAAAAAAAAD3/9f/EAAAAAAAAAD3/9j/EAAAAAAAAAD3/9n/EAAAAAAAAAD3/9r/EAAAAAAAAAD3/9v/EAAAAAAAAAD3/9z/EAAAAAAAAAD4/8n/EAAAAAAAAAD4/8r/EAAAAAAAAAD4/8v/EAAAAAAAAAD4/8z/EAAAAAAAAAD4/83/EAAAAAAAAAD4/87/EAAAAAAAAAD4/8//EAAAAAAAAAD4/9D/EAAAAAAAAAD4/9H/EAAAAAAAAAD4/9L/EAAAAAAAAAD4/9P/EAAAAAAAAAD4/9T/EAAAAAAAAAD4/9X/EAAAAAAAAAD4/9b/EAAAAAAAAAD4/9f/EAAAAAAAAAD4/9j/EAAAAAAAAAD4/9n/EAAAAAAAAAD4/9r/EAAAAAAAAAD4/9v/EAAAAAAAAAD4/9z/EAAAAAAAAAD5/8n/EAAAAAAAAAD5/8r/EAAAAAAAAAD5/8v/EAAAAAAAAAD5/8z/EAAAAAAAAAD5/83/EAAAAAAAAAD5/87/EAAAAAAAAAD5/8//EAAAAAAAAAD5/9D/EAAAAAAAAAD5/9H/EAAAAAAAAAD5/9L/EAAAAAAAAAD5/9P/EAAAAAAAAAD5/9T/EAAAAAAAAAD5/9X/EAAAAAAAAAD5/9b/EAAAAAAAAAD5/9f/EAAAAAAAAAD5/9j/EAAAAAAAAAD5/9n/EAAAAAAAAAD5/9r/EAAAAAAAAAD5/9v/EAAAAAAAAAD5/9z/EAAAAAAAAAD6/8n/EAAAAAAAAAD6/8r/EAAAAAAAAAD6/8v/EAAAAAAAAAD6/8z/EAAAAAAAAAD6/83/EAAAAAAAAAD6/87/EAAAAAAAAAD6/8//EAAAAAAAAAD6/9D/EAAAAAAAAAD6/9H/EAAAAAAAAAD6/9L/EAAAAAAAAAD6/9P/EAAAAAAAAAD6/9T/EAAAAAAAAAD6/9X/EAAAAAAAAAD6/9b/EAAAAAAAAAD6/9f/EAAAAAAAAAD6/9j/EAAAAAAAAAD6/9n/EAAAAAAAAAD6/9r/EAAAAAAAAAD6/9v/EAAAAAAAAAD6/9z/EAAAAAAAAAADAML/EAAAAAAAAAADAMP/EAAAAAAAAAADAMT/EAAAAAAAAAADAMX/EAAAAAAAAAADAMb/EAAAAAAAAAADAMf/EAAAAAAAAAADAMj/EAAAAAAAAAADAMn/EAAAAAAAAAADAMr/EAAAAAAAAAADAMv/EAAAAAAAAAADAMz/EAAAAAAAAAADAM3/EAAAAAAAAAADAM7/EAAAAAAAAAADAM//EAAAAAAAAAADAND/EAAAAAAAAAADANH/EAAAAAAAAAADANL/EAAAAAAAAAADANP/EAAAAAAAAAADANT/EAAAAAAAAAADANX/EAAAAAAAAAADANb/EAAAAAAAAAADANf/EAAAAAAAAAADANj/EAAAAAAAAAADANn/EAAAAAAAAAADANr/EAAAAAAAAAAEAML/EAAAAAAAAAAEAMP/EAAAAAAAAAAEAMT/EAAAAAAAAAAEAMX/EAAAAAAAAAAEAMb/EAAAAAAAAAAEAMf/EAAAAAAAAAAEAMj/EAAAAAAAAAAEAMn/EAAAAAAAAAAEAMr/EAAAAAAAAAAEAMv/EAAAAAAAAAAEAMz/EAAAAAAAAAAEAM3/EAAAAAAAAAAEAM7/EAAAAAAAAAAEAM//EAAAAAAAAAAEAND/EAAAAAAAAAAEANH/EAAAAAAAAAAEANL/EAAAAAAAAAAEANP/EAAAAAAAAAAEANT/EAAAAAAAAAAEANX/EAAAAAAAAAAEANb/EAAAAAAAAAAEANf/EAAAAAAAAAAEANj/EAAAAAAAAAAEANn/EAAAAAAAAAAEANr/EAAAAAAAAAD+/9n/EAAAAAAAAAD+/9r/EAAAAAAAAAD//9n/EAAAAAAAAAD//9r/EAAAAAAAAAA=")
+tile_set = ExtResource("19_catalog_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesBehindWallBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=357116061]
+z_index = -240
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesOccludableWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=304160166]
+z_index = 80
+tile_set = ExtResource("20_catalog_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesOccludablePropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=1071222869]
+z_index = 90
+tile_set = ExtResource("22_catalog_prop_tileset")
+collision_enabled = false
+
+[node name="PVGamesForegroundOverlayPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_DepthPaintLayers" unique_id=838537374]
+z_index = 160
+tile_set = ExtResource("21_catalog_large_tileset")
+collision_enabled = false
+
+[node name="QuarantinedOldPVGamesVisuals_0MB5" type="Node2D" parent="ArtRoot/World" unique_id=1041315078]
+visible = false
+z_index = -500
+
+[node name="HideoutPVGamesVisualHelper" type="Node2D" parent="ArtRoot/World/QuarantinedOldPVGamesVisuals_0MB5" unique_id=528586659]
+script = ExtResource("15_pvgames")
+
+[node name="PVG_CentralSecurityPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1342333687]
+z_index = -300
+
+[node name="PVGamesCentralSecurityGroundRoadPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=1726944010]
+z_index = -300
+tile_set = ExtResource("23_cs_ground_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityWallBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=175129730]
+z_index = -220
+tile_set = ExtResource("24_cs_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityLargeStructureBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=465097052]
+z_index = -140
+tile_set = ExtResource("25_cs_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityPropSignBackdropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityPaintLayers" unique_id=1747241538]
+z_index = -80
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="PVG_CentralSecurityDepthPaintLayers" type="Node2D" parent="ArtRoot/World" unique_id=1995359129]
+
+[node name="PVGamesCentralSecurityOccludableWallPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=1088793325]
+z_index = 80
+tile_set = ExtResource("24_cs_wall_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityOccludablePropPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=837329748]
+z_index = 90
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityOccludableLargeStructurePaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=756833384]
+z_index = 95
+tile_set = ExtResource("25_cs_large_tileset")
+collision_enabled = false
+
+[node name="PVGamesCentralSecurityForegroundOverlayPaintLayer" type="TileMapLayer" parent="ArtRoot/World/PVG_CentralSecurityDepthPaintLayers" unique_id=37120011]
+z_index = 160
+tile_set = ExtResource("26_cs_prop_tileset")
+collision_enabled = false
+
+[node name="PVG_EditableObjects" type="Node2D" parent="ArtRoot/World" unique_id=1474503460]
+
+[node name="BehindPlayerObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=1811895358]
+z_index = -120
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/BehindPlayerObjects" unique_id=1929459167]
+
+[node name="OccludableObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=367402865]
+z_index = 90
+
+[node name="PVG_Object_LargeStructure_3_1_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=774595148 instance=ExtResource("26_h7giq")]
+z_index = 95
+position = Vector2(-1240, 118.000015)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building13_1_0001"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building13_1_0001"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_3_1_0001" unique_id=344406877]
+position = Vector2(-524.61523, -153.84619)
+scale = Vector2(2.0643349, 2.0384617)
+texture = ExtResource("28_nfamd")
+
+[node name="PVG_Object_LargeStructure_3_2_0034" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=163772763 instance=ExtResource("26_h7giq")]
+z_index = 95
+position = Vector2(1500, 6)
+scale = Vector2(2.1000001, 1.8000001)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building23_2_0034"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building23_2.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building23_2_0034"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_3_2_0034" unique_id=1434021841]
+position = Vector2(63.333405, -40.555565)
+scale = Vector2(1.0739635, 1.0988673)
+texture = ExtResource("29_70353")
+
+[node name="PVG_Object_Wall_1_3_0851" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=378799167 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(9, -823)
+scale = Vector2(7, 5.3)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_window1_3_0851"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_window1_3_0851"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_3_0851" unique_id=852973556]
+texture = ExtResource("30_avso3")
+
+[node name="PVG_Object_Wall_1_6_0764" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=229684534 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(510.00006, -605.00006)
+rotation = 0.6950806
+scale = Vector2(2.7, 2.6000001)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_window1_6_0764"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_6.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_window1_6_0764"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_6_0764" unique_id=1501076596]
+texture = ExtResource("31_dk1m2")
+
+[node name="PVG_Object_Wall_3_5_0781" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1034300681 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(-510.00003, -600)
+rotation = -0.63949037
+scale = Vector2(2.7, 2.7)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_window3_5_0781"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window3_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_window3_5_0781"
+
+[node name="PVG_Object_Wall_5_5_0905" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=422958438 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(877, 335)
+scale = Vector2(1.3000001, 1.6)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_door5_5_0905"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Door5_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_door5_5_0905"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_5_5_0905" unique_id=2112386977]
+position = Vector2(25.384613, 23.125)
+texture = ExtResource("33_88tc3")
+
+[node name="PVG_Object_Wall_4_7_0801" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1169452742 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(409.00003, 430.99997)
+rotation = 0.18070963
+scale = Vector2(2.3, 1.1)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_wallpanel14_7_0801"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_WallPanel14_7.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_wallpanel14_7_0801"
+
+[node name="PVG_Object_Wall_4_3_0843" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1610544908 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(634, 476)
+scale = Vector2(-2.6000001, 1)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_wallpanel14_3_0843"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_WallPanel14_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_wallpanel14_3_0843"
+
+[node name="PVG_Object_Wall_4_3_0843_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1440155739 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(254, 392.00003)
+scale = Vector2(1.3000001, 1.2)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_wallpanel14_3_0843"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_WallPanel14_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_wallpanel14_3_0843"
+
+[node name="PVG_Object_Furniture_2_2_1005_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1986564599 instance=ExtResource("26_h7giq")]
+z_index = -120
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_table2_2_1005"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table2_2.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_table2_2_1005"
+
+[node name="PVG_Object_Furniture_2_2_1005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1543099820 instance=ExtResource("26_h7giq")]
+z_index = -300
+position = Vector2(512, -330)
+scale = Vector2(2.1512222, 1.7987306)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_table2_2_1005"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table2_2.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_table2_2_1005"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_2_2_1005" unique_id=192995365]
+position = Vector2(8.367336, -7.2273192)
+texture = ExtResource("36_url7a")
+
+[node name="PVG_Object_Sign_9_1_0091" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=654656121 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(570, -1292)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard19_1_0091"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard19_1.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard19_1_0091"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_9_1_0091" unique_id=1313992768]
+position = Vector2(9, -317)
+scale = Vector2(1.3840988, 1.8142761)
+texture = ExtResource("37_vin0w")
+
+[node name="PVG_Object_Sign_7_8_0186" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=557366050 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(-371, -1325)
+scale = Vector2(1.8067561, 2.376509)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard17_8_0186"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard17_8.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard17_8_0186"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_7_8_0186" unique_id=374416631]
+texture = ExtResource("38_st5vc")
+
+[node name="PVG_Object_Sign_1_1_0529" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=288777895 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(67, -1145)
+scale = Vector2(1.0625008, 1.2485547)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard1_1_0529"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard1_1.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard1_1_0529"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_1_1_0529" unique_id=210304966]
+scale = Vector2(1.1291786, 1.3105127)
+texture = ExtResource("39_dcob4")
+
+[node name="PVG_Object_Sign_4_1_0526" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1454767770 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(-33, -1543)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard14_1_0526"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard14_1.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard14_1_0526"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_4_1_0526" unique_id=77634820]
+position = Vector2(972.00006, 260)
+scale = Vector2(1.5969654, 0.937906)
+texture = ExtResource("40_xews0")
+
+[node name="PVG_Object_Sign_0_1_0122" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=867540454 instance=ExtResource("26_h7giq")]
+z_index = -200
+position = Vector2(-690, -1434.0001)
+scale = Vector2(2.0624955, 2.0732896)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard20_1_0122"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard20_1.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard20_1_0122"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_0_1_0122" unique_id=887964544]
+position = Vector2(-206.06105, -120.09894)
+scale = Vector2(1.2369998, 1.3985779)
+texture = ExtResource("41_o5iga")
+
+[node name="PVG_Object_Sign_4_6_0133" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=262295994 instance=ExtResource("26_h7giq")]
+z_index = -250
+position = Vector2(188.00002, -1385.0001)
+scale = Vector2(1.074054, 2.196374)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_sign_billboard4_6_0133"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Billboard4_6.png"
+object_category = "sign"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_sign_billboard4_6_0133"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Sign_4_6_0133" unique_id=682581638]
+texture = ExtResource("42_3gv0o")
+
+[node name="PVG_Object_LargeStructure_4_6_0015" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1503817269 instance=ExtResource("26_h7giq")]
+z_index = -300
+position = Vector2(-70, -1337.0001)
+scale = Vector2(0.8856168, 0.8782242)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building24_6_0015"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building24_6.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building24_6_0015"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_4_6_0015" unique_id=1002507228]
+texture = ExtResource("43_7w0ex")
+
+[node name="PVG_Object_LargeStructure_6_1_0020" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=561186150 instance=ExtResource("26_h7giq")]
+z_index = -300
+position = Vector2(492, -1589)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building26_1_0020"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building26_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building26_1_0020"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_6_1_0020" unique_id=1317450115]
+position = Vector2(16, 82)
+scale = Vector2(1.0078386, 1)
+texture = ExtResource("44_sxvhr")
+
+[node name="PVG_Object_LargeStructure_0_5_0024" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=184677859 instance=ExtResource("26_h7giq")]
+z_index = -350
+scale = Vector2(0.65, 0.65)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building30_5_0024"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building30_5.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building30_5_0024"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_0_5_0024" unique_id=45509489]
+position = Vector2(-1466.1538, -1833.8462)
+scale = Vector2(1.6446434, 1.9564716)
+texture = ExtResource("45_47dms")
+
+[node name="PVG_Object_LargeStructure_6_2_0008" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=673933388 instance=ExtResource("26_h7giq")]
+z_index = -400
+position = Vector2(-535, -1687)
+scale = Vector2(0.7710027, 0.91985124)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building36_2_0008"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building36_2.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building36_2_0008"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_6_2_0008" unique_id=836522609]
+texture = ExtResource("46_ino2u")
+
+[node name="PVG_Object_LargeStructure_6_1_0005" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773765093 instance=ExtResource("26_h7giq")]
+z_index = 10
+position = Vector2(640, -978)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_building6_1_0005"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building6_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_building6_1_0005"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_6_1_0005" unique_id=1216041625]
+position = Vector2(46.153854, 46.153854)
+scale = Vector2(1.3083252, 1.4703147)
+texture = ExtResource("47_6jbeu")
+
+[node name="PVG_Object_LargeStructure_0_1_0014" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1236401989 instance=ExtResource("26_h7giq")]
+z_index = 10
+position = Vector2(-570, -944)
+scale = Vector2(0.5644715, 1.0704964)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk10_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
+
+[node name="PVG_Object_LargeStructure_1_1_0056" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=973095505 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-989, -669)
+scale = Vector2(1.1622045, 1.7912499)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk1_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
+
+[node name="PVG_Object_LargeStructure_3_1_0053" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1773034299 instance=ExtResource("26_h7giq")]
+z_index = 10
+position = Vector2(1187, -658)
+scale = Vector2(1.7356356, 1.7748846)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk3_1_0053"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk3_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk3_1_0053"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_3_1_0053" unique_id=2024371364]
+position = Vector2(39.75489, -19.156178)
+texture = ExtResource("50_1ef1v")
+
+[node name="PVG_Object_LargeStructure_9_2_0052" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1383761606 instance=ExtResource("26_h7giq")]
+z_index = -500
+position = Vector2(-44, -1614)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk9_2_0052"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk9_2.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk9_2_0052"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_9_2_0052" unique_id=1648617188]
+position = Vector2(22, -512)
+scale = Vector2(1.4211019, 3.0334358)
+texture = ExtResource("51_g2604")
+
+[node name="PVG_Object_Prop_1_2_0538" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=294992407 instance=ExtResource("26_h7giq")]
+z_index = -10
+scale = Vector2(0.79822147, 0.6516323)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_prop_chargingstation1_2_0538"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/ChargingStation1_2.png"
+object_category = "prop"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_prop_chargingstation1_2_0538"
+
+[node name="PVG_Object_Furniture_4_1_1036" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1455202124 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-508, -39)
+scale = Vector2(1.5818455, 1.7563657)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_furniture_table4_1_1036"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Table4_1.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_furniture_table4_1_1036"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_4_1_1036" unique_id=829973772]
+position = Vector2(4.425211, -65.47611)
+texture = ExtResource("52_rrb2h")
+
+[node name="PVG_Object_LargeStructure_1_5_1165" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1400726292 instance=ExtResource("26_h7giq")]
+z_index = -5
+position = Vector2(898.00006, 212)
+scale = Vector2(1.7151325, 1.5499574)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_large_structure_largebag1_5_1165"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/LargeBag1_5.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_large_structure_largebag1_5_1165"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_1_5_1165" unique_id=1699525161]
+position = Vector2(-20.98967, -7.0969715)
+scale = Vector2(0.9309471, 0.83411056)
+texture = ExtResource("51_ao004")
+
+[node name="PVG_Object_Furniture_1_3_0427" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=724631454 instance=ExtResource("26_h7giq")]
+z_index = -50
+position = Vector2(-408, -326)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor11_3_0427"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_3.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor11_3_0427"
+
+[node name="PVG_Object_Furniture_1_2_0355" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=109277486 instance=ExtResource("26_h7giq")]
+z_index = -50
+position = Vector2(-362.99997, -401)
+scale = Vector2(0.9595323, 0.6757297)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor11_2_0355"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_2.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor11_2_0355"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_2_0355" unique_id=1255407691]
+texture = ExtResource("52_txdng")
+
+[node name="PVG_Object_Furniture_1_1_0379" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=65294444 instance=ExtResource("26_h7giq")]
+z_index = -50
+position = Vector2(-551, -326)
+scale = Vector2(2.1992455, 0.87978673)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_furniture_interior_floor11_1_0379"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Interior_Floor11_1.png"
+object_category = "furniture"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_furniture_interior_floor11_1_0379"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Furniture_1_1_0379" unique_id=1320635084]
+texture = ExtResource("53_pgjbv")
+
+[node name="PVG_Object_Wall_1_3_0236" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1364154432 instance=ExtResource("26_h7giq")]
+z_index = 88
+position = Vector2(-446, -439)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_wall_walltable1_3_0236"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/WallTable1_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_wall_walltable1_3_0236"
+
+[node name="PVG_Object_Wall_1_3_0236_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=609735083 instance=ExtResource("26_h7giq")]
+z_index = -20
+position = Vector2(-427, -473)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_wall_walltable1_3_0236"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/WallTable1_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_wall_walltable1_3_0236"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_3_0236_0001" unique_id=462869889]
+position = Vector2(-19, 26)
+scale = Vector2(1.3482593, 1.7778682)
+texture = ExtResource("54_hl6s5")
+
+[node name="PVG_Object_Wall_1_5_0779" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=539419194 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-489, -614)
+rotation = -0.5235988
+scale = Vector2(2.10792, 2.9813304)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_window1_5_0779"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_window1_5_0779"
+
+[node name="PVG_Object_Wall_1_5_0779_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=44885493 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-521, -563)
+rotation = -0.7853982
+scale = Vector2(3.168749, 2.2551363)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_window1_5_0779"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_Window1_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_window1_5_0779"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_1_5_0779_0001" unique_id=1824734948]
+position = Vector2(6.4713535, -7.2117395)
+scale = Vector2(1.0937623, 1.3059582)
+texture = ExtResource("55_djpe6")
+
+[node name="PVG_Object_LargeStructure_0_1_0014_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=2054689573 instance=ExtResource("26_h7giq")]
+z_index = -20
+position = Vector2(-542, -720)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk10_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk10_1_0014"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_0_1_0014_0001" unique_id=995269452]
+position = Vector2(-18.461538, -367.69232)
+scale = Vector2(1, 2.411886)
+texture = ExtResource("48_rrb2h")
+
+[node name="PVG_Object_Wall_7_5_0878" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=960832774 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-981.00006, -347.00003)
+scale = Vector2(1.6061374, 3.175716)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_interior_wallpanel17_5_0878"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Interior_WallPanel17_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_interior_wallpanel17_5_0878"
+
+[node name="PVG_Object_LargeStructure_1_1_0056_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1285615023 instance=ExtResource("26_h7giq")]
+z_index = -16
+position = Vector2(-1027, -536)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
+source_set = "core"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/BuildingKiosk1_1.png"
+object_category = "large_structure"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_core_large_structure_buildingkiosk1_1_0056"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_LargeStructure_1_1_0056_0001" unique_id=398583163]
+position = Vector2(-24.999998, -155)
+scale = Vector2(1.460766, 2.305906)
+texture = ExtResource("49_obwmw")
+
+[node name="PVG_Object_Wall_3_5_0888" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1991475614 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-936, -380)
+scale = Vector2(1.6178513, 3.3696575)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_5_0888"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_5_0888"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_5_0888" unique_id=384145232]
+position = Vector2(1.8543053, -2.9676647)
+texture = ExtResource("58_djpe6")
+
+[node name="PVG_Object_Wall_3_3_0926" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1744776884 instance=ExtResource("26_h7giq")]
+z_index = 88
+position = Vector2(-695, -501)
+scale = Vector2(1.3063004, 3.0867417)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_3_0926"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926" unique_id=128624749]
+texture = ExtResource("59_v56th")
+
+[node name="PVG_Object_Wall_3_4_0912" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=912398473 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-1052, 34.000008)
+scale = Vector2(1.0188991, 3.505517)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_4_0912"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_4.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_4_0912"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_4_0912" unique_id=1722550697]
+texture = ExtResource("57_pgjbv")
+
+[node name="PVG_Object_Wall_3_6_0896" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1799987056 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-973, 384.00003)
+scale = Vector2(1.4047881, 2.188838)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_6_0896"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_6_0896"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_6_0896" unique_id=107171506]
+texture = ExtResource("58_hl6s5")
+
+[node name="PVG_Object_Wall_3_3_0926_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=339272599 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-675, 499)
+scale = Vector2(2.0911481, 2.342464)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_3_0926"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926_0001" unique_id=753622059]
+position = Vector2(-14.824392, -0.42690092)
+scale = Vector2(0.8925415, 1)
+texture = ExtResource("59_v56th")
+
+[node name="PVG_Object_Wall_3_5_0888_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1740149983 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-392, 454)
+scale = Vector2(1.5533837, 1.2828637)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_5_0888"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_5_0888"
+
+[node name="PVG_Object_Wall_3_5_0888_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=703578637 instance=ExtResource("26_h7giq")]
+z_index = -16
+position = Vector2(-456, 427.99997)
+scale = Vector2(1.9152958, 1.925288)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_5_0888"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_5.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_5_0888"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_5_0888_0002" unique_id=2005265243]
+texture = ExtResource("58_djpe6")
+
+[node name="PVG_Object_Wall_3_3_0926_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=959667872 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(61, 321)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_3_0926"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926_0002" unique_id=2054653955]
+position = Vector2(90, 54)
+scale = Vector2(1.9045367, 2.1233864)
+texture = ExtResource("59_v56th")
+
+[node name="PVG_Object_Wall_3_6_0896_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1765558974 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(377, 392)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_6_0896"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_6_0896"
+
+[node name="PVG_Object_Wall_3_6_0896_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=109953791 instance=ExtResource("26_h7giq")]
+z_index = -16
+position = Vector2(416, 331)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_6_0896"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_6_0896"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_6_0896_0002" unique_id=984306147]
+position = Vector2(-7.999996, 70)
+rotation = -0.2617994
+scale = Vector2(1.9, 1.9)
+texture = ExtResource("58_hl6s5")
+
+[node name="PVG_Object_Wall_3_3_0926_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1424295731 instance=ExtResource("26_h7giq")]
+z_index = 89
+position = Vector2(698, 454)
+scale = Vector2(1.7702423, 2.1725326)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_3_0926"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926_0003" unique_id=1633020796]
+scale = Vector2(0.88528115, 0.9106354)
+texture = ExtResource("59_v56th")
+
+[node name="PVG_Object_Wall_3_4_0912_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=456437533 instance=ExtResource("26_h7giq")]
+z_index = 89
+position = Vector2(964, 299)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_4_0912"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_4.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_4_0912"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_4_0912_0001" unique_id=218767266]
+position = Vector2(6, -235)
+scale = Vector2(0.82210517, 3.763071)
+texture = ExtResource("57_pgjbv")
+
+[node name="PVG_Object_Wall_3_6_0896_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=1518638469 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(899, -269)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_6_0896"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_6.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_6_0896"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_6_0896_0003" unique_id=1654318922]
+position = Vector2(-19, -39)
+scale = Vector2(1.5096895, 3.59227)
+texture = ExtResource("58_hl6s5")
+
+[node name="PVG_Object_Wall_3_3_0926_0004" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects" unique_id=980250181 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(652.99994, -485)
+scale = Vector2(1.3935676, 2.4633973)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_obj_central_security_wall_barrier3_3_0926"
+source_set = "central_security"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Barrier3_3.png"
+object_category = "wall"
+recommended_container = "OccludableObjects"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=object"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "object"
+metadata/id = "pvg_obj_central_security_wall_barrier3_3_0926"
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/OccludableObjects/PVG_Object_Wall_3_3_0926_0004" unique_id=285523004]
+position = Vector2(11.481368, -5.2772646)
+scale = Vector2(0.857453, 1.1708276)
+texture = ExtResource("59_v56th")
+
+[node name="ForegroundObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=64110276]
+z_index = 160
+
+[node name="ReviewObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=641903283]
+z_index = -40
+
+[node name="IconObjects" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects" unique_id=605415025]
+
+[node name="BehindPlayerIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects" unique_id=1514420313]
+z_index = -120
+
+[node name="PVG_Icon_MapPin_bbd055d5" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1111601722 instance=ExtResource("26_h7giq")]
+z_index = -120
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Map2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+metadata/icon_id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="PVG_Icon_MapPin_56386c79" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1625341595 instance=ExtResource("26_h7giq")]
+z_index = -120
+position = Vector2(817, 131)
+rotation = 1.3089969
+scale = Vector2(0.21396354, 0.22169039)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_map_pin_sleepingbag1_56386c79"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/SleepingBag1.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_map_pin_sleepingbag1_56386c79"
+metadata/icon_id = "pvg_icon_doomsday_icons_map_pin_sleepingbag1_56386c79"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="PVG_Icon_MapPin_41a760f1" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1333512494 instance=ExtResource("26_h7giq")]
+z_index = -120
+position = Vector2(698, -416)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_map_pin_map_1_41a760f1"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_1.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_map_pin_map_1_41a760f1"
+metadata/icon_id = "pvg_icon_cyber_city_icons_map_pin_map_1_41a760f1"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons/PVG_Icon_MapPin_41a760f1" unique_id=128097167]
+position = Vector2(56, 618)
+scale = Vector2(1, 1.0234375)
+texture = ExtResource("53_u70oh")
+
+[node name="PVG_Icon_MapPin_a21fba71_0003" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=656160502 instance=ExtResource("26_h7giq")]
+z_index = 200
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/icon_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="PVG_Icon_MapPin_a21fba71" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=2033167893 instance=ExtResource("26_h7giq")]
+z_index = -110
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/icon_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="PVG_Icon_MapPin_a21fba71_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1710040995 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(526, -386)
+rotation = -1.5707964
+scale = Vector2(0.22530676, 0.41247582)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Map_2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/icon_id = "pvg_icon_cyber_city_icons_map_pin_map_2_a21fba71"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons/PVG_Icon_MapPin_a21fba71_0001" unique_id=1482549217]
+position = Vector2(-17.753572, -2.4243846)
+scale = Vector2(0.5980786, 1.0439786)
+texture = ExtResource("36_v57vr")
+
+[node name="PVG_Icon_MapPin_bbd055d5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons" unique_id=1839721058 instance=ExtResource("26_h7giq")]
+z_index = -1
+position = Vector2(449, -404)
+scale = Vector2(0.1694959, 0.12384216)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Map2.png"
+object_category = "map_pin"
+recommended_container = "BehindPlayerIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+metadata/icon_id = "pvg_icon_doomsday_icons_map_pin_map2_bbd055d5"
+metadata/quality = "READY_UI_ICON"
+metadata/recommended_uses = ["map_pin", "objective_marker"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/BehindPlayerIcons/PVG_Icon_MapPin_bbd055d5_0001" unique_id=264296619]
+texture = ExtResource("56_4m6lb")
+
+[node name="OccludableIcons" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects" unique_id=822494296]
+z_index = 90
+
+[node name="PVG_Icon_Cyber_a17e25a5" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=964712476 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(-554, -472)
+rotation = 0.0051234397
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Arcade_3.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="PVG_Icon_Cyber_302dde3d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2018585846 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(405.00003, -660.0001)
+rotation = -0.10932452
+scale = Vector2(0.2, 0.2)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_pottedplant_6_302dde3d"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_6.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_pottedplant_6_302dde3d"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_pottedplant_6_302dde3d"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_302dde3d" unique_id=820505578]
+position = Vector2(-236.38528, -46.065662)
+texture = ExtResource("38_ysnbw")
+
+[node name="PVG_Icon_Cyber_06b79bb9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1759904504 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(-399, -718)
+scale = Vector2(0.4, 0.3)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_pottedplant_7_06b79bb9"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PottedPlant_7.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_pottedplant_7_06b79bb9"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_pottedplant_7_06b79bb9"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_06b79bb9" unique_id=2116747386]
+position = Vector2(175, 40)
+texture = ExtResource("39_yhu53")
+
+[node name="PVG_Icon_Doomsday_c960828b" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1226151919 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(153, -688)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant9_c960828b"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant9.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant9_c960828b"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant9_c960828b"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_c960828b" unique_id=261560530]
+texture = ExtResource("40_dcmvo")
+
+[node name="PVG_Icon_Doomsday_915f41b9" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1051484019 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(-160, -713)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant8_915f41b9"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant8.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant8_915f41b9"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant8_915f41b9"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_915f41b9" unique_id=1381775128]
+texture = ExtResource("41_xjisj")
+
+[node name="PVG_Icon_Doomsday_9d177bed" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=327057349 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(69, -602)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant7_9d177bed"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant7.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant7_9d177bed"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant7_9d177bed"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_9d177bed" unique_id=471203841]
+position = Vector2(55.999985, 2.0000076)
+scale = Vector2(0.73828125, 0.81640625)
+texture = ExtResource("42_iuoe0")
+
+[node name="PVG_Icon_Doomsday_22974227" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2071604772 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(298, -615)
+scale = Vector2(0.2, 0.3)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant6_22974227"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant6.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant6_22974227"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant6_22974227"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_22974227" unique_id=100016963]
+texture = ExtResource("43_2fd4q")
+
+[node name="PVG_Icon_Doomsday_abd0f90d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1714138350 instance=ExtResource("26_h7giq")]
+z_index = 90
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant5_abd0f90d"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant5.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant5_abd0f90d"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant5_abd0f90d"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_abd0f90d" unique_id=1528815061]
+position = Vector2(-102.00001, -1314.0001)
+scale = Vector2(0.4765625, 0.6171875)
+texture = ExtResource("44_url7a")
+
+[node name="PVG_Icon_Doomsday_7f4a8177" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1639315981 instance=ExtResource("26_h7giq")]
+z_index = 90
+position = Vector2(-253, -606)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_plant4_7f4a8177"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Plant4.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_plant4_7f4a8177"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_plant4_7f4a8177"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_7f4a8177" unique_id=1454357098]
+texture = ExtResource("45_vin0w")
+
+[node name="PVG_Icon_Cyber_b13ef179" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1338644497 instance=ExtResource("26_h7giq")]
+z_index = 90
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_pictureset_2_b13ef179"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/PictureSet_2.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_pictureset_2_b13ef179"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_pictureset_2_b13ef179"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="PVG_Icon_Doomsday_180d97fe" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=551291941 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(93, -377)
+scale = Vector2(0.6728077, 0.51812446)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_corkboard2_180d97fe"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard2.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_corkboard2_180d97fe"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_corkboard2_180d97fe"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_180d97fe" unique_id=1065967111]
+texture = ExtResource("65_obwmw")
+
+[node name="PVG_Icon_Doomsday_d392bfbc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=391015140 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-126, -387)
+scale = Vector2(0.76785135, 0.43013826)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_corkboard3_d392bfbc"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/CorkBoard3.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_corkboard3_d392bfbc"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_corkboard3_d392bfbc"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_d392bfbc" unique_id=1398116050]
+texture = ExtResource("66_1ef1v")
+
+[node name="PVG_Icon_Terminal_daf610b6" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=167467719 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-9, 4)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_terminal_computerstation_1_daf610b6"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/ComputerStation_1.png"
+object_category = "terminal"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_terminal_computerstation_1_daf610b6"
+metadata/icon_id = "pvg_icon_cyber_city_icons_terminal_computerstation_1_daf610b6"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["store_terminal", "screen_graphic", "terminal", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Terminal_daf610b6" unique_id=1370056438]
+texture = ExtResource("67_g2604")
+
+[node name="PVG_Icon_Doomsday_808825b3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=144961970 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(468, 96)
+scale = Vector2(0.94686806, 0.9650959)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug3.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_floorrug3_808825b3"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_808825b3" unique_id=1362450246]
+scale = Vector2(0.76931334, 0.75157714)
+texture = ExtResource("68_5nexi")
+
+[node name="PVG_Icon_Doomsday_fd75fa51" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2032211170 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(797, 397.00003)
+rotation = -0.2617994
+scale = Vector2(0.4, 0.2)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_floorrug2_fd75fa51"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/FloorRug2.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_floorrug2_fd75fa51"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_floorrug2_fd75fa51"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_fd75fa51" unique_id=2100146489]
+texture = ExtResource("69_u70oh")
+
+[node name="PVG_Icon_Cyber_4769302c" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2145349475 instance=ExtResource("26_h7giq")]
+z_index = 89
+position = Vector2(199, 331)
+scale = Vector2(0.28140682, 0.277303)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Box_3.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_box_3_4769302c"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_4769302c" unique_id=1311009905]
+position = Vector2(-575.67896, -389.46564)
+texture = ExtResource("70_xreo1")
+
+[node name="PVG_Icon_Cyber_8ad64848" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=918338700 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(757, 91)
+scale = Vector2(0.23477949, 0.2405009)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_1_8ad64848"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_1_8ad64848"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_1_8ad64848"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_8ad64848" unique_id=1139494475]
+position = Vector2(204.66766, 223.63374)
+scale = Vector2(0.6331034, 0.7598743)
+texture = ExtResource("71_4m6lb")
+
+[node name="PVG_Icon_Cyber_834bce8a" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1856690371 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(861, 152)
+scale = Vector2(0.21276149, 0.33980936)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_2_834bce8a"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CardboardBox_2.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_2_834bce8a"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_cardboardbox_2_834bce8a"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_834bce8a" unique_id=1681343077]
+position = Vector2(-167.9508, 1.484375)
+scale = Vector2(0.7111368, 0.72990835)
+texture = ExtResource("72_e70ah")
+
+[node name="PVG_Icon_Doomsday_142cffbb" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1158691167 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(910, 83)
+scale = Vector2(0.4170963, 0.40569174)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_shelf1_142cffbb"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Shelf1.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_shelf1_142cffbb"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_shelf1_142cffbb"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_142cffbb" unique_id=518958089]
+position = Vector2(-60.870148, -23.592926)
+scale = Vector2(1.061924, 1.2751036)
+texture = ExtResource("73_bcpxl")
+
+[node name="PVG_Icon_Cyber_fdcf64a0" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1953634418 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-878, -210)
+scale = Vector2(0.42907882, 0.31051403)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_bookshelf_2_fdcf64a0"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bookshelf_2.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_bookshelf_2_fdcf64a0"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_bookshelf_2_fdcf64a0"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_fdcf64a0" unique_id=1396945386]
+texture = ExtResource("74_vergk")
+
+[node name="PVG_Icon_Cyber_4ad72509" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1581604796 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-912, -44.999996)
+scale = Vector2(0.4252466, 0.35802117)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_bookshelf_1_4ad72509"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Bookshelf_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_bookshelf_1_4ad72509"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_bookshelf_1_4ad72509"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_4ad72509" unique_id=403355629]
+texture = ExtResource("75_o8gqa")
+
+[node name="PVG_Icon_Cyber_d6aa5c09" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1543694020 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(385, -474)
+scale = Vector2(0.39167884, 0.38243106)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="PVG_Icon_Doomsday_5ca6ba73" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1191240048 instance=ExtResource("26_h7giq")]
+z_index = -5
+position = Vector2(-368, -454)
+scale = Vector2(0.21791624, 0.29856586)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_microwave1_5ca6ba73"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/Microwave1.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_microwave1_5ca6ba73"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_microwave1_5ca6ba73"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_5ca6ba73" unique_id=41364407]
+position = Vector2(-316.6354, -70.33627)
+scale = Vector2(0.69819504, 0.6784787)
+texture = ExtResource("79_v56th")
+
+[node name="PVG_Icon_Cyber_a17e25a5_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=998548150 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-789, -394)
+scale = Vector2(-0.4201502, 0.33244175)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Arcade_3.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_arcade_3_a17e25a5"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_a17e25a5_0001" unique_id=448183705]
+position = Vector2(-3651.0752, 267.7161)
+scale = Vector2(-0.8105308, 1.0836837)
+texture = ExtResource("37_25xoh")
+
+[node name="PVG_Icon_Doomsday_b7fa2519" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=848414642 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-911.00006, 331)
+scale = Vector2(0.3110509, 0.26315394)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_doomsday_icons_doomsday_tv3_b7fa2519"
+source_set = "doomsday_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/Doomsday Icons/Doomsday Icons/TV3.png"
+object_category = "doomsday"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_doomsday_icons_doomsday_tv3_b7fa2519"
+metadata/icon_id = "pvg_icon_doomsday_icons_doomsday_tv3_b7fa2519"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["warning_indicator", "scheme_card", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Doomsday_b7fa2519" unique_id=424306812]
+position = Vector2(176.82016, -19.000284)
+scale = Vector2(0.6910939, 0.731728)
+texture = ExtResource("81_c45sx")
+
+[node name="PVG_Icon_Cyber_f065e4c4" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1132347601 instance=ExtResource("26_h7giq")]
+z_index = 88
+position = Vector2(-761, 370)
+scale = Vector2(0.29595053, 0.25264633)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_beanbagchair_1_f065e4c4"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/BeanBagChair_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_beanbagchair_1_f065e4c4"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_beanbagchair_1_f065e4c4"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_f065e4c4" unique_id=820130539]
+position = Vector2(54.06308, -138.5336)
+scale = Vector2(-0.7553038, 0.6096611)
+texture = ExtResource("82_hxikw")
+
+[node name="PVG_Icon_Cyber_033a41e2" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=342705691 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-577.00006, 294)
+scale = Vector2(-0.24606185, 0.37693056)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Chair_12.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_chair_12_033a41e2"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_033a41e2" unique_id=1831147129]
+position = Vector2(-40.64044, -119.38538)
+scale = Vector2(0.84378487, 0.744403)
+texture = ExtResource("83_apwit")
+
+[node name="PVG_Icon_Cyber_b8b8eef3" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=180044878 instance=ExtResource("26_h7giq")]
+z_index = -15
+position = Vector2(-659, -420)
+scale = Vector2(0.60782385, 0.3776817)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_foodshelves_1_b8b8eef3"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/FoodShelves_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_foodshelves_1_b8b8eef3"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_foodshelves_1_b8b8eef3"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_b8b8eef3" unique_id=1859464363]
+position = Vector2(-59.227684, 82.0797)
+scale = Vector2(0.8164354, 0.9437187)
+texture = ExtResource("84_d0ede")
+
+[node name="PVG_Icon_Cyber_fa94ca5d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=772937203 instance=ExtResource("26_h7giq")]
+z_index = -5
+position = Vector2(-499, -140)
+scale = Vector2(0.09049655, 0.14692642)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_streetfood_7_fa94ca5d"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_7.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_streetfood_7_fa94ca5d"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_streetfood_7_fa94ca5d"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_fa94ca5d" unique_id=1517302941]
+texture = ExtResource("85_a635s")
+
+[node name="PVG_Icon_Cyber_7ee2614d" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=2138989007 instance=ExtResource("26_h7giq")]
+z_index = -5
+position = Vector2(-527.99994, -186.99998)
+scale = Vector2(0.070957564, 0.12173643)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_streetfood_6_7ee2614d"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/StreetFood_6.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_streetfood_6_7ee2614d"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_streetfood_6_7ee2614d"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_7ee2614d" unique_id=1870160601]
+texture = ExtResource("86_npk65")
+
+[node name="PVG_Icon_Cyber_2f7fd9de" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1690537166 instance=ExtResource("26_h7giq")]
+z_index = -10
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_sidetable_3_2f7fd9de"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/SideTable_3.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_sidetable_3_2f7fd9de"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_sidetable_3_2f7fd9de"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_2f7fd9de" unique_id=1822612293]
+position = Vector2(-1862, 227.99998)
+scale = Vector2(0.51606613, 0.41011965)
+texture = ExtResource("87_wvg0s")
+
+[node name="PVG_Icon_Cyber_c8b7d3bc" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1441280445 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-876, 226.00002)
+scale = Vector2(0.25843862, 0.19553268)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_table_3_c8b7d3bc"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Table_3.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_table_3_c8b7d3bc"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_table_3_c8b7d3bc"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_c8b7d3bc" unique_id=2047073619]
+texture = ExtResource("88_csla5")
+
+[node name="PVG_Icon_Cyber_5b8def5f" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=952587452 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-583, 394)
+scale = Vector2(0.37496012, 0.4051748)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/CoffeeTable_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_coffeetable_1_5b8def5f"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_5b8def5f" unique_id=230510339]
+position = Vector2(-53.339005, -113.53125)
+scale = Vector2(0.72805524, 0.7332102)
+texture = ExtResource("89_2sbhc")
+
+[node name="PVG_Icon_Cyber_d6aa5c09_0001" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=622714636 instance=ExtResource("26_h7giq")]
+z_index = -10
+position = Vector2(-526, -404)
+scale = Vector2(-0.34763202, 0.33725086)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons/PVG_Icon_Cyber_d6aa5c09_0001" unique_id=2121187239]
+texture = ExtResource("90_wnxwy")
+
+[node name="PVG_Icon_Cyber_d6aa5c09_0002" type="Node2D" parent="ArtRoot/World/PVG_EditableObjects/IconObjects/OccludableIcons" unique_id=1844537433 instance=ExtResource("26_h7giq")]
+z_index = -5
+position = Vector2(-282, -233)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("27_ku8k1")
+object_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+source_set = "cyber_city_icons"
+source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Refridgerator_1.png"
+object_category = "cyber"
+recommended_container = "OccludableIcons"
+notes = "created_by=PVGamesObjectPaletteDock; entry_type=icon"
+metadata/created_by = "PVGamesObjectPaletteDock"
+metadata/entry_type = "icon"
+metadata/id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/icon_id = "pvg_icon_cyber_city_icons_cyber_refridgerator_1_d6aa5c09"
+metadata/quality = "READY_BOTH"
+metadata/recommended_uses = ["scheme_card", "screen_graphic", "world_decal"]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1620826501]
+
+[node name="InteractionPrompt" type="Label" parent="UI" unique_id=462409134]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = -54.0
+theme_override_colors/font_color = Color(1, 0.95, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 22
+text = "Press E"
+horizontal_alignment = 1
+
+[node name="ScrollableStationPanel" type="PanelContainer" parent="UI" unique_id=2103726926]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -260.0
+offset_right = 360.0
+offset_bottom = 260.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("3_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScrollableStationPanel" unique_id=795619302]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollableStationPanel/MarginContainer" unique_id=767290402]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1241497996]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 26
+text = "Station"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1616954876]
+custom_minimum_size = Vector2(640, 310)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Body" type="RichTextLabel" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1300959722]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.92, 0.95, 1, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Body"
+fit_content = true
+scroll_active = false
+
+[node name="ActionButtons" type="VBoxContainer" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1349095276]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UI/ScrollableStationPanel/MarginContainer/VBoxContainer" unique_id=1470534485]
+layout_mode = 2
+text = "Close"
+
+[node name="MissionBoardPanel" type="PanelContainer" parent="UI" unique_id=1516700214]
+visible = false
+
+[node name="EvidencePanel" type="PanelContainer" parent="UI" unique_id=1890525482]
+visible = false
+
+[node name="SchemeCardPanel" type="PanelContainer" parent="UI" unique_id=975863348]
+visible = false
+
+[node name="StorePanel" type="PanelContainer" parent="UI" unique_id=196852850]
+visible = false
+
+[node name="CharacterDialoguePanel" type="PanelContainer" parent="UI" unique_id=1058117693]
+visible = false
+
+[node name="PlacementModeHUD" type="Label" parent="UI" unique_id=1719616079]
+visible = false
+text = "Placement mode placeholder"
+
+[node name="DebugHideoutPanel" type="PanelContainer" parent="UI" unique_id=2096971]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DebugHideoutPanel" unique_id=2128485971]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugHideoutPanel/MarginContainer" unique_id=603444663]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/DebugHideoutPanel/MarginContainer/VBoxContainer" unique_id=1982197683]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+text = "Debug Hideout States"
+
+[node name="Buttons" type="VBoxContainer" parent="UI/DebugHideoutPanel/MarginContainer/VBoxContainer" unique_id=1791195064]
+layout_mode = 2

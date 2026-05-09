@@ -1,0 +1,35 @@
+{
+  "character_id": "player_default",
+  "display_name": "Player Default",
+  "role": "player|bentley|named_npc|guard|ambient_npc",
+  "asset_path": "res://assets/characters/player/",
+  "license_source_note": "",
+  "sprite_sheet_path": "",
+  "frame_width": 0,
+  "frame_height": 0,
+  "scale": [
+    1,
+    1
+  ],
+  "pivot_offset": [
+    0,
+    0
+  ],
+  "directions_supported": [
+    "south",
+    "north",
+    "west",
+    "east"
+  ],
+  "animations_supported": [
+    "idle",
+    "walk"
+  ],
+  "default_animation": "idle_south",
+  "movement_speed_hint": 120,
+  "compatible_with_player_controller": true,
+  "compatible_with_npc_controller": true,
+  "compatible_with_guard_controller": false,
+  "compatible_with_dog_controller": false,
+  "notes": "Transparent PNG spritesheet or frame sequence preferred."
+}

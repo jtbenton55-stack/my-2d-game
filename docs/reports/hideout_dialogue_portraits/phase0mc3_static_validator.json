@@ -1,0 +1,248 @@
+{
+  "phase": "0M-C3",
+  "pass": true,
+  "failures": [],
+  "checks": [
+    {
+      "label": "exists: src/dialogue/DialoguePortraitRegistry.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/dialogue/HideoutCharacterDialogueBank.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/ui/DialogueBox.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/autoload/DialogueManager.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/utils/EventBus.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/hideout/HideoutManager.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: scenes/ui/DialogueBox.tscn",
+      "ok": true
+    },
+    {
+      "label": "exists: scenes/hideout/tools/HideoutDialoguePortraitTest.tscn",
+      "ok": true
+    },
+    {
+      "label": "exists: src/tools/editor/HideoutDialoguePortraitTestRunner.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: src/tools/editor/HideoutDialoguePortraitValidator.gd",
+      "ok": true
+    },
+    {
+      "label": "exists: data/dialogue/dialogue_portraits.json",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_dialogue_system_audit.md",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_dialogue_system_audit.json",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_sheet_scan.md",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_sheet_scan.json",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_slice_catalog.md",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_slice_catalog.json",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_slice_catalog.csv",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_assignment_report.md",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/phase0mc3_portrait_assignment_report.json",
+      "ok": true
+    },
+    {
+      "label": "exists: docs/reports/hideout_dialogue_portraits/portrait_slices_contact_sheet.png",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: jake",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: parmida",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: mere",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: bentley",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: louis",
+      "ok": true
+    },
+    {
+      "label": "portraits has key: fallback",
+      "ok": true
+    },
+    {
+      "label": "parmida and mere share png_path",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: jake",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: parmida",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: mere",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: bentley",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: louis",
+      "ok": true
+    },
+    {
+      "label": "portrait png exists on disk: fallback",
+      "ok": true
+    },
+    {
+      "label": "jake dialogue line count >= 12 (got 15)",
+      "ok": true
+    },
+    {
+      "label": "parmida dialogue line count >= 12 (got 15)",
+      "ok": true
+    },
+    {
+      "label": "bentley dialogue line count >= 12 (got 15)",
+      "ok": true
+    },
+    {
+      "label": "louis dialogue line count >= 12 (got 15)",
+      "ok": true
+    },
+    {
+      "label": "jake dialogue mentions motif 'poop bag'",
+      "ok": true
+    },
+    {
+      "label": "jake dialogue mentions motif 'tired'",
+      "ok": true
+    },
+    {
+      "label": "jake dialogue mentions motif 'Parmida'",
+      "ok": true
+    },
+    {
+      "label": "parmida dialogue mentions motif 'love'",
+      "ok": true
+    },
+    {
+      "label": "parmida dialogue mentions motif 'Bentley'",
+      "ok": true
+    },
+    {
+      "label": "bentley dialogue mentions motif 'Mom'",
+      "ok": true
+    },
+    {
+      "label": "bentley dialogue mentions motif 'Bark'",
+      "ok": true
+    },
+    {
+      "label": "louis dialogue mentions motif 'delivery'",
+      "ok": true
+    },
+    {
+      "label": "louis dialogue mentions motif 'Bentley'",
+      "ok": true
+    },
+    {
+      "label": "EventBus declares dialogue_line_changed_full",
+      "ok": true
+    },
+    {
+      "label": "DialogueManager emits dialogue_line_changed_full",
+      "ok": true
+    },
+    {
+      "label": "Legacy dialogue_line_changed.emit still present",
+      "ok": true
+    },
+    {
+      "label": "DialogueBox.tscn has PortraitRect TextureRect",
+      "ok": true
+    },
+    {
+      "label": "DialogueBox.tscn UID dialoguebox_v2 unchanged",
+      "ok": true
+    },
+    {
+      "label": "HideoutManager has _open_character_portrait_dialogue",
+      "ok": true
+    },
+    {
+      "label": "HideoutManager imports HideoutCharacterDialogueBank",
+      "ok": true
+    },
+    {
+      "label": "Hideout.gd uses HideoutCharacterDialogueBank for anchors",
+      "ok": true
+    },
+    {
+      "label": "taco bell scene still exists: scenes/missions_iso/TacoBellIso_Editable.tscn",
+      "ok": true
+    },
+    {
+      "label": "taco bell scene still exists: scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "label": ">=8 sliced PNGs (got 42)",
+      "ok": true
+    },
+    {
+      "label": ">=8 AtlasTexture .tres (got 40)",
+      "ok": true
+    },
+    {
+      "label": "5 top-level source sheets unchanged (got 5)",
+      "ok": true
+    }
+  ],
+  "ran_via": "python static validator (no Godot CLI required)"
+}

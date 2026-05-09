@@ -1,0 +1,808 @@
+[gd_scene format=3 uid="uid://pvgames_palette_browser"]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant1_1.png" id="1"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant1_2.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant2_1.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant2_2.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant3_1.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant3_2.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant4_1.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant4_2.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant5_1.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Plant5_2.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal1_1.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal1_2.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal2_1.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal2_2.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal3_1.png" id="15"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal3_2.png" id="16"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/BarTable1_1.png" id="17"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/BarTable2_1.png" id="18"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed1_1.png" id="19"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed1_2.png" id="20"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed2_1.png" id="21"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed2_2.png" id="22"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed3_1.png" id="23"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed3_2.png" id="24"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed4_1.png" id="25"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed4_2.png" id="26"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed5_1.png" id="27"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bed5_2.png" id="28"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bookshelf1_1.png" id="29"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bookshelf1_2.png" id="30"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bookshelf2_1.png" id="31"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Bookshelf2_2.png" id="32"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal1_3.png" id="33"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal1_4.png" id="34"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal2_3.png" id="35"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal2_4.png" id="36"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal3_3.png" id="37"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/Terminal3_4.png" id="38"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet1_1.png" id="39"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet1_2.png" id="40"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet2_1.png" id="41"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet2_2.png" id="42"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet3_1.png" id="43"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet3_2.png" id="44"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet4_1.png" id="45"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet4_2.png" id="46"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet5_1.png" id="47"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/ArcadeCabinet5_2.png" id="48"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box1_1.png" id="49"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box1_2.png" id="50"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box2_1.png" id="51"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box2_2.png" id="52"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/BreakerBox1_1.png" id="53"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/BreakerBox1_2.png" id="54"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox1_1.png" id="55"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox1_2.png" id="56"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox2_1.png" id="57"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox2_2.png" id="58"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox3_1.png" id="59"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox3_2.png" id="60"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox4_1.png" id="61"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_2/CyberCity_Core_Tiles_2/CardboardBox4_2.png" id="62"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel1_1.png" id="63"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel1_2.png" id="64"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel2_1.png" id="65"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel2_2.png" id="66"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel3_1.png" id="67"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel3_2.png" id="68"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel4_1.png" id="69"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel4_2.png" id="70"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel5_1.png" id="71"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel5_2.png" id="72"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel6_1.png" id="73"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrel6_2.png" id="74"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrels1_1.png" id="75"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Barrels1_2.png" id="76"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box1_3.png" id="77"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box1_4.png" id="78"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box2_3.png" id="79"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Box2_4.png" id="80"]
+
+[node name="PVGamesAssetPaletteBrowser" type="Node2D"]
+
+[node name="Title" type="Label" parent="."]
+position = Vector2(20, 10)
+text = "PVGames Asset Palette Browser - curated tooling scene only"
+
+[node name="bb_hideouthub_essentials_001" type="Sprite2D" parent="."]
+position = Vector2(40, 70)
+texture = ExtResource("1")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_001_Label" type="Label" parent="."]
+position = Vector2(-14, 128)
+text = "bb_hideouthub_essentials_001\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_002" type="Sprite2D" parent="."]
+position = Vector2(190, 70)
+texture = ExtResource("2")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_002_Label" type="Label" parent="."]
+position = Vector2(136, 128)
+text = "bb_hideouthub_essentials_002\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_003" type="Sprite2D" parent="."]
+position = Vector2(340, 70)
+texture = ExtResource("3")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_003_Label" type="Label" parent="."]
+position = Vector2(286, 128)
+text = "bb_hideouthub_essentials_003\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_004" type="Sprite2D" parent="."]
+position = Vector2(490, 70)
+texture = ExtResource("4")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_004_Label" type="Label" parent="."]
+position = Vector2(436, 128)
+text = "bb_hideouthub_essentials_004\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_005" type="Sprite2D" parent="."]
+position = Vector2(640, 70)
+texture = ExtResource("5")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_005_Label" type="Label" parent="."]
+position = Vector2(586, 128)
+text = "bb_hideouthub_essentials_005\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_006" type="Sprite2D" parent="."]
+position = Vector2(790, 70)
+texture = ExtResource("6")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_006_Label" type="Label" parent="."]
+position = Vector2(736, 128)
+text = "bb_hideouthub_essentials_006\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_007" type="Sprite2D" parent="."]
+position = Vector2(940, 70)
+texture = ExtResource("7")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_007_Label" type="Label" parent="."]
+position = Vector2(886, 128)
+text = "bb_hideouthub_essentials_007\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_008" type="Sprite2D" parent="."]
+position = Vector2(1090, 70)
+texture = ExtResource("8")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_008_Label" type="Label" parent="."]
+position = Vector2(1036, 128)
+text = "bb_hideouthub_essentials_008\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_009" type="Sprite2D" parent="."]
+position = Vector2(40, 220)
+texture = ExtResource("9")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_009_Label" type="Label" parent="."]
+position = Vector2(-14, 278)
+text = "bb_hideouthub_essentials_009\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_010" type="Sprite2D" parent="."]
+position = Vector2(190, 220)
+texture = ExtResource("10")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_010_Label" type="Label" parent="."]
+position = Vector2(136, 278)
+text = "bb_hideouthub_essentials_010\nGREENHOUSE_PLANT\nPropLayer"
+
+[node name="bb_hideouthub_essentials_011" type="Sprite2D" parent="."]
+position = Vector2(340, 220)
+texture = ExtResource("11")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_011_Label" type="Label" parent="."]
+position = Vector2(286, 278)
+text = "bb_hideouthub_essentials_011\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_012" type="Sprite2D" parent="."]
+position = Vector2(490, 220)
+texture = ExtResource("12")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_012_Label" type="Label" parent="."]
+position = Vector2(436, 278)
+text = "bb_hideouthub_essentials_012\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_013" type="Sprite2D" parent="."]
+position = Vector2(640, 220)
+texture = ExtResource("13")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_013_Label" type="Label" parent="."]
+position = Vector2(586, 278)
+text = "bb_hideouthub_essentials_013\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_014" type="Sprite2D" parent="."]
+position = Vector2(790, 220)
+texture = ExtResource("14")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_014_Label" type="Label" parent="."]
+position = Vector2(736, 278)
+text = "bb_hideouthub_essentials_014\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_015" type="Sprite2D" parent="."]
+position = Vector2(940, 220)
+texture = ExtResource("15")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_015_Label" type="Label" parent="."]
+position = Vector2(886, 278)
+text = "bb_hideouthub_essentials_015\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_016" type="Sprite2D" parent="."]
+position = Vector2(1090, 220)
+texture = ExtResource("16")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_016_Label" type="Label" parent="."]
+position = Vector2(1036, 278)
+text = "bb_hideouthub_essentials_016\nSTORE_TECH\nPropLayer"
+
+[node name="bb_hideouthub_essentials_017" type="Sprite2D" parent="."]
+position = Vector2(40, 370)
+texture = ExtResource("17")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_017_Label" type="Label" parent="."]
+position = Vector2(-14, 428)
+text = "bb_hideouthub_essentials_017\nFURNITURE\nPropLayer"
+
+[node name="bb_hideouthub_essentials_018" type="Sprite2D" parent="."]
+position = Vector2(190, 370)
+texture = ExtResource("18")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_018_Label" type="Label" parent="."]
+position = Vector2(136, 428)
+text = "bb_hideouthub_essentials_018\nFURNITURE\nPropLayer"
+
+[node name="bb_hideouthub_essentials_019" type="Sprite2D" parent="."]
+position = Vector2(340, 370)
+texture = ExtResource("19")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_019_Label" type="Label" parent="."]
+position = Vector2(286, 428)
+text = "bb_hideouthub_essentials_019\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_020" type="Sprite2D" parent="."]
+position = Vector2(490, 370)
+texture = ExtResource("20")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_020_Label" type="Label" parent="."]
+position = Vector2(436, 428)
+text = "bb_hideouthub_essentials_020\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_021" type="Sprite2D" parent="."]
+position = Vector2(640, 370)
+texture = ExtResource("21")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_021_Label" type="Label" parent="."]
+position = Vector2(586, 428)
+text = "bb_hideouthub_essentials_021\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_022" type="Sprite2D" parent="."]
+position = Vector2(790, 370)
+texture = ExtResource("22")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_022_Label" type="Label" parent="."]
+position = Vector2(736, 428)
+text = "bb_hideouthub_essentials_022\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_023" type="Sprite2D" parent="."]
+position = Vector2(940, 370)
+texture = ExtResource("23")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_023_Label" type="Label" parent="."]
+position = Vector2(886, 428)
+text = "bb_hideouthub_essentials_023\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_024" type="Sprite2D" parent="."]
+position = Vector2(1090, 370)
+texture = ExtResource("24")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_024_Label" type="Label" parent="."]
+position = Vector2(1036, 428)
+text = "bb_hideouthub_essentials_024\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_025" type="Sprite2D" parent="."]
+position = Vector2(40, 520)
+texture = ExtResource("25")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_025_Label" type="Label" parent="."]
+position = Vector2(-14, 578)
+text = "bb_hideouthub_essentials_025\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_026" type="Sprite2D" parent="."]
+position = Vector2(190, 520)
+texture = ExtResource("26")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_026_Label" type="Label" parent="."]
+position = Vector2(136, 578)
+text = "bb_hideouthub_essentials_026\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_027" type="Sprite2D" parent="."]
+position = Vector2(340, 520)
+texture = ExtResource("27")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_027_Label" type="Label" parent="."]
+position = Vector2(286, 578)
+text = "bb_hideouthub_essentials_027\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_028" type="Sprite2D" parent="."]
+position = Vector2(490, 520)
+texture = ExtResource("28")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_028_Label" type="Label" parent="."]
+position = Vector2(436, 578)
+text = "bb_hideouthub_essentials_028\nCHARACTER_ADJACENT\nDecorationLayer"
+
+[node name="bb_hideouthub_essentials_029" type="Sprite2D" parent="."]
+position = Vector2(640, 520)
+texture = ExtResource("29")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_029_Label" type="Label" parent="."]
+position = Vector2(586, 578)
+text = "bb_hideouthub_essentials_029\nDISPLAY_SHELF\nCollectibleLayer"
+
+[node name="bb_hideouthub_essentials_030" type="Sprite2D" parent="."]
+position = Vector2(790, 520)
+texture = ExtResource("30")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_030_Label" type="Label" parent="."]
+position = Vector2(736, 578)
+text = "bb_hideouthub_essentials_030\nDISPLAY_SHELF\nCollectibleLayer"
+
+[node name="bb_hideouthub_essentials_031" type="Sprite2D" parent="."]
+position = Vector2(940, 520)
+texture = ExtResource("31")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_031_Label" type="Label" parent="."]
+position = Vector2(886, 578)
+text = "bb_hideouthub_essentials_031\nDISPLAY_SHELF\nCollectibleLayer"
+
+[node name="bb_hideouthub_essentials_032" type="Sprite2D" parent="."]
+position = Vector2(1090, 520)
+texture = ExtResource("32")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_hideouthub_essentials_032_Label" type="Label" parent="."]
+position = Vector2(1036, 578)
+text = "bb_hideouthub_essentials_032\nDISPLAY_SHELF\nCollectibleLayer"
+
+[node name="bb_taco_bell_fast_food_store_001" type="Sprite2D" parent="."]
+position = Vector2(40, 670)
+texture = ExtResource("33")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_001_Label" type="Label" parent="."]
+position = Vector2(-14, 728)
+text = "bb_taco_bell_fast_food_store_001\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_002" type="Sprite2D" parent="."]
+position = Vector2(190, 670)
+texture = ExtResource("34")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_002_Label" type="Label" parent="."]
+position = Vector2(136, 728)
+text = "bb_taco_bell_fast_food_store_002\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_003" type="Sprite2D" parent="."]
+position = Vector2(340, 670)
+texture = ExtResource("35")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_003_Label" type="Label" parent="."]
+position = Vector2(286, 728)
+text = "bb_taco_bell_fast_food_store_003\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_004" type="Sprite2D" parent="."]
+position = Vector2(490, 670)
+texture = ExtResource("36")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_004_Label" type="Label" parent="."]
+position = Vector2(436, 728)
+text = "bb_taco_bell_fast_food_store_004\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_005" type="Sprite2D" parent="."]
+position = Vector2(640, 670)
+texture = ExtResource("37")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_005_Label" type="Label" parent="."]
+position = Vector2(586, 728)
+text = "bb_taco_bell_fast_food_store_005\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_006" type="Sprite2D" parent="."]
+position = Vector2(790, 670)
+texture = ExtResource("38")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_006_Label" type="Label" parent="."]
+position = Vector2(736, 728)
+text = "bb_taco_bell_fast_food_store_006\nSTORE_TECH\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_007" type="Sprite2D" parent="."]
+position = Vector2(940, 670)
+texture = ExtResource("39")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_007_Label" type="Label" parent="."]
+position = Vector2(886, 728)
+text = "bb_taco_bell_fast_food_store_007\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_008" type="Sprite2D" parent="."]
+position = Vector2(1090, 670)
+texture = ExtResource("40")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_008_Label" type="Label" parent="."]
+position = Vector2(1036, 728)
+text = "bb_taco_bell_fast_food_store_008\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_009" type="Sprite2D" parent="."]
+position = Vector2(40, 820)
+texture = ExtResource("41")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_009_Label" type="Label" parent="."]
+position = Vector2(-14, 878)
+text = "bb_taco_bell_fast_food_store_009\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_010" type="Sprite2D" parent="."]
+position = Vector2(190, 820)
+texture = ExtResource("42")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_010_Label" type="Label" parent="."]
+position = Vector2(136, 878)
+text = "bb_taco_bell_fast_food_store_010\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_011" type="Sprite2D" parent="."]
+position = Vector2(340, 820)
+texture = ExtResource("43")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_011_Label" type="Label" parent="."]
+position = Vector2(286, 878)
+text = "bb_taco_bell_fast_food_store_011\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_012" type="Sprite2D" parent="."]
+position = Vector2(490, 820)
+texture = ExtResource("44")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_012_Label" type="Label" parent="."]
+position = Vector2(436, 878)
+text = "bb_taco_bell_fast_food_store_012\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_013" type="Sprite2D" parent="."]
+position = Vector2(640, 820)
+texture = ExtResource("45")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_013_Label" type="Label" parent="."]
+position = Vector2(586, 878)
+text = "bb_taco_bell_fast_food_store_013\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_014" type="Sprite2D" parent="."]
+position = Vector2(790, 820)
+texture = ExtResource("46")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_014_Label" type="Label" parent="."]
+position = Vector2(736, 878)
+text = "bb_taco_bell_fast_food_store_014\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_015" type="Sprite2D" parent="."]
+position = Vector2(940, 820)
+texture = ExtResource("47")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_015_Label" type="Label" parent="."]
+position = Vector2(886, 878)
+text = "bb_taco_bell_fast_food_store_015\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_016" type="Sprite2D" parent="."]
+position = Vector2(1090, 820)
+texture = ExtResource("48")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_016_Label" type="Label" parent="."]
+position = Vector2(1036, 878)
+text = "bb_taco_bell_fast_food_store_016\nFURNITURE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_017" type="Sprite2D" parent="."]
+position = Vector2(40, 970)
+texture = ExtResource("49")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_017_Label" type="Label" parent="."]
+position = Vector2(-14, 1028)
+text = "bb_taco_bell_fast_food_store_017\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_018" type="Sprite2D" parent="."]
+position = Vector2(190, 970)
+texture = ExtResource("50")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_018_Label" type="Label" parent="."]
+position = Vector2(136, 1028)
+text = "bb_taco_bell_fast_food_store_018\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_019" type="Sprite2D" parent="."]
+position = Vector2(340, 970)
+texture = ExtResource("51")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_019_Label" type="Label" parent="."]
+position = Vector2(286, 1028)
+text = "bb_taco_bell_fast_food_store_019\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_020" type="Sprite2D" parent="."]
+position = Vector2(490, 970)
+texture = ExtResource("52")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_020_Label" type="Label" parent="."]
+position = Vector2(436, 1028)
+text = "bb_taco_bell_fast_food_store_020\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_021" type="Sprite2D" parent="."]
+position = Vector2(640, 970)
+texture = ExtResource("53")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_021_Label" type="Label" parent="."]
+position = Vector2(586, 1028)
+text = "bb_taco_bell_fast_food_store_021\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_022" type="Sprite2D" parent="."]
+position = Vector2(790, 970)
+texture = ExtResource("54")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_022_Label" type="Label" parent="."]
+position = Vector2(736, 1028)
+text = "bb_taco_bell_fast_food_store_022\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_023" type="Sprite2D" parent="."]
+position = Vector2(940, 970)
+texture = ExtResource("55")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_023_Label" type="Label" parent="."]
+position = Vector2(886, 1028)
+text = "bb_taco_bell_fast_food_store_023\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_024" type="Sprite2D" parent="."]
+position = Vector2(1090, 970)
+texture = ExtResource("56")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_024_Label" type="Label" parent="."]
+position = Vector2(1036, 1028)
+text = "bb_taco_bell_fast_food_store_024\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_025" type="Sprite2D" parent="."]
+position = Vector2(40, 1120)
+texture = ExtResource("57")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_025_Label" type="Label" parent="."]
+position = Vector2(-14, 1178)
+text = "bb_taco_bell_fast_food_store_025\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_026" type="Sprite2D" parent="."]
+position = Vector2(190, 1120)
+texture = ExtResource("58")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_026_Label" type="Label" parent="."]
+position = Vector2(136, 1178)
+text = "bb_taco_bell_fast_food_store_026\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_027" type="Sprite2D" parent="."]
+position = Vector2(340, 1120)
+texture = ExtResource("59")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_027_Label" type="Label" parent="."]
+position = Vector2(286, 1178)
+text = "bb_taco_bell_fast_food_store_027\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_028" type="Sprite2D" parent="."]
+position = Vector2(490, 1120)
+texture = ExtResource("60")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_028_Label" type="Label" parent="."]
+position = Vector2(436, 1178)
+text = "bb_taco_bell_fast_food_store_028\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_029" type="Sprite2D" parent="."]
+position = Vector2(640, 1120)
+texture = ExtResource("61")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_029_Label" type="Label" parent="."]
+position = Vector2(586, 1178)
+text = "bb_taco_bell_fast_food_store_029\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_taco_bell_fast_food_store_030" type="Sprite2D" parent="."]
+position = Vector2(790, 1120)
+texture = ExtResource("62")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_taco_bell_fast_food_store_030_Label" type="Label" parent="."]
+position = Vector2(736, 1178)
+text = "bb_taco_bell_fast_food_store_030\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_001" type="Sprite2D" parent="."]
+position = Vector2(940, 1120)
+texture = ExtResource("63")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_001_Label" type="Label" parent="."]
+position = Vector2(886, 1178)
+text = "bb_general_cyber_city_level_dressing_001\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_002" type="Sprite2D" parent="."]
+position = Vector2(1090, 1120)
+texture = ExtResource("64")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_002_Label" type="Label" parent="."]
+position = Vector2(1036, 1178)
+text = "bb_general_cyber_city_level_dressing_002\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_003" type="Sprite2D" parent="."]
+position = Vector2(40, 1270)
+texture = ExtResource("65")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_003_Label" type="Label" parent="."]
+position = Vector2(-14, 1328)
+text = "bb_general_cyber_city_level_dressing_003\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_004" type="Sprite2D" parent="."]
+position = Vector2(190, 1270)
+texture = ExtResource("66")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_004_Label" type="Label" parent="."]
+position = Vector2(136, 1328)
+text = "bb_general_cyber_city_level_dressing_004\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_005" type="Sprite2D" parent="."]
+position = Vector2(340, 1270)
+texture = ExtResource("67")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_005_Label" type="Label" parent="."]
+position = Vector2(286, 1328)
+text = "bb_general_cyber_city_level_dressing_005\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_006" type="Sprite2D" parent="."]
+position = Vector2(490, 1270)
+texture = ExtResource("68")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_006_Label" type="Label" parent="."]
+position = Vector2(436, 1328)
+text = "bb_general_cyber_city_level_dressing_006\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_007" type="Sprite2D" parent="."]
+position = Vector2(640, 1270)
+texture = ExtResource("69")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_007_Label" type="Label" parent="."]
+position = Vector2(586, 1328)
+text = "bb_general_cyber_city_level_dressing_007\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_008" type="Sprite2D" parent="."]
+position = Vector2(790, 1270)
+texture = ExtResource("70")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_008_Label" type="Label" parent="."]
+position = Vector2(736, 1328)
+text = "bb_general_cyber_city_level_dressing_008\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_009" type="Sprite2D" parent="."]
+position = Vector2(940, 1270)
+texture = ExtResource("71")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_009_Label" type="Label" parent="."]
+position = Vector2(886, 1328)
+text = "bb_general_cyber_city_level_dressing_009\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_010" type="Sprite2D" parent="."]
+position = Vector2(1090, 1270)
+texture = ExtResource("72")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_010_Label" type="Label" parent="."]
+position = Vector2(1036, 1328)
+text = "bb_general_cyber_city_level_dressing_010\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_011" type="Sprite2D" parent="."]
+position = Vector2(40, 1420)
+texture = ExtResource("73")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_011_Label" type="Label" parent="."]
+position = Vector2(-14, 1478)
+text = "bb_general_cyber_city_level_dressing_011\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_012" type="Sprite2D" parent="."]
+position = Vector2(190, 1420)
+texture = ExtResource("74")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_012_Label" type="Label" parent="."]
+position = Vector2(136, 1478)
+text = "bb_general_cyber_city_level_dressing_012\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_013" type="Sprite2D" parent="."]
+position = Vector2(340, 1420)
+texture = ExtResource("75")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_013_Label" type="Label" parent="."]
+position = Vector2(286, 1478)
+text = "bb_general_cyber_city_level_dressing_013\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_014" type="Sprite2D" parent="."]
+position = Vector2(490, 1420)
+texture = ExtResource("76")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_014_Label" type="Label" parent="."]
+position = Vector2(436, 1478)
+text = "bb_general_cyber_city_level_dressing_014\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_015" type="Sprite2D" parent="."]
+position = Vector2(640, 1420)
+texture = ExtResource("77")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_015_Label" type="Label" parent="."]
+position = Vector2(586, 1478)
+text = "bb_general_cyber_city_level_dressing_015\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_016" type="Sprite2D" parent="."]
+position = Vector2(790, 1420)
+texture = ExtResource("78")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_016_Label" type="Label" parent="."]
+position = Vector2(736, 1478)
+text = "bb_general_cyber_city_level_dressing_016\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_017" type="Sprite2D" parent="."]
+position = Vector2(940, 1420)
+texture = ExtResource("79")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_017_Label" type="Label" parent="."]
+position = Vector2(886, 1478)
+text = "bb_general_cyber_city_level_dressing_017\nCRATE_STORAGE\nPropLayer"
+
+[node name="bb_general_cyber_city_level_dressing_018" type="Sprite2D" parent="."]
+position = Vector2(1090, 1420)
+texture = ExtResource("80")
+scale = Vector2(0.75, 0.75)
+
+[node name="bb_general_cyber_city_level_dressing_018_Label" type="Label" parent="."]
+position = Vector2(1036, 1478)
+text = "bb_general_cyber_city_level_dressing_018\nCRATE_STORAGE\nPropLayer"

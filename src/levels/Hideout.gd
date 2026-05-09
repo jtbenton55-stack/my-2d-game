@@ -248,6 +248,16 @@ func _get_crew_dialogue(crew_id: String) -> Array[Dictionary]:
 			return [{"speaker": crew_id.capitalize(), "text": "Ready when you are, boss."}]
 
 func _show_crew_dialogue(crew_id: String) -> void:
+	# Phase 0M-C3 - prefer the portrait-aware bank for the four anchor
+	# characters so the legacy Hideout.tscn level also benefits from the
+	# left-side portraits and expanded dialogue. Fall back to the legacy
+	# crew lines for everyone else (Dom, Yordano, etc.).
+	var bank := preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+	if bank.has_speaker(crew_id):
+		var rich_lines: Array = bank.build_short_sequence(crew_id, 3)
+		if not rich_lines.is_empty():
+			DialogueManager.start_simple_dialogue(rich_lines)
+			return
 	var lines := _get_crew_dialogue(crew_id)
 	DialogueManager.start_simple_dialogue(lines)
 

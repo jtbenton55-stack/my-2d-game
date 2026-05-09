@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres" id="1_ground"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres" id="2_wall"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres" id="3_large"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres" id="4_prop"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityReviewOnlyPaint.tres" id="5_review"]
+
+[node name="PVGamesCentralSecurityPaintableTileSetTest" type="Node2D"]
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = -520.0
+offset_top = -320.0
+offset_right = 680.0
+offset_bottom = -220.0
+text = "Visual-only Central Security TileSet palette test scene. READY_TO_PAINT and MODULAR_PART_OK are intended for use. REVIEW_MANUALLY needs inspection. REJECT_JUNK is excluded from production palettes."
+autowrap_mode = 2
+
+[node name="CentralSecurityGroundRoadTileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-280, -80)
+z_index = -300
+tile_set = ExtResource("1_ground")
+collision_enabled = false
+
+[node name="CentralSecurityWallTileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-80, -80)
+z_index = -220
+tile_set = ExtResource("2_wall")
+collision_enabled = false
+
+[node name="CentralSecurityLargeStructureTileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(120, -80)
+z_index = -140
+tile_set = ExtResource("3_large")
+collision_enabled = false
+
+[node name="CentralSecurityPropSignTileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(320, -80)
+z_index = -60
+tile_set = ExtResource("4_prop")
+collision_enabled = false
+
+[node name="CentralSecurityReviewOnlyTileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(520, -80)
+z_index = -40
+tile_set = ExtResource("5_review")
+collision_enabled = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 0)
+zoom = Vector2(0.75, 0.75)
+enabled = true

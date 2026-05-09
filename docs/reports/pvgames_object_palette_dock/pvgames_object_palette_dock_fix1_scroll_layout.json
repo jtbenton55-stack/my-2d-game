@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "dock_scene_modified": true,
+  "dock_script_modified": true,
+  "scroll_container_added": true,
+  "scroll_container_location": "PVGamesObjectPaletteDock.gd creates MainScroll -> ContentVBox at runtime",
+  "dry_run_stamp_button_reachable": "yes; reachable by scrolling to Actions section, manual Godot check recommended",
+  "stamp_selected_at_typed_position_button_reachable": "yes; reachable by scrolling to Actions section, manual Godot check recommended",
+  "stamp_selected_at_2d_view_center_button_reachable": "yes; reachable by scrolling to Actions section, manual Godot check recommended",
+  "copy_object_id_button_reachable": "yes; reachable by scrolling to Actions section, manual Godot check recommended",
+  "refresh_index_button_reachable": "yes; reachable by scrolling to Actions section, manual Godot check recommended",
+  "action_buttons_grouped": true,
+  "result_list_height_controlled": true,
+  "details_source_path_overflow_handled": true,
+  "plugin_still_loads": "static validation pass; Godot CLI unavailable on PATH",
+  "no_objects_stamped": true,
+  "hideout_hub_modified": false,
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "source_pngs_modified": false,
+  "tilesets_modified": false,
+  "validator_result": "static validation pass; Godot CLI unavailable on PATH",
+  "validator_failures": [],
+  "godot_cli_available": false,
+  "layout_diagnosis": {
+    "before": "The dock root was a VBoxContainer and every control was added directly to it. There was no ScrollContainer, so the result list, preview/details, and placement controls pushed the action buttons below the visible dock area.",
+    "after": "The title/status remain at the top and the main content lives in a MainScroll ScrollContainer with ContentVBox sections for Search / Filters, Results, Selected Object, Placement, and Actions."
+  },
+  "manual_test_checklist": [
+    "Enable or re-enable PVGames Object Palette plugin.",
+    "Open the dock in a short/narrow editor layout.",
+    "Search for wall and filter OccludableObjects.",
+    "Select one result.",
+    "Scroll down to Actions.",
+    "Confirm Dry Run Stamp and stamp buttons are reachable.",
+    "Click Dry Run Stamp and confirm no object is stamped.",
+    "Open PVGamesObjectPaletteDockTest.tscn and stamp one object intentionally."
+  ],
+  "recommended_next_step": "Re-enable the plugin in Godot and verify the dock scrolls to the Actions section in the normal editor layout."
+}

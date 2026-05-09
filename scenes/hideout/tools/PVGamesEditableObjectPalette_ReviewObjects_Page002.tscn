@@ -1,0 +1,1036 @@
+[gd_scene load_steps=29 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tech9_8.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_1.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_2.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_5.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_6.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_7.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_8.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_1.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_4.png" id="9_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_6.png" id="10_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_2.png" id="11_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_4.png" id="12_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_5.png" id="13_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_6.png" id="14_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_7.png" id="15_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_8.png" id="16_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building11_Interior1_2.png" id="17_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building11_Interior1_4.png" id="18_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_2.png" id="19_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_3.png" id="20_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_1.png" id="21_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_2.png" id="22_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_3.png" id="23_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_4.png" id="24_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_1.png" id="25_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_2.png" id="26_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_3.png" id="27_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_4.png" id="28_tex"]
+
+[node name="PVGamesEditableObjectPalette_ReviewObjects_Page002" type="Control"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = 20
+offset_top = 10
+offset_right = 1220
+offset_bottom = 34
+text = "ReviewObjects Palette Page 002 - 28 previews of 153"
+
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 20
+offset_top = 42
+offset_right = 1520
+offset_bottom = 66
+text = "Browsing palette only. Copy object_id into the B8/B8A runner for dry-run stamp before placing in HideoutHub."
+
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 20.0
+offset_top = 86.0
+offset_right = 1580.0
+offset_bottom = 980.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+columns = 4
+
+[node name="Card_001_pvg_obj_central_security_review_tech9_8_0646" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tech9_8_0646"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tech9_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+text = "pvg_obj_central_security_review_tech9_8_0646"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+text = "Tech9_8.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_001_pvg_obj_central_security_review_tech9_8_0646/VBox"]
+text = "review candidate"
+
+
+[node name="Card_002_pvg_obj_central_security_review_tires1_1_0676" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_1_0676"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_1.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+text = "pvg_obj_central_security_review_tires1_1_0676"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+text = "Tires1_1.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_002_pvg_obj_central_security_review_tires1_1_0676/VBox"]
+text = "review candidate"
+
+
+[node name="Card_003_pvg_obj_central_security_review_tires1_2_0647" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_2_0647"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_2.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("3_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+text = "pvg_obj_central_security_review_tires1_2_0647"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+text = "Tires1_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_003_pvg_obj_central_security_review_tires1_2_0647/VBox"]
+text = "review candidate"
+
+
+[node name="Card_004_pvg_obj_central_security_review_tires1_5_0649" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_5_0649"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("4_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+text = "pvg_obj_central_security_review_tires1_5_0649"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+text = "Tires1_5.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_004_pvg_obj_central_security_review_tires1_5_0649/VBox"]
+text = "review candidate"
+
+
+[node name="Card_005_pvg_obj_central_security_review_tires1_6_0671" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_6_0671"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_6.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("5_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+text = "pvg_obj_central_security_review_tires1_6_0671"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+text = "Tires1_6.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_005_pvg_obj_central_security_review_tires1_6_0671/VBox"]
+text = "review candidate"
+
+
+[node name="Card_006_pvg_obj_central_security_review_tires1_7_0652" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_7_0652"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_7.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("6_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+text = "pvg_obj_central_security_review_tires1_7_0652"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+text = "Tires1_7.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_006_pvg_obj_central_security_review_tires1_7_0652/VBox"]
+text = "review candidate"
+
+
+[node name="Card_007_pvg_obj_central_security_review_tires1_8_0670" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires1_8_0670"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires1_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("7_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+text = "pvg_obj_central_security_review_tires1_8_0670"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+text = "Tires1_8.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_007_pvg_obj_central_security_review_tires1_8_0670/VBox"]
+text = "review candidate"
+
+
+[node name="Card_008_pvg_obj_central_security_review_tires2_1_0610" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires2_1_0610"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_1.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("8_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+text = "pvg_obj_central_security_review_tires2_1_0610"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+text = "Tires2_1.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_008_pvg_obj_central_security_review_tires2_1_0610/VBox"]
+text = "review candidate"
+
+
+[node name="Card_009_pvg_obj_central_security_review_tires2_4_0611" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires2_4_0611"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_4.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("9_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+text = "pvg_obj_central_security_review_tires2_4_0611"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+text = "Tires2_4.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_009_pvg_obj_central_security_review_tires2_4_0611/VBox"]
+text = "review candidate"
+
+
+[node name="Card_010_pvg_obj_central_security_review_tires2_6_0612" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires2_6_0612"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires2_6.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("10_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+text = "pvg_obj_central_security_review_tires2_6_0612"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+text = "Tires2_6.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_010_pvg_obj_central_security_review_tires2_6_0612/VBox"]
+text = "review candidate"
+
+
+[node name="Card_011_pvg_obj_central_security_review_tires3_2_0618" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_2_0618"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_2.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("11_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+text = "pvg_obj_central_security_review_tires3_2_0618"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+text = "Tires3_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_011_pvg_obj_central_security_review_tires3_2_0618/VBox"]
+text = "review candidate"
+
+
+[node name="Card_012_pvg_obj_central_security_review_tires3_4_0638" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_4_0638"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_4.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("12_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+text = "pvg_obj_central_security_review_tires3_4_0638"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+text = "Tires3_4.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_012_pvg_obj_central_security_review_tires3_4_0638/VBox"]
+text = "review candidate"
+
+
+[node name="Card_013_pvg_obj_central_security_review_tires3_5_0639" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_5_0639"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("13_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+text = "pvg_obj_central_security_review_tires3_5_0639"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+text = "Tires3_5.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_013_pvg_obj_central_security_review_tires3_5_0639/VBox"]
+text = "review candidate"
+
+
+[node name="Card_014_pvg_obj_central_security_review_tires3_6_0625" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_6_0625"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_6.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("14_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+text = "pvg_obj_central_security_review_tires3_6_0625"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+text = "Tires3_6.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_014_pvg_obj_central_security_review_tires3_6_0625/VBox"]
+text = "review candidate"
+
+
+[node name="Card_015_pvg_obj_central_security_review_tires3_7_0629" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_7_0629"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_7.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("15_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+text = "pvg_obj_central_security_review_tires3_7_0629"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+text = "Tires3_7.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_015_pvg_obj_central_security_review_tires3_7_0629/VBox"]
+text = "review candidate"
+
+
+[node name="Card_016_pvg_obj_central_security_review_tires3_8_0631" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_review_tires3_8_0631"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Tires3_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "review"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("16_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+text = "pvg_obj_central_security_review_tires3_8_0631"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+text = "central_security | review | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+text = "Tires3_8.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_016_pvg_obj_central_security_review_tires3_8_0631/VBox"]
+text = "review candidate"
+
+
+[node name="Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building11_interior1_2_0051"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building11_Interior1_2.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("17_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+text = "pvg_obj_core_large_structure_building11_interior1_2_0051"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+text = "Building11_Interior1_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_017_pvg_obj_core_large_structure_building11_interior1_2_0051/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building11_interior1_4_0054"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building11_Interior1_4.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("18_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+text = "pvg_obj_core_large_structure_building11_interior1_4_0054"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+text = "Building11_Interior1_4.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_018_pvg_obj_core_large_structure_building11_interior1_4_0054/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_019_pvg_obj_core_large_structure_building13_2_0086" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building13_2_0086"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_2.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("19_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+text = "pvg_obj_core_large_structure_building13_2_0086"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+text = "Building13_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_019_pvg_obj_core_large_structure_building13_2_0086/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_020_pvg_obj_core_large_structure_building13_3_0076" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building13_3_0076"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building13_3.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("20_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+text = "pvg_obj_core_large_structure_building13_3_0076"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+text = "Building13_3.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_020_pvg_obj_core_large_structure_building13_3_0076/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_021_pvg_obj_core_large_structure_building_interior1_1_0042" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior1_1_0042"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_1.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.5
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("21_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+text = "pvg_obj_core_large_structure_building_interior1_1_0042"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+text = "Building_Interior1_1.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_021_pvg_obj_core_large_structure_building_interior1_1_0042/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_022_pvg_obj_core_large_structure_building_interior1_2_0044" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior1_2_0044"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_2.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.5
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("22_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+text = "pvg_obj_core_large_structure_building_interior1_2_0044"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+text = "Building_Interior1_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_022_pvg_obj_core_large_structure_building_interior1_2_0044/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_023_pvg_obj_core_large_structure_building_interior1_3_0045" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior1_3_0045"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_3.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.5
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("23_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+text = "pvg_obj_core_large_structure_building_interior1_3_0045"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+text = "Building_Interior1_3.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_023_pvg_obj_core_large_structure_building_interior1_3_0045/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_024_pvg_obj_core_large_structure_building_interior1_4_0043" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior1_4_0043"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior1_4.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.5
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("24_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+text = "pvg_obj_core_large_structure_building_interior1_4_0043"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+text = "Building_Interior1_4.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_024_pvg_obj_core_large_structure_building_interior1_4_0043/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_025_pvg_obj_core_large_structure_building_interior3_1_0077" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior3_1_0077"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_1.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("25_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+text = "pvg_obj_core_large_structure_building_interior3_1_0077"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+text = "Building_Interior3_1.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_025_pvg_obj_core_large_structure_building_interior3_1_0077/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_026_pvg_obj_core_large_structure_building_interior3_2_0079" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior3_2_0079"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_2.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("26_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+text = "pvg_obj_core_large_structure_building_interior3_2_0079"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+text = "Building_Interior3_2.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_026_pvg_obj_core_large_structure_building_interior3_2_0079/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_027_pvg_obj_core_large_structure_building_interior3_3_0083" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior3_3_0083"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_3.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("27_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+text = "pvg_obj_core_large_structure_building_interior3_3_0083"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+text = "Building_Interior3_3.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_027_pvg_obj_core_large_structure_building_interior3_3_0083/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_028_pvg_obj_core_large_structure_building_interior3_4_0081" type="PanelContainer" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_core_large_structure_building_interior3_4_0081"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_Core_Tiles_1/CyberCity_Core_Tiles_1/Building_Interior3_4.png"
+metadata/source_set = "core"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -140
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081"]
+
+[node name="Preview" type="TextureRect" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("28_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+text = "pvg_obj_core_large_structure_building_interior3_4_0081"
+
+[node name="Details" type="Label" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+text = "core | large_structure | z -140 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+text = "Building_Interior3_4.png"
+
+[node name="Warning" type="Label" parent="ScrollContainer/GridContainer/Card_028_pvg_obj_core_large_structure_building_interior3_4_0081/VBox"]
+text = "no, baked perspective warning"

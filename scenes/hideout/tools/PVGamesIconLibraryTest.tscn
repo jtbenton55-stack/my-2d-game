@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://src/icons/PVGamesIconLibrary.gd" id="1_lib"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Female.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_10_Male.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Female.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_11_Male.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_12_Female.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_12_Male.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_13_Female.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/Store_Items/CyberCity_Icons/CyberCity_Icons/Accessory_13_Male.png" id="9_tex"]
+
+[node name="PVGamesIconLibraryTest" type="Control"]
+script = ExtResource("1_lib")
+
+[node name="Icon_2" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_2" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 20.0
+offset_right = 440.0
+offset_bottom = 70.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_10_female_aa10aeea\ncyber | READY_BOTH"
+
+[node name="Icon_3" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 100.0
+offset_bottom = 200.0
+texture = ExtResource("3_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_3" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 120.0
+offset_right = 440.0
+offset_bottom = 170.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_10_male_c6399393\ncyber | READY_BOTH"
+
+[node name="Icon_4" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 220.0
+offset_right = 100.0
+offset_bottom = 300.0
+texture = ExtResource("4_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_4" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 220.0
+offset_right = 440.0
+offset_bottom = 270.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_11_female_1ac6291a\ncyber | READY_BOTH"
+
+[node name="Icon_5" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 320.0
+offset_right = 100.0
+offset_bottom = 400.0
+texture = ExtResource("5_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_5" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 320.0
+offset_right = 440.0
+offset_bottom = 370.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_11_male_90235adf\ncyber | READY_BOTH"
+
+[node name="Icon_6" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 420.0
+offset_right = 100.0
+offset_bottom = 500.0
+texture = ExtResource("6_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_6" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 420.0
+offset_right = 440.0
+offset_bottom = 470.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_12_female_5be7e731\ncyber | READY_BOTH"
+
+[node name="Icon_7" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 520.0
+offset_right = 100.0
+offset_bottom = 600.0
+texture = ExtResource("7_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_7" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 520.0
+offset_right = 440.0
+offset_bottom = 570.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_12_male_a0e7311c\ncyber | READY_BOTH"
+
+[node name="Icon_8" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 620.0
+offset_right = 100.0
+offset_bottom = 700.0
+texture = ExtResource("8_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_8" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 620.0
+offset_right = 440.0
+offset_bottom = 670.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_13_female_5b0d9a0e\ncyber | READY_BOTH"
+
+[node name="Icon_9" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 720.0
+offset_right = 100.0
+offset_bottom = 800.0
+texture = ExtResource("9_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_9" type="Label" parent="."]
+offset_left = 110.0
+offset_top = 720.0
+offset_right = 440.0
+offset_bottom = 770.0
+text = "pvg_icon_cyber_city_icons_cyber_accessory_13_male_d6a3f949\ncyber | READY_BOTH"

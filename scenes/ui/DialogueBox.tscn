@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dialoguebox_v2"]
+[gd_scene load_steps=3 format=3 uid="uid://dialoguebox_v2"]
 
 [ext_resource type="Script" path="res://src/ui/DialogueBox.gd" id="1_dbox"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait_frame"]
+bg_color = Color(0.06, 0.07, 0.12, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.7, 1.0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="DialogueBox" type="CanvasLayer"]
 script = ExtResource("1_dbox")
@@ -12,9 +24,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -220.0
-offset_right = 480.0
+offset_left = -560.0
+offset_top = -240.0
+offset_right = 560.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -33,23 +45,28 @@ theme_override_constants/margin_bottom = 12
 
 [node name="HBox" type="HBoxContainer" parent="DialoguePanel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 16
 
-[node name="PortraitContainer" type="VBoxContainer" parent="DialoguePanel/MarginContainer/HBox"]
+[node name="PortraitContainer" type="PanelContainer" parent="DialoguePanel/MarginContainer/HBox"]
+custom_minimum_size = Vector2(176, 196)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
 
-[node name="PortraitRect" type="ColorRect" parent="DialoguePanel/MarginContainer/HBox/PortraitContainer"]
-custom_minimum_size = Vector2(96, 96)
+[node name="PortraitMargin" type="MarginContainer" parent="DialoguePanel/MarginContainer/HBox/PortraitContainer"]
 layout_mode = 2
-color = Color(0.2, 0.2, 0.25, 1)
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
-[node name="InitialLabel" type="Label" parent="DialoguePanel/MarginContainer/HBox/PortraitContainer"]
+[node name="PortraitRect" type="TextureRect" parent="DialoguePanel/MarginContainer/HBox/PortraitContainer/PortraitMargin"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "?"
-horizontal_alignment = 1
-vertical_alignment = 1
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ContentContainer" type="VBoxContainer" parent="DialoguePanel/MarginContainer/HBox"]
 layout_mode = 2
@@ -72,9 +89,8 @@ theme_override_constants/separation = 6
 
 [node name="NextIndicator" type="Label" parent="DialoguePanel/MarginContainer/HBox/ContentContainer"]
 layout_mode = 2
-text = "▼"
+text = "Press E"
 horizontal_alignment = 2
-visible = false
 
 [node name="SkipButton" type="Button" parent="DialoguePanel"]
 layout_mode = 1

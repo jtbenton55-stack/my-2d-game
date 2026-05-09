@@ -1,0 +1,330 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_8.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_3.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_5.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_6.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_7.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_8.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/FortFloor1_2.png" id="8_tex"]
+
+[node name="PVGamesEditableObjectPalette_ReviewObjects" type="Control"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = 20
+offset_top = 10
+offset_right = 1220
+offset_bottom = 34
+text = "ReviewObjects Editable Object Palette"
+
+
+[node name="Summary" type="Label" parent="."]
+offset_left = 20
+offset_top = 42
+offset_right = 1520
+offset_bottom = 66
+text = "153 objects. Open page scenes below for full visual browsing. Previews are not production Hideout objects."
+
+
+[node name="Page_001" type="Label" parent="."]
+offset_left = 20
+offset_top = 78
+offset_right = 1520
+offset_bottom = 102
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_ReviewObjects_Page001.tscn"
+
+
+[node name="Page_002" type="Label" parent="."]
+offset_left = 20
+offset_top = 104
+offset_right = 1520
+offset_bottom = 128
+text = "res://scenes/hideout/tools/PVGamesEditableObjectPalette_ReviewObjects_Page002.tscn"
+
+
+[node name="SampleCards" type="GridContainer" parent="."]
+offset_left = 20.0
+offset_top = 154.0
+offset_right = 1560.0
+offset_bottom = 900.0
+columns = 4
+
+[node name="Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbag1_5_0614"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("1_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "pvg_obj_central_security_barrier_sandbag1_5_0614"
+
+[node name="Details" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "Sandbag1_5.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_001_pvg_obj_central_security_barrier_sandbag1_5_0614/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbag1_8_0615"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbag1_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("2_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+text = "pvg_obj_central_security_barrier_sandbag1_8_0615"
+
+[node name="Details" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+text = "Sandbag1_8.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_002_pvg_obj_central_security_barrier_sandbag1_8_0615/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbags2_3_0718"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_3.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("3_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+text = "pvg_obj_central_security_barrier_sandbags2_3_0718"
+
+[node name="Details" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+text = "Sandbags2_3.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_003_pvg_obj_central_security_barrier_sandbags2_3_0718/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbags2_5_0693"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_5.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("4_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+text = "pvg_obj_central_security_barrier_sandbags2_5_0693"
+
+[node name="Details" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+text = "Sandbags2_5.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_004_pvg_obj_central_security_barrier_sandbags2_5_0693/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbags2_6_0690"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_6.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("5_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+text = "pvg_obj_central_security_barrier_sandbags2_6_0690"
+
+[node name="Details" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+text = "Sandbags2_6.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_005_pvg_obj_central_security_barrier_sandbags2_6_0690/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbags2_7_0685"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_7.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("6_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+text = "pvg_obj_central_security_barrier_sandbags2_7_0685"
+
+[node name="Details" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+text = "Sandbags2_7.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_006_pvg_obj_central_security_barrier_sandbags2_7_0685/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_barrier_sandbags2_8_0689"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Sandbags2_8.png"
+metadata/source_set = "central_security"
+metadata/object_category = "barrier"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 1.0
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("7_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+text = "pvg_obj_central_security_barrier_sandbags2_8_0689"
+
+[node name="Details" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+text = "central_security | barrier | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+text = "Sandbags2_8.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_007_pvg_obj_central_security_barrier_sandbags2_8_0689/VBox"]
+text = "no, baked perspective warning"
+
+
+[node name="Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162" type="PanelContainer" parent="SampleCards"]
+custom_minimum_size = Vector2(360, 245)
+metadata/object_id = "pvg_obj_central_security_large_structure_fortfloor1_2_1162"
+metadata/source_png_path = "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/FortFloor1_2.png"
+metadata/source_set = "central_security"
+metadata/object_category = "large_structure"
+metadata/recommended_container = "ReviewObjects"
+metadata/recommended_z_index = -40
+metadata/recommended_default_scale = 0.65
+metadata/pivot_mode = "VISIBLE_ALPHA_CENTER"
+
+[node name="VBox" type="VBoxContainer" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162"]
+
+[node name="Preview" type="TextureRect" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+custom_minimum_size = Vector2(128, 96)
+texture = ExtResource("8_tex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ObjectId" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+text = "pvg_obj_central_security_large_structure_fortfloor1_2_1162"
+
+[node name="Details" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+text = "central_security | large_structure | z -40 | VISIBLE_ALPHA_CENTER"
+
+[node name="Container" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+text = "ReviewObjects"
+
+[node name="Filename" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+text = "FortFloor1_2.png"
+
+[node name="Warning" type="Label" parent="SampleCards/Card_008_pvg_obj_central_security_large_structure_fortfloor1_2_1162/VBox"]
+text = "no, baked perspective warning"

@@ -42,7 +42,14 @@ func next_line() -> void:
 		end_dialogue()
 		return
 	var line := current_lines[current_index]
-	EventBus.dialogue_line_changed.emit(String(line.get("speaker", "")), String(line.get("text", "")))
+	var speaker := String(line.get("speaker", ""))
+	var text := String(line.get("text", ""))
+	var portrait_id := String(line.get("portrait_id", ""))
+	# Legacy signal stays exactly as it was (two args) so existing listeners do not break.
+	EventBus.dialogue_line_changed.emit(speaker, text)
+	# Phase 0M-C3 - new signal carries portrait_id + the full line dict for
+	# the dialogue UI's left-side portrait support.
+	EventBus.dialogue_line_changed_full.emit(speaker, text, portrait_id, line)
 
 func end_dialogue() -> void:
 	is_in_dialogue = false

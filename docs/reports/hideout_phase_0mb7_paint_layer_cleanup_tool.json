@@ -1,0 +1,453 @@
+{
+  "status": "PASS",
+  "hideout_hub_modified": false,
+  "taco_bell_scenes_modified": false,
+  "gameplay_scripts_modified": false,
+  "cells_actually_cleared_in_this_pass": 0,
+  "pvgames_paint_layers_found": 19,
+  "core_paint_layers_found": 9,
+  "central_security_paint_layers_found": 8,
+  "ground_floor_layers_found": 6,
+  "wall_layers_found": 8,
+  "occludable_layers_found": 5,
+  "foreground_layers_found": 2,
+  "review_only_layers_found": 0,
+  "total_used_pvgames_cells_static": 4,
+  "used_cell_count_per_layer": {
+    "ArtRoot/World/FloorLayer/PVGamesFloorPaintLayer": 0,
+    "ArtRoot/World/WallLayer/PVGamesWallPaintLayer": 0,
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogGroundRoadPaintLayer": 1,
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogWallPaintLayer": 3,
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogLargeStructurePaintLayer": 0,
+    "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogPropSignPaintLayer": 0,
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindGroundPaintLayer": 0,
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindWallBackdropPaintLayer": 0,
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer": 0,
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludablePropPaintLayer": 0,
+    "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityGroundRoadPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityWallBackdropPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityLargeStructureBackdropPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityPropSignBackdropPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableWallPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludablePropPaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableLargeStructurePaintLayer": 0,
+    "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityForegroundOverlayPaintLayer": 0
+  },
+  "cleanup_tool_path": "res://src/tools/editor/PVGamesPaintLayerCleanupTool.gd",
+  "runner_path": "res://src/tools/editor/PVGamesPaintLayerCleanupRunner.gd",
+  "dry_run_results": {
+    "core": {
+      "target_group": "core",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 1,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 3,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogLargeStructurePaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogPropSignPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindGroundPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 4,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "central_security": {
+      "target_group": "central_security",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityLargeStructureBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityPropSignBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableLargeStructurePaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 0,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "ground": {
+      "target_group": "ground",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/FloorLayer/PVGamesFloorPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": false
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 1,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindGroundPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 1,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "wall": {
+      "target_group": "wall",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/WallLayer/PVGamesWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": false
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 3,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityLargeStructureBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityPropSignBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 3,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "occludable": {
+      "target_group": "occludable",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableLargeStructurePaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 0,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "foreground": {
+      "target_group": "foreground",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 0,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "review_only": {
+      "target_group": "review_only",
+      "layers_that_would_be_cleared": [],
+      "total_cells_that_would_be_cleared": 0,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    },
+    "all_pvgames": {
+      "target_group": "all_pvgames",
+      "layers_that_would_be_cleared": [
+        {
+          "node_path": "ArtRoot/World/FloorLayer/PVGamesFloorPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": false
+        },
+        {
+          "node_path": "ArtRoot/World/WallLayer/PVGamesWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": false
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 1,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 3,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogLargeStructurePaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CatalogPaintLayers/PVGamesCatalogPropSignPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindGroundPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesBehindWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_DepthPaintLayers/PVGamesForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityGroundRoadPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityGroundRoadPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityWallBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityLargeStructureBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers/PVGamesCentralSecurityPropSignBackdropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableWallPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityWallPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludablePropPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityOccludableLargeStructurePaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityLargeStructurePaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        },
+        {
+          "node_path": "ArtRoot/World/PVG_CentralSecurityDepthPaintLayers/PVGamesCentralSecurityForegroundOverlayPaintLayer",
+          "tileset_path": "res://assets/tilesets/pvgames_central_security_paintable/PVGamesCentralSecurityPropSignPaint.tres",
+          "used_cell_count": 0,
+          "safe_to_clear": true
+        }
+      ],
+      "total_cells_that_would_be_cleared": 4,
+      "changed": false,
+      "note": "Dry-run only. No cells were cleared."
+    }
+  },
+  "backup_before_clear_implemented": true,
+  "how_to_guide_path": "res://docs/reports/pvgames_paint_layer_cleanup_how_to.md",
+  "risks_limitations": [
+    "Report counts are static from serialized tile_map_data; the Godot tool uses get_used_cells() at runtime.",
+    "Future clear modes are destructive and should only be used after dry-run review."
+  ],
+  "recommended_next_step": "Review the inventory report, identify the unwanted layer, then run a dry-run for that exact layer before clearing."
+}

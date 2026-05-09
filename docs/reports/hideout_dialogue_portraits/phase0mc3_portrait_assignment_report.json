@@ -1,0 +1,18 @@
+{
+  "phase": "0M-C3",
+  "assignments": {
+    "jake": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r0_c2",
+    "parmida": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+    "louis": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0",
+    "mere": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c1",
+    "bentley": null,
+    "fallback": "portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_54c76689_r0_c0"
+  },
+  "missing_portrait_assets": [
+    {
+      "role": "bentley",
+      "reason": "No dog portrait in source pack",
+      "fallback": "res://assets/portraits/generated_slices/portrait_bentley_placeholder.png"
+    }
+  ]
+}

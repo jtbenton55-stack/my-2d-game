@@ -1,0 +1,13 @@
+[
+  {
+    "asset_id": "CS_0636",
+    "path": "res://assets/tilesets/cyber_city_core_tilesets/CyberCity_CentralSecurity_Tiles/CyberCity_CentralSecurity_Tiles_1/CyberCity_CentralSecurity_Tiles_1/Generator1_1.png",
+    "filename": "Generator1_1.png",
+    "reason_not_in_production_tileset": "Useful irregular prop/sign/tech object, but individual Sprite2D placement is safer.",
+    "recommended_target_layer": "PropLayer or ForegroundLayer",
+    "recommended_z_index": 90,
+    "recommended_depth_role": "SPRITE_STAMP",
+    "recommended_use_case": "Use Sprite2D/PVGamesArtStamper for precise placement, scale, and z-index.",
+    "could_still_be_large_painted_tile": true
+  }
+]

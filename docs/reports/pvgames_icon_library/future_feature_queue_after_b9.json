@@ -1,0 +1,76 @@
+[
+  {
+    "pass_id": "0M-C1",
+    "title": "Storefront Icon Integration",
+    "items": [
+      "CyberCity/Doomsday icons for sale",
+      "storefront icon thumbnails",
+      "inventory/store UI polish"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-C2",
+    "title": "Character Asset Replacement Plan",
+    "items": [
+      "main player: medium-sized white woman, black curly hair, badass cyberpunk/noir, 2D top-down or 3/4 compatible",
+      "Bentley: black Shiba Inu, top-down/3/4 compatible",
+      "avoid side-scroller-only sprites unless acceptable"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-C3",
+    "title": "Hideout Dialogue Expansion",
+    "items": [
+      "Jake",
+      "Mere",
+      "Bentley",
+      "Louis",
+      "cyberpunk portraits on left side of dialogue box"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-C4",
+    "title": "Jarvis-Style Hideout AI Assistant",
+    "items": [
+      "mission selector integration",
+      "hideout commentary",
+      "tutorial hints",
+      "store/objective reminders",
+      "no external API unless requested"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-C5",
+    "title": "Greenhouse Plant Watering + City Skyline Clock",
+    "items": [
+      "plant watering",
+      "plant state",
+      "skyline backdrops",
+      "in-game clock",
+      "time-of-day variation"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-C6",
+    "title": "Main Menu UI Redesign",
+    "items": [
+      "sleeker consistent UI",
+      "cyber-noir design language",
+      "buttons/fonts/colors/transitions"
+    ],
+    "implemented_in_b9": false
+  },
+  {
+    "pass_id": "0M-TB1",
+    "title": "Taco Bell Mission Next Pass",
+    "items": [
+      "separate prompt required"
+    ],
+    "implemented_in_b9": false
+  }
+]

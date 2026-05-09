@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogGroundRoadPaint.tres" id="1_ground"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogWallPaint.tres" id="2_wall"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogPropSignPaint.tres" id="3_prop"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_catalog_paintable/PVGamesCatalogLargeStructurePaint.tres" id="4_large"]
+
+[node name="HideoutDepthSortTest_0MB5" type="Node2D"]
+
+[node name="Notes" type="Label" parent="."]
+offset_left = -520.0
+offset_top = -300.0
+offset_right = 520.0
+offset_bottom = -240.0
+theme_override_font_sizes/font_size = 18
+text = "0M-B5 depth test: floor/backdrop behind, occludable wall/prop above player, foreground overlay above all. Visual-only; no collision/gameplay."
+
+[node name="BehindFloorPaintLayer" type="TileMapLayer" parent="."]
+z_index = -300
+tile_set = ExtResource("1_ground")
+collision_enabled = false
+
+[node name="BehindBackdropPaintLayer" type="TileMapLayer" parent="."]
+z_index = -240
+tile_set = ExtResource("2_wall")
+collision_enabled = false
+
+[node name="FloorProxy" type="Polygon2D" parent="."]
+z_index = -290
+color = Color(0.08, 0.18, 0.22, 0.9)
+polygon = PackedVector2Array(-240, -70, 240, -70, 240, 130, -240, 130)
+
+[node name="PlayerProxy_InFront" type="Polygon2D" parent="."]
+position = Vector2(-90, 70)
+z_index = 30
+color = Color(0.95, 0.86, 0.78, 1)
+polygon = PackedVector2Array(-20, -58, 20, -58, 20, 0, -20, 0)
+
+[node name="PlayerProxy_InFront_Label" type="Label" parent="."]
+offset_left = -170.0
+offset_top = 90.0
+offset_right = -20.0
+offset_bottom = 118.0
+text = "player proxy z 30"
+
+[node name="OccludableWallPaintLayer" type="TileMapLayer" parent="."]
+z_index = 80
+tile_set = ExtResource("2_wall")
+collision_enabled = false
+
+[node name="OccludablePropPaintLayer" type="TileMapLayer" parent="."]
+z_index = 90
+tile_set = ExtResource("3_prop")
+collision_enabled = false
+
+[node name="OccludableWallProxy" type="Polygon2D" parent="."]
+position = Vector2(80, 30)
+z_index = 85
+color = Color(0.1, 0.55, 0.78, 0.95)
+polygon = PackedVector2Array(-50, -150, 50, -150, 50, 45, -50, 45)
+
+[node name="OccludableLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = -150.0
+offset_right = 260.0
+offset_bottom = -110.0
+text = "occludable wall/prop z 80-90 covers player"
+
+[node name="ForegroundOverlayPaintLayer" type="TileMapLayer" parent="."]
+z_index = 160
+tile_set = ExtResource("4_large")
+collision_enabled = false
+
+[node name="ForegroundOverlayProxy" type="Polygon2D" parent="."]
+z_index = 170
+color = Color(0.8, 0.1, 0.95, 0.35)
+polygon = PackedVector2Array(-280, -210, 280, -210, 280, -170, -280, -170)
+
+[node name="ForegroundLabel" type="Label" parent="."]
+offset_left = -250.0
+offset_top = -235.0
+offset_right = 250.0
+offset_bottom = -205.0
+text = "foreground overlay z 160+ always above"
