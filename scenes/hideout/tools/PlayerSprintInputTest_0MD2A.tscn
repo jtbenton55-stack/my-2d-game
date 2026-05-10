@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bmd2a_sprint_tsc"]
+
+[ext_resource type="Script" path="res://scenes/hideout/tools/PlayerSprintInputTest_0MD2A.gd" id="1_script"]
+
+[node name="PlayerSprintInputTest0MD2A" type="Node"]
+script = ExtResource("1_script")
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 760.0
+offset_bottom = 72.0
+text = "0M-D2A: Output lists sprint bindings (expect Space=32, Ctrl=4194326) + stamina snapshot."

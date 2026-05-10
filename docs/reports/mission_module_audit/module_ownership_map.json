@@ -1,0 +1,35 @@
+{
+  "assertions": {
+    "module_ownership_map_created": true,
+    "taco_bell_unique_logic_boundaries_defined": true,
+    "future_prompt_owners_clear": true
+  },
+  "rows": [
+    {"responsibility": "Mission start/restart/exit", "intended_owner": "MissionLifecycleController", "current": "LevelBase.gd + IsoMissionBase._ready/_generate_from_definition", "status": "partial", "priority": "P0"},
+    {"responsibility": "Current mission objectives", "intended_owner": "ObjectiveTracker", "current": "QuestManager + IsoMissionBase _required_objective_ids", "status": "partial", "priority": "P0"},
+    {"responsibility": "Displaying objectives", "intended_owner": "ObjectivePanel / MissionHUD", "current": "pause_menu.gd _objectives_text + QuestManager", "status": "partial", "priority": "P0"},
+    {"responsibility": "Clue pickups", "intended_owner": "ClueTracker", "current": "IsoMissionBase _create_clue_pickups + MissionCluePickupPlaceholder", "status": "partial", "priority": "P1"},
+    {"responsibility": "Persistent clue unlocks", "intended_owner": "GameState / SaveManager", "current": "GameState.sterling_clues", "status": "exists", "priority": "P1"},
+    {"responsibility": "Equipped scheme cards", "intended_owner": "SchemeCardLoadout", "current": "CardManager (autoload)", "status": "partial", "priority": "P1"},
+    {"responsibility": "Applying scheme effects", "intended_owner": "SchemeCardEffectResolver", "current": "CardEffects + Player/LevelBase _card_float", "status": "partial", "priority": "P1"},
+    {"responsibility": "Poop bag inventory", "intended_owner": "ToolInventory", "current": "GameState.get_poop_bag_count / try_consume_poop_bag", "status": "partial", "priority": "P0"},
+    {"responsibility": "Poop bag aiming", "intended_owner": "AimableToolController", "current": "Player.gd targeting state", "status": "partial", "priority": "P0"},
+    {"responsibility": "Poop bag Taco-specific distraction outcome", "intended_owner": "TacoBellMissionAdapter", "current": "IsoMissionBase.deploy_poop_bag_decoy_at + decoy point", "status": "mission_specific", "priority": "P1"},
+    {"responsibility": "Beam one-shot trigger", "intended_owner": "OneShotAlarmZone", "current": "IsoMissionBase _on_runtime_alarm_zone_entered + _is_alarm_zone_one_shot", "status": "exists", "priority": "P1"},
+    {"responsibility": "Code gate", "intended_owner": "CodeGateInteractable", "current": "IsoMissionBase code gate nodes + set_code_gate_open + Phase0JCodeGateController in redesign scene", "status": "partial", "priority": "P0"},
+    {"responsibility": "Louis bypass route", "intended_owner": "RouteSystem + mission adapter", "current": "MissionRouteAccessPoint future_shortcut + louis_delivery_route", "status": "partial", "priority": "P0"},
+    {"responsibility": "Detection cones / cameras", "intended_owner": "DetectionSensor / MissionCamera", "current": "Iso spawn + MissionAlertController", "status": "partial", "priority": "P2"},
+    {"responsibility": "Noise events", "intended_owner": "NoiseEvent", "current": "partially via EventBus / shake", "status": "missing", "priority": "P2"},
+    {"responsibility": "Sprint stamina", "intended_owner": "PlayerStaminaController", "current": "not found in Player.gd", "status": "missing", "priority": "P0"},
+    {"responsibility": "Dodge", "intended_owner": "PlayerDodgeController", "current": "Player.gd dodge_timer fields", "status": "partial", "priority": "P2"},
+    {"responsibility": "Attack", "intended_owner": "PlayerCombatController", "current": "Player.gd references combat controller (not expanded in audit)", "status": "partial", "priority": "P2"},
+    {"responsibility": "Animation request", "intended_owner": "PlayerVisualIntent / resolver", "current": "PlayerVisualAnimator.gd (parallel)", "status": "partial", "priority": "P2"},
+    {"responsibility": "Save persistent progress", "intended_owner": "SaveManager", "current": "SaveManager autoload", "status": "exists", "priority": "P1"},
+    {"responsibility": "Temporary mission counters", "intended_owner": "MissionRuntimeState", "current": "IsoMissionBase._attempt_runtime_state", "status": "partial", "priority": "P0"},
+    {"responsibility": "Rewards", "intended_owner": "MissionResult / RewardResolver", "current": "GameState.complete_mission + Iso unlock_crew_assist", "status": "partial", "priority": "P1"},
+    {"responsibility": "Heat", "intended_owner": "HeatTracker", "current": "_heat_profile dict in IsoMissionBase", "status": "partial", "priority": "P2"},
+    {"responsibility": "Return to hideout", "intended_owner": "SceneManager + MissionLifecycle", "current": "SceneManager + LevelBase result flow", "status": "partial", "priority": "P1"},
+    {"responsibility": "Mission UI pause tabs", "intended_owner": "MissionPauseMenu", "current": "pause_menu.gd (test_ui)", "status": "partial", "priority": "P0"},
+    {"responsibility": "Mission-specific unique logic", "intended_owner": "TacoBellMissionAdapter", "current": "TacoBellDialogue + Taco-tuned helpers inside IsoMissionBase", "status": "duplicated", "priority": "P0"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "assertions": {
+    "taco_scene_loaded": false,
+    "player_spawned": false,
+    "player_movement_tested": false,
+    "no_blocking_runtime_errors": false
+  },
+  "status": "blocked_no_godot",
+  "static_substitute": "TacoBellIso_Editable.tscn exists on disk; IsoMissionBase.gd parses per preflight (no TacoBellDialogue preload)."
+}

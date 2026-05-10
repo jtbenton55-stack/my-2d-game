@@ -1,0 +1,12 @@
+{
+  "primary_animation_resource": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+  "root_cause": "A \u2014 WRONG_FRAME_SIZE (100x200 vs true 200x200 C2 cell) + G/L secondary",
+  "fix2_frame_size": [
+    100,
+    200
+  ],
+  "fix3_chosen": [
+    200,
+    200
+  ]
+}

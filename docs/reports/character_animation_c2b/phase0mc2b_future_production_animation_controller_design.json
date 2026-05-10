@@ -1,0 +1,12 @@
+{
+  "version": "0mc2b-design-1",
+  "motion_source": "read_velocity_from_player",
+  "writes_velocity": false,
+  "writes_collision": false,
+  "attack_trigger": "future_explicit_event_only",
+  "fallback_when_missing_animation": "idle",
+  "production_scale_reference": [1.35, 1.35],
+  "directional_animation": "not_until_source_supports",
+  "player_gd_changes_required": false,
+  "notes": "Design only; C2B does not integrate into player.tscn."
+}

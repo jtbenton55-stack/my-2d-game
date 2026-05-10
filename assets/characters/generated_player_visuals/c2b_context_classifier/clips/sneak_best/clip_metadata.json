@@ -1,0 +1,32 @@
+{
+  "clip_name": "sneak_best",
+  "segment_id": 25,
+  "action_label": "half_crouch_sneak",
+  "confidence": 0.6834,
+  "start_global": 640,
+  "end_global": 658,
+  "start_row": 12,
+  "end_row": 13,
+  "frame_count": 19,
+  "frames": [
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_000.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_001.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_002.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_003.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_004.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_005.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_006.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_007.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_008.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_009.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_010.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_011.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_012.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_013.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_014.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_015.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_016.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_017.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sneak_best/frames/sneak_best_018.png"
+  ]
+}

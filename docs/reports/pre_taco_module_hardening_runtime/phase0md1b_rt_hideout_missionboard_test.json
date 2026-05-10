@@ -1,0 +1,9 @@
+{
+  "assertions": {
+    "project_launched": false,
+    "hideout_or_entry_scene_tested": false,
+    "taco_launch_path_tested_or_direct_load_documented": true
+  },
+  "status": "blocked_no_godot",
+  "notes": "Runtime MCP bridge not connected; no local Godot binary for headless launch. Launch path inferred from code: MainMenu → SceneManager → HideoutHub; taco_bell_drop debug uses TacoBellIso_Editable.tscn (SceneManager.gd)."
+}

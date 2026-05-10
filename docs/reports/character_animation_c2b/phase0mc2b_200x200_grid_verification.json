@@ -1,0 +1,18 @@
+{
+  "frame_size": [
+    200,
+    200
+  ],
+  "sheet": [
+    10000,
+    10000
+  ],
+  "cols": 50,
+  "rows": 50,
+  "100x200_not_used": true,
+  "assertions": {
+    "200x200_grid_verified": true,
+    "100x200_not_used": true,
+    "layer_grid_compatibility_confirmed": true
+  }
+}

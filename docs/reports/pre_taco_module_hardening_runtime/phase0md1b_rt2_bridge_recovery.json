@@ -1,0 +1,17 @@
+{
+  "recovery_steps": [
+    "call_mcp grb_launch project_path only -> failed then succeeded with grb_reset tier default",
+    "grb_reset with tier 2 for SceneManager.change_scene and HideoutManager.open_station",
+    "grb_runtime_info confirmed MainMenu then HideoutHub then TacoBellIso_Editable",
+    "grb_quit at end of session"
+  ],
+  "launch_method": "MCP grb_reset / grb_launch (Godot Runtime Bridge MCP, companion GODOT_PATH console binary)",
+  "project_launched": true,
+  "bridge_connected": true,
+  "tier_used": 2,
+  "screenshot_captured": false,
+  "assertions": {
+    "runtime_recovery_attempted": true,
+    "recovery_result_documented": true
+  }
+}

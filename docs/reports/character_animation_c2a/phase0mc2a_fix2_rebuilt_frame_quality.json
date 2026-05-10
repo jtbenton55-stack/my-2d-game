@@ -1,0 +1,24 @@
+{
+  "idle": {
+    "name": "idle",
+    "foot_bottom_std": 0.4,
+    "per_frame_tags": [
+      "OK",
+      "OK",
+      "PARTIAL",
+      "OK",
+      "PARTIAL",
+      "OK",
+      "PARTIAL",
+      "OK",
+      "OK",
+      "OK"
+    ],
+    "all_ok": false
+  },
+  "walk": {
+    "name": "walk",
+    "included": false
+  },
+  "walk_included": false
+}

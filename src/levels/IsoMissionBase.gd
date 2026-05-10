@@ -45,7 +45,6 @@ const ALARM_STATE_SUSPICIOUS := "suspicious"
 const ALARM_STATE_ALERTED := "alerted"
 const ALARM_STATE_RESOLVED := "resolved"
 const ISO_MARKER_SCRIPT := preload("res://src/missions/iso/authoring/IsoMissionMarker.gd")
-const TacoBellDialogue := preload("res://src/missions/iso/runtime/TacoBellDialogue.gd")
 const MARKER_CATEGORIES: Array[String] = [
 	"Spawns",
 	"Objectives",
@@ -93,6 +92,7 @@ var _bake_marker_ids: Dictionary = {}
 var _heat_profile: Dictionary = {}
 var _code_gate_blockers: Dictionary = {}
 var _attempt_runtime_state: Dictionary = {}
+var _dialogue_provider: MissionDialogueProvider = null
 
 
 func _ready() -> void:
@@ -118,6 +118,65 @@ func validate_blockout() -> Dictionary:
 	if mission_definition == null:
 		return {"ok": false, "errors": ["MissionDefinition is null."], "warnings": [], "debug": {}}
 	return MissionBlockoutValidator.validate(mission_definition, self)
+
+
+func _resolve_dialogue_provider() -> MissionDialogueProvider:
+	if _dialogue_provider != null:
+		return _dialogue_provider
+	var mid := String(get_mission_id()).to_lower()
+	if mid.contains("taco"):
+		var script: Script = load("res://src/missions/taco_bell/TacoBellDialogueProvider.gd") as Script
+		if script != null:
+			_dialogue_provider = script.new() as MissionDialogueProvider
+	if _dialogue_provider == null:
+		_dialogue_provider = MissionDialogueProvider.new()
+	return _dialogue_provider
+
+
+func _mission_dialogue_line(dialogue_id: String, fallback_text: String, fallback_speaker: String = "Mission") -> Dictionary:
+	var provider := _resolve_dialogue_provider()
+	if provider == null:
+		return {"ok": true, "speaker": fallback_speaker, "text": fallback_text, "sequence": [], "reason": "no_provider"}
+	return provider.get_dialogue_line(dialogue_id, {"fallback_text": fallback_text, "fallback_speaker": fallback_speaker})
+
+
+func supports_tool(tool_id: String) -> bool:
+	return tool_id == MissionToolSurfaceHelper.TOOL_POOP_BAG
+
+
+func handle_tool_use(tool_id: String, payload: Dictionary = {}) -> Dictionary:
+	if tool_id == MissionToolSurfaceHelper.TOOL_POOP_BAG:
+		var wp: Vector2 = payload.get("world_pos", Vector2.ZERO) as Vector2
+		var ok := deploy_poop_bag_decoy_at(wp)
+		return {
+			"ok": ok,
+			"handled": true,
+			"reason": "" if ok else "deploy_rejected",
+			"tool_id": tool_id,
+			"effect": "poop_decoy",
+			"payload": payload,
+		}
+	return {
+		"ok": false,
+		"handled": false,
+		"reason": "unknown_tool",
+		"tool_id": tool_id,
+		"effect": "",
+		"payload": payload,
+	}
+
+
+func get_tool_surface_id() -> String:
+	return "iso_mission_base"
+
+
+func reset_tool_surface_runtime_state() -> void:
+	pass
+
+
+## Documented entry point for attempt-local runtime (see phase0md1b_attempt_reset_contract). Normal completion/failure uses SceneManager scene reload.
+func reset_mission_runtime_for_new_attempt() -> void:
+	_setup_runtime_systems()
 
 
 func _ensure_iso_structure() -> void:
@@ -1053,7 +1112,7 @@ func request_exit_completion(_player: Node = null) -> bool:
 
 func _show_exit_locked_feedback() -> void:
 	var message := _exit_locked_message()
-	QuestManager.set_objective(message, get_mission_id())
+	MissionObjectiveBridge.publish_primary_objective(get_mission_id(), message)
 	DialogueManager.start_simple_dialogue([{ "speaker": "Exit", "text": message }])
 
 
@@ -1079,13 +1138,13 @@ func _complete_exit_return_objectives() -> void:
 func _update_next_required_objective() -> void:
 	for id in _required_objective_ids:
 		if not _completed_objective_ids.has(id):
-			QuestManager.set_objective(String(_required_objective_text.get(id, "Continue the route.")), get_mission_id())
+			MissionObjectiveBridge.publish_primary_objective(get_mission_id(), String(_required_objective_text.get(id, "Continue the route.")))
 			return
 	for id in _required_clue_ids:
 		if not _completed_clue_ids.has(id):
-			QuestManager.set_objective("Recover required clue: " + id.replace("_", " ").capitalize(), get_mission_id())
+			MissionObjectiveBridge.publish_primary_objective(get_mission_id(), "Recover required clue: " + id.replace("_", " ").capitalize())
 			return
-	QuestManager.set_objective("Return to Louis at the exit.", get_mission_id())
+	MissionObjectiveBridge.publish_primary_objective(get_mission_id(), "Return to Louis at the exit.")
 
 
 func _on_exit_zone_body_entered(body: Node) -> void:
@@ -1122,9 +1181,10 @@ func _record_runtime_completion_metadata() -> void:
 			"effect_data": reward.effect_data if reward.effect_data is Dictionary else {},
 			"is_equipped": false,
 		})
+		var dline := _mission_dialogue_line("mission_complete_001", "Scheme Card unlocked: " + String(reward.display_name), "Mission")
 		DialogueManager.start_simple_dialogue([{
-			"speaker": "Mission",
-			"text": String(TacoBellDialogue.line("mission_complete_001", "Scheme Card unlocked: " + String(reward.display_name), "Mission").get("text"))
+			"speaker": String(dline.get("speaker", "Mission")),
+			"text": String(dline.get("text", "Scheme Card unlocked: " + String(reward.display_name)))
 		}])
 		if reward_id == "louis_delivery_route":
 			GameState.unlock_crew_assist("louis_delivery_route_assist", {

@@ -1,0 +1,9 @@
+{
+  "assertions": {
+    "tool_surface_tested_or_input_blocker_documented": true,
+    "tool_use_does_not_crash_or_regression_fixed": false
+  },
+  "status": "blocked_no_godot",
+  "input_note": "poop_bag_targeting action unchanged; MissionToolSurfaceHelper path reviewed statically — no syntax issues.",
+  "code_review": "Player._try_throw_poop_bag uses MissionToolSurfaceHelper; Iso implements handle_tool_use for poop_bag."
+}

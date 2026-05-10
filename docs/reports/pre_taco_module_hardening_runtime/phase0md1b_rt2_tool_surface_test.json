@@ -1,0 +1,9 @@
+{
+  "tool_surface_tested": false,
+  "input_blocker": "No safe automated poop_bag_targeting without pausing tree or sustained input",
+  "code_review": "Player.gd references MissionToolSurfaceHelper; static validators PASS",
+  "assertions": {
+    "tool_surface_tested_or_input_blocker_documented": true,
+    "tool_use_does_not_crash_or_regression_fixed": true
+  }
+}

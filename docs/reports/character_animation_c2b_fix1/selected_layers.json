@@ -1,0 +1,68 @@
+{
+  "layers": [
+    {
+      "semantic": "base",
+      "exact_source_path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "exists": true,
+      "width": 10000,
+      "height": 10000,
+      "divisible_by_200": true,
+      "cols_200": 50,
+      "rows_200": 50,
+      "alpha_present": true,
+      "compatible_grid": true
+    },
+    {
+      "semantic": "bottoms",
+      "exact_source_path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "exists": true,
+      "width": 10000,
+      "height": 10000,
+      "divisible_by_200": true,
+      "cols_200": 50,
+      "rows_200": 50,
+      "alpha_present": true,
+      "compatible_grid": true
+    },
+    {
+      "semantic": "tops",
+      "exact_source_path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "exists": true,
+      "width": 10000,
+      "height": 10000,
+      "divisible_by_200": true,
+      "cols_200": 50,
+      "rows_200": 50,
+      "alpha_present": true,
+      "compatible_grid": true
+    },
+    {
+      "semantic": "head",
+      "exact_source_path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "exists": true,
+      "width": 10000,
+      "height": 10000,
+      "divisible_by_200": true,
+      "cols_200": 50,
+      "rows_200": 50,
+      "alpha_present": true,
+      "compatible_grid": true
+    },
+    {
+      "semantic": "hair",
+      "exact_source_path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png",
+      "exists": true,
+      "width": 10000,
+      "height": 10000,
+      "divisible_by_200": true,
+      "cols_200": 50,
+      "rows_200": 50,
+      "alpha_present": true,
+      "compatible_grid": true
+    }
+  ],
+  "frame_size": [
+    200,
+    200
+  ]
+}

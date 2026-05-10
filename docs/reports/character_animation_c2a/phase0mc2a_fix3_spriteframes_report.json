@@ -1,0 +1,16 @@
+{
+  "resource": "res://assets/characters/generated_player_visuals/c2a_animation/fix3_stable/parmida_player_spriteframes_0mc2a_fix3.tres",
+  "atlas": "res://assets/characters/generated_player_visuals/c2a_animation/fix3_stable/parmida_player_composite_sheet_0mc2a_fix3.png",
+  "godot4_format": {"top_level_animations_array": true, "no_nested_animations_idle_path": true},
+  "animations": [
+    {"name": "idle", "frames": 3, "fps": 5.0, "loop": true, "walk": false}
+  ],
+  "walk_included": false,
+  "reference_style": "res://assets/sprites/player_sprite_frames.tres",
+  "assertions": {
+    "fix3_spriteframes_created": true,
+    "fix3_spriteframes_godot4_valid_by_static_inspection": true,
+    "fix3_contains_idle": true,
+    "fix3_walk_included_only_if_stable": true
+  }
+}

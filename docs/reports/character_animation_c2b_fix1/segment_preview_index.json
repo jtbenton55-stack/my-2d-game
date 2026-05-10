@@ -1,0 +1,559 @@
+{
+  "segments": [
+    {
+      "segment_id": 1,
+      "label": "walk",
+      "frames": 80
+    },
+    {
+      "segment_id": 2,
+      "label": "run",
+      "frames": 32
+    },
+    {
+      "segment_id": 3,
+      "label": "idle",
+      "frames": 338
+    },
+    {
+      "segment_id": 4,
+      "label": "walk",
+      "frames": 20
+    },
+    {
+      "segment_id": 6,
+      "label": "walk",
+      "frames": 8
+    },
+    {
+      "segment_id": 7,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 9,
+      "label": "run",
+      "frames": 18
+    },
+    {
+      "segment_id": 10,
+      "label": "sit",
+      "frames": 4
+    },
+    {
+      "segment_id": 11,
+      "label": "dance",
+      "frames": 46
+    },
+    {
+      "segment_id": 12,
+      "label": "run",
+      "frames": 18
+    },
+    {
+      "segment_id": 13,
+      "label": "walk",
+      "frames": 21
+    },
+    {
+      "segment_id": 15,
+      "label": "jump",
+      "frames": 19
+    },
+    {
+      "segment_id": 16,
+      "label": "run",
+      "frames": 6
+    },
+    {
+      "segment_id": 18,
+      "label": "run",
+      "frames": 9
+    },
+    {
+      "segment_id": 20,
+      "label": "run",
+      "frames": 8
+    },
+    {
+      "segment_id": 22,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 25,
+      "label": "half_crouch_sneak",
+      "frames": 19
+    },
+    {
+      "segment_id": 26,
+      "label": "run",
+      "frames": 7
+    },
+    {
+      "segment_id": 28,
+      "label": "run",
+      "frames": 23
+    },
+    {
+      "segment_id": 29,
+      "label": "full_crouch",
+      "frames": 19
+    },
+    {
+      "segment_id": 30,
+      "label": "unusable_partial",
+      "frames": 11
+    },
+    {
+      "segment_id": 31,
+      "label": "run",
+      "frames": 25
+    },
+    {
+      "segment_id": 32,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 33,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 34,
+      "label": "fall",
+      "frames": 13
+    },
+    {
+      "segment_id": 35,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 36,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 37,
+      "label": "run",
+      "frames": 8
+    },
+    {
+      "segment_id": 38,
+      "label": "unusable_partial",
+      "frames": 3
+    },
+    {
+      "segment_id": 39,
+      "label": "run",
+      "frames": 14
+    },
+    {
+      "segment_id": 40,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 41,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 42,
+      "label": "unusable_partial",
+      "frames": 3
+    },
+    {
+      "segment_id": 44,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 45,
+      "label": "run",
+      "frames": 6
+    },
+    {
+      "segment_id": 47,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 48,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 49,
+      "label": "run",
+      "frames": 7
+    },
+    {
+      "segment_id": 50,
+      "label": "unusable_partial",
+      "frames": 3
+    },
+    {
+      "segment_id": 51,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 52,
+      "label": "unusable_partial",
+      "frames": 3
+    },
+    {
+      "segment_id": 58,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 59,
+      "label": "run",
+      "frames": 4
+    },
+    {
+      "segment_id": 62,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 65,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 68,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 69,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 71,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 73,
+      "label": "run",
+      "frames": 6
+    },
+    {
+      "segment_id": 75,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 76,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 77,
+      "label": "run",
+      "frames": 4
+    },
+    {
+      "segment_id": 79,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 83,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 85,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 86,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 87,
+      "label": "run",
+      "frames": 5
+    },
+    {
+      "segment_id": 89,
+      "label": "run",
+      "frames": 70
+    },
+    {
+      "segment_id": 90,
+      "label": "walk",
+      "frames": 20
+    },
+    {
+      "segment_id": 91,
+      "label": "run",
+      "frames": 64
+    },
+    {
+      "segment_id": 93,
+      "label": "run",
+      "frames": 10
+    },
+    {
+      "segment_id": 95,
+      "label": "run",
+      "frames": 67
+    },
+    {
+      "segment_id": 97,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 98,
+      "label": "walk",
+      "frames": 31
+    },
+    {
+      "segment_id": 99,
+      "label": "run",
+      "frames": 33
+    },
+    {
+      "segment_id": 101,
+      "label": "run",
+      "frames": 17
+    },
+    {
+      "segment_id": 103,
+      "label": "run",
+      "frames": 5
+    },
+    {
+      "segment_id": 105,
+      "label": "run",
+      "frames": 17
+    },
+    {
+      "segment_id": 107,
+      "label": "run",
+      "frames": 89
+    },
+    {
+      "segment_id": 108,
+      "label": "walk",
+      "frames": 41
+    },
+    {
+      "segment_id": 111,
+      "label": "run",
+      "frames": 47
+    },
+    {
+      "segment_id": 113,
+      "label": "run",
+      "frames": 68
+    },
+    {
+      "segment_id": 115,
+      "label": "run",
+      "frames": 44
+    },
+    {
+      "segment_id": 117,
+      "label": "run",
+      "frames": 21
+    },
+    {
+      "segment_id": 118,
+      "label": "walk",
+      "frames": 2
+    },
+    {
+      "segment_id": 120,
+      "label": "walk",
+      "frames": 4
+    },
+    {
+      "segment_id": 122,
+      "label": "walk",
+      "frames": 14
+    },
+    {
+      "segment_id": 125,
+      "label": "run",
+      "frames": 73
+    },
+    {
+      "segment_id": 126,
+      "label": "walk",
+      "frames": 5
+    },
+    {
+      "segment_id": 129,
+      "label": "run",
+      "frames": 35
+    },
+    {
+      "segment_id": 131,
+      "label": "run",
+      "frames": 21
+    },
+    {
+      "segment_id": 132,
+      "label": "walk",
+      "frames": 37
+    },
+    {
+      "segment_id": 133,
+      "label": "fight_stance",
+      "frames": 150
+    },
+    {
+      "segment_id": 134,
+      "label": "run",
+      "frames": 38
+    },
+    {
+      "segment_id": 135,
+      "label": "walk",
+      "frames": 12
+    },
+    {
+      "segment_id": 136,
+      "label": "run",
+      "frames": 66
+    },
+    {
+      "segment_id": 138,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 140,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 142,
+      "label": "run",
+      "frames": 24
+    },
+    {
+      "segment_id": 143,
+      "label": "unusable_partial",
+      "frames": 2
+    },
+    {
+      "segment_id": 146,
+      "label": "run",
+      "frames": 12
+    },
+    {
+      "segment_id": 148,
+      "label": "run",
+      "frames": 3
+    },
+    {
+      "segment_id": 150,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 152,
+      "label": "run",
+      "frames": 15
+    },
+    {
+      "segment_id": 153,
+      "label": "walk",
+      "frames": 8
+    },
+    {
+      "segment_id": 155,
+      "label": "walk",
+      "frames": 4
+    },
+    {
+      "segment_id": 157,
+      "label": "walk",
+      "frames": 12
+    },
+    {
+      "segment_id": 158,
+      "label": "run",
+      "frames": 113
+    },
+    {
+      "segment_id": 159,
+      "label": "walk",
+      "frames": 54
+    },
+    {
+      "segment_id": 160,
+      "label": "run",
+      "frames": 9
+    },
+    {
+      "segment_id": 161,
+      "label": "walk",
+      "frames": 40
+    },
+    {
+      "segment_id": 162,
+      "label": "run",
+      "frames": 5
+    },
+    {
+      "segment_id": 164,
+      "label": "run",
+      "frames": 2
+    },
+    {
+      "segment_id": 165,
+      "label": "walk",
+      "frames": 5
+    },
+    {
+      "segment_id": 167,
+      "label": "walk",
+      "frames": 2
+    },
+    {
+      "segment_id": 168,
+      "label": "run",
+      "frames": 57
+    },
+    {
+      "segment_id": 169,
+      "label": "walk",
+      "frames": 54
+    },
+    {
+      "segment_id": 170,
+      "label": "run",
+      "frames": 32
+    },
+    {
+      "segment_id": 171,
+      "label": "walk",
+      "frames": 8
+    },
+    {
+      "segment_id": 172,
+      "label": "blank",
+      "frames": 4
+    }
+  ],
+  "gif_generation_ok": true,
+  "gif_note": "",
+  "segment_gifs_capped": false,
+  "segment_gifs_written": 93,
+  "segment_contact_sheets_written": 93
+}

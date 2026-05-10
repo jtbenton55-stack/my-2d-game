@@ -1,0 +1,57 @@
+{
+  "checks": [
+    {
+      "name": "d1b_static_validator",
+      "ok": true
+    },
+    {
+      "name": "project_godot_not_in_diff",
+      "ok": true
+    },
+    {
+      "name": "iso_no_taco_dialogue_preload",
+      "ok": true
+    },
+    {
+      "name": "player_uses_tool_helper",
+      "ok": true
+    },
+    {
+      "name": "exists:MissionDialogueProvider.gd",
+      "ok": true
+    },
+    {
+      "name": "exists:TacoBellDialogueProvider.gd",
+      "ok": true
+    },
+    {
+      "name": "exists:MissionToolSurfaceHelper.gd",
+      "ok": true
+    },
+    {
+      "name": "exists:MissionObjectiveBridge.gd",
+      "ok": true
+    },
+    {
+      "name": "exists:PlayerStaminaController.gd",
+      "ok": true
+    },
+    {
+      "name": "exists:TacoBellIso_Editable.tscn",
+      "ok": true
+    },
+    {
+      "name": "exists:TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "name": "exists:HideoutHub.tscn",
+      "ok": true
+    }
+  ],
+  "d1b_static_validator": {
+    "ok": true,
+    "output_tail": "phase0md1b_static_validator: PASS\n"
+  },
+  "overall_ok": true
+}

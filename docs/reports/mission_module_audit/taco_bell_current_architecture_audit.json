@@ -1,0 +1,126 @@
+{
+  "scenes_audited": [
+    "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+  ],
+  "assertions": {
+    "taco_bell_scenes_audited": true,
+    "taco_bell_scripts_identified": true,
+    "must_not_forget_list_checked": true,
+    "reusable_vs_mission_specific_boundary_proposed": true,
+    "taco_bell_no_files_modified": true
+  },
+  "editable_scene_summary": {
+    "root_script": "res://src/levels/IsoMissionBase.gd",
+    "mission_definition": "res://assets/missions/taco_bell_iso_blockout_definition.tres",
+    "notable_ext_resources": [
+      "res://src/missions/iso/runtime/MissionAlertController.gd",
+      "res://src/missions/iso/authoring/IsoMissionMarker.gd",
+      "res://scenes/characters/player.tscn",
+      "res://scenes/characters/dog.tscn",
+      "res://scenes/ui/hud.tscn",
+      "res://scenes/ui/DialogueBox.tscn",
+      "res://src/ui/test_ui/pause_menu.tscn",
+      "res://src/missions/iso/runtime/MissionCameraShake.gd",
+      "res://src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+    ],
+    "architecture_notes": "Single IsoMissionBase-driven stack: runtime systems spawned under GameplayRoot/RuntimeSystems; TacoBellDialogue preloaded inside IsoMissionBase (shared base carries Taco-named module).",
+    "parallel_redesign_scene": "TacoBellIso_Editable_RedesignTest adds Phase0J/Phase0K controller grid (code gate UI, mission state adapter, completion controller, Louis exit, guard/camera spawners, etc.) — second architecture track atop same blockout definition."
+  },
+  "classifications": [
+    {
+      "path": "res://src/levels/IsoMissionBase.gd",
+      "verdict": "should_be_split_core_framework_plus_mission_adapters",
+      "notes": "Generic iso framework mixed with Taco-specific dialogue preload and many Taco-tuned spawn helpers."
+    },
+    {
+      "path": "res://src/missions/iso/runtime/TacoBellDialogue.gd",
+      "verdict": "should_remain_taco_bell_specific",
+      "notes": "Flavor and lines; keep behind adapter or composition root."
+    },
+    {
+      "path": "res://src/missions/iso/runtime/Phase0KLouisExitInteractable.gd",
+      "verdict": "unclear_split",
+      "notes": "If Louis exit UX is Taco-only, keep; if reused across missions, promote to generic ExitInteractable."
+    }
+  ],
+  "must_not_forget": [
+    {
+      "id": 1,
+      "requirement": "Beam triggers only once",
+      "implemented": true,
+      "status": "working",
+      "evidence": "IsoMissionBase._is_alarm_zone_one_shot(alarm_id) == (alarm_id == 'garage_entry_beam'); _on_runtime_alarm_zone_entered early-outs if flag set, sets alarm_triggered:garage_entry_beam, disables monitoring.",
+      "files": ["res://src/levels/IsoMissionBase.gd"],
+      "reusable_owner": "Generic OneShotAlarmZone + mission data assigns alarm_id",
+      "taco_specific": "Resolved id garage_entry_beam and cell override in _spawn_alarm_zone for placeholder ids",
+      "risk": "low"
+    },
+    {
+      "id": 2,
+      "requirement": "Louis route bypasses a challenge",
+      "implemented": true,
+      "status": "partial",
+      "evidence": "MissionRouteAccessPoint for future_shortcut requires scheme card louis_delivery_route; teleports to route_louis_entry vs vent route; Iso builds Louis subarea collision box.",
+      "files": ["res://src/levels/IsoMissionBase.gd", "res://src/missions/iso/runtime/MissionRouteAccessPoint.gd"],
+      "reusable_owner": "RouteAccessDefinition Resource + mission adapter",
+      "taco_specific": "Louis coordinates, flavor interactables, reward collectible_route_louis_tip_coin",
+      "risk": "medium — balance/playtest to prove bypass is meaningful vs vent"
+    },
+    {
+      "id": 3,
+      "requirement": "Code gate and beam physically separated",
+      "implemented": true,
+      "status": "working",
+      "evidence": "Beam resolved cell Vector2i(8,2) for garage_entry_beam; code gate blocker at _resolve_point_position(Vector2i(21,-3), CODE_GATE, code_gate_garage_office).",
+      "files": ["res://src/levels/IsoMissionBase.gd"],
+      "reusable_owner": "Marker-driven positions from MissionDefinition",
+      "taco_specific": "Concrete cell constants inside IsoMissionBase",
+      "risk": "low unless redesign moves markers without updating both"
+    },
+    {
+      "id": 4,
+      "requirement": "Counters reset on restart/death",
+      "implemented": "partial",
+      "status": "risky",
+      "evidence": "_reset_attempt_runtime_state clears counters and is called from _setup_runtime_systems; _setup_runtime_systems runs during _generate_from_definition. LevelBase._on_player_died calls fail_level only — does not by itself re-call Iso generation.",
+      "files": ["res://src/levels/IsoMissionBase.gd", "res://src/levels/LevelBase.gd"],
+      "reusable_owner": "MissionRuntimeState.reset_on_attempt_start() invoked from MissionLifecycle on scene load AND explicit retry",
+      "taco_specific": "none",
+      "risk": "high if design expects in-place attempt restart without reloading scene"
+    },
+    {
+      "id": 5,
+      "requirement": "Pause menu owns Objectives / Scheme Cards / Clues",
+      "implemented": true,
+      "status": "working",
+      "evidence": "pause_menu.gd wires three buttons to _toggle_info_panel for objectives, scheme_cards, clues; TacoBellIso_Editable instances pause_menu.tscn.",
+      "files": ["res://src/ui/test_ui/pause_menu.gd", "res://scenes/missions_iso/TacoBellIso_Editable.tscn"],
+      "reusable_owner": "MissionPauseMenu scene under production path",
+      "taco_specific": "none",
+      "risk": "low"
+    },
+    {
+      "id": 6,
+      "requirement": "Poop bags become aimed tools",
+      "implemented": true,
+      "status": "working",
+      "evidence": "Player.gd poop_bag_targeting input, range check, _try_throw_poop_bag calls parent scene deploy_poop_bag_decoy_at; GameState.try_consume_poop_bag.",
+      "files": ["res://src/player/Player.gd", "res://src/levels/IsoMissionBase.gd"],
+      "reusable_owner": "AimableToolController + IToolMissionSurface",
+      "taco_specific": "Decoy distraction semantics tied to Taco guards/cameras",
+      "risk": "medium — coupling via scene method name"
+    },
+    {
+      "id": 7,
+      "requirement": "Sprint/stamina, stealth, dodge, attack, animation hooks without final animations",
+      "implemented": "partial",
+      "status": "partial",
+      "evidence": "Player.gd implements stealth, dodge, combat hooks with card modifiers; no stamina/sprint symbols in Player.gd (grep). Animation can stay decoupled if mechanics use states not clip names.",
+      "files": ["res://src/player/Player.gd", "res://src/characters/PlayerVisualAnimator.gd"],
+      "reusable_owner": "PlayerStaminaController + PlayerVisualIntent",
+      "taco_specific": "none",
+      "risk": "medium until stamina exists and intent pipeline is agreed"
+    }
+  ]
+}

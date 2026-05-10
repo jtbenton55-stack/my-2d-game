@@ -1,0 +1,30 @@
+{
+  "assertions": {
+    "gap_analysis_completed": true,
+    "pre_taco_bell_required_modules_listed": true,
+    "can_wait_modules_listed": true,
+    "mission_specific_boundaries_identified": true
+  },
+  "spine_items": [
+    {"item": "Mission lifecycle", "classification": "exists_but_needs_hardening", "notes": "LevelBase + IsoMissionBase; split Iso"},
+    {"item": "Mission definitions/resources", "classification": "already_good_enough_for_taco_bell", "notes": "taco_bell_iso_blockout_definition.tres pattern"},
+    {"item": "Runtime mission state", "classification": "exists_but_needs_hardening", "notes": "_attempt_runtime_state clear but death/retry edge"},
+    {"item": "Objective tracker", "classification": "exists_but_needs_hardening", "notes": "QuestManager + Iso internal IDs"},
+    {"item": "Clue/evidence tracker", "classification": "exists_but_needs_hardening", "notes": "Placeholders + GameState clues"},
+    {"item": "Scheme-card loadout/effect resolver", "classification": "exists_but_needs_hardening", "notes": "CardManager/Effects; no mission-scoped resolver"},
+    {"item": "Interaction system", "classification": "exists_but_needs_hardening", "notes": "Unify Phase0J with classic interactables"},
+    {"item": "Tool system", "classification": "exists_but_needs_hardening", "notes": "Aimed poop works; needs interface boundary"},
+    {"item": "Stealth/detection system", "classification": "exists_but_needs_hardening", "notes": "MissionAlertController + zones"},
+    {"item": "Player action/stamina/dodge/combat/stealth hooks", "classification": "missing_and_needed_before_taco_bell", "notes": "Stamina/sprint missing in Player.gd"},
+    {"item": "Animation intent hooks", "classification": "uncertain_needs_manual_review", "notes": "PlayerVisualAnimator present; contract vs gameplay TBD"},
+    {"item": "Mission pause/HUD/objectives/clues/scheme UI", "classification": "exists_but_needs_hardening", "notes": "Functional test_ui pause"},
+    {"item": "Mission result/reward/heat system", "classification": "exists_but_needs_hardening", "notes": "Heat dict in Iso; Phase0K parallel"},
+    {"item": "Save/load persistent-state boundary", "classification": "already_good_enough_for_taco_bell", "notes": "Autoloads; document attempt-only fields"},
+    {"item": "Debug overlay/validator system", "classification": "already_good_enough_for_taco_bell", "notes": "MissionBlockoutValidator + debug panels"},
+    {"item": "Mission-specific adapter pattern", "classification": "missing_and_needed_before_taco_bell", "notes": "TacoBellDialogue should not live in base"},
+    {"item": "Visual/art layer conventions (2.5D/iso)", "classification": "already_good_enough_for_taco_bell", "notes": "GameplayRoot/ArtRoot"},
+    {"item": "Hideout mission launcher integration", "classification": "exists_but_needs_hardening", "notes": "Catalog + SceneManager; verify no debug-only path"},
+    {"item": "Mission restart/death/reset semantics", "classification": "exists_but_needs_hardening", "notes": "Counter reset vs reload"},
+    {"item": "Mission completion/failure/replay semantics", "classification": "exists_but_needs_hardening", "notes": "Align Phase0K with LevelBase flow"}
+  ]
+}

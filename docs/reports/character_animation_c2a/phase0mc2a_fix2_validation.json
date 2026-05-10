@@ -1,0 +1,31 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "structural_pass": true,
+  "overall_status": "PARTIAL",
+  "checks": {
+    "branch_ok": true,
+    "player_tscn_clean": true,
+    "player_gd_clean": true,
+    "taco_clean": true,
+    "bad_contact_sheet_exists": true,
+    "rebuilt_contact_sheet_exists": true,
+    "fix2_frames_dir_exists": true,
+    "fix2_composite_exists": true,
+    "fix2_spriteframes_exists": true,
+    "fix2_metadata_exists": true,
+    "no_nested_animations_idle_bug": true,
+    "has_idle_name": true,
+    "uses_subresource_idle0": true,
+    "sandbox_spriteframes_priority_ok": true,
+    "sandbox_not_primary_fix1": true,
+    "sandbox_has_debug": true,
+    "legacy_broken_not_required_to_exist": true,
+    "fix1_not_overwritten": true,
+    "idle_frame_png_count": true,
+    "idle_frames_fixed_100x200": true,
+    "walk_optional": true,
+    "walk_frame_count": true,
+    "metadata_walk_included_matches_files": true
+  },
+  "note": "Structural checks only. Eyeball rebuilt contact sheet + run sandbox in Godot for final acceptance; production promotion remains manual."
+}

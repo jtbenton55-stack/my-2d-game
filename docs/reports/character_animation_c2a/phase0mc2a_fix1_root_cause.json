@@ -1,0 +1,19 @@
+{
+  "phase": "0M-C2A-FIX1",
+  "date": "2026-05-09",
+  "primary_category": "D",
+  "primary_category_name": "SPRITEFRAMES_EMPTY",
+  "primary_explanation": "The legacy generated SpriteFrames .tres did not deserialize into usable Godot 4 SpriteFrames animations (invalid animations block), so AnimatedSprite2D had no drawable frames.",
+  "secondary_categories": [
+    "E — ANIMATION_NAME_MISMATCH (symptom: requested animation names did not exist on the broken resource)"
+  ],
+  "evidence": [
+    "Compared against known-good `res://assets/sprites/player_sprite_frames.tres` format.",
+    "Legacy `parmida_player_spriteframes_0mc2a.tres` contains `animations = [{` with nested `\"animations/idle\"` keys (nonstandard).",
+    "Fix1 `parmida_player_spriteframes_0mc2a_fix1.tres` uses standard `\"name\": \"idle\"` / `\"name\": \"walk\"` entries with `SubResource(...)` AtlasTextures."
+  ],
+  "assertions": {
+    "invisibility_root_cause_classified": true,
+    "root_cause_evidence_documented": true
+  }
+}

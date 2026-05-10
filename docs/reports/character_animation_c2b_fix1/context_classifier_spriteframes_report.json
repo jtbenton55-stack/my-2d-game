@@ -1,0 +1,17 @@
+{
+  "created": true,
+  "animations": [
+    "walk_best",
+    "run_best",
+    "idle_best",
+    "fight_stance_best",
+    "jump_best",
+    "sneak_best",
+    "crouch_best",
+    "sit_best",
+    "dance_best",
+    "fall_best"
+  ],
+  "atlas": "res://assets/characters/generated_player_visuals/c2b_context_classifier/parmida_context_classifier_atlas.png",
+  "tres": "res://assets/characters/generated_player_visuals/c2b_context_classifier/parmida_context_classifier_spriteframes.tres"
+}

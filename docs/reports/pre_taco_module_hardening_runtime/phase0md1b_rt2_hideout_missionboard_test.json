@@ -1,0 +1,12 @@
+{
+  "project_launched": true,
+  "hideout_tested": true,
+  "mission_board_opened": true,
+  "mission_board_visible_property": true,
+  "taco_launch_path": "Direct SceneManager.change_scene(canonical) after GameState.start_mission \u2014 not MissionBoard button (GRB input limits). MissionBoard launch code path fixed to canonical in this pass.",
+  "assertions": {
+    "project_launched": true,
+    "hideout_or_entry_scene_tested": true,
+    "taco_launch_path_tested_or_direct_load_documented": true
+  }
+}

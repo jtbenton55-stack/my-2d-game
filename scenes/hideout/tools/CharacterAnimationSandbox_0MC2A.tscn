@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://5sj3iabi1a5b"]
+
+[ext_resource type="Texture2D" uid="uid://srn36fwh6fbf" path="res://assets/characters/generated_player_visuals/old_player_token_reference_0mc2.png" id="1_old"]
+[ext_resource type="Texture2D" uid="uid://rwp23aoo708j" path="res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png" id="2_static"]
+[ext_resource type="Script" uid="uid://ct2v1ny6wnxp4" path="res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2AController.gd" id="4_ctrl"]
+
+[node name="CharacterAnimationSandbox_0MC2A" type="Node2D" unique_id=1804413880]
+script = ExtResource("4_ctrl")
+
+[node name="ReferenceBackground" type="Polygon2D" parent="." unique_id=1729833428]
+z_index = -30
+color = Color(0.055, 0.06, 0.075, 1)
+polygon = PackedVector2Array(-240, -160, 1360, -160, 1360, 820, -240, 820)
+
+[node name="ReferenceGrid" type="Line2D" parent="." unique_id=706255025]
+z_index = -10
+points = PackedVector2Array(32, 48, 1248, 48, 1248, 312, 32, 312)
+closed = true
+width = 1.0
+default_color = Color(0.22, 0.26, 0.32, 0.75)
+
+[node name="BaselineGuide" type="Line2D" parent="." unique_id=1597648622]
+z_index = 10
+position = Vector2(0, 320)
+points = PackedVector2Array(32, 0, 1248, 0)
+width = 3.0
+default_color = Color(1, 0.82, 0.2, 1)
+
+[node name="TitleAndInstructions" type="Label" parent="." unique_id=39715721]
+offset_left = 32.0
+offset_top = 12.0
+offset_right = 1220.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 18
+text = "0M-C2A-FIX3 — Sandbox uses FIX3 (200x200 forensic cell + idle-first). FIX1/FIX2 are not primary. Production player is NOT modified."
+
+[node name="OldPlaceholderColumn" type="Node2D" parent="." unique_id=361761091]
+position = Vector2(200, 240)
+
+[node name="Label" type="Label" parent="OldPlaceholderColumn" unique_id=25885403]
+offset_left = -110.0
+offset_top = 96.0
+offset_right = 110.0
+offset_bottom = 168.0
+text = "1) OLD PLACEHOLDER REF
+(Sprite2D)
+old_player_token_reference_0mc2.png"
+horizontal_alignment = 1
+
+[node name="Visual" type="Sprite2D" parent="OldPlaceholderColumn" unique_id=804036877]
+position = Vector2(0, 20)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("1_old")
+
+[node name="StaticParmidaColumn" type="Node2D" parent="." unique_id=1304024580]
+position = Vector2(520, 240)
+
+[node name="Label" type="Label" parent="StaticParmidaColumn" unique_id=1007210805]
+offset_left = -130.0
+offset_top = 96.0
+offset_right = 130.0
+offset_bottom = 188.0
+text = "2) STATIC PARMIDA (C2)
+(Sprite2D)
+parmida_player_visual_0mc2.png
+scale (1.35, 1.35)"
+horizontal_alignment = 1
+
+[node name="Visual" type="Sprite2D" parent="StaticParmidaColumn" unique_id=680926748]
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("2_static")
+
+[node name="AnimatedParmidaColumn" type="Node2D" parent="." unique_id=1699364123]
+position = Vector2(880, 240)
+
+[node name="Label" type="Label" parent="AnimatedParmidaColumn" unique_id=1948891380]
+offset_left = -150.0
+offset_top = 96.0
+offset_right = 150.0
+offset_bottom = 200.0
+text = "3) ANIMATED PARMIDA (C2A)
+(AnimatedSprite2D)
+SpriteFrames: FIX3 .tres
+scale (1.35, 1.35)"
+horizontal_alignment = 1
+
+[node name="FallbackWarningPanel" type="Polygon2D" parent="AnimatedParmidaColumn" unique_id=158836823]
+visible = false
+z_index = 2
+color = Color(1, 0.25, 0.15, 0.28)
+polygon = PackedVector2Array(-140, -200, 140, -200, 140, 96, -140, 96)
+
+[node name="AnimatedParmidaReference" type="AnimatedSprite2D" parent="AnimatedParmidaColumn" unique_id=423927431]
+z_index = 4
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+
+[node name="AnimatedParmidaFallbackFrame" type="Sprite2D" parent="AnimatedParmidaColumn" unique_id=1865348112]
+visible = false
+z_index = 6
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+
+[node name="FallbackWarningLabel" type="Label" parent="AnimatedParmidaColumn" unique_id=1804596202]
+visible = false
+z_index = 8
+offset_left = -140.0
+offset_top = -190.0
+offset_right = 140.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(1, 0.95, 0.75, 1)
+text = "Animated SpriteFrames invalid or missing
+— fallback frame only (if shown)."
+horizontal_alignment = 1
+
+[node name="PropReference_Back" type="Polygon2D" parent="." unique_id=62043694]
+z_index = -2
+position = Vector2(1020, 220)
+color = Color(0.2, 0.35, 0.5, 0.85)
+polygon = PackedVector2Array(-38, -80, 38, -80, 38, 50, -38, 50)
+
+[node name="PropReference_Front" type="Polygon2D" parent="." unique_id=1106234010]
+z_index = 5
+position = Vector2(1080, 288)
+color = Color(0.48, 0.28, 0.16, 0.9)
+polygon = PackedVector2Array(-34, -16, 34, -16, 34, 18, -34, 18)
+
+[node name="DebugPanel" type="Node2D" parent="." unique_id=195462988]
+z_index = 40
+position = Vector2(24, 352)
+
+[node name="DebugLabel" type="Label" parent="DebugPanel" unique_id=644588090]
+offset_right = 1180.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 12
+text = "Debug: initializing…"
+autowrap_mode = 2
+
+[node name="FrameByFrameViewer" type="Control" parent="."]
+z_index = 45
+layout_mode = 0
+position = Vector2(24, 648)
+
+[node name="VBox" type="VBoxContainer" parent="FrameByFrameViewer"]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 260.0
+
+[node name="Title" type="Label" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+text = "4) FRAME-BY-FRAME VIEWER (FIX3 idle PNGs from metadata)"
+
+[node name="Row" type="HBoxContainer" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+
+[node name="PrevButton" type="Button" parent="FrameByFrameViewer/VBox/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(88, 36)
+text = "< Prev"
+
+[node name="FrameTexture" type="TextureRect" parent="FrameByFrameViewer/VBox/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 200)
+stretch_mode = 5
+
+[node name="NextButton" type="Button" parent="FrameByFrameViewer/VBox/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(88, 36)
+text = "Next >"
+
+[node name="FrameInfo" type="Label" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+autowrap_mode = 2
+text = "index: -"

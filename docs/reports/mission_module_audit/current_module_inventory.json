@@ -1,0 +1,265 @@
+{
+  "generated_at": "2026-05-10T00:00:00Z",
+  "assertions": {
+    "all_module_categories_checked": true,
+    "each_module_status_classified": true,
+    "taco_bell_prerequisite_modules_identified": true,
+    "missing_modules_listed": true,
+    "partial_modules_listed": true
+  },
+  "categories": {
+    "A_mission_lifecycle": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/levels/LevelBase.gd",
+        "res://src/levels/IsoMissionBase.gd",
+        "res://src/missions/definitions/",
+        "res://assets/missions/taco_bell_iso_blockout_definition.tres"
+      ],
+      "responsibilities": "LevelBase handles spawn, exit, fail/complete, QuestManager objective string, card effect hooks. IsoMissionBase extends it: mission_definition-driven blockout, runtime spawn buckets, attempt state, validators.",
+      "reusable_readiness": "Strong reusable spine for iso blockouts; IsoMissionBase is very large and mixes Taco-named dialogue import with generic iso.",
+      "dependencies": "GameState, SceneManager, QuestManager, EventBus, MissionBlockoutValidator, mission_definition Resource",
+      "missing_pieces": "Dedicated MissionLifecycleController node vs monolithic IsoMissionBase; explicit retry/death hook that always calls _setup_runtime_systems.",
+      "risks": "Lifecycle spread across LevelBase fail/complete and IsoMissionBase _ready ordering; death may not re-run full runtime setup until scene reload (needs manual playtest).",
+      "next_action": "Extract thin MissionRuntimeCoordinator from IsoMissionBase; document when _reset_attempt_runtime_state runs.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/framework/"
+    },
+    "B_objective_system": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/autoload/QuestManager.gd",
+        "res://src/levels/IsoMissionBase.gd (_required_objective_ids, _update_next_required_objective)",
+        "res://src/missions/iso/runtime/Phase0JObjectiveAdapter.gd (RedesignTest scene)"
+      ],
+      "responsibilities": "QuestManager strings/objectives per mission; Iso tracks required IDs from definition; Phase0J adapter in redesign sandbox.",
+      "reusable_readiness": "Partial — no single ObjectiveTracker resource visible at audit scope; logic split.",
+      "dependencies": "QuestManager, EventBus.objective_updated",
+      "missing_pieces": "Typed ObjectiveDefinition / step graph if desired; unified panel data source.",
+      "risks": "Duplicate paths between QuestManager and Iso internal objective dictionaries.",
+      "next_action": "Choose single source of truth for mission objectives before redesign merges.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/objectives/"
+    },
+    "C_clue_collectible_evidence": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/levels/IsoMissionBase.gd (_required_clue_ids, _create_clue_pickups)",
+        "res://src/missions/iso/placeholders/MissionCluePickupPlaceholder.gd",
+        "res://src/missions/iso/placeholders/MissionCollectiblePickupPlaceholder.gd",
+        "res://src/autoload/GameState.gd (sterling_clues used by pause_menu)"
+      ],
+      "responsibilities": "Iso spawns clue/collectible markers; GameState holds persistent clue map for UI.",
+      "reusable_readiness": "Placeholders reusable; persistence coupling via GameState.",
+      "dependencies": "CollectibleManager autoload (project), GameState",
+      "missing_pieces": "Dedicated EvidenceLog resource separate from GameState mega-dictionary.",
+      "risks": "Pause menu reads GameState.sterling_clues — mission-local clues must not pollute global keys without convention.",
+      "next_action": "Namespace clue IDs per mission_id.",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/missions/clues/"
+    },
+    "D_scheme_card_system": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/autoload/CardManager.gd",
+        "res://src/autoload/CardEffects.gd",
+        "res://src/levels/LevelBase.gd (_card_float)",
+        "res://src/player/Player.gd (card dodge/stealth modifiers)"
+      ],
+      "responsibilities": "Cards modify player and guards; pause shows scheme cards text.",
+      "reusable_readiness": "Autoload stack exists; mission modifier applier not isolated from Player/LevelBase.",
+      "dependencies": "CardManager, CardEffects",
+      "missing_pieces": "MissionModifierApplier / SchemeCardEffectResolver as mission-scoped service.",
+      "risks": "Card hooks scattered in Player vs LevelBase vs Iso.",
+      "next_action": "Define mission-facing CardContext API before new Taco modifiers.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/scheme_cards/"
+    },
+    "E_mission_tool_system": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/player/Player.gd (poop_bag_targeting, throw)",
+        "res://src/levels/IsoMissionBase.gd (deploy_poop_bag_decoy_at, MissionPoopBagDecoyPoint)",
+        "res://src/missions/iso/runtime/MissionPoopBagDecoyPoint.gd"
+      ],
+      "responsibilities": "Aimed throw consumes GameState poop bags; mission applies decoy at world pos.",
+      "reusable_readiness": "Pattern works but Player reaches into mission root by duck-typing scene methods.",
+      "dependencies": "GameState.try_consume_poop_bag, IsoMissionBase",
+      "missing_pieces": "ToolInventory interface / AimableToolController component independent of Player.",
+      "risks": "Tight Player ↔ mission scene coupling.",
+      "next_action": "Introduce IToolMissionSurface or group-based resolver instead of scene.call.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/tools/"
+    },
+    "F_interaction_system": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/missions/iso/placeholders/MissionPlaceholderInteractable.gd",
+        "res://src/missions/iso/runtime/MissionRouteAccessPoint.gd",
+        "res://src/missions/iso/runtime/Phase0JInteractionBridge.gd",
+        "res://src/missions/iso/runtime/Phase0JInteractablePickup.gd"
+      ],
+      "responsibilities": "Area2D-style interactables, route gates, redesign-test bridge.",
+      "reusable_readiness": "Good library of small scripts; naming Phase0* signals experiment vs production.",
+      "dependencies": "Iso runtime buckets EntityRoot/Interactables",
+      "missing_pieces": "Single InteractionRouter / requirement resource pattern.",
+      "risks": "Parallel interaction stacks (classic vs Phase0J) if both scenes used long-term.",
+      "next_action": "Pick one stack for Taco production path; keep other as sandbox only.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/interaction/"
+    },
+    "G_stealth_detection": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/missions/iso/runtime/MissionAlertController.gd",
+        "res://src/levels/IsoMissionBase.gd (detection proxies, cameras, guards)",
+        "res://src/missions/iso/runtime/MissionLightZone.gd"
+      ],
+      "responsibilities": "Alert controller group; light zones; camera/guard spawn; heat profile.",
+      "reusable_readiness": "Reusable for iso missions; not generic 2D top-down.",
+      "dependencies": "EventBus.screen_shake, guard scenes",
+      "missing_pieces": "NoiseEvent resource, formal SuspicionMeter shared UI.",
+      "risks": "Heat placeholders embedded in IsoMissionBase strings/helpers.",
+      "next_action": "Extract heat strings + profiles to data Resource.",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/missions/stealth/"
+    },
+    "H_player_action_systems": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/player/Player.gd"
+      ],
+      "responsibilities": "Move, stealth, dodge, combat hooks, poop targeting, card-driven modifiers.",
+      "reusable_readiness": "Monolithic Player; controllers referenced in grep (PlayerCombatController) — partial separation.",
+      "dependencies": "InputMap, CardEffects, AudioManager",
+      "missing_pieces": "Stamina/sprint controller (grep did not show stamina in Player excerpt; may be elsewhere or missing).",
+      "risks": "Growing Player.gd across missions.",
+      "next_action": "Add stamina as component without animation dependency (float + signals).",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/player/components/"
+    },
+    "I_animation_intent": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/characters/PlayerVisualAnimator.gd (untracked in branch; present in repo tree)"
+      ],
+      "responsibilities": "Visual/animation experiments; intent-style separation from gameplay (needs design alignment).",
+      "reusable_readiness": "Early / parallel track — not wired as sole gameplay dependency in audited Taco flow.",
+      "dependencies": "Player / sprites (not modified this audit)",
+      "missing_pieces": "AnimationIntent registry, resolver indirection used by all missions.",
+      "risks": "None blocking Taco if gameplay avoids animation name coupling (current Player uses mechanics without final anims per audit scope).",
+      "next_action": "Define intent enum + default no-op resolver.",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/characters/animation_intent/"
+    },
+    "J_pause_mission_ui": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/ui/test_ui/pause_menu.gd",
+        "res://src/ui/test_ui/pause_menu.tscn",
+        "res://scenes/missions_iso/TacoBellIso_Editable.tscn (instanced pause_menu.tscn)",
+        "res://src/missions/iso/runtime/Phase0JCollectibleMenuAdapter.gd (RedesignTest)"
+      ],
+      "responsibilities": "Pause owns Objectives / Scheme Cards / Clues text panels via QuestManager + GameState.",
+      "reusable_readiness": "Functional for prototype; lives under test_ui path.",
+      "dependencies": "QuestManager, GameState, get_tree().paused",
+      "missing_pieces": "Production MissionPauseMenu scene path + theme integration.",
+      "risks": "test_ui naming implies non-final contract.",
+      "next_action": "Promote pause menu to res://src/ui/mission/ without changing behavior in same pass.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/ui/mission/"
+    },
+    "K_save_load_persistent_state": {
+      "status": "EXISTS_READY",
+      "files": [
+        "res://src/autoload/GameState.gd",
+        "res://src/autoload/SaveManager.gd"
+      ],
+      "responsibilities": "Autoload persistence; mission catalog; performance tracking hooks from Iso.",
+      "reusable_readiness": "Core game pipeline; not audited by modification.",
+      "dependencies": "SceneManager",
+      "missing_pieces": "Hard boundary doc for attempt vs persistent fields (partially _attempt_runtime_state in Iso).",
+      "risks": "Accidental persistence of attempt counters if copied wrong into GameState.",
+      "next_action": "Document fields: attempt-only dictionary never saved.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "docs only until implementation pass"
+    },
+    "L_mission_result_reward_heat": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/levels/LevelBase.gd (complete_level / fail_level)",
+        "res://src/levels/IsoMissionBase.gd (GameState.begin_mission_performance, rewards e.g. louis_delivery_route)",
+        "res://src/missions/iso/runtime/Phase0KMissionCompletionController.gd"
+      ],
+      "responsibilities": "End flow through GameState + SceneManager; iso-specific assists unlock; Phase0K controller in redesign test.",
+      "reusable_readiness": "Split between classic and Phase0K — choose canonical.",
+      "dependencies": "GameState.complete_mission / fail_mission",
+      "missing_pieces": "Dedicated HeatTracker module (heat profile exists as dict in Iso).",
+      "risks": "Two completion controllers if scenes diverge.",
+      "next_action": "Unify completion on IsoMissionBase or explicit MissionCompletionController child used by both Taco scenes.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/results/"
+    },
+    "M_debug_validator_dev_overlay": {
+      "status": "EXISTS_READY",
+      "files": [
+        "res://src/tools/MissionBlockoutValidator.gd",
+        "res://src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+        "res://src/missions/iso/runtime/Phase0JDebugHUD.gd"
+      ],
+      "responsibilities": "validate_blockout on IsoMissionBase; in-mission debug HUDs.",
+      "reusable_readiness": "Good; keep validators close to authoring pipeline.",
+      "dependencies": "mission_definition",
+      "missing_pieces": "Automated headless Godot check (optional CI).",
+      "risks": "Low.",
+      "next_action": "Run validator after Taco scene edits.",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/tools/"
+    },
+    "N_visual_layer_2_5d_iso": {
+      "status": "EXISTS_READY",
+      "files": [
+        "res://src/levels/IsoMissionBase.gd (_ensure_iso_structure, ArtRoot vs GameplayRoot)"
+      ],
+      "responsibilities": "Documented separation: gameplay tiles vs art-only layers, y-sort on EntityRoot.",
+      "reusable_readiness": "Strong convention for future iso missions.",
+      "dependencies": "TileSet paths under assets/tilesets/",
+      "missing_pieces": "Automated test that ArtRoot collision stays disabled.",
+      "risks": "Manual scene edits could re-enable collision on art layers.",
+      "next_action": "Editor plugin or validator assert art layer collision_enabled == false.",
+      "before_taco_bell_redesign": true,
+      "can_wait": false,
+      "suggested_owner_path": "res://src/missions/iso/validation/"
+    },
+    "O_mission_launcher_hideout_integration": {
+      "status": "EXISTS_PARTIAL",
+      "files": [
+        "res://src/autoload/SceneManager.gd",
+        "res://src/autoload/GameState.gd (mission_catalog taco_bell_drop)",
+        "res://scenes/hideout/HideoutHub.tscn (not modified; inferred integration)"
+      ],
+      "responsibilities": "Scene transitions; catalog entry; return to hideout after result UI.",
+      "reusable_readiness": "Works at game level; Taco iso path may use debug scene override in SceneManager (grep from prior context).",
+      "dependencies": "GameState, SaveManager",
+      "missing_pieces": "Explicit MissionBoard resource listing iso vs classic entry points.",
+      "risks": "Debug paths accidentally shipping.",
+      "next_action": "Audit SceneManager taco_bell_drop branch in implementation pass (read-only noted).",
+      "before_taco_bell_redesign": false,
+      "can_wait": true,
+      "suggested_owner_path": "res://src/hideout/missions/"
+    }
+  }
+}

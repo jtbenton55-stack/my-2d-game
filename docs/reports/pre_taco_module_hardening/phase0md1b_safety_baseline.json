@@ -1,0 +1,24 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "d1_audit_reports_read": true,
+    "protected_paths_recorded": true
+  },
+  "git_note": "Pre-existing M on docs/CHANGELOG.md and docs/DECISIONS.md; many untracked files from other tracks. This pass adds pre_taco_module_hardening reports and mission/player seams.",
+  "protected_not_targeted": [
+    "scenes/hideout/HideoutHub.tscn",
+    "project.godot",
+    "scenes/characters/player.tscn",
+    "raw purchased/generated assets"
+  ],
+  "likely_modified_this_pass": [
+    "src/levels/IsoMissionBase.gd",
+    "src/player/Player.gd",
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md"
+  ]
+}

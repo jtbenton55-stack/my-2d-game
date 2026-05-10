@@ -1,8 +1,6 @@
 extends RefCounted
 class_name HideoutStationCatalog
 
-const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
-
 const CLASS_FUNCTIONAL := "FUNCTIONAL"
 const CLASS_PANEL_ONLY := "PANEL_ONLY"
 const CLASS_DEBUG_STATE_VISUAL := "DEBUG_STATE_VISUAL"
@@ -113,7 +111,7 @@ static func missions() -> Array[Dictionary]:
 			"mission_id": ids[i],
 			"display_name": names[i],
 			"state": "Fresh" if i == 0 else "Future",
-			"scene_path": TACO_BELL_SCENE if i == 0 else "",
+			"scene_path": MissionSceneResolver.resolve_playable_scene_path(ids[i]) if i == 0 else "",
 			"status_text": "Ready for delivery." if i == 0 else "Not on the cork board yet.",
 		})
 	return out

@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "storefront_or_blocker_documented": true,
+    "portrait_dialogue_or_blocker_documented": true
+  },
+  "status": "blocked_no_godot",
+  "notes": "D1B did not modify C1 storefront or C3 portrait systems; no static coupling from new mission scripts to storefront scenes detected in this pass."
+}

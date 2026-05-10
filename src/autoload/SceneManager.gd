@@ -40,7 +40,11 @@ func _change_scene_deferred(scene_path: String) -> void:
 			GameState.is_in_mission = false
 			GameState.current_mission_id = ""
 	else:
-		if GameState.is_in_mission and GameState.current_mission_id != "" and scene_path == GameState.get_mission_scene_path(GameState.current_mission_id):
+		if (
+			GameState.is_in_mission
+			and GameState.current_mission_id != ""
+			and scene_path == MissionSceneResolver.resolve_playable_scene_path(GameState.current_mission_id)
+		):
 			GameState.pending_mission_id = ""
 	transition_in_progress = false
 
@@ -82,9 +86,7 @@ func start_pending_mission() -> void:
 	start_mission(mission_id)
 
 func start_mission(mission_id: String) -> void:
-	var scene_path := GameState.get_mission_scene_path(mission_id)
-	if OS.is_debug_build() and mission_id == "taco_bell_drop" and GameState.dialogue_flags.get("dev_force_iso_taco_bell", true) == true:
-		scene_path = "res://scenes/missions_iso/TacoBellIso_Editable.tscn"
+	var scene_path := MissionSceneResolver.resolve_playable_scene_path(mission_id)
 	GameState.start_mission(mission_id)
 	change_scene(scene_path)
 

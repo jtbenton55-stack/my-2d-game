@@ -1,0 +1,16 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "goal": "Verify 0M-D1B did not break the game via runtime smoke; fix regressions if any.",
+  "godot_runtime_tool": "MCP grb_ping (failed: bridge not connected); local Godot.exe search (no binary); PATH godot (absent)",
+  "static_accomplished": {
+    "d1b_static_validator": "PASS",
+    "rt_static_preflight": "PASS",
+    "project_godot_untouched_in_diff": true
+  },
+  "runtime_accomplished": false,
+  "regressions_found": 0,
+  "regressions_fixed": 0,
+  "reports_folder": "docs/reports/pre_taco_module_hardening_runtime/",
+  "recommended_next_pass": "Local editor playtest: run full checklist in phase0md1b_runtime_smoke_test.md; optionally start Godot with GRB and re-run MCP grb_* tools."
+}

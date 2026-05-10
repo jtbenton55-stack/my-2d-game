@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://crjwv5cunvdvm"]
+
+[ext_resource type="Script" path="res://scenes/hideout/tools/MissionSceneResolverTest_0MD2.gd" id="1_script"]
+
+[node name="MissionSceneResolverTest0MD2" type="Node"]
+script = ExtResource("1_script")
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 720.0
+offset_bottom = 48.0
+text = "0M-D2: Check Output for MissionSceneResolver path + JSON report."

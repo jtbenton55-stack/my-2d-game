@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+const PlayerStaminaController := preload("res://src/player/PlayerStaminaController.gd")
+const MissionToolSurfaceHelper := preload("res://src/missions/tools/MissionToolSurfaceHelper.gd")
+const _SprintDebugOverlayScript := preload("res://src/player/PlayerSprintDebugOverlay.gd")
+
 signal died
 signal health_changed(current_health, max_health)
 
@@ -40,6 +44,9 @@ var _case_joint_timer: float = 0.0
 var _case_joint_cooldown_timer: float = 0.0
 var _case_highlights: Dictionary = {}
 var _poop_bag_targeting := false
+var _stamina_controller: PlayerStaminaController = null
+## Last completed physics frame — merged into `get_sprint_runtime_debug()` for overlay / harness.
+var _sprint_physics_debug_last: Dictionary = {}
 
 func is_stealth_active() -> bool:
 	return is_stealth
@@ -59,6 +66,13 @@ func _ready() -> void:
 	if melee_hb:
 		melee_hb.monitoring = false
 	_create_stealth_indicator()
+	_stamina_controller = PlayerStaminaController.new()
+	_stamina_controller.reset_stamina()
+	if OS.is_debug_build() or Engine.is_editor_hint():
+		var ov: Node = _SprintDebugOverlayScript.new()
+		add_child(ov)
+		if ov.has_method("setup"):
+			ov.call("setup", self)
 	_update_sprite()
 
 func _physics_process(delta: float) -> void:
@@ -67,10 +81,12 @@ func _physics_process(delta: float) -> void:
 		_stun_timer -= delta
 		velocity = Vector2.ZERO
 		move_and_slide()
+		_write_min_sprint_physics_debug("stun")
 		return
 	if not can_control:
 		velocity = Vector2.ZERO
 		move_and_slide()
+		_write_min_sprint_physics_debug("no_can_control")
 		return
 	var input_vector := _get_move_vector()
 	if input_vector.length() > 0.01:
@@ -100,14 +116,65 @@ func _physics_process(delta: float) -> void:
 	var effective_stealth_speed: float = stealth_speed * speed_mult * stealth_mult
 	is_stealth = _action_pressed("stealth")
 	var move_speed := effective_stealth_speed if is_stealth else effective_speed
-	
+	var base_move_speed: float = move_speed
+	var sprint_mult := 1.0
+	var wants_sprint := false
+	var sprint_suppressed_reason := "no_stamina_controller"
+	if _stamina_controller != null:
+		var dash_active: bool = (
+			combat_on
+			and _combat != null
+			and _combat.has_method("is_dashing")
+			and bool(_combat.call("is_dashing"))
+		)
+		var legacy_dodge_burst: bool = (not combat_on) and dodge_timer > 0.0
+		var sprint_requested: bool = _stamina_controller.is_sprint_requested()
+		wants_sprint = (
+			(not is_stealth)
+			and (not dash_active)
+			and (not legacy_dodge_burst)
+			and sprint_requested
+		)
+		if not wants_sprint:
+			if not sprint_requested:
+				sprint_suppressed_reason = "sprint_not_requested"
+			elif is_stealth:
+				sprint_suppressed_reason = "stealth"
+			elif dash_active:
+				sprint_suppressed_reason = "dash_active"
+			elif legacy_dodge_burst:
+				sprint_suppressed_reason = "legacy_dodge_burst"
+		else:
+			sprint_suppressed_reason = "none"
+		_stamina_controller.process_frame(delta, wants_sprint, input_vector.length() > 0.01)
+		if _stamina_controller.is_sprint_active():
+			sprint_mult = _stamina_controller.get_speed_multiplier()
+	if sprint_mult > 1.0 and input_vector.length() > 0.01:
+		move_speed *= sprint_mult
+	var final_move_speed: float = move_speed
+
 	if combat_on:
 		velocity = input_vector * move_speed
 	elif dodge_timer > 0.0:
 		velocity = facing * dodge_speed
 	else:
 		velocity = input_vector * move_speed
+	var vel_pre_slide: float = velocity.length()
 	move_and_slide()
+	var vel_post_slide: float = velocity.length()
+	var in_len: float = input_vector.length()
+	_sprint_physics_debug_last = {
+		"sprint_suppressed_reason": sprint_suppressed_reason,
+		"base_move_speed": base_move_speed,
+		"final_move_speed": final_move_speed,
+		"sprint_multiplier_applied": sprint_mult,
+		"wants_sprint": wants_sprint,
+		"velocity_length_pre_slide": vel_pre_slide,
+		"velocity_length_post_slide": vel_post_slide,
+		"input_vector_length": in_len,
+		"is_moving": in_len > 0.01,
+		"move_and_slide_called": true,
+	}
 	_clamp_to_scene_bounds()
 	_update_stealth_visual()
 	_update_sprite()
@@ -388,17 +455,17 @@ func _try_throw_poop_bag(world_pos: Vector2) -> void:
 		EventBus.objective_updated.emit("Too far.")
 		return
 	var scene := get_tree().current_scene
-	if scene == null or not scene.has_method("deploy_poop_bag_decoy_at"):
+	if not MissionToolSurfaceHelper.supports_tool(scene, MissionToolSurfaceHelper.TOOL_POOP_BAG):
 		EventBus.objective_updated.emit("Can't throw there.")
 		return
-	if not scene.call("deploy_poop_bag_decoy_at", world_pos):
-		EventBus.objective_updated.emit("Can't throw there.")
+	var result: Dictionary = MissionToolSurfaceHelper.handle_tool_use(scene, MissionToolSurfaceHelper.TOOL_POOP_BAG, {"world_pos": world_pos})
+	if not result.get("ok", false):
+		var reason := String(result.get("reason", "Can't throw there."))
+		EventBus.objective_updated.emit(reason if reason != "" else "Can't throw there.")
 		return
 	if not GameState.try_consume_poop_bag():
 		EventBus.objective_updated.emit("No poop bags.")
 		return
-	if scene.has_method("increment_attempt_counter"):
-		scene.call("increment_attempt_counter", "poop_bags_used", 1)
 	_poop_bag_targeting = false
 	EventBus.objective_updated.emit("Poop bag deployed.")
 
@@ -440,6 +507,40 @@ func _update_sprite() -> void:
 			sprite.play("walk")
 		elif sprite.sprite_frames and sprite.sprite_frames.has_animation("idle"):
 			sprite.play("idle")
+
+func get_sprint_runtime_debug() -> Dictionary:
+	var d: Dictionary = {"ok": _stamina_controller != null}
+	if _stamina_controller == null:
+		return d
+	d = _stamina_controller.get_sprint_signal_chain_debug()
+	var combat_on := _uses_hitbox_combat()
+	d["combat_on"] = combat_on
+	var dash_active := false
+	if combat_on and _combat != null and _combat.has_method("is_dashing"):
+		dash_active = bool(_combat.call("is_dashing"))
+	d["dash_active"] = dash_active
+	d["legacy_dodge_burst"] = (not combat_on) and dodge_timer > 0.0
+	d["dodge_timer"] = dodge_timer
+	d["is_stealth"] = is_stealth
+	for k in _sprint_physics_debug_last:
+		d[k] = _sprint_physics_debug_last[k]
+	return d
+
+
+func _write_min_sprint_physics_debug(reason: String) -> void:
+	_sprint_physics_debug_last = {
+		"sprint_suppressed_reason": reason,
+		"base_move_speed": 0.0,
+		"final_move_speed": 0.0,
+		"sprint_multiplier_applied": 1.0,
+		"wants_sprint": false,
+		"velocity_length_pre_slide": 0.0,
+		"velocity_length_post_slide": velocity.length(),
+		"input_vector_length": 0.0,
+		"is_moving": false,
+		"move_and_slide_called": true,
+	}
+
 
 func _action_pressed(action: String) -> bool:
 	return InputMap.has_action(action) and Input.is_action_pressed(action)

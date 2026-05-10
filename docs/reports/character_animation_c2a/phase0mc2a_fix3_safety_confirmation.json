@@ -1,0 +1,26 @@
+{
+  "phase": "0M-C2A-FIX3",
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "assertions": {
+    "current_branch_confirmed": true,
+    "production_player_not_modified": true,
+    "player_gd_not_modified": true,
+    "taco_bell_not_modified": true,
+    "static_parmida_visual_exists": true,
+    "generated_animation_folder_exists": true
+  },
+  "paths_checked": {
+    "player_tscn": "res://scenes/characters/player.tscn",
+    "player_gd": "res://src/player/Player.gd",
+    "sandbox": "res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+    "static_visual": "res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png",
+    "c2a_folder": "res://assets/characters/generated_player_visuals/c2a_animation/",
+    "reports": "res://docs/reports/character_animation_c2a/"
+  },
+  "notes": [
+    "production_player_not_modified verified via empty `git diff` for scenes/characters/player.tscn.",
+    "player_gd_not_modified verified via empty `git diff` for src/player/Player.gd.",
+    "taco_bell_not_modified verified via empty `git diff` for scenes/missions_iso/."
+  ]
+}

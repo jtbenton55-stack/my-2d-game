@@ -1,0 +1,17 @@
+{
+  "idle": {
+    "name": "idle",
+    "foot_bottom_std": 0.0,
+    "per_frame_tags": [
+      "PARTIAL_BODY",
+      "PARTIAL_BODY",
+      "PARTIAL_BODY"
+    ],
+    "all_ok": false
+  },
+  "walk": {
+    "name": "walk",
+    "included": false
+  },
+  "walk_included": false
+}

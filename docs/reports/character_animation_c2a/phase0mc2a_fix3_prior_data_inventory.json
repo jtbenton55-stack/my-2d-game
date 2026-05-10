@@ -1,0 +1,30 @@
+{
+  "c2_static": {
+    "reports": [
+      "docs/reports/character_sprite_replacement/phase0mc2_player_visual_resource_preparation.json",
+      "docs/reports/character_sprite_replacement/phase0mc2_spritesheet_slicing_report.json",
+      "docs/reports/character_sprite_replacement/phase0mc2_old_vs_new_visual_comparison.png"
+    ],
+    "source_frame_rect": {"x": 0, "y": 0, "w": 200, "h": 200},
+    "generated_png_size": [46, 96],
+    "crop_bbox_in_frame": [80, 56, 122, 148]
+  },
+  "c2a_prior": {
+    "reports_glob": "docs/reports/character_animation_c2a/phase0mc2a_*.md",
+    "prior_assumed_cell": [100, 200],
+    "note": "C2A kit audit assumed 100x200; C2 static prep documented 200x200 — discrepancy flagged in FIX3."
+  },
+  "fix1_fix2": {
+    "fix1_spriteframes": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+    "fix2_spriteframes": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+    "fix2_frame_size": [100, 200]
+  },
+  "sandbox_primary_before_fix3": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+  "assertions": {
+    "prior_data_inventory_completed": true,
+    "c2_frame_size_found_or_missing_reported": true,
+    "c2a_frame_size_found_or_missing_reported": true,
+    "frame_size_discrepancy_checked": true,
+    "current_sandbox_primary_resource_identified": true
+  }
+}

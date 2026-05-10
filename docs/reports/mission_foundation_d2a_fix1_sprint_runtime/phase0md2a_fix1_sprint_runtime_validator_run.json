@@ -1,0 +1,74 @@
+{
+  "ok": true,
+  "checks": {
+    "sprint_action_exists": {
+      "pass": true,
+      "detail": "project.godot"
+    },
+    "sprint_ctrl_only_no_space": {
+      "pass": true,
+      "detail": "Space must stay dodge-only"
+    },
+    "sprint_has_ctrl_4194326": {
+      "pass": true,
+      "detail": "KEY_CTRL"
+    },
+    "dodge_preserves_space": {
+      "pass": true,
+      "detail": "dodge Space"
+    },
+    "player_calls_process_frame": {
+      "pass": true,
+      "detail": "Player.gd"
+    },
+    "player_uses_is_sprint_active_for_mult": {
+      "pass": true,
+      "detail": "Player.gd"
+    },
+    "player_no_permanent_combat_sprint_block": {
+      "pass": true,
+      "detail": "old gate gone"
+    },
+    "player_dash_suppress": {
+      "pass": true,
+      "detail": "Player.gd"
+    },
+    "player_debug_snapshot": {
+      "pass": true,
+      "detail": "Player.gd"
+    },
+    "stamina_is_sprint_requested": {
+      "pass": true,
+      "detail": "PlayerStaminaController"
+    },
+    "stamina_key_ctrl_fallback": {
+      "pass": true,
+      "detail": "Ctrl runtime fallback"
+    },
+    "stamina_is_sprint_active": {
+      "pass": true,
+      "detail": "PlayerStaminaController"
+    },
+    "stamina_debug_snapshot": {
+      "pass": true,
+      "detail": "PlayerStaminaController"
+    },
+    "stamina_no_run_anim": {
+      "pass": true,
+      "detail": "debug flag"
+    },
+    "taco_clean": {
+      "pass": true,
+      "detail": "{\"warning: in the working copy of 'src/autoload/SceneManager.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/ui/test_ui/pause_menu.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/hideout/HideoutMissionBoardController.gd', \"warning: in the working copy of 'src/levels/IsoMissionBase.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/missions/iso/runtime/IsoMissionDebugPanel.gd', \"warning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it\", 'src/ui/test_ui/pause_menu.gd', 'docs/CHANGELOG.md', 'project.godot', \"warning: in the working copy of 'src/player/Player.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/hideout/HideoutMissionBoardController.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/hideout/HideoutStationCatalog.gd', LF will be replaced by CRLF the next time Git touches it\", 'docs/DECISIONS.md', 'src/hideout/HideoutStationCatalog.gd', \"warning: in the working copy of 'src/missions/iso/runtime/IsoMissionDebugPanel.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/player/Player.gd', 'src/levels/IsoMissionBase.gd', 'src/autoload/SceneManager.gd', \"warning: in the working copy of 'docs/CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it\"}"
+    },
+    "player_tscn_clean": {
+      "pass": true,
+      "detail": "{\"warning: in the working copy of 'src/autoload/SceneManager.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/ui/test_ui/pause_menu.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/hideout/HideoutMissionBoardController.gd', \"warning: in the working copy of 'src/levels/IsoMissionBase.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/missions/iso/runtime/IsoMissionDebugPanel.gd', \"warning: in the working copy of 'project.godot', LF will be replaced by CRLF the next time Git touches it\", 'src/ui/test_ui/pause_menu.gd', 'docs/CHANGELOG.md', 'project.godot', \"warning: in the working copy of 'src/player/Player.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/hideout/HideoutMissionBoardController.gd', LF will be replaced by CRLF the next time Git touches it\", \"warning: in the working copy of 'src/hideout/HideoutStationCatalog.gd', LF will be replaced by CRLF the next time Git touches it\", 'docs/DECISIONS.md', 'src/hideout/HideoutStationCatalog.gd', \"warning: in the working copy of 'src/missions/iso/runtime/IsoMissionDebugPanel.gd', LF will be replaced by CRLF the next time Git touches it\", 'src/player/Player.gd', 'src/levels/IsoMissionBase.gd', 'src/autoload/SceneManager.gd', \"warning: in the working copy of 'docs/CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it\"}"
+    },
+    "fix1_json_parseable": {
+      "pass": true,
+      "detail": ""
+    }
+  },
+  "warnings": []
+}

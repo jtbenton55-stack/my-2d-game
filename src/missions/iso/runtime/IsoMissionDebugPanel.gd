@@ -204,7 +204,7 @@ func _apply_red_text_style(control: Control) -> void:
 func _on_restart() -> void:
 	var mid := mission_id if mission_id != "" else "taco_bell_drop"
 	GameState.begin_mission_performance(mid)
-	SceneManager.change_scene("res://scenes/missions_iso/TacoBellIso_Editable.tscn")
+	SceneManager.change_scene(MissionSceneResolver.resolve_playable_scene_path(mid))
 
 
 func _set_heat(heat: int) -> void:

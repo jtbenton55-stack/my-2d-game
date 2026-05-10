@@ -1,0 +1,32 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "git_diff_player_tscn": "(none)",
+  "git_diff_player_gd": "(none)",
+  "git_diff_taco_bell": "(none)",
+  "checks": {
+    "branch_is_c2a": true,
+    "player_tscn_untracked_or_clean": true,
+    "player_gd_untracked_or_clean": true,
+    "taco_bell_scenes_clean": true,
+    "sandbox_has_fix1_spriteframes_ext": true,
+    "sandbox_has_controller_script": true,
+    "sandbox_has_old_placeholder": true,
+    "sandbox_has_static_parmida": true,
+    "sandbox_has_AnimatedParmidaReference": true,
+    "sandbox_has_DebugPanel": true,
+    "sandbox_has_BaselineGuide": true,
+    "sandbox_has_ReferenceGrid": true,
+    "sandbox_no_PlayerVisualAnimator_on_animated": true,
+    "controller_mentions_fix1_path": true,
+    "controller_mentions_fallback_frame": true,
+    "fix1_spriteframes_exists": true,
+    "fix1_has_name_idle": true,
+    "fix1_has_name_walk": true,
+    "fix1_has_frames_arrays": true,
+    "composite_png_exists": true,
+    "legacy_spriteframes_backup_exists": true,
+    "fix1_editor_validator_gd_exists": true
+  },
+  "structural_pass": true,
+  "note": "Runtime visibility must be confirmed in Godot (F6 on sandbox scene)."
+}

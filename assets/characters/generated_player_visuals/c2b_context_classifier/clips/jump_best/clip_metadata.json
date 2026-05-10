@@ -1,0 +1,32 @@
+{
+  "clip_name": "jump_best",
+  "segment_id": 15,
+  "action_label": "jump",
+  "confidence": 0.4904,
+  "start_global": 590,
+  "end_global": 608,
+  "start_row": 11,
+  "end_row": 12,
+  "frame_count": 19,
+  "frames": [
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_000.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_001.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_002.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_003.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_004.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_005.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_006.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_007.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_008.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_009.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_010.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_011.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_012.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_013.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_014.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_015.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_016.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_017.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/jump_best/frames/jump_best_018.png"
+  ]
+}

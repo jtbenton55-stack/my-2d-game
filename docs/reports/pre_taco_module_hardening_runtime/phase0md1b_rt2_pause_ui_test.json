@@ -1,0 +1,9 @@
+{
+  "pause_menu_tested": false,
+  "blocker": "Calling PauseMenu._pause_game() set get_tree().paused=true; subsequent grb_get_property timed out and bridge dropped",
+  "static_fallback": "src/ui/test_ui/pause_menu.gd defines Objectives, Scheme Cards, Clues buttons",
+  "assertions": {
+    "pause_menu_tested": false,
+    "objective_scheme_clue_tabs_tested_or_blocker_documented": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "clip_name": "sit_best",
+  "segment_id": 10,
+  "action_label": "sit",
+  "confidence": 0.7202,
+  "start_global": 500,
+  "end_global": 503,
+  "start_row": 10,
+  "end_row": 10,
+  "frame_count": 4,
+  "frames": [
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sit_best/frames/sit_best_000.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sit_best/frames/sit_best_001.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sit_best/frames/sit_best_002.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/sit_best/frames/sit_best_003.png"
+  ]
+}

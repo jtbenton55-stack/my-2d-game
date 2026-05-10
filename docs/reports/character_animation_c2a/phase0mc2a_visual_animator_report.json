@@ -1,0 +1,56 @@
+{
+  "phase": "0M-C2A",
+  "phase_name": "Visual-Only Player Animation Controller",
+  "date": "2026-05-09",
+  "script_path": "src/characters/PlayerVisualAnimator.gd",
+  "script_class": "PlayerVisualAnimator",
+  "extends": "AnimatedSprite2D",
+  "design_principles": {
+    "visual_only": true,
+    "reads_velocity_only": true,
+    "fallback_safe": true,
+    "no_movement_changes": true,
+    "no_collision_changes": true,
+    "no_input_changes": true,
+    "no_camera_changes": true
+  },
+  "features": {
+    "parent_detection": "Auto-detects CharacterBody2D parent",
+    "velocity_threshold": 10.0,
+    "idle_animation": "Plays when velocity < threshold",
+    "walk_animation": "Plays when velocity >= threshold",
+    "fallback_behavior": "Falls back to idle if walk missing",
+    "fps_configuration": {
+      "idle": 6.0,
+      "walk": 10.0
+    }
+  },
+  "exported_variables": [
+    {"name": "idle_animation_name", "type": "String", "default": "idle"},
+    {"name": "walk_animation_name", "type": "String", "default": "walk"},
+    {"name": "walk_velocity_threshold", "type": "float", "default": 10.0},
+    {"name": "idle_fps", "type": "float", "default": 6.0},
+    {"name": "walk_fps", "type": "float", "default": 10.0}
+  ],
+  "public_api": [
+    "force_idle()",
+    "force_walk()",
+    "is_animation_working() -> bool"
+  ],
+  "safety_guarantees": {
+    "player_gd_modified": false,
+    "movement_modified": false,
+    "collision_modified": false,
+    "input_modified": false,
+    "camera_modified": false,
+    "velocity_modified": false,
+    "position_modified": false
+  },
+  "assertions": {
+    "visual_animator_created_if_needed": true,
+    "visual_animator_does_not_modify_gameplay": true,
+    "missing_animation_falls_back_to_idle": true,
+    "player_movement_script_not_rewritten": true,
+    "no_unsafe_sprite_flipping": true
+  }
+}

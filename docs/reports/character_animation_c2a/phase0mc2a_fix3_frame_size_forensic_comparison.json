@@ -1,0 +1,31 @@
+{
+  "row": 8,
+  "scores": {
+    "100x200": {
+      "frame_size": [
+        100,
+        200
+      ],
+      "sample_row": 8,
+      "strip_length": 10,
+      "full_body_frames": 0,
+      "half_body_frames": 0,
+      "mean_bbox_h_ratio": 0.427,
+      "mean_bbox_w_ratio": 0.20800000000000002,
+      "layer_alignment_assumed": true
+    },
+    "200x200": {
+      "frame_size": [
+        200,
+        200
+      ],
+      "sample_row": 8,
+      "strip_length": 10,
+      "full_body_frames": 0,
+      "half_body_frames": 0,
+      "mean_bbox_h_ratio": 0.4595,
+      "mean_bbox_w_ratio": 0.1795,
+      "layer_alignment_assumed": true
+    }
+  }
+}

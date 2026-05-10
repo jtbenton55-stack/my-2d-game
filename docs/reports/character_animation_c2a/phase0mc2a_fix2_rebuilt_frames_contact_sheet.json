@@ -1,0 +1,114 @@
+{
+  "cells": [
+    {
+      "title": "REBUILT_idle",
+      "index": 0,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        58,
+        100,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 1,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        55,
+        23,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 2,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        67,
+        100,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 3,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        55,
+        26,
+        146
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 4,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        68,
+        100,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 5,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        55,
+        26,
+        146
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 6,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        68,
+        100,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 7,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        54,
+        25,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 8,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        63,
+        100,
+        145
+      ]
+    },
+    {
+      "title": "REBUILT_idle",
+      "index": 9,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        55,
+        23,
+        145
+      ]
+    }
+  ]
+}

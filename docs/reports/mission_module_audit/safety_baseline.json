@@ -1,0 +1,27 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "git_branch": "c2a-full-character-animation-20260509-172230",
+  "git_status_porcelain_excerpt": "Branch c2a-full-character-animation-20260509-172230; modified tracked: docs/CHANGELOG.md, docs/DECISIONS.md; many untracked animation/C2B/mission_module_audit files; protected paths had empty diff vs HEAD.",
+  "protected_paths_git_diff_empty": {
+    "scenes/characters/player.tscn": true,
+    "src/player/Player.gd": true,
+    "scenes/missions_iso/TacoBellIso_Editable.tscn": true,
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn": true,
+    "scenes/hideout/HideoutHub.tscn": true,
+    "project.godot": true
+  },
+  "audit_only_mode": true,
+  "writable_paths_allowed": [
+    "docs/reports/mission_module_audit/**",
+    "src/tools/editor/mission_module_audit/**",
+    "src/tools/editor/MissionModuleAuditValidator.gd"
+  ],
+  "assertions": {
+    "repo_root_confirmed": true,
+    "git_status_recorded": true,
+    "audit_only_mode": true,
+    "writable_scope_limited_to_repo": true,
+    "report_output_folder_created": true,
+    "protected_files_not_modified_by_audit": true
+  }
+}

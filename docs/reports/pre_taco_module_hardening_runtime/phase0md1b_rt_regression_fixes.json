@@ -1,0 +1,10 @@
+{
+  "assertions": {
+    "regressions_triaged": true,
+    "d1b_regressions_fixed_or_blocker_documented": true,
+    "no_scope_creep_fixes": true
+  },
+  "regressions_found": [],
+  "fixes_applied": [],
+  "notes": "D1B + RT static validators PASS; no parse/runtime errors observed without engine. No code changes in this RT pass beyond validators/reports."
+}

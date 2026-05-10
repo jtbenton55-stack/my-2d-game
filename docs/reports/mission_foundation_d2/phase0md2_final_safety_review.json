@@ -1,0 +1,20 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "generated_utc": "2026-05-10T18:08:38.590705+00:00",
+  "final_git_status_recorded": true,
+  "protected_files_checked": true,
+  "no_unrelated_project_godot_changes": true,
+  "static_validator_passed": true,
+  "git_diff_name_only_sample": [
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "project.godot",
+    "src/autoload/SceneManager.gd",
+    "src/hideout/HideoutMissionBoardController.gd",
+    "src/hideout/HideoutStationCatalog.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/player/Player.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ]
+}

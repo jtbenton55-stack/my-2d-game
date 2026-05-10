@@ -1,0 +1,59 @@
+{
+  "A_result": "PARTIAL_PENDING_MANUAL",
+  "B_branch": "c2a-full-character-animation-20260509-172230",
+  "C_player_tscn_modified": false,
+  "D_player_gd_modified": false,
+  "E_taco_bell_scenes_modified": false,
+  "F_raw_source_assets_modified": false,
+  "G_confirmed_frame_size": "200x200",
+  "H_selected_layers": [
+    "Female Base 3 (Spritesheet.png)",
+    "Bottoms 13 (Spritesheet.png)",
+    "Tops 24 (Spritesheet.png)",
+    "Head 4 (Spritesheet.png)",
+    "Hair 7 (Spritesheet.png)"
+  ],
+  "I_grid_verification": "200x200 divisibility confirmed per phase0mc2b_200x200_grid_verification.json",
+  "J_row_browser_path": "res://docs/reports/character_animation_c2b/row_browser/",
+  "K_master_row_contact_sheet": "res://docs/reports/character_animation_c2b/phase0mc2b_all_rows_contact_sheet.png",
+  "L_row_classification_report": "res://docs/reports/character_animation_c2b/phase0mc2b_row_classification.json",
+  "M_idle_row_selected": 35,
+  "N_walk_row_selected": 37,
+  "O_run_row_selected": null,
+  "P_fight_attack_row_selected": null,
+  "Q_walk_status": "WALK_SELECTED",
+  "R_run_status": "RUN_NOT_FOUND_SAFE",
+  "S_fight_attack_status": "ATTACK_NOT_FOUND_SAFE",
+  "T_c2b_generated_folder": "res://assets/characters/generated_player_visuals/c2b_full_animation/",
+  "U_c2b_spriteframes": "res://assets/characters/generated_player_visuals/c2b_full_animation/parmida_player_spriteframes_0mc2b.tres",
+  "V_animations_created": ["idle", "walk"],
+  "W_idle_frame_count": 12,
+  "X_walk_frame_count": 12,
+  "Y_run_frame_count": 0,
+  "Z_attack_frame_count": 0,
+  "AA_contact_sheets": [
+    "res://docs/reports/character_animation_c2b/phase0mc2b_idle_contact_sheet.png",
+    "res://docs/reports/character_animation_c2b/phase0mc2b_walk_contact_sheet.png",
+    "res://docs/reports/character_animation_c2b/phase0mc2b_combined_animation_contact_sheet.png"
+  ],
+  "AB_c2b_sandbox_scene": "res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2B.tscn",
+  "AC_sandbox_controller": "res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2BController.gd",
+  "AD_frame_by_frame_viewer": true,
+  "AE_production_promotion_allowed": false,
+  "AF_future_controller_design": "res://docs/reports/character_animation_c2b/phase0mc2b_future_production_animation_controller_design.md",
+  "AG_validator": "res://src/tools/editor/character_animation_c2b_static_validator.py",
+  "AH_runtime_godot_test": "MANUAL_REQUIRED",
+  "AI_reports_base": "res://docs/reports/character_animation_c2b/",
+  "AJ_files_created_summary": [
+    "docs/reports/character_animation_c2b/*",
+    "assets/characters/generated_player_visuals/c2b_full_animation/*",
+    "scenes/hideout/tools/CharacterAnimationSandbox_0MC2B*",
+    "src/tools/editor/character_animation_c2b_discovery_pipeline.py",
+    "src/tools/editor/character_animation_c2b_static_validator.py",
+    "src/tools/editor/CharacterAnimationC2BValidator.gd"
+  ],
+  "AK_files_modified_summary": [
+    "docs/CHANGELOG.md"
+  ],
+  "AM_recommended_next_step": "Open row browser + combined contact sheets; run CharacterAnimationSandbox_0MC2B.tscn; if walk/idle are visually acceptable, document PASS and plan optional run/attack hunt in a future pass with stricter row metadata."
+}

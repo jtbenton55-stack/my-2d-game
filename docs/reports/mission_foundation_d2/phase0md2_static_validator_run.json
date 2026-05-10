@@ -1,0 +1,150 @@
+{
+  "ok": true,
+  "checks": {
+    "repo_root": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game"
+    },
+    "expanded_taco_scene": {
+      "pass": true,
+      "detail": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+    },
+    "legacy_taco_scene": {
+      "pass": true,
+      "detail": "res://scenes/missions_iso/TacoBellIso_Editable.tscn"
+    },
+    "classic_taco_scene": {
+      "pass": true,
+      "detail": "res://scenes/missions/TacoBellMission.tscn"
+    },
+    "resolver_api_resolve_playable_scene_path": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "resolver_api_get_default_scene_path": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "resolver_api_get_debug_scene_path": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "resolver_api_get_scene_roles": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "resolver_api_is_legacy_scene_path": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "resolver_api_get_resolution_report": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/MissionSceneResolver.gd"
+    },
+    "taco_resolves_redesign": {
+      "pass": true,
+      "detail": "resolve_playable_scene_path early return"
+    },
+    "mission_board_no_tacoscene_const": {
+      "pass": true,
+      "detail": "HideoutMissionBoardController"
+    },
+    "mission_board_uses_resolver": {
+      "pass": true,
+      "detail": "HideoutMissionBoardController"
+    },
+    "catalog_no_tacoscene_const": {
+      "pass": true,
+      "detail": "HideoutStationCatalog"
+    },
+    "catalog_uses_resolver": {
+      "pass": true,
+      "detail": "HideoutStationCatalog"
+    },
+    "scene_manager_start_mission_resolver": {
+      "pass": true,
+      "detail": "SceneManager.start_mission"
+    },
+    "scene_manager_pending_clear_uses_resolver": {
+      "pass": true,
+      "detail": "pending_mission_id clear"
+    },
+    "iso_debug_restart_resolver": {
+      "pass": true,
+      "detail": "IsoMissionDebugPanel._on_restart"
+    },
+    "sprint_action_present": {
+      "pass": true,
+      "detail": "project.godot [input] sprint"
+    },
+    "project_godot_backup_exists": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\mission_foundation_d2\\backups\\project.phase0md2_input_backup.20260509190000.godot"
+    },
+    "backup_has_no_sprint_action": {
+      "pass": true,
+      "detail": "project.phase0md2_input_backup.20260509190000.godot"
+    },
+    "pause_provider_get_objective_snapshot": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "pause_provider_get_scheme_card_snapshot": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "pause_provider_get_clue_snapshot": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "pause_provider_get_pause_payload": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "pause_provider_has_mission_context": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "pause_provider_get_provider_id": {
+      "pass": true,
+      "detail": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game/src/missions/ui/MissionPauseDataProvider.gd"
+    },
+    "objective_bridge_snapshot": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\src\\missions\\objectives\\MissionObjectiveBridge.gd"
+    },
+    "objective_bridge_id": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\src\\missions\\objectives\\MissionObjectiveBridge.gd"
+    },
+    "clue_bridge_file": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\src\\missions\\clues\\MissionClueBridge.gd"
+    },
+    "scheme_bridge_file": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\src\\missions\\schemes\\MissionSchemeBridge.gd"
+    },
+    "pause_menu_uses_provider": {
+      "pass": true,
+      "detail": "pause_menu.gd"
+    },
+    "stamina_no_animation_dependency_note": {
+      "pass": true,
+      "detail": "PlayerStaminaController header"
+    },
+    "stamina_sprint_action_default": {
+      "pass": true,
+      "detail": "PlayerStaminaController"
+    },
+    "protected_scenes_untouched_in_diff": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "d2_json_reports_parseable": {
+      "pass": true,
+      "detail": ""
+    }
+  },
+  "warnings": []
+}

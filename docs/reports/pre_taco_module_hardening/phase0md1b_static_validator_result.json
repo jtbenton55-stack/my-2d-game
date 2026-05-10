@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "name": "iso_no_taco_dialogue_preload",
+      "ok": true
+    },
+    {
+      "name": "iso_reset_contract_method",
+      "ok": true
+    },
+    {
+      "name": "tool_surface_wiring",
+      "ok": true
+    },
+    {
+      "name": "player_stamina",
+      "ok": true
+    },
+    {
+      "name": "report:phase0md1b_safety_baseline.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_canonical_taco_scene_decision.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_dialogue_boundary.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_tool_surface.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_objective_ownership.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_stamina_hook.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_attempt_reset_contract.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_validation.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "report:phase0md1b_pre_taco_module_hardening.json",
+      "ok": true,
+      "json_ok": true
+    },
+    {
+      "name": "project_godot_clean_diff",
+      "ok": true
+    }
+  ],
+  "overall_ok": true
+}

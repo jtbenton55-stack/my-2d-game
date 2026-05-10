@@ -1,0 +1,142 @@
+{
+  "frame_width": 200,
+  "frame_height": 200,
+  "selection": {
+    "idle_row": 35,
+    "idle_reason": "Does not match tight acceptance heuristics",
+    "walk_row": 37,
+    "walk_status": "WALK_SELECTED",
+    "run_row": null,
+    "run_status": "RUN_NOT_FOUND_SAFE",
+    "attack_row": null,
+    "attack_status": "ATTACK_NOT_FOUND_SAFE",
+    "assertions": {
+      "idle_row_selected": true,
+      "walk_row_selected_or_safe_not_found": true,
+      "run_row_selected_or_safe_not_found": true,
+      "fight_row_selected_or_safe_not_found": true,
+      "no_bad_rows_forced": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "files": [
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_000.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_001.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_002.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_003.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_004.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_005.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_006.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_007.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_008.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_009.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_010.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/idle_011.png"
+      ],
+      "source_cols": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "walk": {
+      "files": [
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_000.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_001.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_002.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_003.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_004.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_005.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_006.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_007.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_008.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_009.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_010.png",
+        "assets/characters/generated_player_visuals/c2b_full_animation/frames/walk_011.png"
+      ],
+      "source_cols": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "run": [],
+    "attack": []
+  },
+  "layers": [
+    {
+      "name": "base",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "exists": true,
+      "size": [
+        10000,
+        10000
+      ],
+      "cols_200": 50,
+      "rows_200": 50
+    },
+    {
+      "name": "bottoms",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "exists": true,
+      "size": [
+        10000,
+        10000
+      ],
+      "cols_200": 50,
+      "rows_200": 50
+    },
+    {
+      "name": "tops",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "exists": true,
+      "size": [
+        10000,
+        10000
+      ],
+      "cols_200": 50,
+      "rows_200": 50
+    },
+    {
+      "name": "head",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "exists": true,
+      "size": [
+        10000,
+        10000
+      ],
+      "cols_200": 50,
+      "rows_200": 50
+    },
+    {
+      "name": "hair",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png",
+      "exists": true,
+      "size": [
+        10000,
+        10000
+      ],
+      "cols_200": 50,
+      "rows_200": 50
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "expected_branch": "c2a-full-character-animation-20260509-172230",
+  "git_status_porcelain": "M docs/CHANGELOG.md\n M docs/DECISIONS.md\n?? assets/characters/generated_player_visuals/c2a_animation/\n?? assets/characters/generated_player_visuals/c2b_context_classifier/\n?? assets/characters/generated_player_visuals/c2b_full_animation/\n?? docs/reports/character_animation_c2a/\n?? docs/reports/character_animation_c2b/\n?? docs/reports/character_animation_c2b_fix1/\n?? scenes/hideout/tools/CharacterAnimationContextClassifierSandbox_0MC2B_FIX1.gd\n?? scenes/hideout/tools/CharacterAnimationContextClassifierSandbox_0MC2B_FIX1.gd.uid\n?? scenes/hideout/tools/CharacterAnimationContextClassifierSandbox_0MC2B_FIX1.tscn\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2AController.gd\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2AController.gd.uid\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2B.tscn\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2BController.gd\n?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2BController.gd.uid\n?? src/characters/PlayerVisualAnimator.gd\n?? src/characters/PlayerVisualAnimator.gd.uid\n?? src/tools/editor/CharacterAnimationC2AFix1Validator.gd\n?? src/tools/editor/CharacterAnimationC2AFix1Validator.gd.uid\n?? src/tools/editor/CharacterAnimationC2AFix2Validator.gd\n?? src/tools/editor/CharacterAnimationC2AFix2Validator.gd.uid\n?? src/tools/editor/CharacterAnimationC2AFix3Validator.gd\n?? src/tools/editor/CharacterAnimationC2AFix3Validator.gd.uid\n?? src/tools/editor/CharacterAnimationC2BFix1ContextClassifierValidator.gd\n?? src/tools/editor/CharacterAnimationC2BFix1ContextClassifierValidator.gd.uid\n?? src/tools/editor/CharacterAnimationC2BValidator.gd\n?? src/tools/editor/CharacterAnimationC2BValidator.gd.uid\n?? src/tools/editor/__pycache__/\n?? src/tools/editor/character_animation_c2a_compositor.py\n?? src/tools/editor/character_animation_c2a_fix1_inventory.py\n?? src/tools/editor/character_animation_c2a_fix1_static_validator.py\n?? src/tools/editor/character_animation_c2a_fix1_write_spriteframes.py\n?? src/tools/editor/character_animation_c2a_fix2_pipeline.py\n?? src/tools/editor/character_animation_c2a_fix2_static_validator.py\n?? src/tools/editor/character_animation_c2a_fix3_pipeline.py\n?? src/tools/editor/character_animation_c2a_fix3_static_validator.py\n?? src/tools/editor/character_animation_c2a_frame_detector.py\n?? src/tools/editor/character_animation_c2a_kit_auditor.py\n?? src/tools/editor/character_animation_c2a_spriteframes_generator.py\n?? src/tools/editor/character_animation_c2b_discovery_pipeline.py\n?? src/tools/editor/character_animation_c2b_fix1_context_classifier_pipeline.py\n?? src/tools/editor/character_animation_c2b_fix1_context_classifier_validator.py\n?? src/tools/editor/character_animation_c2b_static_validator.py",
+  "player_tscn_exists": true,
+  "player_gd_exists": true,
+  "taco_scenes_exist": true,
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_confirmed": true,
+    "git_status_recorded": true,
+    "production_player_not_modified": true,
+    "player_gd_not_modified": true,
+    "taco_bell_not_modified": true,
+    "raw_assets_not_modified": true
+  }
+}

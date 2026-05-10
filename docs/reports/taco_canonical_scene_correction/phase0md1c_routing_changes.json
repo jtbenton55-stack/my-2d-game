@@ -1,0 +1,20 @@
+{
+  "assertions": {
+    "active_missionboard_route_points_to_expanded_scene": true,
+    "hideout_station_catalog_points_to_expanded_scene": true,
+    "old_scene_preserved": true,
+    "unrelated_missions_unchanged": true
+  },
+  "expanded_playable_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "legacy_scene_unchanged_on_disk": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "files_modified": [
+    "src/hideout/HideoutMissionBoardController.gd",
+    "src/hideout/HideoutStationCatalog.gd",
+    "src/autoload/SceneManager.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "src/tools/editor/pre_taco_module_hardening_runtime/phase0md1b_rt_static_validator.py"
+  ],
+  "summary": "Set all active hideout + debug iso launch strings to RedesignTest; keep Editable as legacy bake baseline; RT static validator now requires both scene files exist."
+}

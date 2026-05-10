@@ -1,0 +1,26 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "goal_summary": "Pre-Taco module boundary hardening: dialogue provider, tool surface, objective bridge, stamina hook, attempt reset API + docs; canonical Taco scene decision.",
+  "files_changed": [
+    "src/levels/IsoMissionBase.gd",
+    "src/player/Player.gd",
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md"
+  ],
+  "files_created": [
+    "src/missions/dialogue/MissionDialogueProvider.gd",
+    "src/missions/taco_bell/TacoBellDialogueProvider.gd",
+    "src/missions/tools/MissionToolSurfaceHelper.gd",
+    "src/missions/objectives/MissionObjectiveBridge.gd",
+    "src/player/PlayerStaminaController.gd",
+    "scenes/hideout/tools/PlayerStaminaControllerTest_0MD1B.tscn",
+    "scenes/hideout/tools/PlayerStaminaControllerTest_0MD1B.gd",
+    "src/tools/editor/pre_taco_module_hardening/phase0md1b_static_validator.py",
+    "src/tools/editor/PreTacoModuleHardening0MD1BValidator.gd",
+    "docs/reports/pre_taco_module_hardening/*"
+  ],
+  "canonical_taco_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "godot_runtime_tested": false,
+  "recommended_next_pass": "0M-D2 — Taco Bell redesign on TacoBellIso_Editable: art/layout + migrate selected Phase0J/K features; add sprint to Input Map; playtest beam/Louis/code gate checklist."
+}

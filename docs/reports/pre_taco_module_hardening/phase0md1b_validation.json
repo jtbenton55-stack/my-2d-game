@@ -1,0 +1,12 @@
+{
+  "assertions": {
+    "validation_run": true,
+    "protected_files_checked": true,
+    "runtime_limitations_documented_if_any": true,
+    "no_unexplained_protected_file_modifications": true
+  },
+  "static_python": "src/tools/editor/pre_taco_module_hardening/phase0md1b_static_validator.py",
+  "static_result": "PASS",
+  "godot_cli": "not_run — Godot executable not found on PATH in automation shell",
+  "protected_git_diff": "checked via static validator (project.godot must not appear in git diff HEAD)"
+}

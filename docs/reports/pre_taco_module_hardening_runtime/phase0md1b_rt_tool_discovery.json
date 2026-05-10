@@ -1,0 +1,25 @@
+{
+  "assertions": {
+    "runtime_tool_attempted": true,
+    "runtime_tool_result_documented": true
+  },
+  "attempts": [
+    {
+      "order": 1,
+      "tool": "MCP project-0-my-2d-game-godot-runtime-bridge / grb_ping",
+      "result": "Bridge not connected. Launch the game first."
+    },
+    {
+      "order": 2,
+      "tool": "PowerShell search for Godot.exe (Downloads, Program Files, LOCALAPPDATA)",
+      "result": "No executable found in searched paths"
+    },
+    {
+      "order": 3,
+      "tool": "where godot",
+      "result": "Not on PATH (earlier session)"
+    }
+  ],
+  "conclusion": "No automated headless Godot run in this environment without a user-supplied GODOT binary or a running GRB-connected game.",
+  "recommendation_for_human": "Run Godot 4.6.2 editor, enable GRB if using MCP bridge, or set a known path and run: Godot.exe --path . --headless --quit-after 1"
+}

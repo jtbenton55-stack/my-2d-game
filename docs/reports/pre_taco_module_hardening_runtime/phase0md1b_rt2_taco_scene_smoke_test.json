@@ -1,0 +1,16 @@
+{
+  "taco_scene_loaded": true,
+  "current_scene_runtime_info": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "player_spawned": true,
+  "player_node_path": "/root/TacoBellIso_Editable/EntityRoot/Player",
+  "player_movement_tested": false,
+  "movement_blocker": "GRB synthetic mode; move_right keys and joy axis did not change global_position; velocity stayed 0",
+  "collision_camera": "not_interactively_verified",
+  "runtime_errors_new_d1b": "none_identified; 11 engine errors from tileset/image (Hideout load) appear pre-existing",
+  "assertions": {
+    "taco_scene_loaded": true,
+    "player_spawned": true,
+    "player_movement_tested": false,
+    "no_blocking_runtime_errors": true
+  }
+}

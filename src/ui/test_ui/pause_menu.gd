@@ -107,6 +107,7 @@ func _controls_text() -> String:
 		"  Case the Joint pulse: %s" % _bindings("case_the_joint", "Q"),
 		"  Dash (invulnerable frames): %s (hold a move direction or dash won't start)" % _bindings("dodge", "Space"),
 		"  Style finisher (STYLE bar full in HUD): %s" % _bindings("finisher", "R"),
+		"  Sprint (stamina): hold %s while moving (Ctrl sustained sprint; Space is dash/dodge only)" % _bindings("sprint", "Ctrl"),
 		"  Stealth walk: hold %s and use WASD together (slower, quieter movement)" % _bindings("stealth", "Shift"),
 		"  Stealth takedown: stealth + behind unaware enemy + %s" % _bindings("attack", "J / light attack"),
 		"  Bentley Bark / Sniff / Fetch / Stay-Heel: %s / %s / %s / %s" % [_bindings("bentley_bark", "1"), _bindings("bentley_sniff", "2"), _bindings("bentley_fetch", "3"), _bindings("bentley_toggle_stay", "4")],
@@ -122,51 +123,73 @@ func _controls_text() -> String:
 
 func _objectives_text() -> String:
 	var mission_id := String(GameState.current_mission_id)
-	var active: Array = QuestManager.get_active_objectives(mission_id) if QuestManager.has_method("get_active_objectives") else []
-	var done: Array = QuestManager.get_completed_objectives(mission_id) if QuestManager.has_method("get_completed_objectives") else []
+	var snap := MissionPauseDataProvider.get_objective_snapshot(mission_id, null)
 	var lines: Array[String] = ["Active Objectives"]
-	if active.is_empty():
+	var saw_active := false
+	for row in snap.get("items", []):
+		if row is Dictionary and String(row.get("kind", "")) == "active":
+			saw_active = true
+			lines.append("  - " + String(row.get("text", "")))
+	if not saw_active:
 		lines.append("  No active objectives.")
-	else:
-		for entry in active:
-			lines.append("  - " + String(entry))
 	lines.append("")
 	lines.append("Completed Objectives")
-	if done.is_empty():
+	var saw_done := false
+	for row in snap.get("items", []):
+		if row is Dictionary and String(row.get("kind", "")) == "completed":
+			saw_done = true
+			lines.append("  - " + String(row.get("text", "")))
+	if not saw_done:
 		lines.append("  No completed objectives yet.")
-	else:
-		for entry in done:
-			lines.append("  - " + String(entry))
+	for w in snap.get("warnings", []):
+		lines.append("")
+		lines.append("(warn) " + String(w))
 	return "\n".join(lines)
 
 
 func _scheme_cards_text() -> String:
+	var mission_id := String(GameState.current_mission_id)
+	var payload := MissionPauseDataProvider.get_scheme_card_snapshot(mission_id, null)
+	var sch_full := MissionSchemeBridge.get_scheme_snapshot(mission_id)
 	var lines: Array[String] = ["Active / Unlocked Scheme Cards"]
-	if GameState.selected_cards.is_empty():
+	if payload.get("items", []).is_empty():
 		lines.append("  Equipped: none")
 	else:
-		lines.append("  Equipped: " + ", ".join(GameState.selected_cards))
+		var names: Array[String] = []
+		for row in payload.get("items", []):
+			if row is Dictionary:
+				names.append(String(row.get("display_name", row.get("id", ""))))
+		lines.append("  Equipped: " + ", ".join(names))
 	lines.append("")
 	lines.append("Unlocked")
-	if GameState.unlocked_cards.is_empty():
+	var unlocked: Array = sch_full.get("unlocked_ids", [])
+	if unlocked.is_empty():
 		lines.append("  none")
 	else:
-		for card_id in GameState.unlocked_cards:
+		for card_id in unlocked:
 			lines.append("  - " + String(card_id))
+	for w in payload.get("warnings", []):
+		lines.append("")
+		lines.append("(warn) " + String(w))
 	return "\n".join(lines)
 
 
 func _clues_text() -> String:
+	var mission_id := String(GameState.current_mission_id)
+	var snap := MissionPauseDataProvider.get_clue_snapshot(mission_id, null)
 	var lines: Array[String] = ["Found Clues"]
-	var found := 0
-	for clue_id in GameState.sterling_clues.keys():
-		var clue: Dictionary = GameState.sterling_clues.get(clue_id, {})
-		if clue.get("discovered", false) != true:
-			continue
-		found += 1
-		lines.append("  - %s: %s" % [String(clue.get("title", clue_id)), String(clue.get("description", ""))])
-	if found == 0:
+	if snap.get("items", []).is_empty():
 		lines.append("  none")
+	else:
+		for row in snap.get("items", []):
+			if row is Dictionary:
+				lines.append(
+					"  - %s: %s"
+					% [String(row.get("title", row.get("id", ""))), String(row.get("description", ""))]
+				)
+	for w in snap.get("warnings", []):
+		lines.append("")
+		lines.append("(warn) " + String(w))
 	return "\n".join(lines)
 
 func _bindings(action_name: String, fallback: String) -> String:

@@ -1,0 +1,8 @@
+{
+  "runtime_validation_attempted": true,
+  "runtime_limitations_documented_if_any": true,
+  "overlay_left_for_manual_validation": true,
+  "grb_ping": "Bridge not connected. Launch the game first.",
+  "runtime_pass": false,
+  "notes": "No automated Godot input; user must confirm Ctrl/C + movement in Taco Bell or any Player scene."
+}

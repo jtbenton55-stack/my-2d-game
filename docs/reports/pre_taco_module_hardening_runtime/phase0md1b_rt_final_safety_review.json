@@ -1,0 +1,19 @@
+{
+  "assertions": {
+    "final_git_status_recorded": true,
+    "protected_files_checked": true,
+    "static_validator_rerun": true
+  },
+  "git_diff_name_only_vs_HEAD": [
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "src/levels/IsoMissionBase.gd",
+    "src/player/Player.gd"
+  ],
+  "note": "RT pass adds docs/reports/pre_taco_module_hardening_runtime/** and src/tools/editor/pre_taco_module_hardening_runtime/** (untracked until staged).",
+  "project_godot_modified": false,
+  "taco_scenes_modified": false,
+  "player_tscn_modified": false,
+  "d1b_static_validator_rerun": "PASS",
+  "rt_static_validator_rerun": "PASS"
+}

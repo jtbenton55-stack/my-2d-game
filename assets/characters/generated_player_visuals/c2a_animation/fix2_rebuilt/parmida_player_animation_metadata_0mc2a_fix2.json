@@ -1,0 +1,70 @@
+{
+  "frame_width": 100,
+  "frame_height": 200,
+  "verified_kit_sheet_size": [
+    10000,
+    10000
+  ],
+  "orientation_chosen": "horizontal",
+  "idle": {
+    "strip": "row=8, cols=0..9",
+    "metrics": {
+      "orientation": "horizontal",
+      "index": 8,
+      "coverage_mean": 0.053115,
+      "foot_bottom_std": 0.4,
+      "mse_seq_mean": 1.1188694444444445,
+      "score": 4.8007832086111115,
+      "rejected": ""
+    },
+    "frame_files": [
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_000.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_001.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_002.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_003.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_004.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_005.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_006.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_007.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_008.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_009.png"
+    ]
+  },
+  "walk": {
+    "included": false,
+    "pick": {
+      "kept_walk": false,
+      "notes": [
+        "No walk strip passed heuristics; exporting idle-only."
+      ]
+    },
+    "frame_files": []
+  },
+  "layers": [
+    {
+      "name": "base",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png"
+    },
+    {
+      "name": "bottoms",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png"
+    },
+    {
+      "name": "tops",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png"
+    },
+    {
+      "name": "head",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png"
+    },
+    {
+      "name": "hair",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png"
+    }
+  ],
+  "rules": {
+    "fixed_canvas": true,
+    "no_per_frame_trim": true,
+    "same_grid_all_layers": true
+  }
+}

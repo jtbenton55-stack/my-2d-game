@@ -1,0 +1,92 @@
+{
+  "description": "Human seed regions; boundaries inferred from motion where noted.",
+  "inferred_splits": {
+    "row1_walk_run_split_col": 30,
+    "row2_run_idle_split_col": 12,
+    "row10_sit_dance_split_col": 4
+  },
+  "seed_regions": [
+    {
+      "name": "row00_walk",
+      "start": 0,
+      "end": 49,
+      "label": "walk"
+    },
+    {
+      "name": "row01_walk_prefix",
+      "start": 50,
+      "end": 79,
+      "label": "walk"
+    },
+    {
+      "name": "row01_run_suffix",
+      "start": 80,
+      "end": 99,
+      "label": "run"
+    },
+    {
+      "name": "row02_run_prefix",
+      "start": 100,
+      "end": 111,
+      "label": "run"
+    },
+    {
+      "name": "row02_idle_suffix",
+      "start": 112,
+      "end": 149,
+      "label": "idle"
+    },
+    {
+      "name": "rows03_08_idle",
+      "start": 150,
+      "end": 449,
+      "label": "idle"
+    },
+    {
+      "name": "row10_sit_prefix",
+      "start": 500,
+      "end": 503,
+      "label": "sit"
+    },
+    {
+      "name": "row10_dance_suffix",
+      "start": 504,
+      "end": 549,
+      "label": "dance"
+    },
+    {
+      "name": "jump_span",
+      "start": 590,
+      "end": 608,
+      "label": "jump"
+    },
+    {
+      "name": "sneak_span",
+      "start": 640,
+      "end": 658,
+      "label": "half_crouch_sneak"
+    },
+    {
+      "name": "crouch_span",
+      "start": 690,
+      "end": 708,
+      "label": "full_crouch"
+    },
+    {
+      "name": "row15_fall_prefix",
+      "start": 750,
+      "end": 762,
+      "label": "fall"
+    },
+    {
+      "name": "rows35_37_fight",
+      "start": 1750,
+      "end": 1899,
+      "label": "fight_stance"
+    }
+  ],
+  "rules": [
+    "Rows 35\u201337 must not be classified as walk without overwhelming evidence.",
+    "Seeds are hints; contextual features and segments can refine."
+  ]
+}

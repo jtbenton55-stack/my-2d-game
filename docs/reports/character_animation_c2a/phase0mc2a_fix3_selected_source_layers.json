@@ -1,0 +1,16 @@
+{
+  "layers": [
+    {"name": "Female Base 3", "role": "base", "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png", "exists": true, "size": [10000, 10000], "alpha": true},
+    {"name": "Bottoms 13", "role": "bottoms", "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png", "exists": true, "size": [10000, 10000], "alpha": true},
+    {"name": "Tops 24", "role": "tops", "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png", "exists": true, "size": [10000, 10000], "alpha": true},
+    {"name": "Head 4", "role": "head", "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png", "exists": true, "size": [10000, 10000], "alpha": true},
+    {"name": "Hair 7", "role": "hair", "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png", "exists": true, "size": [10000, 10000], "alpha": true}
+  ],
+  "grid_candidates": ["100x200 => 100x50 cells", "200x200 => 50x50 cells"],
+  "assertions": {
+    "selected_source_layer_paths_found": true,
+    "selected_source_layers_exist": true,
+    "selected_source_layer_dimensions_recorded": true,
+    "raw_source_assets_not_modified": true
+  }
+}

@@ -1,0 +1,3 @@
+# Diagnostic SpriteFrames
+
+See JSON.

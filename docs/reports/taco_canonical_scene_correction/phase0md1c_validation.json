@@ -1,0 +1,51 @@
+{
+  "overall_ok": true,
+  "checks": [
+    {
+      "name": "expanded_scene_exists",
+      "ok": true,
+      "path": "scenes\\missions_iso\\TacoBellIso_Editable_RedesignTest.tscn"
+    },
+    {
+      "name": "legacy_scene_exists",
+      "ok": true,
+      "path": "scenes\\missions_iso\\TacoBellIso_Editable.tscn"
+    },
+    {
+      "name": "route:HideoutMissionBoardController",
+      "ok": true
+    },
+    {
+      "name": "route:HideoutStationCatalog",
+      "ok": true
+    },
+    {
+      "name": "route:SceneManager",
+      "ok": true
+    },
+    {
+      "name": "route:IsoMissionDebugPanel",
+      "ok": true
+    },
+    {
+      "name": "not_dirty:project.godot",
+      "ok": true
+    },
+    {
+      "name": "not_dirty:scenes/characters/player.tscn",
+      "ok": true
+    },
+    {
+      "name": "taco_scene_not_modified:scenes/missions_iso/TacoBellIso_Editable.tscn",
+      "ok": true
+    },
+    {
+      "name": "taco_scene_not_modified:scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "name": "player_gd_has_no_taco_scene_paths",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+[gd_resource type="SpriteFrames" load_steps=23 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(100, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(300, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(500, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(700, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="idle_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(900, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(100, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(300, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(500, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(700, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 200, 100, 200)
+
+[sub_resource type="AtlasTexture" id="walk_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(900, 200, 100, 200)
+
+[resource]
+animations = [{
+"animations/idle": {
+"speed": 6.0,
+"loop": true,
+"frames": [{
+"frames/0": { "duration": 1.0, "texture": SubResource("idle_0") },
+"frames/1": { "duration": 1.0, "texture": SubResource("idle_1") },
+"frames/2": { "duration": 1.0, "texture": SubResource("idle_2") },
+"frames/3": { "duration": 1.0, "texture": SubResource("idle_3") },
+"frames/4": { "duration": 1.0, "texture": SubResource("idle_4") },
+"frames/5": { "duration": 1.0, "texture": SubResource("idle_5") },
+"frames/6": { "duration": 1.0, "texture": SubResource("idle_6") },
+"frames/7": { "duration": 1.0, "texture": SubResource("idle_7") },
+"frames/8": { "duration": 1.0, "texture": SubResource("idle_8") },
+"frames/9": { "duration": 1.0, "texture": SubResource("idle_9") },
+}]
+},
+"animations/walk": {
+"speed": 10.0,
+"loop": true,
+"frames": [{
+"frames/0": { "duration": 1.0, "texture": SubResource("walk_0") },
+"frames/1": { "duration": 1.0, "texture": SubResource("walk_1") },
+"frames/2": { "duration": 1.0, "texture": SubResource("walk_2") },
+"frames/3": { "duration": 1.0, "texture": SubResource("walk_3") },
+"frames/4": { "duration": 1.0, "texture": SubResource("walk_4") },
+"frames/5": { "duration": 1.0, "texture": SubResource("walk_5") },
+"frames/6": { "duration": 1.0, "texture": SubResource("walk_6") },
+"frames/7": { "duration": 1.0, "texture": SubResource("walk_7") },
+"frames/8": { "duration": 1.0, "texture": SubResource("walk_8") },
+"frames/9": { "duration": 1.0, "texture": SubResource("walk_9") },
+}]
+}
+}]

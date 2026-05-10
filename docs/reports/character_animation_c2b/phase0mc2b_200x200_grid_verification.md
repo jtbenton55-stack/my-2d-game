@@ -1,0 +1,3 @@
+# 200x200 grid
+
+50x50 cells on 10000x10000; **100x200 not used**.

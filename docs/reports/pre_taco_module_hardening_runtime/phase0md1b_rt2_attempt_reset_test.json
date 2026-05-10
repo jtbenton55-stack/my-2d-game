@@ -1,0 +1,11 @@
+{
+  "reset_contract_checked": true,
+  "reset_tested_or_simulated": "static_only",
+  "persistent_state_not_wiped": "no_save_calls_in_test",
+  "notes": "IsoMissionBase.reset_mission_runtime_for_new_attempt not invoked at runtime this pass",
+  "assertions": {
+    "reset_contract_checked": true,
+    "reset_tested_or_simulated_or_blocker_documented": true,
+    "persistent_state_not_wiped": true
+  }
+}

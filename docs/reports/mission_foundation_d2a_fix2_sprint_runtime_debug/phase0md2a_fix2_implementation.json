@@ -1,0 +1,15 @@
+{
+  "smallest_failed_link_fixed_or_overlay_left_for_manual_proof": true,
+  "space_dash_dodge_preserved": true,
+  "ctrl_sprint_path_exists": true,
+  "sprint_multiplier_applied_once": true,
+  "sprint_animation_independent": true,
+  "changes": [
+    "project.godot sprint: Ctrl keycode+physical; add C fallback",
+    "PlayerStaminaController: strengthen is_sprint_requested; get_sprint_signal_chain_debug",
+    "Player.gd: debug cache, suppression reason, overlay spawn, get_sprint_runtime_debug merge",
+    "PlayerSprintDebugOverlay.gd: new",
+    "PlayerSprintRuntimeTest_0MD2A_FIX2 scene+script",
+    "docs backup project.godot"
+  ]
+}

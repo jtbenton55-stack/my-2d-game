@@ -1,0 +1,20 @@
+{
+  "assertions": {
+    "final_git_status_recorded": true,
+    "protected_files_checked": true,
+    "old_scene_still_exists": true,
+    "static_validator_rerun": true
+  },
+  "git_diff_name_only_head_sample": [
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "src/autoload/SceneManager.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/player/Player.gd"
+  ],
+  "note": "HideoutMissionBoardController.gd / HideoutStationCatalog.gd match HEAD in this clone (no diff vs HEAD after routing correction).",
+  "taco_tscn_modified": false,
+  "project_godot_modified": false,
+  "player_tscn_modified": false
+}

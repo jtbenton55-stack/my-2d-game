@@ -1,0 +1,205 @@
+{
+  "rows": [
+    {
+      "row_index": 0,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 1,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 2,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 3,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 4,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 5,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 6,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 7,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 8,
+      "dominant_label": "idle"
+    },
+    {
+      "row_index": 9,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 10,
+      "dominant_label": "dance"
+    },
+    {
+      "row_index": 11,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 12,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 13,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 14,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 15,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 16,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 17,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 18,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 19,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 20,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 21,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 22,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 23,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 24,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 25,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 26,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 27,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 28,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 29,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 30,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 31,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 32,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 33,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 34,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 35,
+      "dominant_label": "fight_stance"
+    },
+    {
+      "row_index": 36,
+      "dominant_label": "fight_stance"
+    },
+    {
+      "row_index": 37,
+      "dominant_label": "fight_stance"
+    },
+    {
+      "row_index": 38,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 39,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 40,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 41,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 42,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 43,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 44,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 45,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 46,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 47,
+      "dominant_label": "run"
+    },
+    {
+      "row_index": 48,
+      "dominant_label": "walk"
+    },
+    {
+      "row_index": 49,
+      "dominant_label": "run"
+    }
+  ],
+  "note": "secondary_to_segments"
+}

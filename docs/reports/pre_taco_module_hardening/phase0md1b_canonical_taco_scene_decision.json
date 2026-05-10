@@ -1,0 +1,19 @@
+{
+  "assertions": {
+    "canonical_taco_scene_chosen": true,
+    "noncanonical_scene_not_deleted": true,
+    "scene_choice_documented": true
+  },
+  "canonical_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "non_canonical_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "non_canonical_status": "Sandbox / Phase0J+K experiment stack — keep for migration reference; do not delete.",
+  "evidence": [
+    "SceneManager.start_mission debug override routes taco_bell_drop to TacoBellIso_Editable.tscn (src/autoload/SceneManager.gd).",
+    "Editable scene has fewer ext_resource scripts than RedesignTest (Phase0J/K grid only on redesign test).",
+    "Both share IsoMissionBase + taco_bell_iso_blockout_definition.tres."
+  ],
+  "migrate_later": "Selective migration of Phase0J/K nodes (code gate UI, completion controller) into Editable or child scenes after redesign scope is defined.",
+  "do_not_migrate_blindly": "Parallel duplicate stacks should not be merged in one pass; choose per-feature.",
+  "next_redesign_prompt_should_use": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "risks": "RedesignTest contains validators/spawners not present on Editable; port intentionally or re-run tooling against Editable only."
+}

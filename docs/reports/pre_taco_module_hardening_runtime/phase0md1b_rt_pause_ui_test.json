@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "pause_menu_tested": false,
+    "objective_scheme_clue_tabs_tested_or_blocker_documented": true
+  },
+  "status": "blocked_no_godot",
+  "notes": "pause_menu.gd unchanged by D1B; QuestManager + MissionObjectiveBridge wiring unchanged except Iso uses bridge for set_objective calls."
+}

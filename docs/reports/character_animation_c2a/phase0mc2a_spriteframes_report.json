@@ -1,0 +1,143 @@
+{
+  "phase": "0M-C2A",
+  "phase_name": "SpriteFrames Generation",
+  "generated_files": {
+    "spriteframes_resource": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.tres",
+    "gdscript_generator": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_generator.gd"
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "source_sheet": "parmida_player_composite_sheet_0mc2a.png",
+      "frame_count": 10,
+      "frame_size": "100x200",
+      "frame_coordinates": [
+        {
+          "frame": 0,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "frame": 1,
+          "x": 100,
+          "y": 0
+        },
+        {
+          "frame": 2,
+          "x": 200,
+          "y": 0
+        },
+        {
+          "frame": 3,
+          "x": 300,
+          "y": 0
+        },
+        {
+          "frame": 4,
+          "x": 400,
+          "y": 0
+        },
+        {
+          "frame": 5,
+          "x": 500,
+          "y": 0
+        },
+        {
+          "frame": 6,
+          "x": 600,
+          "y": 0
+        },
+        {
+          "frame": 7,
+          "x": 700,
+          "y": 0
+        },
+        {
+          "frame": 8,
+          "x": 800,
+          "y": 0
+        },
+        {
+          "frame": 9,
+          "x": 900,
+          "y": 0
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "confidence": "high",
+      "production_ready": true
+    },
+    "walk": {
+      "name": "walk",
+      "source_sheet": "parmida_player_composite_sheet_0mc2a.png",
+      "frame_count": 10,
+      "frame_size": "100x200",
+      "frame_coordinates": [
+        {
+          "frame": 0,
+          "x": 0,
+          "y": 200
+        },
+        {
+          "frame": 1,
+          "x": 100,
+          "y": 200
+        },
+        {
+          "frame": 2,
+          "x": 200,
+          "y": 200
+        },
+        {
+          "frame": 3,
+          "x": 300,
+          "y": 200
+        },
+        {
+          "frame": 4,
+          "x": 400,
+          "y": 200
+        },
+        {
+          "frame": 5,
+          "x": 500,
+          "y": 200
+        },
+        {
+          "frame": 6,
+          "x": 600,
+          "y": 200
+        },
+        {
+          "frame": 7,
+          "x": 700,
+          "y": 200
+        },
+        {
+          "frame": 8,
+          "x": 800,
+          "y": 200
+        },
+        {
+          "frame": 9,
+          "x": 900,
+          "y": 200
+        }
+      ],
+      "fps": 10,
+      "loop": true,
+      "confidence": "medium",
+      "production_ready": true,
+      "note": "Generic walk animation (non-directional)"
+    }
+  },
+  "assertions": {
+    "spriteframes_created_only_if_layout_verified": true,
+    "animation_names_documented": true,
+    "frame_counts_documented": true,
+    "fps_documented": true,
+    "no_blind_slicing": true,
+    "uncertain_frames_excluded": true
+  }
+}

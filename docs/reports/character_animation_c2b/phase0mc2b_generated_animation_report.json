@@ -1,0 +1,16 @@
+{
+  "folder": "res://assets/characters/generated_player_visuals/c2b_full_animation/",
+  "spriteframes": "res://assets/characters/generated_player_visuals/c2b_full_animation/parmida_player_spriteframes_0mc2b.tres",
+  "animations_created": [
+    "idle",
+    "walk"
+  ],
+  "assertions": {
+    "c2b_animation_folder_created": true,
+    "c2b_spriteframes_created": true,
+    "only_safe_animations_created": true,
+    "all_frames_200x200": true,
+    "no_100x200_frames_used": true,
+    "no_raw_assets_modified": true
+  }
+}

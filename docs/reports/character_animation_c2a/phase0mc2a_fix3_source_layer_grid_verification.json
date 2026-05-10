@@ -1,0 +1,15 @@
+{
+  "chosen_frame_size": [200, 200],
+  "sheet_size": [10000, 10000],
+  "columns": 50,
+  "rows": 50,
+  "layers_share_grid": true,
+  "compositor_order": ["base", "bottoms", "tops", "head", "hair"],
+  "assertions": {
+    "chosen_frame_size_applied_to_all_layers": true,
+    "selected_layers_share_chosen_grid": true,
+    "selected_layers_align_when_composited": true,
+    "mismatched_layers_rejected_or_reported": true
+  },
+  "note": "200x200 grid divides 10000x10000 evenly (50x50). All five sheets share identical dimensions."
+}

@@ -1,0 +1,8 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "generated_utc": "2026-05-10T18:08:38.590705+00:00",
+  "pause_data_provider_created_or_existing_reused": true,
+  "objectives_scheme_clues_have_safe_payload_path": true,
+  "existing_pause_menu_not_duplicated": true,
+  "missing_data_fails_safely": true
+}

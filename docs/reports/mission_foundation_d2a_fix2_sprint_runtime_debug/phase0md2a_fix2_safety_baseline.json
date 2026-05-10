@@ -1,0 +1,16 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "repo_root_confirmed": true,
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "current_branch_recorded": true,
+  "git_status_recorded": true,
+  "sprint_dodge_bindings_recorded": true,
+  "taco_scenes_not_modified": true,
+  "player_tscn_not_modified": true,
+  "sprint_bindings_summary": {
+    "sprint": "InputEventKey Ctrl keycode+physical 4194326; fallback C physical_keycode 67",
+    "dodge": "InputEventKey Space physical_keycode 32"
+  },
+  "fix1_report_read": true,
+  "timestamp_utc": "2026-05-10T15:21:55Z"
+}

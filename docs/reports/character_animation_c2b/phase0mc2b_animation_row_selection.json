@@ -1,0 +1,17 @@
+{
+  "idle_row": 35,
+  "idle_reason": "Does not match tight acceptance heuristics",
+  "walk_row": 37,
+  "walk_status": "WALK_SELECTED",
+  "run_row": null,
+  "run_status": "RUN_NOT_FOUND_SAFE",
+  "attack_row": null,
+  "attack_status": "ATTACK_NOT_FOUND_SAFE",
+  "assertions": {
+    "idle_row_selected": true,
+    "walk_row_selected_or_safe_not_found": true,
+    "run_row_selected_or_safe_not_found": true,
+    "fight_row_selected_or_safe_not_found": true,
+    "no_bad_rows_forced": true
+  }
+}

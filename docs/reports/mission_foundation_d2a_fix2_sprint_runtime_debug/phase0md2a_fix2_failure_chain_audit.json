@@ -1,0 +1,16 @@
+{
+  "sprint_signal_chain_audited": true,
+  "each_chain_link_reported": true,
+  "exact_failed_link_identified_or_overlay_added_for_manual_identification": true,
+  "hypothesized_root_cause_fix1": "InputMap sprint used keycode 0 for Ctrl-only binding; Godot/OS may not raise `is_action_pressed`/`strength` reliably for modifier keys without layout keycode and without non-modifier duplicate binding.",
+  "fix2_smallest_link": "project.godot sprint events: set keycode 4194326 on Ctrl; add C (67) fallback; PlayerStaminaController: add is_key_pressed(KEY_CTRL) and get_action_strength(sprint) > 0.01",
+  "links": {
+    "1_ctrl_physical": { "status": "NOT_TESTED", "evidence": "GRB bridge not connected; code path uses Input.is_physical_key_pressed(KEY_CTRL) in controller + overlay." },
+    "2_sprint_action_pressed": { "status": "NOT_TESTED", "evidence": "InputMap updated; strength > 0.01 added in is_sprint_requested." },
+    "3_is_sprint_requested": { "status": "NOT_TESTED", "evidence": "Computed live; gated in Player by stealth/dash/dodge." },
+    "4_is_sprint_active": { "status": "NOT_TESTED", "evidence": "PlayerStaminaController.process_frame sets _sprinting when wants_sprint && can_sprint && moving." },
+    "5_speed_multiplier_gt_1": { "status": "NOT_TESTED", "evidence": "get_speed_multiplier returns sprint_speed_multiplier when _sprinting && can_sprint." },
+    "6_multiplier_applied_velocity": { "status": "TRUE", "evidence": "Static: Player.gd applies move_speed *= sprint_mult once then velocity = input_vector * move_speed (non-dodge branch)." },
+    "7_velocity_increases": { "status": "NOT_TESTED", "evidence": "Requires in-game compare baseline vs sprint final_move_speed / velocity_length_post_slide on overlay." }
+  }
+}

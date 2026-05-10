@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cq1xl3rryvdvm"]
+
+[ext_resource type="Script" path="res://scenes/hideout/tools/PlayerSprintRuntimeTest_0MD2A_FIX1.gd" id="1_script"]
+
+[node name="PlayerSprintRuntimeTest0MD2AFIX1" type="Node"]
+script = ExtResource("1_script")
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 900.0
+offset_bottom = 56.0
+text = "0M-D2A-FIX1: Add as child of a running mission (or scene with player). Output prints sprint debug ~4.5 Hz."

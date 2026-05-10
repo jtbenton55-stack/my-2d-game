@@ -1,0 +1,34 @@
+{
+  "phase": "0M-C2A-FIX1",
+  "regenerated": true,
+  "reason": "Legacy parmida_player_spriteframes_0mc2a.tres used invalid Godot 4 SpriteFrames text format; sandbox could not display AnimatedSprite2D frames.",
+  "source_composite_sheet": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png",
+  "frame_size": "100x200",
+  "animations_created": [
+    {
+      "name": "idle",
+      "frame_count": 10,
+      "fps": 6.0,
+      "loop": true,
+      "regions": "row y=0, x=0..900 step 100"
+    },
+    {
+      "name": "walk",
+      "frame_count": 10,
+      "fps": 10.0,
+      "loop": true,
+      "regions": "row y=200, x=0..900 step 100"
+    }
+  ],
+  "output_path": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+  "generator_script": "res://src/tools/editor/character_animation_c2a_fix1_write_spriteframes.py",
+  "legacy_backup": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.broken_format_backup_0mc2a_fix1.tres",
+  "original_overwritten": false,
+  "direction_mapping_guesswork": false,
+  "assertions": {
+    "spriteframes_regenerated_only_from_generated_assets": true,
+    "raw_source_assets_not_used_or_modified": true,
+    "no_direction_guesswork": true,
+    "original_spriteframes_backed_up_or_preserved": true
+  }
+}

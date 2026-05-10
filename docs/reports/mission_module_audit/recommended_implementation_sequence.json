@@ -1,0 +1,74 @@
+{
+  "assertions": {
+    "implementation_sequence_written": true,
+    "sequence_prioritized": true,
+    "taco_bell_next_steps_clear": true,
+    "immediate_next_pass_named": true
+  },
+  "immediate_next_pass": "PHASE 0M-D1b — Mission spine boundaries: (1) Remove TacoBellDialogue preload from IsoMissionBase; inject per-mission DialogueProvider from MissionDefinition or child node. (2) Introduce IToolMissionSurface / autoload shim so Player.gd stops calling deploy_poop_bag_decoy_at on parent scene. (3) Declare canonical Taco production scene (Editable vs RedesignTest) and document merge plan for Phase0J/K. (4) Add Player stamina + sprint hook (float + signals, no final art). (5) Wire explicit attempt-reset on retry if product requires in-scene restart — verify with one playtest matrix.",
+  "phases": [
+    {
+      "id": "0M-D1b",
+      "name": "Mission spine boundaries + Taco stack decision",
+      "purpose": "Eliminate highest spaghetti risks before art-driven Taco redesign.",
+      "why": "Prevents duplicate work across two scenes and decouples Player from mission duck typing.",
+      "likely_created": ["res://src/missions/framework/MissionDialogueProvider.gd", "res://src/missions/tools/IToolMissionSurface.gd (or autoload)", "docs note in DECISIONS.md"],
+      "likely_modified": ["res://src/levels/IsoMissionBase.gd", "res://src/player/Player.gd", "res://src/autoload/GameState.gd or new autoload", "mission definition .tres"],
+      "must_not_touch": ["raw assets", "generated tilesets", "HideoutHub.tscn", "project.godot unless adding one autoload with explicit approval"],
+      "acceptance_criteria": ["IsoMissionBase has no TacoBellDialogue preload", "Player throw uses interface not scene.has_method", "Written decision: canonical Taco scene path", "Stamina resource exists and gates sprint input", "Documented attempt-reset behavior"],
+      "risk_level": "medium",
+      "kind": "foundation",
+      "timing": "before Taco Bell layout/art redesign"
+    },
+    {
+      "id": "0M-D2",
+      "name": "Mission pause / objective source of truth",
+      "purpose": "Promote pause UI and unify objective display with tracker.",
+      "why": "Reduces QuestManager vs Iso desync during fast Taco iteration.",
+      "likely_created": ["res://src/ui/mission/MissionPauseMenu.tscn"],
+      "likely_modified": ["res://src/ui/test_ui/pause_menu.gd or replace instance paths in Taco scene", "res://src/autoload/QuestManager.gd"],
+      "must_not_touch": ["Save schema without migration plan"],
+      "acceptance_criteria": ["Single API feeds pause objectives and mission gating state"],
+      "risk_level": "medium",
+      "kind": "implementation",
+      "timing": "during Taco redesign"
+    },
+    {
+      "id": "0M-D3",
+      "name": "IsoMissionBase decomposition (first slice)",
+      "purpose": "Extract RuntimeSpawner or Alarm subsystem from IsoMissionBase into separate scripts.",
+      "why": "Lowers merge conflict heat during Taco map edits.",
+      "likely_created": ["res://src/missions/iso/framework/IsoRuntimeSpawner.gd"],
+      "likely_modified": ["res://src/levels/IsoMissionBase.gd"],
+      "must_not_touch": ["TacoBellIso blockout art until gameplay parity tests pass"],
+      "acceptance_criteria": ["No behavior change in TacoBellIso_Editable in same PR (regression test checklist)"],
+      "risk_level": "high",
+      "kind": "foundation",
+      "timing": "after 0M-D1b, parallel with early Taco art"
+    },
+    {
+      "id": "0M-D4",
+      "name": "Taco redesign vertical slice",
+      "purpose": "Art + collision + markers using stabilized framework.",
+      "why": "Design intent after boundaries are clear.",
+      "likely_modified": ["res://scenes/missions_iso/TacoBellIso_Editable.tscn", "res://assets/missions/taco_bell_iso_blockout_definition.tres"],
+      "must_not_touch": ["autoload list casually"],
+      "acceptance_criteria": ["Must-not-forget checklist passes in playtest notes"],
+      "risk_level": "medium",
+      "kind": "implementation",
+      "timing": "after P0 foundation passes"
+    },
+    {
+      "id": "0M-D5",
+      "name": "Animation intent wiring (non-blocking)",
+      "purpose": "Hook PlayerVisualIntent without gameplay depending on clip names.",
+      "why": "Polish track; mechanics already mostly decoupled.",
+      "likely_modified": ["res://src/characters/PlayerVisualAnimator.gd", "res://src/player/Player.gd"],
+      "acceptance_criteria": ["Gameplay tests pass with placeholder sprites"],
+      "risk_level": "low",
+      "kind": "polish",
+      "timing": "P2 after vertical slice"
+    }
+  ],
+  "p2_p3_later": ["NoiseEvent bus", "Full HeatTracker resource", "CI Godot --headless parse", "Deep assets inventory automation"]
+}

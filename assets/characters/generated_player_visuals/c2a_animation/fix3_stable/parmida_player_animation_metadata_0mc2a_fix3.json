@@ -1,0 +1,124 @@
+{
+  "frame_width": 200,
+  "frame_height": 200,
+  "verified_kit_sheet_size": [
+    10000,
+    10000
+  ],
+  "orientation_chosen": "horizontal",
+  "idle": {
+    "strip": "row=31, cols=0..9",
+    "raw_metrics": {
+      "orientation": "horizontal",
+      "index": 31,
+      "coverage_mean": 0.06061999999999999,
+      "foot_bottom_std": 1.019803902718557,
+      "mse_seq_mean": 0.34867361111111106,
+      "score": 12.237890904150461,
+      "rejected": ""
+    },
+    "prune": {
+      "prune": "window",
+      "indices": [
+        4,
+        5,
+        6
+      ],
+      "reason": "best consecutive body+feet score"
+    },
+    "frame_files": [
+      "assets/characters/generated_player_visuals/c2a_animation/fix3_stable/frames/idle_000.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix3_stable/frames/idle_001.png",
+      "assets/characters/generated_player_visuals/c2a_animation/fix3_stable/frames/idle_002.png"
+    ],
+    "source_indices_in_raw_strip": [
+      4,
+      5,
+      6
+    ]
+  },
+  "walk": {
+    "included": false,
+    "pick": {
+      "kept_walk": false,
+      "notes": [
+        "No walk strip passed heuristics; walk rejected."
+      ]
+    },
+    "frame_files": []
+  },
+  "layers": [
+    {
+      "name": "base",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png"
+    },
+    {
+      "name": "bottoms",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png"
+    },
+    {
+      "name": "tops",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png"
+    },
+    {
+      "name": "head",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png"
+    },
+    {
+      "name": "hair",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png"
+    }
+  ],
+  "forensic": {
+    "sample_row": 8,
+    "decision": {
+      "chosen_frame_size": [
+        200,
+        200
+      ],
+      "reason": "C2 static preparation documented 200x200 source_frame_rect; forensic tie-break to native cell size.",
+      "c2_reported_frame_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 200,
+        "h": 200
+      },
+      "c2a_prior_note": "Earlier C2A tooling assumed 100x200; FIX3 overrides after forensic.",
+      "forensic_scores": {
+        "100x200": {
+          "frame_size": [
+            100,
+            200
+          ],
+          "sample_row": 8,
+          "strip_length": 10,
+          "full_body_frames": 0,
+          "half_body_frames": 0,
+          "mean_bbox_h_ratio": 0.427,
+          "mean_bbox_w_ratio": 0.20800000000000002,
+          "layer_alignment_assumed": true
+        },
+        "200x200": {
+          "frame_size": [
+            200,
+            200
+          ],
+          "sample_row": 8,
+          "strip_length": 10,
+          "full_body_frames": 0,
+          "half_body_frames": 0,
+          "mean_bbox_h_ratio": 0.4595,
+          "mean_bbox_w_ratio": 0.1795,
+          "layer_alignment_assumed": true
+        }
+      },
+      "chosen_produces_full_body": false,
+      "chosen_does_not_cut_half": true
+    }
+  },
+  "rules": {
+    "fixed_canvas": true,
+    "no_per_frame_trim": true,
+    "same_grid_all_layers": true
+  }
+}

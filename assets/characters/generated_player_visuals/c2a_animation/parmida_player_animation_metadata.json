@@ -1,0 +1,178 @@
+{
+  "frame_width": 100,
+  "frame_height": 200,
+  "animations": {
+    "idle": {
+      "row_in_sheet": 0,
+      "frames": [
+        {
+          "index": 0,
+          "source_row": 0,
+          "source_col": 0,
+          "output_x": 0,
+          "output_y": 0
+        },
+        {
+          "index": 1,
+          "source_row": 0,
+          "source_col": 1,
+          "output_x": 100,
+          "output_y": 0
+        },
+        {
+          "index": 2,
+          "source_row": 0,
+          "source_col": 2,
+          "output_x": 200,
+          "output_y": 0
+        },
+        {
+          "index": 3,
+          "source_row": 0,
+          "source_col": 3,
+          "output_x": 300,
+          "output_y": 0
+        },
+        {
+          "index": 4,
+          "source_row": 0,
+          "source_col": 4,
+          "output_x": 400,
+          "output_y": 0
+        },
+        {
+          "index": 5,
+          "source_row": 0,
+          "source_col": 5,
+          "output_x": 500,
+          "output_y": 0
+        },
+        {
+          "index": 6,
+          "source_row": 0,
+          "source_col": 6,
+          "output_x": 600,
+          "output_y": 0
+        },
+        {
+          "index": 7,
+          "source_row": 0,
+          "source_col": 7,
+          "output_x": 700,
+          "output_y": 0
+        },
+        {
+          "index": 8,
+          "source_row": 0,
+          "source_col": 8,
+          "output_x": 800,
+          "output_y": 0
+        },
+        {
+          "index": 9,
+          "source_row": 0,
+          "source_col": 9,
+          "output_x": 900,
+          "output_y": 0
+        }
+      ],
+      "frame_count": 10,
+      "fps": 6,
+      "loop": true,
+      "source_row_in_kit": 0
+    },
+    "walk": {
+      "row_in_sheet": 1,
+      "frames": [
+        {
+          "index": 0,
+          "source_row": 10,
+          "source_col": 0,
+          "output_x": 0,
+          "output_y": 200
+        },
+        {
+          "index": 1,
+          "source_row": 10,
+          "source_col": 1,
+          "output_x": 100,
+          "output_y": 200
+        },
+        {
+          "index": 2,
+          "source_row": 10,
+          "source_col": 2,
+          "output_x": 200,
+          "output_y": 200
+        },
+        {
+          "index": 3,
+          "source_row": 10,
+          "source_col": 3,
+          "output_x": 300,
+          "output_y": 200
+        },
+        {
+          "index": 4,
+          "source_row": 10,
+          "source_col": 4,
+          "output_x": 400,
+          "output_y": 200
+        },
+        {
+          "index": 5,
+          "source_row": 10,
+          "source_col": 5,
+          "output_x": 500,
+          "output_y": 200
+        },
+        {
+          "index": 6,
+          "source_row": 10,
+          "source_col": 6,
+          "output_x": 600,
+          "output_y": 200
+        },
+        {
+          "index": 7,
+          "source_row": 10,
+          "source_col": 7,
+          "output_x": 700,
+          "output_y": 200
+        },
+        {
+          "index": 8,
+          "source_row": 10,
+          "source_col": 8,
+          "output_x": 800,
+          "output_y": 200
+        },
+        {
+          "index": 9,
+          "source_row": 10,
+          "source_col": 9,
+          "output_x": 900,
+          "output_y": 200
+        }
+      ],
+      "frame_count": 10,
+      "fps": 10,
+      "loop": true,
+      "source_row_in_kit": 10
+    }
+  },
+  "layers_used": [
+    "base",
+    "bottoms",
+    "tops",
+    "head",
+    "hair"
+  ],
+  "layer_states": {
+    "base": true,
+    "bottoms": true,
+    "tops": true,
+    "head": true,
+    "hair": true
+  }
+}

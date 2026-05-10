@@ -1,0 +1,21 @@
+{
+  "sandbox_primary_before_fix3": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+  "fix2_atlas_cell": [100, 200],
+  "c2_documented_cell": [200, 200],
+  "primary_root_cause": "A — WRONG_FRAME_SIZE",
+  "secondary": [
+    "K — BAD_FIX1_OR_FIX2_SPRITEFRAMES (valid format but wrong geometry vs C2)",
+    "G — WRONG_ROW_SELECTED",
+    "L — SOURCE_LAYOUT_MISUNDERSTOOD"
+  ],
+  "summary": "Animation used 100x200 extractions while C2 static pipeline documented 200x200 source_frame_rect. Narrow cells can crop half the character horizontally. Strip/row heuristics still matter for temporal coherence.",
+  "atlas_regions_fix2": "Rect2(n*100,0,100,200) for n=0..N-1 on fix2 composite",
+  "anchor_notes": "Foot-bottom variance and bbox heuristics evaluated in FIX3 rebuild; idle pruned to consecutive high-quality frames.",
+  "assertions": {
+    "current_glitch_diagnosis_completed": true,
+    "current_regions_inspected": true,
+    "current_frame_visibility_checked": true,
+    "current_anchor_variance_checked": true,
+    "root_cause_classified": true
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-05-09",
+  "sandbox_primary_spriteframes": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+  "entries": [
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png",
+      "exists": true,
+      "bytes": 62180,
+      "type": "PNG",
+      "purpose": "Pre-FIX2 / FIX1 composite spritesheet (legacy pipeline output)",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.tres",
+      "exists": true,
+      "bytes": 4094,
+      "type": "SpriteFrames",
+      "purpose": "Original broken-format SpriteFrames (Godot 4 incompatible layout)",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+      "exists": true,
+      "bytes": 3165,
+      "type": "SpriteFrames",
+      "purpose": "FIX1 Godot-4-valid SpriteFrames; visually glitchy in sandbox",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_animation_metadata.json",
+      "exists": true,
+      "bytes": 3761,
+      "type": "JSON",
+      "purpose": "Original C2A animation / layer selection metadata",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_composite_sheet_0mc2a_fix2.png",
+      "exists": true,
+      "bytes": 29075,
+      "type": "PNG",
+      "purpose": "FIX2 composite sheet (idle strip; 10 x 100px frames @ 200px height)",
+      "referenced_by_sandbox": true,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+      "exists": true,
+      "bytes": 1708,
+      "type": "SpriteFrames",
+      "purpose": "FIX2 primary sandbox SpriteFrames (idle only in this export)",
+      "referenced_by_sandbox": true,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_animation_metadata_0mc2a_fix2.json",
+      "exists": true,
+      "bytes": 2917,
+      "type": "JSON",
+      "purpose": "FIX2 export metadata (rows, orientation, walk included flag)",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/frames/idle_000.png",
+      "exists": true,
+      "bytes": 2571,
+      "type": "PNG",
+      "purpose": "FIX2 idle frame 0 (100x200 fixed canvas)",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+      "exists": true,
+      "bytes": 4706,
+      "type": "PackedScene",
+      "purpose": "C2A animation sandbox layout",
+      "referenced_by_sandbox": true,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "scenes/hideout/tools/CharacterAnimationSandbox_0MC2AController.gd",
+      "exists": true,
+      "bytes": 6584,
+      "type": "GDScript",
+      "purpose": "Sandbox controller + debug panel",
+      "referenced_by_sandbox": true,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "docs/reports/character_animation_c2a/phase0mc2a_spriteframes_report.md",
+      "exists": true,
+      "bytes": 1270,
+      "type": "Markdown",
+      "purpose": "Prior C2A spriteframes audit",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    },
+    {
+      "path": "docs/reports/character_animation_c2a/phase0mc2a_layer_alignment_matrix.md",
+      "exists": true,
+      "bytes": 3245,
+      "type": "Markdown",
+      "purpose": "Prior C2A layer alignment matrix",
+      "referenced_by_sandbox": false,
+      "referenced_by_metadata_or_report": true
+    }
+  ],
+  "spriteframes_inspection": {
+    "fix1_path": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+    "fix1_loadable_text": true,
+    "fix1_godot4_top_level_animations_array": true,
+    "fix1_animations": ["idle", "walk"],
+    "fix1_note": "Regions pointed at legacy composite built from likely-wrong kit rows → visible glitching.",
+    "fix2_path": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+    "fix2_animations": ["idle"],
+    "fix2_frame_size_px": [100, 200],
+    "fix2_regions_match_grid": true
+  },
+  "assertions": {
+    "current_resource_inventory_completed": true,
+    "fix1_spriteframes_inspected": true,
+    "current_sandbox_references_identified": true,
+    "current_atlas_regions_recorded": true
+  }
+}

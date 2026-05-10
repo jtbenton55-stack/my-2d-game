@@ -1,0 +1,25 @@
+{
+  "resource_path": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_spriteframes_0mc2a_fix2.tres",
+  "atlas_path": "res://assets/characters/generated_player_visuals/c2a_animation/fix2_rebuilt/parmida_player_composite_sheet_0mc2a_fix2.png",
+  "godot4_format": {
+    "top_level_animations_array": true,
+    "no_nested_animations_idle_path": true
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "frame_count": 10,
+      "fps": 5.0,
+      "loop": true,
+      "source_frame_files_glob": "fix2_rebuilt/frames/idle_*.png",
+      "composite_regions": "Rect2(n*100, 0, 100, 200) for n=0..9",
+      "quality_status": "PARTIAL_PENDING_MANUAL_VISUAL"
+    }
+  ],
+  "walk_animation_included": false,
+  "reference_working_spriteframes_in_repo": "res://assets/sprites/player_sprite_frames.tres",
+  "notes": [
+    "FIX1 resource intentionally not overwritten.",
+    "Walk animation omitted because walk strip failed automated acceptance."
+  ]
+}

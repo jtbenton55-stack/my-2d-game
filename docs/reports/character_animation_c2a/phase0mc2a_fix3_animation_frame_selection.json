@@ -1,0 +1,19 @@
+{
+  "target": "Option B — idle only (walk rejected)",
+  "chosen_frame_size": [200, 200],
+  "idle": {
+    "orientation": "horizontal",
+    "kit_row": 31,
+    "raw_columns": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "accepted_source_indices": [4, 5, 6],
+    "accepted_count": 3,
+    "reason": "Best 3-frame consecutive window on raw strip after full-body + feet stability scoring."
+  },
+  "walk": {"kept": false, "reason": "No alternate strip passed motion + foot jitter gates vs idle baseline."},
+  "assertions": {
+    "idle_frames_selected_or_animation_failed_reported": true,
+    "walk_frames_selected_only_if_stable": true,
+    "no_directional_animation_created": true,
+    "selected_frames_are_full_body_candidates": true
+  }
+}

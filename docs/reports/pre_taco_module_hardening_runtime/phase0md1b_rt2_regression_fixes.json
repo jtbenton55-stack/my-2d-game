@@ -1,0 +1,19 @@
+{
+  "regressions_found": [
+    "hideout_mission_launch pointed_at_redesign_test_scene"
+  ],
+  "suspected_cause": "Stale TACO_BELL_SCENE constant vs D1B canonical decision + SceneManager debug path",
+  "files_changed": [
+    "src/hideout/HideoutMissionBoardController.gd",
+    "src/hideout/HideoutStationCatalog.gd",
+    "docs/CHANGELOG.md",
+    "src/tools/editor/pre_taco_module_hardening_runtime/phase0md1b_rt2_static_validator.py"
+  ],
+  "fix": "Set TACO_BELL_SCENE to TacoBellIso_Editable.tscn in both files",
+  "re_test": "grb_runtime_info confirmed taco editable root; static validators PASS",
+  "assertions": {
+    "regressions_triaged": true,
+    "d1b_regressions_fixed_or_blocker_documented": true,
+    "no_scope_creep_fixes": true
+  }
+}

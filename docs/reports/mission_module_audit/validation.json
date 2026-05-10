@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "file": "safety_baseline.md",
+      "exists": true
+    },
+    {
+      "file": "safety_baseline.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "global_codebase_inventory.md",
+      "exists": true
+    },
+    {
+      "file": "global_codebase_inventory.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "current_module_inventory.md",
+      "exists": true
+    },
+    {
+      "file": "current_module_inventory.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "taco_bell_current_architecture_audit.md",
+      "exists": true
+    },
+    {
+      "file": "taco_bell_current_architecture_audit.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "spaghetti_risk_audit.md",
+      "exists": true
+    },
+    {
+      "file": "spaghetti_risk_audit.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "reusable_module_gap_analysis.md",
+      "exists": true
+    },
+    {
+      "file": "reusable_module_gap_analysis.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "module_ownership_map.md",
+      "exists": true
+    },
+    {
+      "file": "module_ownership_map.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "recommended_implementation_sequence.md",
+      "exists": true
+    },
+    {
+      "file": "recommended_implementation_sequence.json",
+      "exists": true,
+      "json_parseable": true
+    },
+    {
+      "file": "phase0md1_module_spine_audit.md",
+      "exists": true
+    },
+    {
+      "file": "phase0md1_module_spine_audit.json",
+      "exists": true,
+      "json_parseable": true
+    }
+  ],
+  "protected_paths_in_git_diff_head": [],
+  "protected_clean": true,
+  "module_ownership_rows": 5059,
+  "gap_spine_items": 20,
+  "gap_spine_items_ok": true,
+  "module_categories_count": 15,
+  "all_module_categories_checked": true,
+  "module_categories_ok": true,
+  "must_not_forget_count": 7,
+  "must_not_forget_ok": true,
+  "implementation_phases": 5,
+  "immediate_next_pass": "PHASE 0M-D1b \u2014 Mission spine boundaries: (1) Remove TacoBellDialogue preload from IsoMissionBase; inject per-mission DialogueProvider from MissionDefinition or child node. (2) Introduce IToolMissionSurface / autoload shim so Player.gd stops calling deploy_poop_bag_decoy_at on parent scene. (3) Declare canonical Taco production scene (Editable vs RedesignTest) and document merge plan for Phase0J/K. (4) Add Player stamina + sprint hook (float + signals, no final art). (5) Wire explicit attempt-reset on retry if product requires in-scene restart \u2014 verify with one playtest matrix.",
+  "immediate_next_pass_len": 583,
+  "immediate_next_pass_ok": true
+}

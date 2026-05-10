@@ -1,0 +1,40 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "generated_utc": "2026-05-10T18:08:38.590705+00:00",
+  "verdict": "PARTIAL",
+  "summary": "Resolver, pause data provider, bridges, sprint input, SceneManager wiring; GRB runtime not connected.",
+  "files_modified_this_pass": [
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "project.godot",
+    "src/autoload/SceneManager.gd",
+    "src/hideout/HideoutMissionBoardController.gd",
+    "src/hideout/HideoutStationCatalog.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/objectives/MissionObjectiveBridge.gd",
+    "src/missions/MissionSceneResolver.gd",
+    "src/missions/schemes/MissionSchemeBridge.gd",
+    "src/player/PlayerStaminaController.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ],
+  "files_created_this_pass": [
+    "docs/reports/mission_foundation_d2/backups/project.phase0md2_input_backup.20260509190000.godot",
+    "docs/reports/mission_foundation_d2/phase0md2_*.md",
+    "docs/reports/mission_foundation_d2/phase0md2_*.json",
+    "docs/reports/mission_foundation_d2/phase0md2_static_validator_run.json",
+    "scenes/hideout/tools/MissionSceneResolverTest_0MD2.gd",
+    "scenes/hideout/tools/MissionSceneResolverTest_0MD2.tscn",
+    "scenes/hideout/tools/MissionPauseDataProviderTest_0MD2.gd",
+    "scenes/hideout/tools/MissionPauseDataProviderTest_0MD2.tscn",
+    "scenes/hideout/tools/PlayerSprintInputTest_0MD2.gd",
+    "scenes/hideout/tools/PlayerSprintInputTest_0MD2.tscn",
+    "src/missions/ui/MissionPauseDataProvider.gd",
+    "src/tools/editor/mission_foundation_d2/phase0md2_static_validator.py"
+  ],
+  "note_tracked_diff_includes_pre_d2_branch_edits": [
+    "src/levels/IsoMissionBase.gd",
+    "src/player/Player.gd"
+  ],
+  "static_validator": "PASS",
+  "runtime_grb": "not_connected"
+}

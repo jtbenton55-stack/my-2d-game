@@ -1,0 +1,18 @@
+{
+  "primary": "G \u2014 WRONG_ROW_SELECTED + L \u2014 SOURCE_LAYOUT_MISUNDERSTOOD",
+  "secondary": [
+    "K \u2014 BAD_FIX1_SPRITEFRAMES (atlas regions matched broken composite)",
+    "B \u2014 WRONG_ATLAS_REGION (symptom of wrong row/column semantics)"
+  ],
+  "explanation": "FIX1 composite used idle=kit row 0 cols 0..9 and walk=kit row 10 cols 0..9. On PVGames mega-sheets, advancing columns on arbitrary rows often traverses unrelated poses/directions, causing half-body glitches and anchor jitter. FIX2 selects a strip orientation (horizontal vs vertical) and indices with stable feet + coherent motion before rebuilding fixed-canvas frames.",
+  "idle_selected_metrics": {
+    "orientation": "horizontal",
+    "index": 8,
+    "coverage_mean": 0.053115,
+    "foot_bottom_std": 0.4,
+    "mse_seq_mean": 1.1188694444444445,
+    "score": 4.8007832086111115,
+    "rejected": ""
+  },
+  "orientation": "horizontal"
+}

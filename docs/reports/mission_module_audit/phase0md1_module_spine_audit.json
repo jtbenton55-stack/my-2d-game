@@ -1,0 +1,85 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "audit_only_confirmed": true,
+  "authorized_workspace_only": true,
+  "files_created_or_modified_by_audit": [
+    "docs/reports/mission_module_audit/",
+    "src/tools/editor/mission_module_audit/mission_module_audit_static.py",
+    "src/tools/editor/mission_module_audit/mission_audit_validate.py",
+    "src/tools/editor/MissionModuleAuditValidator.gd"
+  ],
+  "protected_files_touched_by_audit": false,
+  "taco_bell_scenes_modified": false,
+  "player_tscn_modified": false,
+  "player_gd_modified": false,
+  "hideout_hub_modified": false,
+  "project_godot_modified": false,
+  "existing_reusable_modules_summary": [
+    "LevelBase + IsoMissionBase iso spine with GameplayRoot/ArtRoot split",
+    "Mission blockout definition resources + MissionBlockoutValidator",
+    "Iso runtime scripts: MissionAlertController, MissionRouteAccessPoint, MissionPoopBagDecoyPoint, placeholders, Phase0J/K sandbox stack",
+    "Autoload pipeline: GameState, SaveManager, SceneManager, QuestManager, CardManager, CardEffects, DialogueManager, EventBus",
+    "Test pause menu with objectives/scheme/clues tabs"
+  ],
+  "partial_reusable_modules_summary": [
+    "Objective flow split across QuestManager and IsoMissionBase",
+    "Scheme cards applied via Player/LevelBase hooks without mission-scoped resolver",
+    "Tool throw coupling via scene method",
+    "Two Taco scene controller stacks",
+    "Stamina/sprint not present in Player.gd"
+  ],
+  "missing_reusable_modules_summary": [
+    "Dedicated MissionLifecycleController (thin coordinator)",
+    "IToolMissionSurface / ToolInventory boundary",
+    "MissionDialogueProvider injection (remove Taco preload from base)",
+    "NoiseEvent / formal HeatTracker",
+    "StaminaController"
+  ],
+  "p0_before_taco": [
+    "Adapter boundary for Taco dialogue and tools",
+    "Canonical scene stack decision",
+    "Objective single source of truth alignment",
+    "Stamina + sprint hook",
+    "Attempt-reset semantics verified"
+  ],
+  "p1_during_taco": [
+    "Mission pause menu production path",
+    "Code gate UX unified if using Phase0J",
+    "Completion controller merge"
+  ],
+  "p2_p3_after_slice": [
+    "IsoMissionBase file split",
+    "Animation intent registry",
+    "CI static Godot checks",
+    "Noise and advanced heat UX"
+  ],
+  "validation": {
+    "static_audit_script": "src/tools/editor/mission_module_audit/mission_audit_validate.py",
+    "godot_runtime_tested": false,
+    "note": "See validation.json after running mission_audit_validate.py"
+  },
+  "report_paths": {
+    "safety_baseline": "docs/reports/mission_module_audit/safety_baseline.md",
+    "global_inventory": "docs/reports/mission_module_audit/global_codebase_inventory.md",
+    "current_module_inventory": "docs/reports/mission_module_audit/current_module_inventory.md",
+    "taco_bell_architecture": "docs/reports/mission_module_audit/taco_bell_current_architecture_audit.md",
+    "spaghetti": "docs/reports/mission_module_audit/spaghetti_risk_audit.md",
+    "gap_analysis": "docs/reports/mission_module_audit/reusable_module_gap_analysis.md",
+    "ownership": "docs/reports/mission_module_audit/module_ownership_map.md",
+    "sequence": "docs/reports/mission_module_audit/recommended_implementation_sequence.md",
+    "validation": "docs/reports/mission_module_audit/validation.md"
+  },
+  "immediate_next_pass": "PHASE 0M-D1b — Mission spine boundaries (see recommended_implementation_sequence.json)",
+  "manual_review_checklist_path": "docs/reports/mission_module_audit/phase0md1_module_spine_audit.md",
+  "limitations": [
+    "No Godot editor/headless run in this pass; behavior claims from static reading only except where grep proved symbols.",
+    "global_codebase_inventory does not deep-walk res://assets/ (binaries).",
+    "Attempt-reset on death/retry marked risky until playtest confirms SceneManager reload path."
+  ],
+  "assertions": {
+    "validation_completed": true,
+    "reports_exist": true,
+    "protected_files_not_modified_by_audit": true
+  }
+}

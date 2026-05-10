@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://b5lk5n1bxxjo"]
+
+[ext_resource type="Texture2D" uid="uid://rwp23aoo708j" path="res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png" id="1_static"]
+[ext_resource type="Script" uid="uid://d4mc2bsandboxctrl2026" path="res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2BController.gd" id="2_ctrl"]
+
+[node name="CharacterAnimationSandbox_0MC2B" type="Node2D"]
+script = ExtResource("2_ctrl")
+
+[node name="ReferenceBackground" type="Polygon2D" parent="."]
+z_index = -30
+color = Color(0.055, 0.06, 0.075, 1)
+polygon = PackedVector2Array(-240, -160, 1400, -160, 1400, 980, -240, 980)
+
+[node name="ReferenceGrid" type="Line2D" parent="."]
+z_index = -10
+points = PackedVector2Array(32, 48, 1320, 48, 1320, 312, 32, 312)
+closed = true
+width = 1.0
+default_color = Color(0.22, 0.26, 0.32, 0.75)
+
+[node name="BaselineGuide" type="Line2D" parent="."]
+z_index = 10
+position = Vector2(0, 320)
+points = PackedVector2Array(32, 0, 1320, 0)
+width = 3.0
+default_color = Color(1, 0.82, 0.2, 1)
+
+[node name="TitleAndInstructions" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 12.0
+offset_right = 1280.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 16
+text = "0M-C2B — Walk/Run/Fight discovery sandbox. C2B SpriteFrames load at runtime (not embedded in this .tscn). Production player + Taco Bell untouched. Promotion: NO until you validate."
+
+[node name="StaticParmidaColumn" type="Node2D" parent="."]
+position = Vector2(200, 240)
+
+[node name="Label" type="Label" parent="StaticParmidaColumn"]
+offset_left = -130.0
+offset_top = 96.0
+offset_right = 130.0
+offset_bottom = 188.0
+text = "1) STATIC PARMIDA (prod ref)
+Sprite2D — parmida_player_visual_0mc2.png
+scale (1.35, 1.35)"
+horizontal_alignment = 1
+
+[node name="Visual" type="Sprite2D" parent="StaticParmidaColumn"]
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("1_static")
+
+[node name="Fix3IdleColumn" type="Node2D" parent="."]
+position = Vector2(520, 240)
+
+[node name="Label" type="Label" parent="Fix3IdleColumn"]
+offset_left = -150.0
+offset_top = 96.0
+offset_right = 150.0
+offset_bottom = 200.0
+text = "2) FIX3 IDLE-ONLY REF
+AnimatedSprite2D — FIX3 .tres
+loaded at runtime
+scale (1.35, 1.35)"
+horizontal_alignment = 1
+
+[node name="AnimatedFix3" type="AnimatedSprite2D" parent="Fix3IdleColumn"]
+z_index = 4
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+
+[node name="C2BAnimatedColumn" type="Node2D" parent="."]
+position = Vector2(880, 240)
+
+[node name="Label" type="Label" parent="C2BAnimatedColumn"]
+offset_left = -160.0
+offset_top = 96.0
+offset_right = 160.0
+offset_bottom = 210.0
+text = "3) C2B ANIMATED PARMIDA
+AnimatedSprite2D — C2B .tres
+runtime load only
+scale (1.35, 1.35)"
+horizontal_alignment = 1
+
+[node name="AnimatedC2B" type="AnimatedSprite2D" parent="C2BAnimatedColumn"]
+z_index = 4
+texture_filter = 1
+position = Vector2(0, -37)
+scale = Vector2(1.35, 1.35)
+
+[node name="ControlPanel" type="Node2D" parent="."]
+z_index = 30
+position = Vector2(620, 400)
+
+[node name="Buttons" type="HBoxContainer" parent="ControlPanel"]
+offset_right = 520.0
+offset_bottom = 40.0
+theme_override_constants/separation = 12
+
+[node name="IdleButton" type="Button" parent="ControlPanel/Buttons"]
+custom_minimum_size = Vector2(96, 36)
+text = "Idle"
+
+[node name="WalkButton" type="Button" parent="ControlPanel/Buttons"]
+custom_minimum_size = Vector2(96, 36)
+text = "Walk"
+
+[node name="RunButton" type="Button" parent="ControlPanel/Buttons"]
+custom_minimum_size = Vector2(96, 36)
+text = "Run"
+
+[node name="AttackButton" type="Button" parent="ControlPanel/Buttons"]
+custom_minimum_size = Vector2(96, 36)
+text = "Attack"
+
+[node name="MissingLabels" type="VBoxContainer" parent="ControlPanel"]
+offset_top = 48.0
+offset_right = 520.0
+offset_bottom = 140.0
+theme_override_constants/separation = 4
+
+[node name="WalkMissingLabel" type="Label" parent="ControlPanel/MissingLabels"]
+visible = false
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+text = "WALK NOT FOUND SAFE"
+
+[node name="RunMissingLabel" type="Label" parent="ControlPanel/MissingLabels"]
+visible = false
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+text = "RUN NOT FOUND SAFE"
+
+[node name="AttackMissingLabel" type="Label" parent="ControlPanel/MissingLabels"]
+visible = false
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+text = "ATTACK NOT FOUND SAFE"
+
+[node name="DebugPanel" type="Node2D" parent="."]
+z_index = 40
+position = Vector2(24, 460)
+
+[node name="DebugLabel" type="Label" parent="DebugPanel"]
+offset_right = 1260.0
+offset_bottom = 220.0
+theme_override_font_sizes/font_size = 11
+text = "Debug: initializing…"
+autowrap_mode = 2
+
+[node name="FrameByFrameViewer" type="Control" parent="."]
+z_index = 45
+layout_mode = 0
+position = Vector2(24, 700)
+
+[node name="VBox" type="VBoxContainer" parent="FrameByFrameViewer"]
+layout_mode = 0
+offset_right = 900.0
+offset_bottom = 280.0
+
+[node name="Title" type="Label" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+text = "4) FRAME-BY-FRAME VIEWER (current C2B animation — use Prev/Next; buttons above switch animation)"
+
+[node name="Row" type="HBoxContainer" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PrevButton" type="Button" parent="FrameByFrameViewer/VBox/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(88, 36)
+text = "< Prev"
+
+[node name="FrameViewport" type="Control" parent="FrameByFrameViewer/VBox/Row"]
+custom_minimum_size = Vector2(204, 204)
+layout_mode = 2
+
+[node name="FrameBorder" type="ColorRect" parent="FrameByFrameViewer/VBox/Row/FrameViewport"]
+layout_mode = 0
+offset_right = 204.0
+offset_bottom = 204.0
+color = Color(0.95, 0.85, 0.25, 0.35)
+
+[node name="FrameTexture" type="TextureRect" parent="FrameByFrameViewer/VBox/Row/FrameViewport"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 202.0
+offset_bottom = 202.0
+stretch_mode = 5
+expand_mode = 1
+
+[node name="BaselineGuide" type="Line2D" parent="FrameByFrameViewer/VBox/Row/FrameViewport"]
+z_index = 2
+position = Vector2(2, 2)
+points = PackedVector2Array(0, 198, 200, 198)
+width = 2.0
+default_color = Color(1, 0.75, 0.15, 0.95)
+
+[node name="NextButton" type="Button" parent="FrameByFrameViewer/VBox/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(88, 36)
+text = "Next >"
+
+[node name="FrameInfo" type="Label" parent="FrameByFrameViewer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+autowrap_mode = 2
+text = "index: -"

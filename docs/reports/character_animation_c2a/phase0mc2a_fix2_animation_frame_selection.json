@@ -1,0 +1,27 @@
+{
+  "target_option_requested": "C — generic idle + generic walk",
+  "target_option_delivered": "B — idle only (walk rejected)",
+  "orientation_evaluated": ["horizontal", "vertical"],
+  "orientation_chosen": "horizontal",
+  "idle": {
+    "kit_row": 8,
+    "columns": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "frame_count": 10,
+    "confidence": "medium",
+    "reason": "Heuristic strip search minimized foot-bottom jitter and sequential MSE among candidate rows; row 8 won under horizontal orientation.",
+    "rejected": "Other rows scored worse on combined stability + motion coherence metrics."
+  },
+  "walk": {
+    "included": false,
+    "reason": "No horizontal/vertical walk strip passed tighter foot-jitter / coherence gates; exporting idle-only avoids fake walk success.",
+    "rejected_rows": "All walk candidates failed automated quality gate (see pipeline notes in fix2 metadata)."
+  },
+  "directional_animations_created": false,
+  "assertions": {
+    "safe_animation_rows_selected": true,
+    "idle_row_selected_or_idle_unavailable_reported": true,
+    "walk_row_selected_or_walk_rejected": true,
+    "no_directional_animation_created": true,
+    "selected_frames_are_full_body_candidates": true
+  }
+}

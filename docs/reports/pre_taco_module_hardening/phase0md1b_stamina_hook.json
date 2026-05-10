@@ -1,0 +1,14 @@
+{
+  "assertions": {
+    "stamina_controller_created_or_existing_reused": true,
+    "player_movement_not_broken": true,
+    "sprint_does_not_require_run_animation": true,
+    "project_godot_not_modified": true,
+    "stamina_hook_tested_or_static_validated": true
+  },
+  "controller": "res://src/player/PlayerStaminaController.gd",
+  "test_scene": "res://scenes/hideout/tools/PlayerStaminaControllerTest_0MD1B.tscn",
+  "sprint_action_name": "sprint",
+  "input_map_note": "No `sprint` action found in project.godot grep earlier; stamina drains only when action exists and is held. Add Input Map entry when ready (separate pass may touch project.godot).",
+  "integration": "Player.gd instantiates controller in _ready; process_frame in _physics_process when not hitbox-combat; sprint multiplier applies to move_speed when moving."
+}

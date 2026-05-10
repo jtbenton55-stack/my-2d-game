@@ -1,0 +1,44 @@
+{
+  "chosen_frame_size": [
+    200,
+    200
+  ],
+  "reason": "C2 static preparation documented 200x200 source_frame_rect; forensic tie-break to native cell size.",
+  "c2_reported_frame_rect": {
+    "x": 0,
+    "y": 0,
+    "w": 200,
+    "h": 200
+  },
+  "c2a_prior_note": "Earlier C2A tooling assumed 100x200; FIX3 overrides after forensic.",
+  "forensic_scores": {
+    "100x200": {
+      "frame_size": [
+        100,
+        200
+      ],
+      "sample_row": 8,
+      "strip_length": 10,
+      "full_body_frames": 0,
+      "half_body_frames": 0,
+      "mean_bbox_h_ratio": 0.427,
+      "mean_bbox_w_ratio": 0.20800000000000002,
+      "layer_alignment_assumed": true
+    },
+    "200x200": {
+      "frame_size": [
+        200,
+        200
+      ],
+      "sample_row": 8,
+      "strip_length": 10,
+      "full_body_frames": 0,
+      "half_body_frames": 0,
+      "mean_bbox_h_ratio": 0.4595,
+      "mean_bbox_w_ratio": 0.1795,
+      "layer_alignment_assumed": true
+    }
+  },
+  "chosen_produces_full_body": false,
+  "chosen_does_not_cut_half": true
+}

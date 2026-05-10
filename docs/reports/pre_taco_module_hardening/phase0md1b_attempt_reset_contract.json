@@ -1,0 +1,15 @@
+{
+  "assertions": {
+    "runtime_reset_contract_documented": true,
+    "reset_method_exists_or_gap_reported": true,
+    "persistent_state_not_wiped": true,
+    "attempt_reset_tested_or_static_validated": true
+  },
+  "runtime_counters_home": "IsoMissionBase._attempt_runtime_state (beam flags, poop counts, alarms, etc.)",
+  "reset_on_scene_generate": "_setup_runtime_systems() begins with _reset_attempt_runtime_state() and clears runtime buckets — invoked from _generate_from_definition() at mission load.",
+  "death_failure_flow": "LevelBase.fail_level → SceneManager.show_mission_result → MissionResult → return_to_hideout; next launch uses change_scene_to_file fresh mission scene → _ready → full _generate_from_definition → counters reset.",
+  "explicit_api": "IsoMissionBase.reset_mission_runtime_for_new_attempt() → _setup_runtime_systems() for future in-scene retry without full scene reload.",
+  "beam_one_shot": "Still enforced in IsoMissionBase._on_runtime_alarm_zone_entered + _is_alarm_zone_one_shot (not modified this pass).",
+  "persistent_not_reset": "GameState / SaveManager fields not touched by reset path.",
+  "runtime_playtest": "Not executed (Godot binary not available in shell PATH on this machine)."
+}

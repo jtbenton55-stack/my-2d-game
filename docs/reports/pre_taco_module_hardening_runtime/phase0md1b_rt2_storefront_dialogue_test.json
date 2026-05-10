@@ -1,0 +1,8 @@
+{
+  "storefront": "not_tested_runtime_session_ended_after_pause",
+  "portrait_dialogue": "not_tested",
+  "assertions": {
+    "storefront_or_blocker_documented": true,
+    "portrait_dialogue_or_blocker_documented": true
+  }
+}

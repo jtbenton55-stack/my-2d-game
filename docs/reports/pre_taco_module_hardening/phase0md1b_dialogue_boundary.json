@@ -1,0 +1,13 @@
+{
+  "assertions": {
+    "generic_base_no_longer_hard_depends_on_taco_dialogue": true,
+    "taco_dialogue_still_available": true,
+    "missing_dialogue_provider_safe": true,
+    "dialogue_ui_not_rewritten": true
+  },
+  "generic_provider": "res://src/missions/dialogue/MissionDialogueProvider.gd",
+  "taco_provider": "res://src/missions/taco_bell/TacoBellDialogueProvider.gd",
+  "iso_resolution_rule": "If mission_definition.mission_id contains 'taco' (case-insensitive), load TacoBellDialogueProvider; else Default MissionDialogueProvider (fallback text only).",
+  "iso_mission_base_change": "Removed const preload of TacoBellDialogue.gd; reward dialogue uses _mission_dialogue_line() → provider.",
+  "legacy_preloads_remain": "MissionCodeGatePlaceholder, MissionScentTrailPlaceholder, MissionEncounterTrigger, MissionRouteAccessPoint still preload TacoBellDialogue — acceptable Taco/runtime paths; follow-up can inject provider later."
+}

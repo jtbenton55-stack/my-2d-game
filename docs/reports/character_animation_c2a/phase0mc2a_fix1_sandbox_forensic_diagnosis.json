@@ -1,0 +1,39 @@
+{
+  "phase": "0M-C2A-FIX1",
+  "phase_name": "Sandbox forensic diagnosis",
+  "date": "2026-05-09",
+  "sandbox_scene": "scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+  "parses_as_text": true,
+  "root_node": {
+    "type": "Node2D",
+    "name": "CharacterAnimationSandbox_0MC2A"
+  },
+  "animated_node_path_before_fix": "Column3_AnimatedC2A/Visual (AnimatedSprite2D)",
+  "animated_node_path_after_fix": "AnimatedParmidaColumn/AnimatedParmidaReference (AnimatedSprite2D)",
+  "issues_found_before_fix": [
+    "Legacy SpriteFrames resource text format did not match Godot 4 SpriteFrames serialization (invalid animations block).",
+    "AnimatedSprite2D referenced parmida_player_spriteframes_0mc2a.tres which loads as an effectively empty/broken SpriteFrames (no usable idle animation).",
+    "PlayerVisualAnimator.gd was attached in sandbox; parent is not CharacterBody2D, so velocity-driven switching is irrelevant (not primary invisibility cause).",
+    "Autoplay/animation name idle could not resolve against broken SpriteFrames data."
+  ],
+  "visibility_chain": {
+    "animated_visible_property_scene_default": true,
+    "parents_visible": true,
+    "modulate_alpha_expected": 1.0,
+    "z_index_risk_occlusion": "Background was ColorRect under Node2D; replaced with Polygon2D layers and explicit z_index ordering in FIX1."
+  },
+  "spriteframes": {
+    "legacy_path": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.tres",
+    "legacy_problem": "Malformed Godot 4 SpriteFrames animations serialization",
+    "fix1_path": "res://assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+    "fix1_expected_animations": ["idle", "walk"]
+  },
+  "assertions": {
+    "sandbox_forensic_diagnosis_completed": true,
+    "animated_node_presence_checked": true,
+    "visibility_chain_checked": true,
+    "spriteframes_assignment_checked": true,
+    "sandbox_script_errors_checked": true,
+    "root_cause_identified_or_unknown_reported": true
+  }
+}

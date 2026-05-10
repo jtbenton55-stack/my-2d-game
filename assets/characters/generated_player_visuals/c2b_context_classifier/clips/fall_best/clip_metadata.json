@@ -1,0 +1,26 @@
+{
+  "clip_name": "fall_best",
+  "segment_id": 34,
+  "action_label": "fall",
+  "confidence": 0.3005,
+  "start_global": 750,
+  "end_global": 762,
+  "start_row": 15,
+  "end_row": 15,
+  "frame_count": 13,
+  "frames": [
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_000.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_001.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_002.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_003.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_004.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_005.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_006.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_007.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_008.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_009.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_010.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_011.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/fall_best/frames/fall_best_012.png"
+  ]
+}

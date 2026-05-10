@@ -1,0 +1,97 @@
+{
+  "assertions": {
+    "spaghetti_risks_identified": true,
+    "high_severity_risks_prioritized": true,
+    "no_code_modified": true
+  },
+  "risks": [
+    {
+      "title": "IsoMissionBase monolith",
+      "files": ["res://src/levels/IsoMissionBase.gd"],
+      "severity": "critical",
+      "evidence": "Single script owns tile painting, marker indexing, runtime spawn for guards/cameras/alarms/routes, Louis geometry, code gates, poop decoy, debug export, authoring sync — thousands of lines.",
+      "why_it_matters": "Taco redesign changes will be high-conflict and hard to test in isolation.",
+      "suggested_fix": "Extract subsystems: RuntimeSpawner, RouteSubsystem, AlarmSubsystem, MarkerIndex, TacoBellFlavorAdapter.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "res://src/missions/iso/framework/"
+    },
+    {
+      "title": "TacoBellDialogue preloaded in generic IsoMissionBase",
+      "files": ["res://src/levels/IsoMissionBase.gd", "res://src/missions/iso/runtime/TacoBellDialogue.gd"],
+      "severity": "high",
+      "evidence": "const TacoBellDialogue := preload(...) at top of IsoMissionBase.",
+      "why_it_matters": "Future non-Taco iso missions still load Taco dialogue type; violates mission-agnostic base.",
+      "suggested_fix": "Inject dialogue provider via mission_definition or optional child node.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "res://src/missions/dialogue/"
+    },
+    {
+      "title": "Player couples to mission root methods",
+      "files": ["res://src/player/Player.gd"],
+      "severity": "high",
+      "evidence": "_try_throw_poop_bag uses scene.has_method('deploy_poop_bag_decoy_at') on parent scene.",
+      "why_it_matters": "Every new mission must expose same duck-typed API or throws break.",
+      "suggested_fix": "Autoload or group-resolved IToolMissionSurface / signal-based throw request.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "res://src/missions/tools/"
+    },
+    {
+      "title": "Dual Taco scene architectures",
+      "files": ["res://scenes/missions_iso/TacoBellIso_Editable.tscn", "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"],
+      "severity": "high",
+      "evidence": "RedesignTest adds many Phase0J/Phase0K scripts not present on Editable.",
+      "why_it_matters": "Teams may implement twice or merge wrong stack into production entry.",
+      "suggested_fix": "Declare canonical production scene in GameState/SceneManager and archive or merge test scene.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "Mission catalog + docs"
+    },
+    {
+      "title": "Pause menu under test_ui path",
+      "files": ["res://src/ui/test_ui/pause_menu.gd"],
+      "severity": "medium",
+      "evidence": "Production Taco scene instances test_ui pause menu.",
+      "why_it_matters": "Unclear contract for skinning/theming and hideout vs mission variants.",
+      "suggested_fix": "Move to mission UI package with same script initially (no behavior change).",
+      "prerequisite_before_taco_redesign": false,
+      "can_wait": true,
+      "recommended_owner": "res://src/ui/mission/"
+    },
+    {
+      "title": "Objective state split QuestManager vs Iso dictionaries",
+      "files": ["res://src/levels/IsoMissionBase.gd", "res://src/autoload/QuestManager.gd"],
+      "severity": "medium",
+      "evidence": "Iso tracks _required_objective_ids while QuestManager drives pause text.",
+      "why_it_matters": "Desync risk between HUD and internal mission gates.",
+      "suggested_fix": "Single ObjectiveRuntime facade.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "res://src/missions/objectives/"
+    },
+    {
+      "title": "Hard-coded world cells for beam and Louis box",
+      "files": ["res://src/levels/IsoMissionBase.gd"],
+      "severity": "medium",
+      "evidence": "Vector2i literals for garage beam and Louis corridor walls.",
+      "why_it_matters": "Art redesign breaks gameplay silently.",
+      "suggested_fix": "Drive from markers only; remove literals after marker bake stable.",
+      "prerequisite_before_taco_redesign": false,
+      "can_wait": true,
+      "recommended_owner": "Marker authoring pipeline"
+    },
+    {
+      "title": "Attempt counter reset vs death without reload",
+      "files": ["res://src/levels/LevelBase.gd", "res://src/levels/IsoMissionBase.gd"],
+      "severity": "high",
+      "evidence": "fail_level does not call Iso runtime reset; depends on scene reload path after result UI.",
+      "why_it_matters": "Violates must-not-forget if in-mission retry exists.",
+      "suggested_fix": "On attempt restart signal, call _setup_runtime_systems or subset reset.",
+      "prerequisite_before_taco_redesign": true,
+      "can_wait": false,
+      "recommended_owner": "MissionLifecycleController"
+    }
+  ]
+}

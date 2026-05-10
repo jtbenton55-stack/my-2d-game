@@ -1,0 +1,48 @@
+{
+  "verdict": "PASS",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "goal": "Emergency routing: MissionBoard / hideout catalog / debug iso paths → expanded Taco map",
+  "old_wrong_playable_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "correct_expanded_playable_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "evidence_summary": [
+    "RedesignTest ~2.0x larger bytes, ~2.2x more [node] lines vs Editable",
+    "Phase0J/Phase0K markers present in RedesignTest text, absent in Editable",
+    "GRB runtime_info current_scene == RedesignTest after launch_taco_bell()"
+  ],
+  "files_modified": [
+    "src/hideout/HideoutMissionBoardController.gd",
+    "src/hideout/HideoutStationCatalog.gd",
+    "src/autoload/SceneManager.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "docs/CHANGELOG.md",
+    "docs/DECISIONS.md",
+    "src/tools/editor/pre_taco_module_hardening_runtime/phase0md1b_rt_static_validator.py"
+  ],
+  "files_created": [
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_safety_baseline.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_safety_baseline.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_taco_reference_inventory.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_taco_reference_inventory.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_scene_comparison.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_scene_comparison.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_routing_changes.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_routing_changes.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_validation.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_validation.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_runtime_validation.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_runtime_validation.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_final_safety_review.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_final_safety_review.json",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_canonical_taco_scene_correction.md",
+    "docs/reports/taco_canonical_scene_correction/phase0md1c_canonical_taco_scene_correction.json",
+    "src/tools/editor/taco_canonical_scene_correction/phase0md1c_scene_compare.py",
+    "src/tools/editor/taco_canonical_scene_correction/phase0md1c_static_validator.py"
+  ],
+  "static_validation": "PASS",
+  "runtime_validation": "PASS (GRB: current_scene RedesignTest; Player node present)",
+  "limitations": [
+    "Full manual movement/pause regression not re-run in this pass",
+    "Older docs under pre_taco_module_hardening may still say Editable was canonical playable until human updates"
+  ],
+  "recommended_next_pass": "Manual playtest MissionBoard → Taco; update stale D1B report JSON if you want docs to match new vocabulary"
+}

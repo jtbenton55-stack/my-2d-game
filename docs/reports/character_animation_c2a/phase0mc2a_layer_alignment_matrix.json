@@ -1,0 +1,1724 @@
+{
+  "phase": "0M-C2A",
+  "phase_name": "Frame/Layer Alignment Proof",
+  "layer_analysis": {
+    "base": {
+      "layer_name": "base",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "grid_detection": {
+        "candidate_grids": [
+          {
+            "frame_width": 100,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 100,
+            "total_frames": 5000,
+            "reasoning": "50 rows x 100 cols = 5000 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 50,
+            "total_frames": 2500,
+            "reasoning": "50 rows x 50 cols = 2500 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 50,
+            "total_frames": 2000,
+            "reasoning": "40 rows x 50 cols = 2000 frames"
+          },
+          {
+            "frame_width": 250,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 40,
+            "total_frames": 1600,
+            "reasoning": "40 rows x 40 cols = 1600 frames"
+          },
+          {
+            "frame_width": 500,
+            "frame_height": 500,
+            "rows": 20,
+            "cols": 20,
+            "total_frames": 400,
+            "reasoning": "20 rows x 20 cols = 400 frames"
+          },
+          {
+            "frame_width": 100,
+            "frame_height": 100,
+            "rows": 100,
+            "cols": 100,
+            "total_frames": 10000,
+            "reasoning": "100 rows x 100 cols = 10000 frames"
+          },
+          {
+            "frame_width": 125,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 80,
+            "total_frames": 3200,
+            "reasoning": "40 rows x 80 cols = 3200 frames"
+          }
+        ],
+        "selected_grid": {
+          "frame_width": 100,
+          "frame_height": 200,
+          "rows": 50,
+          "cols": 100,
+          "total_frames": 5000,
+          "reasoning": "50 rows x 100 cols = 5000 frames"
+        },
+        "confidence": "high (matches C2 probe)"
+      },
+      "frame_samples": [
+        {
+          "row": 0,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            84,
+            59,
+            100,
+            135
+          ],
+          "frame_path": "row0_col0"
+        },
+        {
+          "row": 0,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            56,
+            19,
+            141
+          ],
+          "frame_path": "row0_col25"
+        },
+        {
+          "row": 0,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            83,
+            53,
+            100,
+            150
+          ],
+          "frame_path": "row0_col50"
+        },
+        {
+          "row": 0,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            58,
+            17,
+            148
+          ],
+          "frame_path": "row0_col75"
+        },
+        {
+          "row": 0,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            81,
+            59,
+            100,
+            143
+          ],
+          "frame_path": "row0_col10"
+        },
+        {
+          "row": 25,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            87,
+            79,
+            100,
+            166
+          ],
+          "frame_path": "row25_col0"
+        },
+        {
+          "row": 25,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            68,
+            14,
+            142
+          ],
+          "frame_path": "row25_col25"
+        },
+        {
+          "row": 25,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            75,
+            55,
+            100,
+            141
+          ],
+          "frame_path": "row25_col50"
+        },
+        {
+          "row": 25,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            56,
+            29,
+            139
+          ],
+          "frame_path": "row25_col75"
+        },
+        {
+          "row": 25,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            91,
+            83,
+            100,
+            141
+          ],
+          "frame_path": "row25_col10"
+        },
+        {
+          "row": 49,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            79,
+            63,
+            100,
+            125
+          ],
+          "frame_path": "row49_col0"
+        },
+        {
+          "row": 49,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            61,
+            25,
+            150
+          ],
+          "frame_path": "row49_col25"
+        },
+        {
+          "row": 49,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            83,
+            55,
+            100,
+            150
+          ],
+          "frame_path": "row49_col50"
+        },
+        {
+          "row": 49,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            54,
+            21,
+            147
+          ],
+          "frame_path": "row49_col75"
+        },
+        {
+          "row": 49,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            70,
+            68,
+            100,
+            148
+          ],
+          "frame_path": "row49_col10"
+        }
+      ],
+      "row_content_analysis": [
+        {
+          "row": 0,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 1,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 2,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 3,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 4,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 5,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 6,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 7,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 8,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 9,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 10,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 11,
+          "content_frames": 10,
+          "appears_populated": true
+        }
+      ]
+    },
+    "bottoms": {
+      "layer_name": "bottoms",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "grid_detection": {
+        "candidate_grids": [
+          {
+            "frame_width": 100,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 100,
+            "total_frames": 5000,
+            "reasoning": "50 rows x 100 cols = 5000 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 50,
+            "total_frames": 2500,
+            "reasoning": "50 rows x 50 cols = 2500 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 50,
+            "total_frames": 2000,
+            "reasoning": "40 rows x 50 cols = 2000 frames"
+          },
+          {
+            "frame_width": 250,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 40,
+            "total_frames": 1600,
+            "reasoning": "40 rows x 40 cols = 1600 frames"
+          },
+          {
+            "frame_width": 500,
+            "frame_height": 500,
+            "rows": 20,
+            "cols": 20,
+            "total_frames": 400,
+            "reasoning": "20 rows x 20 cols = 400 frames"
+          },
+          {
+            "frame_width": 100,
+            "frame_height": 100,
+            "rows": 100,
+            "cols": 100,
+            "total_frames": 10000,
+            "reasoning": "100 rows x 100 cols = 10000 frames"
+          },
+          {
+            "frame_width": 125,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 80,
+            "total_frames": 3200,
+            "reasoning": "40 rows x 80 cols = 3200 frames"
+          }
+        ],
+        "selected_grid": {
+          "frame_width": 100,
+          "frame_height": 200,
+          "rows": 50,
+          "cols": 100,
+          "total_frames": 5000,
+          "reasoning": "50 rows x 100 cols = 5000 frames"
+        },
+        "confidence": "high (matches C2 probe)"
+      },
+      "frame_samples": [
+        {
+          "row": 0,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            89,
+            89,
+            100,
+            136
+          ],
+          "frame_path": "row0_col0"
+        },
+        {
+          "row": 0,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            83,
+            20,
+            143
+          ],
+          "frame_path": "row0_col25"
+        },
+        {
+          "row": 0,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            86,
+            83,
+            100,
+            152
+          ],
+          "frame_path": "row0_col50"
+        },
+        {
+          "row": 0,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            88,
+            12,
+            150
+          ],
+          "frame_path": "row0_col75"
+        },
+        {
+          "row": 0,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            87,
+            87,
+            100,
+            144
+          ],
+          "frame_path": "row0_col10"
+        },
+        {
+          "row": 25,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            89,
+            101,
+            100,
+            170
+          ],
+          "frame_path": "row25_col0"
+        },
+        {
+          "row": 25,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            104,
+            14,
+            144
+          ],
+          "frame_path": "row25_col25"
+        },
+        {
+          "row": 25,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            76,
+            89,
+            100,
+            143
+          ],
+          "frame_path": "row25_col50"
+        },
+        {
+          "row": 25,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            85,
+            28,
+            141
+          ],
+          "frame_path": "row25_col75"
+        },
+        {
+          "row": 25,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            92,
+            106,
+            100,
+            143
+          ],
+          "frame_path": "row25_col10"
+        },
+        {
+          "row": 49,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            77,
+            82,
+            100,
+            126
+          ],
+          "frame_path": "row49_col0"
+        },
+        {
+          "row": 49,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            82,
+            26,
+            152
+          ],
+          "frame_path": "row49_col25"
+        },
+        {
+          "row": 49,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            89,
+            87,
+            100,
+            152
+          ],
+          "frame_path": "row49_col50"
+        },
+        {
+          "row": 49,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            84,
+            15,
+            148
+          ],
+          "frame_path": "row49_col75"
+        },
+        {
+          "row": 49,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            69,
+            89,
+            100,
+            150
+          ],
+          "frame_path": "row49_col10"
+        }
+      ],
+      "row_content_analysis": [
+        {
+          "row": 0,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 1,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 2,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 3,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 4,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 5,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 6,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 7,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 8,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 9,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 10,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 11,
+          "content_frames": 10,
+          "appears_populated": true
+        }
+      ]
+    },
+    "tops": {
+      "layer_name": "tops",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "grid_detection": {
+        "candidate_grids": [
+          {
+            "frame_width": 100,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 100,
+            "total_frames": 5000,
+            "reasoning": "50 rows x 100 cols = 5000 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 50,
+            "total_frames": 2500,
+            "reasoning": "50 rows x 50 cols = 2500 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 50,
+            "total_frames": 2000,
+            "reasoning": "40 rows x 50 cols = 2000 frames"
+          },
+          {
+            "frame_width": 250,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 40,
+            "total_frames": 1600,
+            "reasoning": "40 rows x 40 cols = 1600 frames"
+          },
+          {
+            "frame_width": 500,
+            "frame_height": 500,
+            "rows": 20,
+            "cols": 20,
+            "total_frames": 400,
+            "reasoning": "20 rows x 20 cols = 400 frames"
+          },
+          {
+            "frame_width": 100,
+            "frame_height": 100,
+            "rows": 100,
+            "cols": 100,
+            "total_frames": 10000,
+            "reasoning": "100 rows x 100 cols = 10000 frames"
+          },
+          {
+            "frame_width": 125,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 80,
+            "total_frames": 3200,
+            "reasoning": "40 rows x 80 cols = 3200 frames"
+          }
+        ],
+        "selected_grid": {
+          "frame_width": 100,
+          "frame_height": 200,
+          "rows": 50,
+          "cols": 100,
+          "total_frames": 5000,
+          "reasoning": "50 rows x 100 cols = 5000 frames"
+        },
+        "confidence": "high (matches C2 probe)"
+      },
+      "frame_samples": [
+        {
+          "row": 0,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            80,
+            68,
+            100,
+            103
+          ],
+          "frame_path": "row0_col0"
+        },
+        {
+          "row": 0,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            64,
+            10,
+            105
+          ],
+          "frame_path": "row0_col25"
+        },
+        {
+          "row": 0,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            84,
+            64,
+            100,
+            102
+          ],
+          "frame_path": "row0_col50"
+        },
+        {
+          "row": 0,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            68,
+            16,
+            106
+          ],
+          "frame_path": "row0_col75"
+        },
+        {
+          "row": 0,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            80,
+            69,
+            100,
+            106
+          ],
+          "frame_path": "row0_col10"
+        },
+        {
+          "row": 25,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            85,
+            79,
+            100,
+            122
+          ],
+          "frame_path": "row25_col0"
+        },
+        {
+          "row": 25,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            81,
+            7,
+            105
+          ],
+          "frame_path": "row25_col25"
+        },
+        {
+          "row": 25,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            74,
+            56,
+            100,
+            106
+          ],
+          "frame_path": "row25_col50"
+        },
+        {
+          "row": 25,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            64,
+            30,
+            106
+          ],
+          "frame_path": "row25_col75"
+        },
+        {
+          "row": 25,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            91,
+            83,
+            100,
+            114
+          ],
+          "frame_path": "row25_col10"
+        },
+        {
+          "row": 49,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            79,
+            67,
+            100,
+            100
+          ],
+          "frame_path": "row49_col0"
+        },
+        {
+          "row": 49,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            63,
+            20,
+            104
+          ],
+          "frame_path": "row49_col25"
+        },
+        {
+          "row": 49,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            86,
+            67,
+            100,
+            106
+          ],
+          "frame_path": "row49_col50"
+        },
+        {
+          "row": 49,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            66,
+            21,
+            105
+          ],
+          "frame_path": "row49_col75"
+        },
+        {
+          "row": 49,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            81,
+            67,
+            100,
+            108
+          ],
+          "frame_path": "row49_col10"
+        }
+      ],
+      "row_content_analysis": [
+        {
+          "row": 0,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 1,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 2,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 3,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 4,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 5,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 6,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 7,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 8,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 9,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 10,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 11,
+          "content_frames": 10,
+          "appears_populated": true
+        }
+      ]
+    },
+    "head": {
+      "layer_name": "head",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "grid_detection": {
+        "candidate_grids": [
+          {
+            "frame_width": 100,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 100,
+            "total_frames": 5000,
+            "reasoning": "50 rows x 100 cols = 5000 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 50,
+            "total_frames": 2500,
+            "reasoning": "50 rows x 50 cols = 2500 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 50,
+            "total_frames": 2000,
+            "reasoning": "40 rows x 50 cols = 2000 frames"
+          },
+          {
+            "frame_width": 250,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 40,
+            "total_frames": 1600,
+            "reasoning": "40 rows x 40 cols = 1600 frames"
+          },
+          {
+            "frame_width": 500,
+            "frame_height": 500,
+            "rows": 20,
+            "cols": 20,
+            "total_frames": 400,
+            "reasoning": "20 rows x 20 cols = 400 frames"
+          },
+          {
+            "frame_width": 100,
+            "frame_height": 100,
+            "rows": 100,
+            "cols": 100,
+            "total_frames": 10000,
+            "reasoning": "100 rows x 100 cols = 10000 frames"
+          },
+          {
+            "frame_width": 125,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 80,
+            "total_frames": 3200,
+            "reasoning": "40 rows x 80 cols = 3200 frames"
+          }
+        ],
+        "selected_grid": {
+          "frame_width": 100,
+          "frame_height": 200,
+          "rows": 50,
+          "cols": 100,
+          "total_frames": 5000,
+          "reasoning": "50 rows x 100 cols = 5000 frames"
+        },
+        "confidence": "high (matches C2 probe)"
+      },
+      "frame_samples": [
+        {
+          "row": 0,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            94,
+            57,
+            100,
+            76
+          ],
+          "frame_path": "row0_col0"
+        },
+        {
+          "row": 0,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            54,
+            7,
+            71
+          ],
+          "frame_path": "row0_col25"
+        },
+        {
+          "row": 0,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            94,
+            52,
+            100,
+            68
+          ],
+          "frame_path": "row0_col50"
+        },
+        {
+          "row": 0,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            56,
+            8,
+            74
+          ],
+          "frame_path": "row0_col75"
+        },
+        {
+          "row": 0,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            94,
+            58,
+            100,
+            76
+          ],
+          "frame_path": "row0_col10"
+        },
+        {
+          "row": 25,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            99,
+            74,
+            100,
+            75
+          ],
+          "frame_path": "row25_col0"
+        },
+        {
+          "row": 25,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            67,
+            11,
+            84
+          ],
+          "frame_path": "row25_col25"
+        },
+        {
+          "row": 25,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            88,
+            54,
+            100,
+            72
+          ],
+          "frame_path": "row25_col50"
+        },
+        {
+          "row": 25,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            55,
+            17,
+            74
+          ],
+          "frame_path": "row25_col75"
+        },
+        {
+          "row": 25,
+          "col": 10,
+          "has_content": false,
+          "bbox": null,
+          "frame_path": "row25_col10"
+        },
+        {
+          "row": 49,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            89,
+            61,
+            100,
+            81
+          ],
+          "frame_path": "row49_col0"
+        },
+        {
+          "row": 49,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            59,
+            6,
+            76
+          ],
+          "frame_path": "row49_col25"
+        },
+        {
+          "row": 49,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            93,
+            53,
+            100,
+            70
+          ],
+          "frame_path": "row49_col50"
+        },
+        {
+          "row": 49,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            53,
+            12,
+            74
+          ],
+          "frame_path": "row49_col75"
+        },
+        {
+          "row": 49,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            97,
+            66,
+            100,
+            77
+          ],
+          "frame_path": "row49_col10"
+        }
+      ],
+      "row_content_analysis": [
+        {
+          "row": 0,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 1,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 2,
+          "content_frames": 9,
+          "appears_populated": true
+        },
+        {
+          "row": 3,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 4,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 5,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 6,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 7,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 8,
+          "content_frames": 7,
+          "appears_populated": true
+        },
+        {
+          "row": 9,
+          "content_frames": 5,
+          "appears_populated": true
+        },
+        {
+          "row": 10,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 11,
+          "content_frames": 10,
+          "appears_populated": true
+        }
+      ]
+    },
+    "hair": {
+      "layer_name": "hair",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png",
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "grid_detection": {
+        "candidate_grids": [
+          {
+            "frame_width": 100,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 100,
+            "total_frames": 5000,
+            "reasoning": "50 rows x 100 cols = 5000 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 200,
+            "rows": 50,
+            "cols": 50,
+            "total_frames": 2500,
+            "reasoning": "50 rows x 50 cols = 2500 frames"
+          },
+          {
+            "frame_width": 200,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 50,
+            "total_frames": 2000,
+            "reasoning": "40 rows x 50 cols = 2000 frames"
+          },
+          {
+            "frame_width": 250,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 40,
+            "total_frames": 1600,
+            "reasoning": "40 rows x 40 cols = 1600 frames"
+          },
+          {
+            "frame_width": 500,
+            "frame_height": 500,
+            "rows": 20,
+            "cols": 20,
+            "total_frames": 400,
+            "reasoning": "20 rows x 20 cols = 400 frames"
+          },
+          {
+            "frame_width": 100,
+            "frame_height": 100,
+            "rows": 100,
+            "cols": 100,
+            "total_frames": 10000,
+            "reasoning": "100 rows x 100 cols = 10000 frames"
+          },
+          {
+            "frame_width": 125,
+            "frame_height": 250,
+            "rows": 40,
+            "cols": 80,
+            "total_frames": 3200,
+            "reasoning": "40 rows x 80 cols = 3200 frames"
+          }
+        ],
+        "selected_grid": {
+          "frame_width": 100,
+          "frame_height": 200,
+          "rows": 50,
+          "cols": 100,
+          "total_frames": 5000,
+          "reasoning": "50 rows x 100 cols = 5000 frames"
+        },
+        "confidence": "high (matches C2 probe)"
+      },
+      "frame_samples": [
+        {
+          "row": 0,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            94,
+            57,
+            100,
+            72
+          ],
+          "frame_path": "row0_col0"
+        },
+        {
+          "row": 0,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            53,
+            8,
+            71
+          ],
+          "frame_path": "row0_col25"
+        },
+        {
+          "row": 0,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            94,
+            51,
+            100,
+            69
+          ],
+          "frame_path": "row0_col50"
+        },
+        {
+          "row": 0,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            57,
+            9,
+            76
+          ],
+          "frame_path": "row0_col75"
+        },
+        {
+          "row": 0,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            94,
+            58,
+            100,
+            72
+          ],
+          "frame_path": "row0_col10"
+        },
+        {
+          "row": 25,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            99,
+            74,
+            100,
+            78
+          ],
+          "frame_path": "row25_col0"
+        },
+        {
+          "row": 25,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            67,
+            11,
+            84
+          ],
+          "frame_path": "row25_col25"
+        },
+        {
+          "row": 25,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            88,
+            53,
+            100,
+            72
+          ],
+          "frame_path": "row25_col50"
+        },
+        {
+          "row": 25,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            56,
+            16,
+            72
+          ],
+          "frame_path": "row25_col75"
+        },
+        {
+          "row": 25,
+          "col": 10,
+          "has_content": false,
+          "bbox": null,
+          "frame_path": "row25_col10"
+        },
+        {
+          "row": 49,
+          "col": 0,
+          "has_content": true,
+          "bbox": [
+            88,
+            61,
+            100,
+            79
+          ],
+          "frame_path": "row49_col0"
+        },
+        {
+          "row": 49,
+          "col": 25,
+          "has_content": true,
+          "bbox": [
+            0,
+            59,
+            6,
+            76
+          ],
+          "frame_path": "row49_col25"
+        },
+        {
+          "row": 49,
+          "col": 50,
+          "has_content": true,
+          "bbox": [
+            93,
+            53,
+            100,
+            70
+          ],
+          "frame_path": "row49_col50"
+        },
+        {
+          "row": 49,
+          "col": 75,
+          "has_content": true,
+          "bbox": [
+            0,
+            53,
+            12,
+            74
+          ],
+          "frame_path": "row49_col75"
+        },
+        {
+          "row": 49,
+          "col": 10,
+          "has_content": true,
+          "bbox": [
+            96,
+            65,
+            100,
+            77
+          ],
+          "frame_path": "row49_col10"
+        }
+      ],
+      "row_content_analysis": [
+        {
+          "row": 0,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 1,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 2,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 3,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 4,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 5,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 6,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 7,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 8,
+          "content_frames": 7,
+          "appears_populated": true
+        },
+        {
+          "row": 9,
+          "content_frames": 5,
+          "appears_populated": true
+        },
+        {
+          "row": 10,
+          "content_frames": 10,
+          "appears_populated": true
+        },
+        {
+          "row": 11,
+          "content_frames": 10,
+          "appears_populated": true
+        }
+      ]
+    }
+  },
+  "alignment_check": {
+    "all_layers_have_grids": true,
+    "grids": {
+      "base": {
+        "frame_width": 100,
+        "frame_height": 200,
+        "rows": 50,
+        "cols": 100,
+        "total_frames": 5000,
+        "reasoning": "50 rows x 100 cols = 5000 frames"
+      },
+      "bottoms": {
+        "frame_width": 100,
+        "frame_height": 200,
+        "rows": 50,
+        "cols": 100,
+        "total_frames": 5000,
+        "reasoning": "50 rows x 100 cols = 5000 frames"
+      },
+      "tops": {
+        "frame_width": 100,
+        "frame_height": 200,
+        "rows": 50,
+        "cols": 100,
+        "total_frames": 5000,
+        "reasoning": "50 rows x 100 cols = 5000 frames"
+      },
+      "head": {
+        "frame_width": 100,
+        "frame_height": 200,
+        "rows": 50,
+        "cols": 100,
+        "total_frames": 5000,
+        "reasoning": "50 rows x 100 cols = 5000 frames"
+      },
+      "hair": {
+        "frame_width": 100,
+        "frame_height": 200,
+        "rows": 50,
+        "cols": 100,
+        "total_frames": 5000,
+        "reasoning": "50 rows x 100 cols = 5000 frames"
+      }
+    },
+    "consistent": true,
+    "common_grid": {
+      "frame_width": 100,
+      "frame_height": 200,
+      "rows": 50,
+      "cols": 100,
+      "total_frames": 5000,
+      "reasoning": "50 rows x 100 cols = 5000 frames"
+    }
+  },
+  "animation_inferences": {
+    "base": {
+      "populated_rows": 12,
+      "structure_hypothesis": "8-directional with idle + walk",
+      "direction_count": 8,
+      "animation_types": [
+        "idle",
+        "walk"
+      ],
+      "confidence": "medium-low",
+      "note": "May have separate rows for idle vs walk animations"
+    },
+    "bottoms": {
+      "populated_rows": 12,
+      "structure_hypothesis": "8-directional with idle + walk",
+      "direction_count": 8,
+      "animation_types": [
+        "idle",
+        "walk"
+      ],
+      "confidence": "medium-low",
+      "note": "May have separate rows for idle vs walk animations"
+    },
+    "tops": {
+      "populated_rows": 12,
+      "structure_hypothesis": "8-directional with idle + walk",
+      "direction_count": 8,
+      "animation_types": [
+        "idle",
+        "walk"
+      ],
+      "confidence": "medium-low",
+      "note": "May have separate rows for idle vs walk animations"
+    },
+    "head": {
+      "populated_rows": 12,
+      "structure_hypothesis": "8-directional with idle + walk",
+      "direction_count": 8,
+      "animation_types": [
+        "idle",
+        "walk"
+      ],
+      "confidence": "medium-low",
+      "note": "May have separate rows for idle vs walk animations"
+    },
+    "hair": {
+      "populated_rows": 12,
+      "structure_hypothesis": "8-directional with idle + walk",
+      "direction_count": 8,
+      "animation_types": [
+        "idle",
+        "walk"
+      ],
+      "confidence": "medium-low",
+      "note": "May have separate rows for idle vs walk animations"
+    }
+  },
+  "primary_inference": {
+    "populated_rows": 12,
+    "structure_hypothesis": "8-directional with idle + walk",
+    "direction_count": 8,
+    "animation_types": [
+      "idle",
+      "walk"
+    ],
+    "confidence": "medium-low",
+    "note": "May have separate rows for idle vs walk animations"
+  },
+  "assertions": {
+    "layer_alignment_matrix_created": true,
+    "selected_layers_grid_match": true,
+    "selected_layers_have_required_frames": true,
+    "mismatched_layers_rejected_or_reported": true
+  }
+}

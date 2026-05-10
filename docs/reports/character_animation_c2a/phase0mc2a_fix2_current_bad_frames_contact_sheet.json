@@ -1,0 +1,224 @@
+{
+  "cells": [
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 0,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        80,
+        57,
+        100,
+        136
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 1,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        56,
+        22,
+        148
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 2,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        85,
+        57,
+        100,
+        159
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 3,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        57,
+        21,
+        157
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 4,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        85,
+        59,
+        100,
+        162
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 5,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        58,
+        21,
+        162
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 6,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        80,
+        58,
+        100,
+        159
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 7,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        58,
+        20,
+        159
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 8,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        80,
+        57,
+        100,
+        152
+      ]
+    },
+    {
+      "title": "BAD_idle_row0_cols0-9 (FIX1 layout)",
+      "index": 9,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        56,
+        20,
+        151
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 0,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        83,
+        54,
+        100,
+        147
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 1,
+      "tag": "HALF_BODY",
+      "bbox": [
+        0,
+        53,
+        23,
+        147
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 2,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        86,
+        51,
+        100,
+        152
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 3,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        49,
+        20,
+        152
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 4,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        86,
+        52,
+        100,
+        152
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 5,
+      "tag": "FULL_BODY",
+      "bbox": [
+        0,
+        50,
+        24,
+        152
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 6,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        85,
+        53,
+        100,
+        151
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 7,
+      "tag": "FULL_BODY",
+      "bbox": [
+        0,
+        52,
+        30,
+        151
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 8,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        86,
+        74,
+        100,
+        170
+      ]
+    },
+    {
+      "title": "BAD_walk_row10_cols0-9 (FIX1 layout)",
+      "index": 9,
+      "tag": "PARTIAL_BODY",
+      "bbox": [
+        0,
+        73,
+        19,
+        168
+      ]
+    }
+  ]
+}

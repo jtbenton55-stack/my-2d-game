@@ -1,0 +1,6 @@
+{
+  "test_harness_created_or_updated": true,
+  "harness_reports_signal_chain": true,
+  "harness_scene": "res://scenes/hideout/tools/PlayerSprintRuntimeTest_0MD2A_FIX2.tscn",
+  "harness_script": "res://scenes/hideout/tools/PlayerSprintRuntimeTest_0MD2A_FIX2.gd"
+}

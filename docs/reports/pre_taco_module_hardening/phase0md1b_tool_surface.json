@@ -1,0 +1,12 @@
+{
+  "assertions": {
+    "tool_surface_boundary_created_or_existing_reused": true,
+    "missing_tool_surface_safe": true,
+    "taco_poobag_specific_logic_not_in_generic_player": true,
+    "existing_aimed_poop_behavior_preserved_or_gap_documented": true
+  },
+  "helper": "res://src/missions/tools/MissionToolSurfaceHelper.gd",
+  "iso_methods": ["supports_tool", "handle_tool_use", "get_tool_surface_id", "reset_tool_surface_runtime_state"],
+  "player_change": "Player._try_throw_poop_bag uses MissionToolSurfaceHelper; legacy missions without surface still fail safely.",
+  "note_duplicate_counter_fix": "deploy_poop_bag_decoy_at already increments poop_bags_used; removed second increment from Player to avoid double-count."
+}

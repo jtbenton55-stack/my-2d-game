@@ -1,0 +1,34 @@
+{
+  "phase": "0M-C2A-FIX2",
+  "phase_name": "Safety confirmation (pre/post work)",
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "git_status_recorded": true,
+  "production_player_scene_path": "res://scenes/characters/player.tscn",
+  "production_player_scene_exists": true,
+  "production_player_gd_path": "res://src/player/Player.gd",
+  "production_player_gd_exists": true,
+  "sandbox_scene_path": "res://scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+  "generated_animation_folder": "res://assets/characters/generated_player_visuals/c2a_animation/",
+  "reports_folder": "res://docs/reports/character_animation_c2a/",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_confirmed": true,
+    "git_status_recorded": true,
+    "production_player_scene_not_modified": true,
+    "player_gd_not_modified": true,
+    "sandbox_scene_exists": true,
+    "generated_animation_folder_exists": true
+  },
+  "notes": [
+    "production_player_scene_not_modified and player_gd_not_modified are asserted via `git diff --name-only` for those paths being empty on this branch at validation time.",
+    "Raw PVGames kit PNGs under assets/characters/pvgames_cyber_city_character_creator_kit/ were not modified (FIX2 pipeline is read-only for sources)."
+  ],
+  "git_status_porcelain_sample": [
+    "?? assets/characters/generated_player_visuals/c2a_animation/",
+    "?? docs/reports/character_animation_c2a/",
+    "?? scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+    "?? src/tools/editor/character_animation_c2a_fix2_pipeline.py",
+    "?? src/tools/editor/character_animation_c2a_fix2_static_validator.py"
+  ]
+}

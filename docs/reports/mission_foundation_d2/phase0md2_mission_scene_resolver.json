@@ -1,0 +1,11 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "generated_utc": "2026-05-10T18:08:38.590705+00:00",
+  "mission_scene_resolver_created_or_existing_reused": true,
+  "taco_bell_drop_resolves_to_expanded_scene": true,
+  "old_taco_scene_marked_legacy": true,
+  "no_new_duplicate_taco_constants": true,
+  "missionboard_uses_resolver_or_central_source": true,
+  "hideout_catalog_uses_resolver_or_central_source": true,
+  "resolve_playable_taco": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+}

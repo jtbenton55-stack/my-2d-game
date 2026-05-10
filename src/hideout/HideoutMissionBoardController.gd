@@ -2,7 +2,6 @@ extends Node
 class_name HideoutMissionBoardController
 
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
-const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
 
 func get_panel_data(state_controller: Node = null) -> Dictionary:
 	return {
@@ -66,10 +65,11 @@ func get_buttons(state_controller: Node = null) -> Array:
 
 func launch_taco_bell() -> void:
 	GameState.start_mission("taco_bell_drop")
+	var scene_path := MissionSceneResolver.resolve_playable_scene_path("taco_bell_drop")
 	if is_inside_tree() and get_tree().root.get_node_or_null("SceneManager") != null:
-		SceneManager.change_scene(TACO_BELL_SCENE)
+		SceneManager.change_scene(scene_path)
 	else:
-		get_tree().change_scene_to_file(TACO_BELL_SCENE)
+		get_tree().change_scene_to_file(scene_path)
 
 func _mission_status_text(mission_id: String, state_controller: Node = null) -> String:
 	if mission_id != "taco_bell_drop":

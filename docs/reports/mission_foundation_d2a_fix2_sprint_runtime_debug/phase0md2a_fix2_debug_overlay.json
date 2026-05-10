@@ -1,0 +1,8 @@
+{
+  "debug_overlay_created": true,
+  "debug_overlay_uses_actual_player_runtime": true,
+  "get_sprint_runtime_debug_available": true,
+  "overlay_shows_full_signal_chain": true,
+  "overlay_path": "res://src/player/PlayerSprintDebugOverlay.gd",
+  "spawn_location": "Player._ready when OS.is_debug_build() or Engine.is_editor_hint()"
+}

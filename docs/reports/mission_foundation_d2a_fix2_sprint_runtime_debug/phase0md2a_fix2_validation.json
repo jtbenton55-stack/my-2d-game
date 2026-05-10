@@ -1,0 +1,6 @@
+{
+  "static_validator_created": true,
+  "static_validator_run": true,
+  "static_validator_passed": true,
+  "validator_script": "res://src/tools/editor/mission_foundation_d2a_fix2_sprint_runtime_debug/phase0md2a_fix2_sprint_runtime_validator.py"
+}

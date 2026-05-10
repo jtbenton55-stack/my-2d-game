@@ -1,0 +1,24 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/c2a_animation/fix3_stable/parmida_player_composite_sheet_0mc2a_fix3.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 0, 200, 200)
+
+[resource]
+animations = [ {
+"frames": [ SubResource("idle_0"), SubResource("idle_1"), SubResource("idle_2") ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}
+]

@@ -1,0 +1,14 @@
+{
+  "assertions": {
+    "reset_contract_checked": true,
+    "reset_tested_or_simulated_or_blocker_documented": true,
+    "persistent_state_not_wiped": true
+  },
+  "status": "static_code_review_only",
+  "findings": [
+    "reset_mission_runtime_for_new_attempt() exists on IsoMissionBase and calls _setup_runtime_systems()",
+    "Mission failure flow uses SceneManager.show_mission_result → new scene; fresh mission load re-runs _generate_from_definition",
+    "Beam one-shot logic unchanged in IsoMissionBase (not re-verified in runtime)"
+  ],
+  "runtime_playtest": false
+}

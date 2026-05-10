@@ -1,0 +1,1845 @@
+{
+  "phase": "0M-C2A",
+  "title": "Full PVGames Character Creator Kit Animation Audit",
+  "timestamp": "2025-01-01",
+  "kit_structure": {
+    "total_spritesheets": 192,
+    "total_portraits": 192,
+    "kits": {
+      "Kit_1": {
+        "exists": true,
+        "female_categories": [
+          "Accessories",
+          "Base",
+          "Bottoms",
+          "Hair"
+        ],
+        "male_categories": []
+      },
+      "Kit_2": {
+        "exists": true,
+        "female_categories": [
+          "Head",
+          "Shadow",
+          "Tops",
+          "Weapons"
+        ],
+        "male_categories": []
+      },
+      "Kit_3": {
+        "exists": true,
+        "female_categories": [],
+        "male_categories": [
+          "Accessories",
+          "Base",
+          "Bottoms",
+          "FacialHair",
+          "Hair"
+        ]
+      },
+      "Kit_4": {
+        "exists": true,
+        "female_categories": [],
+        "male_categories": [
+          "Head",
+          "Shadow",
+          "Tops",
+          "Weapons"
+        ]
+      }
+    },
+    "female": {},
+    "male": {},
+    "by_category": {
+      "Accessories": {
+        "Kit_1": [
+          "CyberCity_1",
+          "CyberCity_10",
+          "CyberCity_11",
+          "CyberCity_12",
+          "CyberCity_13",
+          "CyberCity_14",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7",
+          "CyberCity_8",
+          "CyberCity_9"
+        ]
+      },
+      "Base": {
+        "Kit_1": [
+          "CyberCity_1",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5"
+        ]
+      },
+      "Bottoms": {
+        "Kit_1": [
+          "CyberCity_1",
+          "CyberCity_10",
+          "CyberCity_11",
+          "CyberCity_12",
+          "CyberCity_13",
+          "CyberCity_14",
+          "CyberCity_15",
+          "CyberCity_16",
+          "CyberCity_17",
+          "CyberCity_18",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7",
+          "CyberCity_8",
+          "CyberCity_9"
+        ]
+      },
+      "Hair": {
+        "Kit_1": [
+          "CyberCity_1",
+          "CyberCity_10",
+          "CyberCity_11",
+          "CyberCity_12",
+          "CyberCity_13",
+          "CyberCity_14",
+          "CyberCity_15",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7",
+          "CyberCity_8",
+          "CyberCity_9"
+        ]
+      },
+      "Head": {
+        "Kit_2": [
+          "CyberCity_1",
+          "CyberCity_10",
+          "CyberCity_11",
+          "CyberCity_12",
+          "CyberCity_13",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7",
+          "CyberCity_8",
+          "CyberCity_9"
+        ]
+      },
+      "Shadow": {
+        "Kit_2": []
+      },
+      "Tops": {
+        "Kit_2": [
+          "CyberCity_1",
+          "CyberCity_10",
+          "CyberCity_11",
+          "CyberCity_12",
+          "CyberCity_13",
+          "CyberCity_14",
+          "CyberCity_15",
+          "CyberCity_16",
+          "CyberCity_17",
+          "CyberCity_18",
+          "CyberCity_19",
+          "CyberCity_2",
+          "CyberCity_20",
+          "CyberCity_21",
+          "CyberCity_22",
+          "CyberCity_23",
+          "CyberCity_24",
+          "CyberCity_25",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7",
+          "CyberCity_8",
+          "CyberCity_9"
+        ]
+      },
+      "Weapons": {
+        "Kit_2": [
+          "CyberCity_1",
+          "CyberCity_2",
+          "CyberCity_3",
+          "CyberCity_4",
+          "CyberCity_5",
+          "CyberCity_6",
+          "CyberCity_7"
+        ]
+      }
+    }
+  },
+  "c2_selected_layers_analysis": {
+    "base": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9959
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9959
+      },
+      "layer_name": "base",
+      "variant": "CyberCity_3"
+    },
+    "bottoms": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9964,
+        9961
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9964,
+        "bottom": 9961
+      },
+      "layer_name": "bottoms",
+      "variant": "CyberCity_13"
+    },
+    "tops": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9943,
+        9914
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9943,
+        "bottom": 9914
+      },
+      "layer_name": "tops",
+      "variant": "CyberCity_24"
+    },
+    "head": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9882
+      },
+      "layer_name": "head",
+      "variant": "CyberCity_4"
+    },
+    "hair": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9882
+      },
+      "layer_name": "hair",
+      "variant": "CyberCity_7"
+    }
+  },
+  "female_base_variants_sample": {
+    "CyberCity_1": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_1/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9959
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9959
+      }
+    },
+    "CyberCity_2": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_2/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9959
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9959
+      }
+    },
+    "CyberCity_3": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9959
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9959
+      }
+    },
+    "CyberCity_4": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9959
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9959
+      }
+    },
+    "CyberCity_5": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_5/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        51,
+        9964,
+        9960
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 51,
+        "right": 9964,
+        "bottom": 9960
+      }
+    }
+  },
+  "female_hair_variants_sample": {
+    "CyberCity_1": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_1/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9880
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9880
+      }
+    },
+    "CyberCity_10": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_10/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        52,
+        51,
+        9950,
+        9892
+      ],
+      "content_bounds": {
+        "left": 52,
+        "top": 51,
+        "right": 9950,
+        "bottom": 9892
+      }
+    },
+    "CyberCity_11": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_11/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        49,
+        9951,
+        9888
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 49,
+        "right": 9951,
+        "bottom": 9888
+      }
+    },
+    "CyberCity_12": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_12/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9886
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9886
+      }
+    },
+    "CyberCity_13": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_13/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9883
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9883
+      }
+    },
+    "CyberCity_14": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_14/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        49,
+        47,
+        9953,
+        9880
+      ],
+      "content_bounds": {
+        "left": 49,
+        "top": 47,
+        "right": 9953,
+        "bottom": 9880
+      }
+    },
+    "CyberCity_15": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_15/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        49,
+        9951,
+        9883
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 49,
+        "right": 9951,
+        "bottom": 9883
+      }
+    },
+    "CyberCity_2": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_2/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        52,
+        51,
+        9949,
+        9884
+      ],
+      "content_bounds": {
+        "left": 52,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9884
+      }
+    },
+    "CyberCity_3": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        49,
+        9950,
+        9883
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 49,
+        "right": 9950,
+        "bottom": 9883
+      }
+    },
+    "CyberCity_4": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        50,
+        48,
+        9952,
+        9882
+      ],
+      "content_bounds": {
+        "left": 50,
+        "top": 48,
+        "right": 9952,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_5": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_5/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9893
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9893
+      }
+    },
+    "CyberCity_6": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_6/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        49,
+        9951,
+        9884
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 49,
+        "right": 9951,
+        "bottom": 9884
+      }
+    },
+    "CyberCity_7": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_8": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_8/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        52,
+        49,
+        9950,
+        9880
+      ],
+      "content_bounds": {
+        "left": 52,
+        "top": 49,
+        "right": 9950,
+        "bottom": 9880
+      }
+    },
+    "CyberCity_9": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_9/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        50,
+        48,
+        9951,
+        9880
+      ],
+      "content_bounds": {
+        "left": 50,
+        "top": 48,
+        "right": 9951,
+        "bottom": 9880
+      }
+    }
+  },
+  "female_tops_variants_sample": {
+    "CyberCity_1": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_1/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        60,
+        9942,
+        9914
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 60,
+        "right": 9942,
+        "bottom": 9914
+      }
+    },
+    "CyberCity_10": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_10/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        62,
+        9944,
+        9924
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 62,
+        "right": 9944,
+        "bottom": 9924
+      }
+    },
+    "CyberCity_11": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_11/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9944,
+        9919
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9944,
+        "bottom": 9919
+      }
+    },
+    "CyberCity_12": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_12/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        63,
+        9943,
+        9909
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 63,
+        "right": 9943,
+        "bottom": 9909
+      }
+    },
+    "CyberCity_13": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_13/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        51,
+        9949,
+        9907
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9907
+      }
+    },
+    "CyberCity_14": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_14/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        51,
+        9949,
+        9917
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9917
+      }
+    },
+    "CyberCity_15": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_15/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        51,
+        9950,
+        9922
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 51,
+        "right": 9950,
+        "bottom": 9922
+      }
+    },
+    "CyberCity_16": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_16/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        62,
+        9944,
+        9911
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 62,
+        "right": 9944,
+        "bottom": 9911
+      }
+    },
+    "CyberCity_17": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_17/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9942,
+        9909
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9942,
+        "bottom": 9909
+      }
+    },
+    "CyberCity_18": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_18/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9942,
+        9917
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9942,
+        "bottom": 9917
+      }
+    },
+    "CyberCity_19": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_19/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        32,
+        61,
+        9972,
+        9961
+      ],
+      "content_bounds": {
+        "left": 32,
+        "top": 61,
+        "right": 9972,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_2": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_2/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9944,
+        9912
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9944,
+        "bottom": 9912
+      }
+    },
+    "CyberCity_20": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_20/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        61,
+        9944,
+        9912
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 61,
+        "right": 9944,
+        "bottom": 9912
+      }
+    },
+    "CyberCity_21": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_21/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        62,
+        9944,
+        9914
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 62,
+        "right": 9944,
+        "bottom": 9914
+      }
+    },
+    "CyberCity_22": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_22/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        51,
+        9949,
+        9911
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9911
+      }
+    },
+    "CyberCity_23": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_23/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9943,
+        9922
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9943,
+        "bottom": 9922
+      }
+    },
+    "CyberCity_24": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9943,
+        9914
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9943,
+        "bottom": 9914
+      }
+    },
+    "CyberCity_25": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_25/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        54,
+        9965,
+        9961
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 54,
+        "right": 9965,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_3": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        48,
+        63,
+        9940,
+        9905
+      ],
+      "content_bounds": {
+        "left": 48,
+        "top": 63,
+        "right": 9940,
+        "bottom": 9905
+      }
+    },
+    "CyberCity_4": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9961,
+        9949
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9961,
+        "bottom": 9949
+      }
+    },
+    "CyberCity_5": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_5/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        49,
+        64,
+        9941,
+        9909
+      ],
+      "content_bounds": {
+        "left": 49,
+        "top": 64,
+        "right": 9941,
+        "bottom": 9909
+      }
+    },
+    "CyberCity_6": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_6/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        64,
+        9943,
+        9909
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 64,
+        "right": 9943,
+        "bottom": 9909
+      }
+    },
+    "CyberCity_7": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_7/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        63,
+        9945,
+        9914
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 63,
+        "right": 9945,
+        "bottom": 9914
+      }
+    },
+    "CyberCity_8": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_8/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        45,
+        64,
+        9942,
+        9912
+      ],
+      "content_bounds": {
+        "left": 45,
+        "top": 64,
+        "right": 9942,
+        "bottom": 9912
+      }
+    },
+    "CyberCity_9": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_9/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        37,
+        64,
+        9942,
+        9906
+      ],
+      "content_bounds": {
+        "left": 37,
+        "top": 64,
+        "right": 9942,
+        "bottom": 9906
+      }
+    }
+  },
+  "female_bottoms_variants_sample": {
+    "CyberCity_1": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_1/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9964,
+        9960
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9964,
+        "bottom": 9960
+      }
+    },
+    "CyberCity_10": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_10/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        78,
+        9965,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 78,
+        "right": 9965,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_11": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_11/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9965,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9965,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_12": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_12/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        78,
+        9965,
+        9961
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 78,
+        "right": 9965,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_13": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9964,
+        9961
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9964,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_14": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_14/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9965,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9965,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_15": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_15/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        80,
+        9964,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 80,
+        "right": 9964,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_16": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_16/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        75,
+        9964,
+        9961
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 75,
+        "right": 9964,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_17": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_17/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        77,
+        9965,
+        9966
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 77,
+        "right": 9965,
+        "bottom": 9966
+      }
+    },
+    "CyberCity_18": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_18/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        82,
+        9964,
+        9960
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 82,
+        "right": 9964,
+        "bottom": 9960
+      }
+    },
+    "CyberCity_2": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_2/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        78,
+        9965,
+        9961
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 78,
+        "right": 9965,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_3": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        78,
+        9965,
+        9961
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 78,
+        "right": 9965,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_4": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        78,
+        9965,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 78,
+        "right": 9965,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_5": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_5/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9964,
+        9966
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9964,
+        "bottom": 9966
+      }
+    },
+    "CyberCity_6": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_6/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        77,
+        9965,
+        9963
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 77,
+        "right": 9965,
+        "bottom": 9963
+      }
+    },
+    "CyberCity_7": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_7/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        79,
+        9965,
+        9962
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 79,
+        "right": 9965,
+        "bottom": 9962
+      }
+    },
+    "CyberCity_8": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_8/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        38,
+        81,
+        9965,
+        9961
+      ],
+      "content_bounds": {
+        "left": 38,
+        "top": 81,
+        "right": 9965,
+        "bottom": 9961
+      }
+    },
+    "CyberCity_9": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_9/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        39,
+        80,
+        9965,
+        9960
+      ],
+      "content_bounds": {
+        "left": 39,
+        "top": 80,
+        "right": 9965,
+        "bottom": 9960
+      }
+    }
+  },
+  "female_head_variants_sample": {
+    "CyberCity_1": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_1/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        56,
+        54,
+        9946,
+        9882
+      ],
+      "content_bounds": {
+        "left": 56,
+        "top": 54,
+        "right": 9946,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_10": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_10/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        55,
+        52,
+        9948,
+        9885
+      ],
+      "content_bounds": {
+        "left": 55,
+        "top": 52,
+        "right": 9948,
+        "bottom": 9885
+      }
+    },
+    "CyberCity_11": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_11/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        53,
+        51,
+        9949,
+        9881
+      ],
+      "content_bounds": {
+        "left": 53,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9881
+      }
+    },
+    "CyberCity_12": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_12/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9883
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9883
+      }
+    },
+    "CyberCity_13": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_13/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        43,
+        39,
+        9959,
+        9887
+      ],
+      "content_bounds": {
+        "left": 43,
+        "top": 39,
+        "right": 9959,
+        "bottom": 9887
+      }
+    },
+    "CyberCity_2": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_2/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        55,
+        51,
+        9947,
+        9882
+      ],
+      "content_bounds": {
+        "left": 55,
+        "top": 51,
+        "right": 9947,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_3": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_3/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        51,
+        9949,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 51,
+        "right": 9949,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_4": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9950,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9950,
+        "bottom": 9882
+      }
+    },
+    "CyberCity_5": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_5/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        56,
+        55,
+        9946,
+        9881
+      ],
+      "content_bounds": {
+        "left": 56,
+        "top": 55,
+        "right": 9946,
+        "bottom": 9881
+      }
+    },
+    "CyberCity_6": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_6/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        50,
+        9949,
+        9886
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 50,
+        "right": 9949,
+        "bottom": 9886
+      }
+    },
+    "CyberCity_7": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_7/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        48,
+        9951,
+        9888
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 48,
+        "right": 9951,
+        "bottom": 9888
+      }
+    },
+    "CyberCity_8": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_8/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        55,
+        52,
+        9947,
+        9883
+      ],
+      "content_bounds": {
+        "left": 55,
+        "top": 52,
+        "right": 9947,
+        "bottom": 9883
+      }
+    },
+    "CyberCity_9": {
+      "width": 10000,
+      "height": 10000,
+      "mode": "RGBA",
+      "format": "PNG",
+      "path": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_9/Spritesheet.png",
+      "detected_grid": null,
+      "alpha_bbox": [
+        51,
+        51,
+        9947,
+        9882
+      ],
+      "content_bounds": {
+        "left": 51,
+        "top": 51,
+        "right": 9947,
+        "bottom": 9882
+      }
+    }
+  },
+  "animation_structure_inference": {
+    "c2_layers_grid_consistent": true,
+    "frame_dimensions": [],
+    "grid_patterns": [],
+    "animation_rows_hypothesis": null,
+    "direction_order_hypothesis": null,
+    "confidence": "low"
+  },
+  "assertions": {
+    "full_animation_audit_completed": true,
+    "kit_documentation_checked_if_present": true,
+    "selected_layers_share_frame_layout_or_mismatch_reported": false,
+    "frame_size_detected_or_missing_reported": true,
+    "direction_order_evidence_recorded": true,
+    "no_raw_source_assets_modified": true
+  },
+  "layer_alignment_summary": {
+    "error": "No grids detected in C2 layers"
+  }
+}

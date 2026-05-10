@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ctch3wajbwtsc"]
+
+[ext_resource type="Script" path="res://scenes/hideout/tools/PlayerSprintRuntimeTest_0MD2A_FIX2.gd" id="1_script"]
+
+[node name="PlayerSprintRuntimeTest0MD2AFIX2" type="Node"]
+script = ExtResource("1_script")
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 920.0
+offset_bottom = 72.0
+text = "0M-D2A-FIX2: Instance under a running mission (or any scene with Player in group 'player'). Watch Output + on-screen overlay. Chain: CTRL→ACT→REQ→ACTV→MULT→VEL."

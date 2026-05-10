@@ -1,0 +1,25 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "sprint_chain_table": [
+    { "link": "Ctrl physically pressed", "status": "NOT TESTED", "evidence": "Overlay + harness expose ctrl_physical_pressed / ctrl_key_pressed; GRB not connected." },
+    { "link": "sprint action pressed", "status": "NOT TESTED", "evidence": "InputMap fixed + strength; verify sprint_action_pressed in overlay." },
+    { "link": "is_sprint_requested true", "status": "NOT TESTED", "evidence": "Shown in overlay dict key is_sprint_requested." },
+    { "link": "is_sprint_active true", "status": "NOT TESTED", "evidence": "Shown as is_sprint_active; requires moving + stamina + gates." },
+    { "link": "speed multiplier > 1.0", "status": "NOT TESTED", "evidence": "speed_multiplier in debug when active sprint." },
+    { "link": "multiplier applied to final velocity", "status": "TRUE", "evidence": "Code audit: single move_speed *= sprint_mult then velocity = input * move_speed." },
+    { "link": "actual velocity increases", "status": "NOT TESTED", "evidence": "Compare velocity_length_post_slide sprint vs non-sprint in overlay." }
+  ],
+  "root_cause": "Modifier-only sprint binding (keycode 0) plus lack of action strength / layout key polling likely prevented reliable sprint request in FIX1.",
+  "reports": [
+    "phase0md2a_fix2_safety_baseline.md",
+    "phase0md2a_fix2_debug_overlay.md",
+    "phase0md2a_fix2_failure_chain_audit.md",
+    "phase0md2a_fix2_implementation.md",
+    "phase0md2a_fix2_test_harness.md",
+    "phase0md2a_fix2_validation.md",
+    "phase0md2a_fix2_runtime_validation.md",
+    "phase0md2a_fix2_final_safety_review.md",
+    "phase0md2a_fix2_sprint_runtime_debug_fix.md"
+  ]
+}

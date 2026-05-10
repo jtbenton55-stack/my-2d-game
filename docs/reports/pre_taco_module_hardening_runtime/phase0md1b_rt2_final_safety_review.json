@@ -1,0 +1,12 @@
+{
+  "final_branch": "c2a-full-character-animation-20260509-172230",
+  "project_godot_in_diff": false,
+  "taco_scenes_in_diff": false,
+  "player_tscn_in_diff": false,
+  "static_validator_rerun": true,
+  "assertions": {
+    "final_git_status_recorded": true,
+    "protected_files_checked": true,
+    "static_validator_rerun": true
+  }
+}

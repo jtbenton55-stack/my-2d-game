@@ -1,0 +1,2938 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/c2b_context_classifier/parmida_context_classifier_atlas.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="walk_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_20"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_21"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_22"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_23"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_24"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_25"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_26"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_27"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_28"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_29"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_30"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_31"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_32"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_33"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_34"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_35"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_36"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_37"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_38"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_39"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_40"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_41"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_42"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_43"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_44"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_45"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_46"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_47"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_48"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_49"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_50"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_51"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_52"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_53"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_54"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_55"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_56"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_57"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_58"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_59"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_60"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_61"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_62"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_63"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_64"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_65"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_66"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_67"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_68"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_69"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_70"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_71"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_72"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_73"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_74"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_75"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_76"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_77"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_78"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_best_79"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_20"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_21"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_22"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_23"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_24"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_25"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_26"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_27"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_28"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_29"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_30"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="run_best_31"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_20"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_21"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_22"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_23"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_24"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_25"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_26"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_27"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_28"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_29"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_30"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_31"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_32"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_33"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_34"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_35"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_36"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_37"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_38"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_39"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_40"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_41"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_42"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_43"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_44"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_45"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_46"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_47"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_48"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_49"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_50"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_51"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_52"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_53"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_54"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_55"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_56"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_57"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_58"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_59"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_60"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_61"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_62"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_63"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_64"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_65"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_66"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_67"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_68"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_69"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_70"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_71"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_72"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_73"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_74"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_75"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_76"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_77"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_78"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_79"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_80"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_81"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_82"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_83"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_84"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_85"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_86"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_87"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_88"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_89"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_90"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_91"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_92"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_93"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_94"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_95"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_96"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_97"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_98"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_99"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_100"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_101"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_102"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_103"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_104"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_105"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_106"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_107"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_108"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_109"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_110"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_111"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_112"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_113"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_114"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_115"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_116"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_117"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_118"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_119"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_120"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_121"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_122"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_123"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_124"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_125"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_126"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_127"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_128"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_129"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_130"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_131"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_132"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_133"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_134"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_135"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_136"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_137"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_138"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_139"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_140"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_141"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_142"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_143"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_144"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_145"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_146"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_147"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_148"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_149"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_150"]
+atlas = ExtResource("1_sheet")
+region = Rect2(30000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_151"]
+atlas = ExtResource("1_sheet")
+region = Rect2(30200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_152"]
+atlas = ExtResource("1_sheet")
+region = Rect2(30400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_153"]
+atlas = ExtResource("1_sheet")
+region = Rect2(30600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_154"]
+atlas = ExtResource("1_sheet")
+region = Rect2(30800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_155"]
+atlas = ExtResource("1_sheet")
+region = Rect2(31000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_156"]
+atlas = ExtResource("1_sheet")
+region = Rect2(31200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_157"]
+atlas = ExtResource("1_sheet")
+region = Rect2(31400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_158"]
+atlas = ExtResource("1_sheet")
+region = Rect2(31600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_159"]
+atlas = ExtResource("1_sheet")
+region = Rect2(31800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_160"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_161"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_162"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_163"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_164"]
+atlas = ExtResource("1_sheet")
+region = Rect2(32800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_165"]
+atlas = ExtResource("1_sheet")
+region = Rect2(33000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_166"]
+atlas = ExtResource("1_sheet")
+region = Rect2(33200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_167"]
+atlas = ExtResource("1_sheet")
+region = Rect2(33400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_168"]
+atlas = ExtResource("1_sheet")
+region = Rect2(33600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_169"]
+atlas = ExtResource("1_sheet")
+region = Rect2(33800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_170"]
+atlas = ExtResource("1_sheet")
+region = Rect2(34000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_171"]
+atlas = ExtResource("1_sheet")
+region = Rect2(34200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_172"]
+atlas = ExtResource("1_sheet")
+region = Rect2(34400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_173"]
+atlas = ExtResource("1_sheet")
+region = Rect2(34600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_174"]
+atlas = ExtResource("1_sheet")
+region = Rect2(34800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_175"]
+atlas = ExtResource("1_sheet")
+region = Rect2(35000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_176"]
+atlas = ExtResource("1_sheet")
+region = Rect2(35200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_177"]
+atlas = ExtResource("1_sheet")
+region = Rect2(35400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_178"]
+atlas = ExtResource("1_sheet")
+region = Rect2(35600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_179"]
+atlas = ExtResource("1_sheet")
+region = Rect2(35800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_180"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_181"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_182"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_183"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_184"]
+atlas = ExtResource("1_sheet")
+region = Rect2(36800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_185"]
+atlas = ExtResource("1_sheet")
+region = Rect2(37000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_186"]
+atlas = ExtResource("1_sheet")
+region = Rect2(37200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_187"]
+atlas = ExtResource("1_sheet")
+region = Rect2(37400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_188"]
+atlas = ExtResource("1_sheet")
+region = Rect2(37600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_189"]
+atlas = ExtResource("1_sheet")
+region = Rect2(37800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_190"]
+atlas = ExtResource("1_sheet")
+region = Rect2(38000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_191"]
+atlas = ExtResource("1_sheet")
+region = Rect2(38200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_192"]
+atlas = ExtResource("1_sheet")
+region = Rect2(38400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_193"]
+atlas = ExtResource("1_sheet")
+region = Rect2(38600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_194"]
+atlas = ExtResource("1_sheet")
+region = Rect2(38800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_195"]
+atlas = ExtResource("1_sheet")
+region = Rect2(39000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_196"]
+atlas = ExtResource("1_sheet")
+region = Rect2(39200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_197"]
+atlas = ExtResource("1_sheet")
+region = Rect2(39400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_198"]
+atlas = ExtResource("1_sheet")
+region = Rect2(39600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_199"]
+atlas = ExtResource("1_sheet")
+region = Rect2(39800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_200"]
+atlas = ExtResource("1_sheet")
+region = Rect2(40000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_201"]
+atlas = ExtResource("1_sheet")
+region = Rect2(40200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_202"]
+atlas = ExtResource("1_sheet")
+region = Rect2(40400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_203"]
+atlas = ExtResource("1_sheet")
+region = Rect2(40600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_204"]
+atlas = ExtResource("1_sheet")
+region = Rect2(40800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_205"]
+atlas = ExtResource("1_sheet")
+region = Rect2(41000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_206"]
+atlas = ExtResource("1_sheet")
+region = Rect2(41200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_207"]
+atlas = ExtResource("1_sheet")
+region = Rect2(41400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_208"]
+atlas = ExtResource("1_sheet")
+region = Rect2(41600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_209"]
+atlas = ExtResource("1_sheet")
+region = Rect2(41800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_210"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_211"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_212"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_213"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_214"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_215"]
+atlas = ExtResource("1_sheet")
+region = Rect2(43000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_216"]
+atlas = ExtResource("1_sheet")
+region = Rect2(43200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_217"]
+atlas = ExtResource("1_sheet")
+region = Rect2(43400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_218"]
+atlas = ExtResource("1_sheet")
+region = Rect2(43600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_219"]
+atlas = ExtResource("1_sheet")
+region = Rect2(43800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_220"]
+atlas = ExtResource("1_sheet")
+region = Rect2(44000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_221"]
+atlas = ExtResource("1_sheet")
+region = Rect2(44200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_222"]
+atlas = ExtResource("1_sheet")
+region = Rect2(44400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_223"]
+atlas = ExtResource("1_sheet")
+region = Rect2(44600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_224"]
+atlas = ExtResource("1_sheet")
+region = Rect2(44800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_225"]
+atlas = ExtResource("1_sheet")
+region = Rect2(45000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_226"]
+atlas = ExtResource("1_sheet")
+region = Rect2(45200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_227"]
+atlas = ExtResource("1_sheet")
+region = Rect2(45400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_228"]
+atlas = ExtResource("1_sheet")
+region = Rect2(45600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_229"]
+atlas = ExtResource("1_sheet")
+region = Rect2(45800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_230"]
+atlas = ExtResource("1_sheet")
+region = Rect2(46000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_231"]
+atlas = ExtResource("1_sheet")
+region = Rect2(46200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_232"]
+atlas = ExtResource("1_sheet")
+region = Rect2(46400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_233"]
+atlas = ExtResource("1_sheet")
+region = Rect2(46600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_234"]
+atlas = ExtResource("1_sheet")
+region = Rect2(46800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_235"]
+atlas = ExtResource("1_sheet")
+region = Rect2(47000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_236"]
+atlas = ExtResource("1_sheet")
+region = Rect2(47200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_237"]
+atlas = ExtResource("1_sheet")
+region = Rect2(47400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_238"]
+atlas = ExtResource("1_sheet")
+region = Rect2(47600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_239"]
+atlas = ExtResource("1_sheet")
+region = Rect2(47800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_240"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_241"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_242"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_243"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_244"]
+atlas = ExtResource("1_sheet")
+region = Rect2(48800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_245"]
+atlas = ExtResource("1_sheet")
+region = Rect2(49000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_246"]
+atlas = ExtResource("1_sheet")
+region = Rect2(49200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_247"]
+atlas = ExtResource("1_sheet")
+region = Rect2(49400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_248"]
+atlas = ExtResource("1_sheet")
+region = Rect2(49600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_249"]
+atlas = ExtResource("1_sheet")
+region = Rect2(49800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_250"]
+atlas = ExtResource("1_sheet")
+region = Rect2(50000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_251"]
+atlas = ExtResource("1_sheet")
+region = Rect2(50200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_252"]
+atlas = ExtResource("1_sheet")
+region = Rect2(50400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_253"]
+atlas = ExtResource("1_sheet")
+region = Rect2(50600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_254"]
+atlas = ExtResource("1_sheet")
+region = Rect2(50800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_255"]
+atlas = ExtResource("1_sheet")
+region = Rect2(51000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_256"]
+atlas = ExtResource("1_sheet")
+region = Rect2(51200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_257"]
+atlas = ExtResource("1_sheet")
+region = Rect2(51400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_258"]
+atlas = ExtResource("1_sheet")
+region = Rect2(51600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_259"]
+atlas = ExtResource("1_sheet")
+region = Rect2(51800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_260"]
+atlas = ExtResource("1_sheet")
+region = Rect2(52000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_261"]
+atlas = ExtResource("1_sheet")
+region = Rect2(52200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_262"]
+atlas = ExtResource("1_sheet")
+region = Rect2(52400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_263"]
+atlas = ExtResource("1_sheet")
+region = Rect2(52600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_264"]
+atlas = ExtResource("1_sheet")
+region = Rect2(52800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_265"]
+atlas = ExtResource("1_sheet")
+region = Rect2(53000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_266"]
+atlas = ExtResource("1_sheet")
+region = Rect2(53200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_267"]
+atlas = ExtResource("1_sheet")
+region = Rect2(53400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_268"]
+atlas = ExtResource("1_sheet")
+region = Rect2(53600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_269"]
+atlas = ExtResource("1_sheet")
+region = Rect2(53800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_270"]
+atlas = ExtResource("1_sheet")
+region = Rect2(54000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_271"]
+atlas = ExtResource("1_sheet")
+region = Rect2(54200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_272"]
+atlas = ExtResource("1_sheet")
+region = Rect2(54400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_273"]
+atlas = ExtResource("1_sheet")
+region = Rect2(54600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_274"]
+atlas = ExtResource("1_sheet")
+region = Rect2(54800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_275"]
+atlas = ExtResource("1_sheet")
+region = Rect2(55000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_276"]
+atlas = ExtResource("1_sheet")
+region = Rect2(55200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_277"]
+atlas = ExtResource("1_sheet")
+region = Rect2(55400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_278"]
+atlas = ExtResource("1_sheet")
+region = Rect2(55600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_279"]
+atlas = ExtResource("1_sheet")
+region = Rect2(55800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_280"]
+atlas = ExtResource("1_sheet")
+region = Rect2(56000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_281"]
+atlas = ExtResource("1_sheet")
+region = Rect2(56200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_282"]
+atlas = ExtResource("1_sheet")
+region = Rect2(56400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_283"]
+atlas = ExtResource("1_sheet")
+region = Rect2(56600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_284"]
+atlas = ExtResource("1_sheet")
+region = Rect2(56800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_285"]
+atlas = ExtResource("1_sheet")
+region = Rect2(57000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_286"]
+atlas = ExtResource("1_sheet")
+region = Rect2(57200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_287"]
+atlas = ExtResource("1_sheet")
+region = Rect2(57400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_288"]
+atlas = ExtResource("1_sheet")
+region = Rect2(57600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_289"]
+atlas = ExtResource("1_sheet")
+region = Rect2(57800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_290"]
+atlas = ExtResource("1_sheet")
+region = Rect2(58000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_291"]
+atlas = ExtResource("1_sheet")
+region = Rect2(58200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_292"]
+atlas = ExtResource("1_sheet")
+region = Rect2(58400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_293"]
+atlas = ExtResource("1_sheet")
+region = Rect2(58600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_294"]
+atlas = ExtResource("1_sheet")
+region = Rect2(58800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_295"]
+atlas = ExtResource("1_sheet")
+region = Rect2(59000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_296"]
+atlas = ExtResource("1_sheet")
+region = Rect2(59200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_297"]
+atlas = ExtResource("1_sheet")
+region = Rect2(59400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_298"]
+atlas = ExtResource("1_sheet")
+region = Rect2(59600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_299"]
+atlas = ExtResource("1_sheet")
+region = Rect2(59800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_300"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_301"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_302"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_303"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_304"]
+atlas = ExtResource("1_sheet")
+region = Rect2(60800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_305"]
+atlas = ExtResource("1_sheet")
+region = Rect2(61000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_306"]
+atlas = ExtResource("1_sheet")
+region = Rect2(61200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_307"]
+atlas = ExtResource("1_sheet")
+region = Rect2(61400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_308"]
+atlas = ExtResource("1_sheet")
+region = Rect2(61600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_309"]
+atlas = ExtResource("1_sheet")
+region = Rect2(61800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_310"]
+atlas = ExtResource("1_sheet")
+region = Rect2(62000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_311"]
+atlas = ExtResource("1_sheet")
+region = Rect2(62200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_312"]
+atlas = ExtResource("1_sheet")
+region = Rect2(62400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_313"]
+atlas = ExtResource("1_sheet")
+region = Rect2(62600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_314"]
+atlas = ExtResource("1_sheet")
+region = Rect2(62800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_315"]
+atlas = ExtResource("1_sheet")
+region = Rect2(63000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_316"]
+atlas = ExtResource("1_sheet")
+region = Rect2(63200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_317"]
+atlas = ExtResource("1_sheet")
+region = Rect2(63400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_318"]
+atlas = ExtResource("1_sheet")
+region = Rect2(63600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_319"]
+atlas = ExtResource("1_sheet")
+region = Rect2(63800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_320"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_321"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_322"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_323"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_324"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_325"]
+atlas = ExtResource("1_sheet")
+region = Rect2(65000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_326"]
+atlas = ExtResource("1_sheet")
+region = Rect2(65200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_327"]
+atlas = ExtResource("1_sheet")
+region = Rect2(65400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_328"]
+atlas = ExtResource("1_sheet")
+region = Rect2(65600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_329"]
+atlas = ExtResource("1_sheet")
+region = Rect2(65800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_330"]
+atlas = ExtResource("1_sheet")
+region = Rect2(66000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_331"]
+atlas = ExtResource("1_sheet")
+region = Rect2(66200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_332"]
+atlas = ExtResource("1_sheet")
+region = Rect2(66400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_333"]
+atlas = ExtResource("1_sheet")
+region = Rect2(66600, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_334"]
+atlas = ExtResource("1_sheet")
+region = Rect2(66800, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_335"]
+atlas = ExtResource("1_sheet")
+region = Rect2(67000, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_336"]
+atlas = ExtResource("1_sheet")
+region = Rect2(67200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_best_337"]
+atlas = ExtResource("1_sheet")
+region = Rect2(67400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_20"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_21"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_22"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_23"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_24"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_25"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_26"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_27"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_28"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_29"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_30"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_31"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_32"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_33"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_34"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_35"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_36"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_37"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_38"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_39"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_40"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_41"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_42"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_43"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_44"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_45"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_46"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_47"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_48"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_49"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_50"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_51"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_52"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_53"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_54"]
+atlas = ExtResource("1_sheet")
+region = Rect2(10800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_55"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_56"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_57"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_58"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_59"]
+atlas = ExtResource("1_sheet")
+region = Rect2(11800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_60"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_61"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_62"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_63"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_64"]
+atlas = ExtResource("1_sheet")
+region = Rect2(12800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_65"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_66"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_67"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_68"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_69"]
+atlas = ExtResource("1_sheet")
+region = Rect2(13800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_70"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_71"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_72"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_73"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_74"]
+atlas = ExtResource("1_sheet")
+region = Rect2(14800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_75"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_76"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_77"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_78"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_79"]
+atlas = ExtResource("1_sheet")
+region = Rect2(15800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_80"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_81"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_82"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_83"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_84"]
+atlas = ExtResource("1_sheet")
+region = Rect2(16800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_85"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_86"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_87"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_88"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_89"]
+atlas = ExtResource("1_sheet")
+region = Rect2(17800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_90"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_91"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_92"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_93"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_94"]
+atlas = ExtResource("1_sheet")
+region = Rect2(18800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_95"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_96"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_97"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_98"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_99"]
+atlas = ExtResource("1_sheet")
+region = Rect2(19800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_100"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_101"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_102"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_103"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_104"]
+atlas = ExtResource("1_sheet")
+region = Rect2(20800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_105"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_106"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_107"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_108"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_109"]
+atlas = ExtResource("1_sheet")
+region = Rect2(21800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_110"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_111"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_112"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_113"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_114"]
+atlas = ExtResource("1_sheet")
+region = Rect2(22800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_115"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_116"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_117"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_118"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_119"]
+atlas = ExtResource("1_sheet")
+region = Rect2(23800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_120"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_121"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_122"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_123"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_124"]
+atlas = ExtResource("1_sheet")
+region = Rect2(24800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_125"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_126"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_127"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_128"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_129"]
+atlas = ExtResource("1_sheet")
+region = Rect2(25800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_130"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_131"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_132"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_133"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_134"]
+atlas = ExtResource("1_sheet")
+region = Rect2(26800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_135"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_136"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_137"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_138"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_139"]
+atlas = ExtResource("1_sheet")
+region = Rect2(27800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_140"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_141"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_142"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_143"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_144"]
+atlas = ExtResource("1_sheet")
+region = Rect2(28800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_145"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29000, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_146"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29200, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_147"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29400, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_148"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29600, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fight_stance_best_149"]
+atlas = ExtResource("1_sheet")
+region = Rect2(29800, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="jump_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sneak_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 1000, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="crouch_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 1200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sit_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sit_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 1400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sit_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 1400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="sit_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 1400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(3800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_20"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_21"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_22"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_23"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_24"]
+atlas = ExtResource("1_sheet")
+region = Rect2(4800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_25"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_26"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_27"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_28"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_29"]
+atlas = ExtResource("1_sheet")
+region = Rect2(5800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_30"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_31"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_32"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_33"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_34"]
+atlas = ExtResource("1_sheet")
+region = Rect2(6800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_35"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_36"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_37"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_38"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_39"]
+atlas = ExtResource("1_sheet")
+region = Rect2(7800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_40"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_41"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8200, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_42"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8400, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_43"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8600, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_44"]
+atlas = ExtResource("1_sheet")
+region = Rect2(8800, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="dance_best_45"]
+atlas = ExtResource("1_sheet")
+region = Rect2(9000, 1600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 1800, 200, 200)
+
+[sub_resource type="AtlasTexture" id="fall_best_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2400, 1800, 200, 200)
+
+[resource]
+animations = [ 
+{
+"frames": [ SubResource("walk_best_0"), SubResource("walk_best_1"), SubResource("walk_best_2"), SubResource("walk_best_3"), SubResource("walk_best_4"), SubResource("walk_best_5"), SubResource("walk_best_6"), SubResource("walk_best_7"), SubResource("walk_best_8"), SubResource("walk_best_9"), SubResource("walk_best_10"), SubResource("walk_best_11"), SubResource("walk_best_12"), SubResource("walk_best_13"), SubResource("walk_best_14"), SubResource("walk_best_15"), SubResource("walk_best_16"), SubResource("walk_best_17"), SubResource("walk_best_18"), SubResource("walk_best_19"), SubResource("walk_best_20"), SubResource("walk_best_21"), SubResource("walk_best_22"), SubResource("walk_best_23"), SubResource("walk_best_24"), SubResource("walk_best_25"), SubResource("walk_best_26"), SubResource("walk_best_27"), SubResource("walk_best_28"), SubResource("walk_best_29"), SubResource("walk_best_30"), SubResource("walk_best_31"), SubResource("walk_best_32"), SubResource("walk_best_33"), SubResource("walk_best_34"), SubResource("walk_best_35"), SubResource("walk_best_36"), SubResource("walk_best_37"), SubResource("walk_best_38"), SubResource("walk_best_39"), SubResource("walk_best_40"), SubResource("walk_best_41"), SubResource("walk_best_42"), SubResource("walk_best_43"), SubResource("walk_best_44"), SubResource("walk_best_45"), SubResource("walk_best_46"), SubResource("walk_best_47"), SubResource("walk_best_48"), SubResource("walk_best_49"), SubResource("walk_best_50"), SubResource("walk_best_51"), SubResource("walk_best_52"), SubResource("walk_best_53"), SubResource("walk_best_54"), SubResource("walk_best_55"), SubResource("walk_best_56"), SubResource("walk_best_57"), SubResource("walk_best_58"), SubResource("walk_best_59"), SubResource("walk_best_60"), SubResource("walk_best_61"), SubResource("walk_best_62"), SubResource("walk_best_63"), SubResource("walk_best_64"), SubResource("walk_best_65"), SubResource("walk_best_66"), SubResource("walk_best_67"), SubResource("walk_best_68"), SubResource("walk_best_69"), SubResource("walk_best_70"), SubResource("walk_best_71"), SubResource("walk_best_72"), SubResource("walk_best_73"), SubResource("walk_best_74"), SubResource("walk_best_75"), SubResource("walk_best_76"), SubResource("walk_best_77"), SubResource("walk_best_78"), SubResource("walk_best_79") ],
+"loop": true,
+"name": "walk_best",
+"speed": 9.0
+}, {
+"frames": [ SubResource("run_best_0"), SubResource("run_best_1"), SubResource("run_best_2"), SubResource("run_best_3"), SubResource("run_best_4"), SubResource("run_best_5"), SubResource("run_best_6"), SubResource("run_best_7"), SubResource("run_best_8"), SubResource("run_best_9"), SubResource("run_best_10"), SubResource("run_best_11"), SubResource("run_best_12"), SubResource("run_best_13"), SubResource("run_best_14"), SubResource("run_best_15"), SubResource("run_best_16"), SubResource("run_best_17"), SubResource("run_best_18"), SubResource("run_best_19"), SubResource("run_best_20"), SubResource("run_best_21"), SubResource("run_best_22"), SubResource("run_best_23"), SubResource("run_best_24"), SubResource("run_best_25"), SubResource("run_best_26"), SubResource("run_best_27"), SubResource("run_best_28"), SubResource("run_best_29"), SubResource("run_best_30"), SubResource("run_best_31") ],
+"loop": true,
+"name": "run_best",
+"speed": 12.0
+}, {
+"frames": [ SubResource("idle_best_0"), SubResource("idle_best_1"), SubResource("idle_best_2"), SubResource("idle_best_3"), SubResource("idle_best_4"), SubResource("idle_best_5"), SubResource("idle_best_6"), SubResource("idle_best_7"), SubResource("idle_best_8"), SubResource("idle_best_9"), SubResource("idle_best_10"), SubResource("idle_best_11"), SubResource("idle_best_12"), SubResource("idle_best_13"), SubResource("idle_best_14"), SubResource("idle_best_15"), SubResource("idle_best_16"), SubResource("idle_best_17"), SubResource("idle_best_18"), SubResource("idle_best_19"), SubResource("idle_best_20"), SubResource("idle_best_21"), SubResource("idle_best_22"), SubResource("idle_best_23"), SubResource("idle_best_24"), SubResource("idle_best_25"), SubResource("idle_best_26"), SubResource("idle_best_27"), SubResource("idle_best_28"), SubResource("idle_best_29"), SubResource("idle_best_30"), SubResource("idle_best_31"), SubResource("idle_best_32"), SubResource("idle_best_33"), SubResource("idle_best_34"), SubResource("idle_best_35"), SubResource("idle_best_36"), SubResource("idle_best_37"), SubResource("idle_best_38"), SubResource("idle_best_39"), SubResource("idle_best_40"), SubResource("idle_best_41"), SubResource("idle_best_42"), SubResource("idle_best_43"), SubResource("idle_best_44"), SubResource("idle_best_45"), SubResource("idle_best_46"), SubResource("idle_best_47"), SubResource("idle_best_48"), SubResource("idle_best_49"), SubResource("idle_best_50"), SubResource("idle_best_51"), SubResource("idle_best_52"), SubResource("idle_best_53"), SubResource("idle_best_54"), SubResource("idle_best_55"), SubResource("idle_best_56"), SubResource("idle_best_57"), SubResource("idle_best_58"), SubResource("idle_best_59"), SubResource("idle_best_60"), SubResource("idle_best_61"), SubResource("idle_best_62"), SubResource("idle_best_63"), SubResource("idle_best_64"), SubResource("idle_best_65"), SubResource("idle_best_66"), SubResource("idle_best_67"), SubResource("idle_best_68"), SubResource("idle_best_69"), SubResource("idle_best_70"), SubResource("idle_best_71"), SubResource("idle_best_72"), SubResource("idle_best_73"), SubResource("idle_best_74"), SubResource("idle_best_75"), SubResource("idle_best_76"), SubResource("idle_best_77"), SubResource("idle_best_78"), SubResource("idle_best_79"), SubResource("idle_best_80"), SubResource("idle_best_81"), SubResource("idle_best_82"), SubResource("idle_best_83"), SubResource("idle_best_84"), SubResource("idle_best_85"), SubResource("idle_best_86"), SubResource("idle_best_87"), SubResource("idle_best_88"), SubResource("idle_best_89"), SubResource("idle_best_90"), SubResource("idle_best_91"), SubResource("idle_best_92"), SubResource("idle_best_93"), SubResource("idle_best_94"), SubResource("idle_best_95"), SubResource("idle_best_96"), SubResource("idle_best_97"), SubResource("idle_best_98"), SubResource("idle_best_99"), SubResource("idle_best_100"), SubResource("idle_best_101"), SubResource("idle_best_102"), SubResource("idle_best_103"), SubResource("idle_best_104"), SubResource("idle_best_105"), SubResource("idle_best_106"), SubResource("idle_best_107"), SubResource("idle_best_108"), SubResource("idle_best_109"), SubResource("idle_best_110"), SubResource("idle_best_111"), SubResource("idle_best_112"), SubResource("idle_best_113"), SubResource("idle_best_114"), SubResource("idle_best_115"), SubResource("idle_best_116"), SubResource("idle_best_117"), SubResource("idle_best_118"), SubResource("idle_best_119"), SubResource("idle_best_120"), SubResource("idle_best_121"), SubResource("idle_best_122"), SubResource("idle_best_123"), SubResource("idle_best_124"), SubResource("idle_best_125"), SubResource("idle_best_126"), SubResource("idle_best_127"), SubResource("idle_best_128"), SubResource("idle_best_129"), SubResource("idle_best_130"), SubResource("idle_best_131"), SubResource("idle_best_132"), SubResource("idle_best_133"), SubResource("idle_best_134"), SubResource("idle_best_135"), SubResource("idle_best_136"), SubResource("idle_best_137"), SubResource("idle_best_138"), SubResource("idle_best_139"), SubResource("idle_best_140"), SubResource("idle_best_141"), SubResource("idle_best_142"), SubResource("idle_best_143"), SubResource("idle_best_144"), SubResource("idle_best_145"), SubResource("idle_best_146"), SubResource("idle_best_147"), SubResource("idle_best_148"), SubResource("idle_best_149"), SubResource("idle_best_150"), SubResource("idle_best_151"), SubResource("idle_best_152"), SubResource("idle_best_153"), SubResource("idle_best_154"), SubResource("idle_best_155"), SubResource("idle_best_156"), SubResource("idle_best_157"), SubResource("idle_best_158"), SubResource("idle_best_159"), SubResource("idle_best_160"), SubResource("idle_best_161"), SubResource("idle_best_162"), SubResource("idle_best_163"), SubResource("idle_best_164"), SubResource("idle_best_165"), SubResource("idle_best_166"), SubResource("idle_best_167"), SubResource("idle_best_168"), SubResource("idle_best_169"), SubResource("idle_best_170"), SubResource("idle_best_171"), SubResource("idle_best_172"), SubResource("idle_best_173"), SubResource("idle_best_174"), SubResource("idle_best_175"), SubResource("idle_best_176"), SubResource("idle_best_177"), SubResource("idle_best_178"), SubResource("idle_best_179"), SubResource("idle_best_180"), SubResource("idle_best_181"), SubResource("idle_best_182"), SubResource("idle_best_183"), SubResource("idle_best_184"), SubResource("idle_best_185"), SubResource("idle_best_186"), SubResource("idle_best_187"), SubResource("idle_best_188"), SubResource("idle_best_189"), SubResource("idle_best_190"), SubResource("idle_best_191"), SubResource("idle_best_192"), SubResource("idle_best_193"), SubResource("idle_best_194"), SubResource("idle_best_195"), SubResource("idle_best_196"), SubResource("idle_best_197"), SubResource("idle_best_198"), SubResource("idle_best_199"), SubResource("idle_best_200"), SubResource("idle_best_201"), SubResource("idle_best_202"), SubResource("idle_best_203"), SubResource("idle_best_204"), SubResource("idle_best_205"), SubResource("idle_best_206"), SubResource("idle_best_207"), SubResource("idle_best_208"), SubResource("idle_best_209"), SubResource("idle_best_210"), SubResource("idle_best_211"), SubResource("idle_best_212"), SubResource("idle_best_213"), SubResource("idle_best_214"), SubResource("idle_best_215"), SubResource("idle_best_216"), SubResource("idle_best_217"), SubResource("idle_best_218"), SubResource("idle_best_219"), SubResource("idle_best_220"), SubResource("idle_best_221"), SubResource("idle_best_222"), SubResource("idle_best_223"), SubResource("idle_best_224"), SubResource("idle_best_225"), SubResource("idle_best_226"), SubResource("idle_best_227"), SubResource("idle_best_228"), SubResource("idle_best_229"), SubResource("idle_best_230"), SubResource("idle_best_231"), SubResource("idle_best_232"), SubResource("idle_best_233"), SubResource("idle_best_234"), SubResource("idle_best_235"), SubResource("idle_best_236"), SubResource("idle_best_237"), SubResource("idle_best_238"), SubResource("idle_best_239"), SubResource("idle_best_240"), SubResource("idle_best_241"), SubResource("idle_best_242"), SubResource("idle_best_243"), SubResource("idle_best_244"), SubResource("idle_best_245"), SubResource("idle_best_246"), SubResource("idle_best_247"), SubResource("idle_best_248"), SubResource("idle_best_249"), SubResource("idle_best_250"), SubResource("idle_best_251"), SubResource("idle_best_252"), SubResource("idle_best_253"), SubResource("idle_best_254"), SubResource("idle_best_255"), SubResource("idle_best_256"), SubResource("idle_best_257"), SubResource("idle_best_258"), SubResource("idle_best_259"), SubResource("idle_best_260"), SubResource("idle_best_261"), SubResource("idle_best_262"), SubResource("idle_best_263"), SubResource("idle_best_264"), SubResource("idle_best_265"), SubResource("idle_best_266"), SubResource("idle_best_267"), SubResource("idle_best_268"), SubResource("idle_best_269"), SubResource("idle_best_270"), SubResource("idle_best_271"), SubResource("idle_best_272"), SubResource("idle_best_273"), SubResource("idle_best_274"), SubResource("idle_best_275"), SubResource("idle_best_276"), SubResource("idle_best_277"), SubResource("idle_best_278"), SubResource("idle_best_279"), SubResource("idle_best_280"), SubResource("idle_best_281"), SubResource("idle_best_282"), SubResource("idle_best_283"), SubResource("idle_best_284"), SubResource("idle_best_285"), SubResource("idle_best_286"), SubResource("idle_best_287"), SubResource("idle_best_288"), SubResource("idle_best_289"), SubResource("idle_best_290"), SubResource("idle_best_291"), SubResource("idle_best_292"), SubResource("idle_best_293"), SubResource("idle_best_294"), SubResource("idle_best_295"), SubResource("idle_best_296"), SubResource("idle_best_297"), SubResource("idle_best_298"), SubResource("idle_best_299"), SubResource("idle_best_300"), SubResource("idle_best_301"), SubResource("idle_best_302"), SubResource("idle_best_303"), SubResource("idle_best_304"), SubResource("idle_best_305"), SubResource("idle_best_306"), SubResource("idle_best_307"), SubResource("idle_best_308"), SubResource("idle_best_309"), SubResource("idle_best_310"), SubResource("idle_best_311"), SubResource("idle_best_312"), SubResource("idle_best_313"), SubResource("idle_best_314"), SubResource("idle_best_315"), SubResource("idle_best_316"), SubResource("idle_best_317"), SubResource("idle_best_318"), SubResource("idle_best_319"), SubResource("idle_best_320"), SubResource("idle_best_321"), SubResource("idle_best_322"), SubResource("idle_best_323"), SubResource("idle_best_324"), SubResource("idle_best_325"), SubResource("idle_best_326"), SubResource("idle_best_327"), SubResource("idle_best_328"), SubResource("idle_best_329"), SubResource("idle_best_330"), SubResource("idle_best_331"), SubResource("idle_best_332"), SubResource("idle_best_333"), SubResource("idle_best_334"), SubResource("idle_best_335"), SubResource("idle_best_336"), SubResource("idle_best_337") ],
+"loop": true,
+"name": "idle_best",
+"speed": 5.0
+}, {
+"frames": [ SubResource("fight_stance_best_0"), SubResource("fight_stance_best_1"), SubResource("fight_stance_best_2"), SubResource("fight_stance_best_3"), SubResource("fight_stance_best_4"), SubResource("fight_stance_best_5"), SubResource("fight_stance_best_6"), SubResource("fight_stance_best_7"), SubResource("fight_stance_best_8"), SubResource("fight_stance_best_9"), SubResource("fight_stance_best_10"), SubResource("fight_stance_best_11"), SubResource("fight_stance_best_12"), SubResource("fight_stance_best_13"), SubResource("fight_stance_best_14"), SubResource("fight_stance_best_15"), SubResource("fight_stance_best_16"), SubResource("fight_stance_best_17"), SubResource("fight_stance_best_18"), SubResource("fight_stance_best_19"), SubResource("fight_stance_best_20"), SubResource("fight_stance_best_21"), SubResource("fight_stance_best_22"), SubResource("fight_stance_best_23"), SubResource("fight_stance_best_24"), SubResource("fight_stance_best_25"), SubResource("fight_stance_best_26"), SubResource("fight_stance_best_27"), SubResource("fight_stance_best_28"), SubResource("fight_stance_best_29"), SubResource("fight_stance_best_30"), SubResource("fight_stance_best_31"), SubResource("fight_stance_best_32"), SubResource("fight_stance_best_33"), SubResource("fight_stance_best_34"), SubResource("fight_stance_best_35"), SubResource("fight_stance_best_36"), SubResource("fight_stance_best_37"), SubResource("fight_stance_best_38"), SubResource("fight_stance_best_39"), SubResource("fight_stance_best_40"), SubResource("fight_stance_best_41"), SubResource("fight_stance_best_42"), SubResource("fight_stance_best_43"), SubResource("fight_stance_best_44"), SubResource("fight_stance_best_45"), SubResource("fight_stance_best_46"), SubResource("fight_stance_best_47"), SubResource("fight_stance_best_48"), SubResource("fight_stance_best_49"), SubResource("fight_stance_best_50"), SubResource("fight_stance_best_51"), SubResource("fight_stance_best_52"), SubResource("fight_stance_best_53"), SubResource("fight_stance_best_54"), SubResource("fight_stance_best_55"), SubResource("fight_stance_best_56"), SubResource("fight_stance_best_57"), SubResource("fight_stance_best_58"), SubResource("fight_stance_best_59"), SubResource("fight_stance_best_60"), SubResource("fight_stance_best_61"), SubResource("fight_stance_best_62"), SubResource("fight_stance_best_63"), SubResource("fight_stance_best_64"), SubResource("fight_stance_best_65"), SubResource("fight_stance_best_66"), SubResource("fight_stance_best_67"), SubResource("fight_stance_best_68"), SubResource("fight_stance_best_69"), SubResource("fight_stance_best_70"), SubResource("fight_stance_best_71"), SubResource("fight_stance_best_72"), SubResource("fight_stance_best_73"), SubResource("fight_stance_best_74"), SubResource("fight_stance_best_75"), SubResource("fight_stance_best_76"), SubResource("fight_stance_best_77"), SubResource("fight_stance_best_78"), SubResource("fight_stance_best_79"), SubResource("fight_stance_best_80"), SubResource("fight_stance_best_81"), SubResource("fight_stance_best_82"), SubResource("fight_stance_best_83"), SubResource("fight_stance_best_84"), SubResource("fight_stance_best_85"), SubResource("fight_stance_best_86"), SubResource("fight_stance_best_87"), SubResource("fight_stance_best_88"), SubResource("fight_stance_best_89"), SubResource("fight_stance_best_90"), SubResource("fight_stance_best_91"), SubResource("fight_stance_best_92"), SubResource("fight_stance_best_93"), SubResource("fight_stance_best_94"), SubResource("fight_stance_best_95"), SubResource("fight_stance_best_96"), SubResource("fight_stance_best_97"), SubResource("fight_stance_best_98"), SubResource("fight_stance_best_99"), SubResource("fight_stance_best_100"), SubResource("fight_stance_best_101"), SubResource("fight_stance_best_102"), SubResource("fight_stance_best_103"), SubResource("fight_stance_best_104"), SubResource("fight_stance_best_105"), SubResource("fight_stance_best_106"), SubResource("fight_stance_best_107"), SubResource("fight_stance_best_108"), SubResource("fight_stance_best_109"), SubResource("fight_stance_best_110"), SubResource("fight_stance_best_111"), SubResource("fight_stance_best_112"), SubResource("fight_stance_best_113"), SubResource("fight_stance_best_114"), SubResource("fight_stance_best_115"), SubResource("fight_stance_best_116"), SubResource("fight_stance_best_117"), SubResource("fight_stance_best_118"), SubResource("fight_stance_best_119"), SubResource("fight_stance_best_120"), SubResource("fight_stance_best_121"), SubResource("fight_stance_best_122"), SubResource("fight_stance_best_123"), SubResource("fight_stance_best_124"), SubResource("fight_stance_best_125"), SubResource("fight_stance_best_126"), SubResource("fight_stance_best_127"), SubResource("fight_stance_best_128"), SubResource("fight_stance_best_129"), SubResource("fight_stance_best_130"), SubResource("fight_stance_best_131"), SubResource("fight_stance_best_132"), SubResource("fight_stance_best_133"), SubResource("fight_stance_best_134"), SubResource("fight_stance_best_135"), SubResource("fight_stance_best_136"), SubResource("fight_stance_best_137"), SubResource("fight_stance_best_138"), SubResource("fight_stance_best_139"), SubResource("fight_stance_best_140"), SubResource("fight_stance_best_141"), SubResource("fight_stance_best_142"), SubResource("fight_stance_best_143"), SubResource("fight_stance_best_144"), SubResource("fight_stance_best_145"), SubResource("fight_stance_best_146"), SubResource("fight_stance_best_147"), SubResource("fight_stance_best_148"), SubResource("fight_stance_best_149") ],
+"loop": true,
+"name": "fight_stance_best",
+"speed": 5.0
+}, {
+"frames": [ SubResource("jump_best_0"), SubResource("jump_best_1"), SubResource("jump_best_2"), SubResource("jump_best_3"), SubResource("jump_best_4"), SubResource("jump_best_5"), SubResource("jump_best_6"), SubResource("jump_best_7"), SubResource("jump_best_8"), SubResource("jump_best_9"), SubResource("jump_best_10"), SubResource("jump_best_11"), SubResource("jump_best_12"), SubResource("jump_best_13"), SubResource("jump_best_14"), SubResource("jump_best_15"), SubResource("jump_best_16"), SubResource("jump_best_17"), SubResource("jump_best_18") ],
+"loop": false,
+"name": "jump_best",
+"speed": 10.0
+}, {
+"frames": [ SubResource("sneak_best_0"), SubResource("sneak_best_1"), SubResource("sneak_best_2"), SubResource("sneak_best_3"), SubResource("sneak_best_4"), SubResource("sneak_best_5"), SubResource("sneak_best_6"), SubResource("sneak_best_7"), SubResource("sneak_best_8"), SubResource("sneak_best_9"), SubResource("sneak_best_10"), SubResource("sneak_best_11"), SubResource("sneak_best_12"), SubResource("sneak_best_13"), SubResource("sneak_best_14"), SubResource("sneak_best_15"), SubResource("sneak_best_16"), SubResource("sneak_best_17"), SubResource("sneak_best_18") ],
+"loop": true,
+"name": "sneak_best",
+"speed": 8.0
+}, {
+"frames": [ SubResource("crouch_best_0"), SubResource("crouch_best_1"), SubResource("crouch_best_2"), SubResource("crouch_best_3"), SubResource("crouch_best_4"), SubResource("crouch_best_5"), SubResource("crouch_best_6"), SubResource("crouch_best_7"), SubResource("crouch_best_8"), SubResource("crouch_best_9"), SubResource("crouch_best_10"), SubResource("crouch_best_11"), SubResource("crouch_best_12"), SubResource("crouch_best_13"), SubResource("crouch_best_14"), SubResource("crouch_best_15"), SubResource("crouch_best_16"), SubResource("crouch_best_17"), SubResource("crouch_best_18") ],
+"loop": true,
+"name": "crouch_best",
+"speed": 8.0
+}, {
+"frames": [ SubResource("sit_best_0"), SubResource("sit_best_1"), SubResource("sit_best_2"), SubResource("sit_best_3") ],
+"loop": true,
+"name": "sit_best",
+"speed": 5.0
+}, {
+"frames": [ SubResource("dance_best_0"), SubResource("dance_best_1"), SubResource("dance_best_2"), SubResource("dance_best_3"), SubResource("dance_best_4"), SubResource("dance_best_5"), SubResource("dance_best_6"), SubResource("dance_best_7"), SubResource("dance_best_8"), SubResource("dance_best_9"), SubResource("dance_best_10"), SubResource("dance_best_11"), SubResource("dance_best_12"), SubResource("dance_best_13"), SubResource("dance_best_14"), SubResource("dance_best_15"), SubResource("dance_best_16"), SubResource("dance_best_17"), SubResource("dance_best_18"), SubResource("dance_best_19"), SubResource("dance_best_20"), SubResource("dance_best_21"), SubResource("dance_best_22"), SubResource("dance_best_23"), SubResource("dance_best_24"), SubResource("dance_best_25"), SubResource("dance_best_26"), SubResource("dance_best_27"), SubResource("dance_best_28"), SubResource("dance_best_29"), SubResource("dance_best_30"), SubResource("dance_best_31"), SubResource("dance_best_32"), SubResource("dance_best_33"), SubResource("dance_best_34"), SubResource("dance_best_35"), SubResource("dance_best_36"), SubResource("dance_best_37"), SubResource("dance_best_38"), SubResource("dance_best_39"), SubResource("dance_best_40"), SubResource("dance_best_41"), SubResource("dance_best_42"), SubResource("dance_best_43"), SubResource("dance_best_44"), SubResource("dance_best_45") ],
+"loop": true,
+"name": "dance_best",
+"speed": 8.0
+}, {
+"frames": [ SubResource("fall_best_0"), SubResource("fall_best_1"), SubResource("fall_best_2"), SubResource("fall_best_3"), SubResource("fall_best_4"), SubResource("fall_best_5"), SubResource("fall_best_6"), SubResource("fall_best_7"), SubResource("fall_best_8"), SubResource("fall_best_9"), SubResource("fall_best_10"), SubResource("fall_best_11"), SubResource("fall_best_12") ],
+"loop": false,
+"name": "fall_best",
+"speed": 10.0
+}
+ ]

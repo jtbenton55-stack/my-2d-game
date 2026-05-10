@@ -1,0 +1,12 @@
+{
+  "assertions": {
+    "objective_owner_documented": true,
+    "duplicate_objective_state_risk_reduced": true,
+    "pause_objective_ui_not_broken": true,
+    "future_taco_objective_path_clear": true
+  },
+  "bridge": "res://src/missions/objectives/MissionObjectiveBridge.gd",
+  "display_owner": "QuestManager — strings + structured lists for pause menu",
+  "gating_owner": "IsoMissionBase — required objective / clue / collectible dictionaries for exit gating",
+  "iso_change": "Direct QuestManager.set_objective calls in IsoMissionBase replaced with MissionObjectiveBridge.publish_primary_objective (thin wrapper)."
+}

@@ -1,0 +1,22 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "d1b_reports_read": true,
+    "canonical_taco_scene_exists": true
+  },
+  "canonical_taco_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "d1b_reports": [
+    "docs/reports/pre_taco_module_hardening/phase0md1b_pre_taco_module_hardening.md",
+    "docs/reports/pre_taco_module_hardening/phase0md1b_validation.json"
+  ],
+  "protected_untouched_this_pass": [
+    "project.godot",
+    "scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "scenes/characters/player.tscn",
+    "scenes/hideout/HideoutHub.tscn"
+  ]
+}

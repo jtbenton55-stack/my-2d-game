@@ -1,0 +1,40 @@
+{
+  "assertions": {
+    "taco_references_searched": true,
+    "launch_references_classified": true,
+    "active_missionboard_launch_path_identified": true
+  },
+  "active_hideout_launch": {
+    "file": "src/hideout/HideoutMissionBoardController.gd",
+    "constant": "TACO_BELL_SCENE",
+    "method": "launch_taco_bell",
+    "role": "Primary MissionBoard button path (also used by catalog-driven actions)"
+  },
+  "active_catalog_slot0": {
+    "file": "src/hideout/HideoutStationCatalog.gd",
+    "constant": "TACO_BELL_SCENE",
+    "role": "Mission card `scene_path` for taco_bell_drop slot"
+  },
+  "active_debug_iso_start_mission": {
+    "file": "src/autoload/SceneManager.gd",
+    "condition": "OS.is_debug_build() && mission_id == taco_bell_drop && dev_force_iso_taco_bell",
+    "role": "Overrides catalog scene_path when starting mission from scheme flow / debug"
+  },
+  "active_debug_panel_restart": {
+    "file": "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "method": "_on_restart",
+    "role": "In-mission debug restart shortcut"
+  },
+  "legacy_story_catalog": {
+    "file": "src/autoload/GameState.gd",
+    "mission_catalog_taco_bell_drop_scene_path": "res://scenes/missions/TacoBellMission.tscn",
+    "note": "Non-iso legacy mission room; hideout iso launch bypasses this for Taco Bell Drop"
+  },
+  "bake_pipeline_defaults": {
+    "file": "src/levels/IsoMissionBase.gd",
+    "note": "bake_to_editable_scene default output remains TacoBellIso_Editable.tscn — tooling/source; not changed in 0M-D1C"
+  },
+  "editor_tooling_targets": {
+    "note": "Many `src/tools/editor/TacoBellPhase0*.gd` use SOURCE=TacoBellIso_Editable.tscn and TARGET=TacoBellIso_Editable_RedesignTest.tscn — intentional pipeline; not player launch"
+  }
+}

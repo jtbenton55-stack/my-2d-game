@@ -1,0 +1,534 @@
+{
+  "repo_root": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game",
+  "c2a_folder_exists": true,
+  "file_count": 50,
+  "files": [
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_00.png",
+      "exists": true,
+      "size_bytes": 2713,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        80,
+        57,
+        100,
+        136
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_00.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_01.png",
+      "exists": true,
+      "size_bytes": 4010,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        56,
+        22,
+        148
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_01.png.import",
+      "exists": true,
+      "size_bytes": 1006
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_02.png",
+      "exists": true,
+      "size_bytes": 2855,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        85,
+        57,
+        100,
+        159
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_02.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_03.png",
+      "exists": true,
+      "size_bytes": 3926,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        57,
+        21,
+        157
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_03.png.import",
+      "exists": true,
+      "size_bytes": 1006
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_04.png",
+      "exists": true,
+      "size_bytes": 2753,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        85,
+        59,
+        100,
+        162
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_04.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_05.png",
+      "exists": true,
+      "size_bytes": 3892,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        58,
+        21,
+        162
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_05.png.import",
+      "exists": true,
+      "size_bytes": 1006
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_06.png",
+      "exists": true,
+      "size_bytes": 2888,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        80,
+        58,
+        100,
+        159
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_06.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_07.png",
+      "exists": true,
+      "size_bytes": 3718,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        58,
+        20,
+        159
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_07.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_08.png",
+      "exists": true,
+      "size_bytes": 3054,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        80,
+        57,
+        100,
+        152
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_08.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_09.png",
+      "exists": true,
+      "size_bytes": 3717,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        56,
+        20,
+        151
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/idle_frame_09.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_00.png",
+      "exists": true,
+      "size_bytes": 2476,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        83,
+        54,
+        100,
+        147
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_00.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_01.png",
+      "exists": true,
+      "size_bytes": 3981,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        53,
+        23,
+        147
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_01.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_02.png",
+      "exists": true,
+      "size_bytes": 2328,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        86,
+        51,
+        100,
+        152
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_02.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_03.png",
+      "exists": true,
+      "size_bytes": 4263,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        49,
+        20,
+        152
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_03.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_04.png",
+      "exists": true,
+      "size_bytes": 2309,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        86,
+        52,
+        100,
+        152
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_04.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_05.png",
+      "exists": true,
+      "size_bytes": 4416,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        50,
+        24,
+        152
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_05.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_06.png",
+      "exists": true,
+      "size_bytes": 2335,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        85,
+        53,
+        100,
+        151
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_06.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_07.png",
+      "exists": true,
+      "size_bytes": 4656,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        52,
+        30,
+        151
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_07.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_08.png",
+      "exists": true,
+      "size_bytes": 2950,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        86,
+        74,
+        100,
+        170
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_08.png.import",
+      "exists": true,
+      "size_bytes": 1006
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_09.png",
+      "exists": true,
+      "size_bytes": 3770,
+      "width": 100,
+      "height": 200,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        0,
+        73,
+        19,
+        168
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/frames/walk_frame_09.png.import",
+      "exists": true,
+      "size_bytes": 1007
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_animation_metadata.json",
+      "exists": true,
+      "size_bytes": 3761
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png",
+      "exists": true,
+      "size_bytes": 62180,
+      "width": 1000,
+      "height": 400,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        80,
+        56,
+        920,
+        370
+      ]
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png.import",
+      "exists": true,
+      "size_bytes": 1068
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_frame_contact_sheet_0mc2a.png",
+      "exists": true,
+      "size_bytes": 67982,
+      "width": 2000,
+      "height": 900,
+      "mode": "RGB",
+      "alpha_channel": false
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_frame_contact_sheet_0mc2a.png.import",
+      "exists": true,
+      "size_bytes": 1081
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.broken_format_backup_0mc2a_fix1.tres",
+      "exists": true,
+      "size_bytes": 4094,
+      "resource_type": "SpriteFrames",
+      "animation_names_in_text": [],
+      "has_subresource_atlas": true,
+      "has_valid_animations_block": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.tres",
+      "exists": true,
+      "size_bytes": 4094,
+      "resource_type": "SpriteFrames",
+      "animation_names_in_text": [],
+      "has_subresource_atlas": true,
+      "has_valid_animations_block": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+      "exists": true,
+      "size_bytes": 3165,
+      "resource_type": "SpriteFrames",
+      "animation_names_in_text": [
+        "idle",
+        "walk"
+      ],
+      "has_subresource_atlas": true,
+      "has_valid_animations_block": true
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_generator.gd",
+      "exists": true,
+      "size_bytes": 1921
+    },
+    {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_generator.gd.uid",
+      "exists": true,
+      "size_bytes": 20
+    }
+  ],
+  "highlights": {
+    "composite_sheet": {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_composite_sheet_0mc2a.png",
+      "exists": true,
+      "size_bytes": 62180,
+      "width": 1000,
+      "height": 400,
+      "mode": "RGBA",
+      "alpha_channel": true,
+      "alpha_bbox": [
+        80,
+        56,
+        920,
+        370
+      ]
+    },
+    "spriteframes_fix1": {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a_fix1.tres",
+      "exists": true,
+      "size_bytes": 3165,
+      "resource_type": "SpriteFrames",
+      "animation_names_in_text": [
+        "idle",
+        "walk"
+      ],
+      "has_subresource_atlas": true,
+      "has_valid_animations_block": true
+    },
+    "spriteframes_legacy": {
+      "path": "assets/characters/generated_player_visuals/c2a_animation/parmida_player_spriteframes_0mc2a.tres",
+      "exists": true,
+      "size_bytes": 4094,
+      "resource_type": "SpriteFrames",
+      "animation_names_in_text": [],
+      "has_subresource_atlas": true,
+      "has_valid_animations_block": true
+    },
+    "sandbox_scene": {
+      "path": "scenes/hideout/tools/CharacterAnimationSandbox_0MC2A.tscn",
+      "exists": true,
+      "size_bytes": 4668
+    },
+    "sandbox_controller": {
+      "path": "scenes/hideout/tools/CharacterAnimationSandbox_0MC2AController.gd",
+      "exists": true,
+      "size_bytes": 6548
+    }
+  }
+}

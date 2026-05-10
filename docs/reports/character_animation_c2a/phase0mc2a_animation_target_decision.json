@@ -1,0 +1,66 @@
+{
+  "phase": "0M-C2A",
+  "phase_name": "Select Animation Target Option",
+  "date": "2026-05-09",
+  "selected_target": "OPTION_C_GENERIC_IDLE_WALK",
+  "selected_target_name": "Generic Idle + Generic Walk",
+  "rationale": {
+    "evidence_confidence": "medium-low",
+    "frame_size": "100x200",
+    "grid_alignment": "all_5_layers_aligned",
+    "populated_rows": 12,
+    "direction_structure": "ambiguous_12_row_pattern",
+    "risk_assessment": "directional_assumptions_too_risky"
+  },
+  "selected_layers": {
+    "base": {
+      "variant": "CyberCity_3",
+      "kit": "Kit_1",
+      "path": "CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3"
+    },
+    "bottoms": {
+      "variant": "CyberCity_13",
+      "kit": "Kit_1",
+      "path": "CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13"
+    },
+    "tops": {
+      "variant": "CyberCity_24",
+      "kit": "Kit_2",
+      "path": "CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24"
+    },
+    "head": {
+      "variant": "CyberCity_4",
+      "kit": "Kit_2",
+      "path": "CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4"
+    },
+    "hair": {
+      "variant": "CyberCity_7",
+      "kit": "Kit_1",
+      "path": "CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7"
+    }
+  },
+  "animation_plan": {
+    "idle": {
+      "row": 0,
+      "frames": "0-9",
+      "frame_count": 10,
+      "fps": 6,
+      "loop": true,
+      "rationale": "First populated row with consistent 10 frames"
+    },
+    "walk": {
+      "row": 10,
+      "frames": "0-9",
+      "frame_count": 10,
+      "fps": 10,
+      "loop": true,
+      "rationale": "Late row with full 10 frames, likely walk cycle"
+    }
+  },
+  "assertions": {
+    "animation_target_option_selected": true,
+    "animation_target_supported_by_evidence": true,
+    "no_direction_mapping_guesswork": true,
+    "static_fallback_selected_if_animation_unsafe": false
+  }
+}

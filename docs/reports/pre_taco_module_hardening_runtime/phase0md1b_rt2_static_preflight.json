@@ -1,0 +1,12 @@
+{
+  "d1b_static_validator": "PASS",
+  "rt_static_validator": "PASS",
+  "rt2_static_validator": "PASS",
+  "project_godot_modified": false,
+  "assertions": {
+    "d1b_static_validator_run_or_explained": true,
+    "rt_static_validator_run_or_explained": true,
+    "static_preflight_completed": true,
+    "project_godot_not_modified": true
+  }
+}

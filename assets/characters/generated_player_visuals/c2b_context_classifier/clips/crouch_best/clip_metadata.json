@@ -1,0 +1,32 @@
+{
+  "clip_name": "crouch_best",
+  "segment_id": 29,
+  "action_label": "full_crouch",
+  "confidence": 0.2518,
+  "start_global": 690,
+  "end_global": 708,
+  "start_row": 13,
+  "end_row": 14,
+  "frame_count": 19,
+  "frames": [
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_000.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_001.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_002.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_003.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_004.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_005.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_006.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_007.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_008.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_009.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_010.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_011.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_012.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_013.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_014.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_015.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_016.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_017.png",
+    "assets/characters/generated_player_visuals/c2b_context_classifier/clips/crouch_best/frames/crouch_best_018.png"
+  ]
+}

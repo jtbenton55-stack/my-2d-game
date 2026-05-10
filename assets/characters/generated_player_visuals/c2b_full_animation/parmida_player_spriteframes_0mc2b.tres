@@ -1,0 +1,112 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/generated_player_visuals/c2b_full_animation/parmida_player_composite_sheet_0mc2b.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="idle_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1200, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1400, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1600, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1800, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2000, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="walk_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(2200, 200, 200, 200)
+
+[resource]
+animations = [ {
+"frames": [ SubResource("idle_0"), SubResource("idle_1"), SubResource("idle_2"), SubResource("idle_3"), SubResource("idle_4"), SubResource("idle_5"), SubResource("idle_6"), SubResource("idle_7"), SubResource("idle_8"), SubResource("idle_9"), SubResource("idle_10"), SubResource("idle_11") ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource("walk_0"), SubResource("walk_1"), SubResource("walk_2"), SubResource("walk_3"), SubResource("walk_4"), SubResource("walk_5"), SubResource("walk_6"), SubResource("walk_7"), SubResource("walk_8"), SubResource("walk_9"), SubResource("walk_10"), SubResource("walk_11") ],
+"loop": true,
+"name": "walk",
+"speed": 9.0
+} ]
