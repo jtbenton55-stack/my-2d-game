@@ -1,0 +1,8 @@
+{
+  "hud_stamina_read_path_preserved": true,
+  "objective_ticker_preserved": true,
+  "poop_count_preserved": true,
+  "f10_f1_f11_pause_not_intentionally_changed": true,
+  "hud_gd_modified_this_pass": false,
+  "mission_hud_data_provider_modified_this_pass": false
+}

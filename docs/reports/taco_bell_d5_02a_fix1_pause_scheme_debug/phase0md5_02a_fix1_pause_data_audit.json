@@ -1,0 +1,9 @@
+{
+  "phase": "1",
+  "gamestate_warning_source": "Engine.has_singleton on autoloads (MissionSchemeBridge, MissionClueBridge, MissionPauseDataProvider)",
+  "assertions": {
+    "gamestate_warning_source_identified": true,
+    "pause_data_flow_mapped": true,
+    "autoload_access_pattern_documented": true
+  }
+}

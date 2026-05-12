@@ -1,0 +1,102 @@
+{
+  "phase": "GAME-ROADMAP-01 / Final",
+  "verdict": "PASS",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "audit_only_mode_honored": true,
+  "files_modified": [],
+  "files_created": [
+    "docs/reports/full_repo_roadmap_audit/phase0_safety_baseline.md",
+    "docs/reports/full_repo_roadmap_audit/phase0_safety_baseline.json",
+    "docs/reports/full_repo_roadmap_audit/phase1_full_repo_inventory.md",
+    "docs/reports/full_repo_roadmap_audit/phase1_full_repo_inventory.json",
+    "docs/reports/full_repo_roadmap_audit/phase2_current_game_state.md",
+    "docs/reports/full_repo_roadmap_audit/phase2_current_game_state.json",
+    "docs/reports/full_repo_roadmap_audit/phase2b_mission_bible_alignment_audit.md",
+    "docs/reports/full_repo_roadmap_audit/phase2b_mission_bible_alignment_audit.json",
+    "docs/reports/full_repo_roadmap_audit/phase3_system_health_audit.md",
+    "docs/reports/full_repo_roadmap_audit/phase3_system_health_audit.json",
+    "docs/reports/full_repo_roadmap_audit/phase4_documentation_truth_reconciliation.md",
+    "docs/reports/full_repo_roadmap_audit/phase4_documentation_truth_reconciliation.json",
+    "docs/reports/full_repo_roadmap_audit/phase5_architecture_risk_audit.md",
+    "docs/reports/full_repo_roadmap_audit/phase5_architecture_risk_audit.json",
+    "docs/reports/full_repo_roadmap_audit/phase6_feature_opportunity_audit.md",
+    "docs/reports/full_repo_roadmap_audit/phase6_feature_opportunity_audit.json",
+    "docs/reports/full_repo_roadmap_audit/phase7_prioritized_roadmap.md",
+    "docs/reports/full_repo_roadmap_audit/phase7_prioritized_roadmap.json",
+    "docs/reports/full_repo_roadmap_audit/phase8_next_prompt_recommendation.md",
+    "docs/reports/full_repo_roadmap_audit/phase8_next_prompt_recommendation.json",
+    "docs/reports/full_repo_roadmap_audit/phase9_validation.md",
+    "docs/reports/full_repo_roadmap_audit/phase9_validation.json",
+    "docs/reports/full_repo_roadmap_audit/phase_game_roadmap_01_static_validator_run.json",
+    "docs/reports/full_repo_roadmap_audit/phase_game_roadmap_01_final_report.md",
+    "docs/reports/full_repo_roadmap_audit/phase_game_roadmap_01_final_report.json",
+    "src/tools/editor/full_repo_roadmap_audit/phase_game_roadmap_01_static_validator.py"
+  ],
+  "inventory_summary": "13 autoloads, 26 report folders, 41 python validators/builders, full HideoutHub controller stack, 14 Phase0J + 7 Phase0K iso runtime controllers, full mission framework partial (IsoMissionBase 2632 LOC monolith), 22+15 scene backups in scenes/**, README claims 5-mission completion that does not match code.",
+  "current_game_state_summary": "Only Taco Bell Drop on TacoBellIso_Editable_RedesignTest.tscn is playable end-to-end (MainMenu -> Hideout -> Mission Board -> Taco -> Result -> Hideout). All other missions are LevelBase-style scaffolds. Hideout (state, stations, store, evidence board, scheme cards, decorating, portrait dialogue) works.",
+  "system_health_summary": "READY: project startup, SceneManager, SaveManager, HideoutHub, MissionBoard, MissionSceneResolver, PauseDataProvider, sprint/stamina, dodge, player movement, dialogue, storefront, PVGames pipelines, validators. PARTIAL: GameState catalog drift, Taco scene objective lifecycle, IsoMissionBase/LevelBase ownership, MissionObjectiveBridge reset stub, ClueBridge/SchemeBridge shells, animation pipeline (data only). DUPLICATED: two pause menu scripts.",
+  "documentation_truth_summary": "5 conflicts: canonical Taco scene D1B vs D1C (RedesignTest wins per resolver), catalog vs resolver (resolver wins), sprint fix1 vs fix2 (fix2 wins), README claims (wrong), triple objective writes (open => D5-01).",
+  "highest_architecture_risks": [
+    "IsoMissionBase monolith (after vertical slice)",
+    "Triple objective writers + reset stub (NOW: D5-01)",
+    "Louis bypass declared but router DEFERRED (D5-03)",
+    "Player <-> scene-root duck typing for tools (after vertical slice)",
+    "Attempt reset unproven on death/retry (NOW)"
+  ],
+  "best_feature_opportunities": [
+    "F1 attempt-reset contract", "F2 pause Taco mission_id pin", "F39 pause next-objective bolded",
+    "F3 Louis bypass parity", "F4 mission result + hideout return beat", "F5/F6/F7/F8 HUD + 3-bag contract",
+    "F32 3-card draft UI", "F34 mere_legal_eyes shortcut", "F35 first Sterling clue on evidence board",
+    "F56/F57/F58 onboarding trio", "F59 debug HUD toggle",
+    "F9-F12 mutations / Lower Heat / polaroids / glow+tiny pickups",
+    "F19-F21 Jazz Club iso migration", "F62 Clean Getaway tracking"
+  ],
+  "prioritized_roadmap": {
+    "P0": ["R1","R2","R3","R4"],
+    "P1": ["R5","R6","R7","R8","R9","R10","R11"],
+    "P2": ["R12","R13","R14","R15","R16"],
+    "P3": ["R17","R18","R19"],
+    "P4": ["R20","R21","R22","R23","R24"],
+    "P5": ["R25","R26","R27","R28","R29"]
+  },
+  "single_best_next_action": "R1 — Attempt-reset contract (D5-01)",
+  "next_3_actions": ["R1","R2","R4"],
+  "next_10_actions": ["R1","R2","R4","R3","R11","R5","R7","R8","R6","R9"],
+  "things_to_avoid_now": [
+    "Editing Player.gd / PlayerStaminaController.gd / project.godot",
+    "Modifying playable Taco scene unless required by R8",
+    "Touching IsoMissionBase outside attempt-reset behavior",
+    "Deleting legacy scenes/scripts",
+    "Splitting IsoMissionBase now",
+    "Mixing doc-hygiene with gameplay work",
+    "Force-pushing or rewriting git history"
+  ],
+  "things_to_defer": [
+    "Phase 2/3/4 missions until Phase 1 ships",
+    "Animation gating, audio, accessibility polish, art replacement",
+    "IsoMissionBase extraction",
+    "Phase0J/K framework split",
+    "Mission Bible Addendum"
+  ],
+  "things_to_stop_doing": [
+    "Treating TacoBellMission.tscn classic as canonical",
+    "Citing D1B canonical-scene decision",
+    "Adding new mission ids before scaffolds work",
+    "README 'completed' claims without code matching"
+  ],
+  "recommended_next_prompt_focus": "PHASE 0M-D5-01 — Taco Bell attempt-reset contract (objective bridge reset + IsoMissionBase boundary hook + Phase0K re-invokable seed)",
+  "known_uncertainties": [
+    "GRB / runtime bridge not connected during this pass; runtime claims rely on prior D1C/D2A-FIX2 reports + static evidence",
+    "MissionObjectiveBridge stub may be intentional until D5-01; re-read docstrings",
+    "Phase0K seed re-invocation must not clash with _required_objective_ids rebuild",
+    "iso_vertical_slice catalog entry: should it be surfaced to player?"
+  ],
+  "static_validator_result": "PASS",
+  "static_validator_run_path": "docs/reports/full_repo_roadmap_audit/phase_game_roadmap_01_static_validator_run.json",
+  "protected_files_modified": false,
+  "project_godot_modified": false,
+  "taco_scenes_modified": false,
+  "player_gd_modified": false,
+  "raw_or_generated_assets_modified": false,
+  "runtime_grb_inspection_result": "not_attempted_grb_not_connected"
+}

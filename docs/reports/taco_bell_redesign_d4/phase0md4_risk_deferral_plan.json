@@ -1,0 +1,39 @@
+{
+  "risk_deferral_plan_created": true,
+  "p0_p1_p2_p3_classification_done": true,
+  "animation_dependent_items_deferred": true,
+  "full_combat_full_stealth_deferred": true,
+  "p0": [
+    "Attempt-local reset + objective/pause sync",
+    "Louis route must change beam-related runtime outcome",
+    "Validators for resolver + pause payload + beam flags"
+  ],
+  "p1": [
+    "Code gate / wrong-code spawner regression harness",
+    "Beam zone wiring audit across all Area2D instances",
+    "Poop bag tuning via mission surface only"
+  ],
+  "p2": [
+    "Clue/scheme flavor in pause",
+    "Extra dialogue branches",
+    "Scene marker cleanup without layout redesign"
+  ],
+  "p3": [
+    "Art polish",
+    "Reward economy",
+    "Advanced detection AI"
+  ],
+  "risks": [
+    {"id": "iso_mission_base_size", "severity": "high", "mitigation": "Small diffs only; stop if refactor ballooning"},
+    {"id": "questmanager_global_state", "severity": "high", "mitigation": "Implement reset in bridge with tests for other missions"},
+    {"id": "scene_regeneration_paths", "severity": "medium", "mitigation": "Avoid editing RedesignTest unless signal hook unavoidable"},
+    {"id": "phase0j_phase0k_overlap", "severity": "high", "mitigation": "Document call order; consider TacoBellAttemptResetHooks coordinator"},
+    {"id": "save_load_mission_progress", "severity": "medium", "mitigation": "Do not persist attempt counters; separate completion flags"}
+  ],
+  "testing_to_prevent_regression": [
+    "Launch non-taco mission pause objectives",
+    "Resolver test scene path",
+    "Sprint/dodge smoke in taco",
+    "Double reload taco mission"
+  ]
+}

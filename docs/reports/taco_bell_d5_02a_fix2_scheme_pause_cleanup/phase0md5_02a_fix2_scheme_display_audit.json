@@ -1,0 +1,8 @@
+{
+  "phase": "1",
+  "assertions": {
+    "scheme_display_flow_audited": true,
+    "player_facing_vs_debug_fields_classified": true,
+    "readable_card_name_source_identified_or_fallback_defined": true
+  }
+}

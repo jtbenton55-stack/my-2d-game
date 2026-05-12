@@ -1,0 +1,10 @@
+{
+  "runtime_validation_attempted": true,
+  "stamina_drain_checked_or_limitation_documented": true,
+  "stamina_regen_checked_or_limitation_documented": true,
+  "runtime_limitations_documented_if_any": true,
+  "godot_cli_available": false,
+  "grb_connected": false,
+  "verdict": "PARTIAL",
+  "human_playtest_required": true
+}

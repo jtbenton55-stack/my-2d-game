@@ -1,0 +1,30 @@
+---
+description: Use SiliconFlow Kimi K2.6 as an MCP reviewer for complex repo tasks
+alwaysApply: false
+---
+
+For complex Godot, architecture, debugging, refactor, performance, or multi-file implementation tasks, consider calling the MCP tool `ask_kimi_k2_6` before editing files when a second model review would reduce risk.
+
+Use Kimi K2.6 for:
+- architecture review
+- debugging hypotheses
+- implementation planning
+- Godot playtest strategy
+- regression-risk analysis
+- spaghetti-code/refactor audits
+- alternative implementation paths
+
+Do not treat Kimi as authoritative.  Synthesize its output with:
+- local repo inspection
+- Godot MCP/runtime proof where available
+- static checks
+- actual playtesting
+- user-stated constraints
+- git branch discipline
+
+Never send secrets, API keys, credentials, private tokens, unrelated personal files, or irrelevant sensitive data to Kimi.
+
+When reporting Kimi's feedback, distinguish:
+1. what Kimi suggested,
+2. what local repo inspection confirms,
+3. what still requires runtime verification.

@@ -1,0 +1,18 @@
+{
+  "phase": "0M-D5-00 / Phase 0",
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "audit_only_mode": true,
+  "playable_taco_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "legacy_taco_scene": "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+  "resolver_routes_redesign_test": true,
+  "write_scope_ok": true,
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "audit_only_mode": true,
+    "playable_taco_scene_is_redesign_test": true,
+    "write_scope_limited_to_d5_00_reports_and_tools": true
+  }
+}

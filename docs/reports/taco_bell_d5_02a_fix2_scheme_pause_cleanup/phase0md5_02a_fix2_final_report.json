@@ -1,0 +1,10 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "player_facing_scheme_status": "Pause Scheme tab uses MissionSchemeCardFormatter only; no raw API dump in pause_menu.gd",
+  "scheme_effect_honesty_status": "Bonus line uses has_selected_card only for may-apply; otherwise not active for Taco",
+  "d5_02b_readiness": "Proceed after manual pause + F10 check",
+  "assertions": {
+    "self_review_completed": true
+  }
+}

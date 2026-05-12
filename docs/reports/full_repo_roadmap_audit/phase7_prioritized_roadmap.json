@@ -1,0 +1,84 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 7",
+  "horizons": ["P0","P1","P2","P3","P4","P5","DROP_FOR_NOW","UNKNOWN"],
+  "items": [
+    {"id":"R1","priority":"P0","title":"Attempt-reset contract (D5-01)","goal":"Implement MissionObjectiveBridge.reset_runtime_objectives_for_mission and hook it from attempt boundary","why_now":"single biggest playability gap on Taco; D4 P0","evidence":"MissionObjectiveBridge.gd is 6-line shell; Phase0K seeds at _ready; LevelBase.fail_level doesn't call iso reset","dependencies":[],"touches":["src/missions/objectives/MissionObjectiveBridge.gd","src/missions/iso/runtime/Phase0KMissionCompletionController.gd","src/levels/IsoMissionBase.gd"],"creates":["src/missions/taco_bell/TacoBellAttemptResetHooks.gd"],"forbidden":["src/player/Player.gd","src/player/PlayerStaminaController.gd","project.godot","scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"],"acceptance":["reload Taco twice clears Quest lines","garage_beam_armed true after restart","debug HUD counters reset"],"test_plan":["D5 static validator","manual Taco retry checklist"],"risk":"low_medium","size":"S_M","mode":"impl"},
+    {"id":"R2","priority":"P0","title":"Pause payload Taco mission_id pin (D5-02)","goal":"Pause tabs get non-empty mission_id when scene is Taco","why_now":"D4 P0; pause is the only owner of obj/scheme/clues UX","evidence":"MissionPauseDataProvider._effective_mission_id fallback","dependencies":[],"touches":["src/ui/test_ui/pause_menu.gd","src/levels/IsoMissionBase.gd"],"acceptance":["all 3 tabs show Taco rows","no crash cycling tabs"],"risk":"very_low","size":"XS","mode":"impl"},
+    {"id":"R3","priority":"P0","title":"Pause: next required objective bolded","goal":"Pause objectives tab visually emphasizes the next step","dependencies":["R1"],"touches":["src/ui/test_ui/pause_menu.gd"],"risk":"none","size":"XS","mode":"impl"},
+    {"id":"R4","priority":"P0","title":"Annotate stale docs (D1B canonical + sprint fix1 + c2a/c2b) + README STATUS banner","goal":"Future agents are no longer misled","why_now":"Phase 4 reconciliation flagged 5 conflicts","dependencies":[],"touches":["docs/reports/pre_taco_module_hardening/phase0md1b_canonical_taco_scene_decision.md","docs/reports/mission_foundation_d2a_sprint_fix/*","docs/reports/mission_foundation_d2a_fix1_sprint_runtime/*","docs/reports/character_animation_c2a/*","docs/reports/character_animation_c2b/* (partial)","README.md"],"risk":"none","size":"S","mode":"design_only"},
+    {"id":"R5","priority":"P1","title":"Louis bypass neutralizes beam alarm (D5-03)","goal":"Louis route disables garage_entry_beam penalty for the rest of the attempt","dependencies":["R1"],"touches":["src/missions/iso/runtime/Phase0JMechanicRouter.gd","src/levels/IsoMissionBase.gd"],"creates":["src/missions/taco_bell/TacoBellRouteBypassController.gd"],"acceptance":["Louis route: beam doesn't trigger","Main route: beam triggers once"],"risk":"medium","size":"M","mode":"impl"},
+    {"id":"R6","priority":"P1","title":"Mission Result + Hideout Return celebratory beat","goal":"Result UI lists rewards + one-line dialogue; hideout adds polaroid","dependencies":["R1","R5"],"touches":["src/ui/MissionResult.gd","src/hideout/HideoutManager.gd (light read)","src/autoload/GameState.gd (no signature change)"],"risk":"low","size":"S","mode":"impl"},
+    {"id":"R7","priority":"P1","title":"HUD: objective ticker + stamina bar + poop bag count","dependencies":["R1"],"touches":["src/ui/HUD.gd","scenes/ui/hud.tscn"],"risk":"low","size":"S_M","mode":"impl"},
+    {"id":"R8","priority":"P1","title":"Three poop-bag pickup contract for Taco","dependencies":["R1"],"touches":["scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn (scene edit; document carefully)","mission definition resource"],"risk":"medium_scene_edit","size":"S","mode":"impl"},
+    {"id":"R9","priority":"P1","title":"First Sterling clue posts to Evidence Board on Taco success","dependencies":["R6"],"touches":["src/missions/taco_bell/TacoBellDialogueProvider.gd or new taco completion hook","src/hideout/HideoutEvidenceBoardController.gd","GameState.evidence_clues"],"risk":"low","size":"S","mode":"impl"},
+    {"id":"R10","priority":"P1","title":"Onboarding micro-tutorial (Jake greet + sprint banner + bag tip)","dependencies":["R7"],"touches":["src/hideout/HideoutCharacterController.gd","src/ui/HUD.gd","src/collectibles/PoopBagPickup.gd"],"risk":"low","size":"S","mode":"impl"},
+    {"id":"R11","priority":"P1","title":"D5 static + runtime validators landed","goal":"Lock vertical slice with automated checks","dependencies":["R1","R2","R5","R7"],"touches":["src/tools/editor/taco_bell_redesign_d5/*","docs/reports/taco_bell_redesign_d5/*"],"risk":"low","size":"S","mode":"impl"},
+    {"id":"R12","priority":"P2","title":"Per-mission mutation table for Taco on iso playable","dependencies":["R1"],"risk":"low","size":"M","mode":"impl"},
+    {"id":"R13","priority":"P2","title":"Mission Board panel real status strip","risk":"low","size":"M","mode":"impl"},
+    {"id":"R14","priority":"P2","title":"Hideout dialogue reacts to last mission result","risk":"low","size":"S","mode":"impl"},
+    {"id":"R15","priority":"P2","title":"Clean Getaway tracking (perfect moment polaroid)","risk":"low","size":"S","mode":"impl"},
+    {"id":"R16","priority":"P2","title":"Scene backups cleanup pass","goal":"Move HideoutHub + Taco scene backups out of scenes/**","risk":"low_with_care","size":"S","mode":"impl"},
+    {"id":"R17","priority":"P3","title":"Migrate Jazz Club to iso framework","dependencies":["R1","R5","R11","R16","framework_split_if_needed"],"risk":"medium","size":"L","mode":"impl"},
+    {"id":"R18","priority":"P3","title":"Migrate Rewrite Room to iso framework","dependencies":["R17"],"risk":"medium","size":"L","mode":"impl"},
+    {"id":"R19","priority":"P3","title":"Sterling clue chain across Taco/Jazz/Rewrite","dependencies":["R17"],"risk":"low","size":"M","mode":"impl"},
+    {"id":"R20","priority":"P4","title":"One ambience loop per mission + alarm sting","risk":"low","size":"S_M","mode":"impl"},
+    {"id":"R21","priority":"P4","title":"Iso visual polish (light, alert ladder, vision cone)","risk":"low","size":"S_M","mode":"impl"},
+    {"id":"R22","priority":"P4","title":"Adopt c2b_fix1 SpriteFrames for Parmida walk/run/idle","risk":"low","size":"M","mode":"impl"},
+    {"id":"R23","priority":"P4","title":"Accessibility pass: outline pulse, hold-to-interact, larger dialogue","risk":"low","size":"S_each","mode":"impl"},
+    {"id":"R24","priority":"P4","title":"Storefront purchasable cosmetic decor","risk":"low","size":"S","mode":"impl"},
+    {"id":"R25","priority":"P5","title":"Extract IsoMissionBase into framework/ modules","risk":"high","size":"XL","mode":"impl"},
+    {"id":"R26","priority":"P5","title":"Rename Phase0J/K to framework/ + taco_bell/ adapters","risk":"medium","size":"M","mode":"impl"},
+    {"id":"R27","priority":"P5","title":"Replace Player <-> scene-root duck typing","risk":"medium","size":"M","mode":"impl"},
+    {"id":"R28","priority":"P5","title":"Mission unlock graph as a resource","risk":"low","size":"M","mode":"impl"},
+    {"id":"R29","priority":"P5","title":"Headless Godot CI","risk":"low","size":"M","mode":"impl"}
+  ],
+  "drop_for_now": [
+    "Full procedural mutation system",
+    "Full combat AI / new enemy types",
+    "Full stealth AI overhaul",
+    "Sterling Tower full design / boss fight",
+    "Rewriting Player.gd for animation gating",
+    "Replacing pause menu skin",
+    "Switching playable Taco back to TacoBellIso_Editable.tscn",
+    "Deleting any legacy mission scene/script",
+    "Single-pass refactor of IsoMissionBase",
+    "Combining doc-hygiene work with gameplay PRs"
+  ],
+  "unknown_need_human_decision": [
+    "When to archive classic LevelBase mission scenes",
+    "Whether iso_vertical_slice catalog entry stays",
+    "Single visual style for Phase 1 missions (pick before R17)"
+  ],
+  "single_best_next_action": "R1 — Attempt-reset contract (D5-01)",
+  "next_3_actions": ["R1","R2","R4"],
+  "next_10_actions": ["R1","R2","R4","R3","R11","R5","R7","R8","R6","R9"],
+  "avoid_now_list": [
+    "Editing Player.gd / PlayerStaminaController.gd / project.godot",
+    "Modifying the playable Taco scene unless absolutely required for R8",
+    "Touching IsoMissionBase beyond attempt-reset behavior",
+    "Deleting any legacy scenes/scripts",
+    "Splitting IsoMissionBase into modules right now",
+    "Combining doc-hygiene with gameplay work",
+    "Force-pushing or rewriting git history"
+  ],
+  "defer_list": [
+    "Phase 2/3/4 missions until Phase 1 ships",
+    "Animation gating, audio assets, accessibility polish, art replacement",
+    "IsoMissionBase extraction",
+    "Framework split of Phase0J/K",
+    "Mission Bible Addendum rewrite (after Phase 1 ships)"
+  ],
+  "stop_doing_list": [
+    "Treating TacoBellMission.tscn (classic) as canonical",
+    "Citing D1B canonical-scene decision as current",
+    "Adding new mission ids before existing ones have playable scaffolds",
+    "Writing READMEs that claim features as 'complete' without code matching"
+  ],
+  "assertions": {
+    "roadmap_created": true,
+    "single_best_next_action_identified": true,
+    "next_3_actions_identified": true,
+    "next_10_actions_identified": true,
+    "avoid_now_list_created": true
+  }
+}

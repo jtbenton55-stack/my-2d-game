@@ -1,0 +1,8 @@
+{
+  "phase": "4",
+  "assertions": {
+    "f10_contains_raw_scheme_debug": true,
+    "f10_scrollable_preserved": true,
+    "player_pause_no_longer_contains_raw_scheme_debug": true
+  }
+}

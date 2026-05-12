@@ -1,0 +1,243 @@
+{
+  "d5_spec_created": true,
+  "d5_spec_is_derived_from_d4_findings": true,
+  "old_assumptions_rejected_or_reclassified": true,
+  "d5_focus_area_classification_completed": true,
+  "d5_has_single_clear_target": true,
+  "d5_safe_playable_vertical_slice_defined": true,
+  "d5_phases_are_small_and_ordered": true,
+  "d5_acceptance_criteria_clear": true,
+  "d5_static_validation_plan_exists": true,
+  "d5_runtime_validation_plan_exists": true,
+  "d5_protected_files_listed": true,
+  "d5_stop_conditions_listed": true,
+  "d5_does_not_overbuild": true,
+  "d5_target": "Make taco_bell_drop on RedesignTest reliably playable through one clean attempt loop: synchronized objective/pause state, verified beam one-shot and Louis beam-bypass behavior, and stable reset/reload—without new combat AI, full stealth systems, or animation dependencies.",
+  "d5_target_reason": "Repo already contains Phase0J/K + IsoMissionBase beam one-shot + code gate + MissionPauseDataProvider; the largest verified gap is dual/partial objective-reset wiring (MissionObjectiveBridge.reset stub, Phase0K seeding) and MechanicRouter deferring Louis ROUTE parity (expanded_scene_audit + mechanic_audit).",
+  "derived_from_d4_findings": [
+    "phase0md4_expanded_scene_audit: Phase0K + Phase0J stack present; Louis markers target bypasses_challenge_id garage_entry_beam",
+    "phase0md4_existing_taco_mechanic_audit: MissionObjectiveBridge.reset_runtime_objectives_for_mission is empty stub",
+    "phase0md4_taco_module_ownership_map: single-writer objective seam unresolved",
+    "phase0md4_risk_deferral_plan: defer full stealth/combat/animation"
+  ],
+  "focus_area_classifications": {
+    "main_objective_sequence": "P0",
+    "mission_launch_scene_routing": "P2",
+    "expanded_redesigntest_scene_cleanup": "P2",
+    "pause_objectives_scheme_clues_integration": "P0",
+    "objective_state_publishing": "P0",
+    "runtime_reset_retry_death_state": "P0",
+    "completion_failure_return_to_hideout": "P1",
+    "code_gate_keypad": "P1",
+    "beam_hazard_one_shot_trigger": "P1",
+    "louis_bypass_route": "P0",
+    "poop_bag_aimed_tool_behavior": "P1",
+    "clue_evidence_pickups": "P2",
+    "scheme_card_effects": "P2",
+    "guards_cameras_detection": "P3",
+    "sprint_stamina_integration": "P2",
+    "space_dash_dodge_integration": "P2",
+    "dialogue_callouts": "P2",
+    "rewards_progression": "P3",
+    "save_load_persistent_state": "P3",
+    "taco_specific_validator": "P0",
+    "runtime_playtest_checklist": "P0",
+    "full_stealth_system": "DROP_FOR_NOW",
+    "full_combat_system": "DROP_FOR_NOW",
+    "animation_integration": "DROP_FOR_NOW",
+    "large_IsoMissionBase_refactor": "DROP_FOR_NOW",
+    "art_layout_polish": "P3",
+    "new_assets_raw_processing": "DROP_FOR_NOW"
+  },
+  "p0_items": [
+    "Define single objective state publisher for taco_bell_drop (evidence: mechanic_audit dual writers).",
+    "Implement or delegate MissionObjectiveBridge.reset_runtime_objectives_for_mission to clear QuestManager lines on new attempt boundary (evidence: MissionObjectiveBridge.gd stub).",
+    "Ensure pause menu receives non-empty mission_id for taco (evidence: MissionPauseDataProvider._effective_mission_id).",
+    "Wire Louis route access to runtime: when player uses Louis shortcut, set attempt flag or skip/disable garage_entry_beam penalty path consistently (evidence: scene audit bypasses_challenge_id + MechanicRouter INSPECT_ONLY_DEFERRED).",
+    "Add D5 static validator for taco playable path + pause payload keys + beam flag keys.",
+    "Author runtime playtest checklist execution (manual + optional GRB)."
+  ],
+  "p1_items": [
+    "Regression-test code gate + wrong-code spawner with new reset contract.",
+    "Verify beam Area2D all use alarm_id garage_entry_beam in scene/runtime wiring.",
+    "Tune poop bag mission reactions (decoy duration, guard attention) via IsoMissionBase or small Taco adapter only.",
+    "Harden completion/return-to-hideout UX if edge cases found in testing."
+  ],
+  "p2_items": [
+    "Optional clue/polaroid rewards text in pause.",
+    "Scheme-card hooks that modify cooldowns or detection (non-blocking).",
+    "Mission launch / catalog string cleanup if any stale path outside resolver."
+  ],
+  "p3_items": [
+    "Art/layout polish pass",
+    "Advanced reward/heat",
+    "Extra comedic dialogue branches"
+  ],
+  "drop_for_now_items": [
+    "Full stealth AI",
+    "Full combat system",
+    "Large IsoMissionBase split refactor",
+    "Raw asset pipeline changes",
+    "Switching playable taco to legacy TacoBellIso_Editable.tscn"
+  ],
+  "unknown_items": [
+    "Exact NodePath health of every GeneratedRuntimeInteractables child after marker regeneration",
+    "Whether all guard spawns should remain placeholders for first vertical slice"
+  ],
+  "must_preserve": [
+    "MissionSceneResolver taco_bell_drop → TacoBellIso_Editable_RedesignTest.tscn",
+    "Ctrl sprint / Space dodge behavior (no Player.gd edits in D5 unless separate approved pass)",
+    "Physical separation of code gate zone vs beam zone (layout + controller separation)",
+    "IsoMissionBase beam one-shot algorithm for garage_entry_beam unless replaced by equivalent reusable helper"
+  ],
+  "must_avoid": [
+    "Editing Player.gd, PlayerStaminaController.gd, project.godot in D5 unless separate small hotfix pass",
+    "New global autoloads for Taco",
+    "Duplicating objective systems in Taco-only mega-script",
+    "Forcing run animation for mission logic"
+  ],
+  "d5_phases": [
+    {
+      "name": "D5-01 Attempt reset contract",
+      "purpose": "Align QuestManager + Phase0K + Phase0J adapter in-memory flags when a new attempt starts.",
+      "why_from_d4": "MissionObjectiveBridge reset stub; Phase0K seeds objectives in _ready",
+      "priority": "P0",
+      "files_likely_modified": ["src/missions/objectives/MissionObjectiveBridge.gd", "src/missions/iso/runtime/Phase0KMissionCompletionController.gd", "src/levels/IsoMissionBase.gd"],
+      "files_likely_created": ["src/missions/taco_bell/TacoBellAttemptResetHooks.gd"],
+      "files_must_not_touch": ["src/player/Player.gd", "src/player/PlayerStaminaController.gd", "project.godot", "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"],
+      "scene_nodes_likely_edited": "None preferred; if unavoidable, only additive markers under RuntimeHelpers (document backup).",
+      "reusable_modules": ["MissionObjectiveBridge", "QuestManager", "IsoMissionBase"],
+      "taco_specific": ["Phase0KMissionCompletionController", "optional TacoBellAttemptResetHooks"],
+      "acceptance_criteria": ["Reload mission twice; no stale Quest lines", "garage_beam_armed true again after reload"],
+      "static_validation": ["python validator: pause keys", "grep: no Player.gd diff"],
+      "runtime_validation": ["Launch taco from board", "F9 debug panel shows beam armed after restart"],
+      "regression_risks": ["Breaking other missions' QuestManager lists"],
+      "revert_notes": "Revert MissionObjectiveBridge + Phase0K + IsoMissionBase hunks as a set",
+      "stop_conditions": ["Touching >3 autoloads", "Need player.tscn change"]
+    },
+    {
+      "name": "D5-02 Pause payload mission context",
+      "purpose": "Guarantee pause tabs use taco_bell_drop id when in RedesignTest.",
+      "why_from_d4": "MissionPauseDataProvider falls back to GameState.current_mission_id — verify correctness",
+      "priority": "P0",
+      "files_likely_modified": ["src/ui/test_ui/pause_menu.gd", "src/levels/IsoMissionBase.gd"],
+      "files_likely_created": [],
+      "files_must_not_touch": ["scenes/hideout/HideoutHub.tscn"],
+      "scene_nodes_likely_edited": "None",
+      "reusable_modules": ["MissionPauseDataProvider"],
+      "taco_specific": [],
+      "acceptance_criteria": ["Pause objectives tab lists taco objectives", "No crash on empty scheme"],
+      "static_validation": ["Validator: payload keys exist"],
+      "runtime_validation": ["Open pause in taco", "Cycle tabs"],
+      "regression_risks": ["Other missions pause"],
+      "revert_notes": "Revert pause_menu small diff",
+      "stop_conditions": ["Requires HideoutHub change"]
+    },
+    {
+      "name": "D5-03 Louis beam bypass wiring",
+      "purpose": "Make Louis route actually alter runtime beam challenge outcome.",
+      "why_from_d4": "MechanicRouter ROUTE_* deferred; markers already declare bypass id",
+      "priority": "P0",
+      "files_likely_modified": ["src/missions/iso/runtime/Phase0JMechanicRouter.gd", "src/levels/IsoMissionBase.gd", "src/missions/taco_bell/TacoBellDialogueProvider.gd"],
+      "files_likely_created": ["src/missions/taco_bell/TacoBellRouteBypassController.gd"],
+      "files_must_not_touch": ["src/player/Player.gd"],
+      "scene_nodes_likely_edited": "Route access Area2D signals → connect to adapter (minimal scene diff if required)",
+      "reusable_modules": ["MissionToolSurfaceHelper patterns", "EventBus"],
+      "taco_specific": ["TacoBellRouteBypassController"],
+      "acceptance_criteria": ["Louis path skips or neutralizes garage_entry_beam consequence", "Main path still triggers beam once"],
+      "static_validation": ["Scene marker still lists bypasses_challenge_id"],
+      "runtime_validation": ["Walk Louis route; beam not re-armed mid-attempt incorrectly"],
+      "regression_risks": ["Breaking main-route beam"],
+      "revert_notes": "Disable adapter; restore router parity table",
+      "stop_conditions": ["Requires redesigning map geometry"]
+    },
+    {
+      "name": "D5-04 Poop bag + tool surface QA",
+      "purpose": "Ensure aimed throws call mission surface and update runtime counters only.",
+      "why_from_d4": "Player uses MissionToolSurfaceHelper; IsoMissionBase deploy_poop_bag_decoy_at exists",
+      "priority": "P1",
+      "files_likely_modified": ["src/levels/IsoMissionBase.gd"],
+      "files_likely_created": [],
+      "files_must_not_touch": ["src/player/Player.gd"],
+      "scene_nodes_likely_edited": "Optional marker metadata only",
+      "reusable_modules": ["MissionToolSurfaceHelper"],
+      "taco_specific": [],
+      "acceptance_criteria": ["Throw consumes bag", "Decoy spawns", "Counters increment in debug summary"],
+      "static_validation": [],
+      "runtime_validation": ["T + click throw in taco"],
+      "regression_risks": ["Other missions with tool surface"],
+      "revert_notes": "Revert IsoMissionBase deploy_* changes",
+      "stop_conditions": ["Need new input binding"]
+    },
+    {
+      "name": "D5-05 Validators + documentation",
+      "purpose": "Lock D5 behavior behind automated checks.",
+      "why_from_d4": "Existing TacoBellExpandedLayoutValidator patterns",
+      "priority": "P0",
+      "files_likely_modified": [],
+      "files_likely_created": ["src/tools/editor/taco_bell_redesign_d5/*.py", "docs/reports/taco_bell_redesign_d5/*.md"],
+      "files_must_not_touch": ["raw assets"],
+      "scene_nodes_likely_edited": "None",
+      "reusable_modules": [],
+      "taco_specific": ["validators"],
+      "acceptance_criteria": ["CI/local python passes", "Reports generated"],
+      "static_validation": ["run all D5 validators"],
+      "runtime_validation": ["checklist sign-off"],
+      "regression_risks": [],
+      "revert_notes": "Delete D5 report folder",
+      "stop_conditions": []
+    }
+  ],
+  "protected_files": [
+    "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "res://scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "res://project.godot",
+    "res://src/player/Player.gd",
+    "res://src/player/PlayerStaminaController.gd",
+    "res://scenes/characters/player.tscn",
+    "res://scenes/hideout/HideoutHub.tscn"
+  ],
+  "likely_modified_files": [
+    "src/missions/objectives/MissionObjectiveBridge.gd",
+    "src/missions/iso/runtime/Phase0KMissionCompletionController.gd",
+    "src/missions/iso/runtime/Phase0JMechanicRouter.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ],
+  "likely_created_files": [
+    "src/missions/taco_bell/TacoBellRouteBypassController.gd",
+    "src/missions/taco_bell/TacoBellAttemptResetHooks.gd"
+  ],
+  "likely_scene_node_edits": "Minimal: only if Louis route requires new signal connections to TacoBellRouteBypassController; prefer code-side group lookups.",
+  "static_validation": [
+    "MissionSceneResolver still returns RedesignTest",
+    "No legacy Editable as playable in docs/code",
+    "pause payload keys: objectives, scheme_cards, clues",
+    "Python validators for D5 pass"
+  ],
+  "runtime_validation": [
+    "Launch from MissionBoard",
+    "Ctrl sprint + Space dodge regression",
+    "Pause tabs",
+    "Beam once per attempt",
+    "Louis bypass changes beam outcome",
+    "Return to hideout"
+  ],
+  "acceptance_criteria": [
+    "taco_bell_drop launches RedesignTest",
+    "After mission reload, beam armed=true again",
+    "Quest active lines match mission phase",
+    "Louis route produces different beam/bypass outcome than main path",
+    "No new errors in Output",
+    "Player.gd untouched",
+    "project.godot untouched"
+  ],
+  "stop_conditions": [
+    "Requires Player.gd change for core behavior",
+    "Requires map geometry redesign",
+    "Requires new combat AI",
+    "Requires animation state machine for mission gating"
+  ],
+  "revert_notes": "Branch from pre-D5 tag; revert per-phase commits",
+  "recommended_next_prompt_focus": "0M-D5 Phase D5-01 only: implement MissionObjectiveBridge reset + attempt boundary hooks with tests; do not touch Player or Taco scene until tests pass."
+}

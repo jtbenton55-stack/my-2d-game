@@ -1,0 +1,8 @@
+{
+  "phase": "2",
+  "assertions": {
+    "player_facing_scheme_format_defined": true,
+    "raw_debug_terms_excluded_from_pause_format": true,
+    "effect_status_language_defined": true
+  }
+}

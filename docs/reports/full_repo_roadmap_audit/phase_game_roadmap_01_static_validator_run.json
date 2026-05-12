@@ -1,0 +1,320 @@
+{
+  "ok": true,
+  "repo_root": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game",
+  "audit_dir": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit",
+  "checks": {
+    "report_exists::phase0_safety_baseline.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase0_safety_baseline.md"
+    },
+    "report_exists::phase0_safety_baseline.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase0_safety_baseline.json"
+    },
+    "report_exists::phase1_full_repo_inventory.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase1_full_repo_inventory.md"
+    },
+    "report_exists::phase1_full_repo_inventory.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase1_full_repo_inventory.json"
+    },
+    "report_exists::phase2_current_game_state.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase2_current_game_state.md"
+    },
+    "report_exists::phase2_current_game_state.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase2_current_game_state.json"
+    },
+    "report_exists::phase2b_mission_bible_alignment_audit.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase2b_mission_bible_alignment_audit.md"
+    },
+    "report_exists::phase2b_mission_bible_alignment_audit.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase2b_mission_bible_alignment_audit.json"
+    },
+    "report_exists::phase3_system_health_audit.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase3_system_health_audit.md"
+    },
+    "report_exists::phase3_system_health_audit.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase3_system_health_audit.json"
+    },
+    "report_exists::phase4_documentation_truth_reconciliation.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase4_documentation_truth_reconciliation.md"
+    },
+    "report_exists::phase4_documentation_truth_reconciliation.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase4_documentation_truth_reconciliation.json"
+    },
+    "report_exists::phase5_architecture_risk_audit.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase5_architecture_risk_audit.md"
+    },
+    "report_exists::phase5_architecture_risk_audit.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase5_architecture_risk_audit.json"
+    },
+    "report_exists::phase6_feature_opportunity_audit.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase6_feature_opportunity_audit.md"
+    },
+    "report_exists::phase6_feature_opportunity_audit.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase6_feature_opportunity_audit.json"
+    },
+    "report_exists::phase7_prioritized_roadmap.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase7_prioritized_roadmap.md"
+    },
+    "report_exists::phase7_prioritized_roadmap.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase7_prioritized_roadmap.json"
+    },
+    "report_exists::phase8_next_prompt_recommendation.md": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase8_next_prompt_recommendation.md"
+    },
+    "report_exists::phase8_next_prompt_recommendation.json": {
+      "pass": true,
+      "detail": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game\\docs\\reports\\full_repo_roadmap_audit\\phase8_next_prompt_recommendation.json"
+    },
+    "json_parses::phase0_safety_baseline.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase0_safety_baseline.json::repo_root_confirmed": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::current_branch_recorded": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::git_status_recorded": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::audit_only_mode": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::protected_gameplay_files_unmodified_pre_pass": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::taco_scenes_unmodified_pre_pass": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::project_godot_unmodified_pre_pass": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::player_gd_unmodified_pre_pass": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase0_safety_baseline.json::raw_assets_unmodified_pre_pass": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase1_full_repo_inventory.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase1_full_repo_inventory.json::repo_inventory_completed": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase1_full_repo_inventory.json::major_systems_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase2_current_game_state.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase2_current_game_state.json::current_game_state_summarized": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2_current_game_state.json::playable_loop_identified_or_missing_reported": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase2b_mission_bible_alignment_audit.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::mission_bible_searched": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::mission_bible_found_or_missing_reported": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::mission_bible_alignment_audit_created": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::mission_list_compared_to_repo": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::core_loop_compared_to_repo": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase2b_mission_bible_alignment_audit.json::roadmap_implications_extracted": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase3_system_health_audit.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase3_system_health_audit.json::system_health_audit_completed": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase3_system_health_audit.json::each_major_system_classified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase4_documentation_truth_reconciliation.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase4_documentation_truth_reconciliation.json::documentation_reconciled": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase4_documentation_truth_reconciliation.json::stale_reports_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase4_documentation_truth_reconciliation.json::conflicting_guidance_identified_or_none": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase5_architecture_risk_audit.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase5_architecture_risk_audit.json::architecture_risks_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase5_architecture_risk_audit.json::highest_risks_prioritized": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase6_feature_opportunity_audit.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase6_feature_opportunity_audit.json::feature_opportunities_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase6_feature_opportunity_audit.json::features_prioritized_by_timing": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase7_prioritized_roadmap.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase7_prioritized_roadmap.json::roadmap_created": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase7_prioritized_roadmap.json::single_best_next_action_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase7_prioritized_roadmap.json::next_3_actions_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase7_prioritized_roadmap.json::next_10_actions_identified": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase7_prioritized_roadmap.json::avoid_now_list_created": {
+      "pass": true,
+      "detail": "true"
+    },
+    "json_parses::phase8_next_prompt_recommendation.json": {
+      "pass": true,
+      "detail": ""
+    },
+    "assert::phase8_next_prompt_recommendation.json::next_prompt_recommendation_created": {
+      "pass": true,
+      "detail": "true"
+    },
+    "assert::phase8_next_prompt_recommendation.json::recommendation_based_on_full_audit": {
+      "pass": true,
+      "detail": "true"
+    },
+    "roadmap::single_best_next_action": {
+      "pass": true,
+      "detail": "R1 \u2014 Attempt-reset contract (D5-01)"
+    },
+    "roadmap::next_3_actions": {
+      "pass": true,
+      "detail": "count=3"
+    },
+    "roadmap::next_10_actions": {
+      "pass": true,
+      "detail": "count=10"
+    },
+    "roadmap::avoid_now_list": {
+      "pass": true,
+      "detail": "count=7"
+    },
+    "git::status": {
+      "pass": true,
+      "detail": "ok"
+    },
+    "protected::no_modifications": {
+      "pass": true,
+      "detail": "none"
+    },
+    "protected::diff::project.godot": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::src/player/Player.gd": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::src/player/PlayerStaminaController.gd": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::scenes/missions_iso/TacoBellIso_Editable.tscn": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::scenes/missions/TacoBellMission.tscn": {
+      "pass": true,
+      "detail": "clean"
+    },
+    "protected::diff::scenes/hideout/HideoutHub.tscn": {
+      "pass": true,
+      "detail": "clean"
+    }
+  },
+  "warnings": []
+}

@@ -1,0 +1,50 @@
+{
+  "phase": "0M-D5-00 / Final",
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "audit_runtime_only": true,
+  "runtime_tools": ["GRB godot-runtime-bridge tier 1 and tier 2"],
+  "d5_01_recommendation": {
+    "status": "OPTIONAL_DEFER",
+    "summary": "No runtime proof that MissionObjectiveBridge stub causes player-visible bug; IsoMissionBase resets attempt runtime state when runtime systems set up / on documented reset entry. Recommend manual retry-without-reload test before implementing D5-01.",
+    "evidence": ["VERIFIED_RUNTIME get_runtime_debug_summary initial counters", "STATIC_ONLY _reset_attempt_runtime_state in _setup_runtime_systems", "STATIC_ONLY MissionObjectiveBridge.reset_runtime_objectives_for_mission is pass"]
+  },
+  "single_best_next_implementation_pass": "0M-D5-02-UX Taco HUD + pause readability (objective ticker, stamina bar, poop bag count; Esc pause verification)",
+  "next_three_implementation_steps": [
+    "HUD: objective + stamina + poop bag count",
+    "Pause: verify Esc path + MissionPauseDataProvider text; pin mission_id only if drift reproduced",
+    "Louis bypass: implement real router parity after UX baseline"
+  ],
+  "things_to_avoid": [
+    "IsoMissionBase monolith refactor as next pass",
+    "Declaring D5-01 P0 without manual retry leak",
+    "Using GRB pause action instead of ui_cancel for pause menu"
+  ],
+  "static_validator_result": "see phase0md5_00_static_validator_run.json",
+  "runtime_limitations": [
+    "GRB synthetic key presses did not prove WASD movement",
+    "Player global_position set via GRB unreliable for overlap tests",
+    "get_tree().paused true appears to stall GRB get_property",
+    "Completion / result / return loop not executed in GRB this pass"
+  ],
+  "evidence_level_summary": {
+    "VERIFIED_RUNTIME": "Taco RedesignTest scene path; player spawn sample; DogCompanion; sprint debug dict; initial runtime summary; HideoutHub load; launch_taco_bell; mission board UI visible with tier-2 station approach",
+    "PARTIAL_RUNTIME": "Sprint sustained behavior; engine error count after hideout",
+    "STATIC_ONLY": "Beam one-shot handler; counter reset pipeline; Louis router deferred routes; poop tool code path; pause menu uses ui_cancel",
+    "NOT_TESTED": "Movement; dodge; beam crossing; pause tab contents; poop throw; completion; in-mission retry without reload",
+    "MANUAL_REVIEW_REQUIRED": "All NOT_TESTED items"
+  },
+  "files_modified_gameplay": [],
+  "files_created": [
+    "docs/reports/taco_bell_d5_00_runtime_truth/*.md",
+    "docs/reports/taco_bell_d5_00_runtime_truth/*.json",
+    "src/tools/editor/taco_bell_d5_00_runtime_truth/phase0md5_00_static_validator.py"
+  ],
+  "protected_gameplay_touched": false,
+  "assertions": {
+    "final_report_based_on_runtime_truth_not_stale_docs_only": true,
+    "d5_01_status_documented": true,
+    "evidence_levels_documented": true,
+    "runtime_limitations_documented": true
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "phase": "7",
+  "result": "NOT_EXECUTED_IN_CURSOR",
+  "assertions": {
+    "runtime_validation_attempted": true,
+    "runtime_limitations_documented_if_any": true
+  }
+}

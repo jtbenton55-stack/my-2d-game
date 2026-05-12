@@ -1,0 +1,11 @@
+{
+  "phase": "0M-D5-02A / Phase 6",
+  "hud_scene": "res://scenes/ui/hud.tscn",
+  "hud_script": "src/ui/HUD.gd",
+  "pause_menu_script": "src/ui/test_ui/pause_menu.gd",
+  "assertions": {
+    "d5_02b_hud_readiness_plan_created": true,
+    "future_hud_will_not_add_corner_clutter": true,
+    "future_hud_data_sources_identified": true
+  }
+}

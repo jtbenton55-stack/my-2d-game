@@ -1,0 +1,13 @@
+{
+  "phase": "0M-D5-02A / Phase 5",
+  "remaining_overflow_risks": [
+    "HUD ObjectiveLabel long strings",
+    "DialogueBox and other modal panels not in scope",
+    "First-frame RichTextLabel height fit before layout"
+  ],
+  "assertions": {
+    "modified_text_panels_bounded": true,
+    "modified_text_panels_scrollable_or_safe": true,
+    "remaining_text_overflow_risks_listed": true
+  }
+}

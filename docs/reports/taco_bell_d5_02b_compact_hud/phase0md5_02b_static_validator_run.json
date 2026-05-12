@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "fail_count": 0,
+  "failures": [],
+  "taco_scene_diff_warnings": [
+    "taco scene in working tree diff (D5-02B did not require edit): scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+  ],
+  "diff_files_checked": [
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "scenes/ui/hud.tscn",
+    "src/hideout/HideoutDebugController.gd",
+    "src/hideout/HideoutManager.gd",
+    "src/missions/clues/MissionClueBridge.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/iso/runtime/Phase0JDebugHUD.gd",
+    "src/missions/schemes/MissionSchemeBridge.gd",
+    "src/missions/ui/MissionPauseDataProvider.gd",
+    "src/player/PlayerSprintDebugOverlay.gd",
+    "src/ui/HUD.gd",
+    "src/ui/test_ui/controls_overlay.gd",
+    "src/ui/test_ui/controls_overlay.tscn",
+    "src/ui/test_ui/pause_menu.gd"
+  ],
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  }
+}

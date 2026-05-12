@@ -1,0 +1,70 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 4",
+  "top_level_docs": [
+    {"path":"docs/MISSION_BIBLE.md","verdict":"CURRENT_VISION","matches_code":"as_intent","treat_as":"guiding_vision_with_addendum_after_phase1"},
+    {"path":"README.md","verdict":"CONFLICTED","matches_code":"no","treat_as":"do_not_trust_rewrite"},
+    {"path":"FOLLOWUPS.md","verdict":"STALE_BUT_FOUNDATIONAL","matches_code":"yes_for_jazz_club_deferrals","treat_as":"reference_when_jazz_club_active"},
+    {"path":"ASSET_MANIFEST.md","verdict":"CURRENT","treat_as":"keep"},
+    {"path":"RESCUE_NOTES.md","verdict":"NOISE","treat_as":"ignore"},
+    {"path":"debug-755971.log","verdict":"NOISE","treat_as":"ignore_or_delete_in_cleanup"}
+  ],
+  "report_subfolders": [
+    {"folder":"mission_module_audit","verdict":"CURRENT_USEFUL"},
+    {"folder":"pre_taco_module_hardening","verdict":"MIXED","note":"canonical-scene decision SUPERSEDED by D1C"},
+    {"folder":"pre_taco_module_hardening_runtime","verdict":"MIXED","note":"runtime smokes reference canonical=Editable.tscn at time of writing"},
+    {"folder":"taco_canonical_scene_correction","verdict":"CURRENT"},
+    {"folder":"mission_foundation_d2","verdict":"STALE_BUT_FOUNDATIONAL"},
+    {"folder":"mission_foundation_d2a_sprint_fix","verdict":"SUPERSEDED"},
+    {"folder":"mission_foundation_d2a_fix1_sprint_runtime","verdict":"SUPERSEDED"},
+    {"folder":"mission_foundation_d2a_fix2_sprint_runtime_debug","verdict":"CURRENT"},
+    {"folder":"taco_bell_redesign_d4","verdict":"CURRENT"},
+    {"folder":"character_animation_c2a","verdict":"SUPERSEDED"},
+    {"folder":"character_animation_c2b","verdict":"MIXED"},
+    {"folder":"character_animation_c2b_fix1","verdict":"CURRENT"},
+    {"folder":"character_sprite_replacement","verdict":"STALE_BUT_FOUNDATIONAL"},
+    {"folder":"hideout_dialogue_portraits","verdict":"CURRENT"},
+    {"folder":"hideout_storefront_icons","verdict":"CURRENT"},
+    {"folder":"pvgames_catalog_paintable_palettes","verdict":"CURRENT"},
+    {"folder":"pvgames_catalog_paintable_verification","verdict":"CURRENT"},
+    {"folder":"pvgames_central_security_palettes","verdict":"CURRENT"},
+    {"folder":"pvgames_central_security_verification","verdict":"CURRENT"},
+    {"folder":"pvgames_editable_object_palette","verdict":"CURRENT"},
+    {"folder":"pvgames_icon_library","verdict":"CURRENT"},
+    {"folder":"pvgames_object_palette_dock","verdict":"CURRENT"},
+    {"folder":"pvgames_palettes","verdict":"STALE_BUT_FOUNDATIONAL"},
+    {"folder":"reveal_safety","verdict":"NOISE_OR_CURRENT"}
+  ],
+  "conflicts": [
+    {"id":"canonical_taco_scene","older":"pre_taco_module_hardening/phase0md1b_canonical_taco_scene_decision.md (Editable.tscn)","newer":"taco_canonical_scene_correction (RedesignTest)","truth":"RedesignTest is canonical/playable per MissionSceneResolver"},
+    {"id":"catalog_vs_resolver","older":"GameState.mission_catalog.taco_bell_drop.scene_path -> classic story room","newer":"MissionSceneResolver overrides","truth":"Resolver wins for launches"},
+    {"id":"sprint_wiring","older":"mission_foundation_d2a_sprint_fix + fix1","newer":"_fix2_sprint_runtime_debug","truth":"fix2 wins"},
+    {"id":"readme_completion","older":"README.md 5 missions complete","newer":"code: 1 playable mission","truth":"README is wrong"},
+    {"id":"triple_objective_writes","older":"mission_module_audit flagged","newer":"D4 still describes as P0","truth":"open; D5-01 target"}
+  ],
+  "d4_guidance_for_d5": "still_correct_with_minor_rescoping",
+  "d4_rescoping_note": "D5-01 attempt reset + D5-02 pause payload mission_id should land before D5-03 Louis bypass parity",
+  "sprint_conclusion_correctly_reflected": true,
+  "taco_canonical_correction_consistently_reflected_in_code": true,
+  "taco_canonical_correction_consistently_reflected_in_docs": false,
+  "stale_reports_to_annotate_not_delete": [
+    "pre_taco_module_hardening/phase0md1b_canonical_taco_scene_decision.md",
+    "mission_foundation_d2a_sprint_fix/*",
+    "mission_foundation_d2a_fix1_sprint_runtime/*",
+    "character_animation_c2a/*",
+    "character_animation_c2b/* (partial)",
+    "README.md (rewrite)"
+  ],
+  "trust_layering_for_future_prompts": [
+    "1: src/ scenes/ project.godot",
+    "2: taco_bell_redesign_d4 + taco_canonical_scene_correction + mission_foundation_d2a_fix2_sprint_runtime_debug",
+    "3: mission_module_audit",
+    "4: MISSION_BIBLE.md",
+    "5: other docs/reports/ as historical only",
+    "6: README.md -> not trusted until rewritten"
+  ],
+  "assertions": {
+    "documentation_reconciled": true,
+    "stale_reports_identified": true,
+    "conflicting_guidance_identified_or_none": true
+  }
+}

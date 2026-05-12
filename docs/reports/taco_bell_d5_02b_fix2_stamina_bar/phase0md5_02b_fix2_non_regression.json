@@ -1,0 +1,8 @@
+{
+  "objective_ticker": "unchanged_logic_paths",
+  "poop_bag_label": "unchanged_logic_paths",
+  "f10_f1_f11_pause": "unchanged_this_pass",
+  "assertions": {
+    "non_regression_static_review": true
+  }
+}

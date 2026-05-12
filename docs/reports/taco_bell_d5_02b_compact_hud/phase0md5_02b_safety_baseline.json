@@ -1,0 +1,10 @@
+{
+  "phase": "0",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "compact_hud_scope_confirmed": true,
+    "protected_files_identified": true
+  }
+}

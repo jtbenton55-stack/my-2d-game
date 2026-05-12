@@ -1,0 +1,17 @@
+{
+  "phase": "0M-D5-02A / Phase 1",
+  "surface_count_estimate": 18,
+  "corner_clutter_primary": [
+    "Phase0JDebugHUD",
+    "IsoMissionDebugPanel",
+    "ControlsOverlay",
+    "PlayerSprintDebugOverlay",
+    "Hideout DebugHideoutPanel"
+  ],
+  "assertions": {
+    "ui_debug_inventory_completed": true,
+    "corner_overlays_identified_or_none_reported": true,
+    "text_overflow_risks_identified": true,
+    "player_facing_vs_debug_classified": true
+  }
+}

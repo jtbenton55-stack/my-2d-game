@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq5w7v5v5o5v23"]
+[gd_scene load_steps=10 format=3 uid="uid://bq5w7v5v5o5v23"]
 
 [ext_resource type="Script" path="res://src/ui/HUD.gd" id="1_14h8aw"]
 [ext_resource type="CompressedTexture2D" path="res://assets/icons/hud_objective_pin.svg" id="2_14h8aw"]
@@ -15,9 +15,15 @@ default_font_size = 12
 [sub_resource type="Theme" id="Theme_Objective"]
 default_font_size = 14
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_StaminaBg"]
+bg_color = Color(0.1, 0.11, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_StaminaFill"]
+bg_color = Color(0.32, 0.78, 1, 1)
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_14h8aw")
-layer = 10
+layer = 50
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 position = Vector2(20, 26)
@@ -81,19 +87,61 @@ text = "DETECTION: 0%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MissionHudStrip" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 12.0
+offset_right = -10.0
+offset_bottom = 104.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="StaminaCaption" type="Label" parent="MissionHudStrip"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Sprint stamina"
+
+[node name="SprintStaminaBar" type="ProgressBar" parent="MissionHudStrip"]
+custom_minimum_size = Vector2(160, 12)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_StaminaBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_StaminaFill")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="PoopBagLabel" type="Label" parent="MissionHudStrip"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Bags: 0"
+
+[node name="ControlHint" type="Label" parent="MissionHudStrip"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 3
+text = ""
+
 [node name="ObjectiveLabel" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -300.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 50.0
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 232.0
+offset_top = 12.0
+offset_right = -216.0
+offset_bottom = 56.0
 grow_horizontal = 2
 theme = SubResource("Theme_Objective")
 text = "Objective: Reach the exit"
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 0
+autowrap_mode = 3
+clip_text = true
 
 [node name="CardsColumn" type="VBoxContainer" parent="."]
 anchors_preset = 3

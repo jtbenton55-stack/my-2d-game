@@ -1,0 +1,12 @@
+{
+  "phase": "0M-D5-00 / Phase 2",
+  "player_spawn_position_sample": "(-2558.0, 185.0)",
+  "movement_grb_synthetic": "NOT_TESTED",
+  "sprint_debug_runtime": "PARTIAL_RUNTIME",
+  "dash_runtime": "NOT_TESTED",
+  "assertions": {
+    "player_control_verification_attempted": true,
+    "sprint_dodge_status_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

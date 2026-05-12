@@ -1,0 +1,8 @@
+{
+  "phase": "0M-D5-00 / Phase 9",
+  "next_player_facing_improvement": "HUD objective ticker + stamina bar + poop bag count (and pause readability)",
+  "assertions": {
+    "player_facing_quality_assessed": true,
+    "next_player_facing_improvement_identified": true
+  }
+}

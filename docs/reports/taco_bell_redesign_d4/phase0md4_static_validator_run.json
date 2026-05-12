@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "stdout": {
+    "ok": true,
+    "errors": [],
+    "root": "C:\\Users\\jtben\\Documents\\PBD 2026\\OpenClaw\\main\\games\\my-2d-game"
+  },
+  "command": "python src/tools/editor/taco_bell_redesign_d4/phase0md4_static_validator.py --root ."
+}

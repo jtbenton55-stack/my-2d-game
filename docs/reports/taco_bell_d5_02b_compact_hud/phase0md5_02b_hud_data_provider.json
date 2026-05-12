@@ -1,0 +1,8 @@
+{
+  "phase": "3",
+  "assertions": {
+    "hud_data_provider_created_or_not_needed": true,
+    "hud_provider_read_only_or_not_needed": true,
+    "missing_data_safe": true
+  }
+}

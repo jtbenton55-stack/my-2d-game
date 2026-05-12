@@ -31,8 +31,9 @@ grow_vertical = 0
 
 [node name="Panel" type="Panel" parent="PanelRoot/MarginContainer"]
 layout_mode = 2
+clip_contents = true
 
-[node name="InfoLabel" type="Label" parent="PanelRoot/MarginContainer/Panel"]
+[node name="InfoScroll" type="ScrollContainer" parent="PanelRoot/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,10 +44,18 @@ offset_right = -45.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.92, 0.94, 1, 1)
-text = "Loading controls..."
+horizontal_scroll_mode = 0
+
+[node name="InfoRichText" type="RichTextLabel" parent="PanelRoot/MarginContainer/Panel/InfoScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = false
+fit_content = false
+scroll_active = true
 autowrap_mode = 3
+theme_override_font_sizes/normal_font_size = 13
+theme_override_colors/default_color = Color(0.92, 0.94, 1, 1)
+text = "Loading controls..."
 
 [node name="MinimizeButton" type="Button" parent="PanelRoot/MarginContainer/Panel"]
 layout_mode = 1

@@ -1,0 +1,10 @@
+{
+  "phase": "0M-D5-00 / Phase 8",
+  "completion_failure_result_return": "NOT_TESTED_GRB",
+  "return_to_hideout_code_path": "STATIC_ONLY pause_menu SceneManager.return_to_hideout",
+  "assertions": {
+    "completion_return_truth_test_attempted": true,
+    "run_loop_status_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

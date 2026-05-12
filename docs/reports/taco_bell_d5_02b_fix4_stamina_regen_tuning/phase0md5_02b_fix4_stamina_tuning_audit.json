@@ -1,0 +1,14 @@
+{
+  "current_regen_rate_identified": true,
+  "max_stamina_identified": true,
+  "tuning_target_selected": true,
+  "kimi_needed_decision_recorded": true,
+  "kimi_needed": false,
+  "max_stamina": 100.0,
+  "drain_rate_per_sec": 50.0,
+  "old_regen_rate_per_sec": 22.0,
+  "new_regen_rate_per_sec": 6.666666666666667,
+  "estimated_full_refill_seconds": 15.0,
+  "estimated_full_sprint_drain_seconds": 2.0,
+  "formula": "max_stamina / regen_rate_per_sec (no regen delay in controller)"
+}

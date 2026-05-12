@@ -1,0 +1,11 @@
+{
+  "phase": "3",
+  "always_visible_panel": "Phase0JDebugHUD",
+  "f10_panel": "IsoMissionDebugPanel",
+  "assertions": {
+    "always_visible_counter_panel_identified": true,
+    "f10_debug_panel_identified": true,
+    "duplicate_metrics_identified": true,
+    "healthbar_overlap_risk_recorded": true
+  }
+}

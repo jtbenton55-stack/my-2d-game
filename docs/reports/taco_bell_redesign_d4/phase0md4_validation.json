@@ -1,0 +1,7 @@
+{
+  "static_validator_created": true,
+  "static_validator_run": true,
+  "static_validator_passed": true,
+  "validator_script": "res://src/tools/editor/taco_bell_redesign_d4/phase0md4_static_validator.py",
+  "note": "Re-run after editing reports; phase0md4_static_validator_run.json captures stdout."
+}

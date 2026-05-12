@@ -1,0 +1,9 @@
+{
+  "phase": "0M-D5-02A / Phase 7",
+  "grb_taco_launch_ok": true,
+  "pause_scroll_grb_tested": false,
+  "assertions": {
+    "runtime_validation_attempted": true,
+    "runtime_limitations_documented_if_any": true
+  }
+}

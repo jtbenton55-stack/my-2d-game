@@ -1,0 +1,53 @@
+{
+  "phase": "0M-D5-02A / Final",
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "files_modified": [
+    "src/missions/iso/runtime/Phase0JDebugHUD.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/player/PlayerSprintDebugOverlay.gd",
+    "src/hideout/HideoutDebugController.gd",
+    "src/ui/test_ui/pause_menu.gd",
+    "src/ui/test_ui/controls_overlay.gd",
+    "src/ui/test_ui/controls_overlay.tscn"
+  ],
+  "files_created_glob": "docs/reports/taco_bell_d5_02a_ui_debug_hygiene/** and src/tools/editor/taco_bell_d5_02a_ui_debug_hygiene/phase0md5_02a_static_validator.py",
+  "remaining_clutter_risks": [
+    "World-space GeneratedRuntimeMarkerDebugInteractables (many Debug_* areas)",
+    "Duplicate PauseMenu vs test_ui pause_menu not consolidated",
+    "HUD ObjectiveLabel still unbounded for huge strings",
+    "DebugLabels / DebugUI / DebugLabelLayer visibility policy not changed"
+  ],
+  "remaining_text_overflow_risks": [
+    "HUD ObjectiveLabel",
+    "DialogueBox and other modals not in scope",
+    "First-frame RichTextLabel sizing before layout"
+  ],
+  "cleaned_hidden_standardized_deferred": {
+    "hidden_by_default": [
+      "IsoMissionDebugPanel",
+      "PlayerSprintDebugOverlay until F11",
+      "DebugHideout* root panel",
+      "Phase0JDebugHUD default layer visibility (no forced show_message visibility)"
+    ],
+    "standardized_scrollable": [
+      "pause_menu info area",
+      "controls_overlay",
+      "PlayerSprintDebugOverlay",
+      "Phase0JDebugHUD column",
+      "IsoMissionDebugPanel compact status"
+    ],
+    "deferred": [
+      "Consolidate src/ui/PauseMenu.gd vs test_ui/pause_menu.gd",
+      "World debug marker density",
+      "Dialogue / scheme / storefront long text audit"
+    ]
+  },
+  "final_gameplay_hud_added_unjustified": false,
+  "static_validator_result_file": "docs/reports/taco_bell_d5_02a_ui_debug_hygiene/phase0md5_02a_static_validator_run.json",
+  "recommended_next_pass": "0M-D5-02B — HUD ticker + stamina + poop count per d5_02b_hud_readiness_plan.md",
+  "assertions": {
+    "final_report_complete": true,
+    "no_forbidden_files_in_diff": true
+  }
+}

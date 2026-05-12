@@ -1,0 +1,10 @@
+{
+  "phase": "0M-D5-02A / Phase 3",
+  "d5_02b_hud_target_scene": "res://scenes/ui/hud.tscn",
+  "assertions": {
+    "ui_ownership_plan_created": true,
+    "debug_visibility_policy_defined": true,
+    "scrollable_text_policy_defined": true,
+    "d5_02b_visible_ui_slots_reserved": true
+  }
+}

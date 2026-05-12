@@ -1,0 +1,73 @@
+{
+  "verdict": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "files_modified_this_pass": [
+    "src/ui/HUD.gd",
+    "scenes/ui/hud.tscn",
+    "src/missions/ui/MissionHudDataProvider.gd",
+    "src/player/PlayerSprintDebugOverlay.gd",
+    "docs/CHANGELOG.md"
+  ],
+  "files_created_this_pass": [
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_safety_baseline.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_safety_baseline.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_static_hud_wiring_audit.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_static_hud_wiring_audit.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_runtime_hud_truth.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_runtime_hud_truth.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_root_cause_decision.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_root_cause_decision.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_hud_fix.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_hud_fix.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_non_regression.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_non_regression.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_runtime_validation.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_runtime_validation.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_validation.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_validation.json",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_hud_visibility_final_report.md",
+    "docs/reports/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_hud_visibility_final_report.json",
+    "src/tools/editor/taco_bell_d5_02b_fix1_hud_visibility/phase0md5_02b_fix1_static_validator.py"
+  ],
+  "hud_present_before_fix": "embedded_in_Taco_RedesignTest_scene_static",
+  "hud_visible_before_fix": "unknown_grb_offline_no_live_proof",
+  "root_cause_classification": [
+    "CANVAS_LAYER_POLICY_MISSTATED_IN_PRIOR_CHAT",
+    "HUD_REFRESH_STRUCTURE_RISK",
+    "OBJECTIVE_DATA_INTERNAL_STRINGS",
+    "UNKNOWN_RUNTIME_LIMITATION"
+  ],
+  "canvas_layer_findings": "HUD layer 50 is below Phase0J 90 and IsoMissionDebugPanel 100 when visible; pause 120 above F11 110; higher layer draws on top in Godot.",
+  "fix_implemented": "HUD refresh reordered; objective heading helper; provider sanitizes internal strings; HUD layer 50; objective anchor_left explicit; F11 overlay layer 110.",
+  "hud_visible_after_fix": "unknown_requires_manual_playtest",
+  "objective_ticker_status": "implemented_bounded_prefix_and_sanitize_static_review",
+  "stamina_bar_status": "unchanged_logic_requires_player_sprint_debug_ok_static",
+  "poop_bag_count_status": "visibility_tied_to_payload_poop_bags_visible_static",
+  "healthbar_overlap_status": "static_geometry_left_column_vs_objective_start_232px_low_risk",
+  "raw_debug_clutter_avoided": "sanitize_uid_res_patterns",
+  "f10_debug_role_preserved": "IsoMissionDebugPanel_layer_100_toggle_static",
+  "f1_f10_f11_pause_non_regression_status": "layer_table_reviewed_pause_above_f11_above_hud",
+  "runtime_validation_result": "PARTIAL_grb_not_connected",
+  "static_validator_result": "PASS",
+  "new_debugger_errors": [],
+  "protected_file_safety": {
+    "project_godot_modified_this_pass": false,
+    "player_gd_modified_this_pass": false,
+    "player_stamina_controller_modified_this_pass": false,
+    "taco_scenes_modified_this_pass": false,
+    "hideout_hub_modified_this_pass": false,
+    "player_tscn_modified_this_pass": false,
+    "assets_modified_this_pass": false
+  },
+  "high_caution_files_touched": [
+    {
+      "path": "src/player/PlayerSprintDebugOverlay.gd",
+      "reason": "F11 CanvasLayer moved from 120 to 110 to sit in debug tier below pause (120+) per mission CanvasLayer policy."
+    }
+  ],
+  "known_limitations": [
+    "No GRB-connected runtime proof in this Cursor session.",
+    "Working tree contains unrelated dirty files from earlier work; validator uses explicit files_modified_this_pass allowlist for forbidden-path checks."
+  ],
+  "recommended_next_pass": "Connect GRB / run local editor playtest to close runtime validation to PASS; optionally add a tiny harness scene for HUD-only smoke if desired."
+}

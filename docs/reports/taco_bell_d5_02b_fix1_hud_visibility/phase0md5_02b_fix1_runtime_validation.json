@@ -1,0 +1,22 @@
+{
+  "verdict": "PARTIAL",
+  "reason": "GRB bridge offline; no in-engine navigation or screenshot proof in this session.",
+  "checks": {
+    "project_launch": "not_executed_here",
+    "hideout_hub_load": "not_executed_here",
+    "taco_launch_from_board": "not_executed_here",
+    "hud_in_tree": "unknown",
+    "health_bars_visible": "unknown",
+    "objective_ticker_visible": "unknown",
+    "stamina_bar_visible": "unknown",
+    "poop_count_visible": "unknown",
+    "f10_toggleable": "static_script_review_only",
+    "f1_f11_pause_input": "manual_checklist_required"
+  },
+  "new_debugger_errors": [],
+  "assertions": {
+    "runtime_validation_attempted": true,
+    "hud_visible_after_fix_or_failure_reported": true,
+    "runtime_limitations_documented_if_any": true
+  }
+}

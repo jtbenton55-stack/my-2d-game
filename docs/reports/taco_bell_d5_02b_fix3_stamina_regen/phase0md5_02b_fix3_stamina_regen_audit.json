@@ -1,0 +1,19 @@
+{
+  "stamina_regen_code_audited": true,
+  "player_stamina_update_path_audited": true,
+  "hud_provider_read_path_audited": true,
+  "likely_regen_root_cause_identified_or_gap_reported": true,
+  "root_causes": ["STAMINA_CLAMP_OR_THRESHOLD_BAD"],
+  "rejected_hypotheses": [
+    "REGEN_NOT_IMPLEMENTED",
+    "PROCESS_FRAME_SKIPPED_WHEN_NOT_SPRINTING",
+    "HUD_REFRESH_STALE",
+    "EXHAUSTED_STATE_STUCK"
+  ],
+  "files_audited": [
+    "src/player/PlayerStaminaController.gd",
+    "src/player/Player.gd",
+    "src/ui/HUD.gd",
+    "src/missions/ui/MissionHudDataProvider.gd"
+  ]
+}

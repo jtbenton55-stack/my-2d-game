@@ -1,0 +1,69 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 8",
+  "recommended_phase_name": "PHASE 0M-D5-01 — Taco Bell attempt-reset contract",
+  "purpose": "Implement MissionObjectiveBridge.reset_runtime_objectives_for_mission + hook from IsoMissionBase at attempt boundary; converge objective publishing onto a single writer; make Phase0K seed safely re-invokable.",
+  "why_this_is_next": [
+    "Unblocks the entire Taco vertical slice; all P0/P1 downstream items depend on this",
+    "Already designed in D4 spec; matches this audit's R1",
+    "Smallest possible code surface (no scenes, no Player.gd, no project.godot)",
+    "Lowest risk in the P0 set",
+    "Player-visible improvement: retrying Taco feels coherent"
+  ],
+  "alternatives_considered_and_rejected": [
+    {"alt":"Full D5-01+02+03 in one pass","reason":"Too wide; D5-03 risky without D5-01 landed"},
+    {"alt":"Replan D5 based on audit","reason":"Audit confirms D4 spec; replan unnecessary"},
+    {"alt":"Build playable Taco objective spine without reset","reason":"Masks symptom; reset is the actual fix"},
+    {"alt":"Fix launch/pause/objective UX","reason":"Pause (D5-02) included via R2; launch already works"},
+    {"alt":"Clean stale systems","reason":"High value but must be separate doc-hygiene pass (R4)"},
+    {"alt":"Add mission result/return loop","reason":"Belongs P1 after D5-01"},
+    {"alt":"Improve hideout loop","reason":"P2; hideout already supports vertical slice"},
+    {"alt":"Add a small fun feature","reason":"Feature creep before foundation"},
+    {"alt":"Stabilize validators/runtime","reason":"Already mostly green; D5 validator bundled later"},
+    {"alt":"README/doc cleanup","reason":"Separate pass (R4)"}
+  ],
+  "allowed_files_to_write": [
+    "src/missions/objectives/MissionObjectiveBridge.gd",
+    "src/missions/iso/runtime/Phase0KMissionCompletionController.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/taco_bell/TacoBellAttemptResetHooks.gd (new, optional)",
+    "src/tools/editor/taco_bell_redesign_d5_01/phase0md5_01_static_validator.py (new)",
+    "docs/reports/taco_bell_redesign_d5_01/*.md (new)",
+    "docs/reports/taco_bell_redesign_d5_01/*.json (new)"
+  ],
+  "forbidden_files": [
+    "src/player/Player.gd",
+    "src/player/PlayerStaminaController.gd",
+    "project.godot",
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "scenes/missions_iso/TacoBellIso_Editable.tscn",
+    "scenes/missions/TacoBellMission.tscn",
+    "scenes/hideout/HideoutHub.tscn",
+    "assets/** raw assets",
+    "ALL *.tscn (no scene edits)"
+  ],
+  "acceptance_criteria": [
+    "New D5-01 static validator passes (reset body non-empty; bridge reset called on mission_started; Phase0K seed safely re-invokable; no edits to forbidden files)",
+    "D4 validator still passes",
+    "D2A-FIX2 sprint validators still pass",
+    "Manual/GRB: Taco retry confirms garage_beam_armed re-arms",
+    "Manual: QuestManager.active_objective reflects current mission phase after retry",
+    "Manual: Pause objectives tab shows current phase, not stale",
+    "Phase0K state fields reset on retry: delivery_bag_collected, code_gate_unlocked, exit_unlocked, completed_objectives",
+    "Sprint (Ctrl/C) and Dodge (Space) regression-free",
+    "No git diff in any forbidden file"
+  ],
+  "risks": [
+    "IsoMissionBase touch (2632 LOC). Mitigation: additive call only, no signature changes",
+    "Phase0K vs Bridge disagree on 'primary objective'. Mitigation: Bridge is publisher, Phase0K mirrors",
+    "Existing MissionObjectiveBridge stub may have been intentional pending D5-01"
+  ],
+  "manual_decisions_needed": [
+    "Whether TacoBellAttemptResetHooks.gd is a separate file or inline in IsoMissionBase (rec: separate)",
+    "Whether to add EventBus.attempt_started(mission_id) or piggyback on mission_started (rec: piggyback)"
+  ],
+  "exact_summary_for_chatgpt": "Please generate the next Cursor prompt as PHASE 0M-D5-01 — Taco Bell attempt-reset contract. The scope is exactly what docs/reports/taco_bell_redesign_d4/phase0md4_d5_implementation_spec.json describes for the D5-01 phase plus the audit's R1 in docs/reports/full_repo_roadmap_audit/phase7_prioritized_roadmap.md. Implement only MissionObjectiveBridge.reset_runtime_objectives_for_mission, hook it from IsoMissionBase at attempt boundary, and make Phase0KMissionCompletionController._seed_objectives safely re-invokable. Allowed writes: src/missions/objectives/MissionObjectiveBridge.gd, src/missions/iso/runtime/Phase0KMissionCompletionController.gd, src/levels/IsoMissionBase.gd, optional new src/missions/taco_bell/TacoBellAttemptResetHooks.gd, plus src/tools/editor/taco_bell_redesign_d5_01/* and docs/reports/taco_bell_redesign_d5_01/*. Forbidden: Player.gd, PlayerStaminaController.gd, project.godot, every .tscn file, assets/**. Acceptance: D5-01 static validator passes, all D4 / D2A-FIX2 validators still pass, manual Taco retry confirms garage_beam_armed re-arms and QuestManager.active_objective reflects current phase. Pause payload Taco mission_id fix (D5-02) and Louis bypass parity (D5-03) are NOT in this pass.",
+  "assertions": {
+    "next_prompt_recommendation_created": true,
+    "recommendation_based_on_full_audit": true
+  }
+}

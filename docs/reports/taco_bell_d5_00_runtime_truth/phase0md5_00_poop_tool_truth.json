@@ -1,0 +1,11 @@
+{
+  "phase": "0M-D5-00 / Phase 7",
+  "initial_poop_counters": "poop_bags_used=0 poop_bags_collected=0 (runtime summary)",
+  "tool_code_path": "STATIC_ONLY IsoMissionBase.handle_tool_use -> deploy_poop_bag_decoy_at",
+  "throw_aim_runtime": "NOT_TESTED",
+  "assertions": {
+    "poop_tool_truth_test_attempted": true,
+    "poop_tool_runtime_status_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

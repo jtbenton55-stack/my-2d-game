@@ -1,0 +1,17 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "git_status_summary": "dirty_worktree_unrelated_changes_present",
+  "git_diff_name_only_note": "Working tree contains multiple modified files from prior work; this pass only adds/edits fix1 artifacts and listed gameplay files.",
+  "d5_02b_final_report_exists": true,
+  "d5_02a_fix2_final_report_exists": true,
+  "playable_taco_scene_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "protected_files_edit_intent": "Avoid project.godot, Player.gd, PlayerStaminaController.gd, IsoMissionBase.gd, Taco scenes, HideoutHub, player.tscn, assets unless proven necessary.",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "hud_visibility_fix_scope_confirmed": true,
+    "protected_files_identified": true
+  }
+}

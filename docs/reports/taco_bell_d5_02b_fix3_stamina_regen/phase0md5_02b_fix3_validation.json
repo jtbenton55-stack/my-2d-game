@@ -1,0 +1,5 @@
+{
+  "static_validator_passed": true,
+  "failures": [],
+  "validator_script": "src/tools/editor/taco_bell_d5_02b_fix3_stamina_regen/phase0md5_02b_fix3_static_validator.py"
+}

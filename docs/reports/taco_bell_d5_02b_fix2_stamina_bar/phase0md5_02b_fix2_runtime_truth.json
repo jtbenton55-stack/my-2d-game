@@ -1,0 +1,9 @@
+{
+  "grb_ping": "Bridge not connected. Launch the game first.",
+  "runtime_capture": "not_performed",
+  "limitations": ["GRB offline in this Cursor session"],
+  "assertions": {
+    "runtime_truth_attempted": true,
+    "runtime_truth_documented": true
+  }
+}

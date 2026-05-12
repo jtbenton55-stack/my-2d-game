@@ -1,0 +1,6 @@
+{
+  "phase": "7",
+  "assertions": {
+    "static_validator_created": true
+  }
+}

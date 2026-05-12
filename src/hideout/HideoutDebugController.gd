@@ -34,3 +34,15 @@ func connect_buttons(container: Node) -> void:
 			debug_state_requested.emit(state_id)
 		)
 		container.add_child(button)
+	_hide_debug_hideout_panel_root(container)
+
+
+func _hide_debug_hideout_panel_root(container: Node) -> void:
+	var walk: Node = container
+	for _i in range(6):
+		if walk == null:
+			return
+		if String(walk.name).begins_with("DebugHideout"):
+			(walk as CanvasItem).visible = false
+			return
+		walk = walk.get_parent()

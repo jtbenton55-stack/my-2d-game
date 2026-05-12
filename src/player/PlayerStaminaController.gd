@@ -8,8 +8,10 @@ signal sprint_stopped
 signal exhausted_changed(is_exhausted: bool)
 
 var max_stamina: float = 100.0
-var drain_rate_per_sec: float = 35.0
-var regen_rate_per_sec: float = 22.0
+## Full bar to 0 while sprinting: time ~= max_stamina / this value (default ~2s at max 100).
+var drain_rate_per_sec: float = 50.0
+## 0 to full while not sprinting: time ~= max_stamina / this value (default ~15s at max 100).
+var regen_rate_per_sec: float = 100.0 / 15.0
 var sprint_speed_multiplier: float = 1.35
 var exhausted_threshold: float = 0.5
 var sprint_action_name: String = "sprint"
@@ -104,7 +106,7 @@ func process_frame(delta: float, wants_sprint: bool, is_moving: bool) -> void:
 	if _sprinting:
 		current_stamina = maxf(0.0, current_stamina - drain_rate_per_sec * delta)
 	else:
-		current_stamina = mini(max_stamina, current_stamina + regen_rate_per_sec * delta)
+		current_stamina = minf(max_stamina, current_stamina + regen_rate_per_sec * delta)
 	var ex := current_stamina <= exhausted_threshold
 	if ex != _exhausted:
 		_exhausted = ex

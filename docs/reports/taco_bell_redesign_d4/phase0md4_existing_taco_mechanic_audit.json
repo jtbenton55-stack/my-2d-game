@@ -1,0 +1,21 @@
+{
+  "taco_mechanics_audited": true,
+  "must_not_forget_items_checked": true,
+  "reusable_vs_taco_specific_boundary_classified": true,
+  "mechanics": [
+    {"id": "beam_one_shot", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "IsoMissionBase._is_alarm_zone_one_shot garage_entry_beam; alarm_triggered flag; area monitoring disabled after trigger", "owner_today": "IsoMissionBase + AlarmZone nodes"},
+    {"id": "code_gate_keypad", "classification": "KEEP_TACO_SPECIFIC", "evidence": "Phase0JCodeGateController + Phase0JCodeInputUI scene-local", "owner_today": "Phase0J stack; D5 may extract reusable KeypadGate helper later"},
+    {"id": "louis_bypass_route", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "Scene markers bypasses_challenge_id garage_entry_beam; Phase0JMechanicRouter marks ROUTE_* deferred", "owner_today": "Scene markers + future RouteBypassController"},
+    {"id": "poop_bag_aimed_throw", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "Player + MissionToolSurfaceHelper + IsoMissionBase.deploy_poop_bag_decoy_at", "owner_today": "Player input + IsoMissionBase tool surface"},
+    {"id": "objective_tracking", "classification": "REPLACE_WITH_EXISTING_REUSABLE_MODULE", "evidence": "QuestManager + MissionObjectiveBridge.publish_primary_objective; Phase0K also seeds objectives — overlap", "owner_today": "QuestManager + MissionObjectiveBridge + Phase0K"},
+    {"id": "clue_collectible", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "MissionClueBridge/MissionPauseDataProvider; Phase0JMissionStateAdapter sync", "owner_today": "Bridges + adapter"},
+    {"id": "scheme_cards", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "MissionSchemeBridge + pause_menu", "owner_today": "MissionSchemeBridge / CardEffects"},
+    {"id": "detection_guards_cameras", "classification": "UNKNOWN_NEEDS_MANUAL_REVIEW", "evidence": "MissionAlertController + spawners; parity table in MechanicRouter says SEPARATE_PASS_REQUIRED", "owner_today": "Iso runtime + placeholders"},
+    {"id": "retry_death_reset", "classification": "EXTRACT_TO_REUSABLE_MODULE", "evidence": "_reset_attempt_runtime_state; MissionObjectiveBridge.reset stub; SceneManager reload comment in IsoMissionBase", "owner_today": "IsoMissionBase partial; bridge stub"},
+    {"id": "completion_return", "classification": "KEEP_BUT_WRAP_THROUGH_REUSABLE_MODULE", "evidence": "Phase0KMissionCompletionController.complete_mission_and_exit -> GameState/SceneManager", "owner_today": "Phase0K + GameState"},
+    {"id": "pause_objectives_scheme_clues", "classification": "KEEP_AS_IS", "evidence": "pause_menu.gd uses MissionPauseDataProvider", "owner_today": "MissionPauseDataProvider"},
+    {"id": "sprint_dodge", "classification": "KEEP_AS_IS", "evidence": "User-confirmed runtime; Player.gd / PlayerStaminaController — out of D4/D5 Taco scope unless regression test", "owner_today": "Player stack"},
+    {"id": "dialogue", "classification": "KEEP_TACO_SPECIFIC", "evidence": "IsoMissionBase loads TacoBellDialogueProvider for taco mission", "owner_today": "TacoBellDialogueProvider.gd"},
+    {"id": "phase0j_debug_hud", "classification": "DEPRECATE_LATER", "evidence": "Debug HUD canvas layers for authoring — should not be player-facing long term", "owner_today": "Phase0JDebugHUD"}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "changes": [
+    "HUD.gd: _refresh_mission_compact_hud reordered; _player_facing_objective_line; poop label visibility; objective refresh independent of strip-null edge",
+    "hud.tscn: CanvasLayer layer 50; ObjectiveLabel anchor_left 0.0",
+    "MissionHudDataProvider.gd: sanitize rejects uid/res/::() internal patterns",
+    "PlayerSprintDebugOverlay.gd: layer 110 (was 120) for F11 below pause",
+    "docs/CHANGELOG.md: consolidated D5-02B + FIX1 note"
+  ],
+  "duplicate_hud_created": false,
+  "debug_clutter_restored": false,
+  "assertions": {
+    "hud_fix_implemented_or_deferred_with_reason": true,
+    "no_duplicate_hud_created": true,
+    "debug_clutter_not_restored": true
+  }
+}

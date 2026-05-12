@@ -1,0 +1,14 @@
+{
+  "phase": "0M-D5-00 / Phase 3",
+  "pause_menu_path": "/root/TacoBellIso_Editable/PauseMenu",
+  "pause_toggle_action_observed_in_code": "ui_cancel",
+  "grb_pause_action_pause_key": "no_confirmed_open",
+  "grb_ui_cancel": "command_timeout_after_send_grb_session_stale",
+  "objectives_tab_code": "STATIC_ONLY",
+  "mission_id_in_pause_objectives": "GameState.current_mission_id (static read pause_menu.gd)",
+  "assertions": {
+    "pause_verification_attempted": true,
+    "objectives_scheme_clues_status_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

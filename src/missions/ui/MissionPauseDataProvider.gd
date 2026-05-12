@@ -34,7 +34,16 @@ static func get_scheme_card_snapshot(mission_id: String = "", mission_node: Node
 	for row in snap.get("equipped", []):
 		if row is Dictionary:
 			items.append(row)
-	return {"ok": snap.get("ok", false), "mission_id": mid, "items": items, "warnings": snap.get("warnings", [])}
+	return {
+		"ok": snap.get("ok", false),
+		"mission_id": mid,
+		"items": items,
+		"warnings": snap.get("warnings", []),
+		"loadout_slots": snap.get("loadout_slots", []),
+		"legacy_selected_card_ids": snap.get("legacy_selected_card_ids", []),
+		"scheme_debug_note": snap.get("scheme_debug_note", ""),
+		"unlocked_ids": snap.get("unlocked_ids", []),
+	}
 
 
 static func get_clue_snapshot(mission_id: String = "", mission_node: Node = null) -> Dictionary:
@@ -77,6 +86,6 @@ static func _effective_mission_id(mission_id: String, mission_node: Node) -> Str
 		return mission_id
 	if mission_node != null and mission_node.has_method("get_mission_id"):
 		return String(mission_node.call("get_mission_id"))
-	if Engine.has_singleton("GameState"):
+	if MissionAutoloadResolver.has_game_state():
 		return String(GameState.current_mission_id)
 	return ""

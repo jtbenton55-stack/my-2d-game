@@ -1,0 +1,10 @@
+{
+  "kimi_preimplementation_review_attempted_or_unavailable_documented": true,
+  "kimi_payload_sanitized": true,
+  "kimi_not_treated_as_authority": true,
+  "tool": "ask_kimi_k2_6",
+  "mode": "debugging",
+  "kimi_available": true,
+  "primary_suggestion": "Replace mini with minf on stamina regen clamp",
+  "adopted_locally_verified": true
+}

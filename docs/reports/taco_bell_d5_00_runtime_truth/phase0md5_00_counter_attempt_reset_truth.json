@@ -1,0 +1,15 @@
+{
+  "phase": "0M-D5-00 / Phase 5",
+  "initial_attempt_runtime_state_sample": "all zeros in counters per get_runtime_debug_summary",
+  "mission_objective_bridge_reset_stub": true,
+  "runtime_reset_authority": "IsoMissionBase._setup_runtime_systems -> _reset_attempt_runtime_state",
+  "full_relaunch_reset_expectation": "STATIC_ONLY new scene instance",
+  "in_mission_retry_without_reload": "NOT_TESTED",
+  "d5_01_assessment": "DEFER_OPTIONAL_UNLESS_MANUAL_RETRY_LEAK_FOUND",
+  "assertions": {
+    "attempt_reset_truth_test_attempted": true,
+    "counter_reset_status_recorded": true,
+    "d5_01_needed_or_not_assessed": true,
+    "evidence_level_recorded": true
+  }
+}

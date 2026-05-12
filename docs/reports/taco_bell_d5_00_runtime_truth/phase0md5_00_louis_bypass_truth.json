@@ -1,0 +1,11 @@
+{
+  "phase": "0M-D5-00 / Phase 6",
+  "phase0j_router_route_categories": "INSPECT_ONLY_DEFERRED",
+  "louis_route_runtime_effect": "STATIC_ONLY no active mechanic via Phase0JMechanicRouter",
+  "louis_beam_neutralization": "NOT_IMPLEMENTED_IN_ROUTER_STATIC_ONLY",
+  "assertions": {
+    "louis_bypass_truth_test_attempted": true,
+    "louis_bypass_runtime_effect_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

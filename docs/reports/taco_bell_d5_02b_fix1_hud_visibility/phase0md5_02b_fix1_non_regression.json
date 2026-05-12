@@ -1,0 +1,28 @@
+{
+  "f10": {
+    "role": "IsoMissionDebugPanel_toggle_F10_layer_100",
+    "default_hidden_script": true,
+    "above_hud_when_open": "100_gt_50_true"
+  },
+  "f11": {
+    "player_sprint_debug_overlay_layer": 110,
+    "below_pause_120": true,
+    "above_hud_50": true
+  },
+  "f1": {
+    "controls_overlay": "unchanged_this_pass_toggle_F1"
+  },
+  "pause": {
+    "pause_menu_layer": 120,
+    "above_hud_50": true,
+    "above_f11_110": true
+  },
+  "phase0j_playfield": {
+    "default_hidden": "Phase0JDebugHUD_ready_calls_hide"
+  },
+  "assertions": {
+    "f10_role_preserved": true,
+    "pause_layer_preserved": true,
+    "always_visible_debug_not_restored": true
+  }
+}

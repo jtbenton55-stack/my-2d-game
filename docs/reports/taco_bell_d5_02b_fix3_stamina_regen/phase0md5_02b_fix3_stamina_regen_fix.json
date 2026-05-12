@@ -1,0 +1,9 @@
+{
+  "stamina_regen_fix_implemented": true,
+  "sprint_drain_preserved": true,
+  "ctrl_release_regen_supported": true,
+  "exhaustion_does_not_block_regen_forever": true,
+  "no_input_binding_changes": true,
+  "files_modified": ["src/player/PlayerStaminaController.gd"],
+  "code_change": "mini -> minf on regen clamp"
+}

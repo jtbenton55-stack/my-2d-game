@@ -23,7 +23,8 @@ func _ready() -> void:
 	_mission = get_tree().current_scene
 	_build_ui()
 	set_process(true)
-	visible = OS.is_debug_build()
+	## Hidden by default (0M-D5-02A); press F10 to show compact HUD, F9 for details.
+	visible = false
 	if _details_panel != null:
 		_details_panel.visible = false
 
@@ -51,23 +52,30 @@ func _build_ui() -> void:
 		child.queue_free()
 	_compact_panel = Panel.new()
 	_compact_panel.name = "CompactDebugHUD"
+	_compact_panel.clip_contents = true
 	_compact_panel.anchor_left = 0.0
 	_compact_panel.anchor_top = 0.5
 	_compact_panel.anchor_right = 0.0
 	_compact_panel.anchor_bottom = 0.5
 	_compact_panel.offset_left = 18.0
-	_compact_panel.offset_top = -84.0
+	_compact_panel.offset_top = -120.0
 	_compact_panel.offset_right = 306.0
-	_compact_panel.offset_bottom = 84.0
+	_compact_panel.offset_bottom = 120.0
 	_apply_dark_panel_style(_compact_panel)
 	add_child(_compact_panel)
+	var status_scroll := ScrollContainer.new()
+	status_scroll.name = "StatusScroll"
+	status_scroll.position = Vector2(6, 6)
+	status_scroll.size = Vector2(284, 228)
+	status_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_compact_panel.add_child(status_scroll)
 	var compact := Label.new()
 	compact.name = "Status"
-	compact.position = Vector2(8, 6)
-	compact.size = Vector2(276, 110)
-	compact.autowrap_mode = TextServer.AUTOWRAP_OFF
+	compact.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	compact.custom_minimum_size = Vector2(268, 8)
+	compact.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status = compact
-	_compact_panel.add_child(compact)
+	status_scroll.add_child(compact)
 	_apply_red_text_style(compact)
 	_details_panel = Panel.new()
 	_details_panel.name = "DebugDetailsPanel"
@@ -123,7 +131,24 @@ func _refresh_status() -> void:
 	if controller != null:
 		detection_value = float(controller.get("alert_score"))
 		mod = float(controller.get("player_detection_modifier"))
-	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d" % [
+	var p0j := _find_phase0j_adapter()
+	var p0j_counts := ""
+	if p0j != null and p0j.has_method("get_all_counts"):
+		var ac: Dictionary = p0j.call("get_all_counts")
+		var bits: Array[String] = []
+		for k in ["poop_bag", "bag", "objective_bag", "evidence_clue", "polaroid", "glow_guy", "tiny_icon"]:
+			bits.append("%s=%d" % [k, int(ac.get(k, 0))])
+		p0j_counts = "\nphase0j_adapter " + " ".join(bits)
+	var pbi := GameState.poop_bag_inventory
+	var poop_line := "\npoop_inv count=%d collected_run=%d used_run=%d" % [
+		int(pbi.get("count", 0)),
+		int(pbi.get("collected_this_mission", 0)),
+		int(pbi.get("used_this_mission", 0)),
+	]
+	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
+	var scheme_dbg := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
+	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
+	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s" % [
 		mid,
 		heat,
 		int(GameState.failed_attempts.get(mid, 0)),
@@ -137,7 +162,11 @@ func _refresh_status() -> void:
 		int(attempt.get("alarms", perf.get("alarms_triggered", 0))),
 		int(attempt.get("wrong_code", perf.get("wrong_code_attempts", 0))),
 		int(attempt.get("guards_alerted", perf.get("guards_alerted", 0))),
-		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0)))
+		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0))),
+		p0j_counts,
+		poop_line,
+		scheme_dbg,
+		obj_line,
 	]
 	_apply_red_text_style(_status)
 	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d\n(F9 toggle details, F10 toggle compact HUD)" % [
@@ -156,6 +185,24 @@ func _refresh_status() -> void:
 		int(perf.get("collectibles_found", 0))
 	]
 	_apply_red_text_style(_details)
+	call_deferred("_fit_compact_status_height")
+
+
+func _find_phase0j_adapter() -> Node:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return null
+	return scene.find_child("Phase0JMissionStateAdapter", true, false)
+
+
+func _fit_compact_status_height() -> void:
+	if _status == null:
+		return
+	# Godot 4 Label has no get_content_height() (that is RichTextLabel). Fit using line metrics.
+	var lines: int = maxi(1, _status.get_line_count())
+	var line_h: float = float(_status.get_line_height())
+	var h: float = line_h * float(lines) + 8.0
+	_status.custom_minimum_size.y = maxf(40.0, h)
 
 
 func _typed_collectible_summary() -> Dictionary:

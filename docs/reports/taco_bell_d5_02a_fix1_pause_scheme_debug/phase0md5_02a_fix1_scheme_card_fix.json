@@ -1,0 +1,8 @@
+{
+  "phase": "5",
+  "assertions": {
+    "scheme_cards_visible_in_pause_or_gap_reported": true,
+    "scheme_effect_status_honestly_reported": true,
+    "no_new_scheme_system_created": true
+  }
+}

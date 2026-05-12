@@ -1,0 +1,219 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 2B",
+  "mission_bible_path": "res://docs/MISSION_BIBLE.md",
+  "mission_bible_found": true,
+  "mission_bible_line_count": 61,
+  "mission_bible_intent_summary": "Eleven-mission Sterling Syndicate arc with one mechanic/emotional flavor/map shape/clue per mission; reusable global systems for polaroids, glow guys, tiny icons, poop bags, evidence, lock language and small per-mission heat mutation tables; build order Phase 1 (Taco/Jazz/Rewrite) -> Phase 2 (Car/Clean/Diamond) -> Phase 3 (Persian/Elephant/Arm) -> Phase 4 (Shadow/Sterling Tower).",
+  "missions": [
+    {
+      "id": "taco_bell_drop",
+      "bible_label": "Taco Bell Drop",
+      "scenes_found": [
+        "scenes/missions/TacoBellMission.tscn",
+        "scenes/missions_iso/TacoBellIso_Editable.tscn",
+        "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+      ],
+      "scripts_found": ["src/missions/TacoBellMission.gd", "src/levels/IsoMissionBase.gd", "src/missions/iso/runtime/Phase0J*.gd", "src/missions/iso/runtime/Phase0K*.gd"],
+      "status": "PARTIAL",
+      "roadmap_impact": "IMPLEMENT_SOON",
+      "notes": "Map + framework present on RedesignTest; objective reset, Louis bypass parity, beam-once verification still gaps"
+    },
+    {
+      "id": "velvet_paw_jazz_club",
+      "bible_label": "Velvet Paw Jazz Club",
+      "scenes_found": ["scenes/missions/JazzClubMission.tscn", "scenes/missions/JazzClubOwnerArena.tscn"],
+      "scripts_found": ["src/missions/JazzClubMission.gd", "src/missions/JazzClubOwnerArena.gd", "src/missions/music_puzzle_trigger.gd", "src/missions/owner_suite_stairs.gd", "src/missions/ledger_decoy_interact.gd", "src/missions/yordano_basement_interact.gd", "src/missions/velvet_prop.gd"],
+      "status": "PARTIAL",
+      "roadmap_impact": "IMPLEMENT_AFTER_TACO_VERTICAL_SLICE",
+      "notes": "Multi-floor logic and basement flow exist on LevelBase; FOLLOWUPS.md documents deferred Phase 4 hostile/stealth. Needs migration to iso framework when ready."
+    },
+    {
+      "id": "rewrite_room",
+      "bible_label": "Rewrite Room",
+      "scenes_found": ["scenes/missions/RewriteRoomMission.tscn"],
+      "scripts_found": ["src/missions/RewriteRoomMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_MULTI_MISSION_FOUNDATION"
+    },
+    {
+      "id": "fast_family_getaway",
+      "bible_label": "Fast Family Getaway",
+      "scenes_found": ["scenes/missions/CarChaseMission.tscn"],
+      "scripts_found": ["src/missions/CarChaseMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_POLISH"
+    },
+    {
+      "id": "clean_job",
+      "bible_label": "Clean Job",
+      "scenes_found": ["scenes/missions/CleanJobMission.tscn"],
+      "scripts_found": ["src/missions/CleanJobMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_MULTI_MISSION_FOUNDATION"
+    },
+    {
+      "id": "diamond_a_year_job",
+      "bible_label": "Diamond a Year Job",
+      "scenes_found": ["scenes/missions/DiamondVaultMission.tscn"],
+      "scripts_found": ["src/missions/DiamondVaultMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_MULTI_MISSION_FOUNDATION"
+    },
+    {
+      "id": "arm_wrestling_underground",
+      "bible_label": "Arm-Wrestling Underground",
+      "scenes_found": ["scenes/missions/ArmWrestlingMission.tscn"],
+      "scripts_found": ["src/missions/ArmWrestlingMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_POLISH"
+    },
+    {
+      "id": "persian_tea_poison_ink",
+      "bible_label": "Persian Tea and Poison Ink",
+      "scenes_found": ["scenes/missions/PersianTeaMission.tscn"],
+      "scripts_found": ["src/missions/PersianTeaMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_POLISH"
+    },
+    {
+      "id": "elephant_in_the_room",
+      "bible_label": "Elephant in the Room",
+      "scenes_found": ["scenes/missions/ElephantRoomMission.tscn"],
+      "scripts_found": ["src/missions/ElephantRoomMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_POLISH"
+    },
+    {
+      "id": "shadow_solo_contract",
+      "bible_label": "Shadow Solo Contract",
+      "scenes_found": ["scenes/missions/ShadowSoloMission.tscn"],
+      "scripts_found": ["src/missions/ShadowSoloMission.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_POLISH"
+    },
+    {
+      "id": "sterling_tower_heist",
+      "bible_label": "Sterling Tower (finale)",
+      "scenes_found": ["scenes/missions/SterlingTowerMission.tscn"],
+      "scripts_found": ["src/missions/SterlingTowerMission.gd", "src/missions/sterling_clue_note.gd", "src/enemies/VictorSterling.gd"],
+      "status": "PLACEHOLDER_ONLY",
+      "roadmap_impact": "DEFER_UNTIL_MULTI_MISSION_FOUNDATION"
+    }
+  ],
+  "core_loop_alignment": {
+    "hideout_to_mission_launcher": "IMPLEMENTED_READY",
+    "scheme_card_draft": "IMPLEMENTED_NEEDS_TESTING",
+    "mission_play": "PARTIAL",
+    "results_reward": "IMPLEMENTED_READY",
+    "return_to_hideout": "IMPLEMENTED_READY",
+    "mission_unlock_progression": "IMPLEMENTED_READY",
+    "route_unlocks": "PARTIAL",
+    "heat_failure_replay": "PARTIAL",
+    "save_persistence": "IMPLEMENTED_READY",
+    "evidence_clue_progression": "PARTIAL",
+    "finale_gating": "IMPLEMENTED_READY",
+    "character_unlocks": "IMPLEMENTED_READY",
+    "store_decorating_hideout": "IMPLEMENTED_READY",
+    "emotional_anchor_bentley_jake_mere_louis": "PARTIAL"
+  },
+  "mechanic_alignment": {
+    "objectives": "PARTIAL",
+    "clues_evidence": "PARTIAL",
+    "scheme_cards": "IMPLEMENTED_NEEDS_TESTING",
+    "tools_poop_bags": "IMPLEMENTED_NEEDS_TESTING",
+    "stealth_detection": "PARTIAL",
+    "sprint_dodge_combat": "IMPLEMENTED_NEEDS_TESTING",
+    "dialogue_portraits": "IMPLEMENTED_READY",
+    "character_interactions": "IMPLEMENTED_NEEDS_TESTING",
+    "mission_reset_retry": "PARTIAL",
+    "save_load": "IMPLEMENTED_READY",
+    "pause_menu_owns_obj_scheme_clues": "IMPLEMENTED_NEEDS_TESTING",
+    "reusable_mission_spine": "PARTIAL",
+    "live_restart_mutations": "PARTIAL",
+    "lock_language": "PARTIAL",
+    "polaroids_glow_tiny_icons": "PARTIAL"
+  },
+  "character_anchor_alignment": {
+    "bentley": "IMPLEMENTED_READY_mechanics_PARTIAL_story",
+    "jake": "IMPLEMENTED_NEEDS_TESTING",
+    "mere": "PARTIAL",
+    "louis": "IMPLEMENTED_READY_mechanics_PARTIAL_bypass",
+    "yordano": "PLACEHOLDER_ONLY",
+    "bryce": "PLACEHOLDER_ONLY",
+    "jc": "PLACEHOLDER_ONLY",
+    "violet": "PLACEHOLDER_ONLY",
+    "jinx": "PLACEHOLDER_ONLY",
+    "eren": "PLACEHOLDER_ONLY",
+    "kiro": "PLACEHOLDER_ONLY",
+    "jin": "PLACEHOLDER_ONLY",
+    "dom": "PLACEHOLDER_ONLY"
+  },
+  "alignment_scores_out_of_5": {
+    "mission_catalog_coverage": 4,
+    "framework_alignment": 2.5,
+    "single_mission_depth": 3,
+    "content_depth_across_catalog": 1,
+    "global_systems_clues_polaroids_etc": 2.5,
+    "emotional_anchors": 3,
+    "mission_bible_currency": 4
+  },
+  "biggest_gaps": [
+    "Only one mission playable",
+    "Reusable mission spine half-built (Phase0J/K Taco-scene-local)",
+    "Heat/mutation system wired only on legacy classic Taco script",
+    "Phase 1 showcase (Taco -> Jazz -> Rewrite) blocked by iso-framework migration",
+    "Restart/heat loop unverified on playable Taco",
+    "Lock language unimplemented beyond Taco code gate",
+    "Mission result does not emotionally close a run"
+  ],
+  "bible_ideas_still_guiding": [
+    "One mechanic / one emotional flavor / one map shape / one clue per mission",
+    "Per-mission checklist (zones, gate, polaroid, glow guy, tiny icon, 3 poop bags, 2 stealth angles, 1 combat/escape, micro-cutscene, twist, clue, mutation table, reward)",
+    "Recommended build order Phase 1 -> 4",
+    "Sterling steals leverage/identity/authorship/safety/belonging (theme)",
+    "Sterling Tower as convergence of clues + favors",
+    "Bentley emotional anchor culminating in Elephant in the Room"
+  ],
+  "bible_ideas_stale_or_revise": [
+    "Bible doesn't reference iso framework decision",
+    "Mutation tables expected per-mission; only Taco classic has one populated",
+    "Polaroid/Glow Guy/Tiny Icon naming needs alignment with POLAROID_LEGACY_IDS migration map",
+    "Light scope for minor friends (Yordano flourishes, JC tea ceremony) may shrink"
+  ],
+  "bible_ideas_to_defer": [
+    "Full Phase 2/3/4 mission designs",
+    "Heavy mutation systems beyond small tables",
+    "Music puzzle / screenwriting puzzle complexity until Jazz/Rewrite reach iso framework",
+    "Sterling Tower full design until at least 3 missions complete"
+  ],
+  "conflicts_bible_vs_repo_or_newer_reports": [
+    {
+      "topic": "Canonical Taco scene",
+      "bible_says": "TacoBellMission.tscn classic story room",
+      "code_says": "MissionSceneResolver redirects to TacoBellIso_Editable_RedesignTest.tscn",
+      "older_report_d1b_says": "Canonical = Editable.tscn (NON-RedesignTest)",
+      "current_truth": "RedesignTest (D1C correction + current resolver)"
+    },
+    {
+      "topic": "README mission completion",
+      "readme_says": "5 missions complete, 16 scheme cards ready",
+      "reality": "1 playable mission; others are scaffolds"
+    }
+  ],
+  "next_roadmap_priorities_implied_by_bible": [
+    "Finish Taco vertical slice (objective reset, Louis parity, beam once, return-to-hideout polish)",
+    "Build Jazz Club on iso framework",
+    "Build Rewrite Room on iso framework",
+    "Wire global systems (mutations, polaroids, glow guys, tiny icons) into the reusable spine",
+    "Defer finale + later missions until Phase 1 ships"
+  ],
+  "recommended_treatment_going_forward": "Treat Mission Bible as guiding vision; after Phase 1 stabilizes, write a one-page Bible Addendum mapping each mission to the iso framework + per-mission checklist + lock language item. Use Bible's per-mission checklist as literal acceptance criteria for graduating PARTIAL missions.",
+  "assertions": {
+    "mission_bible_searched": true,
+    "mission_bible_found_or_missing_reported": true,
+    "mission_bible_alignment_audit_created": true,
+    "mission_list_compared_to_repo": true,
+    "core_loop_compared_to_repo": true,
+    "roadmap_implications_extracted": true
+  }
+}

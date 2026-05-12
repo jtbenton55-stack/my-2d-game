@@ -1,0 +1,21 @@
+{
+  "sprint_stamina_bar": {
+    "exists_in_hud_tscn": true,
+    "node_path": "MissionHudStrip/SprintStaminaBar",
+    "hud_gd_onready_path": "MissionHudStrip/SprintStaminaBar",
+    "paths_match": true,
+    "default_visible_in_scene": true,
+    "parent_mission_strip_hidden_when_not_in_mission": true
+  },
+  "root_cause": "MissionHudDataProvider required dbg['ok'] true; Player.get_sprint_runtime_debug replaces dict with get_sprint_signal_chain_debug() which omits 'ok', so stamina_visible stayed false and HUD hid the bar.",
+  "player_debug_shape": {
+    "get_sprint_runtime_debug": "starts with ok then replaced by controller get_sprint_signal_chain_debug",
+    "stamina_keys_from_controller": ["current_stamina", "max_stamina", "via get_debug_snapshot/get_stamina_snapshot"]
+  },
+  "assertions": {
+    "stamina_bar_node_checked": true,
+    "stamina_bar_node_path_checked": true,
+    "stamina_data_provider_checked": true,
+    "likely_root_cause_identified_or_gap_reported": true
+  }
+}

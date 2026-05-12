@@ -29,3 +29,9 @@ debug-*.log
 
 # Ephemeral Godot Runtime Bridge / tooling output (logs, screenshots; may contain machine-specific GPU/driver noise)
 debug/
+
+# Local MCP server dependencies/secrets
+tools/mcp-kimi/node_modules/
+tools/mcp-kimi/.env
+tools/mcp-kimi/.env.*
+!tools/mcp-kimi/.env.example

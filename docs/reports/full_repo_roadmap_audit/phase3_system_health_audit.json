@@ -1,0 +1,59 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 3",
+  "status_legend": ["READY","PARTIAL","BROKEN","STALE","DUPLICATED","SANDBOX_ONLY","UNKNOWN","MISSING"],
+  "systems": [
+    {"id":"project_startup","status":"READY","evidence":"project.godot main_scene + 13 autoloads parse","fix_when":"ignore"},
+    {"id":"scene_manager","status":"READY","evidence":"src/autoload/SceneManager.gd uses MissionSceneResolver","fix_when":"later"},
+    {"id":"game_state","status":"PARTIAL","evidence":"catalog scene_path for taco still classic story room; resolver overrides","fix_when":"later_p2"},
+    {"id":"save_manager","status":"READY","evidence":"src/autoload/SaveManager.gd 3 slots, autosave","fix_when":"ignore"},
+    {"id":"hideout_hub","status":"READY","evidence":"HideoutHub.tscn + HideoutManager.gd + station controllers","fix_when":"later_p3"},
+    {"id":"mission_board","status":"READY","evidence":"HideoutMissionBoardController.launch_taco_bell uses resolver","fix_when":"later_p3"},
+    {"id":"mission_scene_resolver","status":"READY","evidence":"resolver taco_bell_drop -> RedesignTest","fix_when":"later_p3"},
+    {"id":"taco_expanded_scene","status":"PARTIAL","evidence":"RedesignTest loads with Phase0J/K; D1C runtime smoke","fix_when":"now_p0"},
+    {"id":"mission_framework_iso_levelbase","status":"PARTIAL","evidence":"IsoMissionBase 2632 LOC monolith","fix_when":"later_p5"},
+    {"id":"mission_objective_bridge","status":"PARTIAL","evidence":"MissionObjectiveBridge.gd shell; reset stub","fix_when":"now_p0"},
+    {"id":"mission_pause_data_provider","status":"READY","evidence":"all 6 expected methods present (D2 validator pass)","fix_when":"next_p1"},
+    {"id":"mission_clue_bridge","status":"PARTIAL","evidence":"thin RefCounted shell","fix_when":"later_p2"},
+    {"id":"mission_scheme_bridge","status":"PARTIAL","evidence":"thin RefCounted shell","fix_when":"later_p2"},
+    {"id":"tool_surface_poop_bags","status":"READY","evidence":"MissionToolSurfaceHelper + IsoMissionBase.handle_tool_use; Player aimed throw","fix_when":"later_p2"},
+    {"id":"sprint_stamina","status":"READY","evidence":"PlayerStaminaController + D2A-FIX2 validators PASS","fix_when":"later_p2"},
+    {"id":"space_dodge_dash","status":"READY","evidence":"Player.gd dodge timer; D2A-FIX2","fix_when":"later_p2"},
+    {"id":"player_movement_collision","status":"READY","evidence":"Player.gd physics_process","fix_when":"ignore"},
+    {"id":"player_visuals","status":"READY","evidence":"parallel PlayerVisualAnimator","fix_when":"later_p3"},
+    {"id":"character_animations_pipeline","status":"PARTIAL","evidence":"c2b_fix1 classifier outputs catalog; not yet SpriteFrames-imported","fix_when":"later_p3"},
+    {"id":"dialogue_portraits","status":"READY","evidence":"DialogueManager + DialogueBox + DialoguePortraitRegistry + hideout portraits","fix_when":"later_p2"},
+    {"id":"storefront_neon_nook","status":"READY","evidence":"HideoutStoreController + HideoutStorefrontPanel","fix_when":"later_p3"},
+    {"id":"pvgames_icon_library","status":"READY","evidence":"pvgames_icon_library_b9_builder.py + reports","fix_when":"ignore"},
+    {"id":"object_palette_stamping","status":"READY","evidence":"pvgames_object_palette addon + PVGEditableObject + dock builder","fix_when":"ignore"},
+    {"id":"asset_pipeline","status":"READY","evidence":"central security paintable tileset builder + reports","fix_when":"ignore"},
+    {"id":"ui_pause_menu","status":"DUPLICATED","evidence":"src/ui/PauseMenu.gd + src/ui/test_ui/pause_menu.gd","fix_when":"later_p3"},
+    {"id":"validators_test_harnesses","status":"READY","evidence":"41 python validators under src/tools/editor","fix_when":"next_p1"},
+    {"id":"docs_reports","status":"PARTIAL","evidence":"26 report folders; some stale (D1B canonical, README)","fix_when":"next_p1"},
+    {"id":"build_runtime_grb_tooling","status":"PARTIAL","evidence":"GRB addons present; grb_ping not connected right now","fix_when":"later"},
+    {"id":"future_mission_framework","status":"PARTIAL","evidence":"mission_module_audit recommends extractions; D4 defers","fix_when":"later_p5"},
+    {"id":"save_load_persistence","status":"READY","evidence":"autosave + schema version + unlock validation","fix_when":"ignore"}
+  ],
+  "critical_risk_summary": {
+    "P0_block_playable_taco_quality": [
+      "Objective writer convergence",
+      "MissionObjectiveBridge.reset stub",
+      "Pause payload Taco mission_id pin"
+    ],
+    "P1_block_next_mission": [
+      "Phase0J/K Taco-scene-local (must split into framework/ vs taco adapter)"
+    ],
+    "P2_architectural_debt": [
+      "IsoMissionBase monolith"
+    ],
+    "P3_clutter_friction": [
+      "Scene backups in scenes/**",
+      "Duplicate pause menus",
+      "Stale README + D1B canonical decision"
+    ]
+  },
+  "assertions": {
+    "system_health_audit_completed": true,
+    "each_major_system_classified": true,
+    "critical_risks_flagged": true
+  }
+}

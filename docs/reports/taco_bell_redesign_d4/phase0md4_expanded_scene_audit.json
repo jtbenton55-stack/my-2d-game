@@ -1,0 +1,41 @@
+{
+  "expanded_scene_audited": true,
+  "no_scene_files_modified": true,
+  "root_script_identified": true,
+  "root_node": "TacoBellIso_Editable (Node2D)",
+  "root_script": "res://src/levels/IsoMissionBase.gd",
+  "mission_definition_resource": "res://assets/missions/taco_bell_iso_blockout_definition.tres",
+  "entity_root_present": true,
+  "gameplay_root_present": true,
+  "art_root_present": true,
+  "player_spawn": "PackedScene res://scenes/characters/player.tscn instanced under scene (see .tscn EntityRoot/Spawn path in full audit)",
+  "runtime_helpers_under": "GameplayRoot/RuntimeHelpers",
+  "phase0j_nodes": [
+    "Phase0JRuntimeAuthoringHider",
+    "Phase0JCodeGateController",
+    "Phase0JInteractionBridge",
+    "Phase0JDebugHUD",
+    "Phase0JCodeInputUI",
+    "Phase0JMissionStateAdapter",
+    "Phase0JCollectibleMenuAdapter",
+    "Phase0JObjectiveAdapter",
+    "Phase0JMechanicRouter"
+  ],
+  "phase0k_nodes": [
+    "Phase0KMissionCompletionController",
+    "Phase0KCameraSpawner",
+    "Phase0KGuardSpawner",
+    "Phase0KBWrongCodeAttackGuardSpawner",
+    "Phase0KBBoundsCleanup"
+  ],
+  "louis_route_marker_ids": [
+    "louis_delivery_route_future_shortcut"
+  ],
+  "louis_bypass_challenge_id": "garage_entry_beam",
+  "code_gate_controller": "Phase0JCodeGateController",
+  "beam_alarm_id": "garage_entry_beam",
+  "pause_menu_scene": "res://src/ui/test_ui/pause_menu.tscn",
+  "hud_scene": "res://scenes/ui/hud.tscn",
+  "iso_debug_panel": "IsoMissionDebugPanel.gd",
+  "grb_inspection": "skipped_bridge_not_connected"
+}

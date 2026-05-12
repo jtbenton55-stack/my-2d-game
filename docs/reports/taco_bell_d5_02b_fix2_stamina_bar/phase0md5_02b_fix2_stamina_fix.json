@@ -1,0 +1,9 @@
+{
+  "fix_summary": "MissionHudDataProvider: stamina_visible when in_mission and (ok or current_stamina+max_stamina in dict); placeholder 100/100 + stamina_fallback when no snapshot; HUD tooltip on fallback; hud.tscn StyleBoxFlat contrast + min size.",
+  "assertions": {
+    "stamina_bar_fix_implemented": true,
+    "objective_ticker_preserved": true,
+    "poop_count_preserved": true,
+    "no_debug_clutter_added": true
+  }
+}

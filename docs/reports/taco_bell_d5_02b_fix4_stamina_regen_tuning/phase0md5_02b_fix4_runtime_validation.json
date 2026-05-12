@@ -1,0 +1,8 @@
+{
+  "runtime_validation_attempted": true,
+  "runtime_limitations_documented_if_any": true,
+  "godot_headless_ran": false,
+  "grb_ran": false,
+  "verdict": "PARTIAL",
+  "human_playtest_recommended": true
+}

@@ -1,25 +1,37 @@
-﻿{
-    "mcpServers":  {
-                       "godot-runtime-bridge":  {
-                                                    "args":  [
-                                                                 "C:/AI_Tools/godot-runtime-bridge/mcp/index.js"
-                                                             ],
-                                                    "env":  {
-                                                                "GDRB_FORCE_WINDOWED":  "1",
-                                                                "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe",
-                                                                "GDRB_INPUT_MODE":  "synthetic"
-                                                            },
-                                                    "command":  "node"
-                                                },
-                       "godot-full-control":  {
-                                                  "args":  [
-                                                               "C:/AI_Tools/godot-mcp/build/index.js"
-                                                           ],
-                                                  "env":  {
-                                                              "DEBUG":  "true",
-                                                              "GODOT_PATH":  "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe"
-                                                          },
-                                                  "command":  "node"
-                                              }
-                   }
+{
+  "mcpServers": {
+    "godot-runtime-bridge": {
+      "args": [
+        "C:/AI_Tools/godot-runtime-bridge/mcp/index.js"
+      ],
+      "env": {
+        "GDRB_FORCE_WINDOWED": "1",
+        "GODOT_PATH": "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe",
+        "GDRB_INPUT_MODE": "synthetic"
+      },
+      "command": "node"
+    },
+    "godot-full-control": {
+      "args": [
+        "C:/AI_Tools/godot-mcp/build/index.js"
+      ],
+      "env": {
+        "DEBUG": "true",
+        "GODOT_PATH": "C:/Users/jtben/Documents/PBD 2026/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64.exe"
+      },
+      "command": "node"
+    },
+    "siliconflow-kimi-k2-6": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/tools/mcp-kimi/server.mjs"
+      ],
+      "env": {
+        "SILICONFLOW_API_KEY": "${env:SILICONFLOW_API_KEY}",
+        "SILICONFLOW_BASE_URL": "https://api.siliconflow.com/v1",
+        "SILICONFLOW_MODEL": "moonshotai/Kimi-K2.6"
+      }
+    }
+  }
 }

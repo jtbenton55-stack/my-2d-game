@@ -1,0 +1,9 @@
+{
+  "phase": "1",
+  "assertions": {
+    "hud_data_audit_completed": true,
+    "objective_data_source_identified_or_gap_reported": true,
+    "stamina_data_source_identified_or_gap_reported": true,
+    "poop_bag_data_source_identified_or_gap_reported": true
+  }
+}

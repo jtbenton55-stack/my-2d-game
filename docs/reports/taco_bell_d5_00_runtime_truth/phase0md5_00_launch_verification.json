@@ -1,0 +1,19 @@
+{
+  "phase": "0M-D5-00 / Phase 1",
+  "evidence_default": "VERIFIED_RUNTIME where noted",
+  "main_menu_scene": "res://scenes/MainMenu.tscn",
+  "hideout_scene": "res://scenes/hideout/HideoutHub.tscn",
+  "taco_runtime_scene_path": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "taco_root_node_name": "TacoBellIso_Editable",
+  "wrong_legacy_scene_used": false,
+  "player_path": "/root/TacoBellIso_Editable/EntityRoot/Player",
+  "dog_companion_path": "/root/TacoBellIso_Editable/EntityRoot/DogCompanion",
+  "post_hideout_engine_errors": 11,
+  "mission_board_launch_path": "HideoutMissionBoardController.launch_taco_bell (grb_call_method); panel opened via interact + station UI visible",
+  "assertions": {
+    "launch_verification_attempted": true,
+    "taco_scene_path_checked": true,
+    "wrong_taco_scene_not_used_or_failure_reported": true,
+    "evidence_level_recorded": true
+  }
+}

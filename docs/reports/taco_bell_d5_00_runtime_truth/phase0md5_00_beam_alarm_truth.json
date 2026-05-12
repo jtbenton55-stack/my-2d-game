@@ -1,0 +1,18 @@
+{
+  "phase": "0M-D5-00 / Phase 4",
+  "runtime_initial_summary": {
+    "garage_beam_armed": true,
+    "garage_beam_triggered": false,
+    "alarm_zones_count": 1
+  },
+  "alarm_zone_node": "/root/TacoBellIso_Editable/GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
+  "beam_crossing_one_shot_observed_runtime": "NOT_TESTED",
+  "one_shot_implementation": "STATIC_ONLY IsoMissionBase._on_runtime_alarm_zone_entered + _is_alarm_zone_one_shot",
+  "beam_reset_on_new_scene": "STATIC_ONLY via _setup_runtime_systems -> _reset_attempt_runtime_state (new scene load)",
+  "assertions": {
+    "beam_truth_test_attempted": true,
+    "beam_one_shot_status_recorded": true,
+    "beam_reset_status_recorded": true,
+    "evidence_level_recorded": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "siliconflow-kimi-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local Cursor MCP server for calling SiliconFlow-hosted Kimi K2.6 as an advisory coding reviewer.",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check test-siliconflow.mjs",
+    "test:api": "node test-siliconflow.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "zod": "latest"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "phase": "4",
+  "assertions": {
+    "gamestate_missing_warning_removed_or_cleanly_handled": true,
+    "pause_payload_safe_without_crash": true,
+    "scrollable_pause_text_preserved": true
+  }
+}

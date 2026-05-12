@@ -1,0 +1,43 @@
+{
+  "pass_id": "0M-D5-02B-FIX4",
+  "verdict": "PARTIAL",
+  "tuning_issue": "Player requested ~15s full stamina refill and ~2s continuous sprint from full to empty at default max 100.",
+  "old_regen_rate_per_sec": 22.0,
+  "new_regen_rate_per_sec": 6.666666666666667,
+  "estimated_full_refill_seconds": 15.0,
+  "new_drain_rate_per_sec": 50.0,
+  "estimated_full_sprint_drain_seconds": 2.0,
+  "max_stamina_default": 100.0,
+  "regen_retune_note": "regen_rate_per_sec = max_stamina/15; drain_rate_per_sec = max_stamina/2 for 2s sprint burn.",
+  "files_modified_this_pass": ["src/player/PlayerStaminaController.gd", "docs/CHANGELOG.md"],
+  "files_created_this_pass": [
+    "docs/reports/taco_bell_d5_02b_fix4_stamina_regen_tuning/",
+    "src/tools/editor/taco_bell_d5_02b_fix4_stamina_regen_tuning/phase0md5_02b_fix4_static_validator.py"
+  ],
+  "kimi_used": false,
+  "kimi_payload_sanitized": null,
+  "manual_test_checklist": [
+    "Launch project.",
+    "Reach HideoutHub.",
+    "Launch Taco from MissionBoard.",
+    "Confirm objective ticker visible.",
+    "Confirm poop bag count visible.",
+    "Confirm stamina bar visible.",
+    "Move normally.",
+    "Hold Ctrl while moving.",
+    "Confirm stamina bar drains.",
+    "Release Ctrl.",
+    "Confirm stamina bar refills more slowly than before.",
+    "Confirm refill is not instant.",
+    "Keep walking without Ctrl.",
+    "Confirm stamina still refills while walking normally.",
+    "Drain stamina to zero if practical.",
+    "Confirm sprint stops.",
+    "Wait.",
+    "Confirm stamina regenerates and sprint becomes available again.",
+    "Confirm Space dash still works.",
+    "Confirm F10/F1/F11/pause still work.",
+    "Watch Output for new errors.",
+    "Paste final A–AJ block back to ChatGPT."
+  ]
+}

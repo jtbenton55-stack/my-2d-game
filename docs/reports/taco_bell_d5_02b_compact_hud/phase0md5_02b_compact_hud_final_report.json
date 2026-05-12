@@ -1,0 +1,15 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "hud_placement_summary": "ObjectiveLabel top band with left 232px and right 216px margins, autowrap+clip; MissionHudStrip VBox top-right (-200..-10 x, 12..104 y) for stamina + poop + optional hint",
+  "healthbar_overlap_status": "Avoided — strip is right-aligned; objective inset from left health stack",
+  "f10_debug_non_regression_status": "F10 / Phase0J files untouched this pass",
+  "runtime_validation_result": "NOT_RUN_IN_CURSOR",
+  "remaining_limitations": [
+    "Manual verify stamina bar motion under Ctrl sprint",
+    "Verify poop count updates on pickup/use in Taco"
+  ],
+  "assertions": {
+    "self_review_completed": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "phase": "0M-D5-02A-FIX1 / Phase 0",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "focused_fix_scope_confirmed": true,
+    "protected_files_identified": true
+  }
+}

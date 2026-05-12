@@ -1,0 +1,8 @@
+{
+  "phase": "5",
+  "assertions": {
+    "f10_debug_role_preserved": true,
+    "always_visible_debug_panel_not_restored": true,
+    "player_hud_has_no_raw_debug_dump": true
+  }
+}

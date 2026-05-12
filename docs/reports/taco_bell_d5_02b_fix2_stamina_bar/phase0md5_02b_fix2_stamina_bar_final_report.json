@@ -1,0 +1,43 @@
+{
+  "verdict": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "root_cause": "stamina_visible gated on get_sprint_runtime_debug()['ok'], but Player overwrites the dict with the stamina-chain snapshot without re-adding ok, so the bar never showed.",
+  "files_modified_this_pass": [
+    "src/missions/ui/MissionHudDataProvider.gd",
+    "src/ui/HUD.gd",
+    "scenes/ui/hud.tscn",
+    "docs/CHANGELOG.md"
+  ],
+  "files_created_this_pass": [
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_safety_baseline.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_safety_baseline.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_static_audit.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_static_audit.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_runtime_truth.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_runtime_truth.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_fix.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_fix.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_non_regression.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_non_regression.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_validation.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_validation.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_bar_final_report.md",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_stamina_bar_final_report.json",
+    "docs/reports/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_static_validator_run.json",
+    "src/tools/editor/taco_bell_d5_02b_fix2_stamina_bar/phase0md5_02b_fix2_static_validator.py"
+  ],
+  "sprint_stamina_bar_existed": true,
+  "node_path": "MissionHudStrip/SprintStaminaBar",
+  "stamina_data_source": "Player.get_sprint_runtime_debug -> PlayerStaminaController chain dict (current_stamina, max_stamina)",
+  "fallback_stamina_display": "100/100 in_mission when no player or no snapshot; stamina_fallback flag",
+  "stamina_bar_visible_after_fix": "expected_true_static_not_runtime_proven",
+  "stamina_bar_updates_ctrl_sprint": "expected_true_once_visible_static_not_runtime_proven",
+  "objective_ticker_preserved": true,
+  "poop_bag_count_preserved": true,
+  "runtime_validation_result": "PARTIAL_grb_offline",
+  "static_validator_result": "PASS",
+  "known_limitations": [
+    "No GRB session to verify drain/regen animation"
+  ],
+  "manual_test_checklist_ref": "mission_prompt_AF_block"
+}

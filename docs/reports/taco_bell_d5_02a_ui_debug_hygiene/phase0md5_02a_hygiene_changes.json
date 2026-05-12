@@ -1,0 +1,18 @@
+{
+  "phase": "0M-D5-02A / Phase 4",
+  "files_modified": [
+    "src/missions/iso/runtime/Phase0JDebugHUD.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/player/PlayerSprintDebugOverlay.gd",
+    "src/hideout/HideoutDebugController.gd",
+    "src/ui/test_ui/pause_menu.gd",
+    "src/ui/test_ui/controls_overlay.gd",
+    "src/ui/test_ui/controls_overlay.tscn"
+  ],
+  "final_hud_feature_added": false,
+  "assertions": {
+    "hygiene_changes_completed_or_deferred_with_reason": true,
+    "no_gameplay_logic_modified": true,
+    "no_final_hud_feature_added": true
+  }
+}

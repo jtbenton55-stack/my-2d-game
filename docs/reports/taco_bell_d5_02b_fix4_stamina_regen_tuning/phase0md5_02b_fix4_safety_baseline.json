@@ -1,0 +1,19 @@
+{
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "repo_root_confirmed": true,
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "current_branch_recorded": true,
+  "git_status_recorded": true,
+  "stamina_regen_tuning_scope_confirmed": true,
+  "protected_files_identified": true,
+  "git_diff_name_only_head_sample": [
+    ".cursor/mcp.json",
+    ".gitignore",
+    "docs/CHANGELOG.md",
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "scenes/ui/hud.tscn",
+    "src/player/PlayerStaminaController.gd",
+    "src/ui/HUD.gd"
+  ],
+  "note": "Working tree contains unrelated modified files; this pass only touches stamina tuning + reports + CHANGELOG."
+}

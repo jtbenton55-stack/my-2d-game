@@ -1,0 +1,17 @@
+{
+  "root_cause_classes": [
+    "CANVAS_LAYER_POLICY_MISSTATED_IN_PRIOR_CHAT",
+    "HUD_REFRESH_STRUCTURE_RISK",
+    "OBJECTIVE_DATA_INTERNAL_STRINGS",
+    "UNKNOWN_RUNTIME_LIMITATION"
+  ],
+  "primary_user_visible_risks": [
+    "If debug CanvasLayers at 90/100 are visible, they draw above HUD at 50 — keep debug hidden by default.",
+    "If _refresh returned before payload when strip missing, compact strip updates could be skipped in edge scenes — fixed by restructuring."
+  ],
+  "smallest_safe_fix_selected": "Restructure HUD refresh; sanitize internal objective strings; set HUD layer to 50 within policy; explicit objective anchor_left; move F11 overlay to layer 110 below pause 120; document GRB offline.",
+  "assertions": {
+    "root_cause_classified": true,
+    "smallest_safe_fix_selected": true
+  }
+}

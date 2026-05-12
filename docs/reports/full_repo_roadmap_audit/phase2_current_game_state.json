@@ -1,0 +1,89 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 2A",
+  "playable_loop_identified": true,
+  "playable_loop_steps": [
+    "scenes/MainMenu.tscn (run/main_scene)",
+    "SceneManager.start_new_game() resets state, available_missions = ['taco_bell_drop']",
+    "scenes/hideout/HideoutHub.tscn loads",
+    "HideoutMissionBoardController shows 'Start The Taco Bell Drop'",
+    "MissionSceneResolver.resolve_playable_scene_path('taco_bell_drop') -> RedesignTest",
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn loads (IsoMissionBase + Phase0J/K)",
+    "Player + Bentley spawn via LevelBase",
+    "GameState.start_mission emits mission_started",
+    "LevelBase.complete_level() or fail_level() returns via SceneManager.show_mission_result",
+    "scenes/ui/MissionResult.tscn shown",
+    "SceneManager.return_to_hideout()"
+  ],
+  "current_game_one_sentence": "A single iso heist mission (Taco Bell Drop on RedesignTest) launchable from a working Hideout hub, plus a backlog of legacy story-room missions, scheme cards, hideout features, and a partial mission framework.",
+  "what_works": [
+    "Main menu (new game / continue / settings)",
+    "JSON save/load with 3 slots",
+    "HideoutHub: state, stations, store, evidence board, scheme cards, decorating, portrait dialogue",
+    "HideoutMissionBoardController launches taco_bell_drop via MissionSceneResolver",
+    "RedesignTest scene loads with Phase0J/K stack instantiated",
+    "LevelBase spawn/exit/complete/fail loop",
+    "PauseMenu (test_ui) reading MissionPauseDataProvider",
+    "Sprint (Ctrl, fallback C) via PlayerStaminaController; Dodge on Space",
+    "Poop bag aimed throw via MissionToolSurfaceHelper + IsoMissionBase.handle_tool_use",
+    "MissionResult scene"
+  ],
+  "partially_implemented": [
+    "Objective state ownership (three writers; MissionObjectiveBridge.reset is a stub)",
+    "Louis bypass route (layout markers present; Phase0JMechanicRouter ROUTE_* INSPECT_ONLY_DEFERRED)",
+    "Attempt reset on death/retry (IsoMissionBase has reset, QuestManager/Phase0K reset not proven)",
+    "Pause menu mission_id context for Taco",
+    "Stamina UI bar",
+    "Mission unlock graph (code exists; only Taco intended live)"
+  ],
+  "broken_or_risky": [
+    "Triple objective writers => UI/internal desync",
+    "IsoMissionBase monolith (~2632 LOC) increases regression cost",
+    "Hardcoded world-cell literals for Louis corridor and beam",
+    "22 hideout + 15 Taco scene backups inside scenes/** (visual clutter)",
+    "README.md claims 5-mission, 16-card completion (misleading)"
+  ],
+  "stale_systems": [
+    "scenes/missions/TacoBellMission.tscn + src/missions/TacoBellMission.gd (classic story room)",
+    "Legacy *Mission.gd story rooms (JazzClub, Rewrite, DiamondVault, CarChase, CleanJob, ElephantRoom, ArmWrestling, PersianTea, ShadowSolo, SterlingTower)",
+    "D1B canonical-scene decision (superseded by D1C)",
+    "Older sprint fix reports (d2, d2a_sprint_fix, d2a_fix1) superseded by d2a_fix2",
+    "README narrative about 5-mission completeness"
+  ],
+  "reusable_systems": [
+    "LevelBase, IsoMissionBase (after extraction)",
+    "MissionSceneResolver",
+    "MissionPauseDataProvider",
+    "MissionObjectiveBridge / ClueBridge / SchemeBridge (need ownership convergence)",
+    "MissionToolSurfaceHelper",
+    "Mission*Placeholder (12 placeholders)",
+    "Mission runtime systems (AlertController, SecurityCamera, RouteAccessPoint, LightZone, EncounterTrigger, CameraShake, CameraTerminal, TransitionPlaceholder)",
+    "Hideout controller-per-station pattern",
+    "GameState/SaveManager/QuestManager/EventBus/CollectibleManager/CardManager/CardEffects",
+    "PVGames palette + object palette + icon library"
+  ],
+  "spaghetti_prone_systems": [
+    "IsoMissionBase.gd (size, multi-responsibility)",
+    "Player ↔ scene root duck-typing for tool surface",
+    "Phase0J/K generically named but Taco-scene-local",
+    "Two pause menu scripts in different paths",
+    "Mission unlock matrix lives only in GameState._unlock_next_missions"
+  ],
+  "strongest_playable_content": [
+    "Taco Bell Drop on RedesignTest (most surface area)",
+    "HideoutHub (state machine, stations, store, evidence, scheme, dialogue, decorating)"
+  ],
+  "weakest_links": [
+    "Objective UX drift (pause vs HUD)",
+    "No verified attempt-reset contract",
+    "Louis bypass has no real gameplay effect yet",
+    "No emotional 'mission complete -> hideout' beat",
+    "Only one mission playable",
+    "Stale README / canonical-scene confusion"
+  ],
+  "assertions": {
+    "current_game_state_summarized": true,
+    "playable_loop_identified_or_missing_reported": true,
+    "working_systems_identified": true,
+    "weakest_link_identified": true
+  }
+}

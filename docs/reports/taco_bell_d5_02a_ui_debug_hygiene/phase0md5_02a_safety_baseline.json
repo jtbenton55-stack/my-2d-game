@@ -1,0 +1,12 @@
+{
+  "phase": "0M-D5-02A / Phase 0",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "d5_00_final_report_exists": true,
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "ui_debug_hygiene_scope_confirmed": true,
+    "protected_gameplay_files_not_planned_for_edit": true
+  }
+}

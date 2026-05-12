@@ -1,0 +1,6 @@
+{
+  "phase": "5",
+  "assertions": {
+    "confusing_scheme_microcopy_removed_or_reported": true
+  }
+}

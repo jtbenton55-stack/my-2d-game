@@ -1,0 +1,9 @@
+{
+  "phase": "0M-D5-02A / Phase 8",
+  "validator": "src/tools/editor/taco_bell_d5_02a_ui_debug_hygiene/phase0md5_02a_static_validator.py",
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  }
+}

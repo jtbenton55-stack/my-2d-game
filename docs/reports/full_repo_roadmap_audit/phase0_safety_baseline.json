@@ -1,0 +1,42 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 0",
+  "repo_root": "C:/Users/jtben/Documents/PBD 2026/OpenClaw/main/games/my-2d-game",
+  "repo_root_confirmed": true,
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "current_branch_recorded": true,
+  "remote_status": "up to date with origin",
+  "last_commit": "d2423c8 Add mission foundation and sprint runtime diagnostics",
+  "git_status_recorded": true,
+  "tracked_modified_files": [],
+  "untracked_pre_existing": [
+    "docs/reports/taco_bell_redesign_d4/",
+    "src/tools/editor/taco_bell_redesign_d4/",
+    "src/tools/editor/__pycache__/"
+  ],
+  "audit_only_mode": true,
+  "protected_files_unmodified": {
+    "project.godot": true,
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn": true,
+    "scenes/missions_iso/TacoBellIso_Editable.tscn": true,
+    "scenes/missions/TacoBellMission.tscn": true,
+    "scenes/hideout/HideoutHub.tscn": true,
+    "src/player/Player.gd": true,
+    "src/player/PlayerStaminaController.gd": true,
+    "assets_raw_dirs": true
+  },
+  "write_scope_allowed": [
+    "docs/reports/full_repo_roadmap_audit/",
+    "src/tools/editor/full_repo_roadmap_audit/"
+  ],
+  "assertions": {
+    "repo_root_confirmed": true,
+    "current_branch_recorded": true,
+    "git_status_recorded": true,
+    "audit_only_mode": true,
+    "protected_gameplay_files_unmodified_pre_pass": true,
+    "taco_scenes_unmodified_pre_pass": true,
+    "project_godot_unmodified_pre_pass": true,
+    "player_gd_unmodified_pre_pass": true,
+    "raw_assets_unmodified_pre_pass": true
+  }
+}

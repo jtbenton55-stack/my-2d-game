@@ -1,0 +1,19 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 9",
+  "validator_path": "src/tools/editor/full_repo_roadmap_audit/phase_game_roadmap_01_static_validator.py",
+  "run_output_path": "docs/reports/full_repo_roadmap_audit/phase_game_roadmap_01_static_validator_run.json",
+  "result": "PASS",
+  "fail_count": 0,
+  "checks_summary": [
+    "Required reports exist for phases 0, 1, 2A, 2B, 3, 4, 5, 6, 7, 8",
+    "All JSON reports parse",
+    "All hard-assertion flags present and true",
+    "Roadmap contains single_best_next_action + next_3 + next_10 + avoid_now lists",
+    "Protected files: no git status / no git diff entries"
+  ],
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  }
+}

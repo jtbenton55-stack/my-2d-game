@@ -8,7 +8,8 @@ var scheme_cards_button: Button = null
 var clues_button: Button = null
 var controls_button: Button = null
 var info_panel: Panel = null
-var info_label: Label = null
+var _info_scroll: ScrollContainer = null
+var _info_rich: RichTextLabel = null
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -32,7 +33,7 @@ func _pause_game() -> void:
 
 func _resume_game() -> void:
 	get_tree().paused = false
-	if info_panel:
+	if info_panel != null:
 		info_panel.hide()
 	hide()
 
@@ -56,19 +57,32 @@ func _setup_controls_menu() -> void:
 	info_panel.hide()
 	menu.add_child(info_panel)
 	menu.move_child(info_panel, controls_button.get_index() + 1)
-	
+
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 18)
-	margin.add_theme_constant_override("margin_top", 14)
-	margin.add_theme_constant_override("margin_right", 18)
-	margin.add_theme_constant_override("margin_bottom", 14)
+	margin.add_theme_constant_override("margin_left", 12)
+	margin.add_theme_constant_override("margin_top", 10)
+	margin.add_theme_constant_override("margin_right", 12)
+	margin.add_theme_constant_override("margin_bottom", 10)
 	info_panel.add_child(margin)
-	
-	info_label = Label.new()
-	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	info_label.add_theme_font_size_override("font_size", 16)
-	margin.add_child(info_label)
+
+	_info_scroll = ScrollContainer.new()
+	_info_scroll.name = "PauseInfoScroll"
+	_info_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_info_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_info_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_info_scroll.custom_minimum_size = Vector2(520, 360)
+	margin.add_child(_info_scroll)
+
+	_info_rich = RichTextLabel.new()
+	_info_rich.name = "PauseInfoRichText"
+	_info_rich.bbcode_enabled = false
+	_info_rich.fit_content = false
+	_info_rich.scroll_active = true
+	_info_rich.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_info_rich.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_info_rich.add_theme_font_size_override("normal_font_size", 16)
+	_info_scroll.add_child(_info_rich)
 
 func _add_menu_button(menu: VBoxContainer, text: String, index: int) -> Button:
 	var button := Button.new()
@@ -79,7 +93,7 @@ func _add_menu_button(menu: VBoxContainer, text: String, index: int) -> Button:
 	return button
 
 func _toggle_info_panel(kind: String) -> void:
-	if info_panel == null or info_label == null:
+	if info_panel == null or _info_rich == null:
 		return
 	if info_panel.visible and String(info_panel.get_meta("kind", "")) == kind:
 		info_panel.hide()
@@ -87,14 +101,24 @@ func _toggle_info_panel(kind: String) -> void:
 	info_panel.set_meta("kind", kind)
 	match kind:
 		"objectives":
-			info_label.text = _objectives_text()
+			_info_rich.text = _objectives_text()
 		"scheme_cards":
-			info_label.text = _scheme_cards_text()
+			_info_rich.text = _scheme_cards_text()
 		"clues":
-			info_label.text = _clues_text()
+			_info_rich.text = _clues_text()
 		_:
-			info_label.text = _controls_text()
+			_info_rich.text = _controls_text()
 	info_panel.show()
+	call_deferred("_fit_pause_info_scroll")
+
+
+func _fit_pause_info_scroll() -> void:
+	if _info_rich == null or _info_scroll == null:
+		return
+	var w := maxf(120.0, _info_scroll.size.x - 8.0)
+	if w <= 120.0:
+		w = 500.0
+	_info_rich.custom_minimum_size = Vector2(w, maxf(160.0, _info_rich.get_content_height()))
 
 func _controls_text() -> String:
 	var lines: Array[String] = [
@@ -142,36 +166,20 @@ func _objectives_text() -> String:
 	if not saw_done:
 		lines.append("  No completed objectives yet.")
 	for w in snap.get("warnings", []):
+		var ws := String(w).strip_edges()
+		if ws == "":
+			continue
 		lines.append("")
-		lines.append("(warn) " + String(w))
+		lines.append("Note: " + ws)
 	return "\n".join(lines)
 
 
 func _scheme_cards_text() -> String:
+	if not MissionAutoloadResolver.has_game_state():
+		return "Scheme card data is not available right now."
 	var mission_id := String(GameState.current_mission_id)
-	var payload := MissionPauseDataProvider.get_scheme_card_snapshot(mission_id, null)
-	var sch_full := MissionSchemeBridge.get_scheme_snapshot(mission_id)
-	var lines: Array[String] = ["Active / Unlocked Scheme Cards"]
-	if payload.get("items", []).is_empty():
-		lines.append("  Equipped: none")
-	else:
-		var names: Array[String] = []
-		for row in payload.get("items", []):
-			if row is Dictionary:
-				names.append(String(row.get("display_name", row.get("id", ""))))
-		lines.append("  Equipped: " + ", ".join(names))
-	lines.append("")
-	lines.append("Unlocked")
-	var unlocked: Array = sch_full.get("unlocked_ids", [])
-	if unlocked.is_empty():
-		lines.append("  none")
-	else:
-		for card_id in unlocked:
-			lines.append("  - " + String(card_id))
-	for w in payload.get("warnings", []):
-		lines.append("")
-		lines.append("(warn) " + String(w))
-	return "\n".join(lines)
+	var snap := MissionSchemeBridge.get_scheme_snapshot(mission_id)
+	return MissionSchemeCardFormatter.format_player_pause_scheme_text(snap)
 
 
 func _clues_text() -> String:
@@ -188,8 +196,11 @@ func _clues_text() -> String:
 					% [String(row.get("title", row.get("id", ""))), String(row.get("description", ""))]
 				)
 	for w in snap.get("warnings", []):
+		var ws := String(w).strip_edges()
+		if ws == "":
+			continue
 		lines.append("")
-		lines.append("(warn) " + String(w))
+		lines.append("Note: " + ws)
 	return "\n".join(lines)
 
 func _bindings(action_name: String, fallback: String) -> String:

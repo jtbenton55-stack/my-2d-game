@@ -1,0 +1,8 @@
+{
+  "phase": "2",
+  "assertions": {
+    "hud_design_decision_created": true,
+    "no_new_debug_clutter_policy_defined": true,
+    "healthbar_overlap_avoidance_defined": true
+  }
+}

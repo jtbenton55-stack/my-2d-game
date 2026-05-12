@@ -1,0 +1,9 @@
+{
+  "phase": "6",
+  "assertions": {
+    "f10_contains_countable_metrics": true,
+    "always_visible_counter_panel_hidden_or_deferred_with_reason": true,
+    "healthbar_overlap_reduced": true,
+    "f10_scrollable_preserved": true
+  }
+}

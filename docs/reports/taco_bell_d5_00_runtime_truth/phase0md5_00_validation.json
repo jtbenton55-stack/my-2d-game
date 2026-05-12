@@ -1,0 +1,10 @@
+{
+  "phase": "0M-D5-00 / Phase 10 validation meta",
+  "validator_script": "src/tools/editor/taco_bell_d5_00_runtime_truth/phase0md5_00_static_validator.py",
+  "run_output": "docs/reports/taco_bell_d5_00_runtime_truth/phase0md5_00_static_validator_run.json",
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  }
+}

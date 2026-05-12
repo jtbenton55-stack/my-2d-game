@@ -1,0 +1,40 @@
+{
+  "mission_blueprint_created": true,
+  "objective_sequence_defined": true,
+  "louis_bypass_is_meaningful": true,
+  "louis_bypass_bypasses": "garage_entry_beam (security beam / ambush challenge), not the keypad",
+  "code_gate_and_beam_are_separate": true,
+  "poop_bag_tool_role_defined": true,
+  "reset_rules_defined": true,
+  "mission_title": "Parmida vs. The Neon Drive-Thru (Working Title)",
+  "mission_fantasy_one_liner": "Parmida uses sprint, stealth, dodge, clues, scheme cards, and questionable Louis intel to complete a ridiculous Taco Bell delivery-heist and escape clean.",
+  "player_goal": "Complete the delivery objective chain, survive the garage security beat (code + beam), optionally collect evidence, and return to exit / hideout.",
+  "zones": [
+    "Approach / midnight market front",
+    "Interior hub and ordering lane",
+    "Garage approach and safe pocket",
+    "Code gate / staff corridor",
+    "Security beam ambush zone (one-shot alarm)",
+    "Garage / bag recovery",
+    "Louis service shortcut (bypasses beam challenge)",
+    "Exit / Louis handoff"
+  ],
+  "objective_sequence": [
+    {"id": "approach", "text": "Reach the Taco Bell delivery zone entrance."},
+    {"id": "intel_louis", "text": "Talk to Louis — get dubious but useful routing intel."},
+    {"id": "secure_order", "text": "Locate the pickup / order staging point."},
+    {"id": "teach_obstacle", "text": "Clear a low-risk teaching obstacle (light/camera read-only or scent trail)."},
+    {"id": "stealth_timing", "text": "Navigate a timing / stealth pressure segment without mandatory combat."},
+    {"id": "code_gate", "text": "Open the staff code gate (keypad) — separate from beam zone."},
+    {"id": "beam_hazard", "text": "Survive or mitigate the garage entry security beam (one alarm trigger per attempt)."},
+    {"id": "louis_route_optional", "text": "Optional: use Louis shortcut to skip beam-zone penalty path while still recovering bag."},
+    {"id": "poop_tool", "text": "Use aimed poop-bag throws to create distractions where surfaces support it."},
+    {"id": "bag_recovery", "text": "Recover the delivery bag evidence / payload."},
+    {"id": "clues_optional", "text": "Optional: collect polaroids / clues for humor and scheme hooks."},
+    {"id": "exit", "text": "Reach exit with completion conditions; return to hideout via mission result flow."}
+  ],
+  "failure_conditions": ["Player health depleted if combat enabled", "Hard fail only if D5 adds explicit fail triggers — default: soft retry via reload"],
+  "completion_conditions": ["Phase0K exit requirements met: delivery bag + code gate (current code) OR D5 revises contract with documented acceptance", "Mission completion call through GameState/SceneManager succeeds"],
+  "pause_objectives_scheme_clues": "MissionPauseDataProvider aggregates MissionObjectiveBridge, MissionSchemeBridge, MissionClueBridge",
+  "reset_retry_rules": "Attempt-local flags in IsoMissionBase._attempt_runtime_state cleared on _reset_attempt_runtime_state; D5 must align QuestManager + Phase0K seeds on same boundary; full mission reload remains primary retry vehicle per IsoMissionBase comment"
+}

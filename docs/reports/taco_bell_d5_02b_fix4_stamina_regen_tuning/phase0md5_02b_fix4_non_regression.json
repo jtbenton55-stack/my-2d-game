@@ -1,0 +1,7 @@
+{
+  "hud_stamina_path_preserved": true,
+  "objective_ticker_preserved": true,
+  "poop_bag_count_preserved": true,
+  "ctrl_sprint_space_dash_preserved_static": true,
+  "gameplay_files_modified": ["src/player/PlayerStaminaController.gd"]
+}

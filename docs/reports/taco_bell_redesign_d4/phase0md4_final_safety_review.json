@@ -1,0 +1,13 @@
+{
+  "final_git_status_recorded": true,
+  "protected_files_checked": true,
+  "taco_scenes_not_modified": true,
+  "project_godot_not_modified": true,
+  "raw_assets_not_modified": true,
+  "player_gd_not_modified": true,
+  "player_stamina_not_modified": true,
+  "player_tscn_not_modified": true,
+  "hideout_hub_not_modified": true,
+  "d4_allowed_paths_only": true,
+  "git_diff_name_only_note": "Run validator subprocess; untracked D4 files may not appear in git diff HEAD until staged."
+}

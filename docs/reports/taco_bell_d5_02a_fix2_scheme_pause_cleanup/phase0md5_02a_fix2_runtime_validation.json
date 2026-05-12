@@ -1,0 +1,7 @@
+{
+  "phase": "6",
+  "assertions": {
+    "runtime_validation_attempted": true,
+    "runtime_limitations_documented_if_any": true
+  }
+}

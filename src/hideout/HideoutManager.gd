@@ -210,6 +210,7 @@ func _specialized_body_for(station_id: String) -> String:
 
 func _on_panel_action(action_id: String) -> void:
 	if current_station_id == "mission_board" and (action_id == "start_the_taco_bell_drop" or action_id == "start_mission" or action_id == "replay_mission"):
+		_write_scheme_loadout_to_game_state()
 		_mission_board.launch_taco_bell()
 
 func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
@@ -238,6 +239,7 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"show_known_info":
 			_show_feedback("Known Info", "The Taco Bell Drop is ready for delivery. Recover the bag, watch the route, and do not overthink the sauce packets.")
 		"replay_mission":
+			_write_scheme_loadout_to_game_state()
 			_mission_board.launch_taco_bell()
 		"search_missing_items":
 			_show_feedback("Search Missing Items", "Replay placeholder: the next pass can route directly into missing clue/collectible hunts. For now, use Replay Mission or View Missing Items.")

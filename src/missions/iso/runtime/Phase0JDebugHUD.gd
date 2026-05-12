@@ -2,7 +2,9 @@
 class_name Phase0JDebugHUD
 extends CanvasLayer
 
-@export var visible_by_default := true
+@export var visible_by_default := false
+## When true (default), keeps this layer hidden during play even if the scene overrides visible_by_default. Counters live under F10 (IsoMissionDebugPanel).
+@export var force_playfield_hidden := true
 @export var temp_code_hint := "0420"
 @export var mission_state_adapter_path: NodePath = NodePath("../Phase0JMissionStateAdapter")
 @export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
@@ -23,11 +25,14 @@ var _state_label: Label
 
 func _ready() -> void:
 	layer = 90
-	visible = visible_by_default
 	set_meta("generated_by", "Phase0J-C2")
 	set_meta("scene_local_only", true)
 	_build_ui()
 	show_message("Phase0J debug layer ready. E/Q: interact/inspect Phase0J marker. Code: %s" % temp_code_hint, 4.0)
+	if force_playfield_hidden:
+		visible_by_default = false
+	visible = visible_by_default
+	hide()
 
 
 func _process(delta: float) -> void:
@@ -43,8 +48,13 @@ func show_message(text: String, seconds: float = 3.0) -> void:
 		_build_ui()
 	_apply_red_debug_style(self)
 	_message_label.text = text
+	if force_playfield_hidden:
+		_message_timer = 0.0
+		EventBus.debug("[Phase0JDebugHUD] " + text)
+		return
 	_message_timer = seconds
-	visible = true
+	if visible_by_default:
+		visible = true
 
 
 func set_nearest_marker(id: String, category: String, distance: float) -> void:
@@ -105,25 +115,39 @@ func _build_ui() -> void:
 	style.set_corner_radius_all(6)
 	panel.add_theme_stylebox_override("panel", style)
 	add_child(panel)
+	var scroll := ScrollContainer.new()
+	scroll.name = "DebugScroll"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.custom_minimum_size = Vector2(580, 132)
+	panel.add_child(scroll)
 	var box := VBoxContainer.new()
 	box.name = "VBox"
-	panel.add_child(box)
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(box)
 	_message_label = Label.new()
 	_message_label.name = "Message"
 	_message_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_message_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_message_label)
 	_nearest_label = Label.new()
 	_nearest_label.name = "Nearest"
+	_nearest_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_nearest_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_nearest_label)
 	_counter_label = Label.new()
 	_counter_label.name = "Counters"
+	_counter_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_counter_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_counter_label)
 	_gate_label = Label.new()
 	_gate_label.name = "Gate"
+	_gate_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_gate_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_gate_label)
 	_state_label = Label.new()
 	_state_label.name = "Phase0JState"
 	_state_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_state_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(_state_label)
 	_update_counters("")
 	set_gate_state(false)

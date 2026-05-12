@@ -1,0 +1,12 @@
+{
+  "phase": "0M-D5-02A / Phase 2",
+  "grb_used": true,
+  "iso_mission_debug_visible_sample": false,
+  "phase0j_debug_hud_path": "/root/TacoBellIso_Editable/GameplayRoot/RuntimeHelpers/Phase0JDebugHUD",
+  "screenshot_captured": false,
+  "assertions": {
+    "runtime_clutter_audit_attempted": true,
+    "runtime_ui_nodes_recorded_or_limitation_documented": true,
+    "taco_clutter_sources_identified_or_limitation_documented": true
+  }
+}

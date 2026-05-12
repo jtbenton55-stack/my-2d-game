@@ -20,10 +20,10 @@ func _ready() -> void:
 	_setup_exit_zone()
 	if auto_start_mission and GameState.current_mission_id == "":
 		GameState.start_mission(get_mission_id())
-	QuestManager.set_objective(objective_text, get_mission_id())
 	if not EventBus.player_died.is_connected(_on_player_died):
 		EventBus.player_died.connect(_on_player_died)
 	_ensure_common_ui()
+	QuestManager.set_objective(objective_text, get_mission_id())
 	EventBus.debug("Loaded level: " + name + " mission=" + get_mission_id())
 
 func _apply_card_effects() -> void:

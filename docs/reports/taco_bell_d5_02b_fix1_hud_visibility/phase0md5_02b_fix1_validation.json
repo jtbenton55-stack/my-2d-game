@@ -1,0 +1,8 @@
+{
+  "summary": "Phase 7 static validator executed; see phase0md5_02b_fix1_static_validator_run.json",
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  }
+}

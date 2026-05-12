@@ -10,8 +10,8 @@ static func get_bridge_id() -> String:
 static func get_clue_snapshot(mission_id: String = "") -> Dictionary:
 	var warnings: Array[String] = []
 	var items: Array[Dictionary] = []
-	if not Engine.has_singleton("GameState"):
-		warnings.append("GameState missing")
+	if not MissionAutoloadResolver.has_game_state():
+		warnings.append("GameState unavailable")
 		return {"ok": false, "mission_id": mission_id, "items": items, "warnings": warnings}
 	var filter_mid := mission_id
 	for clue_id in GameState.sterling_clues.keys():
@@ -25,7 +25,7 @@ static func get_clue_snapshot(mission_id: String = "") -> Dictionary:
 
 
 static func mark_clue_collected(clue_id: String, _mission_id: String = "") -> void:
-	if clue_id == "" or not Engine.has_singleton("GameState"):
+	if clue_id == "" or not MissionAutoloadResolver.has_game_state():
 		return
 	if GameState.sterling_clues.has(clue_id):
 		GameState.discover_sterling_clue(clue_id)

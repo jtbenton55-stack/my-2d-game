@@ -1,0 +1,49 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 5",
+  "risks": [
+    {"id":"iso_mission_base_monolith","severity":"critical","evidence":"src/levels/IsoMissionBase.gd ~2632 LOC","fix":"Extract RuntimeSpawner / RouteSubsystem / AlarmSubsystem / MarkerIndex / TacoBellFlavorAdapter","when":"after_vertical_slice","do_not":"refactor + add features in one pass"},
+    {"id":"triple_objective_writers_and_reset_stub","severity":"critical","evidence":"IsoMissionBase + Phase0KMissionCompletionController._seed_objectives + Phase0JObjectiveAdapter; MissionObjectiveBridge.reset stub","fix":"Implement MissionObjectiveBridge.reset_runtime_objectives_for_mission, pick single writer per event","when":"now_d5_01"},
+    {"id":"louis_bypass_router_deferred","severity":"high","evidence":"markers say bypasses_challenge_id=garage_entry_beam; Phase0JMechanicRouter ROUTE_* INSPECT_ONLY_DEFERRED","fix":"TacoBellRouteBypassController + adjust router parity","when":"d5_03_after_d5_01_02"},
+    {"id":"player_scene_root_duck_typing","severity":"high","evidence":"Player._try_throw_poop_bag calls scene.has_method('deploy_poop_bag_decoy_at')","fix":"IToolMissionSurface group or signal pattern","when":"after_vertical_slice_p2","do_not":"touch Player.gd during D5"},
+    {"id":"attempt_reset_unproven_paths","severity":"high","evidence":"LevelBase.fail_level does not call IsoMissionBase reset","fix":"On EventBus.mission_started for same mission_id, call reset_mission_runtime_for_new_attempt","when":"now_part_of_d5_01"},
+    {"id":"phase0jk_generic_named_taco_scoped","severity":"high","evidence":"Phase0J* / Phase0K* instantiated only by RedesignTest scene","fix":"Move Taco-specific to src/missions/taco_bell/; promote generic logic to src/missions/iso/framework/","when":"after_vertical_slice_before_jazz_club"},
+    {"id":"two_taco_story_surfaces","severity":"high","evidence":"scenes/missions/TacoBellMission.tscn vs scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn","fix":"rename classic to *_legacy_classic and add @deprecated; or archive scene","when":"p2_p3","do_not":"delete now"},
+    {"id":"production_pause_under_test_ui","severity":"medium","evidence":"RedesignTest instances src/ui/test_ui/pause_menu.gd","fix":"move to src/ui/mission/pause/","when":"p3"},
+    {"id":"catalog_vs_resolver_drift","severity":"medium","evidence":"GameState.mission_catalog.taco_bell_drop.scene_path -> classic story room","fix":"add playable_scene_path field or document override","when":"p2"},
+    {"id":"unlock_graph_buried_in_method","severity":"medium","evidence":"GameState._unlock_next_missions match block","fix":"MissionUnlockGraph.gd resource","when":"p2"},
+    {"id":"hardcoded_world_cells","severity":"medium","evidence":"Vector2i literals for beam and Louis corridor inside IsoMissionBase","fix":"drive everything from markers","when":"after_vertical_slice"},
+    {"id":"hideout_legacy_script_alongside_hub","severity":"medium","evidence":"src/levels/Hideout.gd exists but production uses HideoutManager.gd","fix":"rename to Hideout_legacy.gd or move","when":"p3"},
+    {"id":"scene_backups_inside_scenes_folder","severity":"medium","evidence":"22 hideout + 15 taco backups in scenes/**","fix":"move to docs/reports/<phase>/backups/","when":"p3_cleanup"},
+    {"id":"card_manager_autoload_misfiled","severity":"low","evidence":"CardManager autoload points to src/inventory/CardManager.gd","fix":"move to src/autoload/ or document","when":"p3"},
+    {"id":"mechanic_router_policy_embedded","severity":"low","evidence":"Phase0JMechanicRouter.parity_by_category","fix":"flip ROUTE_* with D5-03; add static validator check","when":"d5_03"},
+    {"id":"phase0_naming_index_missing","severity":"low","evidence":"Phase0J, Phase0JA, Phase0JB, Phase0JB2, Phase0JC, Phase0K, Phase0KB","fix":"single index doc in docs/reference/","when":"p3"},
+    {"id":"character_animation_current_state_pointer_missing","severity":"low","evidence":"6 c2a/c2b folders without single index","fix":"docs/reference/character_animation_current.md","when":"p3"},
+    {"id":"mcp_autoload_coupling_to_runtime","severity":"low","evidence":"3 MCP autoloads; pause tree drops bridge","fix":"document only","when":"never_unless_blocking"},
+    {"id":"mission_ui_scene_locations_scattered","severity":"low","evidence":"scenes/ui/* + src/ui/<subsystem>/*.tscn","fix":"pick one convention; migrate over time","when":"p3"},
+    {"id":"no_headless_ci","severity":"low","evidence":"Python validators only","fix":"godot --headless --check-only","when":"p4"}
+  ],
+  "totals": {"critical": 2, "high": 5, "medium": 5, "low": 8},
+  "now_set": ["triple_objective_writers_and_reset_stub","attempt_reset_unproven_paths"],
+  "next_pass_set": ["louis_bypass_router_deferred","mechanic_router_policy_embedded"],
+  "after_vertical_slice_set": [
+    "iso_mission_base_monolith",
+    "phase0jk_generic_named_taco_scoped",
+    "player_scene_root_duck_typing",
+    "hardcoded_world_cells",
+    "two_taco_story_surfaces"
+  ],
+  "p3_cleanup_set": [
+    "production_pause_under_test_ui",
+    "hideout_legacy_script_alongside_hub",
+    "scene_backups_inside_scenes_folder",
+    "card_manager_autoload_misfiled",
+    "phase0_naming_index_missing",
+    "character_animation_current_state_pointer_missing",
+    "mission_ui_scene_locations_scattered"
+  ],
+  "assertions": {
+    "architecture_risks_identified": true,
+    "highest_risks_prioritized": true,
+    "nothing_modified_in_repo": true
+  }
+}

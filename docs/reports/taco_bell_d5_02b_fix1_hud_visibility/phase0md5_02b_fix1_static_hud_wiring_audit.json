@@ -1,0 +1,39 @@
+{
+  "hud_instancing": {
+    "level_base_ensure_common_ui": true,
+    "taco_redesigntest_hud_instance": "scene_embeds_hud.tscn_under_mission_root",
+    "quest_objective_before_hud_dynamic": "mitigated_LevelBase_calls_ensure_common_ui_first"
+  },
+  "hud_tscn": {
+    "canvas_layer": 50,
+    "mission_hud_strip_present": true,
+    "objective_label_path": "ObjectiveLabel",
+    "sprint_bar_path": "MissionHudStrip/SprintStaminaBar",
+    "poop_label_path": "MissionHudStrip/PoopBagLabel",
+    "defaults_visible": "MissionHudStrip_visible_true_in_scene_file_children_visible"
+  },
+  "hud_gd": {
+    "process_mode": "PROCESS_MODE_ALWAYS",
+    "gates_mission_strip_on_gamestate_is_in_mission": true,
+    "signals": ["game_state_changed", "mission_started", "objective_updated", "EventBus health/detection/etc."]
+  },
+  "canvas_layer_policy_static": {
+    "hud_layer": 50,
+    "phase0j_debug_hud_script_layer": 90,
+    "iso_mission_debug_panel_layer": 100,
+    "player_sprint_debug_overlay_after_fix": 110,
+    "pause_menu_layer": 120,
+    "godot_rule": "Higher CanvasLayer.layer draws above lower layers."
+  },
+  "debug_default_visibility_static": {
+    "Phase0JDebugHUD_ready": "hide_after_visible_by_default_handling",
+    "IsoMissionDebugPanel_ready": "visible_false",
+    "PlayerSprintDebugOverlay_ready": "hide"
+  },
+  "assertions": {
+    "static_hud_wiring_audited": true,
+    "hud_instancing_path_identified_or_gap_reported": true,
+    "hud_node_paths_checked": true,
+    "canvas_layer_order_checked": true
+  }
+}

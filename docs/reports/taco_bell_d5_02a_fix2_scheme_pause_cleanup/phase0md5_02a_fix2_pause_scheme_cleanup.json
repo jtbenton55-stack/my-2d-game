@@ -1,0 +1,9 @@
+{
+  "phase": "3",
+  "assertions": {
+    "pause_scheme_cards_player_facing": true,
+    "raw_debug_terms_removed_from_pause_scheme_tab": true,
+    "scrollable_pause_text_preserved": true,
+    "no_new_scheme_effect_system_created": true
+  }
+}

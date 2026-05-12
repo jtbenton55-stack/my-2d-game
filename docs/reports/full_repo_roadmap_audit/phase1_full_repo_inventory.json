@@ -1,0 +1,103 @@
+{
+  "phase": "GAME-ROADMAP-01 / Phase 1",
+  "godot_version": "4.6.2-stable",
+  "main_scene": "res://scenes/MainMenu.tscn",
+  "autoloads": [
+    {"name": "GameState", "path": "res://src/autoload/GameState.gd", "status": "active"},
+    {"name": "SaveManager", "path": "res://src/autoload/SaveManager.gd", "status": "active"},
+    {"name": "AudioManager", "path": "res://src/autoload/AudioManager.gd", "status": "active_framework_only"},
+    {"name": "SceneManager", "path": "res://src/autoload/SceneManager.gd", "status": "active"},
+    {"name": "DialogueManager", "path": "res://src/autoload/DialogueManager.gd", "status": "active"},
+    {"name": "QuestManager", "path": "res://src/autoload/QuestManager.gd", "status": "active"},
+    {"name": "CardManager", "path": "res://src/inventory/CardManager.gd", "status": "active_misfiled_under_inventory"},
+    {"name": "CardEffects", "path": "res://src/autoload/CardEffects.gd", "status": "active"},
+    {"name": "EventBus", "path": "res://src/utils/EventBus.gd", "status": "active"},
+    {"name": "CollectibleManager", "path": "res://src/collectibles/CollectibleManager.gd", "status": "active"},
+    {"name": "MCPRuntime", "path": "uid://c13j8nchilhxj", "status": "active_editor_runtime"},
+    {"name": "GRBServer", "path": "uid://hwkgc74v20qq", "status": "active_runtime_bridge"},
+    {"name": "McpInteractionServer", "path": "uid://dyhub7l5qsyig", "status": "active_runtime_bridge"}
+  ],
+  "playable_loop_paths": {
+    "main_menu": "res://scenes/MainMenu.tscn",
+    "hideout": "res://scenes/hideout/HideoutHub.tscn",
+    "mission_select": "res://scenes/ui/MissionSelect.tscn",
+    "scheme_cards": "res://scenes/ui/SchemeCardMenu.tscn",
+    "mission_result": "res://scenes/ui/MissionResult.tscn",
+    "taco_playable": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "taco_legacy_classic": "res://scenes/missions/TacoBellMission.tscn",
+    "taco_legacy_bake_output": "res://scenes/missions_iso/TacoBellIso_Editable.tscn"
+  },
+  "mission_catalog_size": 13,
+  "mission_catalog_ids": [
+    "iso_vertical_slice", "test_mission", "taco_bell_drop", "velvet_paw_jazz_club",
+    "rewrite_room", "fast_family_getaway", "sterling_tower_heist", "clean_job",
+    "diamond_a_year_job", "arm_wrestling_underground", "persian_tea_poison_ink",
+    "elephant_in_the_room", "shadow_solo_contract"
+  ],
+  "mission_resolver_overrides": {
+    "taco_bell_drop": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+  },
+  "framework_scripts": {
+    "level_base": "src/levels/LevelBase.gd",
+    "iso_mission_base": "src/levels/IsoMissionBase.gd",
+    "mission_scene_resolver": "src/missions/MissionSceneResolver.gd",
+    "objective_bridge": "src/missions/objectives/MissionObjectiveBridge.gd",
+    "clue_bridge": "src/missions/clues/MissionClueBridge.gd",
+    "scheme_bridge": "src/missions/schemes/MissionSchemeBridge.gd",
+    "pause_data_provider": "src/missions/ui/MissionPauseDataProvider.gd",
+    "tool_surface_helper": "src/missions/tools/MissionToolSurfaceHelper.gd"
+  },
+  "iso_runtime_phase0_stack_count": {
+    "phase0j_files": 14,
+    "phase0k_files": 7,
+    "mission_runtime_systems": 9
+  },
+  "scene_backups_in_scenes_folder": {
+    "hideout_hub_backups": 22,
+    "taco_redesign_test_backups": 15,
+    "dialogue_box_backups": 1
+  },
+  "duplicated_or_overlapping": [
+    {
+      "title": "Two pause menu scripts",
+      "files": ["src/ui/PauseMenu.gd", "src/ui/test_ui/pause_menu.gd"],
+      "production_used": "src/ui/test_ui/pause_menu.gd"
+    },
+    {
+      "title": "Three objective writers (must converge)",
+      "writers": [
+        "IsoMissionBase.gd (_required_objective_ids + QuestManager.set_objective)",
+        "Phase0KMissionCompletionController.gd (_seed_objectives)",
+        "MissionObjectiveBridge.gd (publish_primary_objective)"
+      ]
+    },
+    {
+      "title": "Two Taco surfaces",
+      "files": [
+        "scenes/missions/TacoBellMission.tscn",
+        "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+      ],
+      "playable": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+    },
+    {
+      "title": "Phase0J/K runtime stack named generically but Taco-scene-local",
+      "evidence": "Only TacoBellIso_Editable_RedesignTest.tscn instances Phase0J/K controllers"
+    },
+    {
+      "title": "README claims completion that does not match current state",
+      "files": ["README.md"]
+    }
+  ],
+  "addons": ["godot-runtime-bridge", "godot_mcp", "pvgames_object_palette"],
+  "tool_scripts_count": 41,
+  "doc_reports_subdirs_count": 26,
+  "assertions": {
+    "repo_inventory_completed": true,
+    "major_systems_identified": true,
+    "autoloads_listed": true,
+    "mission_scripts_listed": true,
+    "iso_runtime_stack_listed": true,
+    "scene_backups_flagged": true,
+    "duplications_flagged": true
+  }
+}

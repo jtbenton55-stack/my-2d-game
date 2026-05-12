@@ -1,0 +1,10 @@
+{
+  "phase": "2",
+  "selected_equipped_storage": ["GameState.current_scheme_loadout", "GameState.selected_cards", "HideoutStateController slots"],
+  "effect_application": "CardEffects uses selected_cards only; Taco has_scheme_card uses unlock registry",
+  "assertions": {
+    "scheme_card_flow_audited": true,
+    "selected_equipped_storage_identified_or_missing_reported": true,
+    "scheme_effect_application_status_recorded": true
+  }
+}
