@@ -1,0 +1,6 @@
+{
+  "beam_location_audited": true,
+  "beam_f10_testability_gap_recorded": true,
+  "beam_runtime_node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
+  "beam_alarm_id": "garage_entry_beam"
+}

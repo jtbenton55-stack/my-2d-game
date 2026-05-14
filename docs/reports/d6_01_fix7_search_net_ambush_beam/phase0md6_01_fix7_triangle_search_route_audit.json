@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "triangle_search_route_strategy_created": true,
+    "direction_alternation_defined": true,
+    "route_offset_defined": true,
+    "wall_boundary_safety_strategy_defined": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "kimi_review_attempted_or_unavailable_documented": true,
+  "kimi_suggestions_reconciled": true,
+  "no_secrets_sent_to_kimi": true,
+  "no_secrets_sent_to_kimi_confirmed": true,
+  "kimi_available": false,
+  "kimi_error": "request_timed_out_120s",
+  "kimi_advice_adopted": [],
+  "kimi_advice_rejected_or_unreceived": []
+}

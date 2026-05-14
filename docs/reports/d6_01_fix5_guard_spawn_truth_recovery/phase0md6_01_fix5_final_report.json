@@ -1,0 +1,31 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "exact_root_cause": "security_response_spawn nodes could be counted while off-map/invalid due to attack guard spawn coordinate fallback chain; cap used countable-but-nonfunctional guards",
+  "offmap_guards": "confirmed_by_f10_symptoms_and_accounting_logic",
+  "offmap_consumed_cap_before_fix5": true,
+  "cap_fix": "functional/raw/invalid split + sane-position validation + rejection without cap consumption",
+  "camera_visible_guard_spawn": "requires_runtime_confirmation",
+  "wrong_code_visible_guard_spawn": "requires_runtime_confirmation",
+  "purple_warp_removed": "runtime_creation_removed_and_existing_fix_nodes_cleanup_added",
+  "red_beam_status": "runtime_visual_and_alarm_zone_aligned_to_right_hallway_target_cell",
+  "f10_spawn_truth": "added",
+  "heat_hideout_note": "documented_no_hideout_refactor",
+  "runtime_validation": "PARTIAL_no_live_playtest_in_this_pass",
+  "static_validator": "PASS",
+  "kimi_status": "skipped_intentionally",
+  "protected_files_safe": true,
+  "scene_files_edited_by_fix5": false,
+  "preexisting_scene_change_documented": true,
+  "new_save_keys": false,
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "docs/CHANGELOG.md"
+  ],
+  "files_created": [
+    "docs/reports/d6_01_fix5_guard_spawn_truth_recovery/*",
+    "src/tools/editor/d6_01_fix5_guard_spawn_truth_recovery/phase0md6_01_fix5_static_validator.py"
+  ]
+}

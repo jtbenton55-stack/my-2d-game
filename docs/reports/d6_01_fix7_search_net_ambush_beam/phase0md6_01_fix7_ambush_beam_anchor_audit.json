@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "ambush_security_beam_anchor_audited": true,
+    "ambush_security_beam_found_or_missing_reported": true,
+    "old_beam_sources_identified_for_disable_or_ignore": true
+  },
+  "anchor_found": true
+}

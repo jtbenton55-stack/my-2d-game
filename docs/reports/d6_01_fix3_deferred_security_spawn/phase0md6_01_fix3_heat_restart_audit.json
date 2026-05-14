@@ -1,0 +1,1 @@
+{"heat_restart_path_audited": true, "mid_run_heat_policy_preserved": true, "heat_restart_fix_applied_or_deferred_with_reason": true, "finding": "failed_attempts increments in GameState.fail_mission; LevelBase.fail_level calls it. Scene reload / pause quit without fail_level does not increment — documented in runtime summary heat_restart_audit_note"}

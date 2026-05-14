@@ -1,0 +1,7 @@
+{
+  "kimi_review_attempted_or_skipped_documented": true,
+  "no_secrets_sent_to_kimi": true,
+  "kimi_advice_reconciled_or_unavailable": true,
+  "status": "skipped_by_operator_request_to_avoid_timeout_and_finish_local_audits",
+  "note": "Optional Kimi call not executed this session; architecture followed handoff + repo inspection."
+}

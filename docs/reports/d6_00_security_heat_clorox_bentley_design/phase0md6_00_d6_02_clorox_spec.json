@@ -1,0 +1,8 @@
+{
+  "d6_02_spec_created": true,
+  "pass_id": "D6-02",
+  "purpose": "Optional wipeable traces + hold interaction + single reward hook",
+  "implementation_order": 2,
+  "trace_count_mvp": "1-3",
+  "required_for_win": false
+}

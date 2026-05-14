@@ -1,0 +1,5 @@
+{
+  "beam_fixed_or_deferred_with_reason": true,
+  "beam_event_spam_prevented_or_not_applicable": true,
+  "summary": "No new mesh/VFX; F10 hint + runtime summary fields for garage beam armed/triggered; behavior unchanged except documentation and debug clarity."
+}

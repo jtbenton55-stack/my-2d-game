@@ -1,0 +1,6 @@
+{
+  "heat_effect_verified_or_gap_documented": true,
+  "persistent_heat_policy_preserved": true,
+  "no_new_save_keys_added": true,
+  "change": "IsoMissionBase._apply_heat_profile heat==1 camera multipliers increased for clearer replay pressure"
+}

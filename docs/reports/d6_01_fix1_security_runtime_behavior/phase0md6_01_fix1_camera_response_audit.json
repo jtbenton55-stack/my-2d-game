@@ -1,0 +1,12 @@
+{
+  "camera_response_audit_completed": true,
+  "active_vs_inactive_camera_paths_identified": true,
+  "camera_unification_plan_created": true,
+  "mission_security_camera_script": "res://src/missions/iso/runtime/MissionSecurityCamera.gd",
+  "fixes": [
+    "Phase0KCameraSpawner default parent path -> EntityRoot/Cameras (was Phase0KRuntime/Cameras under wrong branch for alert wiring / layering).",
+    "require_line_of_sight default false so iso walls do not zero all cones; per-instance can re-enable.",
+    "MissionSecurityCamera refreshes MissionAlertController reference in _ready deferred."
+  ],
+  "placeholder_note": "Debug-only cones should set mission_security_debug or exclude from gameplay group per scene author; not changed in Taco .tscn this pass."
+}

@@ -1,0 +1,10 @@
+{
+  "spawned_guard_chase_supported": true,
+  "spawned_guard_no_stick_fix_implemented_or_deferred_with_reason": true,
+  "spawned_guard_search_or_patrol_fallback_supported": true,
+  "details": [
+    "EnemyBase: when meta security_chase_soft, reduce chase speed inside 0.55 * attack_range",
+    "IsoMissionBase: _assign_fallback_patrol_for_security_guard for attack_guard_*",
+    "Skip _spawn_guard_for_spawn default patrol for attack_guard_* ids to avoid teleport to wrong patrol origin"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "kimi_review_attempted_if_available": true,
+    "no_secrets_sent_to_kimi": true,
+    "kimi_advice_reconciled_or_unavailable": true
+  },
+  "kimi_used": false
+}

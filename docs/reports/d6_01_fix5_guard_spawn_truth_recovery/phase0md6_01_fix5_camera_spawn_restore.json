@@ -1,0 +1,9 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "notes": "pre-existing working tree includes modified Taco scene file; FIX5 performed code-only with no scene edits.",
+  "assertions": {
+    "camera_guard_spawn_restored_or_failure_reported": true,
+    "camera_source_ids_checked": true,
+    "no_camera_event_spam": true
+  }
+}

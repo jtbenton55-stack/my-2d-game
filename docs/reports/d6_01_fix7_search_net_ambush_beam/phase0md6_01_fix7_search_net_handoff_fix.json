@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "search_net_handoff_implemented": true,
+    "default_far_left_patrol_disabled_for_security_guards": true,
+    "chase_attack_behavior_preserved": true,
+    "local_route_assignment_persists_after_losing_player": true
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "pass_id": "0M-D6-01",
+  "verdict": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "heat_policy_summary": "Persistent heat = capped failed_attempts; mid-run alarms do not increment failed_attempts; fail_mission increments and emits mission_failure_heat adapter event.",
+  "mid_run_heat_increase": false,
+  "mission_failure_heat_source": "GameState.fail_mission increments failed_attempts then _log_security_mission_failure_heat",
+  "f10_security_block": "IsoMissionDebugPanel appends D6-01 security section from adapter snapshot",
+  "pause_heat_line": "MissionPauseDataProvider.get_heat_security_pause_line + pause_menu objectives prepend",
+  "kimi_status": "skipped_intentionally_short_pass",
+  "runtime_validation_status": "PARTIAL_no_local_godot_grb_this_session",
+  "static_self_review_status": "PASS",
+  "static_validator_status": "PASS",
+  "manual_test_checklist_included": true,
+  "new_save_keys_added": false,
+  "files_modified": [
+    "docs/CHANGELOG.md",
+    "src/autoload/GameState.gd",
+    "src/missions/iso/placeholders/MissionCodeGatePlaceholder.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/iso/runtime/MissionAlertController.gd",
+    "src/missions/iso/runtime/Phase0JCodeGateController.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "src/missions/ui/MissionPauseDataProvider.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ],
+  "files_created": [
+    "src/missions/iso/runtime/MissionSecurityEventAdapter.gd",
+    "docs/reports/d6_01_taco_security_heat_mvp/",
+    "src/tools/editor/d6_01_taco_security_heat_mvp/phase0md6_01_static_validator.py"
+  ],
+  "forbidden_files_touched": [],
+  "recommended_next_pass": "D6-02 Clorox wiping MVP (optional traces + heat/clean getaway hook)"
+}

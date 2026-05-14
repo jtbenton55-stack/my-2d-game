@@ -1,0 +1,6 @@
+{
+  "guard_decision_audited": true,
+  "tiny_guard_keep_or_exclude_decision_created": true,
+  "security_guard_template_policy_defined": true,
+  "decision": "Meaningful security spawns (wrong-code, camera alarm, beam guard) use GOOD guard.tscn via MissionSecurityGuardResolver / spawn_attack_guard_near_player. Phase0KGuardPatrol instances from Phase0KGuardSpawner remain ambient marker guards — not expanded into full AI this pass."
+}

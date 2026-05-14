@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "guard_cleanup_preserved_or_improved": true,
+    "active_visible_guards_not_removed": true,
+    "cleanup_frees_cap": true
+  }
+}

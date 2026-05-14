@@ -62,6 +62,15 @@ static func get_clue_snapshot(mission_id: String = "", mission_node: Node = null
 	return {"ok": raw.get("ok", false), "mission_id": mid, "items": items, "warnings": raw.get("warnings", [])}
 
 
+## Plain-English heat line for pause (D6-01). No raw API identifiers in the string.
+static func get_heat_security_pause_line(mission_id: String = "", mission_node: Node = null) -> String:
+	var mid := _effective_mission_id(mission_id, mission_node)
+	if mid == "" or not MissionAutoloadResolver.has_game_state():
+		return ""
+	var heat := GameState.get_mission_heat(mid)
+	return "Heat: %d/5 — failed runs make this mission more guarded on replay. Current alarms affect only this attempt." % heat
+
+
 static func get_pause_payload(mission_id: String = "", mission_node: Node = null) -> Dictionary:
 	var mid := _effective_mission_id(mission_id, mission_node)
 	var warnings: Array[String] = []
@@ -78,6 +87,7 @@ static func get_pause_payload(mission_id: String = "", mission_node: Node = null
 		"scheme_cards": sch.get("items", []),
 		"clues": clu.get("items", []),
 		"warnings": warnings,
+		"heat_security_line": get_heat_security_pause_line(mid, mission_node),
 	}
 
 

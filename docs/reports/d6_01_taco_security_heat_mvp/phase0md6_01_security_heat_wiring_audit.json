@@ -1,0 +1,6 @@
+{
+  "security_heat_wiring_audited": true,
+  "safe_call_sites_identified": true,
+  "heat_increment_call_sites_identified_or_gap_reported": true,
+  "failed_attempts_increment_primary": "GameState.fail_mission"
+}

@@ -1,0 +1,6 @@
+{
+  "assertions": {
+    "dev_warp_visible_purple_circle": true,
+    "dev_warp_destination_garage_code": true
+  }
+}

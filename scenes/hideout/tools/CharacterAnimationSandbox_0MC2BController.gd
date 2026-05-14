@@ -61,7 +61,7 @@ func _load_meta() -> void:
 	_meta.clear()
 	if not FileAccess.file_exists(META_C2B):
 		return
-	var parsed = JSON.parse_string(FileAccess.get_file_as_string(META_C2B))
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(META_C2B))
 	if typeof(parsed) == TYPE_DICTIONARY:
 		_meta = parsed
 

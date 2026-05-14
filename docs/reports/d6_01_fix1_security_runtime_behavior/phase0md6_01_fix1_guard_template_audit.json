@@ -1,0 +1,13 @@
+{
+  "good_guard_template_identified": true,
+  "good_guard_scene": "res://scenes/characters/guard.tscn",
+  "good_guard_scripts": ["res://src/enemies/Guard.gd", "res://src/enemies/EnemyBase.gd"],
+  "bad_guard_template_identified_or_missing_reported": true,
+  "bad_guard_script": "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd",
+  "bad_guard_note": "Still instantiated by Phase0KGuardSpawner for editor GUARD markers; NOT used for wrong-code / alarm security spawns after FIX1.",
+  "guard_spawn_paths_mapped": true,
+  "wrong_code_path": "Phase0KBWrongCodeAttackGuardSpawner -> IsoMissionBase.spawn_attack_guard_near_player -> guard.tscn",
+  "camera_alarm_path": "MissionSecurityCamera -> MissionAlertController -> spawn_attack_guard_near_player",
+  "guard_stick_or_freeze_cause_identified_or_gap_reported": true,
+  "stick_cause_summary": "Procedural Phase0KGuardPatrol used move_toward with no attack spacing; full Guard uses EnemyBase chase. Mitigation: security_chase_soft meta + farther spawn + fallback patrol ring for attack_guard_*."
+}

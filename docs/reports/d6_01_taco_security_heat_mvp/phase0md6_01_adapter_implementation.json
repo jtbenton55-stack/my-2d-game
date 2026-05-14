@@ -1,0 +1,6 @@
+{
+  "security_event_adapter_created": true,
+  "adapter_is_not_autoload": true,
+  "adapter_has_debug_snapshot": true,
+  "adapter_has_duplicate_coalescing": true
+}

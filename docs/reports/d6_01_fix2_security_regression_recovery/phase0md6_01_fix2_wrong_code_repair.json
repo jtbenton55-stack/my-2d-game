@@ -1,0 +1,10 @@
+{
+  "wrong_code_counter_repaired": true,
+  "wrong_code_security_response_repaired_or_deferred_with_reason": true,
+  "wrong_code_does_not_directly_increase_heat": true,
+  "changes": [
+    "Phase0KB: eff_threshold from get_wrong_code_alarm_threshold",
+    "Phase0KB: wrong_code_alarm adapter event at threshold",
+    "_result returns _last_effective_wrong_threshold for HUD strings"
+  ]
+}

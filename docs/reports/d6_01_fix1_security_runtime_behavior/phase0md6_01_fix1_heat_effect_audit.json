@@ -1,0 +1,9 @@
+{
+  "heat_effect_audit_completed": true,
+  "heat_profile_application_status_recorded": true,
+  "heat_feels_harder_status_recorded": true,
+  "get_mission_heat": "GameState.get_mission_heat / failed_attempts cap 5 (D6-01 policy)",
+  "apply_profile": "IsoMissionBase._apply_heat_profile — wrong-code threshold, camera sweep/exposure multipliers, extra camera/guard flags, scent penalties as already coded",
+  "fix1_tuning": "Heat level 1 camera multipliers nudged up (1.15 / 1.18) for measurable replay difference vs baseline",
+  "mid_run_policy": "Mid-run detections do not increment persistent heat; failure path still +1 failed_attempts"
+}

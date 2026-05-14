@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "ambush_security_beam_only_anchor_used": true,
+    "old_garage_or_bag_beam_logic_not_used_for_placement": true,
+    "beam_visual_and_trigger_center_match_or_missing_reported": true,
+    "beam_f10_anchor_proof_added": true
+  }
+}

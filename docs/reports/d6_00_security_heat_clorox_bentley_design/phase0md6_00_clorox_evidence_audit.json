@@ -1,0 +1,10 @@
+{
+  "clorox_evidence_audit_completed": true,
+  "existing_cleanup_system_identified_or_missing_reported": true,
+  "clorox_in_clean_job_mission": true,
+  "clorox_in_iso_taco_mission": false,
+  "card_id": "clorox_wipe_protocol",
+  "heat_reduced_by_wipe_in_code": false,
+  "clean_getaway_placeholder": true,
+  "perfect_moment_fields": ["alarms_triggered", "wrong_scent_trails_followed"]
+}

@@ -1,0 +1,7 @@
+{
+  "wrong_code_path_audited": true,
+  "wrong_code_counter_path_identified": true,
+  "wrong_code_security_response_gap_recorded": true,
+  "owner": "Phase0JCodeGateController + Phase0JCodeInputUI + Phase0KBWrongCodeAttackGuardSpawner",
+  "adapter_counters": "MissionSecurityEventAdapter via iso_alert_controller; wrong_code from Phase0J + Phase0KB; wrong_code_alarm added at Phase0KB threshold in FIX2"
+}

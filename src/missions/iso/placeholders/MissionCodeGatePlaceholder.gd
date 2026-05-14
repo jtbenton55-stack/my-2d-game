@@ -130,6 +130,7 @@ func _on_wrong_code() -> void:
 		mission.call("increment_attempt_counter", "wrong_code", 1)
 		if attempts >= 2:
 			GameState.set_mission_alert_state(mission_id, "suspicious")
+	_report_security_adapter_wrong_code(gate_id, attempts)
 	EventBus.screen_shake.emit(2.8, 0.12)
 	EventBus.debug("Code gate warning flash RED: " + gate_id)
 	var warning_line := TacoBellDialogue.line("code_wrong_001", wrong_code_text, display_name)
@@ -143,3 +144,12 @@ func _on_wrong_code() -> void:
 		_show_feedback(String(warning_line.get("text")) + " Wrong attempts: " + str(attempts) + ". " + String(alarm_line.get("text")))
 		return
 	_show_feedback(String(warning_line.get("text")) + " Wrong attempts: " + str(attempts) + ".")
+
+
+func _report_security_adapter_wrong_code(gate_id: String, attempts: int) -> void:
+	var ctrl := get_tree().get_first_node_in_group("iso_alert_controller")
+	if ctrl == null or not ctrl.has_method("get_security_event_adapter"):
+		return
+	var adapter: Variant = ctrl.call("get_security_event_adapter")
+	if adapter != null and adapter.has_method("report_security_event"):
+		adapter.call("report_security_event", "wrong_code", gate_id, 1, {"attempts": attempts})

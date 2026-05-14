@@ -1,0 +1,35 @@
+{
+  "verdict": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "cap_reached_fixed": true,
+  "guards_spawn": "requires_local_playtest",
+  "purple_warp_visible": "requires_local_playtest",
+  "beam_red_line_visible": "requires_local_playtest",
+  "camera_movement_restored": true,
+  "camera_detection_preserved": true,
+  "hideout_heat_sync": "mismatch_documented",
+  "f10_readability": true,
+  "mid_run_heat_policy": "preserved_by_design_no_code_change",
+  "project_godot_modified": false,
+  "player_gd_modified": false,
+  "player_stamina_modified": false,
+  "taco_scenes_modified": false,
+  "player_tscn_modified": false,
+  "new_save_keys": false,
+  "kimi_status": "skipped_intentionally",
+  "runtime_validation": "partial_no_engine_session",
+  "static_validator": "PASS",
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/MissionSecurityCamera.gd",
+    "src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "src/missions/iso/runtime/MissionDevTestWarp.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "docs/CHANGELOG.md"
+  ],
+  "files_created": [
+    "docs/reports/d6_01_fix4_security_spawn_cap_camera_beam_warp/*",
+    "src/tools/editor/d6_01_fix4_security_spawn_cap_camera_beam_warp/phase0md6_01_fix4_static_validator.py"
+  ],
+  "manual_checklist_ref": "phase0md6_01_fix4_final_report.md"
+}

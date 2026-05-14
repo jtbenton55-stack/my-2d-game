@@ -5,6 +5,8 @@ const VALID_BOUNDS := Rect2(Vector2(-1000, -650), Vector2(1920, 1120))
 const DIRECT_PROXY_MARGIN_PX := 6
 const CRITICAL_ZONE_MARGIN_PX := 24
 const BOUNDARY_ZONE_MARGIN_PX := 16
+const BLOCKED_ZONE_MARGIN_PX := 12
+const CORRIDOR_ZONE_MARGIN_PX := 16
 const MAX_NEAREST_OPEN_SEARCH_RADIUS_PX := 256
 
 static func no_place_zones() -> Array[Dictionary]:

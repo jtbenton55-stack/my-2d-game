@@ -1,0 +1,23 @@
+{
+  "assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  },
+  "errors": [],
+  "git_changed_files_sample": [
+    "docs/CHANGELOG.md",
+    "src/autoload/GameState.gd",
+    "src/enemies/EnemyBase.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/placeholders/MissionCodeGatePlaceholder.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/iso/runtime/MissionAlertController.gd",
+    "src/missions/iso/runtime/MissionSecurityCamera.gd",
+    "src/missions/iso/runtime/Phase0JCodeGateController.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "src/missions/ui/MissionPauseDataProvider.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ]
+}

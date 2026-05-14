@@ -1,0 +1,5 @@
+{
+  "heat_policy_explicit": true,
+  "persistent_heat_not_double_counted": true,
+  "no_new_save_keys_added": true
+}

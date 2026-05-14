@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "dev_warp_audited": true,
+    "dev_warp_visibility_gap_identified_or_gap_reported": true
+  },
+  "gaps": ["dev_harness_only_gate", "label_not_visible_on_area2d"]
+}

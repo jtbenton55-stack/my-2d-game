@@ -1,0 +1,7 @@
+{
+  "kimi_review_attempted_or_unavailable_documented": true,
+  "no_secrets_sent_to_kimi": true,
+  "kimi_advice_reconciled_or_unavailable": true,
+  "kimi_available": false,
+  "kimi_error": "skipped_intentionally_short_pass"
+}

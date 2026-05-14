@@ -1,0 +1,8 @@
+{
+  "bentley_sniff_design_decision_created": true,
+  "q_case_the_joint_role_defined_or_deferred": true,
+  "playable_bentley_scope_deferred_or_defined": true,
+  "bentley_sniff_decision": "defer_standalone_sniff_merge_with_case_the_joint",
+  "d6_03_default": "DEFER_expansion_documentation_only_or_light_group_polish",
+  "case_the_joint_already_exists": true
+}

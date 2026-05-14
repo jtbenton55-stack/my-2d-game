@@ -1,0 +1,12 @@
+{
+  "f10_security_evidence_updated": true,
+  "player_hud_preserved": true,
+  "pause_scrollability_preserved": true,
+  "f10_additions": [
+    "garage_beam_f10_hint from runtime summary",
+    "security_spawn_cap",
+    "security_response_spawn_count",
+    "good_guard_scene / bad_guard_script_note",
+    "existing security counters block retained"
+  ]
+}

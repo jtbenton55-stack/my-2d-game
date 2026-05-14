@@ -1,0 +1,15 @@
+{
+  "taco_camera_nodes_inventoried": true,
+  "real_camera_nodes_classified": true,
+  "camera_response_gap_recorded": true,
+  "spawn_pipeline": "Phase0KCameraSpawner reads MarkerRoot CAM markers → MissionSecurityCamera Area2D under EntityRoot/Cameras",
+  "cam_markers_redesign_test": [
+    "CAM_bag_room",
+    "CAM_garage_lower",
+    "CAM_garage_upper",
+    "CAM_market_01",
+    "CAM_trash_alley",
+    "CAM_upper_high_heat"
+  ],
+  "classification": "REAL_CAMERA_ACTIVE — all listed use MissionSecurityCamera.gd at runtime unless marker missing (read-only scene audit)."
+}

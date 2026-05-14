@@ -1,0 +1,73 @@
+{
+  "reports_exist": {
+    "phase0md6_01_fix6b_safety_baseline": {
+      "md": true,
+      "json": true,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_guard_fallback_performance_audit": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_search_net_plan": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_search_net_implementation": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_guard_performance_lifecycle": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_far_right_beam_fix": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_f10_search_net_debug": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_static_self_review": {
+      "md": true,
+      "json": false,
+      "pass": true
+    },
+    "phase0md6_01_fix6b_runtime_validation": {
+      "md": true,
+      "json": false,
+      "pass": true
+    }
+  },
+  "json_parse": {
+    "phase0md6_01_fix6b_safety_baseline": "pass"
+  },
+  "assertions": {
+    "repo_root_confirmed": true,
+    "d6_01_fix6b_scope_confirmed": true,
+    "search_net_implemented": false,
+    "far_left_patrol_fallback_removed_for_security_spawns": false,
+    "guard_performance_lifecycle_implemented_or_deferred_with_reason": false,
+    "far_right_beam_position_recomputed": false,
+    "f10_search_net_debug_added": false,
+    "static_self_review_completed": false
+  },
+  "code_patterns": {
+    "_get_security_search_role": "found",
+    "_build_search_net_points": "found",
+    "_update_security_guard_lifecycle": "found",
+    "D6_FIX6B_TEMP_SECURITY_BEAM": "found",
+    "search_net_heat": "found",
+    "lifecycle_active": "found"
+  },
+  "all_pass": true,
+  "timestamp": "2026-05-13",
+  "phase": "0M-D6-01-FIX6B"
+}

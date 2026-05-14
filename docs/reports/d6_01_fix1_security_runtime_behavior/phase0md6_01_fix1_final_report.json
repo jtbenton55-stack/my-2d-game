@@ -1,0 +1,43 @@
+{
+  "pass_id": "0M-D6-01-FIX1",
+  "verdict": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "good_guard_template": "res://scenes/characters/guard.tscn (Guard.gd / EnemyBase.gd)",
+  "bad_guard_template": "res://src/missions/iso/runtime/Phase0KGuardPatrol.gd (Phase0KGuardSpawner markers only; not security spawns)",
+  "bad_guard_used_for_security_spawns": false,
+  "security_spawn_fix_summary": "MissionSecurityGuardResolver + spawn_attack_guard_near_player uses guard.tscn; Phase0KB delegates to IsoMissionBase.",
+  "spawned_guard_behavior_summary": "security_chase_soft on EnemyBase; offset spawn; fallback patrol; skip wrong default patrol for attack_guard_*.",
+  "camera_unification_summary": "Cameras under EntityRoot/Cameras; LOS default off; per-source reinforcement cooldown in MissionAlertController.",
+  "beam_truth_summary": "Runtime AlarmZone_garage_entry_beam under GameplayRoot/RuntimeSystems/AlarmZones; adapter beam_trip; F10 hint + armed/triggered flags.",
+  "heat_effect_summary": "_apply_heat_profile unchanged structurally; heat==1 camera multipliers increased for noticeable replay pressure; no new save keys.",
+  "f10_status": "Extended with beam hint, spawn cap/count, GOOD/BAD paths from runtime summary.",
+  "hud_pause_f1_f10_f11": "Not regressed by FIX1 files; full verification requires manual run (pause_menu may have parallel uncommitted D6-01 edits in working tree).",
+  "project_godot_modified": false,
+  "player_gd_modified": false,
+  "player_stamina_modified": false,
+  "taco_scenes_modified": false,
+  "new_save_keys_added": false,
+  "kimi_status": "skipped — no MCP call; no secrets sent",
+  "runtime_validation_status": "PARTIAL — no in-editor session this agent run; manual checklist required for PASS claims",
+  "manual_test_checklist_included": true,
+  "static_validator_status": "PASS",
+  "known_limitations": [
+    "Beam is zone detection without dedicated visible laser mesh",
+    "Phase0KGuardSpawner still places procedural guards for GUARD markers (distinct from security alarm spawns)",
+    "Navigation edge cases (guard vs wall) depend on navmesh + existing AI; not fully revalidated here"
+  ],
+  "recommended_next_pass": "In-editor playtest PASS matrix; optional visible beam decal; consider migrating Phase0KGuardSpawner to guard.tscn if tiny markers should disappear entirely",
+  "files_modified_implementation": [
+    "docs/CHANGELOG.md",
+    "src/levels/IsoMissionBase.gd",
+    "src/enemies/EnemyBase.gd",
+    "src/missions/iso/runtime/MissionSecurityGuardResolver.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "src/missions/iso/runtime/MissionSecurityCamera.gd",
+    "src/missions/iso/runtime/MissionAlertController.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/tools/editor/d6_01_fix1_security_runtime_behavior/phase0md6_01_fix1_static_validator.py"
+  ],
+  "files_created_reports": "docs/reports/d6_01_fix1_security_runtime_behavior/*"
+}

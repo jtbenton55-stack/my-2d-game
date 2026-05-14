@@ -303,7 +303,7 @@ func _show_screenplay_puzzle() -> void:
 		EventBus.warn("Screenplay puzzle scene missing")
 		return
 	
-	var puzzle := puzzle_scene.instantiate()
+	var puzzle: Node = puzzle_scene.instantiate()
 	puzzle.puzzle_solved.connect(_on_screenplay_solved)
 	get_tree().current_scene.add_child(puzzle)
 
@@ -328,7 +328,7 @@ func _show_legal_puzzle() -> void:
 		return
 	
 	var mere_eyes_active := _has_card("mere_legal_eyes")
-	var puzzle := puzzle_scene.instantiate()
+	var puzzle: Node = puzzle_scene.instantiate()
 	puzzle.mere_eyes_active = mere_eyes_active
 	puzzle.puzzle_solved.connect(_on_legal_puzzle_solved)
 	get_tree().current_scene.add_child(puzzle)

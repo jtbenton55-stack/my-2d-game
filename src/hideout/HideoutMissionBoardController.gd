@@ -1,6 +1,7 @@
 extends Node
 class_name HideoutMissionBoardController
 
+const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
 
 func get_panel_data(state_controller: Node = null) -> Dictionary:

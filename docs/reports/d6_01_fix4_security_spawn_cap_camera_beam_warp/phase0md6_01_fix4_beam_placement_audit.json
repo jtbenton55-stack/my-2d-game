@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "beam_placement_audited": true,
+    "beam_route_relationship_recorded": true,
+    "beam_visibility_plan_created": true
+  }
+}

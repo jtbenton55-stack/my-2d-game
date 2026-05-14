@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "hideout_heat_audited": true,
+    "hideout_heat_sync_status_recorded": true
+  },
+  "sync_status": "mismatch_documented_no_hideout_scene_change"
+}

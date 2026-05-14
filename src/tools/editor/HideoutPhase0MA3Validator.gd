@@ -59,7 +59,7 @@ static func validate() -> Dictionary:
 		result.errors.append("HideoutHub failed to load.")
 		return result
 	result.scene_loads = true
-	var scene := packed.instantiate()
+	var scene: Node = packed.instantiate()
 	if scene == null:
 		result.errors.append("HideoutHub failed to instantiate.")
 		return result

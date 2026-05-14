@@ -6,6 +6,7 @@ const API_KEY = process.env.SILICONFLOW_API_KEY;
 const BASE_URL = process.env.SILICONFLOW_BASE_URL || "https://api.siliconflow.com/v1";
 const MODEL = process.env.SILICONFLOW_MODEL || "moonshotai/Kimi-K2.6";
 const REQUEST_TIMEOUT_MS = 120_000;
+const TRANSIENT_ERROR_RE = /(timeout|timed out|abort|network|socket|econnreset|etimedout|fetch failed)/i;
 
 if (!API_KEY) {
   console.error(
@@ -95,46 +96,69 @@ server.registerTool(
       safeContext || "(No additional context provided.)"
     ].join("\n");
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-    let response;
+    async function requestCompletion() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+      try {
+        return await fetch(`${BASE_URL}/chat/completions`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            model: MODEL,
+            messages: [
+              { role: "system", content: system },
+              { role: "user", content: user }
+            ],
+            max_tokens,
+            temperature,
+            top_p: 0.7,
+            stream: false
+          })
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
 
+    let response;
     try {
-      response = await fetch(`${BASE_URL}/chat/completions`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        signal: controller.signal,
-        body: JSON.stringify({
-          model: MODEL,
-          messages: [
-            { role: "system", content: system },
-            { role: "user", content: user }
-          ],
-          max_tokens,
-          temperature,
-          top_p: 0.7,
-          stream: false
-        })
-      });
+      response = await requestCompletion();
     } catch (error) {
-      const message = error?.name === "AbortError"
+      const firstMessage = error?.name === "AbortError"
         ? `SiliconFlow/Kimi request timed out after ${REQUEST_TIMEOUT_MS / 1000} seconds.`
         : `SiliconFlow/Kimi request failed: ${error?.message || String(error)}`;
-
-      return {
-        isError: true,
-        content: [
-          {
-            type: "text",
-            text: redactPotentialSecrets(message)
-          }
-        ]
-      };
-    } finally {
-      clearTimeout(timeout);
+      if (TRANSIENT_ERROR_RE.test(firstMessage)) {
+        try {
+          response = await requestCompletion();
+        } catch (retryError) {
+          const retryMessage = retryError?.name === "AbortError"
+            ? `SiliconFlow/Kimi request timed out after retry (${REQUEST_TIMEOUT_MS / 1000} seconds each attempt).`
+            : `SiliconFlow/Kimi retry failed: ${retryError?.message || String(retryError)}`;
+          return {
+            isError: true,
+            content: [
+              {
+                type: "text",
+                text: redactPotentialSecrets(retryMessage)
+              }
+            ]
+          };
+        }
+      } else {
+        return {
+          isError: true,
+          content: [
+            {
+              type: "text",
+              text: redactPotentialSecrets(firstMessage)
+            }
+          ]
+        };
+      }
     }
 
     const raw = await response.text();
@@ -169,10 +193,29 @@ server.registerTool(
       };
     }
 
-    const messageContent = data?.choices?.[0]?.message?.content;
-    const finishReason = data?.choices?.[0]?.finish_reason;
+    const choice = data?.choices?.[0];
+    const message = choice?.message || {};
+    const messageContent =
+      message?.content ??
+      message?.text ??
+      choice?.text ??
+      data?.content ??
+      data?.text ??
+      "";
+    const reasoningContent = message?.reasoning_content ?? choice?.reasoning_content ?? "";
+    const finishReason = choice?.finish_reason;
 
     if (typeof messageContent !== "string" || !messageContent.trim()) {
+      if (typeof reasoningContent === "string" && reasoningContent.trim()) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: redactPotentialSecrets(reasoningContent)
+            }
+          ]
+        };
+      }
       return {
         isError: true,
         content: [

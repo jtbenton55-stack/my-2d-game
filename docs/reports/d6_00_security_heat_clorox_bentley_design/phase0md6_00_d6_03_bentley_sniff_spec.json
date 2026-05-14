@@ -1,0 +1,8 @@
+{
+  "d6_03_spec_created": true,
+  "pass_id": "D6-03",
+  "purpose": "Case-the-joint pulse polish OR defer with instrumentation only",
+  "implementation_order": 3,
+  "default_path": "DEFER_documentation_and_f10_metrics",
+  "alternate_path": "LIGHT_polish_Player_collect_case_targets"
+}

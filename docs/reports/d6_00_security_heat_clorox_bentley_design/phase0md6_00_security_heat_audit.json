@@ -1,0 +1,16 @@
+{
+  "security_heat_audit_completed": true,
+  "existing_heat_state_identified_or_missing_reported": true,
+  "guard_camera_beam_wrong_code_systems_mapped": true,
+  "heat_source_of_truth": "GameState.failed_attempts capped by get_mission_heat",
+  "alert_source_of_truth": "MissionAlertController per attempt",
+  "performance_metrics": [
+    "alarms_triggered",
+    "cameras_triggered",
+    "guards_alerted",
+    "wrong_code_attempts",
+    "wrong_scent_trails_followed"
+  ],
+  "dual_taco_surfaces": ["TacoBellMission.gd (legacy)", "IsoMissionBase + iso runtime (canonical)"],
+  "hideout_heat_ui": "HideoutStateController + heat_scanner station (partially placeholder)"
+}

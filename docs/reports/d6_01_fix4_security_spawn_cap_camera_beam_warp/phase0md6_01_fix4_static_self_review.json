@@ -1,0 +1,18 @@
+{
+  "assertions": {
+    "static_self_review_completed": true,
+    "no_forbidden_files_modified_or_justified": true,
+    "no_duplicate_security_manager_created": true
+  },
+  "modified_files_this_pass": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/MissionSecurityCamera.gd",
+    "src/missions/iso/runtime/Phase0KCameraSpawner.gd",
+    "src/missions/iso/runtime/MissionDevTestWarp.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "docs/CHANGELOG.md",
+    "docs/reports/d6_01_fix4_security_spawn_cap_camera_beam_warp/",
+    "src/tools/editor/d6_01_fix4_security_spawn_cap_camera_beam_warp/phase0md6_01_fix4_static_validator.py"
+  ],
+  "note": "Working tree may also contain unrelated modified files from earlier D6 work; FIX4 edits are the listed gameplay paths plus reports/validator."
+}

@@ -13,6 +13,8 @@ signal player_detected(source_id: String)
 @export var sweep_min_degrees: float = -45.0
 @export var sweep_max_degrees: float = 45.0
 @export var sweep_speed: float = 0.85
+## When false, cone occupancy alone drives exposure (Taco: LOS often blocked by iso walls, leaving many cameras “dead”).
+@export var require_line_of_sight: bool = false
 
 var _player: Node2D = null
 var _detection_value := 0.0
@@ -34,20 +36,30 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_controller = _find_controller()
-	_base_rotation = global_rotation
 	_create_debug_cone()
+	## Sweep basis must reflect final world placement (Phase0K used to parent before moving).
+	call_deferred("refresh_sweep_basis_from_world")
 	set_process(true)
+
+
+func refresh_sweep_basis_from_world() -> void:
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+	_base_rotation = global_rotation
+	var h := hash(camera_id)
+	_sweep_t = absf(float(h % 997)) * 0.01
 
 
 func _process(delta: float) -> void:
 	if not enabled:
 		return
+	_ensure_controller()
 	_sweep_t += delta * sweep_speed
 	var span := clampf(sweep_max_degrees - sweep_min_degrees, 1.0, 180.0)
 	var center := (sweep_max_degrees + sweep_min_degrees) * 0.5
 	var amp := span * 0.5
 	global_rotation = _base_rotation + deg_to_rad(center + sin(_sweep_t) * amp)
-	if _player != null and is_instance_valid(_player) and _is_in_cone(_player.global_position) and _has_los(_player.global_position):
+	if _player != null and is_instance_valid(_player) and _is_in_cone(_player.global_position) and _los_ok(_player.global_position):
 		var mod := 1.0
 		if _controller != null:
 			mod = _controller.player_detection_modifier
@@ -59,9 +71,10 @@ func _process(delta: float) -> void:
 			EventBus.debug("Camera detected player: " + camera_id)
 			_detection_value = 0.0
 	else:
+		## Local cone meter only — do NOT call MissionAlertController.decay_exposure here.
+		## Multiple cameras each ran decay every frame while the player was outside their cone,
+		## draining the shared alert_score and preventing alarms/spawns (D6-01-FIX2 regression).
 		_detection_value = maxf(0.0, _detection_value - detection_decay * delta)
-		if _controller != null:
-			_controller.decay_exposure(detection_decay * delta)
 	if _debug_cone != null:
 		_debug_cone.visible = OS.is_debug_build()
 
@@ -105,6 +118,18 @@ func _find_controller() -> MissionAlertController:
 	if node is MissionAlertController:
 		return node
 	return null
+
+
+func _ensure_controller() -> void:
+	if _controller != null and is_instance_valid(_controller):
+		return
+	_controller = _find_controller()
+
+
+func _los_ok(target_position: Vector2) -> bool:
+	if not require_line_of_sight:
+		return true
+	return _has_los(target_position)
 
 
 func get_detection_value() -> float:

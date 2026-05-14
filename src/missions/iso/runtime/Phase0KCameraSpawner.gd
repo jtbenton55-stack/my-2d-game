@@ -5,7 +5,7 @@ extends Node
 const CAMERA_SCRIPT := preload("res://src/missions/iso/runtime/MissionSecurityCamera.gd")
 
 @export var marker_root_path: NodePath = NodePath("../../MarkerRoot/EditorOnlyPlaceholders")
-@export var camera_parent_path: NodePath = NodePath("../../Phase0KRuntime/Cameras")
+@export var camera_parent_path: NodePath = NodePath("../../EntityRoot/Cameras")
 
 var spawned_camera_count := 0
 var camera_spawn_table: Array[Dictionary] = []
@@ -39,6 +39,8 @@ func spawn_cameras() -> void:
 		camera.set_meta("valid_camera", true)
 		parent.add_child(camera)
 		camera.global_position = (marker as Node2D).global_position
+		if camera.has_method("refresh_sweep_basis_from_world"):
+			camera.call_deferred("refresh_sweep_basis_from_world")
 		spawned_camera_count += 1
 		camera_spawn_table.append({
 			"marker_id": marker_id,

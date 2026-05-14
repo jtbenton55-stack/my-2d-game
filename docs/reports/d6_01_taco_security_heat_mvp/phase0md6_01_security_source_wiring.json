@@ -1,0 +1,7 @@
+{
+  "safe_security_sources_wired_or_deferred": true,
+  "no_per_frame_event_spam_introduced": true,
+  "existing_wrong_code_response_preserved": true,
+  "beam_wired_or_deferred_with_reason": true,
+  "beam_wiring": "via_record_alarm_alarm_zone_to_beam_trip_mapping"
+}

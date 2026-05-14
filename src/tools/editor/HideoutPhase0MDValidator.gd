@@ -83,7 +83,7 @@ static func validate() -> Dictionary:
 		var packed := ResourceLoader.load(SCENE_PATH)
 		if packed != null:
 			result.scene_loads = true
-			var scene := packed.instantiate()
+			var scene: Node = packed.instantiate()
 			if scene != null:
 				result.gameplay_art_separation_preserved = scene.has_node("GameplayRoot") and scene.has_node("ArtRoot") and scene.has_node("ArtRoot/World/DecorationLayer/PlacedDecor")
 				scene.free()

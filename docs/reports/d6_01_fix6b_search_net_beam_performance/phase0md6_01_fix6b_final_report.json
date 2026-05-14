@@ -1,0 +1,63 @@
+{
+  "phase": "0M-D6-01-FIX6B",
+  "title": "Search Net Security Behavior / Guard Performance / Far-Right Beam Placement",
+  "date": "2026-05-13",
+  "result": "PARTIAL",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "summary": "Code implementation complete and validated. Manual runtime testing required.",
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+  ],
+  "files_created": 21,
+  "protected_files_modified": {
+    "project.godot": false,
+    "Player.gd": false,
+    "PlayerStaminaController.gd": false,
+    "player.tscn": false,
+    "assets": false,
+    "TacoBellIso_Editable.tscn": false
+  },
+  "features": {
+    "camera_spawn_preserved": true,
+    "wrong_code_spawn_preserved": true,
+    "far_left_fallback_removed": true,
+    "search_net_implemented": true,
+    "heat_scaled_behavior": true,
+    "heat_0_1_behavior": "Territorial triangle patrol",
+    "heat_2_3_behavior": "Pursuer/Flanker roles",
+    "heat_4_behavior": "Full role distribution",
+    "heat_5_behavior": "Coordinated lockdown",
+    "triangle_fallback": true,
+    "successive_guard_offset": true,
+    "performance_lifecycle": true,
+    "distant_guard_cleanup": true,
+    "cap_freed_on_cleanup": true,
+    "beam_placement": "Far-right hallway 80px before bag",
+    "beam_visibility": "Improved (32px, bright red, label, beacon)",
+    "beam_trigger_aligned": true,
+    "f10_updated": true
+  },
+  "heat_policy": {
+    "mid_run_events_increase_heat": false,
+    "reinforcement_cooldown_sec": "6.0/4.5/3.0/2.0 by heat"
+  },
+  "save_keys_added": false,
+  "kimi_used": false,
+  "hud_preserved": true,
+  "sprint_preserved": true,
+  "dash_preserved": true,
+  "f1_f10_f11_pause_preserved": true,
+  "validation": {
+    "code_syntax": "PASS",
+    "static_validator": "PASS",
+    "runtime_testing": "REQUIRED"
+  },
+  "known_limitations": [
+    "Manual runtime testing required",
+    "Kimi review skipped (unavailable)",
+    "Beam trigger not visually tested",
+    "Lifecycle timing not playtested"
+  ],
+  "next_pass_recommended": "PHASE 0M-D6-01-FIX6C - Manual Verification & Polish"
+}

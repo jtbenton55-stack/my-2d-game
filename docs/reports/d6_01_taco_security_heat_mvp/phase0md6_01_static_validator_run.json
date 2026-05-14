@@ -1,0 +1,16 @@
+{
+  "pass_id": "0M-D6-01",
+  "static_validator_passed": true,
+  "failures": [],
+  "git_changed_sample": [
+    "docs/CHANGELOG.md",
+    "src/autoload/GameState.gd",
+    "src/missions/iso/placeholders/MissionCodeGatePlaceholder.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/missions/iso/runtime/MissionAlertController.gd",
+    "src/missions/iso/runtime/Phase0JCodeGateController.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "src/missions/ui/MissionPauseDataProvider.gd",
+    "src/ui/test_ui/pause_menu.gd"
+  ]
+}

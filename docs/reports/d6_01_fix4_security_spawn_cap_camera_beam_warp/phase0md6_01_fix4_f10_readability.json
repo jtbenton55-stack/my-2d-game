@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "f10_security_readability_improved": true,
+    "f10_active_guard_cap_info_visible": true,
+    "f10_beam_warp_guidance_visible": true
+  }
+}

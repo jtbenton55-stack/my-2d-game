@@ -1,0 +1,1 @@
+{"camera_spawn_path_audited": true, "wrong_code_spawn_path_audited": true, "spawn_failure_cause_identified_or_gap_reported": true, "paths": "MissionSecurityCamera → accumulate_exposure → record_alarm_event → spawn_attack_guard_near_player; Phase0KB → spawn_attack_guard_near_player"}

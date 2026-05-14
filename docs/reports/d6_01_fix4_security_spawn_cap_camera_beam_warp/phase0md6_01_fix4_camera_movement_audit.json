@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "camera_movement_audited": true,
+    "camera_movement_regression_cause_identified_or_gap_reported": true
+  },
+  "cause": "Phase0KCameraSpawner_child_order_before_position",
+  "detection_decay_note": "MissionSecurityCamera still avoids global decay_exposure per D6-01-FIX2"
+}

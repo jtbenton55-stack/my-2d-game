@@ -136,6 +136,16 @@ func get_mission_heat(mission_id: String) -> int:
 	return mini(5, int(failed_attempts.get(mission_id, 0)))
 
 
+## Read-only summary for pause/F10; does not mutate save data.
+func get_mission_heat_summary(mission_id: String) -> Dictionary:
+	return {
+		"mission_id": mission_id,
+		"heat": get_mission_heat(mission_id),
+		"failed_attempts": int(failed_attempts.get(mission_id, 0)),
+		"max_heat": 5,
+	}
+
+
 func get_or_roll_mission_mutations(mission_id: String, pool: Dictionary) -> Dictionary:
 	if mission_mutation_state.has(mission_id):
 		return mission_mutation_state[mission_id].duplicate(true)
@@ -335,6 +345,7 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		velvet_paw_stealth_run_broken = false
 	var attempt_count := int(failed_attempts.get(mission_id, 0)) + 1
 	failed_attempts[mission_id] = attempt_count
+	_log_security_mission_failure_heat(mission_id, attempt_count)
 	_update_mission_heat_state(mission_id)
 	_finalize_mission_performance(mission_id, false)
 	intel_points += 1
@@ -351,6 +362,26 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()
 	return last_mission_result
+
+
+func _log_security_mission_failure_heat(mission_id: String, failed_after: int) -> void:
+	var ml := Engine.get_main_loop()
+	if ml == null or not (ml is SceneTree):
+		return
+	var st := ml as SceneTree
+	var ctrl := st.get_first_node_in_group("iso_alert_controller")
+	if ctrl == null or not ctrl.has_method("get_security_event_adapter"):
+		return
+	var adapter: Variant = ctrl.call("get_security_event_adapter")
+	if adapter != null and adapter.has_method("report_security_event"):
+		adapter.call(
+			"report_security_event",
+			"mission_failure_heat",
+			mission_id,
+			4,
+			{"failed_attempts_after": failed_after}
+		)
+
 
 func _grant_success_rewards(mission_id: String) -> Array[String]:
 	var rewards: Array[String] = []

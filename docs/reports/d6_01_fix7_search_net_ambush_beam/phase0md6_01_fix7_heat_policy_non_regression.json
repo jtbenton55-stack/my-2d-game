@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "heat_policy_preserved": true,
+    "heat_cooldown_values_preserved": true,
+    "no_new_save_keys_added": true
+  }
+}

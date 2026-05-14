@@ -1,0 +1,46 @@
+{
+  "phase": "0M-D6-01-FIX6",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "tools/mcp-kimi/server.mjs",
+    "src/tools/editor/d6_01_fix6_spawn_position_beam_placement/phase0md6_01_fix6_runtime_probe.gd",
+    "src/tools/editor/d6_01_fix6_spawn_position_beam_placement/phase0md6_01_fix6_static_validator.py"
+  ],
+  "runtime_probe": {
+    "camera": {
+      "passed": true,
+      "source": "garage_fallback_camera",
+      "mode": "player_near",
+      "requested": "(-2558.0, 185.0)",
+      "chosen": "(-2338.0, 185.0)",
+      "actual": "(-2338.0, 185.0)",
+      "distance": 220.0,
+      "functional": 3,
+      "raw": 3,
+      "invalid": 0
+    },
+    "wrong_code": {
+      "passed": true,
+      "source": "wrong_code_phase0kb",
+      "mode": "player_near",
+      "requested": "(-2558.0, 185.0)",
+      "chosen": "(-2338.0, 185.0)",
+      "actual": "(-2338.0, 185.0)",
+      "distance": 220.0,
+      "functional": 4,
+      "raw": 4,
+      "invalid": 0
+    },
+    "beam_status": {
+      "visible_node_exists": true,
+      "node_path": "/root/TacoBellIso_Editable/GameplayRoot/RuntimeSystems/D6_FIX6_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS"
+    }
+  },
+  "assertions": {
+    "right_hallway_beam_visual_added_or_deferred_with_reason": true,
+    "beam_f10_copy_player_readable": true,
+    "failed_fix5_beam_coordinate_not_blindly_reused": true
+  }
+}

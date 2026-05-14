@@ -1,0 +1,6 @@
+{
+  "result": "PARTIAL",
+  "root_cause": "search net handoff robustness gap before explicit guard API",
+  "ambush_anchor_used": true,
+  "runtime_status": "manual_playtest_required"
+}

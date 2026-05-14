@@ -1,0 +1,11 @@
+{
+  "assertions": {
+    "runtime_validation_attempted": true,
+    "runtime_limitations_documented_if_any": true,
+    "core_taco_loop_not_broken_or_failure_reported": true
+  },
+  "result": "partial_no_local_godot_session",
+  "limitations": [
+    "No automated GRB input in this Cursor session"
+  ]
+}

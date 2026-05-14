@@ -1,0 +1,5 @@
+{
+  "beam_f10_testability_improved": true,
+  "beam_status_visible_in_f10": true,
+  "changes": ["IsoMissionBase _runtime_debug_summary beam_* keys", "IsoMissionDebugPanel multi-line beam block"]
+}

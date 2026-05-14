@@ -1,0 +1,57 @@
+{
+  "phase": "0M-D6-01-FIX6",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "tools/mcp-kimi/server.mjs",
+    "src/tools/editor/d6_01_fix6_spawn_position_beam_placement/phase0md6_01_fix6_runtime_probe.gd",
+    "src/tools/editor/d6_01_fix6_spawn_position_beam_placement/phase0md6_01_fix6_static_validator.py"
+  ],
+  "runtime_probe": {
+    "camera": {
+      "passed": true,
+      "source": "garage_fallback_camera",
+      "mode": "player_near",
+      "requested": "(-2558.0, 185.0)",
+      "chosen": "(-2338.0, 185.0)",
+      "actual": "(-2338.0, 185.0)",
+      "distance": 220.0,
+      "functional": 3,
+      "raw": 3,
+      "invalid": 0
+    },
+    "wrong_code": {
+      "passed": true,
+      "source": "wrong_code_phase0kb",
+      "mode": "player_near",
+      "requested": "(-2558.0, 185.0)",
+      "chosen": "(-2338.0, 185.0)",
+      "actual": "(-2338.0, 185.0)",
+      "distance": 220.0,
+      "functional": 4,
+      "raw": 4,
+      "invalid": 0
+    },
+    "beam_status": {
+      "visible_node_exists": true,
+      "node_path": "/root/TacoBellIso_Editable/GameplayRoot/RuntimeSystems/D6_FIX6_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS"
+    }
+  },
+  "status": "PARTIAL",
+  "root_cause": "Guard.assign_patrol_path snapped global_position after live security spawn placement",
+  "requested_chosen_actual_status": "headless probe passed: chosen equals actual for camera and wrong-code",
+  "far_left_unreachable_guards_consume_functional_cap": false,
+  "camera_status": "headless spawn probe passed; manual cone playtest pending",
+  "wrong_code_status": "headless spawn probe passed; manual keypad playtest pending",
+  "purple_warp_active": false,
+  "red_beam_status": "runtime node exists; visual manual confirmation pending",
+  "kimi_status": "preflight OK; advisory used via project-local bridge",
+  "static_validator_result": "passed",
+  "assertions": {
+    "final_report_created": true,
+    "protected_file_safety_confirmed": true,
+    "runtime_validation_status_recorded": true,
+    "static_validator_passed": true
+  }
+}

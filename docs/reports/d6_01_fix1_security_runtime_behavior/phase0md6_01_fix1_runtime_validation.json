@@ -1,0 +1,12 @@
+{
+  "runtime_validation_attempted": true,
+  "runtime_limitations_documented_if_any": true,
+  "core_taco_loop_not_broken_or_failure_reported": true,
+  "result": "PARTIAL — Godot editor / GRB playtest not executed in this agent session; manual checklist in final_report.",
+  "recommended_manual": [
+    "Wrong-code triggers GOOD guard",
+    "Stand in multiple camera cones",
+    "Cross garage beam zone once; F10 beam_trip increments once",
+    "Fail mission; heat +1; relaunch verify camera multipliers / wrong-code threshold"
+  ]
+}

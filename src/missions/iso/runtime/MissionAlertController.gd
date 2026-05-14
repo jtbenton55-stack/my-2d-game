@@ -18,10 +18,14 @@ var _cover_detection_modifier: float = 1.0
 var _sneak_detection_modifier: float = 1.0
 var last_detection_source: String = ""
 var _suspicious_timer: float = 0.0
-var _last_guard_spawn_msec: int = 0
+## Per-source throttle for alarm-driven guard spawns (prevents multi-camera stampede).
+var _last_spawn_msec_by_source: Dictionary = {}
+var _security_adapter: MissionSecurityEventAdapter = null
 
 
 func _ready() -> void:
+	_ensure_security_adapter()
+	call_deferred("_sync_security_adapter_context")
 	set_process(true)
 	_sync_state()
 
@@ -102,10 +106,65 @@ func record_alarm_event(kind: String = "alarm", source_id: String = "") -> void:
 	var allow_guard_spawn := true
 	if scene != null and scene.has_method("can_spawn_alarm_guard_for_source"):
 		allow_guard_spawn = scene.call("can_spawn_alarm_guard_for_source", source_id) == true
-	if allow_guard_spawn and now - _last_guard_spawn_msec >= 1800:
-		_last_guard_spawn_msec = now
-		if scene != null and scene.has_method("spawn_attack_guard_near_player"):
-			scene.call("spawn_attack_guard_near_player", source_id)
+	var cd_ms := 2000
+	match String(kind):
+		"camera_detected":
+			cd_ms = 7000
+		"wrong_code_alarm", "alarm_zone":
+			cd_ms = 2600
+		_:
+			cd_ms = 2000
+	var sk := String(source_id) if String(source_id) != "" else String(kind)
+	var last_t := int(_last_spawn_msec_by_source.get(sk, -1_000_000))
+	if now - last_t < cd_ms:
+		allow_guard_spawn = false
+	if allow_guard_spawn and scene != null and scene.has_method("spawn_attack_guard_near_player"):
+		_last_spawn_msec_by_source[sk] = now
+		scene.call("spawn_attack_guard_near_player", source_id)
+	_route_alarm_to_security_adapter(kind, source_id)
+
+
+func get_security_event_adapter() -> MissionSecurityEventAdapter:
+	_ensure_security_adapter()
+	return _security_adapter
+
+
+func _ensure_security_adapter() -> void:
+	if _security_adapter != null:
+		return
+	_security_adapter = MissionSecurityEventAdapter.new()
+	_security_adapter.name = "MissionSecurityEventAdapter"
+	add_child(_security_adapter)
+	_sync_security_adapter_context()
+
+
+func _sync_security_adapter_context() -> void:
+	if _security_adapter == null:
+		return
+	_security_adapter.setup(self, mission_id)
+
+
+func _route_alarm_to_security_adapter(raw_kind: String, source_id: String) -> void:
+	_ensure_security_adapter()
+	var nk := "alarm"
+	match String(raw_kind):
+		"camera_detected":
+			nk = "camera_detection"
+		"guard_detected":
+			nk = "guard_detection"
+		"wrong_code_alarm":
+			nk = "wrong_code_alarm"
+		"alarm_zone":
+			if String(source_id).findn("garage_entry_beam") != -1:
+				nk = "beam_trip"
+			else:
+				nk = "alarm"
+		_:
+			nk = "alarm"
+	var sev := 1
+	if nk == "beam_trip" or nk == "wrong_code_alarm":
+		sev = 2
+	_security_adapter.report_security_event(nk, source_id, sev, {"record_alarm_kind": raw_kind})
 
 
 func set_detection_modifier(modifier: float) -> void:
@@ -164,5 +223,7 @@ func reset_attempt_state() -> void:
 	alert_score = 0.0
 	last_detection_source = ""
 	_suspicious_timer = 0.0
-	_last_guard_spawn_msec = 0
+	_last_spawn_msec_by_source.clear()
+	if _security_adapter != null:
+		_security_adapter.reset_attempt_security_state()
 	_sync_state()

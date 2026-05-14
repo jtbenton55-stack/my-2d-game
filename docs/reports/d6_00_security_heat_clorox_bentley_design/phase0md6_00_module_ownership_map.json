@@ -1,0 +1,11 @@
+{
+  "module_ownership_map_created": true,
+  "no_major_responsibility_unowned": true,
+  "taco_specific_vs_reusable_boundary_defined": true,
+  "new_modules_proposed": [
+    "MissionSecurityEventAdapter",
+    "WipeableTrace"
+  ],
+  "player_owned_mechanics": ["case_the_joint_pulse"],
+  "gamestate_owned": ["failed_attempts", "mission_heat_states", "mission_performance"]
+}

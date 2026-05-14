@@ -110,6 +110,9 @@ func _refresh_status() -> void:
 	var perf: Dictionary = GameState.mission_performance.get(mid, {})
 	var muts: Dictionary = GameState.mission_mutation_state.get(mid, {})
 	var alert := String(GameState.get_mission_alert_state(mid))
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller != null:
+		alert = String(controller.get("alert_state"))
 	var route := GameState.has_scheme_card("louis_delivery_route")
 	var real_scent := String(muts.get("real_scent_trail", "parking_garage"))
 	var garage_code := String(muts.get("garage_code", "2174"))
@@ -127,7 +130,6 @@ func _refresh_status() -> void:
 		garage_beam_triggered = runtime_summary.get("garage_beam_triggered", false) == true
 	var detection_value := 0.0
 	var mod := 1.0
-	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
 	if controller != null:
 		detection_value = float(controller.get("alert_score"))
 		mod = float(controller.get("player_detection_modifier"))
@@ -146,8 +148,111 @@ func _refresh_status() -> void:
 		int(pbi.get("used_this_mission", 0)),
 	]
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
-	var scheme_dbg := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
+	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
+	var sec_lines := "\n--- Security ---"
+	sec_lines += "\nCameras: stand in cone until alert builds; reinforcements use live cap (not stale counter)."
+	sec_lines += "\nWrong code: keypad; wrong_code / wrong_code_alarm in counts below."
+	if controller != null and controller.has_method("get_security_event_adapter"):
+		var adapter: Variant = controller.call("get_security_event_adapter")
+		if adapter != null and adapter.has_method("get_security_debug_snapshot"):
+			var ssec: Dictionary = adapter.call("get_security_debug_snapshot")
+			var kinds: Dictionary = ssec.get("counters_by_kind", {}) as Dictionary
+			sec_lines += "\nHeat %d/5  failed_runs %d  alert %s" % [
+				int(ssec.get("heat", heat)),
+				int(ssec.get("failed_attempts", int(GameState.failed_attempts.get(mid, 0)))),
+				String(ssec.get("alert_state", alert)),
+			]
+			sec_lines += "\nCam det %d  wrong %d  wrong_alm %d  beam %d  reinf %d  fail_heat_evt %d" % [
+				int(kinds.get("camera_detection", 0)),
+				int(kinds.get("wrong_code", 0)),
+				int(kinds.get("wrong_code_alarm", 0)),
+				int(kinds.get("beam_trip", 0)),
+				int(kinds.get("reinforcement_spawned", 0)),
+				int(kinds.get("mission_failure_heat", 0)),
+			]
+	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
+		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
+		## D6-01-FIX6A: show reinforcement cooldown and reserved count.
+		sec_lines += "\nCooldown: %.1fs  Heat %d/5" % [
+			float(rsum.get("reinforcement_cooldown_sec", 6.0)),
+			int(rsum.get("heat_profile", {}).get("heat", heat)),
+		]
+		sec_lines += "\nLast reinforcement: %s  (%s)" % [
+			String(rsum.get("last_reinforcement_source", "-")),
+			String(rsum.get("last_reinforcement_result", "-")),
+		]
+		sec_lines += "\nGuards: functional %d / raw %d / invalid %d / cap %d / queued %d / reserved %d" % [
+			int(rsum.get("security_response_spawn_count", 0)),
+			int(rsum.get("security_response_spawn_count_raw", int(rsum.get("security_response_spawn_count", 0)))),
+			int(rsum.get("invalid_offmap_security_guard_count", 0)),
+			int(rsum.get("security_spawn_cap", 0)),
+			int(rsum.get("security_spawn_pending_count", 0)),
+			int(rsum.get("security_reserved_count", 0)),
+		]
+		## D6-01-FIX6B: show lifecycle stats (active/searching/dormant/removed).
+		sec_lines += "\nLifecycle: active %d / searching %d / dormant %d / removed %d" % [
+			int(rsum.get("lifecycle_active", 0)),
+			int(rsum.get("lifecycle_searching", 0)),
+			int(rsum.get("lifecycle_dormant", 0)),
+			int(rsum.get("lifecycle_removed_total", 0)),
+		]
+		sec_lines += "\nCameras in tree: %d moving / %d total" % [
+			int(rsum.get("security_cameras_moving", 0)),
+			int(rsum.get("security_cameras_total", 0)),
+		]
+		sec_lines += "\nActive security guards:"
+		var ag: Array = rsum.get("security_active_guards_preview", []) as Array
+		if ag.is_empty():
+			sec_lines += " (none)"
+		else:
+			for line in ag:
+				sec_lines += "\n  %s" % String(line)
+		var probe: Dictionary = rsum.get("d6_fix6_spawn_probe", rsum.get("d6_fix5_spawn_probe", {})) as Dictionary
+		sec_lines += "\nLast spawn: %s / %s" % [
+			String(probe.get("source_id", "-")),
+			String(probe.get("spawn_mode", "-")),
+		]
+		sec_lines += "\n  req %s  chosen %s  actual %s" % [
+			str(probe.get("requested_position", "-")),
+			str(probe.get("chosen_position", "-")),
+			str(probe.get("actual_position", "-")),
+		]
+		sec_lines += "\n  result %s  reason %s  dist %d" % [
+			String(probe.get("result", "-")),
+			String(probe.get("reject_reason", "")),
+			int(probe.get("last_spawn_distance_to_player", -1)),
+		]
+		## D6-01-FIX6B: search net info.
+		sec_lines += "\n--- Search Net (FIX6B) ---"
+		sec_lines += "\nHeat %d/5  Radius %d  Role %s  Ordinal %d" % [
+			int(rsum.get("search_net_heat", heat)),
+			int(rsum.get("search_net_triangle_radius_by_heat", 140)),
+			String(rsum.get("search_net_last_role", "-")),
+			int(rsum.get("search_net_last_ordinal", -1)),
+		]
+		sec_lines += "\nRoles: %s" % str(rsum.get("search_net_roles_by_heat", "territorial/pursuer/flanker/choke/sentry"))
+		sec_lines += "\nSearch-net handoff active: %s" % str(rsum.get("search_net_local_route_real_handoff", false))
+		## D6-01-FIX6A: beam locator with distance/direction.
+		sec_lines += "\n--- Beam Locator ---"
+		var beam_dist: float = float(rsum.get("beam_distance_from_player", -1.0))
+		var beam_dir: String = str(rsum.get("beam_direction_from_player", "unknown"))
+		sec_lines += "\nBeam: %s  dist %.0fpx  direction: %s" % [
+			str(rsum.get("beam_status", "unknown")),
+			beam_dist,
+			beam_dir,
+		]
+		sec_lines += "\nAMBUSH anchor found: %s" % str(rsum.get("ambush_beam_anchor_found", false))
+		sec_lines += "\nAMBUSH anchor path: %s" % str(rsum.get("ambush_beam_anchor_path", "missing"))
+		sec_lines += "\nanchor %s  visual %s  trigger %s  mismatch %.1fpx" % [
+			str(rsum.get("ambush_beam_anchor_position", Vector2.ZERO)),
+			str(rsum.get("ambush_beam_visual_center", Vector2.ZERO)),
+			str(rsum.get("ambush_beam_trigger_center", Vector2.ZERO)),
+			float(rsum.get("ambush_beam_visual_trigger_mismatch_px", -1.0)),
+		]
+		sec_lines += "\n%s" % str(rsum.get("beam_f10_plain", "Beam: red line before bag room."))
+		sec_lines += "\n%s" % str(rsum.get("beam_f10_how_to_test", "Walk through red line to test."))
+		sec_lines += "\n%s" % str(rsum.get("heat_restart_audit_note", ""))
 	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s" % [
 		mid,
 		heat,
@@ -165,11 +270,11 @@ func _refresh_status() -> void:
 		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0))),
 		p0j_counts,
 		poop_line,
-		scheme_dbg,
+		sec_lines,
 		obj_line,
 	]
 	_apply_red_text_style(_status)
-	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d\n(F9 toggle details, F10 toggle compact HUD)" % [
+	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d\n(F9 toggle details, F10 toggle compact HUD)%s" % [
 		def_mode,
 		String(get_tree().current_scene.scene_file_path),
 		str(muts),
@@ -182,7 +287,8 @@ func _refresh_status() -> void:
 		detection_value,
 		mod,
 		int(perf.get("wrong_scent_trails_followed", 0)),
-		int(perf.get("collectibles_found", 0))
+		int(perf.get("collectibles_found", 0)),
+		scheme_for_details,
 	]
 	_apply_red_text_style(_details)
 	call_deferred("_fit_compact_status_height")

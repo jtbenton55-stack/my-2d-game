@@ -1,0 +1,10 @@
+{
+  "assertions": {
+    "spawn_cap_audited": true,
+    "cap_reached_root_cause_identified_or_gap_reported": true,
+    "active_guard_accounting_plan_created": true
+  },
+  "root_cause": "last_child_heuristic_on_EntityRoot_Enemies",
+  "cap_source": "IsoMissionBase._get_security_spawn_cap",
+  "fix_strategy": "return_spawned_node_and_live_meta_count"
+}

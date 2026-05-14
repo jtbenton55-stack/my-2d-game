@@ -1,0 +1,8 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "notes": "pre-existing working tree includes modified Taco scene file; FIX5 performed code-only with no scene edits.",
+  "assertions": {
+    "right_hallway_beam_visual_added_or_deferred_with_reason": true,
+    "beam_f10_copy_player_readable": true
+  }
+}

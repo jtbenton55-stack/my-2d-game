@@ -1,0 +1,8 @@
+{
+  "clorox_design_decision_created": true,
+  "clorox_mvp_defined": true,
+  "clorox_not_overbuilt": true,
+  "mvp_scope": "1-3 wipeable traces, hold interact, one scoring/heat hook, F10 counter",
+  "required_for_taco_win": false,
+  "primary_reward_hook_choice": "single_primary_in_d6_02_spec_performance_or_heat_not_both"
+}

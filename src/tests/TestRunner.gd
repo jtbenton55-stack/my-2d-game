@@ -36,7 +36,7 @@ func _on_run_tests() -> void:
     # Run Save/Load Tests
     output_label.text += "=== Save/Load Tests ===\n"
     var SaveLoadTestClass := load(SAVE_LOAD_TEST_PATH)
-    var save_test := SaveLoadTestClass.new()
+    var save_test: Node = SaveLoadTestClass.new()
     add_child(save_test)
     var save_results := save_test.run_all_tests()
     total_passed += save_results.passed
@@ -81,7 +81,7 @@ func _on_smoke_test() -> void:
     
     # Save/Load smoke test
     var SaveLoadTestClass := load(SAVE_LOAD_TEST_PATH)
-    var save_test := SaveLoadTestClass.new()
+    var save_test: Node = SaveLoadTestClass.new()
     add_child(save_test)
     if save_test.smoke_test():
         output_label.text += "✓ Save/Load smoke test passed\n"

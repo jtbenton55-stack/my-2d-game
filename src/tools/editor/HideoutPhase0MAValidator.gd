@@ -36,7 +36,7 @@ static func validate() -> Dictionary:
 		return result
 	result.scene_loads = true
 	result.no_parse_errors = true
-	var scene := packed.instantiate()
+	var scene: Node = packed.instantiate()
 	if scene == null:
 		result.errors.append("HideoutHub.tscn failed instantiate.")
 		return result

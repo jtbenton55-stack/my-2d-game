@@ -1,0 +1,7 @@
+{
+  "static_self_review_completed": true,
+  "no_forbidden_files_modified_or_justified": true,
+  "no_duplicate_security_manager_created": true,
+  "iso_mission_base": "targeted edits only (spawn, heat tuning, debug summary, patrol skip for attack_guard_*)",
+  "forbidden": ["Player.gd", "PlayerStaminaController.gd", "project.godot", "player.tscn", "TacoBellIso_Editable_RedesignTest.tscn", "assets/"]
+}

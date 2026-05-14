@@ -1,0 +1,14 @@
+{
+  "d6_01_spec_created": true,
+  "pass_id": "D6-01",
+  "purpose": "Unified security event adapter + explicit heat increment policy for iso Taco",
+  "implementation_order": 1,
+  "allowed_files_glob": [
+    "src/missions/iso/runtime/**",
+    "src/autoload/GameState.gd",
+    "src/missions/ui/*Pause*",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+  ],
+  "forbidden": ["project.godot", "scenes/missions_iso/*.tscn layout", "broad IsoMissionBase refactor"],
+  "acceptance_criteria_ref": "phase0md6_00_d6_01_security_heat_spec.md"
+}

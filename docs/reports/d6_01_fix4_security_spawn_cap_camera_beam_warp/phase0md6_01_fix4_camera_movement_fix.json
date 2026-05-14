@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "camera_movement_restored_or_deferred_with_reason": true,
+    "camera_detection_preserved": true,
+    "old_global_decay_bug_not_restored": true
+  }
+}

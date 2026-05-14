@@ -42,6 +42,7 @@ func submit_code(value: String) -> bool:
 
 func register_wrong_code_attempt() -> Dictionary:
 	wrong_code_attempts += 1
+	_report_phase0j_wrong_code_security()
 	var spawner := get_node_or_null(wrong_code_spawner_path)
 	if spawner != null and spawner.has_method("register_wrong_code_attempt"):
 		var result: Dictionary = spawner.call("register_wrong_code_attempt")
@@ -108,6 +109,15 @@ func _hud_message(text: String) -> void:
 	var hud := get_node_or_null(debug_hud_path)
 	if hud != null and hud.has_method("show_message"):
 		hud.call("show_message", text, 3.0)
+
+
+func _report_phase0j_wrong_code_security() -> void:
+	var ctrl := get_tree().get_first_node_in_group("iso_alert_controller")
+	if ctrl == null or not ctrl.has_method("get_security_event_adapter"):
+		return
+	var adapter: Variant = ctrl.call("get_security_event_adapter")
+	if adapter != null and adapter.has_method("report_security_event"):
+		adapter.call("report_security_event", "wrong_code", "phase0j_code_gate", 1, {"phase0j_attempts": wrong_code_attempts})
 
 
 func _set_gate_hud(gate_unlocked: bool) -> void:

@@ -1,0 +1,6 @@
+{
+  "assertions": {
+    "guard_spawn_success_hardened": true,
+    "spawned_guard_visibility_supported": true
+  }
+}

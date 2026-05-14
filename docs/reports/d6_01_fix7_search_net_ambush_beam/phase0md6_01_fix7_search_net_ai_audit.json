@@ -1,0 +1,9 @@
+{
+  "assertions": {
+    "search_net_ai_lifecycle_audited": true,
+    "fallback_patrol_owner_identified": true,
+    "old_far_left_patrol_override_identified_or_gap_reported": true,
+    "heat_role_applied_vs_display_only_status_recorded": true
+  },
+  "fallback_owner": "Guard.gd::_patrol_or_idle"
+}

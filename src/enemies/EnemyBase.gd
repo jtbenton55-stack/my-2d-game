@@ -87,7 +87,12 @@ func _update_ai(_delta: float) -> void:
 		if not _spotted_emitted:
 			_spotted_emitted = true
 			spotted_player.emit()
-		velocity = (target.global_position - global_position).normalized() * chase_speed
+		var to_t := target.global_position - global_position
+		var dir := to_t.normalized()
+		var spd := chase_speed
+		if has_meta("security_chase_soft") and get_meta("security_chase_soft") == true and distance < attack_range * 0.55:
+			spd *= 0.42
+		velocity = dir * spd
 		move_and_slide()
 	else:
 		if distance > effective_aggro_range * 1.75:

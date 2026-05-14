@@ -1,0 +1,42 @@
+{
+  "verdict": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "camera_spawn_regression_root_cause": "MissionSecurityCamera called MissionAlertController.decay_exposure every frame on every camera instance while player outside that cone, multiplying decay and preventing shared alert_score from reaching alarm threshold.",
+  "wrong_code_noop_root_cause": "Phase0KB used fixed threshold 2 while heat profile can require 1; missing wrong_code_alarm adapter emission at threshold.",
+  "camera_response_status_after_pass": "Repaired in code — decay_exposure removed from camera else branch; alarms/spawns can fire again (pending manual Godot verify).",
+  "wrong_code_count_status": "Adapter wrong_code + wrong_code_alarm at threshold; heat-synced eff_threshold in Phase0KB.",
+  "tiny_fake_guard_decision": "Keep as marker patrol placeholders; do not use for meaningful security — GOOD guard for alarms.",
+  "tiny_fake_guard_functional_status": "Not upgraded; excluded from security spawns per policy.",
+  "good_guard_usage_status": "Unchanged — guard.tscn for spawn_attack_guard_near_player.",
+  "spawned_guard_chase_no_stick_status": "FIX1 mitigations retained (security_chase_soft, offsets); not re-validated in engine this session.",
+  "beam_location_testability": "Runtime Area2D under GameplayRoot/RuntimeSystems/AlarmZones; id garage_entry_beam; F10 shows path + how_to_test.",
+  "beam_f10_status": "Expanded multi-line block in IsoMissionDebugPanel.",
+  "beam_event_status": "Unchanged wiring; one-shot per attempt via runtime flags + adapter dedupe.",
+  "heat_policy_preserved": true,
+  "mid_run_heat_increase": false,
+  "mission_failure_heat": "Unchanged — still +1 failed_attempts on fail path (not modified in FIX2).",
+  "new_save_keys_added": false,
+  "project_godot_modified": false,
+  "player_gd_modified": false,
+  "player_stamina_modified": false,
+  "taco_scenes_modified": false,
+  "kimi_status": "skipped",
+  "runtime_validation_status": "PARTIAL — Godot runtime bridge not connected; grb_ping failed",
+  "manual_test_checklist_included": true,
+  "static_validator_status": "PASS",
+  "files_modified": [
+    "docs/CHANGELOG.md",
+    "src/missions/iso/runtime/MissionSecurityCamera.gd",
+    "src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    "src/tools/editor/d6_01_fix2_security_regression_recovery/phase0md6_01_fix2_static_validator.py"
+  ],
+  "files_created": "docs/reports/d6_01_fix2_security_regression_recovery/*",
+  "known_limitations": [
+    "No in-editor playtest this session",
+    "No global alert_score decay when leaving all cones — may leave fractional alert_score until next exposure (acceptable tradeoff)"
+  ],
+  "recommended_next_pass": "Human playtest Taco RedesignTest: 2+ cameras, wrong-code at heat 1 and 2, beam trip once; optional GRB scripted probe",
+  "camera_reinforcement_cooldown_status": "MissionAlertController per-source cooldown unchanged (7000ms camera)"
+}

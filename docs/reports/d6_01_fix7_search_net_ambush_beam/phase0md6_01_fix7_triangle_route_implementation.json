@@ -1,0 +1,8 @@
+{
+  "assertions": {
+    "triangular_routes_implemented": true,
+    "successive_guard_direction_alternates": true,
+    "successive_guard_routes_are_offset": true,
+    "route_points_wall_safety_checked_or_limited_documented": true
+  }
+}

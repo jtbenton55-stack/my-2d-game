@@ -1,0 +1,7 @@
+{
+  "assertions": {
+    "guard_cap_accounting_fixed_or_deferred_with_reason": true,
+    "failed_spawns_do_not_consume_cap": true,
+    "live_security_guard_count_available": true
+  }
+}

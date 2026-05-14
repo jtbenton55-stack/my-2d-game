@@ -93,6 +93,14 @@ var _heat_profile: Dictionary = {}
 var _code_gate_blockers: Dictionary = {}
 var _attempt_runtime_state: Dictionary = {}
 var _dialogue_provider: MissionDialogueProvider = null
+## D6-01-FIX3: queue security spawns so `add_child`/guard setup never runs during Area2D query flush.
+var _pending_security_guard_source_ids: Array[String] = []
+var _security_guard_spawn_flush_scheduled: bool = false
+var _security_spawn_probe: Dictionary = {}
+## D6-01-FIX6A: reinforcement cooldown tracking to prevent low-heat chain spawning.
+var _last_security_reinforcement_request_msec: int = -60000
+var _last_security_reinforcement_source: String = ""
+var _last_security_reinforcement_result: String = ""
 
 
 func _ready() -> void:
@@ -106,6 +114,13 @@ func _ready() -> void:
 			_generate_from_definition()
 	_ensure_dev_harness()
 	super._ready()
+	call_deferred("_ensure_d6_fix5_runtime_helpers")
+
+
+## D6-01-FIX6B: override _process to update guard lifecycle management.
+func _process(delta: float) -> void:
+	super._process(delta)
+	_update_security_guard_lifecycle(delta)
 
 
 func get_authoring_mode() -> String:
@@ -1016,31 +1031,840 @@ func get_fake_scent_penalty() -> int:
 
 
 func spawn_attack_guard_near_player(source_id: String = "wrong_code") -> void:
+	## Pre-validate synchronously; defer `add_child`/guard mutations to avoid
+	## "Can't change this state while flushing queries" when called from Area2D/camera paths.
+	## D6-01-FIX6A: enforce heat-scaled reinforcement cooldown to prevent chain spawning at low heat.
 	if not can_spawn_alarm_guard_for_source(source_id):
+		_record_security_reinforcement_request(source_id, false, "source_blocked_by_policy")
 		return
+	if not _can_request_security_reinforcement(source_id, "spawn_request"):
+		var cooldown_sec := _get_security_reinforcement_cooldown_sec()
+		EventBus.debug("spawn_attack_guard_near_player: cooldown active (%.1fs) for %s" % [cooldown_sec, source_id])
+		_record_security_reinforcement_request(source_id, false, "cooldown_active")
+		return
+	var cap := _get_security_spawn_cap()
+	var live := _count_live_security_response_guards()
+	var reserved := _get_reserved_security_guard_count()
+	if (live + reserved) >= cap:
+		EventBus.debug("spawn_attack_guard_near_player: cap reached (live=%d reserved=%d cap=%d)" % [live, reserved, cap])
+		_record_security_reinforcement_request(source_id, false, "cap_full")
+		return
+	if get_tree().get_first_node_in_group("player") == null:
+		_record_security_reinforcement_request(source_id, false, "no_player")
+		return
+	_record_security_reinforcement_request(source_id, true, "")
+	_pending_security_guard_source_ids.append(source_id)
+	if not _security_guard_spawn_flush_scheduled:
+		_security_guard_spawn_flush_scheduled = true
+		call_deferred("_flush_deferred_security_guard_spawns")
+
+
+func _flush_deferred_security_guard_spawns() -> void:
+	_security_guard_spawn_flush_scheduled = false
+	var cap := _get_security_spawn_cap()
+	while _pending_security_guard_source_ids.size() > 0:
+		var source_id: String = _pending_security_guard_source_ids.pop_front()
+		if not can_spawn_alarm_guard_for_source(source_id):
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"result": "rejected",
+				"reject_reason": "source_blocked_by_policy",
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			continue
+		var live_now := _count_functional_security_response_guards()
+		if live_now >= cap:
+			EventBus.debug("_flush_deferred_security_guard_spawns: cap reached (live=%d cap=%d)" % [live_now, cap])
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"result": "rejected",
+				"reject_reason": "functional_cap_reached",
+				"functional_live_count": live_now,
+				"raw_live_count": _count_raw_security_response_guards(),
+				"invalid_offmap_security_guard_count": _count_invalid_security_response_guards(),
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			break
+		var player_node := get_tree().get_first_node_in_group("player") as Node2D
+		if player_node == null:
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"result": "rejected",
+				"reject_reason": "player_not_found",
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			break
+		var spawn_choice := _choose_security_response_spawn_position(source_id, player_node.global_position)
+		var requested: Vector2 = spawn_choice.get("requested_position", player_node.global_position)
+		var chosen: Vector2 = spawn_choice.get("chosen_position", player_node.global_position)
+		var spawn_mode := String(spawn_choice.get("mode", "rejected"))
+		var spawn_reason := String(spawn_choice.get("reason", ""))
+		if not bool(spawn_choice.get("valid", false)):
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"requested_position": requested,
+				"chosen_position": chosen,
+				"actual_position": chosen,
+				"spawn_mode": spawn_mode,
+				"result": "rejected",
+				"reject_reason": spawn_reason,
+				"last_spawn_distance_to_player": chosen.distance_to(player_node.global_position),
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			continue
+		var spawn_def := MissionSpawnDefinition.new()
+		spawn_def.spawn_id = "attack_guard_" + source_id + "_" + str(Time.get_ticks_msec())
+		spawn_def.marker_cell = _global_to_map_cell(chosen)
+		spawn_def.scene_path = MissionSecurityGuardResolver.good_guard_scene_path()
+		var guard := _spawn_guard_for_spawn(spawn_def)
+		if guard == null:
+			EventBus.debug("_flush_deferred_security_guard_spawns: spawn failed for " + source_id)
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"requested_position": requested,
+				"chosen_position": chosen,
+				"actual_position": chosen,
+				"spawn_mode": spawn_mode,
+				"guard_scene_path": spawn_def.scene_path,
+				"result": "failed",
+				"reject_reason": "spawn_guard_for_spawn_returned_null",
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			continue
+		_finalize_security_guard_position(guard, chosen)
+		guard.set_meta("security_response_spawn", true)
+		guard.set_meta("security_spawn_source", source_id)
+		guard.set_meta("security_chase_soft", true)
+		guard.set_meta("security_spawn_mode", spawn_mode)
+		guard.set_meta("security_spawn_reason", spawn_reason)
+		if guard.has_method("set"):
+			guard.set("target", player_node)
+			guard.set("aggro_range", maxf(float(guard.get("aggro_range")), 440.0))
+		_assign_fallback_patrol_for_security_guard(guard, chosen)
+		var final_ok := _finalize_security_guard_position(guard, chosen)
+		var functional := final_ok and _is_guard_functional_for_cap(guard as Node2D)
+		if not functional:
+			var actual_bad := guard.global_position if guard != null else chosen
+			guard.set_meta("security_invalid_reason", "actual_position_diverged_or_not_functional")
+			guard.set_meta("security_response_spawn", false)
+			if is_instance_valid(guard):
+				guard.queue_free()
+			_record_security_spawn_probe({
+				"source_id": source_id,
+				"requested_position": requested,
+				"chosen_position": chosen,
+				"actual_position": actual_bad,
+				"spawn_mode": spawn_mode,
+				"parent_path": "EntityRoot/Enemies",
+				"guard_scene_path": spawn_def.scene_path,
+				"result": "rejected",
+				"reject_reason": "actual_position_diverged_or_not_functional",
+				"invalid_offmap_security_guard_count": _count_invalid_security_response_guards(),
+				"cap": cap,
+				"queued_count": _pending_security_guard_source_ids.size(),
+			})
+			continue
+		GameState.record_mission_performance_event(mission_definition.mission_id, "guards_alerted", 1)
+		_attempt_runtime_state["guards_alerted"] = int(_attempt_runtime_state.get("guards_alerted", 0)) + 1
+		_attempt_runtime_state["attack_guard_spawned"] = _count_functional_security_response_guards()
+		if source_id.begins_with("alarm_"):
+			_attempt_runtime_state["alarm_guard_spawned:" + source_id] = true
+		## D6-01-FIX6B: capture search net role and heat for F10 debug.
+		var heat_at_spawn := GameState.get_mission_heat(mission_definition.mission_id)
+		var ordinal_at_spawn := _count_functional_security_response_guards()
+		var role_at_spawn := _get_security_search_role(heat_at_spawn, ordinal_at_spawn)
+		_record_security_spawn_probe({
+			"source_id": source_id,
+			"requested_position": requested,
+			"chosen_position": chosen,
+			"actual_position": guard.global_position,
+			"spawn_mode": spawn_mode,
+			"parent_path": "EntityRoot/Enemies",
+			"guard_scene_path": spawn_def.scene_path,
+			"result": "success",
+			"reject_reason": spawn_reason,
+			"last_spawn_distance_to_player": guard.global_position.distance_to(player_node.global_position),
+			"functional_live_count": _count_functional_security_response_guards(),
+			"raw_live_count": _count_raw_security_response_guards(),
+			"invalid_offmap_security_guard_count": _count_invalid_security_response_guards(),
+			"cap": cap,
+			"queued_count": _pending_security_guard_source_ids.size(),
+			## D6-01-FIX6B search net debug.
+			"last_heat": heat_at_spawn,
+			"last_ordinal": ordinal_at_spawn,
+			"last_role": role_at_spawn,
+		})
+
+
+func _get_security_spawn_cap() -> int:
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	return mini(6, 4 + heat)
+
+
+## D6-01-FIX6A: heat-scaled reinforcement cooldown to prevent low-heat chain spawning.
+## Heat 0–1: 6.0 sec, Heat 2–3: 4.5 sec, Heat 4: 3.0 sec, Heat 5: 2.0 sec
+func _get_security_reinforcement_cooldown_sec() -> float:
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	if heat <= 1:
+		return 6.0
+	elif heat <= 3:
+		return 4.5
+	elif heat == 4:
+		return 3.0
+	else:
+		return 2.0
+
+
+## D6-01-FIX6A: check whether a reinforcement request is allowed given cooldown/cap/queue.
+func _can_request_security_reinforcement(_source_id: String, _reason: String = "") -> bool:
+	var cooldown_ms := int(_get_security_reinforcement_cooldown_sec() * 1000.0)
+	var now := Time.get_ticks_msec()
+	var elapsed := now - _last_security_reinforcement_request_msec
+	if elapsed < cooldown_ms:
+		return false
+	var cap := _get_security_spawn_cap()
+	var functional := _count_functional_security_response_guards()
+	var reserved := _get_reserved_security_guard_count()
+	if (functional + reserved) >= cap:
+		return false
+	return true
+
+
+## D6-01-FIX6A: count pending queued spawns toward cap to prevent over-commitment.
+func _get_reserved_security_guard_count() -> int:
+	return _pending_security_guard_source_ids.size()
+
+
+## D6-01-FIX6A: record reinforcement request for F10/debug visibility.
+func _record_security_reinforcement_request(source_id: String, accepted: bool, reason: String = "") -> void:
+	_last_security_reinforcement_request_msec = Time.get_ticks_msec()
+	_last_security_reinforcement_source = source_id
+	_last_security_reinforcement_result = "accepted" if accepted else ("rejected: " + reason)
+
+
+func _count_live_security_response_guards() -> int:
+	return _count_functional_security_response_guards()
+
+
+func _count_raw_security_response_guards() -> int:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		return 0
+	var n := 0
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		if not is_instance_valid(ch):
+			continue
+		if not ch.is_inside_tree():
+			continue
+		if ch.get_meta("security_response_spawn", false) != true:
+			continue
+		n += 1
+	return n
+
+
+func _count_functional_security_response_guards() -> int:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		return 0
+	var n := 0
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		var guard := ch as Node2D
+		if _is_guard_functional_for_cap(guard):
+			n += 1
+	return n
+
+
+func _count_invalid_security_response_guards() -> int:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		return 0
+	var n := 0
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		var guard := ch as Node2D
+		if guard.get_meta("security_response_spawn", false) != true:
+			continue
+		if not _is_guard_functional_for_cap(guard):
+			n += 1
+	return n
+
+
+func _is_guard_functional_for_cap(guard: Node2D) -> bool:
+	if guard == null:
+		return false
+	if not is_instance_valid(guard):
+		return false
+	if not guard.is_inside_tree():
+		return false
+	if guard.get_meta("security_response_spawn", false) != true:
+		return false
+	if not _is_guard_visibility_chain_visible(guard):
+		return false
+	var p := guard.global_position
+	if not _is_spawn_position_sane(p):
+		return false
+	var player_node := get_tree().get_first_node_in_group("player") as Node2D
+	if player_node != null and p.distance_to(player_node.global_position) > 760.0:
+		return false
+	return true
+
+
+## D6-01-FIX6B: performance-safe lifecycle management for security-response guards.
+## Tracks and optionally removes distant inactive guards to prevent performance degradation.
+var _d6_fix6b_lifecycle_last_check_msec: int = 0
+var _d6_fix6b_lifecycle_check_interval_ms: int = 2000  ## Check every 2 seconds.
+var _d6_fix6b_lifecycle_removed_count: int = 0
+var _d6_fix6b_lifecycle_active_near_radius: float = 1000.0
+var _d6_fix6b_lifecycle_distant_cleanup_radius: float = 1600.0
+var _d6_fix6b_lifecycle_min_age_sec: int = 12
+var _d6_fix6b_lifecycle_min_distant_time_sec: int = 8
+
+
+## D6-01-FIX6B: call this periodically (from _process or mission update) to cleanup distant guards.
+func _update_security_guard_lifecycle(_delta: float) -> void:
+	var now := Time.get_ticks_msec()
+	if (now - _d6_fix6b_lifecycle_last_check_msec) < _d6_fix6b_lifecycle_check_interval_ms:
+		return
+	_d6_fix6b_lifecycle_last_check_msec = now
+	
 	var player_node := get_tree().get_first_node_in_group("player") as Node2D
 	if player_node == null:
 		return
-	var spawn_def := MissionSpawnDefinition.new()
-	spawn_def.spawn_id = "attack_guard_" + source_id + "_" + str(Time.get_ticks_msec())
-	spawn_def.marker_cell = Vector2i.ZERO
-	spawn_def.scene_path = "res://scenes/characters/guard.tscn"
-	_spawn_guard_for_spawn(spawn_def)
-	var enemies := get_node_or_null("EntityRoot/Enemies") as Node2D
-	if enemies == null or enemies.get_child_count() <= 0:
+	
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
 		return
-	var guard := enemies.get_child(enemies.get_child_count() - 1) as Node2D
-	if guard == null:
+	
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		var guard := ch as Node2D
+		if not _is_security_guard_cleanup_candidate(guard, player_node.global_position):
+			continue
+		## Mark as inactive and queue free.
+		var guard_id := str(guard.get_instance_id())
+		EventBus.debug("_update_security_guard_lifecycle: removing distant inactive guard id=" + guard_id)
+		guard.set_meta("security_lifecycle_removed", true)
+		guard.set_meta("security_response_spawn", false)  ## Remove from functional count.
+		_d6_fix6b_lifecycle_removed_count += 1
+		guard.queue_free()
+
+
+## D6-01-FIX6B: check if a guard is eligible for cleanup (far, inactive, not chasing, not recently spawned).
+func _is_security_guard_cleanup_candidate(guard: Node2D, player_pos: Vector2) -> bool:
+	## Must be a security response spawn.
+	if guard.get_meta("security_response_spawn", false) != true:
+		return false
+	
+	## Must not be chasing (check if has target and is chasing).
+	if guard.has_method("is_chasing"):
+		if guard.call("is_chasing"):
+			return false
+	## Alternative: check common chase state properties.
+	var is_chasing := false
+	if guard.get("chasing") != null:
+		is_chasing = bool(guard.get("chasing"))
+	if guard.get("target") != null:
+		is_chasing = true
+	if is_chasing:
+		return false
+	
+	## Must not be attacking.
+	if guard.get("attacking") != null:
+		if bool(guard.get("attacking")):
+			return false
+	
+	## Check distance - must be far away.
+	var dist := guard.global_position.distance_to(player_pos)
+	if dist < _d6_fix6b_lifecycle_distant_cleanup_radius:
+		return false
+	
+	## Must have been spawned long enough ago.
+	var spawn_time := int(guard.get_meta("security_spawn_time_sec", 0))
+	var current_time: int = int(Time.get_time_dict_from_system()["second"])
+	## Handle wrap-around at 60 seconds (simple diff, may have small edge cases).
+	var age_sec := int(current_time - spawn_time)
+	if age_sec < 0:
+		age_sec += 60
+	if age_sec < _d6_fix6b_lifecycle_min_age_sec:
+		return false
+	if age_sec < _d6_fix6b_lifecycle_min_distant_time_sec:
+		return false
+	
+	## Must not be visible on screen (simple distance check, could add viewport check).
+	if dist < _d6_fix6b_lifecycle_active_near_radius:
+		return false
+	
+	## Check if heat is 5 - be more conservative at max heat.
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	if heat >= 5:
+		## At heat 5, only cleanup if very far (beyond 2000) and inactive longer.
+		if dist < 2000.0:
+			return false
+		if age_sec < 20:
+			return false
+	
+	return true
+
+
+## D6-01-FIX6B: get lifecycle stats for F10 debug.
+func _get_security_guard_lifecycle_stats() -> Dictionary:
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	var active := 0
+	var searching := 0
+	var dormant := 0
+	if enemies != null:
+		for ch in enemies.get_children():
+			if not (ch is Node2D):
+				continue
+			var guard := ch as Node2D
+			if guard.get_meta("security_response_spawn", false) != true:
+				continue
+			## Classify by state.
+			if guard.get("target") != null:
+				active += 1
+			elif guard.get_meta("security_search_role", "") != "":
+				searching += 1
+			else:
+				dormant += 1
+	return {
+		"active": active,
+		"searching": searching,
+		"dormant": dormant,
+		"removed_total": _d6_fix6b_lifecycle_removed_count,
+		"near_radius": _d6_fix6b_lifecycle_active_near_radius,
+		"cleanup_radius": _d6_fix6b_lifecycle_distant_cleanup_radius,
+	}
+
+
+func _is_guard_visibility_chain_visible(guard: Node2D) -> bool:
+	var node := guard as CanvasItem
+	while node != null:
+		if not node.visible:
+			return false
+		if node.modulate.a <= 0.02:
+			return false
+		var parent := node.get_parent()
+		if parent is CanvasItem:
+			node = parent as CanvasItem
+		else:
+			break
+	return true
+
+
+func _get_playable_world_bounds() -> Rect2:
+	var floor_bounds := _floor_world_bounds()
+	if floor_bounds.size.x > 16.0 and floor_bounds.size.y > 16.0:
+		return floor_bounds.grow(90.0)
+	return _mission_rect().grow(140.0)
+
+
+func _is_spawn_position_sane(pos: Vector2) -> bool:
+	var bounds := _get_playable_world_bounds()
+	return bounds.has_point(pos)
+
+
+func _choose_security_response_spawn_position(source_id: String, player_pos: Vector2) -> Dictionary:
+	var requested := _preferred_security_spawn_from_source(source_id, player_pos)
+	var candidates := _get_player_near_security_spawn_candidates(player_pos, source_id)
+	for candidate in candidates:
+		if _is_security_spawn_position_sane(candidate, player_pos):
+			return {
+				"valid": true,
+				"requested_position": requested,
+				"chosen_position": candidate,
+				"mode": "player_near",
+				"reason": "first player-near sane candidate",
+			}
+	if _is_security_spawn_position_sane(requested, player_pos):
+		return {
+			"valid": true,
+			"requested_position": requested,
+			"chosen_position": requested,
+			"mode": "source_near",
+			"reason": "source position sane and player-near candidates rejected",
+		}
+	var fallback := player_pos + Vector2(220, 0)
+	return {
+		"valid": _is_spawn_position_sane(fallback),
+		"requested_position": requested,
+		"chosen_position": fallback,
+		"mode": "fallback",
+		"reason": "fallback player-near candidate; collision validation unavailable or all candidates rejected",
+	}
+
+
+func _get_player_near_security_spawn_candidates(player_pos: Vector2, _source_id: String = "") -> Array[Vector2]:
+	var offsets: Array[Vector2] = [
+		Vector2(220, 0),
+		Vector2(-220, 0),
+		Vector2(0, 220),
+		Vector2(0, -220),
+		Vector2(180, 180),
+		Vector2(-180, 180),
+		Vector2(180, -180),
+		Vector2(-180, -180),
+		Vector2(300, 0),
+		Vector2(-300, 0),
+	]
+	var out: Array[Vector2] = []
+	for offset in offsets:
+		out.append(player_pos + offset)
+	return out
+
+
+func _is_security_spawn_position_sane(pos: Vector2, player_pos: Vector2) -> bool:
+	if not _is_spawn_position_sane(pos):
+		return false
+	var dist := pos.distance_to(player_pos)
+	if dist < 150.0 or dist > 430.0:
+		return false
+	return _is_security_spawn_cell_open(pos)
+
+
+func _is_security_spawn_cell_open(pos: Vector2) -> bool:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer == null or floor_layer.get_used_cells().is_empty():
+		return true
+	var cell := floor_layer.local_to_map(floor_layer.to_local(pos))
+	var floor_cells := _cell_set(floor_layer.get_used_cells())
+	if not floor_cells.has(cell):
+		return false
+	var collision_layer := get_node_or_null("GameplayRoot/GameplayCollisionLayer") as TileMapLayer
+	if collision_layer == null:
+		return true
+	var blocked := _cell_set(collision_layer.get_used_cells())
+	return not blocked.has(cell)
+
+
+func _finalize_security_guard_position(guard: Node2D, chosen_pos: Vector2) -> bool:
+	if guard == null or not is_instance_valid(guard):
+		return false
+	if not guard.is_inside_tree():
+		return false
+	guard.global_position = chosen_pos
+	var actual := guard.global_position
+	return actual.distance_to(chosen_pos) <= 6.0
+
+
+func _global_to_map_cell(world_pos: Vector2) -> Vector2i:
+	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
+	if floor_layer != null:
+		return floor_layer.local_to_map(floor_layer.to_local(world_pos))
+	return Vector2i(roundi(world_pos.x / 64.0), roundi(world_pos.y / 32.0))
+
+
+func _preferred_security_spawn_from_source(source_id: String, player_pos: Vector2) -> Vector2:
+	if source_id == "":
+		return player_pos
+	var normalized := source_id
+	if source_id.begins_with("attack_guard_"):
+		var parts := source_id.split("_")
+		if parts.size() >= 4:
+			normalized = "_".join(parts.slice(2, parts.size() - 1))
+	if normalized.begins_with("alarm_"):
+		normalized = normalized.substr("alarm_".length())
+	var cams := get_node_or_null("EntityRoot/Cameras")
+	if cams != null:
+		var cam := cams.get_node_or_null(_node_name("SecurityCamera", normalized)) as Node2D
+		if cam != null:
+			return cam.global_position
+		for ch in cams.get_children():
+			if ch is Node2D and String((ch as Node).name).find(normalized) != -1:
+				return (ch as Node2D).global_position
+	var marker := _find_authoring_marker("SECURITY_CAMERA", normalized)
+	if marker is Node2D:
+		return (marker as Node2D).global_position
+	return player_pos
+
+
+func _get_safe_security_spawn_position(source_id: String, preferred_pos: Vector2 = Vector2.ZERO, player_pos: Vector2 = Vector2.ZERO) -> Vector2:
+	var player_position := player_pos
+	if player_position == Vector2.ZERO:
+		var player_node := get_tree().get_first_node_in_group("player") as Node2D
+		if player_node != null:
+			player_position = player_node.global_position
+	var base := preferred_pos
+	if base == Vector2.ZERO:
+		base = _preferred_security_spawn_from_source(source_id, player_position)
+	var away := (player_position - base).normalized()
+	if away == Vector2.ZERO:
+		away = Vector2.RIGHT
+	var dists := [190.0, 230.0, 260.0, 150.0]
+	for d in dists:
+		var candidate: Vector2 = player_position + away * d
+		if _is_spawn_position_sane(candidate):
+			return candidate
+	var ring := [
+		Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, 0.7).normalized(), Vector2(-1, 0.7).normalized(),
+		Vector2(1, -0.7).normalized(), Vector2(-1, -0.7).normalized(),
+	]
+	for dir in ring:
+		var candidate: Vector2 = player_position + dir * 210.0
+		if _is_spawn_position_sane(candidate):
+			return candidate
+	return base
+
+
+func _record_security_spawn_probe(data: Dictionary) -> void:
+	_security_spawn_probe = data.duplicate(true)
+	_security_spawn_probe["timestamp_msec"] = Time.get_ticks_msec()
+
+
+func _security_guard_positions_preview(max_lines: int = 4) -> Array[String]:
+	var out: Array[String] = []
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		out.append("(none)")
+		return out
+	var shown := 0
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		if not is_instance_valid(ch) or not ch.is_inside_tree():
+			continue
+		if ch.get_meta("security_response_spawn", false) != true:
+			continue
+		if not _is_guard_functional_for_cap(ch as Node2D):
+			continue
+		var src := String(ch.get_meta("security_spawn_source", ""))
+		var tag := src if src != "" else "security"
+		var mode := String(ch.get_meta("security_spawn_mode", "?"))
+		out.append("%s/%s @ (%d,%d)" % [tag, mode, int((ch as Node2D).global_position.x), int((ch as Node2D).global_position.y)])
+		shown += 1
+		if shown >= max_lines:
+			break
+	if out.is_empty():
+		out.append("(none)")
+	return out
+
+
+func _security_guard_raw_positions_preview(max_lines: int = 4) -> Array[String]:
+	var out: Array[String] = []
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		out.append("(none)")
+		return out
+	var shown := 0
+	for ch in enemies.get_children():
+		if not (ch is Node2D):
+			continue
+		if not is_instance_valid(ch) or not ch.is_inside_tree():
+			continue
+		if ch.get_meta("security_response_spawn", false) != true:
+			continue
+		var src := String(ch.get_meta("security_spawn_source", ""))
+		var tag := src if src != "" else "security"
+		out.append("%s @ (%d,%d)" % [tag, int((ch as Node2D).global_position.x), int((ch as Node2D).global_position.y)])
+		shown += 1
+		if shown >= max_lines:
+			break
+	if out.is_empty():
+		out.append("(none)")
+	return out
+
+
+func _count_security_cameras_sweeping() -> Dictionary:
+	var parent := get_node_or_null("EntityRoot/Cameras")
+	var moving := 0
+	var total := 0
+	if parent == null:
+		return {"total": 0, "moving": 0, "static": 0}
+	for ch in parent.get_children():
+		if not (ch is Area2D):
+			continue
+		if not (ch as Node).is_in_group("iso_security_camera"):
+			continue
+		if not ch.has_method("set_camera_enabled"):
+			continue
+		total += 1
+		var enabled := true
+		var en_v: Variant = ch.get("enabled")
+		if en_v != null:
+			enabled = bool(en_v)
+		var ss := float(ch.get("sweep_speed")) if ch.get("sweep_speed") != null else 0.0
+		var smin := float(ch.get("sweep_min_degrees")) if ch.get("sweep_min_degrees") != null else 0.0
+		var smax := float(ch.get("sweep_max_degrees")) if ch.get("sweep_max_degrees") != null else 0.0
+		if enabled and absf(ss) > 0.0001 and absf(smax - smin) > 0.5:
+			moving += 1
+	return {"total": total, "moving": moving, "static": total - moving}
+
+
+func _pick_security_spawn_near_player(player_pos: Vector2, _min_dist: float, _max_dist: float) -> Vector2:
+	return _get_safe_security_spawn_position("", player_pos, player_pos)
+
+
+## D6-01-FIX6B: heat-scaled search net with triangle patrol fallback.
+## Assigns search/patrol points that vary by heat level and guard ordinal to prevent stacking.
+func _assign_fallback_patrol_for_security_guard(guard: Node2D, anchor: Vector2) -> void:
+	var paths_root := get_node_or_null("GameplayRoot/EnemyPaths") as Node2D
+	if paths_root == null:
 		return
-	guard.global_position = player_node.global_position + Vector2(72, 0)
-	GameState.record_mission_performance_event(mission_definition.mission_id, "guards_alerted", 1)
-	_attempt_runtime_state["guards_alerted"] = int(_attempt_runtime_state.get("guards_alerted", 0)) + 1
-	_attempt_runtime_state["attack_guard_spawned"] = int(_attempt_runtime_state.get("attack_guard_spawned", 0)) + 1
-	if source_id.begins_with("alarm_"):
-		_attempt_runtime_state["alarm_guard_spawned:" + source_id] = true
-	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
-	if controller != null:
-		controller.call("register_detection_event", source_id, 1.0, "guard_detected")
+	
+	## Get heat and compute search role and triangle pattern.
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var ordinal := _count_raw_security_response_guards()
+	var role := _get_security_search_role(heat, ordinal)
+	var direction := 1 if (ordinal % 2 == 0) else -1
+	
+	## Build search points based on role and heat.
+	var search_points := _build_search_net_points(anchor, heat, ordinal, role)
+	var validated_points := _validate_security_search_route_points(search_points, anchor)
+	
+	## Always create a concrete Path2D to preserve backward compatibility with guard patrol API.
+	var path := Path2D.new()
+	path.name = _node_name("Patrol", "security_search_" + str(Time.get_ticks_msec()))
+	path.global_position = Vector2.ZERO  ## Points are in world space.
+	var c := Curve2D.new()
+	for pt in validated_points:
+		c.add_point(pt)
+	path.curve = c
+	paths_root.add_child(path)
+	if guard.has_method("assign_patrol_path"):
+		guard.assign_patrol_path(path)
+	## D6-01-FIX7: explicit security handoff so local search net is real behavior, not only metadata.
+	var search_net_payload := {
+		"center": anchor,
+		"radius": _get_security_search_radius_for_heat(heat),
+		"role": role,
+		"ordinal": ordinal,
+		"direction": direction,
+		"route_points": validated_points,
+	}
+	if guard.has_method("apply_security_search_net"):
+		guard.call("apply_security_search_net", search_net_payload)
+	
+	## Store metadata for debug and lifecycle management.
+	guard.set_meta("security_spawn_position", anchor)
+	guard.set_meta("security_local_patrol_enabled", true)
+	guard.set_meta("security_search_net_enabled", true)
+	guard.set_meta("security_spawn_origin", anchor)
+	guard.set_meta("security_search_center", anchor)
+	guard.set_meta("security_search_radius", _get_security_search_radius_for_heat(heat))
+	guard.set_meta("security_search_direction", direction)
+	guard.set_meta("security_search_route_points_count", validated_points.size())
+	guard.set_meta("security_search_role", role)
+	guard.set_meta("security_search_ordinal", ordinal)
+	guard.set_meta("security_heat_at_spawn", heat)
+	guard.set_meta("security_spawn_time_sec", Time.get_time_dict_from_system()["second"])
+	EventBus.debug("_assign_fallback_patrol_for_security_guard: heat=%d ordinal=%d role=%s direction=%d points=%d" % [heat, ordinal, role, direction, validated_points.size()])
+
+
+## D6-01-FIX6B: determine search role based on heat and guard ordinal.
+func _get_security_search_role(heat: int, ordinal: int) -> String:
+	if heat <= 1:
+		return "territorial"
+	elif heat <= 3:
+		## At heat 2-3, first guard is pursuer, others are flankers.
+		if ordinal == 0:
+			return "pursuer_search"
+		else:
+			return "flanker" if (ordinal % 2 == 1) else "pursuer_search"
+	elif heat == 4:
+		## At heat 4, distribute roles across types.
+		var roles := ["pursuer_search", "flanker", "chokepoint_holder", "objective_sentry"]
+		return roles[ordinal % roles.size()]
+	else:
+		## Heat 5: coordinated lockdown with objective sentry emphasis.
+		var roles := ["pursuer_search", "flanker", "chokepoint_holder", "objective_sentry", "objective_sentry"]
+		return roles[ordinal % roles.size()]
+
+
+## D6-01-FIX6B: build search net patrol points based on role, heat, and guard ordinal.
+func _build_search_net_points(center: Vector2, heat: int, ordinal: int, role: String) -> Array[Vector2]:
+	## Heat-scaled radius for search area.
+	var radius: float = _get_security_search_radius_for_heat(heat)
+	
+	## Ordinal-based rotation offset to prevent guards from stacking.
+	var rotation_offset := (ordinal * 60.0) * (PI / 180.0)
+	if ordinal % 2 == 1:
+		rotation_offset += PI  ## Alternate direction for odd ordinals.
+	
+	## Role-based position adjustments.
+	var points: Array[Vector2] = []
+	match role:
+		"territorial":
+			## Simple triangle around center.
+			points = _build_triangle_points(center, radius, rotation_offset)
+		"pursuer_search":
+			## Search near last known position with wider triangle.
+			points = _build_triangle_points(center, radius * 0.9, rotation_offset)
+		"flanker":
+			## Flank offset left or right of center.
+			var flank_dir := 1.0 if (ordinal % 2 == 1) else -1.0
+			var flank_center := center + Vector2(flank_dir * radius * 0.6, 0)
+			points = _build_triangle_points(flank_center, radius * 0.7, rotation_offset)
+		"chokepoint_holder":
+			## Hold position at offset + small patrol.
+			var choke_offset := Vector2(radius * 0.4, 0).rotated(rotation_offset)
+			var choke_center := center + choke_offset
+			## Small tight triangle at chokepoint.
+			points = _build_triangle_points(choke_center, radius * 0.4, rotation_offset)
+		"objective_sentry":
+			## Position toward bag room if known, otherwise offset from center.
+			var bag_marker := _find_authoring_marker("OBJECTIVE", "retrieve_delivery_bag")
+			if bag_marker is Node2D:
+				var bag_pos := (bag_marker as Node2D).global_position
+				var to_bag := (bag_pos - center).normalized()
+				var sentry_center := center + to_bag * (radius * 0.5)
+				points = _build_triangle_points(sentry_center, radius * 0.5, rotation_offset)
+			else:
+				points = _build_triangle_points(center + Vector2(radius * 0.5, 0), radius * 0.5, rotation_offset)
+		_:
+			points = _build_triangle_points(center, radius, rotation_offset)
+	
+	return points
+
+
+func _get_security_search_radius_for_heat(heat: int) -> float:
+	match heat:
+		0, 1:
+			return 140.0
+		2, 3:
+			return 200.0
+		4:
+			return 260.0
+		_:
+			return 320.0
+
+
+## D6-01-FIX7: keep security-search routes in sane playable bounds near encounter area.
+func _validate_security_search_route_points(points: Array[Vector2], center: Vector2) -> Array[Vector2]:
+	var validated: Array[Vector2] = []
+	var max_distance_from_center := 520.0
+	for p in points:
+		var point := p
+		if point.distance_to(center) > max_distance_from_center:
+			point = center + (point - center).normalized() * max_distance_from_center
+		if not _is_spawn_position_sane(point):
+			var fallback := _get_safe_security_spawn_position("search_route_adjust", center, center)
+			point = fallback
+		validated.append(point)
+	if validated.size() < 2:
+		validated = [center + Vector2(64, 0), center + Vector2(-64, 0)]
+	return validated
+
+
+## D6-01-FIX6B: build a triangle of 3 points around center with given radius and rotation.
+func _build_triangle_points(center: Vector2, radius: float, rotation_offset: float) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	var angles: Array[float] = [0.0, 2.094, 4.189]  ## 0, 120, 240 degrees in radians.
+	for a in angles:
+		var angle: float = a + rotation_offset
+		var pt := center + Vector2(cos(angle) * radius, sin(angle) * radius * 0.6)  ## Flatten Y for iso.
+		points.append(pt)
+	return points
 
 
 func set_code_gate_open(gate_id: String, open: bool) -> void:
@@ -1367,19 +2191,19 @@ func _spawn_runtime_from_markers(_alert_controller: Node) -> void:
 			_spawn_encounter_trigger(spawn_def.marker_cell, spawn_id)
 
 
-func _spawn_guard_for_spawn(spawn_def: Resource) -> void:
+func _spawn_guard_for_spawn(spawn_def: Resource) -> Node2D:
 	var spawn_id := String(spawn_def.spawn_id)
 	if _runtime_spawned_ids.has("guard:" + spawn_id):
-		return
+		return null
 	var packed := load(spawn_def.scene_path if String(spawn_def.scene_path) != "" else "res://scenes/characters/guard.tscn") as PackedScene
 	if packed == null:
-		return
+		return null
 	var guard := packed.instantiate() as Node2D
 	if guard == null:
-		return
+		return null
 	var enemies := get_node_or_null("EntityRoot/Enemies") as Node2D
 	if enemies == null:
-		return
+		return null
 	enemies.add_child(guard)
 	guard.global_position = _resolve_point_position(spawn_def.marker_cell, "GUARD_SPAWN", spawn_id, {
 		"linked_guard_id": spawn_id,
@@ -1388,9 +2212,11 @@ func _spawn_guard_for_spawn(spawn_def: Resource) -> void:
 	_apply_iso_enemy_profile(guard)
 	if guard.has_signal("spotted_player"):
 		guard.connect("spotted_player", Callable(self, "_on_runtime_guard_spotted").bind(spawn_id))
-	_spawn_guard_patrol_path(guard, spawn_def.marker_cell, spawn_id)
+	if not spawn_id.begins_with("attack_guard_"):
+		_spawn_guard_patrol_path(guard, spawn_def.marker_cell, spawn_id)
 	_runtime_spawned_ids["guard:" + spawn_id] = true
 	_register_runtime("guards", spawn_id)
+	return guard
 
 
 func _spawn_guard_patrol_path(guard: Node2D, marker_cell: Vector2i, spawn_id: String) -> void:
@@ -1467,6 +2293,8 @@ func _spawn_security_camera(cell: Vector2i, camera_id: String) -> void:
 	if parent == null:
 		return
 	parent.add_child(camera)
+	if camera.has_method("refresh_sweep_basis_from_world"):
+		camera.call_deferred("refresh_sweep_basis_from_world")
 	_register_runtime("cameras", camera_id)
 	var detection_parent := get_node_or_null("GameplayRoot/RuntimeSystems/DetectionZones") as Node2D
 	if detection_parent != null:
@@ -1507,6 +2335,248 @@ func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
 	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(resolved_alarm_id, area))
 	runtime.add_child(area)
 	_register_runtime("alarm_zones", resolved_alarm_id)
+	if resolved_alarm_id == "garage_entry_beam":
+		var beam_center := area.global_position
+		var half_size := rect.size / 2.0
+		_add_d6_fix5_temp_beam_visual(beam_center - half_size, beam_center + half_size)
+	if resolved_alarm_id == "AMBUSH_security_beam":
+		_attach_fix7_ambush_beam_visual(area.global_position, area)
+
+
+## D6-01-FIX6B: temporary visible red beam across far-right hallway before bag room.
+## Tagged for removal/finalization in later level design pass.
+func _add_d6_fix5_temp_beam_visual(pos_a: Vector2, pos_b: Vector2) -> void:
+	var root := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if root == null:
+		root = get_node_or_null("GameplayRoot") as Node2D
+	if root == null:
+		return
+	## Remove old beam versions from previous passes.
+	var old_fix4 := root.get_node_or_null("D6_FIX4_TEMP_BEAM_WORLD_VISUAL_REMOVE_IN_FINAL_LEVEL_PASS")
+	if old_fix4 != null:
+		old_fix4.queue_free()
+	var old_fix5 := root.get_node_or_null("D6_FIX5_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS")
+	if old_fix5 != null:
+		old_fix5.queue_free()
+	var old_fix6 := root.get_node_or_null("D6_FIX6_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS")
+	if old_fix6 != null:
+		old_fix6.queue_free()
+	var old_fix6a := root.get_node_or_null("D6_FIX6A_TEMP_SECURITY_BEAM_LOCATOR_REMOVE_OR_FINALIZE_IN_LEVEL_PASS")
+	if old_fix6a != null:
+		old_fix6a.queue_free()
+	## Skip if FIX6B beam already exists.
+	if root.get_node_or_null("D6_FIX6B_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS") != null:
+		return
+	var host := Node2D.new()
+	host.name = "D6_FIX6B_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS"
+	host.set_meta("D6_FIX6B_TEMP_SECURITY_BEAM_LOCATOR_REMOVE_OR_FINALIZE_IN_LEVEL_PASS", true)
+	host.z_index = 2400
+	root.add_child(host)
+	## Thick red beam line.
+	var line := Line2D.new()
+	line.name = "FarRightHallwayBeamSpan"
+	line.width = 32.0
+	line.default_color = Color(1.0, 0.08, 0.08, 1.0)
+	line.joint_mode = Line2D.LINE_JOINT_ROUND
+	line.z_index = 2400
+	line.add_point(host.to_local(pos_a))
+	line.add_point(host.to_local(pos_b))
+	host.add_child(line)
+	## Floating label near beam center.
+	var beam_center := (pos_a + pos_b) * 0.5
+	var label := Label.new()
+	label.name = "BeamLocatorLabel"
+	## D6-01-FIX6B: updated label text for far-right hallway location.
+	label.text = "FAR-RIGHT SECURITY BEAM — walk through red line"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 14)
+	label.position = host.to_local(beam_center) + Vector2(-150, -55)
+	label.z_index = 2401
+	host.add_child(label)
+	## Red beacon circle at beam center for visibility.
+	var beacon := Node2D.new()
+	beacon.name = "BeamLocatorBeacon"
+	beacon.position = host.to_local(beam_center)
+	beacon.z_index = 2399
+	host.add_child(beacon)
+	EventBus.debug("_add_d6_fix5_temp_beam_visual: FIX6B beam placed at " + str(beam_center) + " (far-right hallway before bag room)")
+
+
+func _ensure_d6_fix5_runtime_helpers() -> void:
+	## D6_FIX5: keep beam visual for right hallway test, remove/disable test warp runtime.
+	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+		return
+	_remove_d6_fix_test_warp_nodes()
+	_setup_d6_fix5_beam_visual_fallback()
+	_setup_fix7_ambush_beam_runtime()
+
+
+func _remove_d6_fix_test_warp_nodes() -> void:
+	var props := get_node_or_null("EntityRoot/DynamicProps") as Node2D
+	if props == null:
+		return
+	for n in ["D6_FIX4_GarageCodeTestWarp", "D6_FIX3_GarageCodeTestWarp"]:
+		var node := props.get_node_or_null(n)
+		if node != null:
+			node.queue_free()
+
+
+func _setup_d6_fix5_beam_visual_fallback() -> void:
+	var az := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
+	if az == null:
+		return
+	var area: Area2D = null
+	for ch in az.get_children():
+		if ch is Area2D and String(ch.name).findn("garage_entry_beam") != -1:
+			area = ch as Area2D
+			break
+	if area == null:
+		return
+	var right_hall_center := _d6_fix6_right_hallway_beam_center()
+	var half_len := 78.0
+	var beam_a := right_hall_center + Vector2(-half_len, 0)
+	var beam_b := right_hall_center + Vector2(half_len, 0)
+	_add_d6_fix5_temp_beam_visual(beam_a, beam_b)
+	area.global_position = right_hall_center
+	area.global_rotation = 0.0
+	var rect_shape := _d6_fix4_first_rect_size_from_area(area)
+	if rect_shape != Vector2.ZERO:
+		for child in area.get_children():
+			if child is CollisionShape2D and (child as CollisionShape2D).shape is RectangleShape2D:
+				var r := (child as CollisionShape2D).shape as RectangleShape2D
+				r.size = Vector2(156, maxf(44.0, r.size.y))
+
+
+## D6-01-FIX7: canonical AMBUSH beam rebuild. Only AMBUSH_security_beam is used as anchor.
+func _setup_fix7_ambush_beam_runtime() -> void:
+	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+		return
+	var ambush_anchor := _find_authoring_marker("", "AMBUSH_security_beam")
+	if not (ambush_anchor is Node2D):
+		_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = false
+		_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = "missing"
+		_attempt_runtime_state["fix7_ambush_beam_status"] = "missing_anchor"
+		return
+	var anchor_pos := (ambush_anchor as Node2D).global_position
+	_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = true
+	_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = String((ambush_anchor as Node2D).get_path())
+	_attempt_runtime_state["fix7_ambush_beam_anchor_position"] = anchor_pos
+	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
+	if alarm_zones == null:
+		_attempt_runtime_state["fix7_ambush_beam_status"] = "visual_only_no_alarm_zone_parent"
+		_attach_fix7_ambush_beam_visual(anchor_pos, null)
+		return
+	var beam_area := alarm_zones.get_node_or_null("AlarmZone_AMBUSH_security_beam") as Area2D
+	if beam_area == null:
+		beam_area = Area2D.new()
+		beam_area.name = "AlarmZone_AMBUSH_security_beam"
+		beam_area.collision_layer = 0
+		beam_area.collision_mask = 1
+		var shape := CollisionShape2D.new()
+		var rect := RectangleShape2D.new()
+		rect.size = Vector2(170, 52)
+		shape.shape = rect
+		beam_area.add_child(shape)
+		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind("AMBUSH_security_beam", beam_area))
+		alarm_zones.add_child(beam_area)
+	beam_area.global_position = anchor_pos
+	_attach_fix7_ambush_beam_visual(anchor_pos, beam_area)
+
+
+func _attach_fix7_ambush_beam_visual(anchor_pos: Vector2, beam_area: Area2D) -> void:
+	var root := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if root == null:
+		return
+	var old_host := root.get_node_or_null("SecurityBeam_Ambush_RightHallway")
+	if old_host != null:
+		old_host.queue_free()
+	var host := Node2D.new()
+	host.name = "SecurityBeam_Ambush_RightHallway"
+	host.set_meta("D6_FIX7_TEMP_AMBUSH_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS", true)
+	host.z_index = 2600
+	root.add_child(host)
+	var half_len := 92.0
+	var pos_a := anchor_pos + Vector2(-half_len, 0)
+	var pos_b := anchor_pos + Vector2(half_len, 0)
+	var line := Line2D.new()
+	line.name = "AmbushBeamLine"
+	line.width = 34.0
+	line.default_color = Color(1.0, 0.0, 0.0, 1.0)
+	line.z_index = 2601
+	line.add_point(host.to_local(pos_a))
+	line.add_point(host.to_local(pos_b))
+	host.add_child(line)
+	var label := Label.new()
+	label.name = "AmbushBeamLabel"
+	label.text = "SECURITY BEAM"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 16)
+	label.position = host.to_local(anchor_pos) + Vector2(-80, -58)
+	label.z_index = 2602
+	host.add_child(label)
+	var beacon_l := Node2D.new()
+	beacon_l.name = "AmbushBeamEndLeft"
+	beacon_l.position = host.to_local(pos_a)
+	host.add_child(beacon_l)
+	var beacon_r := Node2D.new()
+	beacon_r.name = "AmbushBeamEndRight"
+	beacon_r.position = host.to_local(pos_b)
+	host.add_child(beacon_r)
+	_attempt_runtime_state["fix7_ambush_beam_visual_center"] = anchor_pos
+	_attempt_runtime_state["fix7_ambush_beam_trigger_center"] = beam_area.global_position if beam_area != null else anchor_pos
+	var mismatch := 0.0
+	if beam_area != null:
+		mismatch = beam_area.global_position.distance_to(anchor_pos)
+	_attempt_runtime_state["fix7_ambush_beam_visual_trigger_mismatch_px"] = mismatch
+	_attempt_runtime_state["fix7_ambush_beam_status"] = "armed" if beam_area != null else "visual_only"
+
+
+## D6-01-FIX6B: place beam immediately before the bag room (far-right hallway).
+## Bag is at ~15392,336; beam should be the final obstacle before reaching it.
+func _d6_fix6_right_hallway_beam_center() -> Vector2:
+	var bag_marker := _find_authoring_marker("OBJECTIVE", "retrieve_delivery_bag")
+	if bag_marker is Node2D:
+		var bag_pos := (bag_marker as Node2D).global_position
+		## Place beam only 80px before the bag (immediately before the room entrance).
+		## This is the far-right hallway approach - the final challenge before the objective.
+		return bag_pos + Vector2(-80, 0)
+	return _map_to_global(Vector2i(28, 2))
+
+
+func _d6_fix4_first_rect_size_from_area(area: Area2D) -> Vector2:
+	for child in area.get_children():
+		if child is CollisionShape2D:
+			var sh := (child as CollisionShape2D).shape
+			if sh is RectangleShape2D:
+				return (sh as RectangleShape2D).size
+	return Vector2.ZERO
+
+
+## D6-01-FIX6A: compute beam distance and direction from player for F10 locator.
+func _compute_beam_player_relationship() -> Dictionary:
+	var player_node := get_tree().get_first_node_in_group("player") as Node2D
+	if player_node == null:
+		return {"distance": -1.0, "direction": "no_player", "center": Vector2.ZERO}
+	var beam_center := Vector2.ZERO
+	if _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false) == true:
+		beam_center = _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO)
+	else:
+		beam_center = _d6_fix6_right_hallway_beam_center()
+	var to_beam := beam_center - player_node.global_position
+	var distance := to_beam.length()
+	var angle := to_beam.angle()
+	var direction := "unknown"
+	var abs_angle := absf(angle)
+	if abs_angle < PI * 0.25:
+		direction = "right"
+	elif abs_angle > PI * 0.75:
+		direction = "left"
+	elif angle > 0:
+		direction = "down"
+	else:
+		direction = "up"
+	return {"distance": distance, "direction": direction, "center": beam_center}
 
 
 func _spawn_encounter_trigger(cell: Vector2i, encounter_id: String) -> void:
@@ -1851,6 +2921,23 @@ func _runtime_debug_summary() -> Dictionary:
 	var cameras := get_node_or_null("EntityRoot/Cameras")
 	var runtime_guard_count := enemies.get_child_count() if enemies != null else 0
 	var camera_count := cameras.get_child_count() if cameras != null else 0
+	var sec_spawned := _count_functional_security_response_guards()
+	var sec_raw := _count_raw_security_response_guards()
+	var sec_invalid := _count_invalid_security_response_guards()
+	var cam_sweep := _count_security_cameras_sweeping()
+	## D6-01-FIX6A: compute beam distance/direction from player for F10 locator.
+	var beam_info := _compute_beam_player_relationship()
+	## D6-01-FIX6B: get lifecycle stats for F10.
+	var lifecycle_stats := _get_security_guard_lifecycle_stats()
+	## D6-01-FIX6B: get heat and last spawn role for search net debug.
+	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var last_role := ""
+	var last_ordinal := -1
+	var last_heat_at_spawn := -1
+	if not _security_spawn_probe.is_empty():
+		last_role = str(_security_spawn_probe.get("last_role", ""))
+		last_ordinal = int(_security_spawn_probe.get("last_ordinal", -1))
+		last_heat_at_spawn = int(_security_spawn_probe.get("last_heat", -1))
 	return {
 		"marker_to_runtime_counts": _runtime_counts.duplicate(true),
 		"spawned_runtime_ids": _runtime_spawned_ids.keys(),
@@ -1868,6 +2955,55 @@ func _runtime_debug_summary() -> Dictionary:
 		"attempt_runtime_state": _attempt_runtime_state.duplicate(true),
 		"garage_beam_armed": not _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
 		"garage_beam_triggered": _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
+		"beam_alarm_id": "garage_entry_beam",
+		"beam_runtime_node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
+		"beam_f10_plain": "Beam: FIX7 uses AMBUSH_security_beam only. Walk through red line at anchor.",
+		"beam_f10_how_to_test": "Test: go to AMBUSH_security_beam and walk through red line. beam_trip +1 once.",
+		"beam_distance_from_player": beam_info.get("distance", -1.0),
+		"beam_direction_from_player": beam_info.get("direction", "unknown"),
+		"beam_center_position": beam_info.get("center", Vector2.ZERO),
+		"security_spawn_cap": _get_security_spawn_cap(),
+		"security_response_spawn_count": sec_spawned,
+		"security_response_spawn_count_raw": sec_raw,
+		"invalid_offmap_security_guard_count": sec_invalid,
+		"security_spawn_pending_count": _pending_security_guard_source_ids.size(),
+		"security_reserved_count": _get_reserved_security_guard_count(),
+		"security_attack_spawn_counter": int(_attempt_runtime_state.get("attack_guard_spawned", 0)),
+		"security_active_guards_preview": _security_guard_positions_preview(3),
+		"security_active_guards_raw_preview": _security_guard_raw_positions_preview(5),
+		"security_cameras_total": int(cam_sweep.get("total", 0)),
+		"security_cameras_moving": int(cam_sweep.get("moving", 0)),
+		"security_cameras_static": int(cam_sweep.get("static", 0)),
+		"reinforcement_cooldown_sec": _get_security_reinforcement_cooldown_sec(),
+		"last_reinforcement_source": _last_security_reinforcement_source,
+		"last_reinforcement_result": _last_security_reinforcement_result,
+		"d6_fix5_spawn_probe": _security_spawn_probe.duplicate(true),
+		"d6_fix6_spawn_probe": _security_spawn_probe.duplicate(true),
+		"heat_restart_audit_note": "Heat +1 only when fail_mission runs (e.g. fail_level / player death). Mid-run alarms do not add persistent heat.",
+		"good_guard_scene": MissionSecurityGuardResolver.good_guard_scene_path(),
+		"bad_guard_script_note": MissionSecurityGuardResolver.bad_guard_script_path(),
+		"garage_beam_f10_hint": "FIX7 uses AMBUSH_security_beam only (no bag-offset placement).",
+		"beam_status": String(_attempt_runtime_state.get("fix7_ambush_beam_status", "unknown")),
+		"ambush_beam_anchor_found": _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false),
+		"ambush_beam_anchor_path": String(_attempt_runtime_state.get("fix7_ambush_beam_anchor_path", "missing")),
+		"ambush_beam_anchor_position": _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO),
+		"ambush_beam_visual_center": _attempt_runtime_state.get("fix7_ambush_beam_visual_center", Vector2.ZERO),
+		"ambush_beam_trigger_center": _attempt_runtime_state.get("fix7_ambush_beam_trigger_center", Vector2.ZERO),
+		"ambush_beam_visual_trigger_mismatch_px": float(_attempt_runtime_state.get("fix7_ambush_beam_visual_trigger_mismatch_px", -1.0)),
+		## D6-01-FIX6B: search net and lifecycle debug.
+		"search_net_heat": heat,
+		"search_net_last_role": last_role,
+		"search_net_last_ordinal": last_ordinal,
+		"search_net_last_heat_at_spawn": last_heat_at_spawn,
+		"search_net_triangle_radius_by_heat": {0: 140, 1: 140, 2: 200, 3: 200, 4: 260, 5: 320}.get(heat, 140),
+		"search_net_roles_by_heat": "H0-1: territorial | H2-3: pursuer/flanker | H4: pursuer/flanker/choke/sentry | H5: +double sentry",
+		"search_net_local_route_real_handoff": true,
+		"lifecycle_active": lifecycle_stats.get("active", 0),
+		"lifecycle_searching": lifecycle_stats.get("searching", 0),
+		"lifecycle_dormant": lifecycle_stats.get("dormant", 0),
+		"lifecycle_removed_total": lifecycle_stats.get("removed_total", 0),
+		"lifecycle_near_radius": lifecycle_stats.get("near_radius", 1000),
+		"lifecycle_cleanup_radius": lifecycle_stats.get("cleanup_radius", 1600),
 	}
 
 
@@ -1884,6 +3020,9 @@ func _reset_attempt_runtime_state() -> void:
 		"poop_bags_used": 0,
 	}
 	GameState.begin_mission_performance(mission_definition.mission_id)
+	_pending_security_guard_source_ids.clear()
+	_security_guard_spawn_flush_scheduled = false
+	_security_spawn_probe.clear()
 	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
 	if controller != null and controller.has_method("reset_attempt_state"):
 		controller.call("reset_attempt_state")
@@ -1894,7 +3033,7 @@ func _is_runtime_flag_true(key: String) -> bool:
 
 
 func _is_alarm_zone_one_shot(alarm_id: String) -> bool:
-	return alarm_id == "garage_entry_beam"
+	return alarm_id == "garage_entry_beam" or alarm_id == "AMBUSH_security_beam"
 
 
 func mark_runtime_encounter_triggered(encounter_id: String) -> void:
@@ -1913,6 +3052,8 @@ func is_runtime_encounter_triggered(encounter_id: String) -> bool:
 func can_spawn_alarm_guard_for_source(source_id: String) -> bool:
 	if source_id.begins_with("alarm_garage_entry_beam"):
 		return _is_runtime_flag_true("alarm_guard_spawned:alarm_garage_entry_beam") != true
+	if source_id.begins_with("alarm_AMBUSH_security_beam"):
+		return _is_runtime_flag_true("alarm_guard_spawned:alarm_AMBUSH_security_beam") != true
 	return true
 
 
@@ -2168,6 +3309,10 @@ func trigger_alarm_test() -> void:
 
 
 func spawn_extra_guard_test() -> void:
+	call_deferred("_spawn_extra_guard_test_deferred")
+
+
+func _spawn_extra_guard_test_deferred() -> void:
 	var spawn_def := MissionSpawnDefinition.new()
 	spawn_def.spawn_id = "debug_extra_guard"
 	spawn_def.marker_cell = Vector2i(14, -3)
@@ -2756,8 +3901,8 @@ func _apply_heat_profile() -> void:
 		"fake_scent_penalty": 1,
 	}
 	if heat == 1:
-		profile["camera_rate_mult"] = 1.08
-		profile["camera_sweep_mult"] = 1.12
+		profile["camera_rate_mult"] = 1.15
+		profile["camera_sweep_mult"] = 1.18
 	elif heat == 2:
 		profile["wrong_code_threshold"] = 2
 		profile["camera_rate_mult"] = 1.22

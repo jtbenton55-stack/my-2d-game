@@ -147,8 +147,13 @@ func _controls_text() -> String:
 
 func _objectives_text() -> String:
 	var mission_id := String(GameState.current_mission_id)
+	var lines: Array[String] = []
+	var heat_line := MissionPauseDataProvider.get_heat_security_pause_line(mission_id, null)
+	if heat_line != "":
+		lines.append(heat_line)
+		lines.append("")
+	lines.append("Active Objectives")
 	var snap := MissionPauseDataProvider.get_objective_snapshot(mission_id, null)
-	var lines: Array[String] = ["Active Objectives"]
 	var saw_active := false
 	for row in snap.get("items", []):
 		if row is Dictionary and String(row.get("kind", "")) == "active":

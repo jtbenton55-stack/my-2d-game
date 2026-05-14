@@ -1,0 +1,6 @@
+{
+  "camera_response_repaired_or_deferred_with_reason": true,
+  "camera_reinforcement_supported": true,
+  "no_camera_event_spam": true,
+  "change": "Removed per-camera per-frame decay_exposure on shared MissionAlertController.alert_score"
+}

@@ -1,0 +1,12 @@
+{
+  "beam_audit_completed": true,
+  "beam_location_recorded_or_missing_reported": true,
+  "beam_testability_status_recorded": true,
+  "runtime_path": "GameplayRoot/RuntimeSystems/AlarmZones",
+  "node_name_pattern": "AlarmZone_garage_entry_beam",
+  "alarm_id": "garage_entry_beam",
+  "adapter_kind": "beam_trip",
+  "visibility": "Area2D alarm zone created at runtime from manifest/marker pipeline (IsoMissionBase); not a visible laser mesh in this MVP.",
+  "testability": "Walk through garage-entry approach from code-gate side; F10 shows garage_beam_armed / garage_beam_triggered and beam_trip counter via MissionSecurityEventAdapter.",
+  "once_per_attempt": "Runtime flag alarm_triggered:garage_entry_beam; adapter same-frame dedupe."
+}

@@ -1,0 +1,8 @@
+{
+  "heat_defined_plain_english": true,
+  "security_event_taxonomy_defined": true,
+  "taco_security_heat_mvp_defined": true,
+  "persistence": "per_mission_id_via_failed_attempts_cap_5",
+  "taco_mvp_summary": "Introduce SecurityEventAdapter; normalize beam/camera/guard/wrong_code; F10+pause visibility; avoid new stealth AI.",
+  "beam_policy_placeholder": "alarm_event_always; heat_increment_policy_to_be_codified_in_d6_01"
+}

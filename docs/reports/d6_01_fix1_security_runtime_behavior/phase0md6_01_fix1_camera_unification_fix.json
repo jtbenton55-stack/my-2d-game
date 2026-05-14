@@ -1,0 +1,6 @@
+{
+  "camera_response_unified_or_deferred_with_reason": true,
+  "repeated_camera_reinforcement_cooldown_supported": true,
+  "no_camera_per_frame_spam": true,
+  "mission_alert_controller": "Per-source _last_spawn_msec_by_source; camera_detected cooldown ~7000ms; adapter dedupe unchanged"
+}

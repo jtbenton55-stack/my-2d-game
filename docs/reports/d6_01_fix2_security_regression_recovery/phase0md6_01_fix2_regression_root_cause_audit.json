@@ -1,0 +1,9 @@
+{
+  "regression_root_cause_audited": true,
+  "camera_spawn_failure_cause_identified_or_gap_reported": true,
+  "wrong_code_noop_cause_identified_or_gap_reported": true,
+  "f10_beam_gap_identified_or_gap_reported": true,
+  "camera_root_cause": "MissionSecurityCamera._process else branch called MissionAlertController.decay_exposure every frame for every camera instance while the player was not in that camera's cone. N cameras multiplied decay and drained shared alert_score before accumulate_exposure could reach 1.0, so record_alarm_event rarely/never fired and spawn_attack_guard_near_player was not called.",
+  "wrong_code_root_cause": "Phase0KB used fixed @export wrong_code_threshold=2 while IsoMissionBase heat profile can lower wrong_code_threshold to 1 — first wrong never reached spawner threshold. wrong_code_alarm adapter counter was not emitted from Phase0KB at threshold crossing.",
+  "f10_beam_gap": "Beam hint was a single short line; missing explicit node path, alarm id, and step-by-step how-to-test for humans."
+}

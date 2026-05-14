@@ -1,0 +1,7 @@
+{
+  "security_spawns_use_good_guard": true,
+  "bad_guard_not_used_for_security_spawns": true,
+  "existing_patrol_guards_preserved": true,
+  "resolver": "res://src/missions/iso/runtime/MissionSecurityGuardResolver.gd",
+  "spawn_entry": "IsoMissionBase.spawn_attack_guard_near_player"
+}
