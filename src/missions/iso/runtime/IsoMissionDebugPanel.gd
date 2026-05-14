@@ -243,6 +243,7 @@ func _refresh_status() -> void:
 			beam_dir,
 		]
 		sec_lines += "\nAMBUSH anchor found: %s" % str(rsum.get("ambush_beam_anchor_found", false))
+		sec_lines += "\nAMBUSH resolve source: %s" % str(rsum.get("ambush_beam_anchor_resolve_source", "missing"))
 		sec_lines += "\nAMBUSH anchor path: %s" % str(rsum.get("ambush_beam_anchor_path", "missing"))
 		sec_lines += "\nanchor %s  visual %s  trigger %s  mismatch %.1fpx" % [
 			str(rsum.get("ambush_beam_anchor_position", Vector2.ZERO)),

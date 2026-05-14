@@ -1,0 +1,10 @@
+{
+  "assertions": {
+    "marker_anchor_audit_completed": true,
+    "ambush_marker_location_identified_or_missing_reported": true,
+    "authoring_marker_failure_explained": true,
+    "fallback_coordinate_usage_identified": true
+  },
+  "debug_anchor_path": "GameplayRoot/GeneratedRuntimeMarkerDebugInteractables/Debug_AMBUSH_security_beam",
+  "label_path": "GameplayRoot/GeneratedRuntimeMarkerLabels/Label_AMBUSH_security_beam"
+}

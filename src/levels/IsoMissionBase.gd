@@ -2335,10 +2335,8 @@ func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
 	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(resolved_alarm_id, area))
 	runtime.add_child(area)
 	_register_runtime("alarm_zones", resolved_alarm_id)
-	if resolved_alarm_id == "garage_entry_beam":
-		var beam_center := area.global_position
-		var half_size := rect.size / 2.0
-		_add_d6_fix5_temp_beam_visual(beam_center - half_size, beam_center + half_size)
+	## FIX7A: do not create legacy coordinate/fallback visuals for garage_entry_beam.
+	## AMBUSH_security_beam is the only canonical visual anchor for this pass.
 	if resolved_alarm_id == "AMBUSH_security_beam":
 		_attach_fix7_ambush_beam_visual(area.global_position, area)
 
@@ -2408,7 +2406,7 @@ func _ensure_d6_fix5_runtime_helpers() -> void:
 	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
 		return
 	_remove_d6_fix_test_warp_nodes()
-	_setup_d6_fix5_beam_visual_fallback()
+	_remove_fix7_stale_temp_beam_nodes()
 	_setup_fix7_ambush_beam_runtime()
 
 
@@ -2423,44 +2421,59 @@ func _remove_d6_fix_test_warp_nodes() -> void:
 
 
 func _setup_d6_fix5_beam_visual_fallback() -> void:
-	var az := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
-	if az == null:
+	## FIX7A: legacy fallback intentionally disabled to avoid misleading old beam placement.
+	## Keep method for compatibility with older debug reports, but no runtime action.
+	return
+
+
+## FIX7A: remove stale temporary beam runtime visuals from prior passes.
+func _remove_fix7_stale_temp_beam_nodes() -> void:
+	var root := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
+	if root == null:
+		root = get_node_or_null("GameplayRoot") as Node2D
+	if root == null:
 		return
-	var area: Area2D = null
-	for ch in az.get_children():
-		if ch is Area2D and String(ch.name).findn("garage_entry_beam") != -1:
-			area = ch as Area2D
-			break
-	if area == null:
-		return
-	var right_hall_center := _d6_fix6_right_hallway_beam_center()
-	var half_len := 78.0
-	var beam_a := right_hall_center + Vector2(-half_len, 0)
-	var beam_b := right_hall_center + Vector2(half_len, 0)
-	_add_d6_fix5_temp_beam_visual(beam_a, beam_b)
-	area.global_position = right_hall_center
-	area.global_rotation = 0.0
-	var rect_shape := _d6_fix4_first_rect_size_from_area(area)
-	if rect_shape != Vector2.ZERO:
-		for child in area.get_children():
-			if child is CollisionShape2D and (child as CollisionShape2D).shape is RectangleShape2D:
-				var r := (child as CollisionShape2D).shape as RectangleShape2D
-				r.size = Vector2(156, maxf(44.0, r.size.y))
+	for stale_name in [
+		"D6_FIX3_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS",
+		"D6_FIX4_TEMP_BEAM_WORLD_VISUAL_REMOVE_IN_FINAL_LEVEL_PASS",
+		"D6_FIX5_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS",
+		"D6_FIX6_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS",
+		"D6_FIX6A_TEMP_SECURITY_BEAM_LOCATOR_REMOVE_OR_FINALIZE_IN_LEVEL_PASS",
+		"D6_FIX6B_TEMP_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS",
+		"SecurityBeam_Ambush_RightHallway",
+	]:
+		var node := root.get_node_or_null(stale_name)
+		if node != null:
+			node.queue_free()
+	## Also remove old FIX6B visual attached to root aliases if present.
+	var old_alias := root.get_node_or_null("RightHallwayBeamSpan")
+	if old_alias != null:
+		old_alias.queue_free()
 
 
 ## D6-01-FIX7: canonical AMBUSH beam rebuild. Only AMBUSH_security_beam is used as anchor.
 func _setup_fix7_ambush_beam_runtime() -> void:
 	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
 		return
+	var anchor_resolution_source := "authoring_marker_root"
 	var ambush_anchor := _find_authoring_marker("", "AMBUSH_security_beam")
+	if not (ambush_anchor is Node2D):
+		ambush_anchor = _find_runtime_debug_marker("AMBUSH_security_beam")
+		anchor_resolution_source = "runtime_debug_interactable_or_label"
 	if not (ambush_anchor is Node2D):
 		_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = false
 		_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = "missing"
+		_attempt_runtime_state["fix7_ambush_beam_anchor_resolve_source"] = "missing"
+		_attempt_runtime_state["fix7_ambush_beam_anchor_position"] = Vector2.ZERO
+		_attempt_runtime_state["fix7_ambush_beam_visual_center"] = Vector2.ZERO
+		_attempt_runtime_state["fix7_ambush_beam_trigger_center"] = Vector2.ZERO
+		_attempt_runtime_state["fix7_ambush_beam_visual_trigger_mismatch_px"] = -1.0
 		_attempt_runtime_state["fix7_ambush_beam_status"] = "missing_anchor"
 		return
 	var anchor_pos := (ambush_anchor as Node2D).global_position
 	_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = true
 	_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = String((ambush_anchor as Node2D).get_path())
+	_attempt_runtime_state["fix7_ambush_beam_anchor_resolve_source"] = anchor_resolution_source
 	_attempt_runtime_state["fix7_ambush_beam_anchor_position"] = anchor_pos
 	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
 	if alarm_zones == null:
@@ -2482,6 +2495,39 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		alarm_zones.add_child(beam_area)
 	beam_area.global_position = anchor_pos
 	_attach_fix7_ambush_beam_visual(anchor_pos, beam_area)
+
+
+## D6-01-FIX7A: locate generated runtime marker nodes not included in authoring index.
+## Search order:
+## 1) GeneratedRuntimeMarkerDebugInteractables (prefer)
+## 2) GeneratedRuntimeMarkerLabels
+func _find_runtime_debug_marker(marker_id: String) -> Node2D:
+	var marker_id_trimmed := marker_id.strip_edges()
+	if marker_id_trimmed == "":
+		return null
+	var roots: Array[String] = [
+		"GameplayRoot/GeneratedRuntimeMarkerDebugInteractables",
+		"GameplayRoot/GeneratedRuntimeMarkerLabels",
+	]
+	var prefixes: Array[String] = ["Debug_", "Label_"]
+	for i in range(roots.size()):
+		var parent := get_node_or_null(roots[i]) as Node
+		if parent == null:
+			continue
+		var by_name := parent.get_node_or_null(prefixes[i] + marker_id_trimmed) as Node2D
+		if by_name != null:
+			return by_name
+		for child in parent.get_children():
+			if not (child is Node2D):
+				continue
+			var prop_id := _value_string((child as Node).get("marker_id"))
+			if prop_id == marker_id_trimmed:
+				return child as Node2D
+			if (child as Node).has_meta("marker_id"):
+				var meta_id := String((child as Node).get_meta("marker_id"))
+				if meta_id == marker_id_trimmed:
+					return child as Node2D
+	return null
 
 
 func _attach_fix7_ambush_beam_visual(anchor_pos: Vector2, beam_area: Area2D) -> void:
@@ -2558,14 +2604,12 @@ func _compute_beam_player_relationship() -> Dictionary:
 	var player_node := get_tree().get_first_node_in_group("player") as Node2D
 	if player_node == null:
 		return {"distance": -1.0, "direction": "no_player", "center": Vector2.ZERO}
-	var beam_center := Vector2.ZERO
-	if _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false) == true:
-		beam_center = _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO)
-	else:
-		beam_center = _d6_fix6_right_hallway_beam_center()
+	if _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false) != true:
+		return {"distance": -1.0, "direction": "missing_anchor", "center": Vector2.ZERO}
+	var beam_center: Vector2 = _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO)
 	var to_beam := beam_center - player_node.global_position
-	var distance := to_beam.length()
-	var angle := to_beam.angle()
+	var distance: float = to_beam.length()
+	var angle: float = to_beam.angle()
 	var direction := "unknown"
 	var abs_angle := absf(angle)
 	if abs_angle < PI * 0.25:
@@ -2985,6 +3029,7 @@ func _runtime_debug_summary() -> Dictionary:
 		"garage_beam_f10_hint": "FIX7 uses AMBUSH_security_beam only (no bag-offset placement).",
 		"beam_status": String(_attempt_runtime_state.get("fix7_ambush_beam_status", "unknown")),
 		"ambush_beam_anchor_found": _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false),
+		"ambush_beam_anchor_resolve_source": String(_attempt_runtime_state.get("fix7_ambush_beam_anchor_resolve_source", "missing")),
 		"ambush_beam_anchor_path": String(_attempt_runtime_state.get("fix7_ambush_beam_anchor_path", "missing")),
 		"ambush_beam_anchor_position": _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO),
 		"ambush_beam_visual_center": _attempt_runtime_state.get("fix7_ambush_beam_visual_center", Vector2.ZERO),
