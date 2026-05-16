@@ -1,0 +1,15 @@
+{
+  "f10_keys_used": [
+    "beam_f10_fix7c_note",
+    "beam_f10_plain",
+    "fix7b_ambush_beam_center",
+    "fix7b_ambush_beam_center_offset",
+    "fix7b_ambush_beam_height",
+    "fix7b_ambush_beam_trigger_size",
+    "fix7b_ambush_beam_visual_trigger_mismatch_px"
+  ],
+  "hard_assertions": {
+    "f10_fix7c_note_visible": true,
+    "f10_concise": true
+  }
+}

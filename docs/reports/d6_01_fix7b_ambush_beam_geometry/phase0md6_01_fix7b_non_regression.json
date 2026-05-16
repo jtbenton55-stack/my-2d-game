@@ -1,0 +1,10 @@
+{
+  "hard_assertions": {
+    "camera_spawn_path_preserved": true,
+    "wrong_code_spawn_path_preserved": true,
+    "beam_trip_path_preserved": true,
+    "heat_policy_preserved": true,
+    "no_new_save_keys_added": true
+  },
+  "note": "Preserved by inspection; runtime confirmation pending manual playtest."
+}

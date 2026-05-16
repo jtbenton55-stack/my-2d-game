@@ -1,0 +1,17 @@
+{
+  "f10_fields": [
+    "fix7b_ambush_beam_status",
+    "fix7b_ambush_beam_orientation",
+    "fix7b_ambush_beam_center",
+    "fix7b_ambush_beam_center_offset",
+    "fix7b_ambush_beam_height",
+    "fix7b_ambush_beam_visual_width",
+    "fix7b_ambush_beam_trigger_size",
+    "fix7b_ambush_beam_visual_trigger_mismatch_px"
+  ],
+  "hard_assertions": {
+    "f10_beam_geometry_fields_added": true,
+    "f10_shows_vertical_orientation": true,
+    "f10_shows_visual_trigger_mismatch": true
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "overall_outcome": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "beam_geometry_root_cause": "Horizontal Line2D X endpoints and wide-short RectangleShape2D; host not at beam center in FIX7A path.",
+  "ambush_anchor_resolution_status": "preserved_FIX7A",
+  "beam_orientation_after_pass": "vertical",
+  "beam_center_anchor_offset": {
+    "anchor": "resolved AMBUSH_security_beam global_position",
+    "offset": [-180, -48],
+    "center": "anchor + offset in code"
+  },
+  "beam_visual_width": 32,
+  "beam_trigger_size": [56, 560],
+  "beam_height": 560,
+  "visual_trigger_mismatch_status": "0px_expected_when_armed_same_global_position",
+  "wall_to_wall_coverage_status": "tall_fixed_span_560px_tune_manually_not_collision_proven",
+  "beam_trip_status": "binding_preserved_unverified_playtest",
+  "single_guard_response_status": "preserved_unverified_playtest",
+  "four_guard_ambush_implemented": false,
+  "camera_spawn_non_regression": "unchanged_by_diff_inspection",
+  "wrong_code_spawn_non_regression": "unchanged_by_diff_inspection",
+  "heat_policy_status": "unchanged",
+  "f10_proof_status": "fix7b_block_added_to_IsoMissionDebugPanel",
+  "runtime_validation_status": "not_run_godot_cli_unavailable",
+  "static_validator_result": "PASS",
+  "kimi_status": "skipped",
+  "protected_files_modified": false,
+  "known_limitations": [
+    "No in-editor playtest this pass.",
+    "Wall-to-wall is approximate fixed height, not map-derived.",
+    "Offset/height may need one tuning iteration from screenshot."
+  ],
+  "recommended_next_pass": "Manual Taco playtest; adjust D6_FIX7B_AMBUSH_BEAM_CENTER_OFFSET and height from live hallway bounds."
+}

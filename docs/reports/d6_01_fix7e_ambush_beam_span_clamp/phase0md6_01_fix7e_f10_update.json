@@ -1,0 +1,27 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "f10_block_title": "--- AMBUSH beam (FIX7E) ---",
+  "fields": [
+    "fix7e_mode",
+    "fix7e_collision_ok",
+    "fix7e_fallback_used",
+    "fix7e_choke_x",
+    "fix7e_probe_y",
+    "fix7e_top_hit_y",
+    "fix7e_bottom_hit_y",
+    "fix7e_visual_top_y",
+    "fix7e_visual_bottom_y",
+    "fix7e_visual_height",
+    "fix7e_trigger_top_y",
+    "fix7e_trigger_bottom_y",
+    "fix7e_trigger_height",
+    "fix7e_visual_trigger_mismatch_px",
+    "fix7e_reason",
+    "beam_f10_fix7e_instruction"
+  ],
+  "hard_assertions": {
+    "f10_fix7e_fields_added": true,
+    "f10_reports_visual_top_bottom_height": true,
+    "f10_reports_trigger_top_bottom_height": true
+  }
+}

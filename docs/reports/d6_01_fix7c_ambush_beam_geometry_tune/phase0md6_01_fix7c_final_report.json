@@ -1,0 +1,50 @@
+{
+  "overall_outcome": "PARTIAL",
+  "current_branch": "c2a-full-character-animation-20260509-172230",
+  "files_modified": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+  ],
+  "files_created": [
+    "docs/reports/d6_01_fix7c_ambush_beam_geometry_tune/",
+    "src/tools/editor/d6_01_fix7c_ambush_beam_geometry_tune/phase0md6_01_fix7c_static_validator.py"
+  ],
+  "beam_old_offset": [-180, -48],
+  "beam_old_height": 560,
+  "beam_new_offset": [-380, -48],
+  "beam_new_height": 840,
+  "beam_new_trigger_size": [72, 840],
+  "beam_moved_left": true,
+  "beam_vertical": true,
+  "beam_wall_to_wall": "taller_fixed_span_manual_confirm_required",
+  "trigger_matches_visual": true,
+  "beam_trip_status": "wiring_preserved_unverified_playtest",
+  "beam_guard_spawn_status": "wiring_preserved_unverified_playtest",
+  "camera_guard_spawn_preserved": true,
+  "wrong_code_guard_spawn_preserved": true,
+  "search_net_or_guard_ai_touched": false,
+  "heat_policy_preserved": true,
+  "new_save_keys_added": false,
+  "project_godot_modified": false,
+  "player_gd_modified": false,
+  "player_stamina_modified": false,
+  "player_tscn_modified": false,
+  "raw_assets_modified": false,
+  "taco_scenes_modified": false,
+  "f10_geometry_proof_status": "FIX7C_section_and_note",
+  "runtime_validation_status": "not_run_godot_unavailable",
+  "static_validator_result": "PASS",
+  "known_limitations": [
+    "No live playtest in this pass.",
+    "Wall extent is tuned numerically, not from TileMap raycasts."
+  ],
+  "recommended_next_pass": "Playtest Taco RedesignTest; nudge offset X/Y or height if white-line choke still off.",
+  "manual_test_checklist": [
+    "Launch project; open Taco RedesignTest.",
+    "Verify vertical red beam left of prior FIX7B position.",
+    "F10: anchor found, offset (-380,-48), height 840, trigger (72,840), mismatch ~0.",
+    "Walk through beam: beam_trip +1, guard spawns.",
+    "Camera cone and wrong code still spawn guards.",
+    "No new Output errors."
+  ]
+}

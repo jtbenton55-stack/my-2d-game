@@ -1,0 +1,19 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "preserved_choke_x": "Identical to FIX7D (spawn_route_louis_return X or anchor X)",
+  "probe_y": "Midpoint (anchor.y + spawn_route_louis_return.y) / 2 when spawn marker exists; else anchor.y",
+  "collision_mask": 7,
+  "upper_boundary": "PhysicsRayQueryParameters2D from (choke_x, probe_y) toward Vector2.UP, length D6_FIX7E_RAY_PROBE_LENGTH",
+  "lower_boundary": "Same origin toward Vector2.DOWN",
+  "visual_span": "top_hit_y + VISUAL_OVERLAP to bottom_hit_y - VISUAL_OVERLAP (overlap 0)",
+  "trigger_span": "visual_top - TRIGGER_OVERLAP to visual_bottom + TRIGGER_OVERLAP",
+  "clamps": "If visual height < MIN or > MAX or degenerate hits → fallback numeric heights centered on probe_y",
+  "fallback_visual": "D6_FIX7E_FALLBACK_VISUAL_HEIGHT",
+  "fallback_trigger": "D6_FIX7E_FALLBACK_TRIGGER_HEIGHT",
+  "f10_proof": "fix7e_* runtime + debug summary keys + F10 block",
+  "hard_assertions": {
+    "collision_inner_gap_plan_created": true,
+    "visual_and_trigger_span_separated": true,
+    "giant_beam_prevention_defined": true
+  }
+}

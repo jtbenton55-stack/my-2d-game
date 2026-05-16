@@ -251,6 +251,70 @@ func _refresh_status() -> void:
 			str(rsum.get("ambush_beam_trigger_center", Vector2.ZERO)),
 			float(rsum.get("ambush_beam_visual_trigger_mismatch_px", -1.0)),
 		]
+		sec_lines += "\n--- FIX7D beam (collision) ---"
+		sec_lines += "\nBeam status: %s  orientation: %s" % [
+			str(rsum.get("fix7b_ambush_beam_status", rsum.get("beam_status", "-"))),
+			str(rsum.get("fix7b_ambush_beam_orientation", "-")),
+		]
+		sec_lines += "\nMode %s  collision_ok %s  fallback %s" % [
+			str(rsum.get("fix7d_ambush_beam_mode", "-")),
+			str(rsum.get("fix7d_collision_boundary_success", false)),
+			str(rsum.get("fix7d_fallback_used", false)),
+		]
+		sec_lines += "\nchoke_x %.0f  src %s  probe_y %.0f" % [
+			float(rsum.get("fix7d_choke_x", 0.0)),
+			str(rsum.get("fix7d_choke_source", "")),
+			float(rsum.get("fix7d_probe_y", 0.0)),
+		]
+		sec_lines += "\ntop_y %.0f  bottom_y %.0f  height %.0f" % [
+			float(rsum.get("fix7d_top_boundary_y", -1.0)),
+			float(rsum.get("fix7d_bottom_boundary_y", -1.0)),
+			float(rsum.get("fix7b_ambush_beam_height", 0.0)),
+		]
+		sec_lines += "\ncenter %s  anchor_delta %s" % [
+			str(rsum.get("fix7b_ambush_beam_center", Vector2.ZERO)),
+			str(rsum.get("fix7b_ambush_beam_center_offset", Vector2.ZERO)),
+		]
+		sec_lines += "\ntrigger %s  mismatch %.1fpx" % [
+			str(rsum.get("fix7b_ambush_beam_trigger_size", Vector2.ZERO)),
+			float(rsum.get("fix7b_ambush_beam_visual_trigger_mismatch_px", -1.0)),
+		]
+		var f7d_reason := str(rsum.get("fix7d_failure_reason", ""))
+		if f7d_reason != "":
+			sec_lines += "\nreason: %s" % f7d_reason
+		sec_lines += "\n%s" % str(rsum.get("beam_f10_fix7d_note", ""))
+		var f7d_fb := str(rsum.get("beam_f10_fix7d_fallback_warning", ""))
+		if f7d_fb != "":
+			sec_lines += "\n%s" % f7d_fb
+		sec_lines += "\n--- AMBUSH beam (FIX7E) ---"
+		sec_lines += "\nMode: %s" % str(rsum.get("fix7e_mode", "-"))
+		sec_lines += "\nCollision ok: %s  Fallback: %s" % [
+			str(rsum.get("fix7e_collision_ok", false)),
+			str(rsum.get("fix7e_fallback_used", false)),
+		]
+		sec_lines += "\nChoke X: %.0f  Probe Y: %.0f" % [
+			float(rsum.get("fix7e_choke_x", 0.0)),
+			float(rsum.get("fix7e_probe_y", 0.0)),
+		]
+		sec_lines += "\nTop hit Y: %.0f  Bottom hit Y: %.0f" % [
+			float(rsum.get("fix7e_top_hit_y", -1.0)),
+			float(rsum.get("fix7e_bottom_hit_y", -1.0)),
+		]
+		sec_lines += "\nVisual: top %.0f -> bottom %.0f  height %.0f" % [
+			float(rsum.get("fix7e_visual_top_y", 0.0)),
+			float(rsum.get("fix7e_visual_bottom_y", 0.0)),
+			float(rsum.get("fix7e_visual_height", 0.0)),
+		]
+		sec_lines += "\nTrigger: top %.0f -> bottom %.0f  height %.0f" % [
+			float(rsum.get("fix7e_trigger_top_y", 0.0)),
+			float(rsum.get("fix7e_trigger_bottom_y", 0.0)),
+			float(rsum.get("fix7e_trigger_height", 0.0)),
+		]
+		sec_lines += "\nMismatch: %.1fpx" % float(rsum.get("fix7e_visual_trigger_mismatch_px", -1.0))
+		var f7e_reason := str(rsum.get("fix7e_reason", ""))
+		if f7e_reason != "":
+			sec_lines += "\nReason: %s" % f7e_reason
+		sec_lines += "\n%s" % str(rsum.get("beam_f10_fix7e_instruction", ""))
 		sec_lines += "\n%s" % str(rsum.get("beam_f10_plain", "Beam: red line before bag room."))
 		sec_lines += "\n%s" % str(rsum.get("beam_f10_how_to_test", "Walk through red line to test."))
 		sec_lines += "\n%s" % str(rsum.get("heat_restart_audit_note", ""))

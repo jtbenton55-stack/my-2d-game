@@ -1,0 +1,9 @@
+{
+  "horizontal_beam_cause": "Line2D endpoints offset along X with unpositioned host; RectangleShape2D 170x52",
+  "visual_trigger_alignment_path": "_setup_fix7_ambush_beam_runtime -> _apply_fix7b_ambush_beam_rectangle_shape -> _attach_fix7_ambush_beam_visual",
+  "hard_assertions": {
+    "current_beam_geometry_audited": true,
+    "horizontal_beam_cause_identified": true,
+    "visual_trigger_alignment_path_identified": true
+  }
+}

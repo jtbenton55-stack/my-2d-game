@@ -1,0 +1,15 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "anchor_resolution": "_find_authoring_marker AMBUSH_security_beam then _find_runtime_debug_marker (FIX7A unchanged)",
+  "choke_x_source": "spawn_route_louis_return marker global X when present; else anchor X (same as FIX7D)",
+  "visual_top_bottom_pre_fix7e": "_probe_fix7d_vertical_wall_boundaries picked largest (dy-uy) across multiple probe Y; top_y = uy - 36, bottom_y = dy + 36 (D6_FIX7D_AMBUSH_BEAM_WALL_OVERLAP_PX)",
+  "trigger_pre_fix7e": "RectangleShape2D height equal to full expanded span; same center as beam",
+  "line2d_points": "Local (0,-half_h) to (0,half_h) on host at beam_center; half_h = height/2",
+  "root_cause_too_tall": "Largest-gap probe selection plus 36px overlap on both ends inflated span beyond local hallway choke; rays could lock to distant parallel walls.",
+  "beam_x_preservation": "FIX7E reuses identical choke_x resolution as FIX7D; no horizontal move",
+  "hard_assertions": {
+    "current_beam_geometry_audited": true,
+    "current_too_long_root_cause_identified": true,
+    "beam_x_preservation_plan_defined": true
+  }
+}

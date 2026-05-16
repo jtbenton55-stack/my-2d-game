@@ -1,0 +1,8 @@
+{
+  "hard_assertions": {
+    "static_validator_created": true,
+    "static_validator_run": true,
+    "static_validator_passed": true
+  },
+  "note": "Re-run after editing reports; validator overwrites static_validator_run.json."
+}

@@ -1,0 +1,8 @@
+{
+  "hard_assertions": {
+    "static_self_review_completed": true,
+    "no_forbidden_files_modified_or_justified": true,
+    "fix7a_anchor_resolver_preserved": true,
+    "four_guard_ambush_not_implemented": true
+  }
+}

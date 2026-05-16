@@ -1,0 +1,10 @@
+{
+  "D6_FIX7C_AMBUSH_BEAM_CENTER_OFFSET": [-380, -48],
+  "D6_FIX7C_AMBUSH_BEAM_HEIGHT": 840,
+  "D6_FIX7C_AMBUSH_BEAM_TRIGGER_SIZE": [72, 840],
+  "hard_assertions": {
+    "code_only_tune": true,
+    "anchor_resolution_preserved": true,
+    "beam_trigger_wiring_preserved": true
+  }
+}

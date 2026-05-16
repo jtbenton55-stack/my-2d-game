@@ -1,0 +1,10 @@
+{
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "hard_assertions": {
+    "repo_root_confirmed": true,
+    "branch_confirmed": true,
+    "fix7c_scope_only": true,
+    "protected_files_unchanged_intent": true,
+    "no_guard_search_camera_wrong_code_changes": true
+  }
+}

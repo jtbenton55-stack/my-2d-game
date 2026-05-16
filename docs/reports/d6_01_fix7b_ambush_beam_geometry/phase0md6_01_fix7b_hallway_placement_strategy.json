@@ -1,0 +1,10 @@
+{
+  "D6_FIX7B_AMBUSH_BEAM_CENTER_OFFSET": [-180, -48],
+  "D6_FIX7B_AMBUSH_BEAM_HEIGHT": 560,
+  "D6_FIX7B_AMBUSH_BEAM_TRIGGER_WIDTH": 56,
+  "hard_assertions": {
+    "hallway_placement_strategy_created": true,
+    "beam_center_offset_defined_or_not_needed": true,
+    "old_failed_coordinates_not_reused_blindly": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "godot_cli_available": false,
+  "playtest_executed": false,
+  "manual_validation_required": true,
+  "limitations": "Godot executable not on PATH in this environment; no automated headless playtest run. Beam height, wall clearance, beam_trip, and regressions require manual run in Godot 4.6.2.",
+  "hard_assertions": {
+    "runtime_validation_attempted": true,
+    "runtime_limitations_documented_if_any": true,
+    "beam_span_clamp_runtime_checked_or_manual_required": true
+  }
+}

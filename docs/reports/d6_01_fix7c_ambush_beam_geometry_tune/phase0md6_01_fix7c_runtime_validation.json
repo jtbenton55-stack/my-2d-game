@@ -1,0 +1,7 @@
+{
+  "godot_playtest_run": false,
+  "hard_assertions": {
+    "runtime_validation_documented": true,
+    "limitations_stated": true
+  }
+}

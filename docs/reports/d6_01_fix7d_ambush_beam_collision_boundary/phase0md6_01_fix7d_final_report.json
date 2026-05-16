@@ -1,0 +1,22 @@
+{
+  "overall_outcome": "PARTIAL",
+  "collision_boundary_method": "PhysicsDirectSpaceState2D.intersect_ray vertical up/down at choke_x; collision_mask=7; collide_with_bodies=true; wall overlap D6_FIX7D_AMBUSH_BEAM_WALL_OVERLAP_PX",
+  "fallback_used": null,
+  "choke_x": null,
+  "top_boundary_y": null,
+  "bottom_boundary_y": null,
+  "beam_center": null,
+  "beam_height": null,
+  "trigger_size": null,
+  "beam_trip_status": "wiring_preserved_unverified",
+  "beam_guard_spawn_status": "wiring_preserved_unverified",
+  "camera_guard_spawn_preserved": true,
+  "wrong_code_guard_spawn_preserved": true,
+  "project_godot_modified": false,
+  "runtime_validation_status": "not_run_automation",
+  "static_validator_result": "PASS",
+  "known_limitations": [
+    "Runtime values null in this JSON; see live F10 / fix7d_* runtime state.",
+    "If TileMap collision is not on mask 7, rays may miss and fallback triggers."
+  ]
+}

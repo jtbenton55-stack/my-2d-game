@@ -1,0 +1,9 @@
+{
+  "fix7b_offset": [-180, -48],
+  "fix7b_height": 560,
+  "fix7b_trigger": [56, 560],
+  "hard_assertions": {
+    "beam_geometry_audit_complete": true,
+    "trigger_visual_same_center_model": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "reviewed_files": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+  ],
+  "player_gd_touched": false,
+  "player_stamina_touched": false,
+  "project_godot_touched": false,
+  "scene_files_touched": false,
+  "assets_touched": false,
+  "new_save_keys": false,
+  "guard_spawn_logic_touched": false,
+  "hard_assertions": {
+    "static_self_review_completed": true,
+    "no_forbidden_files_modified": true,
+    "no_guard_camera_wrongcode_regression_edits": true
+  }
+}

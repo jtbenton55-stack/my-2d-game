@@ -45,6 +45,31 @@ const ALARM_STATE_SUSPICIOUS := "suspicious"
 const ALARM_STATE_ALERTED := "alerted"
 const ALARM_STATE_RESOLVED := "resolved"
 const ISO_MARKER_SCRIPT := preload("res://src/missions/iso/authoring/IsoMissionMarker.gd")
+## D6-01-FIX7D: collision-derived vertical beam (rays at choke X; wall overlap). No numeric choke guessing on success path.
+const D6_FIX7D_AMBUSH_BEAM_VISUAL_WIDTH := 32.0
+const D6_FIX7D_AMBUSH_BEAM_TRIGGER_WIDTH := 72.0
+## Slight penetration into TileMap/static collision so the line reads wall-to-wall.
+const D6_FIX7D_AMBUSH_BEAM_WALL_OVERLAP_PX := 36.0
+const D6_FIX7D_RAY_PROBE_LENGTH := 4200.0
+## Match player CharacterBody2D obstacle mask (see player.tscn collision_mask = 7).
+const D6_FIX7D_COLLISION_MASK := 7
+const D6_FIX7D_MIN_CORRIDOR_HEIGHT := 64.0
+## Emergency only — explicit fallback if vertical ray probes fail (F10 reports mode=fallback).
+const D6_FIX7D_FALLBACK_ANCHOR_OFFSET := Vector2(-380.0, -48.0)
+const D6_FIX7D_FALLBACK_HEIGHT := 840.0
+## D6-01-FIX7E: inner walkable A–B vertical span at choke X (single probe; no largest-gap sweep).
+## Visual uses inner collision hits; trigger extends slightly beyond visual for reliable beam_trip.
+const D6_FIX7E_AMBUSH_BEAM_VISUAL_WIDTH := 32.0
+const D6_FIX7E_AMBUSH_BEAM_TRIGGER_WIDTH := 72.0
+const D6_FIX7E_VISUAL_WALL_OVERLAP_PX := 0.0
+const D6_FIX7E_TRIGGER_WALL_OVERLAP_PX := 8.0
+const D6_FIX7E_RAY_PROBE_LENGTH := 2200.0
+const D6_FIX7E_COLLISION_MASK := 7
+const D6_FIX7E_MIN_VISUAL_HEIGHT := 96.0
+const D6_FIX7E_MAX_VISUAL_HEIGHT := 520.0
+const D6_FIX7E_FALLBACK_VISUAL_HEIGHT := 360.0
+const D6_FIX7E_FALLBACK_TRIGGER_HEIGHT := 400.0
+const D6_FIX7E_INNER_GAP_MIN_EPS := 4.0
 const MARKER_CATEGORIES: Array[String] = [
 	"Spawns",
 	"Objectives",
@@ -2335,10 +2360,8 @@ func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
 	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(resolved_alarm_id, area))
 	runtime.add_child(area)
 	_register_runtime("alarm_zones", resolved_alarm_id)
-	## FIX7A: do not create legacy coordinate/fallback visuals for garage_entry_beam.
-	## AMBUSH_security_beam is the only canonical visual anchor for this pass.
-	if resolved_alarm_id == "AMBUSH_security_beam":
-		_attach_fix7_ambush_beam_visual(area.global_position, area)
+	## FIX7A/FIX7E: AMBUSH_security_beam geometry is applied in `_setup_fix7_ambush_beam_runtime` (deferred)
+	## so anchor + collision-derived choke span stay the single source of truth. Avoid attaching here (spawn order vs deferred setup).
 
 
 ## D6-01-FIX6B: temporary visible red beam across far-right hallway before bag room.
@@ -2451,7 +2474,299 @@ func _remove_fix7_stale_temp_beam_nodes() -> void:
 		old_alias.queue_free()
 
 
+func _clear_fix7b_ambush_beam_runtime_state() -> void:
+	for k in [
+		"fix7b_ambush_beam_orientation",
+		"fix7b_ambush_beam_anchor_position",
+		"fix7b_ambush_beam_center",
+		"fix7b_ambush_beam_center_offset",
+		"fix7b_ambush_beam_visual_width",
+		"fix7b_ambush_beam_trigger_width",
+		"fix7b_ambush_beam_height",
+		"fix7b_ambush_beam_trigger_size",
+		"fix7b_ambush_beam_status",
+		"fix7b_ambush_beam_visual_path",
+		"fix7b_ambush_beam_trigger_path",
+		"fix7b_ambush_beam_visual_trigger_mismatch_px",
+		"fix7d_ambush_beam_mode",
+		"fix7d_collision_boundary_success",
+		"fix7d_choke_x",
+		"fix7d_choke_source",
+		"fix7d_probe_y",
+		"fix7d_top_boundary_y",
+		"fix7d_bottom_boundary_y",
+		"fix7d_failure_reason",
+		"fix7d_fallback_used",
+		"fix7e_mode",
+		"fix7e_collision_ok",
+		"fix7e_fallback_used",
+		"fix7e_choke_x",
+		"fix7e_probe_y",
+		"fix7e_top_hit_y",
+		"fix7e_bottom_hit_y",
+		"fix7e_visual_top_y",
+		"fix7e_visual_bottom_y",
+		"fix7e_visual_height",
+		"fix7e_trigger_top_y",
+		"fix7e_trigger_bottom_y",
+		"fix7e_trigger_height",
+		"fix7e_reason",
+		"fix7e_visual_trigger_mismatch_px",
+	]:
+		_attempt_runtime_state.erase(k)
+
+
+func _find_fix7d_spawn_route_louis_return_marker() -> Node2D:
+	var m := _find_authoring_marker("", "spawn_route_louis_return")
+	if m is Node2D:
+		return m as Node2D
+	m = _find_runtime_debug_marker("spawn_route_louis_return")
+	return m as Node2D
+
+
+func _raycast_fix7e_boundary(space: PhysicsDirectSpaceState2D, origin: Vector2, direction: Vector2, length: float) -> Dictionary:
+	var to := origin + direction.normalized() * length
+	var q := PhysicsRayQueryParameters2D.create(origin, to)
+	q.collision_mask = D6_FIX7E_COLLISION_MASK
+	q.collide_with_areas = false
+	q.collide_with_bodies = true
+	return space.intersect_ray(q)
+
+
+func _fix7e_finalize_fallback(out: Dictionary, choke_x: float, probe_y: float, mode: String, reason: String, rays_ok: bool) -> void:
+	out["mode"] = mode
+	out["fallback_used"] = true
+	out["success"] = false
+	out["collision_ok"] = rays_ok
+	out["reason"] = reason
+	var vh := D6_FIX7E_FALLBACK_VISUAL_HEIGHT
+	var th := D6_FIX7E_FALLBACK_TRIGGER_HEIGHT
+	out["visual_top_y"] = probe_y - vh * 0.5
+	out["visual_bottom_y"] = probe_y + vh * 0.5
+	out["visual_height"] = vh
+	out["trigger_top_y"] = probe_y - th * 0.5
+	out["trigger_bottom_y"] = probe_y + th * 0.5
+	out["trigger_height"] = th
+	out["center"] = Vector2(choke_x, probe_y)
+
+
+func _compute_fix7e_ambush_beam_inner_gap(anchor_pos: Vector2) -> Dictionary:
+	var out := {
+		"mode": "fallback_missing_collision",
+		"collision_ok": false,
+		"fallback_used": true,
+		"success": false,
+		"choke_x": anchor_pos.x,
+		"choke_source": "",
+		"probe_y": anchor_pos.y,
+		"top_hit_y": -1.0,
+		"bottom_hit_y": -1.0,
+		"visual_top_y": 0.0,
+		"visual_bottom_y": 0.0,
+		"visual_height": D6_FIX7E_FALLBACK_VISUAL_HEIGHT,
+		"trigger_top_y": 0.0,
+		"trigger_bottom_y": 0.0,
+		"trigger_height": D6_FIX7E_FALLBACK_TRIGGER_HEIGHT,
+		"center": Vector2(anchor_pos.x, anchor_pos.y),
+		"reason": "",
+	}
+	var choke_x := anchor_pos.x
+	var choke_src := "anchor_x_only_spawn_marker_missing"
+	var spawn_m := _find_fix7d_spawn_route_louis_return_marker()
+	if spawn_m is Node2D:
+		choke_x = (spawn_m as Node2D).global_position.x
+		choke_src = "spawn_route_louis_return"
+	var probe_y := anchor_pos.y
+	if spawn_m is Node2D:
+		var sy := (spawn_m as Node2D).global_position.y
+		probe_y = (anchor_pos.y + sy) * 0.5
+	out["choke_x"] = choke_x
+	out["choke_source"] = choke_src
+	out["probe_y"] = probe_y
+	var w2d := get_world_2d()
+	if w2d == null:
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_missing_collision", "world_2d_null", false)
+		return out
+	var space := w2d.direct_space_state
+	if space == null:
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_missing_collision", "direct_space_state_null", false)
+		return out
+	var from := Vector2(choke_x, probe_y)
+	var up := _raycast_fix7e_boundary(space, from, Vector2.UP, D6_FIX7E_RAY_PROBE_LENGTH)
+	var dn := _raycast_fix7e_boundary(space, from, Vector2.DOWN, D6_FIX7E_RAY_PROBE_LENGTH)
+	if up.is_empty() or dn.is_empty():
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_missing_collision", "vertical_ray_miss_one_or_both_directions", false)
+		return out
+	var top_hit: float = up.position.y
+	var bottom_hit: float = dn.position.y
+	out["top_hit_y"] = top_hit
+	out["bottom_hit_y"] = bottom_hit
+	if bottom_hit <= top_hit + D6_FIX7E_INNER_GAP_MIN_EPS:
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_clamped", "corridor_hit_order_inverted_or_degenerate", false)
+		return out
+	var v_top := top_hit + D6_FIX7E_VISUAL_WALL_OVERLAP_PX
+	var v_bottom := bottom_hit - D6_FIX7E_VISUAL_WALL_OVERLAP_PX
+	var v_h: float = v_bottom - v_top
+	if v_h < D6_FIX7E_MIN_VISUAL_HEIGHT:
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_clamped", "collision_inner_gap_too_small", true)
+		return out
+	if v_h > D6_FIX7E_MAX_VISUAL_HEIGHT:
+		_fix7e_finalize_fallback(out, choke_x, probe_y, "fallback_clamped", "collision_inner_gap_exceeds_max_clamped", true)
+		return out
+	out["mode"] = "collision_inner_gap"
+	out["collision_ok"] = true
+	out["fallback_used"] = false
+	out["success"] = true
+	out["reason"] = ""
+	out["visual_top_y"] = v_top
+	out["visual_bottom_y"] = v_bottom
+	out["visual_height"] = v_h
+	out["trigger_top_y"] = v_top - D6_FIX7E_TRIGGER_WALL_OVERLAP_PX
+	out["trigger_bottom_y"] = v_bottom + D6_FIX7E_TRIGGER_WALL_OVERLAP_PX
+	var tr_top: float = float(out["trigger_top_y"])
+	var tr_bot: float = float(out["trigger_bottom_y"])
+	out["trigger_height"] = tr_bot - tr_top
+	out["center"] = Vector2(choke_x, (v_top + v_bottom) * 0.5)
+	return out
+
+
+func _apply_fix7e_ambush_beam_geometry(beam_area: Area2D, _beam_visual_host: Node2D, geom: Dictionary) -> void:
+	if beam_area == null:
+		return
+	var th := float(geom.get("trigger_height", D6_FIX7E_FALLBACK_TRIGGER_HEIGHT))
+	_apply_fix7d_ambush_beam_rectangle_shape(beam_area, Vector2(D6_FIX7E_AMBUSH_BEAM_TRIGGER_WIDTH, th))
+
+
+func _fix7d_intersect_vertical_ray(space: PhysicsDirectSpaceState2D, from: Vector2, upward: bool) -> Dictionary:
+	var to := from + Vector2(0.0, -D6_FIX7D_RAY_PROBE_LENGTH if upward else D6_FIX7D_RAY_PROBE_LENGTH)
+	var q := PhysicsRayQueryParameters2D.create(from, to)
+	q.collision_mask = D6_FIX7D_COLLISION_MASK
+	q.collide_with_areas = false
+	q.collide_with_bodies = true
+	return space.intersect_ray(q)
+
+
+func _probe_fix7d_vertical_wall_boundaries(space: PhysicsDirectSpaceState2D, choke_x: float, probe_ys: Array) -> Dictionary:
+	var best_gap := -1.0
+	var best: Dictionary = {}
+	for probe_y in probe_ys:
+		var from := Vector2(choke_x, float(probe_y))
+		var up := _fix7d_intersect_vertical_ray(space, from, true)
+		var dn := _fix7d_intersect_vertical_ray(space, from, false)
+		if up.is_empty() or dn.is_empty():
+			continue
+		var uy: float = up.position.y
+		var dy: float = dn.position.y
+		if dy <= uy + D6_FIX7D_MIN_CORRIDOR_HEIGHT:
+			continue
+		var gap: float = dy - uy
+		if gap > best_gap:
+			best_gap = gap
+			best = {"probe_y": float(probe_y), "uy": uy, "dy": dy, "from": from}
+	if best.is_empty():
+		return {}
+	var top_y: float = float(best["uy"]) - D6_FIX7D_AMBUSH_BEAM_WALL_OVERLAP_PX
+	var bottom_y: float = float(best["dy"]) + D6_FIX7D_AMBUSH_BEAM_WALL_OVERLAP_PX
+	best["top_y"] = top_y
+	best["bottom_y"] = bottom_y
+	return best
+
+
+func _compute_fix7d_ambush_beam_from_collision(anchor_pos: Vector2) -> Dictionary:
+	var out := {
+		"success": false,
+		"mode": "fallback",
+		"reason": "",
+		"anchor_pos": anchor_pos,
+		"choke_x": anchor_pos.x,
+		"choke_source": "",
+		"probe_y": anchor_pos.y,
+		"top_y": 0.0,
+		"bottom_y": 0.0,
+		"center": Vector2.ZERO,
+		"height": D6_FIX7D_FALLBACK_HEIGHT,
+		"trigger_size": Vector2(D6_FIX7D_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7D_FALLBACK_HEIGHT),
+	}
+	var w2d := get_world_2d()
+	if w2d == null:
+		out["reason"] = "world_2d_null"
+		return out
+	var space := w2d.direct_space_state
+	if space == null:
+		out["reason"] = "direct_space_state_null"
+		return out
+	var choke_src := ""
+	var choke_x := anchor_pos.x
+	var spawn_m := _find_fix7d_spawn_route_louis_return_marker()
+	if spawn_m is Node2D:
+		choke_x = (spawn_m as Node2D).global_position.x
+		choke_src = "spawn_route_louis_return"
+	else:
+		choke_src = "anchor_x_only_spawn_marker_missing"
+	var probe_ys: Array = [anchor_pos.y]
+	if spawn_m is Node2D:
+		var sy := (spawn_m as Node2D).global_position.y
+		probe_ys.append(sy)
+		probe_ys.append((sy + anchor_pos.y) * 0.5)
+	var probe_result := _probe_fix7d_vertical_wall_boundaries(space, choke_x, probe_ys)
+	if probe_result.is_empty():
+		out["reason"] = "vertical_rays_did_not_hit_both_walls_or_corridor_too_narrow"
+		out["choke_x"] = choke_x
+		out["choke_source"] = choke_src
+		out["top_y"] = -1.0
+		out["bottom_y"] = -1.0
+		out["center"] = anchor_pos + D6_FIX7D_FALLBACK_ANCHOR_OFFSET
+		out["height"] = D6_FIX7D_FALLBACK_HEIGHT
+		out["trigger_size"] = Vector2(D6_FIX7D_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7D_FALLBACK_HEIGHT)
+		out["mode"] = "fallback"
+		return out
+	var top_y: float = float(probe_result["top_y"])
+	var bottom_y: float = float(probe_result["bottom_y"])
+	var height: float = bottom_y - top_y
+	if height < D6_FIX7D_MIN_CORRIDOR_HEIGHT:
+		out["reason"] = "computed_height_below_minimum"
+		out["choke_x"] = choke_x
+		out["choke_source"] = choke_src
+		out["top_y"] = top_y
+		out["bottom_y"] = bottom_y
+		out["center"] = anchor_pos + D6_FIX7D_FALLBACK_ANCHOR_OFFSET
+		out["height"] = D6_FIX7D_FALLBACK_HEIGHT
+		out["trigger_size"] = Vector2(D6_FIX7D_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7D_FALLBACK_HEIGHT)
+		out["mode"] = "fallback"
+		return out
+	var center := Vector2(choke_x, (top_y + bottom_y) * 0.5)
+	out["success"] = true
+	out["mode"] = "collision_boundary"
+	out["reason"] = ""
+	out["choke_x"] = choke_x
+	out["choke_source"] = choke_src
+	out["probe_y"] = float(probe_result["probe_y"])
+	out["top_y"] = top_y
+	out["bottom_y"] = bottom_y
+	out["center"] = center
+	out["height"] = height
+	out["trigger_size"] = Vector2(D6_FIX7D_AMBUSH_BEAM_TRIGGER_WIDTH, height)
+	return out
+
+
+func _apply_fix7d_ambush_beam_rectangle_shape(area: Area2D, sz: Vector2) -> void:
+	if area == null:
+		return
+	for child in area.get_children():
+		if child is CollisionShape2D:
+			var cs := child as CollisionShape2D
+			if cs.shape is RectangleShape2D:
+				(cs.shape as RectangleShape2D).size = sz
+				return
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = sz
+	shape.shape = rect
+	area.add_child(shape)
+
+
 ## D6-01-FIX7: canonical AMBUSH beam rebuild. Only AMBUSH_security_beam is used as anchor.
+## D6-01-FIX7E: choke X unchanged from FIX7D; vertical span = inner collision gap at one probe Y (not largest-gap sweep).
 func _setup_fix7_ambush_beam_runtime() -> void:
 	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
 		return
@@ -2461,6 +2776,7 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		ambush_anchor = _find_runtime_debug_marker("AMBUSH_security_beam")
 		anchor_resolution_source = "runtime_debug_interactable_or_label"
 	if not (ambush_anchor is Node2D):
+		_clear_fix7b_ambush_beam_runtime_state()
 		_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = false
 		_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = "missing"
 		_attempt_runtime_state["fix7_ambush_beam_anchor_resolve_source"] = "missing"
@@ -2471,14 +2787,53 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		_attempt_runtime_state["fix7_ambush_beam_status"] = "missing_anchor"
 		return
 	var anchor_pos := (ambush_anchor as Node2D).global_position
+	var geom := _compute_fix7e_ambush_beam_inner_gap(anchor_pos)
+	var beam_center: Vector2 = geom.get("center", Vector2.ZERO)
+	var visual_h: float = float(geom.get("visual_height", 0.0))
+	var trig_h: float = float(geom.get("trigger_height", D6_FIX7E_FALLBACK_TRIGGER_HEIGHT))
+	var trig_sz := Vector2(D6_FIX7E_AMBUSH_BEAM_TRIGGER_WIDTH, trig_h)
+	var computed_offset: Vector2 = beam_center - anchor_pos
 	_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = true
 	_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = String((ambush_anchor as Node2D).get_path())
 	_attempt_runtime_state["fix7_ambush_beam_anchor_resolve_source"] = anchor_resolution_source
 	_attempt_runtime_state["fix7_ambush_beam_anchor_position"] = anchor_pos
+	_attempt_runtime_state["fix7b_ambush_beam_orientation"] = "vertical"
+	_attempt_runtime_state["fix7b_ambush_beam_anchor_position"] = anchor_pos
+	_attempt_runtime_state["fix7b_ambush_beam_center"] = beam_center
+	_attempt_runtime_state["fix7b_ambush_beam_center_offset"] = computed_offset
+	_attempt_runtime_state["fix7b_ambush_beam_visual_width"] = D6_FIX7E_AMBUSH_BEAM_VISUAL_WIDTH
+	_attempt_runtime_state["fix7b_ambush_beam_trigger_width"] = trig_sz.x
+	_attempt_runtime_state["fix7b_ambush_beam_height"] = visual_h
+	_attempt_runtime_state["fix7b_ambush_beam_trigger_size"] = trig_sz
+	_attempt_runtime_state["fix7d_ambush_beam_mode"] = String(geom.get("mode", "unknown"))
+	_attempt_runtime_state["fix7d_collision_boundary_success"] = bool(geom.get("collision_ok", false))
+	_attempt_runtime_state["fix7d_choke_x"] = float(geom.get("choke_x", 0.0))
+	_attempt_runtime_state["fix7d_choke_source"] = String(geom.get("choke_source", ""))
+	_attempt_runtime_state["fix7d_probe_y"] = float(geom.get("probe_y", 0.0))
+	_attempt_runtime_state["fix7d_top_boundary_y"] = float(geom.get("visual_top_y", -1.0))
+	_attempt_runtime_state["fix7d_bottom_boundary_y"] = float(geom.get("visual_bottom_y", -1.0))
+	_attempt_runtime_state["fix7d_failure_reason"] = String(geom.get("reason", ""))
+	_attempt_runtime_state["fix7d_fallback_used"] = bool(geom.get("fallback_used", true))
+	_attempt_runtime_state["fix7e_mode"] = String(geom.get("mode", "unknown"))
+	_attempt_runtime_state["fix7e_collision_ok"] = bool(geom.get("collision_ok", false))
+	_attempt_runtime_state["fix7e_fallback_used"] = bool(geom.get("fallback_used", true))
+	_attempt_runtime_state["fix7e_choke_x"] = float(geom.get("choke_x", 0.0))
+	_attempt_runtime_state["fix7e_probe_y"] = float(geom.get("probe_y", 0.0))
+	_attempt_runtime_state["fix7e_top_hit_y"] = float(geom.get("top_hit_y", -1.0))
+	_attempt_runtime_state["fix7e_bottom_hit_y"] = float(geom.get("bottom_hit_y", -1.0))
+	_attempt_runtime_state["fix7e_visual_top_y"] = float(geom.get("visual_top_y", 0.0))
+	_attempt_runtime_state["fix7e_visual_bottom_y"] = float(geom.get("visual_bottom_y", 0.0))
+	_attempt_runtime_state["fix7e_visual_height"] = visual_h
+	_attempt_runtime_state["fix7e_trigger_top_y"] = float(geom.get("trigger_top_y", 0.0))
+	_attempt_runtime_state["fix7e_trigger_bottom_y"] = float(geom.get("trigger_bottom_y", 0.0))
+	_attempt_runtime_state["fix7e_trigger_height"] = trig_h
+	_attempt_runtime_state["fix7e_reason"] = String(geom.get("reason", ""))
+	_attempt_runtime_state["fix7e_visual_trigger_mismatch_px"] = -1.0
 	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
 	if alarm_zones == null:
 		_attempt_runtime_state["fix7_ambush_beam_status"] = "visual_only_no_alarm_zone_parent"
-		_attach_fix7_ambush_beam_visual(anchor_pos, null)
+		_attempt_runtime_state["fix7b_ambush_beam_status"] = "visual_only_no_alarm_zone_parent"
+		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5)
 		return
 	var beam_area := alarm_zones.get_node_or_null("AlarmZone_AMBUSH_security_beam") as Area2D
 	if beam_area == null:
@@ -2486,15 +2841,12 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		beam_area.name = "AlarmZone_AMBUSH_security_beam"
 		beam_area.collision_layer = 0
 		beam_area.collision_mask = 1
-		var shape := CollisionShape2D.new()
-		var rect := RectangleShape2D.new()
-		rect.size = Vector2(170, 52)
-		shape.shape = rect
-		beam_area.add_child(shape)
 		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind("AMBUSH_security_beam", beam_area))
 		alarm_zones.add_child(beam_area)
-	beam_area.global_position = anchor_pos
-	_attach_fix7_ambush_beam_visual(anchor_pos, beam_area)
+	_apply_fix7e_ambush_beam_geometry(beam_area, null, geom)
+	beam_area.global_position = beam_center
+	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5)
+	_attempt_runtime_state["fix7e_visual_trigger_mismatch_px"] = float(_attempt_runtime_state.get("fix7_ambush_beam_visual_trigger_mismatch_px", -1.0))
 
 
 ## D6-01-FIX7A: locate generated runtime marker nodes not included in authoring index.
@@ -2530,7 +2882,8 @@ func _find_runtime_debug_marker(marker_id: String) -> Node2D:
 	return null
 
 
-func _attach_fix7_ambush_beam_visual(anchor_pos: Vector2, beam_area: Area2D) -> void:
+## Shared beam center for Line2D host + AlarmZone; half_height = FIX7E visual span / 2.
+func _attach_fix7_ambush_beam_visual(beam_center: Vector2, beam_area: Area2D, beam_half_height: float) -> void:
 	var root := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
 	if root == null:
 		return
@@ -2542,40 +2895,47 @@ func _attach_fix7_ambush_beam_visual(anchor_pos: Vector2, beam_area: Area2D) -> 
 	host.set_meta("D6_FIX7_TEMP_AMBUSH_SECURITY_BEAM_REMOVE_OR_FINALIZE_IN_LEVEL_PASS", true)
 	host.z_index = 2600
 	root.add_child(host)
-	var half_len := 92.0
-	var pos_a := anchor_pos + Vector2(-half_len, 0)
-	var pos_b := anchor_pos + Vector2(half_len, 0)
+	host.global_position = beam_center
+	var half_h := beam_half_height
 	var line := Line2D.new()
 	line.name = "AmbushBeamLine"
-	line.width = 34.0
+	line.width = D6_FIX7E_AMBUSH_BEAM_VISUAL_WIDTH
 	line.default_color = Color(1.0, 0.0, 0.0, 1.0)
+	line.joint_mode = Line2D.LINE_JOINT_ROUND
 	line.z_index = 2601
-	line.add_point(host.to_local(pos_a))
-	line.add_point(host.to_local(pos_b))
+	line.add_point(Vector2(0.0, -half_h))
+	line.add_point(Vector2(0.0, half_h))
 	host.add_child(line)
 	var label := Label.new()
 	label.name = "AmbushBeamLabel"
 	label.text = "SECURITY BEAM"
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", 16)
-	label.position = host.to_local(anchor_pos) + Vector2(-80, -58)
+	label.position = Vector2(-80.0, -half_h - 58.0)
 	label.z_index = 2602
 	host.add_child(label)
-	var beacon_l := Node2D.new()
-	beacon_l.name = "AmbushBeamEndLeft"
-	beacon_l.position = host.to_local(pos_a)
-	host.add_child(beacon_l)
-	var beacon_r := Node2D.new()
-	beacon_r.name = "AmbushBeamEndRight"
-	beacon_r.position = host.to_local(pos_b)
-	host.add_child(beacon_r)
-	_attempt_runtime_state["fix7_ambush_beam_visual_center"] = anchor_pos
-	_attempt_runtime_state["fix7_ambush_beam_trigger_center"] = beam_area.global_position if beam_area != null else anchor_pos
-	var mismatch := 0.0
-	if beam_area != null:
-		mismatch = beam_area.global_position.distance_to(anchor_pos)
+	var beacon_t := Node2D.new()
+	beacon_t.name = "AmbushBeamEndTop"
+	beacon_t.position = Vector2(0.0, -half_h)
+	host.add_child(beacon_t)
+	var beacon_b := Node2D.new()
+	beacon_b.name = "AmbushBeamEndBottom"
+	beacon_b.position = Vector2(0.0, half_h)
+	host.add_child(beacon_b)
+	var visual_center := beam_center
+	var trigger_center := beam_center if beam_area == null else beam_area.global_position
+	var mismatch: float = visual_center.distance_to(trigger_center)
+	_attempt_runtime_state["fix7_ambush_beam_visual_center"] = visual_center
+	_attempt_runtime_state["fix7_ambush_beam_trigger_center"] = trigger_center
 	_attempt_runtime_state["fix7_ambush_beam_visual_trigger_mismatch_px"] = mismatch
-	_attempt_runtime_state["fix7_ambush_beam_status"] = "armed" if beam_area != null else "visual_only"
+	var fix7b_stat := "armed" if beam_area != null else "visual_only"
+	if beam_area == null and get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") == null:
+		fix7b_stat = "visual_only_no_alarm_zone_parent"
+	_attempt_runtime_state["fix7_ambush_beam_status"] = fix7b_stat
+	_attempt_runtime_state["fix7b_ambush_beam_status"] = fix7b_stat
+	_attempt_runtime_state["fix7b_ambush_beam_visual_trigger_mismatch_px"] = mismatch
+	_attempt_runtime_state["fix7b_ambush_beam_visual_path"] = str(host.get_path()) + "/" + line.name
+	_attempt_runtime_state["fix7b_ambush_beam_trigger_path"] = str(beam_area.get_path()) if beam_area != null else "none"
 
 
 ## D6-01-FIX6B: place beam immediately before the bag room (far-right hallway).
@@ -2606,7 +2966,11 @@ func _compute_beam_player_relationship() -> Dictionary:
 		return {"distance": -1.0, "direction": "no_player", "center": Vector2.ZERO}
 	if _attempt_runtime_state.get("fix7_ambush_beam_anchor_found", false) != true:
 		return {"distance": -1.0, "direction": "missing_anchor", "center": Vector2.ZERO}
-	var beam_center: Vector2 = _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO)
+	var beam_center: Vector2
+	if _attempt_runtime_state.has("fix7b_ambush_beam_center"):
+		beam_center = _attempt_runtime_state["fix7b_ambush_beam_center"]
+	else:
+		beam_center = _attempt_runtime_state.get("fix7_ambush_beam_anchor_position", Vector2.ZERO)
 	var to_beam := beam_center - player_node.global_position
 	var distance: float = to_beam.length()
 	var angle: float = to_beam.angle()
@@ -3001,8 +3365,10 @@ func _runtime_debug_summary() -> Dictionary:
 		"garage_beam_triggered": _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
 		"beam_alarm_id": "garage_entry_beam",
 		"beam_runtime_node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
-		"beam_f10_plain": "Beam: FIX7 uses AMBUSH_security_beam only. Walk through red line at anchor.",
-		"beam_f10_how_to_test": "Test: go to AMBUSH_security_beam and walk through red line. beam_trip +1 once.",
+		"beam_f10_plain": "Beam: FIX7E inner A-B vertical gap at choke X (single probe rays, mask=7). Mid-run alarm only.",
+		"beam_f10_fix7d_note": "FIX7E: visual = inner collision hits (no FIX7D largest-gap sweep); trigger extends by trigger_wall_overlap.",
+		"beam_f10_fix7d_fallback_warning": "FIX7E using fallback or clamped span — check FIX7E reason on F10." if bool(_attempt_runtime_state.get("fix7e_fallback_used", false)) else "",
+		"beam_f10_how_to_test": "Test: walk through vertical red beam at AMBUSH_security_beam choke. beam_trip +1 once.",
 		"beam_distance_from_player": beam_info.get("distance", -1.0),
 		"beam_direction_from_player": beam_info.get("direction", "unknown"),
 		"beam_center_position": beam_info.get("center", Vector2.ZERO),
@@ -3035,8 +3401,39 @@ func _runtime_debug_summary() -> Dictionary:
 		"ambush_beam_visual_center": _attempt_runtime_state.get("fix7_ambush_beam_visual_center", Vector2.ZERO),
 		"ambush_beam_trigger_center": _attempt_runtime_state.get("fix7_ambush_beam_trigger_center", Vector2.ZERO),
 		"ambush_beam_visual_trigger_mismatch_px": float(_attempt_runtime_state.get("fix7_ambush_beam_visual_trigger_mismatch_px", -1.0)),
-		## D6-01-FIX6B: search net and lifecycle debug.
-		"search_net_heat": heat,
+		"fix7b_ambush_beam_orientation": String(_attempt_runtime_state.get("fix7b_ambush_beam_orientation", "unknown")),
+		"fix7b_ambush_beam_center": _attempt_runtime_state.get("fix7b_ambush_beam_center", Vector2.ZERO),
+		"fix7b_ambush_beam_center_offset": _attempt_runtime_state.get("fix7b_ambush_beam_center_offset", Vector2.ZERO),
+		"fix7b_ambush_beam_height": float(_attempt_runtime_state.get("fix7b_ambush_beam_height", 0.0)),
+		"fix7b_ambush_beam_visual_width": float(_attempt_runtime_state.get("fix7b_ambush_beam_visual_width", 0.0)),
+		"fix7b_ambush_beam_trigger_size": _attempt_runtime_state.get("fix7b_ambush_beam_trigger_size", Vector2.ZERO),
+		"fix7b_ambush_beam_visual_trigger_mismatch_px": float(_attempt_runtime_state.get("fix7b_ambush_beam_visual_trigger_mismatch_px", -1.0)),
+		"fix7b_ambush_beam_status": String(_attempt_runtime_state.get("fix7b_ambush_beam_status", "unknown")),
+		"fix7d_ambush_beam_mode": String(_attempt_runtime_state.get("fix7d_ambush_beam_mode", "unknown")),
+		"fix7d_collision_boundary_success": _attempt_runtime_state.get("fix7d_collision_boundary_success", false),
+		"fix7d_choke_x": float(_attempt_runtime_state.get("fix7d_choke_x", 0.0)),
+		"fix7d_choke_source": String(_attempt_runtime_state.get("fix7d_choke_source", "")),
+		"fix7d_probe_y": float(_attempt_runtime_state.get("fix7d_probe_y", 0.0)),
+		"fix7d_top_boundary_y": float(_attempt_runtime_state.get("fix7d_top_boundary_y", -1.0)),
+		"fix7d_bottom_boundary_y": float(_attempt_runtime_state.get("fix7d_bottom_boundary_y", -1.0)),
+		"fix7d_failure_reason": String(_attempt_runtime_state.get("fix7d_failure_reason", "")),
+		"fix7d_fallback_used": _attempt_runtime_state.get("fix7d_fallback_used", false),
+		"fix7e_mode": String(_attempt_runtime_state.get("fix7e_mode", "")),
+		"fix7e_collision_ok": _attempt_runtime_state.get("fix7e_collision_ok", false),
+		"fix7e_fallback_used": _attempt_runtime_state.get("fix7e_fallback_used", false),
+		"fix7e_choke_x": float(_attempt_runtime_state.get("fix7e_choke_x", 0.0)),
+		"fix7e_probe_y": float(_attempt_runtime_state.get("fix7e_probe_y", 0.0)),
+		"fix7e_top_hit_y": float(_attempt_runtime_state.get("fix7e_top_hit_y", -1.0)),
+		"fix7e_bottom_hit_y": float(_attempt_runtime_state.get("fix7e_bottom_hit_y", -1.0)),
+		"fix7e_visual_top_y": float(_attempt_runtime_state.get("fix7e_visual_top_y", 0.0)),
+		"fix7e_visual_bottom_y": float(_attempt_runtime_state.get("fix7e_visual_bottom_y", 0.0)),
+		"fix7e_visual_height": float(_attempt_runtime_state.get("fix7e_visual_height", 0.0)),
+		"fix7e_trigger_top_y": float(_attempt_runtime_state.get("fix7e_trigger_top_y", 0.0)),
+		"fix7e_trigger_bottom_y": float(_attempt_runtime_state.get("fix7e_trigger_bottom_y", 0.0)),
+		"fix7e_trigger_height": float(_attempt_runtime_state.get("fix7e_trigger_height", 0.0)),
+		"fix7e_reason": String(_attempt_runtime_state.get("fix7e_reason", "")),
+		"fix7e_visual_trigger_mismatch_px": float(_attempt_runtime_state.get("fix7e_visual_trigger_mismatch_px", -1.0)),
+		"beam_f10_fix7e_instruction": "Beam should span only A-B inner hallway gap, not through walls.",
 		"search_net_last_role": last_role,
 		"search_net_last_ordinal": last_ordinal,
 		"search_net_last_heat_at_spawn": last_heat_at_spawn,

@@ -1,0 +1,38 @@
+{
+  "phase": "0M-D6-01-FIX7E",
+  "files_changed_code": [
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
+  ],
+  "functions_added": [
+    "_raycast_fix7e_boundary",
+    "_fix7e_finalize_fallback",
+    "_compute_fix7e_ambush_beam_inner_gap",
+    "_apply_fix7e_ambush_beam_geometry"
+  ],
+  "setup_change": "_setup_fix7_ambush_beam_runtime calls _compute_fix7e_ambush_beam_inner_gap; visual half-height from visual_height; trigger from trigger_height",
+  "runtime_state_keys": [
+    "fix7e_mode",
+    "fix7e_collision_ok",
+    "fix7e_fallback_used",
+    "fix7e_choke_x",
+    "fix7e_probe_y",
+    "fix7e_top_hit_y",
+    "fix7e_bottom_hit_y",
+    "fix7e_visual_top_y",
+    "fix7e_visual_bottom_y",
+    "fix7e_visual_height",
+    "fix7e_trigger_top_y",
+    "fix7e_trigger_bottom_y",
+    "fix7e_trigger_height",
+    "fix7e_reason",
+    "fix7e_visual_trigger_mismatch_px"
+  ],
+  "hard_assertions": {
+    "fix7e_inner_gap_implemented": true,
+    "beam_x_preserved": true,
+    "visual_span_no_longer_uses_giant_height": true,
+    "visual_and_trigger_spans_separated": true,
+    "guard_camera_wrongcode_untouched": true
+  }
+}

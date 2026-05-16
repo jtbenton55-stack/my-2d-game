@@ -1,0 +1,16 @@
+{
+  "constants": {
+    "orientation": "vertical",
+    "visual_width": 32,
+    "trigger_width": 56,
+    "height": 560,
+    "center_offset": [-180, -48]
+  },
+  "hard_assertions": {
+    "vertical_beam_implemented": true,
+    "visual_and_trigger_share_center": true,
+    "trigger_shape_vertical": true,
+    "visual_line_vertical": true,
+    "four_guard_ambush_not_implemented": true
+  }
+}

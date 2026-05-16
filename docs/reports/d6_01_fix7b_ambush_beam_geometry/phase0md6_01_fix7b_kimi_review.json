@@ -1,0 +1,9 @@
+{
+  "kimi_used": false,
+  "skip_reason": "Narrow geometry pass; local Godot coordinate-space reasoning sufficient.",
+  "hard_assertions": {
+    "kimi_review_attempted_or_skipped_documented": true,
+    "no_secrets_sent_to_kimi": true,
+    "kimi_advice_reconciled_or_unavailable": true
+  }
+}
