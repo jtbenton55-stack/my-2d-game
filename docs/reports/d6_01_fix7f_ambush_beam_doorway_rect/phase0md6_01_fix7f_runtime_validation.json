@@ -1,0 +1,29 @@
+{
+  "pass_id": "0M-D6-01-FIX7F",
+  "godot_mcp_pro_used": true,
+  "scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "autonomous_playtest": true,
+  "screenshot": "user://fix7f_beam_validation.png",
+  "runtime_probe_after_fix": {
+    "fix7f_mode": "doorway_rect",
+    "fix7f_success": true,
+    "fix7f_fallback_used": false,
+    "fix7f_seed_x": 8225.0,
+    "fix7f_chosen_x": 8225.0,
+    "fix7f_x_shift_from_seed": 0.0,
+    "fix7f_visual_height": 170.0,
+    "fix7f_visual_top_y": 619.0,
+    "fix7f_visual_bottom_y": 789.0,
+    "fix7f_candidate_count": 294,
+    "fix7f_rejected_missing_hits": 249,
+    "fix7f_rejected_visual_overlap": 0,
+    "beam_host_position": [8225.0, 704.0],
+    "zone_trigger_size": [72.0, 186.0],
+    "line_local_span": "(-85, 85)"
+  },
+  "beam_trip_automated": "not_confirmed — teleport did not increment counter; zone exists at expected center",
+  "godot_lsp_diagnostics": "IsoMissionBase.gd — no issues after edit",
+  "gdunit4": "not_run — no narrow FIX7F unit test added",
+  "godot_dap": "not_used",
+  "kimi_used": false
+}

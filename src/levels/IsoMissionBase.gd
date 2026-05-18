@@ -70,6 +70,29 @@ const D6_FIX7E_MAX_VISUAL_HEIGHT := 520.0
 const D6_FIX7E_FALLBACK_VISUAL_HEIGHT := 360.0
 const D6_FIX7E_FALLBACK_TRIGGER_HEIGHT := 400.0
 const D6_FIX7E_INNER_GAP_MIN_EPS := 4.0
+## D6-01-FIX7F: search doorway rectangle (candidate X/Y grid + shape overlap rejection).
+const D6_FIX7F_AMBUSH_BEAM_VISUAL_WIDTH := 32.0
+const D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH := 72.0
+const D6_FIX7F_VISUAL_WALL_OVERLAP_PX := 0.0
+const D6_FIX7F_TRIGGER_WALL_OVERLAP_PX := 8.0
+const D6_FIX7F_RAY_PROBE_LENGTH := 180.0
+const D6_FIX7F_COLLISION_MASK := 7
+const D6_FIX7F_MIN_VISUAL_HEIGHT := 48.0
+const D6_FIX7F_MAX_VISUAL_HEIGHT := 520.0
+const D6_FIX7F_FALLBACK_VISUAL_HEIGHT := 280.0
+const D6_FIX7F_FALLBACK_TRIGGER_HEIGHT := 296.0
+const D6_FIX7F_SEARCH_X_MIN_OFFSET := -192.0
+const D6_FIX7F_SEARCH_X_MAX_OFFSET := 128.0
+const D6_FIX7F_SEARCH_X_STEP := 16.0
+const D6_FIX7F_SEARCH_Y_RANGE := 160.0
+const D6_FIX7F_SEARCH_Y_STEP := 24.0
+const D6_FIX7F_IDEAL_VISUAL_HEIGHT := 220.0
+## D6-01-D6-02: hand-placed security authoring (editor source of truth when present).
+const D6_02_SECURITY_AUTHORING_ROOT_PATH := "GameplayRoot/SecurityAuthoringRoot"
+const D6_03_MISSION_AUTHORING_BUILDER := preload("res://src/missions/iso/runtime/MissionAuthoringRuntimeBuilder.gd")
+const D6_06_COLLECTIBLE_BUILDER := preload("res://src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd")
+const D6_06_HIDEOUT_SYNC := preload("res://src/missions/iso/runtime/MissionCollectibleHideoutSync.gd")
+const TYPED_MISSION_COLLECTIBLE := preload("res://src/missions/iso/TypedMissionCollectible.gd")
 const MARKER_CATEGORIES: Array[String] = [
 	"Spawns",
 	"Objectives",
@@ -126,6 +149,10 @@ var _security_spawn_probe: Dictionary = {}
 var _last_security_reinforcement_request_msec: int = -60000
 var _last_security_reinforcement_source: String = ""
 var _last_security_reinforcement_result: String = ""
+## D6-03: mission-local security event router for authoring triggers/responses.
+var _security_event_router: Node = null
+## D6-06B: authored collectibles collected this attempt (committed on mission success only).
+var _d6_06_pending_collectibles: Array[Dictionary] = []
 
 
 func _ready() -> void:
@@ -1942,6 +1969,11 @@ func deploy_poop_bag_decoy_at(world_pos: Vector2, radius: float = 120.0) -> bool
 	return true
 
 
+func fail_level(reason = "Not the cleanest getaway.") -> void:
+	_clear_pending_authored_collectibles("mission_failed")
+	super.fail_level(reason)
+
+
 func complete_level() -> void:
 	request_exit_completion(player)
 
@@ -1954,6 +1986,7 @@ func request_exit_completion(_player: Node = null) -> bool:
 		_show_exit_locked_feedback()
 		return false
 	_mission_completing = true
+	_commit_pending_authored_collectibles()
 	_record_runtime_completion_metadata()
 	super.complete_level()
 	return true
@@ -2360,7 +2393,7 @@ func _spawn_alarm_zone(cell: Vector2i, alarm_id: String) -> void:
 	area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(resolved_alarm_id, area))
 	runtime.add_child(area)
 	_register_runtime("alarm_zones", resolved_alarm_id)
-	## FIX7A/FIX7E: AMBUSH_security_beam geometry is applied in `_setup_fix7_ambush_beam_runtime` (deferred)
+	## FIX7A/FIX7F: AMBUSH_security_beam geometry is applied in `_setup_fix7_ambush_beam_runtime` (deferred)
 	## so anchor + collision-derived choke span stay the single source of truth. Avoid attaching here (spawn order vs deferred setup).
 
 
@@ -2430,7 +2463,647 @@ func _ensure_d6_fix5_runtime_helpers() -> void:
 		return
 	_remove_d6_fix_test_warp_nodes()
 	_remove_fix7_stale_temp_beam_nodes()
-	_setup_fix7_ambush_beam_runtime()
+	_schedule_fix7_ambush_beam_physics_setup()
+
+
+func get_security_event_router() -> Node:
+	return _security_event_router
+
+
+func set_security_event_router(router: Node) -> void:
+	_security_event_router = router
+
+
+func _author_prop(author: Node, key: String, fallback: Variant = null) -> Variant:
+	if author == null:
+		return fallback
+	var v: Variant = author.get(key)
+	if v == null:
+		return fallback
+	return v
+
+
+func _is_beam_alarm_id(alarm_id: String) -> bool:
+	return alarm_id == "garage_entry_beam" or alarm_id == "AMBUSH_security_beam"
+
+
+func _setup_d6_03_authoring_security_runtime() -> void:
+	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+		return
+	var sec_root := _find_security_authoring_root()
+	if sec_root == null or not bool(sec_root.get("runtime_enabled")):
+		_attempt_runtime_state["d6_03_security_router_active"] = false
+		return
+	_attempt_runtime_state["d6_04_runtime_authored_camera_count"] = 0
+	_security_event_router = D6_03_MISSION_AUTHORING_BUILDER.setup(self, sec_root)
+	_attempt_runtime_state["d6_03_security_router_active"] = _security_event_router != null
+	if _security_event_router == null:
+		return
+	var dbg: Dictionary = _security_event_router.call("get_debug_summary") as Dictionary
+	_attempt_runtime_state["d6_03_registered_event_count"] = int(dbg.get("registered_event_count", 0))
+	_attempt_runtime_state["d6_03_authored_area_trigger_count"] = sec_root.call("get_enabled_area_trigger_authors").size() if sec_root.has_method("get_enabled_area_trigger_authors") else 0
+	for author in sec_root.call("collect_guard_spawn_authors"):
+		if author is Node and author.has_method("bind_mission"):
+			author.call("bind_mission", self)
+	for author in sec_root.call("collect_effect_authors") if sec_root.has_method("collect_effect_authors") else []:
+		if author is Node and author.has_method("bind_mission"):
+			author.call("bind_mission", self)
+	_setup_d6_06_collectible_authoring_runtime()
+
+
+func _setup_d6_06_collectible_authoring_runtime() -> void:
+	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+		_attempt_runtime_state["d6_06_authoring_root_found"] = false
+		return
+	var sec_root := _find_security_authoring_root()
+	_attempt_runtime_state["d6_06_authoring_root_found"] = sec_root != null
+	if sec_root == null or not bool(sec_root.get("runtime_enabled")):
+		_attempt_runtime_state["d6_06_runtime_pickup_count"] = 0
+		return
+	var spawned: int = D6_06_COLLECTIBLE_BUILDER.setup(self, sec_root)
+	_attempt_runtime_state["d6_06_runtime_pickup_count"] = spawned
+
+
+func store_d6_06_collectible_author_counts(
+	author_count: int,
+	spawned: int,
+	poop_n: int,
+	money_n: int,
+	polaroid_n: int,
+	tiny_n: int,
+	root_found: bool
+) -> void:
+	_attempt_runtime_state["d6_06_collectible_author_count"] = author_count
+	_attempt_runtime_state["d6_06_runtime_pickup_count"] = spawned
+	_attempt_runtime_state["d6_06_poop_author_count"] = poop_n
+	_attempt_runtime_state["d6_06_money_author_count"] = money_n
+	_attempt_runtime_state["d6_06_polaroid_author_count"] = polaroid_n
+	_attempt_runtime_state["d6_06_tiny_icon_author_count"] = tiny_n
+	_attempt_runtime_state["d6_06_authoring_root_found"] = root_found
+
+
+func record_authored_collectible_pickup(
+	pickup_type: String,
+	collectible_id: String,
+	result: Dictionary,
+	objective_id: String = "",
+	pickup_meta: Dictionary = {}
+) -> void:
+	_attempt_runtime_state["d6_06_last_authored_pickup_type"] = pickup_type
+	_attempt_runtime_state["d6_06_last_authored_pickup_id"] = collectible_id
+	_attempt_runtime_state["d6_06_last_authored_pickup_result"] = String(result.get("result", ""))
+	var source := String(pickup_meta.get("source", result.get("source", ""))).strip_edges()
+	_attempt_runtime_state["d6_06_last_pickup_source"] = source
+	_attempt_runtime_state["d6_06_last_pickup_body"] = String(pickup_meta.get("body_name", ""))
+	_attempt_runtime_state["d6_06_last_pickup_body_path"] = String(pickup_meta.get("body_path", ""))
+	_attempt_runtime_state["d6_06_last_pickup_has_shape"] = pickup_meta.get("has_collision_shape", false)
+	_attempt_runtime_state["d6_06_last_pickup_radius"] = float(pickup_meta.get("pickup_radius", 0.0))
+	_attempt_runtime_state["d6_06_last_pickup_monitoring"] = pickup_meta.get("monitoring", false)
+	if source == "body_entered" or source == "overlap_scan":
+		_attempt_runtime_state["d6_06_physical_overlap_verified"] = true
+	if objective_id.strip_edges() != "":
+		_attempt_runtime_state["d6_06_last_objective_id"] = objective_id
+	var flag_key := "d6_06_proof_collected:%s" % collectible_id
+	GameState.dialogue_flags[flag_key] = true
+	_attempt_runtime_state["d6_06_proof_flags"] = _count_d6_06_proof_flags()
+
+
+func store_d6_06b_runtime_pickup_physics_summary(summaries: Array) -> void:
+	_attempt_runtime_state["d6_06b_runtime_pickup_physics"] = summaries
+	var all_shapes := summaries.size() > 0
+	var all_monitoring := summaries.size() > 0
+	for entry_v in summaries:
+		if not (entry_v is Dictionary):
+			all_shapes = false
+			all_monitoring = false
+			continue
+		var entry: Dictionary = entry_v as Dictionary
+		if not bool(entry.get("has_collision_shape", false)):
+			all_shapes = false
+		if not bool(entry.get("monitoring", false)):
+			all_monitoring = false
+	_attempt_runtime_state["d6_06b_all_pickups_have_shape"] = all_shapes
+	_attempt_runtime_state["d6_06b_all_pickups_monitoring"] = all_monitoring
+
+
+func _count_d6_06_proof_flags() -> int:
+	var n := 0
+	for key in GameState.dialogue_flags.keys():
+		if String(key).begins_with("d6_06_proof_collected:"):
+			n += 1
+	return n
+
+
+func store_d6_06_runtime_path(path_kind: String, parent_path: String) -> void:
+	_attempt_runtime_state["d6_06_runtime_path_kind"] = path_kind
+	_attempt_runtime_state["d6_06_runtime_parent_path"] = parent_path
+
+
+func record_authored_collectible_attempt(
+	collectible_id: String,
+	category: String,
+	payload: Dictionary,
+	source_node: Node = null
+) -> Dictionary:
+	var id_s := String(collectible_id).strip_edges()
+	var cat_s := String(category).strip_edges()
+	if id_s == "" or cat_s == "":
+		return {"success": false, "already_done": false, "message": "Missing collectible id/type", "result": "rejected"}
+	for entry in _d6_06_pending_collectibles:
+		if String(entry.get("collectible_id", "")) == id_s:
+			record_authored_collectible_pickup(
+				cat_s,
+				id_s,
+				{"success": false, "result": "already_collected", "source": "interact"},
+				String(payload.get("objective_id", "")),
+				{"source": "interact", "duplicate": true}
+			)
+			return {
+				"success": true,
+				"already_done": true,
+				"message": "Already collected this attempt: %s" % id_s,
+				"real_system_updated": false,
+				"menu_updated": false,
+			}
+	var hideout_key := D6_06_HIDEOUT_SYNC.resolve_hideout_key(
+		cat_s,
+		id_s,
+		String(payload.get("hideout_collection_key", ""))
+	)
+	var entry := {
+		"collectible_id": id_s,
+		"category": cat_s,
+		"collectible_type": _authored_type_from_category(cat_s, payload),
+		"display_name": String(payload.get("display_name", id_s.capitalize())),
+		"objective_id": String(payload.get("objective_id", "")),
+		"hideout_collection_key": hideout_key,
+		"payload": payload.duplicate(true),
+		"committed": false,
+		"node_path": str(source_node.get_path()) if source_node != null else "",
+	}
+	if cat_s == "money" or entry["collectible_type"] == "money":
+		entry["amount"] = maxi(int(payload.get("amount", 1)), 1)
+		entry["currency_type"] = String(payload.get("currency_type", "cash"))
+	if entry["collectible_type"] == "poop_bag":
+		entry["poop_count"] = maxi(int(payload.get("poop_count", 1)), 1)
+	_d6_06_pending_collectibles.append(entry)
+	_attempt_runtime_state["d6_06_pending_collectible_count"] = _d6_06_pending_collectibles.size()
+	_update_d6_06_pending_type_counts()
+	record_authored_collectible_pickup(
+		cat_s,
+		id_s,
+		{"success": true, "result": "pending_attempt", "source": "interact"},
+		entry["objective_id"],
+		{"source": "interact", "body_path": entry["node_path"]}
+	)
+	if source_node != null and source_node.has_method("get_interaction_text"):
+		EventBus.objective_updated.emit("Collected (mission attempt): " + String(source_node.get("prompt_text")))
+	return {
+		"success": true,
+		"already_done": false,
+		"message": "Recorded for mission attempt: %s" % id_s,
+		"real_system_updated": false,
+		"menu_updated": false,
+	}
+
+
+func _authored_type_from_category(category: String, payload: Dictionary) -> String:
+	var from_payload := String(payload.get("collectible_type", "")).strip_edges()
+	if from_payload != "":
+		return from_payload
+	return category.strip_edges().to_lower()
+
+
+func _update_d6_06_pending_type_counts() -> void:
+	var poop := 0
+	var money := 0
+	var polaroid := 0
+	var tiny := 0
+	var glow := 0
+	var clue := 0
+	for entry in _d6_06_pending_collectibles:
+		if bool(entry.get("committed", false)):
+			continue
+		match String(entry.get("collectible_type", "")):
+			"poop_bag":
+				poop += 1
+			"money":
+				money += 1
+			"polaroid":
+				polaroid += 1
+			"tiny_icon":
+				tiny += 1
+			"glow_guy":
+				glow += 1
+			"evidence_clue":
+				clue += 1
+	_attempt_runtime_state["d6_06_pending_poop"] = poop
+	_attempt_runtime_state["d6_06_pending_money"] = money
+	_attempt_runtime_state["d6_06_pending_polaroid"] = polaroid
+	_attempt_runtime_state["d6_06_pending_tiny_icon"] = tiny
+	_attempt_runtime_state["d6_06_pending_glow_guy"] = glow
+	_attempt_runtime_state["d6_06_pending_clue"] = clue
+
+
+func _on_authored_collectible_collected_signal(collectible_id: String, category: String) -> void:
+	record_authored_collectible_pickup(
+		category,
+		collectible_id,
+		{"success": true, "result": "collected_signal", "source": "interact"},
+		"",
+		{"source": "interact"}
+	)
+
+
+func _commit_pending_authored_collectibles() -> Dictionary:
+	var committed := 0
+	var skipped := 0
+	var adapter := _find_phase0j_mission_state_adapter()
+	for entry in _d6_06_pending_collectibles:
+		if bool(entry.get("committed", false)):
+			skipped += 1
+			continue
+		var id_s := String(entry.get("collectible_id", ""))
+		var cat_s := String(entry.get("category", ""))
+		var payload: Dictionary = entry.get("payload", {}) as Dictionary
+		var ctype := String(entry.get("collectible_type", cat_s))
+		if ctype == "money":
+			_commit_authored_money(entry)
+			entry["committed"] = true
+			committed += 1
+			continue
+		if adapter != null and adapter.has_method("sync_to_real_systems"):
+			var sync_result: Dictionary = adapter.call("sync_to_real_systems", id_s, cat_s, payload)
+			entry["sync_result"] = sync_result
+			if ctype == "poop_bag":
+				var extra: int = maxi(int(entry.get("poop_count", 1)), 1) - 1
+				for _i in range(extra):
+					GameState.add_poop_bag()
+		else:
+			TYPED_MISSION_COLLECTIBLE.collect(
+				id_s,
+				ctype,
+				get_mission_id(),
+				String(entry.get("display_name", id_s))
+			)
+		var hideout_key := String(entry.get("hideout_collection_key", ""))
+		D6_06_HIDEOUT_SYNC.mark_hideout_display_found(hideout_key)
+		entry["committed"] = true
+		committed += 1
+	_attempt_runtime_state["d6_06_committed_collectible_count"] = committed
+	_attempt_runtime_state["d6_06_commit_skipped_count"] = skipped
+	_attempt_runtime_state["d6_06_hideout_sync_status"] = "committed_%d" % committed
+	_update_d6_06_pending_type_counts()
+	return {"committed": committed, "skipped": skipped}
+
+
+func _commit_authored_money(entry: Dictionary) -> void:
+	var id_s := String(entry.get("collectible_id", ""))
+	var flag_key := "d6_06_money:" + id_s
+	if GameState.dialogue_flags.get(flag_key, false) == true:
+		return
+	GameState.dialogue_flags[flag_key] = true
+	D6_06_HIDEOUT_SYNC.commit_money_proof(entry)
+	increment_attempt_counter("d6_06_authored_money_%s" % String(entry.get("currency_type", "cash")), int(entry.get("amount", 1)))
+
+
+func _clear_pending_authored_collectibles(reason: String = "") -> void:
+	_d6_06_pending_collectibles.clear()
+	_attempt_runtime_state["d6_06_pending_collectible_count"] = 0
+	_attempt_runtime_state["d6_06_pending_cleared_reason"] = reason
+	_update_d6_06_pending_type_counts()
+
+
+func _find_phase0j_mission_state_adapter() -> Node:
+	return find_child("Phase0JMissionStateAdapter", true, false)
+
+
+func _store_d6_05_effect_author_counts(door_n: int, lockdown_n: int, objective_n: int, toggle_n: int) -> void:
+	_attempt_runtime_state["d6_05_effect_author_count"] = door_n + lockdown_n + objective_n + toggle_n
+	_attempt_runtime_state["d6_05_door_effect_count"] = door_n
+	_attempt_runtime_state["d6_05_lockdown_effect_count"] = lockdown_n
+	_attempt_runtime_state["d6_05_objective_effect_count"] = objective_n
+	_attempt_runtime_state["d6_05_node_toggle_effect_count"] = toggle_n
+
+
+func _record_authoring_effect_result(effect_type: String, author: Node, result: Dictionary) -> void:
+	_attempt_runtime_state["d6_05_last_effect_type"] = effect_type
+	_attempt_runtime_state["d6_05_last_effect_id"] = String(result.get("effect_id", ""))
+	if author != null and is_instance_valid(author):
+		_attempt_runtime_state["d6_05_last_effect_author_path"] = str(author.get_path())
+	_attempt_runtime_state["d6_05_last_effect_event"] = String(last_trigger_event_from_author(author))
+	_attempt_runtime_state["d6_05_last_effect_result"] = String(result.get("result", ""))
+	_attempt_runtime_state["d6_05_last_effect_reason"] = String(result.get("reason", ""))
+	_attempt_runtime_state["d6_05_last_effect_target"] = String(
+		result.get("target_path", result.get("target_gate_id", result.get("objective_id", "")))
+	)
+	if effect_type == "lockdown":
+		_attempt_runtime_state["d6_05_lockdown_active"] = true
+		_attempt_runtime_state["d6_05_lockdown_level"] = int(result.get("lockdown_level", 0))
+		var ctrl := get_tree().get_first_node_in_group("iso_alert_controller")
+		if ctrl != null:
+			_attempt_runtime_state["d6_05_lockdown_alert_state"] = String(ctrl.get("alert_state"))
+	if effect_type == "door_lock":
+		_attempt_runtime_state["d6_05_last_door_effect_id"] = String(result.get("effect_id", ""))
+		var door_action := String(result.get("lock_action", ""))
+		if door_action == "" and author != null:
+			door_action = String(author.get("lock_action"))
+		_attempt_runtime_state["d6_05_last_door_action"] = door_action
+		_attempt_runtime_state["d6_05_last_door_lock_state"] = String(result.get("lock_state", ""))
+		_attempt_runtime_state["d6_05_last_door_target"] = String(
+			result.get("target_path", result.get("target_gate_id", ""))
+		)
+		if result.has("collision_enabled"):
+			_attempt_runtime_state["d6_05a_test_door_collision_enabled"] = bool(
+				result.get("collision_enabled", false)
+			)
+		if result.has("collision_layer"):
+			_attempt_runtime_state["d6_05a_test_door_collision_layer"] = int(
+				result.get("collision_layer", 0)
+			)
+		_attempt_runtime_state["d6_05_last_door_event"] = String(
+			last_trigger_event_from_author(author)
+		)
+		_refresh_d6_05a_test_door_state()
+
+
+func record_d6_05c_zone_trigger(zone_id: String, event_id: String, _payload: Dictionary = {}) -> void:
+	_attempt_runtime_state["d6_05c_last_zone_id"] = zone_id
+	_attempt_runtime_state["d6_05c_last_zone_event"] = event_id
+
+
+func _refresh_d6_05a_test_door_state() -> void:
+	for node in get_tree().get_nodes_in_group("d6_05a_test_door_lock"):
+		if node != null and node.has_method("get_runtime_debug_state"):
+			var st: Dictionary = node.call("get_runtime_debug_state") as Dictionary
+			_attempt_runtime_state["d6_05a_test_door_path"] = String(st.get("path", ""))
+			_attempt_runtime_state["d6_05a_test_door_locked"] = String(st.get("lock_state", "unknown")) == "locked"
+			_attempt_runtime_state["d6_05a_test_door_lock_state"] = String(st.get("lock_state", "unknown"))
+			_attempt_runtime_state["d6_05a_test_door_collision_layer"] = int(st.get("collision_layer", 0))
+			_attempt_runtime_state["d6_05a_test_door_collision_enabled"] = bool(
+				st.get("collision_enabled", false)
+			)
+			_attempt_runtime_state["d6_05a_test_door_orientation_degrees"] = float(
+				st.get("orientation_degrees", 0.0)
+			)
+			return
+
+
+func last_trigger_event_from_author(author: Node) -> String:
+	if author == null:
+		return ""
+	if author.get("last_trigger_event") != null:
+		return String(author.get("last_trigger_event"))
+	return ""
+
+
+func _emit_security_authoring_event(event_id: StringName, payload: Dictionary) -> Dictionary:
+	if _security_event_router == null:
+		return {}
+	var full := payload.duplicate(true)
+	if not full.has("heat"):
+		full["heat"] = GameState.get_mission_heat(mission_definition.mission_id) if mission_definition != null else 0
+	if not full.has("player_position"):
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player != null:
+			full["player_position"] = player.global_position
+	var dispatch: Dictionary = _security_event_router.call("emit_event", event_id, full)
+	_record_security_event_dispatch(dispatch)
+	return dispatch
+
+
+func _record_security_event_dispatch(dispatch: Dictionary) -> void:
+	var dbg: Dictionary = _security_event_router.call("get_debug_summary") as Dictionary if _security_event_router != null else {}
+	_attempt_runtime_state["d6_03_last_dispatched_event"] = String(dbg.get("last_dispatched_event", ""))
+	_attempt_runtime_state["d6_03_registered_event_count"] = int(dbg.get("registered_event_count", 0))
+	_attempt_runtime_state["d6_04_last_event_listeners_registered"] = int(dispatch.get("listeners_registered", 0))
+	_attempt_runtime_state["d6_04_last_event_listeners_called"] = int(dispatch.get("listeners_called", 0))
+	_attempt_runtime_state["d6_04_last_event_listeners_handled"] = int(dispatch.get("listeners_handled", 0))
+	_attempt_runtime_state["d6_04_last_event_listeners_rejected"] = int(dispatch.get("listeners_rejected", 0))
+	_attempt_runtime_state["d6_04_last_event_handled"] = bool(dispatch.get("handled", false))
+	_attempt_runtime_state["d6_04_last_event_rejection_reasons"] = dispatch.get("reasons", [])
+	_attempt_runtime_state["d6_04_last_successful_listener_paths"] = dispatch.get("successful_listener_paths", [])
+
+
+func _get_authoring_beam_trip_event_id(alarm_id: String) -> StringName:
+	var sec_root := _find_security_authoring_root()
+	if sec_root == null:
+		return &"ambush_beam_tripped"
+	var beam_author: Node = null
+	if sec_root.has_method("find_enabled_beam_author"):
+		beam_author = sec_root.call("find_enabled_beam_author", &"AMBUSH_security_beam") as Node
+	if beam_author == null and alarm_id != "":
+		for author in sec_root.call("collect_beam_authors"):
+			if String(_author_prop(author, "alarm_id", "")).strip_edges() == alarm_id.strip_edges():
+				beam_author = author
+				break
+	if beam_author != null and bool(_author_prop(beam_author, "emit_event_on_trip", true)):
+		var ev := String(_author_prop(beam_author, "on_trip_event", "ambush_beam_tripped")).strip_edges()
+		if ev != "":
+			return StringName(ev)
+	return &"ambush_beam_tripped"
+
+
+func _should_suppress_direct_spawn_for_event(event_id: StringName) -> bool:
+	if _security_event_router == null:
+		return false
+	if not bool(_security_event_router.call("has_listeners", event_id)):
+		return false
+	var result: Dictionary = _security_event_router.call("get_last_dispatch_result")
+	if String(result.get("event_id", "")).strip_edges() != String(event_id).strip_edges():
+		return true
+	if int(result.get("listeners_called", 0)) <= 0:
+		return false
+	return true
+
+
+func _should_suppress_direct_beam_guard_spawn(alarm_id: String) -> bool:
+	var trip_event := _get_authoring_beam_trip_event_id(alarm_id)
+	var suppressed := _should_suppress_direct_spawn_for_event(trip_event)
+	_attempt_runtime_state["d6_03_beam_event_route_used"] = suppressed
+	_attempt_runtime_state["d6_03_beam_direct_fallback_suppressed"] = suppressed
+	_attempt_runtime_state["d6_03_duplicate_spawn_avoided"] = suppressed
+	return suppressed
+
+
+func _get_authored_camera_alarm_event_id(camera_source_id: String) -> StringName:
+	var sec_root := _find_security_authoring_root()
+	if sec_root == null:
+		return &""
+	var want := camera_source_id.strip_edges()
+	for author in sec_root.call("collect_camera_authors"):
+		if String(_author_prop(author, "camera_id", "")).strip_edges() == want:
+			var ev := String(_author_prop(author, "on_alarm_event", "")).strip_edges()
+			if ev != "":
+				return StringName(ev)
+	return &""
+
+
+func _bind_authored_security_camera(camera: Node, author: Node, _router: Node, cfg: Dictionary) -> void:
+	if camera == null or author == null:
+		return
+	var cam_id := String(cfg.get("camera_id", ""))
+	if camera.has_signal("player_detected") and not camera.has_meta("authored_alarm_bound"):
+		camera.set_meta("authored_alarm_bound", true)
+		camera.player_detected.connect(_on_authored_security_camera_alarm.bind(author, cfg))
+	_attempt_runtime_state["d6_04_runtime_authored_camera_count"] = int(_attempt_runtime_state.get("d6_04_runtime_authored_camera_count", 0)) + 1
+	_attempt_runtime_state["d6_04_authored_camera_runtime_path"] = String(camera.get_path())
+	_attempt_runtime_state["d6_04_authored_camera_runtime_class"] = String(camera.get_class())
+	_attempt_runtime_state["d6_04_authored_camera_parity_target"] = String(cfg.get("parity_target", "CAM_market_01"))
+	_attempt_runtime_state["d6_04_authored_camera_parent_path"] = String(camera.get_parent().get_path()) if camera.get_parent() != null else ""
+	if camera.has_method("get_runtime_debug_state"):
+		var cst: Dictionary = camera.call("get_runtime_debug_state") as Dictionary
+		_attempt_runtime_state["d6_04_authored_camera_enabled"] = bool(cst.get("enabled", false))
+		_attempt_runtime_state["d6_04_authored_camera_monitoring"] = bool(cst.get("monitoring", false))
+		_attempt_runtime_state["d6_04_authored_camera_has_shape"] = bool(cst.get("has_shape", false))
+		_attempt_runtime_state["d6_04_authored_camera_player_in_cone"] = bool(cst.get("player_in_cone", false))
+		_attempt_runtime_state["d6_04_authored_camera_detection_value"] = float(cst.get("detection_value", 0.0))
+
+
+func _on_authored_security_camera_alarm(cam_id: String, author: Node, cfg: Dictionary) -> void:
+	_attempt_runtime_state["d6_04_last_camera_id"] = cam_id
+	_attempt_runtime_state["d6_04_last_camera_source_path"] = String(cfg.get("author_path", ""))
+	if bool(cfg.get("emit_detect_event", false)):
+		var detect_ev := String(cfg.get("on_detect_event", "")).strip_edges()
+		if detect_ev != "":
+			_emit_security_authoring_event(StringName(detect_ev), {
+				"source_type": "security_camera_author",
+				"source_id": cam_id,
+				"source_path": String(cfg.get("author_path", "")),
+				"reason": "camera_detect",
+				"timestamp": Time.get_ticks_msec(),
+			})
+			_attempt_runtime_state["d6_04_last_camera_detect_event"] = detect_ev
+	if bool(cfg.get("emit_alarm_event", true)):
+		var alarm_ev := String(cfg.get("on_alarm_event", "camera_alarm")).strip_edges()
+		if alarm_ev != "":
+			var dispatch := _emit_security_authoring_event(StringName(alarm_ev), {
+				"source_type": "security_camera_author",
+				"source_id": cam_id,
+				"source_path": String(cfg.get("author_path", "")),
+				"reason": "camera_alarm",
+				"timestamp": Time.get_ticks_msec(),
+			})
+			_attempt_runtime_state["d6_04_last_camera_alarm_event"] = alarm_ev
+			_attempt_runtime_state["d6_04_last_camera_alarm_handled"] = bool(dispatch.get("handled", false))
+
+
+func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, payload: Dictionary) -> Dictionary:
+	var spawn_id := String(_author_prop(author, "spawn_id", "guard_spawn"))
+	_attempt_runtime_state["d6_03_last_guard_spawn_author_id"] = spawn_id
+	if author == null or not is_instance_valid(author):
+		return {"result": "failed", "reason": "invalid_author", "spawned_count": 0, "spawned_guards": []}
+	if author.has_method("can_accept_event") and not author.call("can_accept_event", String(event_id), payload):
+		var reason := "rejected_cooldown_or_cap_or_heat"
+		if author is Node and author.get("last_spawn_reason"):
+			reason = String(author.get("last_spawn_reason"))
+		_attempt_runtime_state["d6_03_last_guard_spawn_result"] = "rejected"
+		_attempt_runtime_state["d6_03_last_guard_spawn_reason"] = reason
+		_attempt_runtime_state["d6_04_last_guard_initial_behavior"] = String(_author_prop(author, "initial_behavior", ""))
+		_attempt_runtime_state["d6_04_last_guard_fallback_behavior"] = String(_author_prop(author, "fallback_behavior", ""))
+		return {"handled": false, "result": "rejected", "reason": reason, "spawned_count": 0, "spawned_guards": []}
+	var count_want := maxi(1, int(_author_prop(author, "spawn_count", 1)))
+	var spawned: Array = []
+	var enemies_root := get_node_or_null("EntityRoot/Enemies") as Node2D
+	if enemies_root == null:
+		_attempt_runtime_state["d6_03_last_guard_spawn_result"] = "failed"
+		_attempt_runtime_state["d6_03_last_guard_spawn_reason"] = "no_enemies_root"
+		return {"result": "failed", "reason": "no_enemies_root", "spawned_count": 0, "spawned_guards": []}
+	var scene_path := MissionSecurityGuardResolver.good_guard_scene_path()
+	var packed := load(scene_path) as PackedScene
+	if packed == null:
+		_attempt_runtime_state["d6_03_last_guard_spawn_result"] = "failed"
+		_attempt_runtime_state["d6_03_last_guard_spawn_reason"] = "missing_guard_scene"
+		return {"result": "failed", "reason": "missing_guard_scene", "spawned_count": 0, "spawned_guards": []}
+	var cap := _get_security_spawn_cap()
+	for i in range(count_want):
+		if _count_functional_security_response_guards() + spawned.size() >= cap:
+			break
+		var guard := packed.instantiate() as Node2D
+		if guard == null:
+			continue
+		enemies_root.add_child(guard)
+		var spawn_pos: Vector2 = author.global_position
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player != null:
+			spawn_pos = author.global_position.lerp(player.global_position, 0.35)
+		guard.global_position = spawn_pos
+		guard.set_meta("author_spawn_id", spawn_id)
+		guard.set_meta("author_trigger_event", String(event_id))
+		guard.set_meta("guard_archetype", String(_author_prop(author, "guard_archetype", "grunt")))
+		guard.set_meta("security_response_guard", true)
+		guard.set_meta("security_spawn_time_sec", int(Time.get_ticks_msec() / 1000))
+		if guard.has_method("apply_archetype_metadata"):
+			guard.call("apply_archetype_metadata", _author_prop(author, "guard_archetype", &"grunt"))
+		var behavior_payload := _build_authoring_behavior_payload(author, payload)
+		if guard.has_method("apply_authoring_spawn_behavior"):
+			guard.call("apply_authoring_spawn_behavior", _author_prop(author, "initial_behavior", &"attack_player"), behavior_payload)
+		var route_id := String(_author_prop(author, "patrol_route_id", "")).strip_edges()
+		_attempt_runtime_state["d6_04_last_guard_patrol_route_assigned"] = route_id != "" and behavior_payload.has("patrol_points")
+		spawned.append(guard)
+	var result := "spawned" if spawned.size() > 0 else "failed"
+	var reason := "" if spawned.size() > 0 else "no_guards_created"
+	_attempt_runtime_state["d6_03_last_guard_spawn_result"] = result
+	_attempt_runtime_state["d6_03_last_guard_spawn_reason"] = reason
+	_attempt_runtime_state["d6_03_last_spawned_guard_count"] = spawned.size()
+	_attempt_runtime_state["d6_04_last_guard_initial_behavior"] = String(_author_prop(author, "initial_behavior", ""))
+	_attempt_runtime_state["d6_04_last_guard_fallback_behavior"] = String(_author_prop(author, "fallback_behavior", ""))
+	_attempt_runtime_state["attack_guard_spawned"] = _count_functional_security_response_guards()
+	return {
+		"handled": spawned.size() > 0,
+		"result": result,
+		"reason": reason,
+		"spawned_count": spawned.size(),
+		"spawned_guards": spawned,
+	}
+
+
+func _build_authoring_behavior_payload(author: Node2D, payload: Dictionary) -> Dictionary:
+	var out := payload.duplicate(true)
+	out["fallback_behavior"] = String(_author_prop(author, "fallback_behavior", "security_net"))
+	var route_id := String(_author_prop(author, "patrol_route_id", "")).strip_edges()
+	if route_id != "":
+		var sec_root := _find_security_authoring_root()
+		if sec_root != null and sec_root.has_method("find_patrol_route"):
+			var route := sec_root.call("find_patrol_route", StringName(route_id)) as Node2D
+			if route != null and route.has_method("get_patrol_points_global"):
+				out["patrol_points"] = route.call("get_patrol_points_global")
+				out["loop_route"] = bool(_author_prop(route, "loop_route", true))
+				out["patrol_direction"] = _author_prop(route, "direction", &"clockwise")
+	var init_key := String(_author_prop(author, "initial_behavior", "")).strip_edges().to_lower()
+	var fb_key := String(out.get("fallback_behavior", "")).strip_edges().to_lower()
+	if init_key == "join_security_net" or fb_key in ["security_net", "join_security_net"]:
+		var heat := GameState.get_mission_heat(mission_definition.mission_id) if mission_definition != null else 0
+		var ordinal := _count_functional_security_response_guards()
+		var role := _get_security_search_role(heat, ordinal)
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		var base_pos := author.global_position
+		if player != null and init_key == "join_security_net":
+			base_pos = player.global_position
+		var direction := 1 if (ordinal % 2 == 0) else -1
+		var route_pts := _validate_security_search_route_points(_build_search_net_points(base_pos, heat, ordinal, role), base_pos)
+		out["search_net"] = {
+			"center": base_pos,
+			"radius": _get_security_search_radius_for_heat(heat),
+			"role": role,
+			"ordinal": ordinal,
+			"direction": direction,
+			"route_points": route_pts,
+		}
+	if out.has("player_position"):
+		out["investigate_position"] = out.get("player_position", author.global_position)
+	return out
+
+
+func _schedule_fix7_ambush_beam_physics_setup() -> void:
+	## TileMap / static bodies may not be queryable on the same deferred frame as mission boot.
+	var tree := get_tree()
+	if tree == null:
+		_setup_fix7_ambush_beam_runtime()
+		return
+	if tree.physics_frame.is_connected(_setup_fix7_ambush_beam_runtime):
+		return
+	tree.physics_frame.connect(_setup_fix7_ambush_beam_runtime, CONNECT_ONE_SHOT)
 
 
 func _remove_d6_fix_test_warp_nodes() -> void:
@@ -2512,6 +3185,77 @@ func _clear_fix7b_ambush_beam_runtime_state() -> void:
 		"fix7e_trigger_height",
 		"fix7e_reason",
 		"fix7e_visual_trigger_mismatch_px",
+		"fix7f_mode",
+		"fix7f_success",
+		"fix7f_fallback_used",
+		"fix7f_seed_x",
+		"fix7f_chosen_x",
+		"fix7f_x_shift_from_seed",
+		"fix7f_probe_y",
+		"fix7f_chosen_probe_y",
+		"fix7f_candidate_count",
+		"fix7f_rejected_inside_wall",
+		"fix7f_rejected_missing_hits",
+		"fix7f_rejected_height",
+		"fix7f_rejected_visual_overlap",
+		"fix7f_rejected_trigger_overlap",
+		"fix7f_top_hit_y",
+		"fix7f_bottom_hit_y",
+		"fix7f_visual_top_y",
+		"fix7f_visual_bottom_y",
+		"fix7f_visual_height",
+		"fix7f_trigger_top_y",
+		"fix7f_trigger_bottom_y",
+		"fix7f_trigger_height",
+		"fix7f_visual_overlap_ok",
+		"fix7f_trigger_overlap_ok",
+		"fix7f_reason",
+		"d6_02_security_authoring_root_found",
+		"d6_02_security_authoring_beam_count",
+		"d6_02_ambush_beam_source",
+		"d6_02_ambush_beam_author_path",
+		"d6_02_ambush_beam_author_enabled",
+		"d6_02_ambush_beam_center",
+		"d6_02_ambush_beam_visual_height",
+		"d6_02_ambush_beam_visual_width",
+		"d6_02_ambush_beam_trigger_width",
+		"d6_02_ambush_beam_trigger_height",
+		"d6_02_ambush_beam_trigger_extra_height",
+		"d6_02_ambush_beam_trigger_size",
+		"d6_02_ambush_beam_trip_count",
+		"d6_02_ambush_beam_runtime_status",
+		"d6_02_ambush_beam_validation_status",
+		"d6_02_authored_camera_count",
+		"d6_02_authored_guard_spawn_count",
+		"d6_02_authored_patrol_route_count",
+		"d6_03_security_router_active",
+		"d6_03_registered_event_count",
+		"d6_03_last_dispatched_event",
+		"d6_03_last_guard_spawn_author_id",
+		"d6_03_last_guard_spawn_result",
+		"d6_03_last_guard_spawn_reason",
+		"d6_03_last_spawned_guard_count",
+		"d6_03_beam_event_route_used",
+		"d6_03_beam_direct_fallback_suppressed",
+		"d6_03_duplicate_spawn_avoided",
+		"d6_03_authored_area_trigger_count",
+		"d6_04_last_event_listeners_registered",
+		"d6_04_last_event_listeners_called",
+		"d6_04_last_event_listeners_handled",
+		"d6_04_last_event_listeners_rejected",
+		"d6_04_last_event_handled",
+		"d6_04_last_event_rejection_reasons",
+		"d6_04_last_successful_listener_paths",
+		"d6_04_runtime_authored_camera_count",
+		"d6_04_last_camera_id",
+		"d6_04_last_camera_detect_event",
+		"d6_04_last_camera_alarm_event",
+		"d6_04_last_camera_alarm_handled",
+		"d6_04_last_camera_source_path",
+		"d6_04_last_beam_event_handled",
+		"d6_04_last_guard_initial_behavior",
+		"d6_04_last_guard_fallback_behavior",
+		"d6_04_last_guard_patrol_route_assigned",
 	]:
 		_attempt_runtime_state.erase(k)
 
@@ -2635,6 +3379,350 @@ func _apply_fix7e_ambush_beam_geometry(beam_area: Area2D, _beam_visual_host: Nod
 		return
 	var th := float(geom.get("trigger_height", D6_FIX7E_FALLBACK_TRIGGER_HEIGHT))
 	_apply_fix7d_ambush_beam_rectangle_shape(beam_area, Vector2(D6_FIX7E_AMBUSH_BEAM_TRIGGER_WIDTH, th))
+
+
+func _raycast_fix7f_vertical(space: PhysicsDirectSpaceState2D, origin: Vector2, upward: bool) -> Dictionary:
+	var dir := Vector2.UP if upward else Vector2.DOWN
+	var to := origin + dir * D6_FIX7F_RAY_PROBE_LENGTH
+	var q := PhysicsRayQueryParameters2D.create(origin, to)
+	q.collision_mask = D6_FIX7F_COLLISION_MASK
+	q.collide_with_areas = false
+	q.collide_with_bodies = true
+	return space.intersect_ray(q)
+
+
+func _fix7f_point_blocked(space: PhysicsDirectSpaceState2D, p: Vector2) -> bool:
+	var params := PhysicsPointQueryParameters2D.new()
+	params.position = p
+	params.collision_mask = D6_FIX7F_COLLISION_MASK
+	params.collide_with_areas = false
+	params.collide_with_bodies = true
+	return space.intersect_point(params, 1).size() > 0
+
+
+func _fix7f_passage_walkable(
+	space: PhysicsDirectSpaceState2D,
+	center: Vector2,
+	half_width: float,
+	top_y: float,
+	bottom_y: float,
+) -> bool:
+	if _fix7f_point_blocked(space, center):
+		return false
+	var mid_y: float = (top_y + bottom_y) * 0.5
+	var span: float = bottom_y - top_y
+	if span <= 1.0:
+		return false
+	var offsets: Array[Vector2] = [
+		Vector2(-half_width, 0.0),
+		Vector2(half_width, 0.0),
+	]
+	for frac in [0.2, 0.5, 0.8]:
+		var y: float = top_y + span * frac
+		offsets.append(Vector2(0.0, y - mid_y))
+	for off in offsets:
+		if _fix7f_point_blocked(space, center + off):
+			return false
+	return true
+
+
+func _probe_fix7f_candidate_doorway_x(
+	space: PhysicsDirectSpaceState2D,
+	candidate_x: float,
+	probe_y: float,
+	stats: Dictionary,
+) -> Dictionary:
+	stats["candidate_count"] = int(stats.get("candidate_count", 0)) + 1
+	var origin := Vector2(candidate_x, probe_y)
+	if _fix7f_point_blocked(space, origin):
+		stats["rejected_inside_wall"] = int(stats.get("rejected_inside_wall", 0)) + 1
+		return {}
+	var up := _raycast_fix7f_vertical(space, origin, true)
+	var dn := _raycast_fix7f_vertical(space, origin, false)
+	if up.is_empty() or dn.is_empty():
+		stats["rejected_missing_hits"] = int(stats.get("rejected_missing_hits", 0)) + 1
+		return {}
+	var top_hit: float = up.position.y
+	var bottom_hit: float = dn.position.y
+	if bottom_hit <= top_hit + D6_FIX7E_INNER_GAP_MIN_EPS:
+		stats["rejected_missing_hits"] = int(stats.get("rejected_missing_hits", 0)) + 1
+		return {}
+	var v_top := top_hit + D6_FIX7F_VISUAL_WALL_OVERLAP_PX
+	var v_bottom := bottom_hit - D6_FIX7F_VISUAL_WALL_OVERLAP_PX
+	var v_h: float = v_bottom - v_top
+	if v_h < D6_FIX7F_MIN_VISUAL_HEIGHT or v_h > D6_FIX7F_MAX_VISUAL_HEIGHT:
+		stats["rejected_height"] = int(stats.get("rejected_height", 0)) + 1
+		return {}
+	var center := Vector2(candidate_x, (v_top + v_bottom) * 0.5)
+	if not _fix7f_passage_walkable(
+		space,
+		center,
+		D6_FIX7F_AMBUSH_BEAM_VISUAL_WIDTH * 0.5,
+		v_top,
+		v_bottom,
+	):
+		stats["rejected_visual_overlap"] = int(stats.get("rejected_visual_overlap", 0)) + 1
+		return {}
+	var tr_top := v_top - D6_FIX7F_TRIGGER_WALL_OVERLAP_PX
+	var tr_bot := v_bottom + D6_FIX7F_TRIGGER_WALL_OVERLAP_PX
+	var tr_h: float = tr_bot - tr_top
+	var trigger_size := Vector2(D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH, tr_h)
+	if not _fix7f_passage_walkable(
+		space,
+		center,
+		D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH * 0.5,
+		tr_top,
+		tr_bot,
+	):
+		stats["rejected_trigger_overlap"] = int(stats.get("rejected_trigger_overlap", 0)) + 1
+		return {}
+	var seed_x: float = float(stats.get("seed_x", candidate_x))
+	var seed_probe_y: float = float(stats.get("seed_probe_y", probe_y))
+	var dist_seed: float = absf(candidate_x - seed_x) + absf(probe_y - seed_probe_y) * 0.35
+	var height_penalty: float = absf(v_h - D6_FIX7F_IDEAL_VISUAL_HEIGHT) * 0.15
+	var score: float = dist_seed + height_penalty
+	return {
+		"candidate_x": candidate_x,
+		"probe_y": probe_y,
+		"top_hit_y": top_hit,
+		"bottom_hit_y": bottom_hit,
+		"visual_top_y": v_top,
+		"visual_bottom_y": v_bottom,
+		"visual_height": v_h,
+		"trigger_top_y": tr_top,
+		"trigger_bottom_y": tr_bot,
+		"trigger_height": tr_h,
+		"center": center,
+		"trigger_size": trigger_size,
+		"score": score,
+		"visual_overlap_ok": true,
+		"trigger_overlap_ok": true,
+	}
+
+
+func _fix7f_build_geom_from_candidate(cand: Dictionary, mode: String, success: bool, fallback_used: bool, reason: String) -> Dictionary:
+	return {
+		"mode": mode,
+		"success": success,
+		"fallback_used": fallback_used,
+		"collision_ok": success,
+		"reason": reason,
+		"choke_x": float(cand.get("candidate_x", 0.0)),
+		"probe_y": float(cand.get("probe_y", 0.0)),
+		"top_hit_y": float(cand.get("top_hit_y", -1.0)),
+		"bottom_hit_y": float(cand.get("bottom_hit_y", -1.0)),
+		"visual_top_y": float(cand.get("visual_top_y", 0.0)),
+		"visual_bottom_y": float(cand.get("visual_bottom_y", 0.0)),
+		"visual_height": float(cand.get("visual_height", D6_FIX7F_FALLBACK_VISUAL_HEIGHT)),
+		"trigger_top_y": float(cand.get("trigger_top_y", 0.0)),
+		"trigger_bottom_y": float(cand.get("trigger_bottom_y", 0.0)),
+		"trigger_height": float(cand.get("trigger_height", D6_FIX7F_FALLBACK_TRIGGER_HEIGHT)),
+		"center": cand.get("center", Vector2.ZERO),
+		"trigger_size": cand.get("trigger_size", Vector2(D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7F_FALLBACK_TRIGGER_HEIGHT)),
+		"visual_overlap_ok": cand.get("visual_overlap_ok", false),
+		"trigger_overlap_ok": cand.get("trigger_overlap_ok", false),
+		"stats": cand.get("stats", {}),
+	}
+
+
+func _fix7f_finalize_safe_fallback(
+	out: Dictionary,
+	seed_x: float,
+	seed_probe_y: float,
+	stats: Dictionary,
+	reason: String,
+) -> Dictionary:
+	var vh := D6_FIX7F_FALLBACK_VISUAL_HEIGHT
+	var th := D6_FIX7F_FALLBACK_TRIGGER_HEIGHT
+	var cand := {
+		"candidate_x": seed_x,
+		"probe_y": seed_probe_y,
+		"top_hit_y": -1.0,
+		"bottom_hit_y": -1.0,
+		"visual_top_y": seed_probe_y - vh * 0.5,
+		"visual_bottom_y": seed_probe_y + vh * 0.5,
+		"visual_height": vh,
+		"trigger_top_y": seed_probe_y - th * 0.5,
+		"trigger_bottom_y": seed_probe_y + th * 0.5,
+		"trigger_height": th,
+		"center": Vector2(seed_x, seed_probe_y),
+		"trigger_size": Vector2(D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH, th),
+		"visual_overlap_ok": false,
+		"trigger_overlap_ok": false,
+		"stats": stats,
+	}
+	var built := _fix7f_build_geom_from_candidate(cand, "fallback_safe", false, true, reason)
+	for k in built.keys():
+		out[k] = built[k]
+	out["seed_x"] = seed_x
+	out["chosen_x"] = seed_x
+	out["x_shift_from_seed"] = 0.0
+	out["chosen_probe_y"] = seed_probe_y
+	out["stats"] = stats
+	out["candidate_count"] = int(stats.get("candidate_count", 0))
+	out["rejected_inside_wall"] = int(stats.get("rejected_inside_wall", 0))
+	out["rejected_missing_hits"] = int(stats.get("rejected_missing_hits", 0))
+	out["rejected_height"] = int(stats.get("rejected_height", 0))
+	out["rejected_visual_overlap"] = int(stats.get("rejected_visual_overlap", 0))
+	out["rejected_trigger_overlap"] = int(stats.get("rejected_trigger_overlap", 0))
+	return out
+
+
+func _compute_fix7f_ambush_beam_doorway_rect(anchor_pos: Vector2) -> Dictionary:
+	var out := {
+		"mode": "fallback_safe",
+		"success": false,
+		"fallback_used": true,
+		"collision_ok": false,
+		"reason": "",
+		"seed_x": anchor_pos.x,
+		"chosen_x": anchor_pos.x,
+		"x_shift_from_seed": 0.0,
+		"probe_y": anchor_pos.y,
+		"chosen_probe_y": anchor_pos.y,
+		"stats": {},
+	}
+	var seed_x := anchor_pos.x
+	var spawn_m := _find_fix7d_spawn_route_louis_return_marker()
+	if spawn_m is Node2D:
+		seed_x = (spawn_m as Node2D).global_position.x
+	var seed_probe_y := anchor_pos.y
+	if spawn_m is Node2D:
+		var sy := (spawn_m as Node2D).global_position.y
+		seed_probe_y = (anchor_pos.y + sy) * 0.5
+		## Prefer spawn-route Y when midpoint lands in a narrow collision pocket.
+		if absf(anchor_pos.y - sy) > 80.0:
+			seed_probe_y = sy
+	out["seed_x"] = seed_x
+	out["probe_y"] = seed_probe_y
+	var w2d := get_world_2d()
+	if w2d == null:
+		return _fix7f_finalize_safe_fallback(out, seed_x, seed_probe_y, {}, "world_2d_null")
+	var space := w2d.direct_space_state
+	if space == null:
+		return _fix7f_finalize_safe_fallback(out, seed_x, seed_probe_y, {}, "direct_space_state_null")
+	var stats := {
+		"seed_x": seed_x,
+		"seed_probe_y": seed_probe_y,
+		"candidate_count": 0,
+		"rejected_inside_wall": 0,
+		"rejected_missing_hits": 0,
+		"rejected_height": 0,
+		"rejected_visual_overlap": 0,
+		"rejected_trigger_overlap": 0,
+	}
+	var best: Dictionary = {}
+	var best_score := INF
+	var x := seed_x + D6_FIX7F_SEARCH_X_MIN_OFFSET
+	while x <= seed_x + D6_FIX7F_SEARCH_X_MAX_OFFSET + 0.001:
+		var py := seed_probe_y - D6_FIX7F_SEARCH_Y_RANGE
+		while py <= seed_probe_y + D6_FIX7F_SEARCH_Y_RANGE + 0.001:
+			var cand := _probe_fix7f_candidate_doorway_x(space, x, py, stats)
+			if not cand.is_empty():
+				var sc: float = float(cand.get("score", INF))
+				if sc < best_score:
+					best_score = sc
+					best = cand
+			py += D6_FIX7F_SEARCH_Y_STEP
+		x += D6_FIX7F_SEARCH_X_STEP
+	out["stats"] = stats
+	out["candidate_count"] = int(stats.get("candidate_count", 0))
+	out["rejected_inside_wall"] = int(stats.get("rejected_inside_wall", 0))
+	out["rejected_missing_hits"] = int(stats.get("rejected_missing_hits", 0))
+	out["rejected_height"] = int(stats.get("rejected_height", 0))
+	out["rejected_visual_overlap"] = int(stats.get("rejected_visual_overlap", 0))
+	out["rejected_trigger_overlap"] = int(stats.get("rejected_trigger_overlap", 0))
+	if best.is_empty():
+		return _fix7f_finalize_safe_fallback(
+			out,
+			seed_x,
+			seed_probe_y,
+			stats,
+			"no_valid_doorway_candidate_in_search_grid",
+		)
+	best["stats"] = stats
+	var built := _fix7f_build_geom_from_candidate(best, "doorway_rect", true, false, "")
+	out.merge(built, true)
+	out["seed_x"] = seed_x
+	out["chosen_x"] = float(best.get("candidate_x", seed_x))
+	out["x_shift_from_seed"] = out["chosen_x"] - seed_x
+	out["chosen_probe_y"] = float(best.get("probe_y", seed_probe_y))
+	out["stats"] = stats
+	return out
+
+
+func _apply_fix7f_ambush_beam_geometry(beam_area: Area2D, geom: Dictionary) -> void:
+	if beam_area == null:
+		return
+	var trig_sz: Vector2 = geom.get("trigger_size", Vector2(D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7F_FALLBACK_TRIGGER_HEIGHT))
+	_apply_fix7d_ambush_beam_rectangle_shape(beam_area, trig_sz)
+
+
+func _attach_fix7f_debug_markers(host: Node2D, geom: Dictionary, seed_pos: Vector2) -> void:
+	var old := host.get_node_or_null("Fix7fDebugMarkers")
+	if old != null:
+		old.queue_free()
+	var dbg := Node2D.new()
+	dbg.name = "Fix7fDebugMarkers"
+	dbg.set_meta("D6_FIX7F_TEMP_DEBUG_MARKERS_REMOVE_IN_LEVEL_PASS", true)
+	dbg.z_index = 2599
+	host.add_child(dbg)
+	var chosen: Vector2 = geom.get("center", Vector2.ZERO)
+	_add_fix7f_debug_dot(dbg, "Seed", seed_pos, Color(1.0, 1.0, 0.2, 0.9))
+	_add_fix7f_debug_dot(dbg, "Center", chosen, Color(0.2, 1.0, 0.4, 0.9))
+	var v_top: float = float(geom.get("visual_top_y", 0.0))
+	var v_bot: float = float(geom.get("visual_bottom_y", 0.0))
+	var cx: float = chosen.x
+	_add_fix7f_debug_dot(dbg, "TopHit", Vector2(cx, float(geom.get("top_hit_y", v_top))), Color(1.0, 0.5, 0.2, 0.85))
+	_add_fix7f_debug_dot(dbg, "BottomHit", Vector2(cx, float(geom.get("bottom_hit_y", v_bot))), Color(1.0, 0.5, 0.2, 0.85))
+	_add_fix7f_debug_dot(dbg, "VisualTop", Vector2(cx, v_top), Color(1.0, 0.2, 0.2, 0.95))
+	_add_fix7f_debug_dot(dbg, "VisualBottom", Vector2(cx, v_bot), Color(1.0, 0.2, 0.2, 0.95))
+	var tr_top: float = float(geom.get("trigger_top_y", v_top))
+	var tr_bot: float = float(geom.get("trigger_bottom_y", v_bot))
+	_add_fix7f_debug_dot(dbg, "TriggerTop", Vector2(cx, tr_top), Color(0.6, 0.2, 1.0, 0.75))
+	_add_fix7f_debug_dot(dbg, "TriggerBottom", Vector2(cx, tr_bot), Color(0.6, 0.2, 1.0, 0.75))
+
+
+func _add_fix7f_debug_dot(parent: Node2D, label_name: String, global_pos: Vector2, color: Color) -> void:
+	var n := Node2D.new()
+	n.name = "Fix7f_" + label_name
+	parent.add_child(n)
+	n.global_position = global_pos
+	var poly := Polygon2D.new()
+	poly.color = color
+	poly.polygon = PackedVector2Array([
+		Vector2(-4, -4), Vector2(4, -4), Vector2(4, 4), Vector2(-4, 4),
+	])
+	n.add_child(poly)
+
+
+func _store_fix7f_runtime_state(geom: Dictionary) -> void:
+	var stats: Dictionary = geom.get("stats", {})
+	_attempt_runtime_state["fix7f_mode"] = String(geom.get("mode", "unknown"))
+	_attempt_runtime_state["fix7f_success"] = bool(geom.get("success", false))
+	_attempt_runtime_state["fix7f_fallback_used"] = bool(geom.get("fallback_used", true))
+	_attempt_runtime_state["fix7f_seed_x"] = float(geom.get("seed_x", 0.0))
+	_attempt_runtime_state["fix7f_chosen_x"] = float(geom.get("chosen_x", geom.get("choke_x", 0.0)))
+	_attempt_runtime_state["fix7f_x_shift_from_seed"] = float(geom.get("x_shift_from_seed", 0.0))
+	_attempt_runtime_state["fix7f_probe_y"] = float(geom.get("probe_y", 0.0))
+	_attempt_runtime_state["fix7f_chosen_probe_y"] = float(geom.get("chosen_probe_y", geom.get("probe_y", 0.0)))
+	_attempt_runtime_state["fix7f_candidate_count"] = int(geom.get("candidate_count", stats.get("candidate_count", 0)))
+	_attempt_runtime_state["fix7f_rejected_inside_wall"] = int(geom.get("rejected_inside_wall", stats.get("rejected_inside_wall", 0)))
+	_attempt_runtime_state["fix7f_rejected_missing_hits"] = int(geom.get("rejected_missing_hits", stats.get("rejected_missing_hits", 0)))
+	_attempt_runtime_state["fix7f_rejected_height"] = int(geom.get("rejected_height", stats.get("rejected_height", 0)))
+	_attempt_runtime_state["fix7f_rejected_visual_overlap"] = int(geom.get("rejected_visual_overlap", stats.get("rejected_visual_overlap", 0)))
+	_attempt_runtime_state["fix7f_rejected_trigger_overlap"] = int(geom.get("rejected_trigger_overlap", stats.get("rejected_trigger_overlap", 0)))
+	_attempt_runtime_state["fix7f_top_hit_y"] = float(geom.get("top_hit_y", -1.0))
+	_attempt_runtime_state["fix7f_bottom_hit_y"] = float(geom.get("bottom_hit_y", -1.0))
+	_attempt_runtime_state["fix7f_visual_top_y"] = float(geom.get("visual_top_y", 0.0))
+	_attempt_runtime_state["fix7f_visual_bottom_y"] = float(geom.get("visual_bottom_y", 0.0))
+	_attempt_runtime_state["fix7f_visual_height"] = float(geom.get("visual_height", 0.0))
+	_attempt_runtime_state["fix7f_trigger_top_y"] = float(geom.get("trigger_top_y", 0.0))
+	_attempt_runtime_state["fix7f_trigger_bottom_y"] = float(geom.get("trigger_bottom_y", 0.0))
+	_attempt_runtime_state["fix7f_trigger_height"] = float(geom.get("trigger_height", 0.0))
+	_attempt_runtime_state["fix7f_visual_overlap_ok"] = bool(geom.get("visual_overlap_ok", false))
+	_attempt_runtime_state["fix7f_trigger_overlap_ok"] = bool(geom.get("trigger_overlap_ok", false))
+	_attempt_runtime_state["fix7f_reason"] = String(geom.get("reason", ""))
 
 
 func _fix7d_intersect_vertical_ray(space: PhysicsDirectSpaceState2D, from: Vector2, upward: bool) -> Dictionary:
@@ -2765,11 +3853,142 @@ func _apply_fix7d_ambush_beam_rectangle_shape(area: Area2D, sz: Vector2) -> void
 	area.add_child(shape)
 
 
-## D6-01-FIX7: canonical AMBUSH beam rebuild. Only AMBUSH_security_beam is used as anchor.
-## D6-01-FIX7E: choke X unchanged from FIX7D; vertical span = inner collision gap at one probe Y (not largest-gap sweep).
+func _find_security_authoring_root() -> Node2D:
+	var node := get_node_or_null(D6_02_SECURITY_AUTHORING_ROOT_PATH)
+	if node is Node2D and node.has_method("find_enabled_beam_author"):
+		return node as Node2D
+	return null
+
+
+func _collect_security_authoring_counts(root: Node2D) -> Dictionary:
+	if root == null:
+		return {"beams": 0, "cameras": 0, "guards": 0, "patrols": 0}
+	return {
+		"beams": root.call("collect_beam_authors").size(),
+		"cameras": root.call("collect_camera_authors").size(),
+		"guards": root.call("collect_guard_spawn_authors").size(),
+		"patrols": root.call("collect_patrol_route_authors").size(),
+	}
+
+
+func _store_d6_02_authoring_summary(
+	root: Node2D,
+	beam_source: String,
+	author_path: String,
+	author_enabled: bool,
+	beam_center: Vector2,
+	visual_h: float,
+	visual_w: float,
+	trig_sz: Vector2,
+	trig_extra_h: float,
+	runtime_status: String,
+	validation_status: String = "ok",
+) -> void:
+	var counts := _collect_security_authoring_counts(root)
+	_attempt_runtime_state["d6_02_security_authoring_root_found"] = root != null
+	_attempt_runtime_state["d6_02_security_authoring_beam_count"] = int(counts.get("beams", 0))
+	_attempt_runtime_state["d6_02_ambush_beam_source"] = beam_source
+	_attempt_runtime_state["d6_02_ambush_beam_author_path"] = author_path
+	_attempt_runtime_state["d6_02_ambush_beam_author_enabled"] = author_enabled
+	_attempt_runtime_state["d6_02_ambush_beam_center"] = beam_center
+	_attempt_runtime_state["d6_02_ambush_beam_visual_height"] = visual_h
+	_attempt_runtime_state["d6_02_ambush_beam_visual_width"] = visual_w
+	_attempt_runtime_state["d6_02_ambush_beam_trigger_width"] = trig_sz.x
+	_attempt_runtime_state["d6_02_ambush_beam_trigger_height"] = trig_sz.y
+	_attempt_runtime_state["d6_02_ambush_beam_trigger_extra_height"] = trig_extra_h
+	_attempt_runtime_state["d6_02_ambush_beam_trigger_size"] = trig_sz
+	_attempt_runtime_state["d6_02_ambush_beam_trip_count"] = _get_beam_trip_count()
+	_attempt_runtime_state["d6_02_ambush_beam_runtime_status"] = runtime_status
+	_attempt_runtime_state["d6_02_ambush_beam_validation_status"] = validation_status
+	_attempt_runtime_state["d6_02_authored_camera_count"] = int(counts.get("cameras", 0))
+	_attempt_runtime_state["d6_02_authored_guard_spawn_count"] = int(counts.get("guards", 0))
+	_attempt_runtime_state["d6_02_authored_patrol_route_count"] = int(counts.get("patrols", 0))
+
+
+func _get_beam_trip_count() -> int:
+	var adapter := get_node_or_null("GameplayRoot/RuntimeSystems/MissionAlertController")
+	if adapter == null:
+		adapter = get_tree().get_first_node_in_group("iso_alert_controller")
+	if adapter != null and adapter.has_method("get_event_kind_counts"):
+		var kinds: Dictionary = adapter.call("get_event_kind_counts")
+		return int(kinds.get("beam_trip", 0))
+	return int(_attempt_runtime_state.get("beam_trip", 0))
+
+
+func _setup_ambush_beam_from_security_beam_author(author: Node2D, root: Node2D) -> void:
+	var cfg: Dictionary = author.call("build_runtime_config")
+	var beam_center: Vector2 = cfg.get("center", author.global_position)
+	var visual_h: float = float(cfg.get("visual_height", 170.0))
+	var visual_w: float = float(cfg.get("visual_width", 32.0))
+	var trig_sz: Vector2 = cfg.get("trigger_size", Vector2(72.0, visual_h))
+	var trig_extra_h: float = float(cfg.get("trigger_extra_height", 0.0))
+	var validation_status: String = String(cfg.get("validation_status", "ok"))
+	var alarm_id: String = String(cfg.get("alarm_id", "AMBUSH_security_beam"))
+	_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = true
+	_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = String(author.get_path())
+	_attempt_runtime_state["fix7_ambush_beam_anchor_resolve_source"] = "security_beam_author"
+	_attempt_runtime_state["fix7_ambush_beam_anchor_position"] = author.global_position
+	_attempt_runtime_state["fix7b_ambush_beam_orientation"] = "vertical"
+	_attempt_runtime_state["fix7b_ambush_beam_anchor_position"] = author.global_position
+	_attempt_runtime_state["fix7b_ambush_beam_center"] = beam_center
+	_attempt_runtime_state["fix7b_ambush_beam_center_offset"] = beam_center - author.global_position
+	_attempt_runtime_state["fix7b_ambush_beam_visual_width"] = visual_w
+	_attempt_runtime_state["fix7b_ambush_beam_trigger_width"] = trig_sz.x
+	_attempt_runtime_state["fix7b_ambush_beam_height"] = visual_h
+	_attempt_runtime_state["fix7b_ambush_beam_trigger_size"] = trig_sz
+	_attempt_runtime_state["fix7d_ambush_beam_mode"] = "authoring_node"
+	_attempt_runtime_state["fix7d_collision_boundary_success"] = true
+	_attempt_runtime_state["fix7d_choke_x"] = beam_center.x
+	_attempt_runtime_state["fix7d_choke_source"] = "SecurityBeamAuthor"
+	_attempt_runtime_state["fix7d_probe_y"] = beam_center.y
+	_attempt_runtime_state["fix7d_top_boundary_y"] = beam_center.y - visual_h * 0.5
+	_attempt_runtime_state["fix7d_bottom_boundary_y"] = beam_center.y + visual_h * 0.5
+	_attempt_runtime_state["fix7d_failure_reason"] = ""
+	_attempt_runtime_state["fix7d_fallback_used"] = false
+	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node2D
+	var runtime_status := "armed"
+	if alarm_zones == null:
+		runtime_status = "visual_only_no_alarm_zone_parent"
+		_store_d6_02_authoring_summary(
+			root, "authoring_node", str(author.get_path()), bool(author.get("enabled")),
+			beam_center, visual_h, visual_w, trig_sz, trig_extra_h, runtime_status, validation_status,
+		)
+		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5, {}, author.global_position, visual_w)
+		return
+	var beam_area := alarm_zones.get_node_or_null("AlarmZone_%s" % alarm_id) as Area2D
+	if beam_area == null:
+		beam_area = Area2D.new()
+		beam_area.name = "AlarmZone_%s" % alarm_id
+		beam_area.collision_layer = 0
+		beam_area.collision_mask = 1
+		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(alarm_id, beam_area))
+		alarm_zones.add_child(beam_area)
+	_apply_fix7d_ambush_beam_rectangle_shape(beam_area, trig_sz)
+	beam_area.global_position = beam_center
+	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5, {}, author.global_position, visual_w)
+	_attempt_runtime_state["fix7e_visual_trigger_mismatch_px"] = float(_attempt_runtime_state.get("fix7_ambush_beam_visual_trigger_mismatch_px", -1.0))
+	_store_d6_02_authoring_summary(
+		root, "authoring_node", str(author.get_path()), bool(author.get("enabled")),
+		beam_center, visual_h, visual_w, trig_sz, trig_extra_h, runtime_status, validation_status,
+	)
+	_setup_d6_03_authoring_security_runtime()
+
+
+## D6-01-FIX7: canonical AMBUSH beam rebuild. D6-02: prefers hand-placed SecurityBeamAuthor when enabled.
 func _setup_fix7_ambush_beam_runtime() -> void:
 	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
 		return
+	var sec_root := _find_security_authoring_root()
+	var beam_author: Node2D = null
+	if sec_root != null and bool(sec_root.get("runtime_enabled")):
+		beam_author = sec_root.call("find_enabled_beam_author", &"AMBUSH_security_beam") as Node2D
+	if beam_author != null:
+		_setup_ambush_beam_from_security_beam_author(beam_author, sec_root)
+		return
+	_store_d6_02_authoring_summary(
+		sec_root, "fix7f_fallback", "", false, Vector2.ZERO, 0.0, 0.0, Vector2.ZERO, 0.0, "fix7f_fallback", "fix7f_fallback",
+	)
+	_setup_d6_03_authoring_security_runtime()
 	var anchor_resolution_source := "authoring_marker_root"
 	var ambush_anchor := _find_authoring_marker("", "AMBUSH_security_beam")
 	if not (ambush_anchor is Node2D):
@@ -2785,13 +4004,17 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		_attempt_runtime_state["fix7_ambush_beam_trigger_center"] = Vector2.ZERO
 		_attempt_runtime_state["fix7_ambush_beam_visual_trigger_mismatch_px"] = -1.0
 		_attempt_runtime_state["fix7_ambush_beam_status"] = "missing_anchor"
+		_store_d6_02_authoring_summary(
+			sec_root, "missing", "", false, Vector2.ZERO, 0.0, 0.0, Vector2.ZERO, 0.0, "missing_anchor", "missing_anchor",
+		)
+		_setup_d6_03_authoring_security_runtime()
 		return
 	var anchor_pos := (ambush_anchor as Node2D).global_position
-	var geom := _compute_fix7e_ambush_beam_inner_gap(anchor_pos)
+	var geom := _compute_fix7f_ambush_beam_doorway_rect(anchor_pos)
 	var beam_center: Vector2 = geom.get("center", Vector2.ZERO)
 	var visual_h: float = float(geom.get("visual_height", 0.0))
-	var trig_h: float = float(geom.get("trigger_height", D6_FIX7E_FALLBACK_TRIGGER_HEIGHT))
-	var trig_sz := Vector2(D6_FIX7E_AMBUSH_BEAM_TRIGGER_WIDTH, trig_h)
+	var trig_sz: Vector2 = geom.get("trigger_size", Vector2(D6_FIX7F_AMBUSH_BEAM_TRIGGER_WIDTH, D6_FIX7F_FALLBACK_TRIGGER_HEIGHT))
+	var trig_h: float = trig_sz.y
 	var computed_offset: Vector2 = beam_center - anchor_pos
 	_attempt_runtime_state["fix7_ambush_beam_anchor_found"] = true
 	_attempt_runtime_state["fix7_ambush_beam_anchor_path"] = String((ambush_anchor as Node2D).get_path())
@@ -2801,24 +4024,25 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 	_attempt_runtime_state["fix7b_ambush_beam_anchor_position"] = anchor_pos
 	_attempt_runtime_state["fix7b_ambush_beam_center"] = beam_center
 	_attempt_runtime_state["fix7b_ambush_beam_center_offset"] = computed_offset
-	_attempt_runtime_state["fix7b_ambush_beam_visual_width"] = D6_FIX7E_AMBUSH_BEAM_VISUAL_WIDTH
+	_attempt_runtime_state["fix7b_ambush_beam_visual_width"] = D6_FIX7F_AMBUSH_BEAM_VISUAL_WIDTH
 	_attempt_runtime_state["fix7b_ambush_beam_trigger_width"] = trig_sz.x
 	_attempt_runtime_state["fix7b_ambush_beam_height"] = visual_h
 	_attempt_runtime_state["fix7b_ambush_beam_trigger_size"] = trig_sz
 	_attempt_runtime_state["fix7d_ambush_beam_mode"] = String(geom.get("mode", "unknown"))
-	_attempt_runtime_state["fix7d_collision_boundary_success"] = bool(geom.get("collision_ok", false))
-	_attempt_runtime_state["fix7d_choke_x"] = float(geom.get("choke_x", 0.0))
-	_attempt_runtime_state["fix7d_choke_source"] = String(geom.get("choke_source", ""))
-	_attempt_runtime_state["fix7d_probe_y"] = float(geom.get("probe_y", 0.0))
+	_attempt_runtime_state["fix7d_collision_boundary_success"] = bool(geom.get("success", false))
+	_attempt_runtime_state["fix7d_choke_x"] = float(geom.get("chosen_x", geom.get("choke_x", 0.0)))
+	_attempt_runtime_state["fix7d_choke_source"] = "fix7f_doorway_rect"
+	_attempt_runtime_state["fix7d_probe_y"] = float(geom.get("chosen_probe_y", geom.get("probe_y", 0.0)))
 	_attempt_runtime_state["fix7d_top_boundary_y"] = float(geom.get("visual_top_y", -1.0))
 	_attempt_runtime_state["fix7d_bottom_boundary_y"] = float(geom.get("visual_bottom_y", -1.0))
 	_attempt_runtime_state["fix7d_failure_reason"] = String(geom.get("reason", ""))
 	_attempt_runtime_state["fix7d_fallback_used"] = bool(geom.get("fallback_used", true))
+	_store_fix7f_runtime_state(geom)
 	_attempt_runtime_state["fix7e_mode"] = String(geom.get("mode", "unknown"))
-	_attempt_runtime_state["fix7e_collision_ok"] = bool(geom.get("collision_ok", false))
+	_attempt_runtime_state["fix7e_collision_ok"] = bool(geom.get("success", false))
 	_attempt_runtime_state["fix7e_fallback_used"] = bool(geom.get("fallback_used", true))
-	_attempt_runtime_state["fix7e_choke_x"] = float(geom.get("choke_x", 0.0))
-	_attempt_runtime_state["fix7e_probe_y"] = float(geom.get("probe_y", 0.0))
+	_attempt_runtime_state["fix7e_choke_x"] = float(geom.get("chosen_x", 0.0))
+	_attempt_runtime_state["fix7e_probe_y"] = float(geom.get("chosen_probe_y", 0.0))
 	_attempt_runtime_state["fix7e_top_hit_y"] = float(geom.get("top_hit_y", -1.0))
 	_attempt_runtime_state["fix7e_bottom_hit_y"] = float(geom.get("bottom_hit_y", -1.0))
 	_attempt_runtime_state["fix7e_visual_top_y"] = float(geom.get("visual_top_y", 0.0))
@@ -2833,7 +4057,7 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 	if alarm_zones == null:
 		_attempt_runtime_state["fix7_ambush_beam_status"] = "visual_only_no_alarm_zone_parent"
 		_attempt_runtime_state["fix7b_ambush_beam_status"] = "visual_only_no_alarm_zone_parent"
-		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5)
+		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5, geom, anchor_pos)
 		return
 	var beam_area := alarm_zones.get_node_or_null("AlarmZone_AMBUSH_security_beam") as Area2D
 	if beam_area == null:
@@ -2843,10 +4067,24 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		beam_area.collision_mask = 1
 		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind("AMBUSH_security_beam", beam_area))
 		alarm_zones.add_child(beam_area)
-	_apply_fix7e_ambush_beam_geometry(beam_area, null, geom)
+	_apply_fix7f_ambush_beam_geometry(beam_area, geom)
 	beam_area.global_position = beam_center
-	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5)
+	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5, geom, anchor_pos)
 	_attempt_runtime_state["fix7e_visual_trigger_mismatch_px"] = float(_attempt_runtime_state.get("fix7_ambush_beam_visual_trigger_mismatch_px", -1.0))
+	_store_d6_02_authoring_summary(
+		sec_root,
+		"fix7f_fallback",
+		"",
+		false,
+		beam_center,
+		visual_h,
+		D6_FIX7F_AMBUSH_BEAM_VISUAL_WIDTH,
+		trig_sz,
+		0.0,
+		String(_attempt_runtime_state.get("fix7_ambush_beam_status", "unknown")),
+		"fix7f_fallback",
+	)
+	_setup_d6_03_authoring_security_runtime()
 
 
 ## D6-01-FIX7A: locate generated runtime marker nodes not included in authoring index.
@@ -2882,8 +4120,15 @@ func _find_runtime_debug_marker(marker_id: String) -> Node2D:
 	return null
 
 
-## Shared beam center for Line2D host + AlarmZone; half_height = FIX7E visual span / 2.
-func _attach_fix7_ambush_beam_visual(beam_center: Vector2, beam_area: Area2D, beam_half_height: float) -> void:
+## Shared beam center for Line2D host + AlarmZone; half_height = FIX7F visual span / 2.
+func _attach_fix7_ambush_beam_visual(
+	beam_center: Vector2,
+	beam_area: Area2D,
+	beam_half_height: float,
+	geom: Dictionary = {},
+	seed_pos: Vector2 = Vector2.ZERO,
+	visual_line_width: float = D6_FIX7F_AMBUSH_BEAM_VISUAL_WIDTH,
+) -> void:
 	var root := get_node_or_null("GameplayRoot/RuntimeSystems") as Node2D
 	if root == null:
 		return
@@ -2899,7 +4144,7 @@ func _attach_fix7_ambush_beam_visual(beam_center: Vector2, beam_area: Area2D, be
 	var half_h := beam_half_height
 	var line := Line2D.new()
 	line.name = "AmbushBeamLine"
-	line.width = D6_FIX7E_AMBUSH_BEAM_VISUAL_WIDTH
+	line.width = visual_line_width
 	line.default_color = Color(1.0, 0.0, 0.0, 1.0)
 	line.joint_mode = Line2D.LINE_JOINT_ROUND
 	line.z_index = 2601
@@ -2936,6 +4181,9 @@ func _attach_fix7_ambush_beam_visual(beam_center: Vector2, beam_area: Area2D, be
 	_attempt_runtime_state["fix7b_ambush_beam_visual_trigger_mismatch_px"] = mismatch
 	_attempt_runtime_state["fix7b_ambush_beam_visual_path"] = str(host.get_path()) + "/" + line.name
 	_attempt_runtime_state["fix7b_ambush_beam_trigger_path"] = str(beam_area.get_path()) if beam_area != null else "none"
+	if not geom.is_empty():
+		var seed_pt := seed_pos if seed_pos != Vector2.ZERO else beam_center
+		_attach_fix7f_debug_markers(host, geom, seed_pt)
 
 
 ## D6-01-FIX6B: place beam immediately before the bag room (far-right hallway).
@@ -3307,6 +4555,17 @@ func _on_runtime_alarm_zone_entered(body: Node, alarm_id: String, area: Area2D) 
 		_attempt_runtime_state["ambush_triggered"] = int(_attempt_runtime_state.get("ambush_triggered", 0)) + 1
 		if area != null:
 			area.set_deferred("monitoring", false)
+	if _is_beam_alarm_id(alarm_id):
+		var trip_event := _get_authoring_beam_trip_event_id(alarm_id)
+		var beam_dispatch := _emit_security_authoring_event(trip_event, {
+			"source_type": "security_beam_author",
+			"source_id": alarm_id,
+			"source_path": str(area.get_path()) if area != null else "",
+			"player_position": (body as Node2D).global_position if body is Node2D else Vector2.ZERO,
+			"timestamp": Time.get_ticks_msec(),
+			"reason": "beam_crossed",
+		})
+		_attempt_runtime_state["d6_04_last_beam_event_handled"] = bool(beam_dispatch.get("handled", false))
 	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
 	if controller != null:
 		controller.call("register_detection_event", "alarm_" + alarm_id, 1.0, "alarm_zone")
@@ -3324,7 +4583,43 @@ func _register_runtime(bucket: String, id: String) -> void:
 	_runtime_spawned_ids[bucket + ":" + id] = true
 
 
+func _refresh_d6_04_live_debug_state() -> void:
+	_refresh_d6_05a_test_door_state()
+	var cameras_parent := get_node_or_null("EntityRoot/Cameras")
+	if cameras_parent == null:
+		return
+	for child in cameras_parent.get_children():
+		if child == null or not is_instance_valid(child):
+			continue
+		if not String(child.name).begins_with("AuthoredCamera_"):
+			continue
+		if child.has_method("get_runtime_debug_state"):
+			var cst: Dictionary = child.call("get_runtime_debug_state") as Dictionary
+			_attempt_runtime_state["d6_04_authored_camera_runtime_path"] = String(child.get_path())
+			_attempt_runtime_state["d6_04_authored_camera_runtime_class"] = String(cst.get("class_name", child.get_class()))
+			_attempt_runtime_state["d6_04_authored_camera_enabled"] = bool(cst.get("enabled", false))
+			_attempt_runtime_state["d6_04_authored_camera_monitoring"] = bool(cst.get("monitoring", false))
+			_attempt_runtime_state["d6_04_authored_camera_has_shape"] = bool(cst.get("has_shape", false))
+			_attempt_runtime_state["d6_04_authored_camera_player_in_cone"] = bool(cst.get("player_in_cone", false))
+			_attempt_runtime_state["d6_04_authored_camera_detection_value"] = float(cst.get("detection_value", 0.0))
+			_attempt_runtime_state["d6_04_last_camera_id"] = String(cst.get("camera_id", ""))
+	var enemies := get_node_or_null("EntityRoot/Enemies")
+	if enemies == null:
+		return
+	for guard in enemies.get_children():
+		if guard == null or not guard.has_method("get_authoring_debug_state"):
+			continue
+		if not guard.has_meta("author_spawn_id"):
+			continue
+		var gst: Dictionary = guard.call("get_authoring_debug_state") as Dictionary
+		_attempt_runtime_state["d6_04_authored_guard_force_chase"] = bool(gst.get("force_chase", false))
+		_attempt_runtime_state["d6_04_authored_guard_fallback_entered"] = bool(gst.get("fallback_entered", false))
+		_attempt_runtime_state["d6_04_authored_guard_debug_cone_range"] = float(gst.get("debug_cone_range", 0.0))
+		_attempt_runtime_state["d6_04_authored_guard_aggro_range"] = float(gst.get("aggro_range", 0.0))
+
+
 func _runtime_debug_summary() -> Dictionary:
+	_refresh_d6_04_live_debug_state()
 	var enemies := get_node_or_null("EntityRoot/Enemies")
 	var cameras := get_node_or_null("EntityRoot/Cameras")
 	var runtime_guard_count := enemies.get_child_count() if enemies != null else 0
@@ -3365,9 +4660,9 @@ func _runtime_debug_summary() -> Dictionary:
 		"garage_beam_triggered": _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
 		"beam_alarm_id": "garage_entry_beam",
 		"beam_runtime_node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
-		"beam_f10_plain": "Beam: FIX7E inner A-B vertical gap at choke X (single probe rays, mask=7). Mid-run alarm only.",
-		"beam_f10_fix7d_note": "FIX7E: visual = inner collision hits (no FIX7D largest-gap sweep); trigger extends by trigger_wall_overlap.",
-		"beam_f10_fix7d_fallback_warning": "FIX7E using fallback or clamped span — check FIX7E reason on F10." if bool(_attempt_runtime_state.get("fix7e_fallback_used", false)) else "",
+		"beam_f10_plain": "Beam: FIX7F doorway rectangle (grid search + overlap rejection, mask=7). Mid-run alarm only.",
+		"beam_f10_fix7d_note": "FIX7F: searches candidate X/Y near seed; picks centered walkable doorway span.",
+		"beam_f10_fix7d_fallback_warning": "FIX7F fallback — check FIX7F reason on F10." if bool(_attempt_runtime_state.get("fix7f_fallback_used", false)) else "",
 		"beam_f10_how_to_test": "Test: walk through vertical red beam at AMBUSH_security_beam choke. beam_trip +1 once.",
 		"beam_distance_from_player": beam_info.get("distance", -1.0),
 		"beam_direction_from_player": beam_info.get("direction", "unknown"),
@@ -3434,6 +4729,157 @@ func _runtime_debug_summary() -> Dictionary:
 		"fix7e_reason": String(_attempt_runtime_state.get("fix7e_reason", "")),
 		"fix7e_visual_trigger_mismatch_px": float(_attempt_runtime_state.get("fix7e_visual_trigger_mismatch_px", -1.0)),
 		"beam_f10_fix7e_instruction": "Beam should span only A-B inner hallway gap, not through walls.",
+		"fix7f_mode": String(_attempt_runtime_state.get("fix7f_mode", "")),
+		"fix7f_success": _attempt_runtime_state.get("fix7f_success", false),
+		"fix7f_fallback_used": _attempt_runtime_state.get("fix7f_fallback_used", false),
+		"fix7f_seed_x": float(_attempt_runtime_state.get("fix7f_seed_x", 0.0)),
+		"fix7f_chosen_x": float(_attempt_runtime_state.get("fix7f_chosen_x", 0.0)),
+		"fix7f_x_shift_from_seed": float(_attempt_runtime_state.get("fix7f_x_shift_from_seed", 0.0)),
+		"fix7f_probe_y": float(_attempt_runtime_state.get("fix7f_probe_y", 0.0)),
+		"fix7f_chosen_probe_y": float(_attempt_runtime_state.get("fix7f_chosen_probe_y", 0.0)),
+		"fix7f_candidate_count": int(_attempt_runtime_state.get("fix7f_candidate_count", 0)),
+		"fix7f_rejected_inside_wall": int(_attempt_runtime_state.get("fix7f_rejected_inside_wall", 0)),
+		"fix7f_rejected_missing_hits": int(_attempt_runtime_state.get("fix7f_rejected_missing_hits", 0)),
+		"fix7f_rejected_height": int(_attempt_runtime_state.get("fix7f_rejected_height", 0)),
+		"fix7f_rejected_visual_overlap": int(_attempt_runtime_state.get("fix7f_rejected_visual_overlap", 0)),
+		"fix7f_rejected_trigger_overlap": int(_attempt_runtime_state.get("fix7f_rejected_trigger_overlap", 0)),
+		"fix7f_top_hit_y": float(_attempt_runtime_state.get("fix7f_top_hit_y", -1.0)),
+		"fix7f_bottom_hit_y": float(_attempt_runtime_state.get("fix7f_bottom_hit_y", -1.0)),
+		"fix7f_visual_top_y": float(_attempt_runtime_state.get("fix7f_visual_top_y", 0.0)),
+		"fix7f_visual_bottom_y": float(_attempt_runtime_state.get("fix7f_visual_bottom_y", 0.0)),
+		"fix7f_visual_height": float(_attempt_runtime_state.get("fix7f_visual_height", 0.0)),
+		"fix7f_trigger_top_y": float(_attempt_runtime_state.get("fix7f_trigger_top_y", 0.0)),
+		"fix7f_trigger_bottom_y": float(_attempt_runtime_state.get("fix7f_trigger_bottom_y", 0.0)),
+		"fix7f_trigger_height": float(_attempt_runtime_state.get("fix7f_trigger_height", 0.0)),
+		"fix7f_visual_overlap_ok": _attempt_runtime_state.get("fix7f_visual_overlap_ok", false),
+		"fix7f_trigger_overlap_ok": _attempt_runtime_state.get("fix7f_trigger_overlap_ok", false),
+		"fix7f_reason": String(_attempt_runtime_state.get("fix7f_reason", "")),
+		"beam_f10_fix7f_instruction": "Beam centered in doorway; visual = inner walls; trigger slightly larger.",
+		"d6_02_security_authoring_root_found": _attempt_runtime_state.get("d6_02_security_authoring_root_found", false),
+		"d6_02_security_authoring_beam_count": int(_attempt_runtime_state.get("d6_02_security_authoring_beam_count", 0)),
+		"d6_02_ambush_beam_source": String(_attempt_runtime_state.get("d6_02_ambush_beam_source", "unknown")),
+		"d6_02_ambush_beam_author_path": String(_attempt_runtime_state.get("d6_02_ambush_beam_author_path", "")),
+		"d6_02_ambush_beam_author_enabled": _attempt_runtime_state.get("d6_02_ambush_beam_author_enabled", false),
+		"d6_02_ambush_beam_center": _attempt_runtime_state.get("d6_02_ambush_beam_center", Vector2.ZERO),
+		"d6_02_ambush_beam_visual_height": float(_attempt_runtime_state.get("d6_02_ambush_beam_visual_height", 0.0)),
+		"d6_02_ambush_beam_visual_width": float(_attempt_runtime_state.get("d6_02_ambush_beam_visual_width", 0.0)),
+		"d6_02_ambush_beam_trigger_width": float(_attempt_runtime_state.get("d6_02_ambush_beam_trigger_width", 0.0)),
+		"d6_02_ambush_beam_trigger_height": float(_attempt_runtime_state.get("d6_02_ambush_beam_trigger_height", 0.0)),
+		"d6_02_ambush_beam_trigger_extra_height": float(_attempt_runtime_state.get("d6_02_ambush_beam_trigger_extra_height", 0.0)),
+		"d6_02_ambush_beam_trigger_size": _attempt_runtime_state.get("d6_02_ambush_beam_trigger_size", Vector2.ZERO),
+		"d6_02_ambush_beam_trip_count": int(_attempt_runtime_state.get("d6_02_ambush_beam_trip_count", 0)),
+		"d6_02_ambush_beam_runtime_status": String(_attempt_runtime_state.get("d6_02_ambush_beam_runtime_status", "")),
+		"d6_02_ambush_beam_validation_status": String(_attempt_runtime_state.get("d6_02_ambush_beam_validation_status", "")),
+		"d6_02_authored_camera_count": int(_attempt_runtime_state.get("d6_02_authored_camera_count", 0)),
+		"d6_02_authored_guard_spawn_count": int(_attempt_runtime_state.get("d6_02_authored_guard_spawn_count", 0)),
+		"d6_02_authored_patrol_route_count": int(_attempt_runtime_state.get("d6_02_authored_patrol_route_count", 0)),
+		"d6_03_security_router_active": _attempt_runtime_state.get("d6_03_security_router_active", false),
+		"d6_03_registered_event_count": int(_attempt_runtime_state.get("d6_03_registered_event_count", 0)),
+		"d6_03_last_dispatched_event": String(_attempt_runtime_state.get("d6_03_last_dispatched_event", "")),
+		"d6_03_last_guard_spawn_author_id": String(_attempt_runtime_state.get("d6_03_last_guard_spawn_author_id", "")),
+		"d6_03_last_guard_spawn_result": String(_attempt_runtime_state.get("d6_03_last_guard_spawn_result", "")),
+		"d6_03_last_guard_spawn_reason": String(_attempt_runtime_state.get("d6_03_last_guard_spawn_reason", "")),
+		"d6_03_last_spawned_guard_count": int(_attempt_runtime_state.get("d6_03_last_spawned_guard_count", 0)),
+		"d6_03_beam_event_route_used": _attempt_runtime_state.get("d6_03_beam_event_route_used", false),
+		"d6_03_beam_direct_fallback_suppressed": _attempt_runtime_state.get("d6_03_beam_direct_fallback_suppressed", false),
+		"d6_03_duplicate_spawn_avoided": _attempt_runtime_state.get("d6_03_duplicate_spawn_avoided", false),
+		"d6_03_authored_area_trigger_count": int(_attempt_runtime_state.get("d6_03_authored_area_trigger_count", 0)),
+		"d6_03_router_listener_counts": (_security_event_router.call("get_debug_summary") as Dictionary).get("listener_counts", {}) if _security_event_router != null else {},
+		"d6_03_router_recent_events": (_security_event_router.call("get_debug_summary") as Dictionary).get("recent_events", []) if _security_event_router != null else [],
+		"d6_04_last_event_listeners_registered": int(_attempt_runtime_state.get("d6_04_last_event_listeners_registered", 0)),
+		"d6_04_last_event_listeners_called": int(_attempt_runtime_state.get("d6_04_last_event_listeners_called", 0)),
+		"d6_04_last_event_listeners_handled": int(_attempt_runtime_state.get("d6_04_last_event_listeners_handled", 0)),
+		"d6_04_last_event_listeners_rejected": int(_attempt_runtime_state.get("d6_04_last_event_listeners_rejected", 0)),
+		"d6_04_last_event_handled": _attempt_runtime_state.get("d6_04_last_event_handled", false),
+		"d6_04_last_event_rejection_reasons": _attempt_runtime_state.get("d6_04_last_event_rejection_reasons", []),
+		"d6_04_last_successful_listener_paths": _attempt_runtime_state.get("d6_04_last_successful_listener_paths", []),
+		"d6_04_runtime_authored_camera_count": int(_attempt_runtime_state.get("d6_04_runtime_authored_camera_count", 0)),
+		"d6_04_last_camera_id": String(_attempt_runtime_state.get("d6_04_last_camera_id", "")),
+		"d6_04_last_camera_detect_event": String(_attempt_runtime_state.get("d6_04_last_camera_detect_event", "")),
+		"d6_04_last_camera_alarm_event": String(_attempt_runtime_state.get("d6_04_last_camera_alarm_event", "")),
+		"d6_04_last_camera_alarm_handled": _attempt_runtime_state.get("d6_04_last_camera_alarm_handled", false),
+		"d6_04_last_camera_source_path": String(_attempt_runtime_state.get("d6_04_last_camera_source_path", "")),
+		"d6_04_last_beam_event_handled": _attempt_runtime_state.get("d6_04_last_beam_event_handled", false),
+		"d6_04_last_guard_initial_behavior": String(_attempt_runtime_state.get("d6_04_last_guard_initial_behavior", "")),
+		"d6_04_last_guard_fallback_behavior": String(_attempt_runtime_state.get("d6_04_last_guard_fallback_behavior", "")),
+		"d6_04_last_guard_patrol_route_assigned": _attempt_runtime_state.get("d6_04_last_guard_patrol_route_assigned", false),
+		"d6_04_authored_camera_runtime_path": String(_attempt_runtime_state.get("d6_04_authored_camera_runtime_path", "")),
+		"d6_04_authored_camera_runtime_class": String(_attempt_runtime_state.get("d6_04_authored_camera_runtime_class", "")),
+		"d6_04_authored_camera_parity_target": String(_attempt_runtime_state.get("d6_04_authored_camera_parity_target", "CAM_market_01")),
+		"d6_04_authored_camera_parent_path": String(_attempt_runtime_state.get("d6_04_authored_camera_parent_path", "")),
+		"d6_04_authored_camera_enabled": _attempt_runtime_state.get("d6_04_authored_camera_enabled", false),
+		"d6_04_authored_camera_monitoring": _attempt_runtime_state.get("d6_04_authored_camera_monitoring", false),
+		"d6_04_authored_camera_has_shape": _attempt_runtime_state.get("d6_04_authored_camera_has_shape", false),
+		"d6_04_authored_camera_player_in_cone": _attempt_runtime_state.get("d6_04_authored_camera_player_in_cone", false),
+		"d6_04_authored_camera_detection_value": float(_attempt_runtime_state.get("d6_04_authored_camera_detection_value", 0.0)),
+		"d6_04_authored_guard_force_chase": _attempt_runtime_state.get("d6_04_authored_guard_force_chase", false),
+		"d6_04_authored_guard_fallback_entered": _attempt_runtime_state.get("d6_04_authored_guard_fallback_entered", false),
+		"d6_04_authored_guard_debug_cone_range": float(_attempt_runtime_state.get("d6_04_authored_guard_debug_cone_range", 0.0)),
+		"d6_04_authored_guard_aggro_range": float(_attempt_runtime_state.get("d6_04_authored_guard_aggro_range", 0.0)),
+		"d6_05_effect_author_count": int(_attempt_runtime_state.get("d6_05_effect_author_count", 0)),
+		"d6_05_door_effect_count": int(_attempt_runtime_state.get("d6_05_door_effect_count", 0)),
+		"d6_05_lockdown_effect_count": int(_attempt_runtime_state.get("d6_05_lockdown_effect_count", 0)),
+		"d6_05_objective_effect_count": int(_attempt_runtime_state.get("d6_05_objective_effect_count", 0)),
+		"d6_05_node_toggle_effect_count": int(_attempt_runtime_state.get("d6_05_node_toggle_effect_count", 0)),
+		"d6_05_last_effect_id": String(_attempt_runtime_state.get("d6_05_last_effect_id", "")),
+		"d6_05_last_effect_type": String(_attempt_runtime_state.get("d6_05_last_effect_type", "")),
+		"d6_05_last_effect_event": String(_attempt_runtime_state.get("d6_05_last_effect_event", "")),
+		"d6_05_last_effect_target": String(_attempt_runtime_state.get("d6_05_last_effect_target", "")),
+		"d6_05_last_effect_result": String(_attempt_runtime_state.get("d6_05_last_effect_result", "")),
+		"d6_05_last_effect_reason": String(_attempt_runtime_state.get("d6_05_last_effect_reason", "")),
+		"d6_05_lockdown_active": _attempt_runtime_state.get("d6_05_lockdown_active", false),
+		"d6_05_lockdown_alert_state": String(_attempt_runtime_state.get("d6_05_lockdown_alert_state", "")),
+		"d6_05_last_door_effect_id": String(_attempt_runtime_state.get("d6_05_last_door_effect_id", "")),
+		"d6_05_last_door_action": String(_attempt_runtime_state.get("d6_05_last_door_action", "")),
+		"d6_05_last_door_lock_state": String(_attempt_runtime_state.get("d6_05_last_door_lock_state", "")),
+		"d6_05_last_door_target": String(_attempt_runtime_state.get("d6_05_last_door_target", "")),
+		"d6_05_last_door_event": String(_attempt_runtime_state.get("d6_05_last_door_event", "")),
+		"d6_05a_test_door_path": String(_attempt_runtime_state.get("d6_05a_test_door_path", "")),
+		"d6_05a_test_door_lock_state": String(_attempt_runtime_state.get("d6_05a_test_door_lock_state", "unknown")),
+		"d6_05a_test_door_locked": _attempt_runtime_state.get("d6_05a_test_door_locked", false),
+		"d6_05a_test_door_collision_layer": int(
+			_attempt_runtime_state.get("d6_05a_test_door_collision_layer", 0)
+		),
+		"d6_05a_test_door_collision_enabled": _attempt_runtime_state.get(
+			"d6_05a_test_door_collision_enabled", false
+		),
+		"d6_05a_test_door_orientation_degrees": float(
+			_attempt_runtime_state.get("d6_05a_test_door_orientation_degrees", 0.0)
+		),
+		"d6_05c_last_zone_event": String(_attempt_runtime_state.get("d6_05c_last_zone_event", "")),
+		"d6_05c_last_zone_id": String(_attempt_runtime_state.get("d6_05c_last_zone_id", "")),
+		"d6_06_authoring_root_found": _attempt_runtime_state.get("d6_06_authoring_root_found", false),
+		"d6_06_collectible_author_count": int(_attempt_runtime_state.get("d6_06_collectible_author_count", 0)),
+		"d6_06_runtime_pickup_count": int(_attempt_runtime_state.get("d6_06_runtime_pickup_count", 0)),
+		"d6_06_poop_author_count": int(_attempt_runtime_state.get("d6_06_poop_author_count", 0)),
+		"d6_06_money_author_count": int(_attempt_runtime_state.get("d6_06_money_author_count", 0)),
+		"d6_06_polaroid_author_count": int(_attempt_runtime_state.get("d6_06_polaroid_author_count", 0)),
+		"d6_06_tiny_icon_author_count": int(_attempt_runtime_state.get("d6_06_tiny_icon_author_count", 0)),
+		"d6_06_last_authored_pickup_id": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_id", "")),
+		"d6_06_last_authored_pickup_type": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_type", "")),
+		"d6_06_last_authored_pickup_result": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_result", "")),
+		"d6_06_last_pickup_source": String(_attempt_runtime_state.get("d6_06_last_pickup_source", "")),
+		"d6_06_last_pickup_body": String(_attempt_runtime_state.get("d6_06_last_pickup_body", "")),
+		"d6_06_last_pickup_body_path": String(_attempt_runtime_state.get("d6_06_last_pickup_body_path", "")),
+		"d6_06_last_pickup_has_shape": _attempt_runtime_state.get("d6_06_last_pickup_has_shape", false),
+		"d6_06_last_pickup_radius": float(_attempt_runtime_state.get("d6_06_last_pickup_radius", 0.0)),
+		"d6_06_last_pickup_monitoring": _attempt_runtime_state.get("d6_06_last_pickup_monitoring", false),
+		"d6_06_physical_overlap_verified": _attempt_runtime_state.get("d6_06_physical_overlap_verified", false),
+		"d6_06b_all_pickups_have_shape": _attempt_runtime_state.get("d6_06b_all_pickups_have_shape", false),
+		"d6_06b_all_pickups_monitoring": _attempt_runtime_state.get("d6_06b_all_pickups_monitoring", false),
+		"d6_06_proof_flags": int(_attempt_runtime_state.get("d6_06_proof_flags", 0)),
+		"d6_06_poop_count": int(GameState.poop_bag_inventory.get("count", 0)),
+		"d6_06_money_proof_cash": int(_attempt_runtime_state.get("d6_06_authored_money_cash", 0)),
+		"d6_06_runtime_path_kind": String(_attempt_runtime_state.get("d6_06_runtime_path_kind", "")),
+		"d6_06_runtime_parent_path": String(_attempt_runtime_state.get("d6_06_runtime_parent_path", "")),
+		"d6_06_pending_collectible_count": int(_attempt_runtime_state.get("d6_06_pending_collectible_count", 0)),
+		"d6_06_committed_collectible_count": int(_attempt_runtime_state.get("d6_06_committed_collectible_count", 0)),
+		"d6_06_hideout_sync_status": String(_attempt_runtime_state.get("d6_06_hideout_sync_status", "")),
+		"d6_06_pending_poop": int(_attempt_runtime_state.get("d6_06_pending_poop", 0)),
+		"d6_06_pending_money": int(_attempt_runtime_state.get("d6_06_pending_money", 0)),
+		"d6_06_pending_polaroid": int(_attempt_runtime_state.get("d6_06_pending_polaroid", 0)),
+		"d6_06_pending_tiny_icon": int(_attempt_runtime_state.get("d6_06_pending_tiny_icon", 0)),
+		"d6_06_pending_cleared_reason": String(_attempt_runtime_state.get("d6_06_pending_cleared_reason", "")),
 		"search_net_last_role": last_role,
 		"search_net_last_ordinal": last_ordinal,
 		"search_net_last_heat_at_spawn": last_heat_at_spawn,
@@ -3465,6 +4911,7 @@ func _reset_attempt_runtime_state() -> void:
 	_pending_security_guard_source_ids.clear()
 	_security_guard_spawn_flush_scheduled = false
 	_security_spawn_probe.clear()
+	_clear_pending_authored_collectibles("attempt_reset")
 	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
 	if controller != null and controller.has_method("reset_attempt_state"):
 		controller.call("reset_attempt_state")
@@ -3495,7 +4942,13 @@ func can_spawn_alarm_guard_for_source(source_id: String) -> bool:
 	if source_id.begins_with("alarm_garage_entry_beam"):
 		return _is_runtime_flag_true("alarm_guard_spawned:alarm_garage_entry_beam") != true
 	if source_id.begins_with("alarm_AMBUSH_security_beam"):
+		if _should_suppress_direct_beam_guard_spawn("AMBUSH_security_beam"):
+			return false
 		return _is_runtime_flag_true("alarm_guard_spawned:alarm_AMBUSH_security_beam") != true
+	var cam_alarm_ev := _get_authored_camera_alarm_event_id(source_id)
+	if cam_alarm_ev != &"" and _should_suppress_direct_spawn_for_event(cam_alarm_ev):
+		_attempt_runtime_state["d6_03_duplicate_spawn_avoided"] = true
+		return false
 	return true
 
 

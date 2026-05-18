@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "errors": [],
+  "changed_files": [
+    "AGENTS.md",
+    "opencode.json",
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "src/enemies/Guard.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    ".gitattributes",
+    ".gitignore"
+  ]
+}

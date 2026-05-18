@@ -1,6 +1,12 @@
 class_name IsoMissionDebugPanel
 extends CanvasLayer
 
+## Default F10 security view is authoring-focused. Set true to show FIX7 geometry legacy clutter.
+const SHOW_LEGACY_SECURITY_DEBUG := false
+## Which F10 section is expanded by default (others show one-line summaries when collapsed).
+const DEBUG_FOCUS_SECTION := "collectibles"
+const SHOW_COLLAPSED_DEBUG_SECTIONS := true
+
 @export var mission_id: String = ""
 @export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
 @export var debug_outline_color := Color(0.0, 0.0, 0.0, 1.0)
@@ -150,174 +156,10 @@ func _refresh_status() -> void:
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
 	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
-	var sec_lines := "\n--- Security ---"
-	sec_lines += "\nCameras: stand in cone until alert builds; reinforcements use live cap (not stale counter)."
-	sec_lines += "\nWrong code: keypad; wrong_code / wrong_code_alarm in counts below."
-	if controller != null and controller.has_method("get_security_event_adapter"):
-		var adapter: Variant = controller.call("get_security_event_adapter")
-		if adapter != null and adapter.has_method("get_security_debug_snapshot"):
-			var ssec: Dictionary = adapter.call("get_security_debug_snapshot")
-			var kinds: Dictionary = ssec.get("counters_by_kind", {}) as Dictionary
-			sec_lines += "\nHeat %d/5  failed_runs %d  alert %s" % [
-				int(ssec.get("heat", heat)),
-				int(ssec.get("failed_attempts", int(GameState.failed_attempts.get(mid, 0)))),
-				String(ssec.get("alert_state", alert)),
-			]
-			sec_lines += "\nCam det %d  wrong %d  wrong_alm %d  beam %d  reinf %d  fail_heat_evt %d" % [
-				int(kinds.get("camera_detection", 0)),
-				int(kinds.get("wrong_code", 0)),
-				int(kinds.get("wrong_code_alarm", 0)),
-				int(kinds.get("beam_trip", 0)),
-				int(kinds.get("reinforcement_spawned", 0)),
-				int(kinds.get("mission_failure_heat", 0)),
-			]
+	var sec_lines := ""
 	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
 		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
-		## D6-01-FIX6A: show reinforcement cooldown and reserved count.
-		sec_lines += "\nCooldown: %.1fs  Heat %d/5" % [
-			float(rsum.get("reinforcement_cooldown_sec", 6.0)),
-			int(rsum.get("heat_profile", {}).get("heat", heat)),
-		]
-		sec_lines += "\nLast reinforcement: %s  (%s)" % [
-			String(rsum.get("last_reinforcement_source", "-")),
-			String(rsum.get("last_reinforcement_result", "-")),
-		]
-		sec_lines += "\nGuards: functional %d / raw %d / invalid %d / cap %d / queued %d / reserved %d" % [
-			int(rsum.get("security_response_spawn_count", 0)),
-			int(rsum.get("security_response_spawn_count_raw", int(rsum.get("security_response_spawn_count", 0)))),
-			int(rsum.get("invalid_offmap_security_guard_count", 0)),
-			int(rsum.get("security_spawn_cap", 0)),
-			int(rsum.get("security_spawn_pending_count", 0)),
-			int(rsum.get("security_reserved_count", 0)),
-		]
-		## D6-01-FIX6B: show lifecycle stats (active/searching/dormant/removed).
-		sec_lines += "\nLifecycle: active %d / searching %d / dormant %d / removed %d" % [
-			int(rsum.get("lifecycle_active", 0)),
-			int(rsum.get("lifecycle_searching", 0)),
-			int(rsum.get("lifecycle_dormant", 0)),
-			int(rsum.get("lifecycle_removed_total", 0)),
-		]
-		sec_lines += "\nCameras in tree: %d moving / %d total" % [
-			int(rsum.get("security_cameras_moving", 0)),
-			int(rsum.get("security_cameras_total", 0)),
-		]
-		sec_lines += "\nActive security guards:"
-		var ag: Array = rsum.get("security_active_guards_preview", []) as Array
-		if ag.is_empty():
-			sec_lines += " (none)"
-		else:
-			for line in ag:
-				sec_lines += "\n  %s" % String(line)
-		var probe: Dictionary = rsum.get("d6_fix6_spawn_probe", rsum.get("d6_fix5_spawn_probe", {})) as Dictionary
-		sec_lines += "\nLast spawn: %s / %s" % [
-			String(probe.get("source_id", "-")),
-			String(probe.get("spawn_mode", "-")),
-		]
-		sec_lines += "\n  req %s  chosen %s  actual %s" % [
-			str(probe.get("requested_position", "-")),
-			str(probe.get("chosen_position", "-")),
-			str(probe.get("actual_position", "-")),
-		]
-		sec_lines += "\n  result %s  reason %s  dist %d" % [
-			String(probe.get("result", "-")),
-			String(probe.get("reject_reason", "")),
-			int(probe.get("last_spawn_distance_to_player", -1)),
-		]
-		## D6-01-FIX6B: search net info.
-		sec_lines += "\n--- Search Net (FIX6B) ---"
-		sec_lines += "\nHeat %d/5  Radius %d  Role %s  Ordinal %d" % [
-			int(rsum.get("search_net_heat", heat)),
-			int(rsum.get("search_net_triangle_radius_by_heat", 140)),
-			String(rsum.get("search_net_last_role", "-")),
-			int(rsum.get("search_net_last_ordinal", -1)),
-		]
-		sec_lines += "\nRoles: %s" % str(rsum.get("search_net_roles_by_heat", "territorial/pursuer/flanker/choke/sentry"))
-		sec_lines += "\nSearch-net handoff active: %s" % str(rsum.get("search_net_local_route_real_handoff", false))
-		## D6-01-FIX6A: beam locator with distance/direction.
-		sec_lines += "\n--- Beam Locator ---"
-		var beam_dist: float = float(rsum.get("beam_distance_from_player", -1.0))
-		var beam_dir: String = str(rsum.get("beam_direction_from_player", "unknown"))
-		sec_lines += "\nBeam: %s  dist %.0fpx  direction: %s" % [
-			str(rsum.get("beam_status", "unknown")),
-			beam_dist,
-			beam_dir,
-		]
-		sec_lines += "\nAMBUSH anchor found: %s" % str(rsum.get("ambush_beam_anchor_found", false))
-		sec_lines += "\nAMBUSH resolve source: %s" % str(rsum.get("ambush_beam_anchor_resolve_source", "missing"))
-		sec_lines += "\nAMBUSH anchor path: %s" % str(rsum.get("ambush_beam_anchor_path", "missing"))
-		sec_lines += "\nanchor %s  visual %s  trigger %s  mismatch %.1fpx" % [
-			str(rsum.get("ambush_beam_anchor_position", Vector2.ZERO)),
-			str(rsum.get("ambush_beam_visual_center", Vector2.ZERO)),
-			str(rsum.get("ambush_beam_trigger_center", Vector2.ZERO)),
-			float(rsum.get("ambush_beam_visual_trigger_mismatch_px", -1.0)),
-		]
-		sec_lines += "\n--- FIX7D beam (collision) ---"
-		sec_lines += "\nBeam status: %s  orientation: %s" % [
-			str(rsum.get("fix7b_ambush_beam_status", rsum.get("beam_status", "-"))),
-			str(rsum.get("fix7b_ambush_beam_orientation", "-")),
-		]
-		sec_lines += "\nMode %s  collision_ok %s  fallback %s" % [
-			str(rsum.get("fix7d_ambush_beam_mode", "-")),
-			str(rsum.get("fix7d_collision_boundary_success", false)),
-			str(rsum.get("fix7d_fallback_used", false)),
-		]
-		sec_lines += "\nchoke_x %.0f  src %s  probe_y %.0f" % [
-			float(rsum.get("fix7d_choke_x", 0.0)),
-			str(rsum.get("fix7d_choke_source", "")),
-			float(rsum.get("fix7d_probe_y", 0.0)),
-		]
-		sec_lines += "\ntop_y %.0f  bottom_y %.0f  height %.0f" % [
-			float(rsum.get("fix7d_top_boundary_y", -1.0)),
-			float(rsum.get("fix7d_bottom_boundary_y", -1.0)),
-			float(rsum.get("fix7b_ambush_beam_height", 0.0)),
-		]
-		sec_lines += "\ncenter %s  anchor_delta %s" % [
-			str(rsum.get("fix7b_ambush_beam_center", Vector2.ZERO)),
-			str(rsum.get("fix7b_ambush_beam_center_offset", Vector2.ZERO)),
-		]
-		sec_lines += "\ntrigger %s  mismatch %.1fpx" % [
-			str(rsum.get("fix7b_ambush_beam_trigger_size", Vector2.ZERO)),
-			float(rsum.get("fix7b_ambush_beam_visual_trigger_mismatch_px", -1.0)),
-		]
-		var f7d_reason := str(rsum.get("fix7d_failure_reason", ""))
-		if f7d_reason != "":
-			sec_lines += "\nreason: %s" % f7d_reason
-		sec_lines += "\n%s" % str(rsum.get("beam_f10_fix7d_note", ""))
-		var f7d_fb := str(rsum.get("beam_f10_fix7d_fallback_warning", ""))
-		if f7d_fb != "":
-			sec_lines += "\n%s" % f7d_fb
-		sec_lines += "\n--- AMBUSH beam (FIX7E) ---"
-		sec_lines += "\nMode: %s" % str(rsum.get("fix7e_mode", "-"))
-		sec_lines += "\nCollision ok: %s  Fallback: %s" % [
-			str(rsum.get("fix7e_collision_ok", false)),
-			str(rsum.get("fix7e_fallback_used", false)),
-		]
-		sec_lines += "\nChoke X: %.0f  Probe Y: %.0f" % [
-			float(rsum.get("fix7e_choke_x", 0.0)),
-			float(rsum.get("fix7e_probe_y", 0.0)),
-		]
-		sec_lines += "\nTop hit Y: %.0f  Bottom hit Y: %.0f" % [
-			float(rsum.get("fix7e_top_hit_y", -1.0)),
-			float(rsum.get("fix7e_bottom_hit_y", -1.0)),
-		]
-		sec_lines += "\nVisual: top %.0f -> bottom %.0f  height %.0f" % [
-			float(rsum.get("fix7e_visual_top_y", 0.0)),
-			float(rsum.get("fix7e_visual_bottom_y", 0.0)),
-			float(rsum.get("fix7e_visual_height", 0.0)),
-		]
-		sec_lines += "\nTrigger: top %.0f -> bottom %.0f  height %.0f" % [
-			float(rsum.get("fix7e_trigger_top_y", 0.0)),
-			float(rsum.get("fix7e_trigger_bottom_y", 0.0)),
-			float(rsum.get("fix7e_trigger_height", 0.0)),
-		]
-		sec_lines += "\nMismatch: %.1fpx" % float(rsum.get("fix7e_visual_trigger_mismatch_px", -1.0))
-		var f7e_reason := str(rsum.get("fix7e_reason", ""))
-		if f7e_reason != "":
-			sec_lines += "\nReason: %s" % f7e_reason
-		sec_lines += "\n%s" % str(rsum.get("beam_f10_fix7e_instruction", ""))
-		sec_lines += "\n%s" % str(rsum.get("beam_f10_plain", "Beam: red line before bag room."))
-		sec_lines += "\n%s" % str(rsum.get("beam_f10_how_to_test", "Walk through red line to test."))
-		sec_lines += "\n%s" % str(rsum.get("heat_restart_audit_note", ""))
+		sec_lines = _build_authoring_security_f10_lines(rsum, heat, alert, mid, garage_code, controller)
 	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s" % [
 		mid,
 		heat,
@@ -357,6 +199,565 @@ func _refresh_status() -> void:
 	]
 	_apply_red_text_style(_details)
 	call_deferred("_fit_compact_status_height")
+
+
+func _build_authoring_security_f10_lines(
+	rsum: Dictionary,
+	heat: int,
+	alert: String,
+	mid: String,
+	garage_code: String,
+	_controller: Node,
+) -> String:
+	var blocks: PackedStringArray = []
+	blocks.append("\n--- Mission ---")
+	blocks.append("Mission: %s  Heat: %d  Alert: %s  Code: %s" % [mid, heat, _dash_if_empty(alert), garage_code])
+	blocks.append(
+		_format_debug_section(
+			"security",
+			"Security Authoring",
+			"root %s beams %d cameras %d spawns %d areas %d"
+			% [
+				_yes_no(rsum.get("d6_02_security_authoring_root_found", false)),
+				int(rsum.get("d6_02_security_authoring_beam_count", 0)),
+				int(rsum.get("d6_02_authored_camera_count", 0)),
+				int(rsum.get("d6_02_authored_guard_spawn_count", 0)),
+				int(rsum.get("d6_03_authored_area_trigger_count", 0)),
+			],
+			_build_security_authoring_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"events",
+			"Event Router",
+			"router %s events %d"
+			% [
+				_yes_no(rsum.get("d6_03_security_router_active", false)),
+				int(rsum.get("d6_03_registered_event_count", 0)),
+			],
+			_build_event_router_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"ambush",
+			"AMBUSH Beam",
+			"trips %d source %s"
+			% [
+				int(rsum.get("d6_02_ambush_beam_trip_count", 0)),
+				String(rsum.get("d6_02_ambush_beam_source", "unknown")),
+			],
+			_build_ambush_beam_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"camera",
+			"Authored Camera",
+			"runtime %d last %s"
+			% [
+				int(rsum.get("d6_04_runtime_authored_camera_count", 0)),
+				_dash_if_empty(String(rsum.get("d6_04_last_camera_id", ""))),
+			],
+			_build_authored_camera_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"guard",
+			"Guard Spawn / AI",
+			"active %d/%d last %s"
+			% [
+				int(rsum.get("security_response_spawn_count", 0)),
+				int(rsum.get("security_spawn_cap", 0)),
+				_dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_result", ""))),
+			],
+			_build_guard_spawn_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"effects",
+			"Downstream Effects",
+			"total %d door %d"
+			% [
+				int(rsum.get("d6_05_effect_author_count", 0)),
+				int(rsum.get("d6_05_door_effect_count", 0)),
+			],
+			_build_downstream_effects_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"door",
+			"Door Lock Test (D6-05D)",
+			"door %s phys %s"
+			% [
+				_dash_if_empty(String(rsum.get("d6_05a_test_door_lock_state", ""))),
+				_yes_no(rsum.get("d6_05a_test_door_collision_enabled", false)),
+			],
+			_build_door_lock_detail_lines(rsum)
+		)
+	)
+	blocks.append(
+		_format_debug_section(
+			"collectibles",
+			"Collectible Authoring",
+			"pending %d committed %d path %s"
+			% [
+				int(rsum.get("d6_06_pending_collectible_count", 0)),
+				int(rsum.get("d6_06_committed_collectible_count", 0)),
+				_dash_if_empty(String(rsum.get("d6_06_runtime_path_kind", "unknown"))),
+			],
+			_build_collectible_authoring_detail_lines(rsum)
+		)
+	)
+	blocks.append("\nManual test: enter authored camera cone -> camera alarm + guard + downstream effect.")
+	if SHOW_LEGACY_SECURITY_DEBUG:
+		blocks.append(
+			_format_debug_section(
+				"legacy",
+				"Legacy Security (FIX7)",
+				"beam %s" % String(rsum.get("beam_status", "unknown")),
+				_build_legacy_security_detail_lines(rsum)
+			)
+		)
+	return "\n".join(blocks)
+
+
+func _section_is_open(section_id: String) -> bool:
+	if not SHOW_COLLAPSED_DEBUG_SECTIONS:
+		return true
+	return section_id == DEBUG_FOCUS_SECTION
+
+
+func _format_debug_section(
+	section_id: String,
+	title: String,
+	collapsed_summary: String,
+	detail_lines: PackedStringArray
+) -> String:
+	if _section_is_open(section_id):
+		var open_lines: PackedStringArray = []
+		open_lines.append("[-] %s" % title)
+		open_lines.append_array(detail_lines)
+		return "\n".join(open_lines)
+	return "[+] %s: %s" % [title, collapsed_summary]
+
+
+func _build_security_authoring_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	lines.append(
+		"Root: %s  beams %d  cameras %d  spawns %d  patrols %d  areas %d"
+		% [
+			_yes_no(rsum.get("d6_02_security_authoring_root_found", false)),
+			int(rsum.get("d6_02_security_authoring_beam_count", 0)),
+			int(rsum.get("d6_02_authored_camera_count", 0)),
+			int(rsum.get("d6_02_authored_guard_spawn_count", 0)),
+			int(rsum.get("d6_02_authored_patrol_route_count", 0)),
+			int(rsum.get("d6_03_authored_area_trigger_count", 0)),
+		]
+	)
+	return lines
+
+
+func _build_event_router_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	var listener_counts: Dictionary = rsum.get("d6_03_router_listener_counts", {}) as Dictionary
+	lines.append(
+		"Router: %s | events %d | %s"
+		% [
+			_yes_no(rsum.get("d6_03_security_router_active", false)),
+			int(rsum.get("d6_03_registered_event_count", 0)),
+			_format_listener_event_names(listener_counts),
+		]
+	)
+	lines.append("Last event: %s" % _dash_if_empty(String(rsum.get("d6_03_last_dispatched_event", ""))))
+	lines.append(
+		"Listeners: called %d  handled %d  rejected %d"
+		% [
+			int(rsum.get("d6_04_last_event_listeners_called", 0)),
+			int(rsum.get("d6_04_last_event_listeners_handled", 0)),
+			int(rsum.get("d6_04_last_event_listeners_rejected", 0)),
+		]
+	)
+	lines.append("Reject: %s" % _format_rejection_reasons(rsum.get("d6_04_last_event_rejection_reasons", [])))
+	lines.append("Duplicate spawn avoided: %s" % _yes_no(rsum.get("d6_03_duplicate_spawn_avoided", false)))
+	return lines
+
+
+func _build_ambush_beam_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	var beam_source := String(rsum.get("d6_02_ambush_beam_source", "unknown"))
+	lines.append("Source: %s  trips: %d" % [beam_source, int(rsum.get("d6_02_ambush_beam_trip_count", 0))])
+	var beam_author := String(rsum.get("d6_02_ambush_beam_author_path", ""))
+	lines.append("Beam id: %s  Event: ambush_beam_tripped" % _short_path(beam_author))
+	lines.append("Author: %s" % _short_path(beam_author))
+	var trig_sz: Vector2 = rsum.get("d6_02_ambush_beam_trigger_size", Vector2.ZERO)
+	lines.append(
+		"Visual H: %.0f  Trigger: %.0fx%.0f"
+		% [
+			float(rsum.get("d6_02_ambush_beam_visual_height", 0.0)),
+			trig_sz.x,
+			trig_sz.y,
+		]
+	)
+	lines.append(
+		"Spawn: %s (%s)  beam handled: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_result", ""))),
+			_dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_reason", ""))),
+			_yes_no(rsum.get("d6_04_last_beam_event_handled", false)),
+		]
+	)
+	lines.append("Direct fallback: %s" % _beam_direct_fallback_label(rsum))
+	return lines
+
+
+func _build_authored_camera_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	lines.append(
+		"Runtime cameras: %d  active: %s"
+		% [
+			int(rsum.get("d6_04_runtime_authored_camera_count", 0)),
+			_dash_if_empty(String(rsum.get("d6_04_last_camera_id", ""))),
+		]
+	)
+	lines.append(
+		"Parity: %s  class: %s  parent: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_04_authored_camera_parity_target", "CAM_market_01"))),
+			_dash_if_empty(String(rsum.get("d6_04_authored_camera_runtime_class", ""))),
+			_short_path(String(rsum.get("d6_04_authored_camera_parent_path", ""))),
+		]
+	)
+	lines.append(
+		"Camera live: enabled %s  shape %s  in cone %s  detect %.2f"
+		% [
+			_yes_no(rsum.get("d6_04_authored_camera_enabled", false)),
+			_yes_no(rsum.get("d6_04_authored_camera_has_shape", false)),
+			_yes_no(rsum.get("d6_04_authored_camera_player_in_cone", false)),
+			float(rsum.get("d6_04_authored_camera_detection_value", 0.0)),
+		]
+	)
+	var cam_alarm := String(rsum.get("d6_04_last_camera_alarm_event", ""))
+	if cam_alarm == "":
+		cam_alarm = "test_camera_alarm"
+	lines.append("Alarm event: %s" % cam_alarm)
+	lines.append(
+		"Detect: %s  Alarm: %s  handled: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_04_last_camera_detect_event", ""))),
+			_dash_if_empty(String(rsum.get("d6_04_last_camera_alarm_event", ""))),
+			_yes_no(rsum.get("d6_04_last_camera_alarm_handled", false)),
+		]
+	)
+	var cam_spawn := "-"
+	if String(rsum.get("d6_03_last_dispatched_event", "")) == cam_alarm:
+		cam_spawn = "%s (%s)" % [
+			String(rsum.get("d6_03_last_guard_spawn_result", "-")),
+			String(rsum.get("d6_03_last_guard_spawn_reason", "")),
+		]
+	lines.append("Camera spawn: %s" % cam_spawn)
+	lines.append("Direct fallback: %s" % _camera_direct_fallback_label(rsum, cam_alarm))
+	return lines
+
+
+func _build_guard_spawn_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	lines.append("Author: %s" % _dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_author_id", ""))))
+	lines.append(
+		"Result: %s  reason: %s  spawned: %d"
+		% [
+			_dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_result", ""))),
+			_dash_if_empty(String(rsum.get("d6_03_last_guard_spawn_reason", ""))),
+			int(rsum.get("d6_03_last_spawned_guard_count", 0)),
+		]
+	)
+	lines.append(
+		"Active guards: %d / cap %d"
+		% [
+			int(rsum.get("security_response_spawn_count", 0)),
+			int(rsum.get("security_spawn_cap", 0)),
+		]
+	)
+	lines.append(
+		"Behavior: %s  fallback: %s  patrol route: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_04_last_guard_initial_behavior", ""))),
+			_dash_if_empty(String(rsum.get("d6_04_last_guard_fallback_behavior", ""))),
+			_yes_no(rsum.get("d6_04_last_guard_patrol_route_assigned", false)),
+		]
+	)
+	lines.append("Force chase: %s" % _force_chase_label(rsum))
+	lines.append(
+		"Authored chase: %s  fallback entered: %s  cone %.0f (aggro %.0f)"
+		% [
+			_yes_no(rsum.get("d6_04_authored_guard_force_chase", false)),
+			_yes_no(rsum.get("d6_04_authored_guard_fallback_entered", false)),
+			float(rsum.get("d6_04_authored_guard_debug_cone_range", 0.0)),
+			float(rsum.get("d6_04_authored_guard_aggro_range", 0.0)),
+		]
+	)
+	return lines
+
+
+func _build_downstream_effects_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	lines.append(
+		"Effects: %d (door %d lockdown %d objective %d toggle %d)"
+		% [
+			int(rsum.get("d6_05_effect_author_count", 0)),
+			int(rsum.get("d6_05_door_effect_count", 0)),
+			int(rsum.get("d6_05_lockdown_effect_count", 0)),
+			int(rsum.get("d6_05_objective_effect_count", 0)),
+			int(rsum.get("d6_05_node_toggle_effect_count", 0)),
+		]
+	)
+	lines.append(
+		"Last: %s / %s on %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_05_last_effect_type", ""))),
+			_dash_if_empty(String(rsum.get("d6_05_last_effect_id", ""))),
+			_dash_if_empty(String(rsum.get("d6_05_last_effect_event", ""))),
+		]
+	)
+	lines.append(
+		"Result: %s (%s) target: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_05_last_effect_result", ""))),
+			_dash_if_empty(String(rsum.get("d6_05_last_effect_reason", ""))),
+			_short_path(String(rsum.get("d6_05_last_effect_target", ""))),
+		]
+	)
+	lines.append(
+		"Lockdown: %s  alert: %s"
+		% [
+			_yes_no(rsum.get("d6_05_lockdown_active", false)),
+			_dash_if_empty(String(rsum.get("d6_05_lockdown_alert_state", ""))),
+		]
+	)
+	return lines
+
+
+func _build_door_lock_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	var door_visual := String(rsum.get("d6_05a_test_door_lock_state", ""))
+	var door_phys := _yes_no(rsum.get("d6_05a_test_door_collision_enabled", false))
+	lines.append(
+		"Test door: %s  visual: %s  physics: %s  rot: %.0f deg"
+		% [
+			_short_path(String(rsum.get("d6_05a_test_door_path", ""))),
+			_dash_if_empty(door_visual),
+			door_phys,
+			float(rsum.get("d6_05a_test_door_orientation_degrees", 0.0)),
+		]
+	)
+	lines.append(
+		"Collision: enabled=%s  layer=%s"
+		% [
+			door_phys,
+			str(rsum.get("d6_05a_test_door_collision_layer", 0)),
+		]
+	)
+	if door_visual == "locked" and not bool(rsum.get("d6_05a_test_door_collision_enabled", false)):
+		lines.append("WARNING: visual locked but collision disabled")
+	elif door_visual == "unlocked" and bool(rsum.get("d6_05a_test_door_collision_enabled", false)):
+		lines.append("WARNING: visual unlocked but collision enabled")
+	lines.append(
+		"Last zone: %s -> %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_05c_last_zone_id", ""))),
+			_dash_if_empty(String(rsum.get("d6_05c_last_zone_event", ""))),
+		]
+	)
+	lines.append(
+		"Last door event: %s  effect: %s  action: %s  result: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_05_last_door_event", rsum.get("d6_05_last_effect_event", "")))),
+			_dash_if_empty(String(rsum.get("d6_05_last_door_effect_id", ""))),
+			_dash_if_empty(String(rsum.get("d6_05_last_door_action", ""))),
+			_dash_if_empty(String(rsum.get("d6_05_last_door_lock_state", ""))),
+		]
+	)
+	lines.append("D6-05D: cyan LOCK ZONE or camera alarm locks (red + blocks); lime UNLOCK ZONE unlocks.")
+	lines.append("AMBUSH does NOT unlock. Rotate door in editor (15 deg snap).")
+	lines.append("Find: D6-05A TEST LOCK DOOR near security proof (~9280,200).")
+	return lines
+
+
+func _build_collectible_authoring_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = []
+	lines.append(
+		"Runtime path: %s  parent: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_06_runtime_path_kind", "unknown"))),
+			_short_path(String(rsum.get("d6_06_runtime_parent_path", ""))),
+		]
+	)
+	lines.append(
+		"Root: %s  authors: %d  spawned: %d"
+		% [
+			_yes_no(rsum.get("d6_06_authoring_root_found", false)),
+			int(rsum.get("d6_06_collectible_author_count", 0)),
+			int(rsum.get("d6_06_runtime_pickup_count", 0)),
+		]
+	)
+	lines.append(
+		"Pending: %d (poop %d $ %d photo %d tiny %d)  committed: %d"
+		% [
+			int(rsum.get("d6_06_pending_collectible_count", 0)),
+			int(rsum.get("d6_06_pending_poop", 0)),
+			int(rsum.get("d6_06_pending_money", 0)),
+			int(rsum.get("d6_06_pending_polaroid", 0)),
+			int(rsum.get("d6_06_pending_tiny_icon", 0)),
+			int(rsum.get("d6_06_committed_collectible_count", 0)),
+		]
+	)
+	lines.append(
+		"By type: poop=%d money=%d polaroid=%d tiny=%d"
+		% [
+			int(rsum.get("d6_06_poop_author_count", 0)),
+			int(rsum.get("d6_06_money_author_count", 0)),
+			int(rsum.get("d6_06_polaroid_author_count", 0)),
+			int(rsum.get("d6_06_tiny_icon_author_count", 0)),
+		]
+	)
+	lines.append(
+		"Last pickup: %s (%s) -> %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_06_last_authored_pickup_id", ""))),
+			_dash_if_empty(String(rsum.get("d6_06_last_authored_pickup_type", ""))),
+			_dash_if_empty(String(rsum.get("d6_06_last_authored_pickup_result", ""))),
+		]
+	)
+	lines.append(
+		"Last: %s via %s  hideout: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_06_last_authored_pickup_result", ""))),
+			_dash_if_empty(String(rsum.get("d6_06_last_pickup_source", "interact"))),
+			_dash_if_empty(String(rsum.get("d6_06_hideout_sync_status", ""))),
+		]
+	)
+	lines.append(
+		"Poop inv: %d  money proof (cash): %d  proof flags: %d"
+		% [
+			int(rsum.get("d6_06_poop_count", 0)),
+			int(rsum.get("d6_06_money_proof_cash", 0)),
+			int(rsum.get("d6_06_proof_flags", 0)),
+		]
+	)
+	lines.append("Find: D6-06 proof cluster SW of door lock (~8950,620). Walk into colored circles.")
+	return lines
+
+
+func _build_legacy_security_detail_lines(rsum: Dictionary) -> PackedStringArray:
+	var lines: PackedStringArray = PackedStringArray(_build_legacy_security_f10_lines(rsum, 0).split("\n"))
+	return lines
+
+
+func _build_legacy_security_f10_lines(rsum: Dictionary, _heat: int) -> String:
+	var lines: PackedStringArray = []
+	lines.append("\n--- Legacy Security (FIX7) ---")
+	lines.append(
+		"Beam status: %s  FIX7F mode: %s  fallback: %s"
+		% [
+			String(rsum.get("beam_status", "unknown")),
+			String(rsum.get("fix7f_mode", "-")),
+			_yes_no(rsum.get("fix7f_fallback_used", false)),
+		]
+	)
+	lines.append(
+		"choke_x %.0f  probe_y %.0f  mismatch %.1fpx"
+		% [
+			float(rsum.get("fix7f_chosen_x", 0.0)),
+			float(rsum.get("fix7f_chosen_probe_y", 0.0)),
+			float(rsum.get("fix7e_visual_trigger_mismatch_px", -1.0)),
+		]
+	)
+	lines.append("Anchor: %s" % _short_path(String(rsum.get("ambush_beam_anchor_path", ""))))
+	var ag: Array = rsum.get("security_active_guards_preview", []) as Array
+	if ag.is_empty():
+		lines.append("Active guards: (none)")
+	else:
+		lines.append("Active guards:")
+		var shown := mini(ag.size(), 4)
+		for i in range(shown):
+			lines.append("  %s" % _short_path(String(ag[i])))
+		if ag.size() > shown:
+			lines.append("  ... +%d more" % (ag.size() - shown))
+	return "\n".join(lines)
+
+
+func _yes_no(value: Variant) -> String:
+	return "yes" if value == true else "no"
+
+
+func _dash_if_empty(text: String) -> String:
+	var t := text.strip_edges()
+	return t if t != "" else "-"
+
+
+func _short_path(path: String) -> String:
+	var t := path.strip_edges()
+	if t == "":
+		return "-"
+	var parts := t.split("/")
+	return parts[parts.size() - 1] if parts.size() > 0 else t
+
+
+func _format_listener_event_names(counts: Dictionary) -> String:
+	if counts.is_empty():
+		return "none"
+	var names: PackedStringArray = []
+	for key in counts.keys():
+		names.append("%s(%s)" % [String(key), str(counts[key])])
+	return ", ".join(names)
+
+
+func _format_rejection_reasons(reasons: Variant) -> String:
+	if not (reasons is Array):
+		return "-"
+	var arr := reasons as Array
+	if arr.is_empty():
+		return "-"
+	var first := String(arr[0])
+	if ":" in first:
+		return first.get_slice(":", -1).strip_edges()
+	return first
+
+
+func _beam_direct_fallback_label(rsum: Dictionary) -> String:
+	if rsum.get("d6_03_beam_direct_fallback_suppressed", false) == true:
+		return "suppressed"
+	var src := String(rsum.get("d6_02_ambush_beam_source", ""))
+	if src.findn("fallback") != -1:
+		return "used"
+	if rsum.get("d6_03_beam_event_route_used", false) == true:
+		return "not needed"
+	return "unknown"
+
+
+func _camera_direct_fallback_label(rsum: Dictionary, alarm_event: String) -> String:
+	if rsum.get("d6_03_security_router_active", false) != true:
+		return "unknown"
+	var counts: Dictionary = rsum.get("d6_03_router_listener_counts", {}) as Dictionary
+	if not counts.has(alarm_event):
+		return "not needed"
+	if String(rsum.get("d6_03_last_dispatched_event", "")) == alarm_event:
+		if rsum.get("d6_04_last_event_listeners_called", 0):
+			return "suppressed"
+	return "unknown"
+
+
+func _force_chase_label(rsum: Dictionary) -> String:
+	var init := String(rsum.get("d6_04_last_guard_initial_behavior", "")).strip_edges().to_lower()
+	if init == "attack_player":
+		return "yes"
+	if init == "":
+		return "-"
+	return "no"
 
 
 func _find_phase0j_adapter() -> Node:

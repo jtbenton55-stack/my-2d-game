@@ -27,19 +27,98 @@ var _sweep_t := 0.0
 func _ready() -> void:
 	collision_layer = 0
 	collision_mask = 1
+	monitoring = enabled
+	monitorable = false
 	add_to_group("iso_security_camera")
-	var shape := CollisionShape2D.new()
-	var circle := CircleShape2D.new()
-	circle.radius = sight_range
-	shape.shape = circle
-	add_child(shape)
+	_ensure_detection_shape()
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_controller = _find_controller()
 	_create_debug_cone()
 	## Sweep basis must reflect final world placement (Phase0K used to parent before moving).
 	call_deferred("refresh_sweep_basis_from_world")
+	call_deferred("_sync_initial_overlaps")
 	set_process(true)
+
+
+## Shared runtime config for Phase0K markers and SecurityCameraAuthor (parity path).
+func apply_authoring_config(cfg: Dictionary) -> void:
+	camera_id = String(cfg.get("camera_id", camera_id))
+	sight_range = float(cfg.get("range_px", cfg.get("sight_range", sight_range)))
+	fov_angle_degrees = float(cfg.get("fov_degrees", cfg.get("fov_angle_degrees", fov_angle_degrees)))
+	detection_rate = float(cfg.get("detection_rate", detection_rate))
+	detection_decay = float(cfg.get("detection_decay", detection_decay))
+	detection_threshold = float(cfg.get("alarm_threshold", cfg.get("detection_threshold", detection_threshold)))
+	enabled = bool(cfg.get("enabled", enabled))
+	require_line_of_sight = bool(cfg.get("require_line_of_sight", require_line_of_sight))
+	var sweep_on := bool(cfg.get("sweep_enabled", false))
+	if sweep_on:
+		var arc := float(cfg.get("sweep_arc_degrees", 90.0))
+		sweep_min_degrees = -arc * 0.5
+		sweep_max_degrees = arc * 0.5
+		var spd_deg := float(cfg.get("sweep_speed_degrees", 45.0))
+		sweep_speed = maxf(0.15, spd_deg * 0.02)
+	else:
+		sweep_min_degrees = float(cfg.get("sweep_min_degrees", 0.0))
+		sweep_max_degrees = float(cfg.get("sweep_max_degrees", 0.0))
+		sweep_speed = float(cfg.get("sweep_speed", 0.0))
+	monitoring = enabled
+	_update_detection_shape_radius()
+	if _debug_cone != null:
+		_debug_cone.queue_free()
+		_debug_cone = null
+	_create_debug_cone()
+
+
+func _ensure_detection_shape() -> void:
+	var shape_node := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape_node == null:
+		shape_node = CollisionShape2D.new()
+		shape_node.name = "CollisionShape2D"
+		add_child(shape_node)
+	var circle := shape_node.shape as CircleShape2D
+	if circle == null:
+		circle = CircleShape2D.new()
+		shape_node.shape = circle
+	circle.radius = sight_range
+
+
+func _update_detection_shape_radius() -> void:
+	var shape_node := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape_node == null or not (shape_node.shape is CircleShape2D):
+		return
+	(shape_node.shape as CircleShape2D).radius = sight_range
+
+
+func _sync_initial_overlaps() -> void:
+	if not is_inside_tree() or not monitoring:
+		return
+	for body in get_overlapping_bodies():
+		_on_body_entered(body)
+
+
+func is_player_in_cone() -> bool:
+	if _player == null or not is_instance_valid(_player):
+		return false
+	return _is_in_cone(_player.global_position) and _los_ok(_player.global_position)
+
+
+func get_runtime_debug_state() -> Dictionary:
+	return {
+		"camera_id": camera_id,
+		"class_name": get_class(),
+		"enabled": enabled,
+		"monitoring": monitoring,
+		"sight_range": sight_range,
+		"fov_angle_degrees": fov_angle_degrees,
+		"collision_layer": collision_layer,
+		"collision_mask": collision_mask,
+		"has_shape": get_node_or_null("CollisionShape2D") != null,
+		"player_tracked": _player != null and is_instance_valid(_player),
+		"player_in_cone": is_player_in_cone(),
+		"detection_value": _detection_value,
+		"controller_found": _controller != null,
+	}
 
 
 func refresh_sweep_basis_from_world() -> void:
@@ -84,6 +163,8 @@ func set_camera_enabled(active: bool) -> void:
 	monitoring = active
 	if not enabled:
 		_detection_value = 0.0
+		if _player != null:
+			_player = null
 
 
 func _on_body_entered(body: Node) -> void:

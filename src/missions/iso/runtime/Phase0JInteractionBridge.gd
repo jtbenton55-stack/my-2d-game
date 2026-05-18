@@ -133,7 +133,7 @@ func _is_code_ui_open() -> bool:
 func _collect_candidates() -> Array:
 	var out: Array = []
 	var seen := {}
-	for group_name in ["phase0j_interactable", "phase0j_marker_debug", "interactable"]:
+	for group_name in ["phase0k_louis_exit", "phase0j_interactable", "phase0j_marker_debug", "interactable"]:
 		for node in get_tree().get_nodes_in_group(group_name):
 			if seen.has(node):
 				continue
@@ -147,10 +147,12 @@ func _collect_candidates() -> Array:
 func _is_phase0j_candidate(node: Node) -> bool:
 	if node == null:
 		return false
+	if node.is_in_group("phase0k_louis_exit"):
+		return true
 	if node.is_in_group("phase0j_interactable") or node.is_in_group("phase0j_marker_debug"):
 		return true
 	var generated := String(node.get_meta("generated_by", ""))
-	return generated.begins_with("Phase0J")
+	return generated.begins_with("Phase0J") or generated.begins_with("Phase0K")
 
 
 func _has_interaction_method(node: Node) -> bool:

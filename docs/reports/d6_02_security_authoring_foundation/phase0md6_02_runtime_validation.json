@@ -1,0 +1,36 @@
+{
+  "phase": "0M-D6-02",
+  "validated_at": "2026-05-17",
+  "godot_version": "4.6.2-stable",
+  "scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "mcp_playtest": {
+    "scene_opened": true,
+    "scene_played": true,
+    "security_authoring_root_found": true,
+    "ambush_beam_author_found": true,
+    "author_global_position": [6740.0, 869.0],
+    "author_local_position_in_tscn": [8050.0, 700.0],
+    "d6_02_ambush_beam_source": "authoring_node",
+    "fix7d_ambush_beam_mode": "authoring_node",
+    "fix7f_mode": "-",
+    "beam_visual_global": [6740.0, 869.0],
+    "alarm_zone_global": [6740.0, 869.0],
+    "visual_line_local_span_y": [-85.0, 85.0],
+    "visual_height_px": 170.0,
+    "screenshot": "user://d6_02_beam_validation.png",
+    "beam_trip_increment_confirmed": false,
+    "beam_trip_note": "Player teleported to alarm center in one frame; trip count did not increment in same script tick (may need movement across frame or input walk-through).",
+    "guard_spawn_on_trip": "not_autonomously_verified",
+    "camera_wrong_code_regression": "not_autonomously_verified_this_pass"
+  },
+  "lsp_diagnostics": {
+    "IsoMissionBase.gd": "clean",
+    "SecurityBeamAuthor.gd": "clean",
+    "SecurityAuthoringRoot.gd": "clean"
+  },
+  "gdunit4": "no mission/security tests in tests/ yet",
+  "editor_validate_script": {
+    "authoring_scripts": "pass",
+    "IsoMissionBase.gd": "editor reports stale compile failure; runtime loaded and authoring path executed successfully"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "phase": "0M-D6-03",
+  "scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "validated_at": "2026-05-17",
+  "godot_mcp_pro": {
+    "open_scene": true,
+    "play_scene": true,
+    "router_node_path": "GameplayRoot/RuntimeSystems/SecurityEventRouter",
+    "router_active": true,
+    "registered_event_count": 1,
+    "listener_counts": {
+      "ambush_beam_tripped": 1
+    },
+    "manual_emit_event": "ambush_beam_tripped",
+    "guard_spawn_author": "AmbushGuardSpawn_Author",
+    "spawn_result": "spawned",
+    "spawned_count": 1,
+    "can_spawn_direct_beam_guard": false,
+    "beam_event_route_used": true,
+    "beam_direct_fallback_suppressed": true,
+    "duplicate_spawn_avoided": true,
+    "authored_guard_metadata": {
+      "author_spawn_id": "ambush_guard_spawn",
+      "author_trigger_event": "ambush_beam_tripped",
+      "guard_archetype": "grunt"
+    },
+    "beam_author_position": [8296.0, 336.0],
+    "screenshot": "user://d6_03_runtime_validation.png"
+  },
+  "limitations": [
+    "MCP player teleport to beam did not verify body_entered / automatic beam trip (manual emit used instead).",
+    "AreaTriggerAuthor runtime area created; test_area_entered has no linked GuardSpawnAuthor in proof scene.",
+    "Patrol initial_behavior not exercised in this MCP pass (AmbushGuardSpawn uses attack_player).",
+    "Godot MCP validate_script reports stale DialogueManager/parse noise; runtime scene loaded IsoMissionBase successfully."
+  ],
+  "lsp_diagnostics": {
+    "IsoMissionBase.gd": "clean",
+    "GuardSpawnAuthor.gd": "clean"
+  },
+  "static_validator": "PASS",
+  "gdunit4": "no relevant tests in tests/"
+}

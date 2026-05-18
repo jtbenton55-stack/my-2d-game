@@ -11,6 +11,7 @@ const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
 const DialogueBoxScene = preload("res://scenes/ui/DialogueBox.tscn")
 const StorefrontPanelScene = preload("res://scenes/ui/HideoutStorefrontPanel.tscn")
+const MissionCollectibleHideoutSync := preload("res://src/missions/iso/runtime/MissionCollectibleHideoutSync.gd")
 
 # Phase 0M-C3 - speaker IDs that should bypass the panel and fire the
 # DialogueBox (with left-side portrait support) directly.
@@ -77,6 +78,7 @@ func _ready() -> void:
 		_panel.action_pressed.connect(_on_panel_action)
 	_apply_world_z_order()
 	apply_debug_state("fresh")
+	call_deferred("_apply_mission_collectible_flags_to_state")
 
 func _process(_delta: float) -> void:
 	_update_prompt()
@@ -595,6 +597,12 @@ func _ensure_state_controller() -> void:
 		_state = StateControllerScript.new()
 		_state.name = "HideoutStateController"
 		get_parent().call_deferred("add_child", _state)
+
+
+func _apply_mission_collectible_flags_to_state() -> void:
+	_ensure_state_controller()
+	if _state != null:
+		MissionCollectibleHideoutSync.apply_persisted_flags_to_hideout_state(_state)
 
 func _ensure_decoration_controller() -> void:
 	if _decoration_controller != null and is_instance_valid(_decoration_controller):

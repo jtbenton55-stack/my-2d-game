@@ -58,6 +58,7 @@ var heat_state := HEAT_LOW
 var current_debug_state := "fresh"
 
 func _ready() -> void:
+	add_to_group("hideout_state_controller")
 	apply_debug_state("fresh")
 
 func apply_debug_state(state_id: String) -> void:
@@ -336,6 +337,35 @@ func _clue(display: String, state: String, description: String) -> Dictionary:
 
 func _collectible(display: String, found: bool, missing_text: String, found_text: String) -> Dictionary:
 	return {"display": display, "found": found, "missing_text": missing_text, "found_text": found_text}
+
+
+func mark_collectible_display_found(display_item_id: String) -> void:
+	var key := display_item_id.strip_edges()
+	match key:
+		"polaroid_taco_bell":
+			polaroid_taco_bell_found = true
+		"glow_guy_taco_bell":
+			glow_guy_taco_bell_found = true
+		"tiny_icon_sauce_packet":
+			tiny_icon_sauce_packet_found = true
+		"tiny_icon_drive_thru_bell":
+			tiny_icon_drive_thru_bell_found = true
+		"poop_bag_fire_sauce_roll":
+			poop_bag_fire_sauce_roll_found = true
+		"trophy_taco_bell_drop":
+			trophy_taco_bell_found = true
+		"clue_sauce_packet":
+			clue_sauce_packet_found = true
+		"clue_route_manifest":
+			clue_route_manifest_found = true
+		"clue_delivery_token":
+			clue_delivery_token_found = true
+		"clue_velvet_paw_stamp":
+			clue_velvet_paw_stamp_found = true
+		"clue_security_memo":
+			clue_security_memo_found = true
+		_:
+			pass
 
 func _clear_duplicate_card_from_other_slots(card_id: String, active_slot: String) -> void:
 	if active_slot != "plan" and equipped_plan_card == card_id:

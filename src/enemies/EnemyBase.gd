@@ -164,8 +164,11 @@ func _draw() -> void:
 		var to_target := target.global_position - global_position
 		if to_target.length() > 0.01:
 			facing_dir = to_target.normalized()
-	var left := facing_dir.rotated(-half) * aggro_range
-	var right := facing_dir.rotated(half) * aggro_range
+	var draw_range := aggro_range
+	if has_meta("authoring_debug_cone_range"):
+		draw_range = float(get_meta("authoring_debug_cone_range"))
+	var left := facing_dir.rotated(-half) * draw_range
+	var right := facing_dir.rotated(half) * draw_range
 	var color := Color(1.0, 0.2, 0.2, 0.12 if _aware else 0.08)
 	draw_colored_polygon(PackedVector2Array([Vector2.ZERO, left, right]), color)
 

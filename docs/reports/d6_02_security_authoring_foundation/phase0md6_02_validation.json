@@ -1,0 +1,18 @@
+{
+  "phase": "0M-D6-02",
+  "title": "security_authoring_foundation",
+  "hard_assertions": {
+    "authoring_scripts_exist": true,
+    "iso_authoring_lookup": true,
+    "f10_authoring_section": true,
+    "taco_scene_author_nodes": true,
+    "fix7f_fallback_preserved": true
+  },
+  "runtime_checks": {
+    "ambush_beam_source_authoring_node": null,
+    "beam_visual_at_author_center": null,
+    "beam_trip_increment": null,
+    "guard_spawn_on_trip": null
+  },
+  "notes": "runtime_checks filled by Godot MCP playtest"
+}

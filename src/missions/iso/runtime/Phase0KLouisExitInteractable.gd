@@ -35,6 +35,18 @@ func get_interaction_priority(_player: Node = null) -> int:
 	return interaction_priority
 
 
+func is_interaction_available(_player: Node = null) -> bool:
+	return true
+
+
+func should_show_interaction_prompt() -> bool:
+	return true
+
+
+func is_completed() -> bool:
+	return false
+
+
 func get_interaction_text() -> String:
 	return "Talk to Louis"
 

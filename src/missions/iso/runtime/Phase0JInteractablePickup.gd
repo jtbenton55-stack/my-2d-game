@@ -50,6 +50,8 @@ func collect(player: Node = null) -> bool:
 
 
 func is_interaction_available(_player: Node = null) -> bool:
+	if one_shot and collected:
+		return false
 	return true
 
 
@@ -104,6 +106,14 @@ func _mark_collected() -> void:
 		var label := get_node_or_null(runtime_label_path)
 		if label != null and label.has_method("mark_collected"):
 			label.call("mark_collected")
+		_disable_pickup_collision()
+
+
+func _disable_pickup_collision() -> void:
+	monitoring = false
+	monitorable = false
+	collision_layer = 0
+	collision_mask = 0
 
 
 func _safe_add_poop_bag() -> void:

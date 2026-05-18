@@ -1,0 +1,12 @@
+{
+  "pass_id": "0M-D6-01-FIX7F",
+  "hard_assertions": {
+    "fix7f_doorway_rect_implemented": true,
+    "fix7f_f10_fields_added": true,
+    "setup_uses_fix7f_not_fix7e": true,
+    "no_840_active_fallback": true,
+    "runtime_marker_resolver_preserved": true,
+    "protected_files_untouched": true,
+    "static_validator_created": true
+  }
+}

@@ -32,3 +32,10 @@ After changing code:
 3. Run the relevant Godot scene if possible.
 4. Use MCP tools for screenshots, input, runtime inspection, and debugger inspection where available.
 5. Write a report under reports\ai\.
+
+Nowledge Mem / OpenCode roles:
+- OpenCode is planning/review-only unless Jake explicitly asks otherwise.
+- OpenCode should run on Windows for this Godot project.
+- Before major planning, OpenCode should read Nowledge Working Memory and search for relevant memories.
+- After major planning/debugging sessions, save a concise handoff to Nowledge Mem.
+- Cursor remains the implementation/debugging agent.

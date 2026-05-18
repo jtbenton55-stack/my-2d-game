@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [
+    "pre-existing or out-of-scope scene change (not D6-04A): scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "pre-existing or out-of-scope change (not D6-04A): src/enemies/Guard.gd"
+  ],
+  "changed_files": [
+    "AGENTS.md",
+    "opencode.json",
+    "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+    "src/enemies/Guard.gd",
+    "src/levels/IsoMissionBase.gd",
+    "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+    ".gitattributes",
+    ".gitignore"
+  ]
+}

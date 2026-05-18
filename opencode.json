@@ -1,15 +1,3 @@
 ﻿{
-  "policies": {
-    "defaultMode": "planning-review",
-    "allowImplementation": false,
-    "allowImplementationWhenExplicitlyRequested": true
-  },
-  "intendedUse": [
-    "planning",
-    "architecture review",
-    "prompt generation",
-    "diff review",
-    "handoff summaries"
-  ],
-  "notes": "OpenCode is planning/review-only for this project unless explicitly requested by Jake."
+  "$schema": "https://opencode.ai/config.json"
 }

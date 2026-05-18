@@ -63,32 +63,52 @@ func is_exit_unlocked() -> bool:
 func complete_mission_and_exit() -> Dictionary:
 	if mission_completed:
 		return {"success": true, "already_done": true, "mission_id": mission_id}
-	mission_completed = true
+	if not are_exit_requirements_met():
+		var missing_reqs := get_missing_requirements()
+		return {"success": false, "message": "Exit requirements not met", "missing": missing_reqs}
 	exit_unlocked = true
-	if has_node("/root/QuestManager") and QuestManager.has_method("complete_objective_id"):
-		QuestManager.call("complete_objective_id", "return_to_louis", "Return to Louis at the exit.", mission_id)
-	var result := {"success": true, "mission_id": mission_id, "phase0k_placeholder": true}
-	if has_node("/root/GameState") and GameState.has_method("complete_mission"):
-		result = GameState.call("complete_mission", mission_id)
-	if has_node("/root/SceneManager") and SceneManager.has_method("show_mission_result"):
-		SceneManager.call("show_mission_result", result)
-	else:
-		_show("Mission complete: return to hideout.")
-	return result
+	var quest_manager := get_node_or_null("/root/QuestManager")
+	if quest_manager != null and quest_manager.has_method("complete_objective_id"):
+		quest_manager.call("complete_objective_id", "return_to_louis", "Return to Louis at the exit.", mission_id)
+	var mission := get_tree().current_scene
+	if mission != null and mission.has_method("request_exit_completion"):
+		var ok := bool(mission.call("request_exit_completion"))
+		if ok:
+			mission_completed = true
+			return {"success": true, "mission_id": mission_id, "via": "request_exit_completion"}
+	# Phase0K Louis exit (bag + code gate) may be valid before every IsoMission definition objective is flagged.
+	if mission != null and are_exit_requirements_met():
+		if mission.has_method("_commit_pending_authored_collectibles"):
+			mission.call("_commit_pending_authored_collectibles")
+		if mission.has_method("_complete_exit_return_objectives"):
+			mission.call("_complete_exit_return_objectives")
+		mission_completed = true
+		var result := {"success": true, "mission_id": mission_id, "via": "phase0k_louis_exit"}
+		var game_state := get_node_or_null("/root/GameState")
+		if game_state != null and game_state.has_method("complete_mission"):
+			result = game_state.call("complete_mission", mission_id)
+		var scene_manager := get_node_or_null("/root/SceneManager")
+		if scene_manager != null and scene_manager.has_method("show_mission_result"):
+			scene_manager.call("show_mission_result", result)
+		else:
+			_show("Mission complete: return to hideout.")
+		return result
+	_show("Louis: Mission exit blocked - finish required objectives first.")
+	return {"success": false, "mission_id": mission_id, "via": "request_exit_completion_rejected"}
 
 
 func _seed_objectives() -> void:
-	if has_node("/root/QuestManager"):
-		var qm := get_node("/root/QuestManager")
-		if qm.has_method("add_objective"):
-			qm.call("add_objective", "open_garage_code_gate", "Open the garage code gate.", "active", mission_id)
-			qm.call("add_objective", "recover_delivery_bag", "Recover the delivery bag.", "active", mission_id)
-			qm.call("add_objective", "return_to_louis", "Return to Louis at the exit.", "locked", mission_id)
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm != null and qm.has_method("add_objective"):
+		qm.call("add_objective", "open_garage_code_gate", "Open the garage code gate.", "active", mission_id)
+		qm.call("add_objective", "recover_delivery_bag", "Recover the delivery bag.", "active", mission_id)
+		qm.call("add_objective", "return_to_louis", "Return to Louis at the exit.", "locked", mission_id)
 
 
 func _show(text: String) -> void:
 	var hud := get_node_or_null(debug_hud_path)
 	if hud != null and hud.has_method("show_message"):
 		hud.call("show_message", text, 4.0)
-	if has_node("/root/EventBus"):
-		EventBus.objective_updated.emit(text)
+	var event_bus := get_node_or_null("/root/EventBus")
+	if event_bus != null:
+		event_bus.objective_updated.emit(text)

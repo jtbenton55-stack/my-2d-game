@@ -35,3 +35,23 @@ tools/mcp-kimi/node_modules/
 tools/mcp-kimi/.env
 tools/mcp-kimi/.env.*
 !tools/mcp-kimi/.env.example
+
+# Extra-safe staging guards (prevent path-length failures + accidental vendored backups)
+# Backup snapshots / archives that can explode path depth
+reports/ai/setup-backups/
+reports/godot_ignored_backups/
+
+# Never track dependency/vendor folders inside reports or backups
+reports/**/node_modules/
+reports/**/vendor/
+
+# Common archive artifacts
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# Windows shell metadata
+Thumbs.db
+Desktop.ini

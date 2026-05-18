@@ -1,0 +1,27 @@
+{
+  "phase": "0M-D6-02A",
+  "godot_version": "4.6.2-stable",
+  "scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "mcp_playtest": {
+    "author_path": "/root/TacoBellIso_Editable/GameplayRoot/SecurityAuthoringRoot/AMBUSH_security_beam",
+    "d6_02_ambush_beam_source": "authoring_node",
+    "d6_02_ambush_beam_validation_status": "ok",
+    "visual_height": 340.0,
+    "visual_width": 32.0,
+    "trigger_width": 72.0,
+    "trigger_extra_height": 16.0,
+    "trigger_height": 372.0,
+    "trigger_size": [72.0, 372.0],
+    "runtime_line_width": 32.0,
+    "runtime_line_span_y": 340.0,
+    "runtime_line_half_extent_y": 170.0,
+    "author_global_position": [8272.0, 480.0],
+    "alarm_global_position": [8272.0, 480.0],
+    "screenshot": "user://d6_02a_beam_validation.png",
+    "beam_trip_increment_confirmed": false,
+    "guard_spawn_confirmed": false,
+    "note": "Geometry and authoring source verified; beam_trip/guard not re-tested this pass (player far from beam in MCP session)."
+  },
+  "static_validator": "PASS",
+  "lsp": "clean on SecurityBeamAuthor.gd"
+}

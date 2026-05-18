@@ -1,0 +1,47 @@
+{
+  "phase": "0M-D6-04",
+  "scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+  "branch": "c2a-full-character-animation-20260509-172230",
+  "validated_at": "2026-05-17",
+  "static_validator": "PASS",
+  "lsp": {
+    "SecurityEventRouter.gd": "clean",
+    "Guard.gd": "clean"
+  },
+  "godot_mcp_pro": {
+    "router_active": true,
+    "listener_counts": {
+      "ambush_beam_tripped": 1,
+      "test_camera_alarm": 1
+    },
+    "authored_runtime_cameras": 1,
+    "beam_dispatch": {
+      "handled": true,
+      "listeners_called": 1,
+      "listeners_handled": 1
+    },
+    "camera_dispatch_manual": {
+      "handled": true,
+      "listeners_called": 1,
+      "listeners_handled": 1,
+      "spawned_guards": 2
+    },
+    "camera_signal_reject_cap": {
+      "handled": false,
+      "reason": "rejected_cap",
+      "listeners_rejected": 1
+    },
+    "direct_spawn_suppressed": {
+      "alarm_AMBUSH_security_beam": false,
+      "test_camera_01": false
+    },
+    "authoring_force_chase_on_spawned_guards": true,
+    "screenshot": "user://d6_04_runtime_validation.png"
+  },
+  "limitations": [
+    "MCP did not verify live cone detection over multiple physics frames (manual emit/signal used).",
+    "Fallback-after-chase (patrol_route/security_net) not fully automated; force_chase addresses idle-after-spawn for attack_player.",
+    "Camera author scene position vs runtime global may differ due to parent transforms — verify in-editor placement."
+  ],
+  "gdunit4": "no relevant tests"
+}
