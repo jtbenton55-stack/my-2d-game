@@ -1,5 +1,7 @@
 {
-  "pass": true,
-  "errors": [],
+  "pass": false,
+  "errors": [
+    "Taco scene missing proof node D6_06_CaseCash_LegacyAlias_Author"
+  ],
   "warnings": []
 }

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""PHASE 0M-D6-06 collectible authoring foundation static validator."""
+"""PHASE 0M-D6-06 collectible authoring foundation static validator.
+
+Superseded for new work: this validator targets the deprecated
+AuthoredCollectiblePickup path. Use the later D6-06B interactable/hideout
+sync validator and D6-07/D6-07B validators for current authored collectibles.
+"""
 from __future__ import annotations
 
 import json

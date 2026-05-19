@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""PHASE 0M-D6-06B collectible physical pickup + F10 sections static validator."""
+"""PHASE 0M-D6-06B collectible physical pickup + F10 sections static validator.
+
+Superseded for new work: this validator targets the deprecated physical
+overlap AuthoredCollectiblePickup path. Use the later D6-06B
+interactable/hideout sync validator for current authored collectibles.
+"""
 from __future__ import annotations
 
 import json
