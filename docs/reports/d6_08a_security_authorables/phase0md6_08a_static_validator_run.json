@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [
+    "SecurityAuthoringRoot runtime_enabled not explicit in scene text"
+  ],
+  "limitations": [
+    "Cannot verify runtime spawn/collision without Godot playtest.",
+    "trigger_events Array parsing is partial.",
+    "Does not validate MarkerRoot Phase0K JSON guards."
+  ]
+}

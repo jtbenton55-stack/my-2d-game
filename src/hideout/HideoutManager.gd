@@ -602,6 +602,7 @@ func _ensure_state_controller() -> void:
 func _apply_mission_collectible_flags_to_state() -> void:
 	_ensure_state_controller()
 	if _state != null:
+		MissionCollectibleHideoutSync.apply_banked_case_cash_to_hideout(_state)
 		MissionCollectibleHideoutSync.apply_persisted_flags_to_hideout_state(_state)
 
 func _ensure_decoration_controller() -> void:

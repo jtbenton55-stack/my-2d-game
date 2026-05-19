@@ -92,7 +92,11 @@ const D6_02_SECURITY_AUTHORING_ROOT_PATH := "GameplayRoot/SecurityAuthoringRoot"
 const D6_03_MISSION_AUTHORING_BUILDER := preload("res://src/missions/iso/runtime/MissionAuthoringRuntimeBuilder.gd")
 const D6_06_COLLECTIBLE_BUILDER := preload("res://src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd")
 const D6_06_HIDEOUT_SYNC := preload("res://src/missions/iso/runtime/MissionCollectibleHideoutSync.gd")
+const D6_06_PERSIST := preload("res://src/missions/iso/runtime/MissionAuthoredCollectiblePersistence.gd")
 const TYPED_MISSION_COLLECTIBLE := preload("res://src/missions/iso/TypedMissionCollectible.gd")
+## Missions that may use Phase0K Louis exit when formal IsoMission objectives are incomplete.
+## Do not add new missions here without an explicit design review.
+const PHASE0K_LOUIS_EXIT_FALLBACK_MISSION_IDS: Array[String] = ["taco_bell_drop"]
 const MARKER_CATEGORIES: Array[String] = [
 	"Spawns",
 	"Objectives",
@@ -153,6 +157,8 @@ var _last_security_reinforcement_result: String = ""
 var _security_event_router: Node = null
 ## D6-06B: authored collectibles collected this attempt (committed on mission success only).
 var _d6_06_pending_collectibles: Array[Dictionary] = []
+## D6-06D: prevents double-commit if multiple success paths fire in one attempt.
+var _d6_06_authored_commit_applied := false
 
 
 func _ready() -> void:
@@ -1978,6 +1984,10 @@ func complete_level() -> void:
 	request_exit_completion(player)
 
 
+func allows_phase0k_louis_exit_fallback() -> bool:
+	return String(get_mission_id()) in PHASE0K_LOUIS_EXIT_FALLBACK_MISSION_IDS
+
+
 func request_exit_completion(_player: Node = null) -> bool:
 	if _mission_completing or is_complete or is_failed:
 		return false
@@ -1986,10 +1996,48 @@ func request_exit_completion(_player: Node = null) -> bool:
 		_show_exit_locked_feedback()
 		return false
 	_mission_completing = true
-	_commit_pending_authored_collectibles()
+	commit_authored_collectibles_for_success("request_exit_completion")
 	_record_runtime_completion_metadata()
 	super.complete_level()
 	return true
+
+
+## Taco/Phase0K-only: Louis exit when bag+gate are met but formal definition objectives are not all flagged.
+func apply_phase0k_louis_exit_completion() -> Dictionary:
+	if not allows_phase0k_louis_exit_fallback():
+		push_warning(
+			"[D6-06D] Phase0K Louis exit fallback denied for mission '%s'. Add to PHASE0K_LOUIS_EXIT_FALLBACK_MISSION_IDS only after review."
+			% String(get_mission_id())
+		)
+		return {"success": false, "via": "fallback_denied", "mission_id": get_mission_id()}
+	if _mission_completing or is_complete or is_failed:
+		return {"success": false, "via": "mission_already_resolved", "mission_id": get_mission_id()}
+	_complete_exit_return_objectives()
+	_mission_completing = true
+	var commit_result := commit_authored_collectibles_for_success("phase0k_louis_exit")
+	_record_runtime_completion_metadata()
+	super.complete_level()
+	return {
+		"success": true,
+		"via": "phase0k_louis_exit",
+		"mission_id": get_mission_id(),
+		"commit": commit_result,
+	}
+
+
+func commit_authored_collectibles_for_success(reason: String = "") -> Dictionary:
+	if _d6_06_authored_commit_applied:
+		_attempt_runtime_state["d6_06_commit_reason"] = String(_attempt_runtime_state.get("d6_06_commit_reason", reason))
+		_attempt_runtime_state["d6_06_commit_duplicate_blocked"] = true
+		return {
+			"committed": 0,
+			"skipped": _d6_06_pending_collectibles.size(),
+			"already_applied": true,
+		}
+	_d6_06_authored_commit_applied = true
+	_attempt_runtime_state["d6_06_commit_reason"] = reason
+	_attempt_runtime_state["d6_06_commit_duplicate_blocked"] = false
+	return _commit_pending_authored_collectibles()
 
 
 func _show_exit_locked_feedback() -> void:
@@ -2531,7 +2579,11 @@ func store_d6_06_collectible_author_counts(
 	money_n: int,
 	polaroid_n: int,
 	tiny_n: int,
-	root_found: bool
+	root_found: bool,
+	glow_n: int = 0,
+	clue_n: int = 0,
+	case_cash_n: int = 0,
+	duplicate_ids: Array[String] = []
 ) -> void:
 	_attempt_runtime_state["d6_06_collectible_author_count"] = author_count
 	_attempt_runtime_state["d6_06_runtime_pickup_count"] = spawned
@@ -2539,6 +2591,11 @@ func store_d6_06_collectible_author_counts(
 	_attempt_runtime_state["d6_06_money_author_count"] = money_n
 	_attempt_runtime_state["d6_06_polaroid_author_count"] = polaroid_n
 	_attempt_runtime_state["d6_06_tiny_icon_author_count"] = tiny_n
+	_attempt_runtime_state["d6_06_glow_guy_author_count"] = glow_n
+	_attempt_runtime_state["d6_06_clue_author_count"] = clue_n
+	_attempt_runtime_state["d6_06_case_cash_author_count"] = case_cash_n
+	_attempt_runtime_state["d6_06_duplicate_author_ids"] = duplicate_ids
+	_attempt_runtime_state["d6_06_duplicate_author_id_count"] = duplicate_ids.size()
 	_attempt_runtime_state["d6_06_authoring_root_found"] = root_found
 
 
@@ -2640,10 +2697,19 @@ func record_authored_collectible_attempt(
 		"payload": payload.duplicate(true),
 		"committed": false,
 		"node_path": str(source_node.get_path()) if source_node != null else "",
+		"one_shot": bool(payload.get("one_shot", true)),
 	}
-	if cat_s == "money" or entry["collectible_type"] == "money":
+	if cat_s in ["money", "case_cash"] or entry["collectible_type"] in ["money", "case_cash"]:
 		entry["amount"] = maxi(int(payload.get("amount", 1)), 1)
 		entry["currency_type"] = String(payload.get("currency_type", "cash"))
+		entry["commits_as_case_cash"] = bool(payload.get("commits_as_case_cash", entry["collectible_type"] == "case_cash"))
+	if entry["collectible_type"] in ["evidence_clue", "clue"]:
+		entry["clue_id"] = String(payload.get("clue_id", id_s))
+		entry["clue_title"] = String(payload.get("clue_title", entry["display_name"]))
+		entry["clue_text"] = String(payload.get("clue_text", ""))
+		entry["case_id"] = String(payload.get("case_id", ""))
+	if entry["collectible_type"] == "glow_guy":
+		entry["glow_guy_id"] = String(payload.get("glow_guy_id", id_s))
 	if entry["collectible_type"] == "poop_bag":
 		entry["poop_count"] = maxi(int(payload.get("poop_count", 1)), 1)
 	_d6_06_pending_collectibles.append(entry)
@@ -2681,6 +2747,8 @@ func _update_d6_06_pending_type_counts() -> void:
 	var tiny := 0
 	var glow := 0
 	var clue := 0
+	var case_cash_amount := 0
+	var case_cash_instances := 0
 	for entry in _d6_06_pending_collectibles:
 		if bool(entry.get("committed", false)):
 			continue
@@ -2689,13 +2757,19 @@ func _update_d6_06_pending_type_counts() -> void:
 				poop += 1
 			"money":
 				money += 1
+				if bool(entry.get("commits_as_case_cash", true)):
+					case_cash_instances += 1
+					case_cash_amount += maxi(int(entry.get("amount", 1)), 1)
+			"case_cash":
+				case_cash_instances += 1
+				case_cash_amount += maxi(int(entry.get("amount", 1)), 1)
 			"polaroid":
 				polaroid += 1
 			"tiny_icon":
 				tiny += 1
 			"glow_guy":
 				glow += 1
-			"evidence_clue":
+			"evidence_clue", "clue":
 				clue += 1
 	_attempt_runtime_state["d6_06_pending_poop"] = poop
 	_attempt_runtime_state["d6_06_pending_money"] = money
@@ -2703,6 +2777,8 @@ func _update_d6_06_pending_type_counts() -> void:
 	_attempt_runtime_state["d6_06_pending_tiny_icon"] = tiny
 	_attempt_runtime_state["d6_06_pending_glow_guy"] = glow
 	_attempt_runtime_state["d6_06_pending_clue"] = clue
+	_attempt_runtime_state["d6_06_pending_case_cash_amount"] = case_cash_amount
+	_attempt_runtime_state["d6_06_pending_case_cash_instances"] = case_cash_instances
 
 
 func _on_authored_collectible_collected_signal(collectible_id: String, category: String) -> void:
@@ -2718,6 +2794,7 @@ func _on_authored_collectible_collected_signal(collectible_id: String, category:
 func _commit_pending_authored_collectibles() -> Dictionary:
 	var committed := 0
 	var skipped := 0
+	var already_persisted := 0
 	var adapter := _find_phase0j_mission_state_adapter()
 	for entry in _d6_06_pending_collectibles:
 		if bool(entry.get("committed", false)):
@@ -2727,8 +2804,15 @@ func _commit_pending_authored_collectibles() -> Dictionary:
 		var cat_s := String(entry.get("category", ""))
 		var payload: Dictionary = entry.get("payload", {}) as Dictionary
 		var ctype := String(entry.get("collectible_type", cat_s))
-		if ctype == "money":
+		if D6_06_PERSIST.is_already_persisted(id_s, ctype):
+			entry["committed"] = true
+			entry["skipped_reason"] = "already_persisted"
+			already_persisted += 1
+			skipped += 1
+			continue
+		if ctype in ["money", "case_cash"]:
 			_commit_authored_money(entry)
+			D6_06_PERSIST.mark_persisted(id_s, ctype)
 			entry["committed"] = true
 			committed += 1
 			continue
@@ -2748,13 +2832,17 @@ func _commit_pending_authored_collectibles() -> Dictionary:
 			)
 		var hideout_key := String(entry.get("hideout_collection_key", ""))
 		D6_06_HIDEOUT_SYNC.mark_hideout_display_found(hideout_key)
+		D6_06_PERSIST.mark_persisted(id_s, ctype)
 		entry["committed"] = true
 		committed += 1
 	_attempt_runtime_state["d6_06_committed_collectible_count"] = committed
 	_attempt_runtime_state["d6_06_commit_skipped_count"] = skipped
+	_attempt_runtime_state["d6_06_commit_already_persisted_count"] = already_persisted
 	_attempt_runtime_state["d6_06_hideout_sync_status"] = "committed_%d" % committed
+	_attempt_runtime_state["d6_06_clue_corkboard_sync"] = _d6_06_clue_commit_summary()
+	_attempt_runtime_state["d6_06_glow_guy_shelf_sync"] = _d6_06_glow_commit_summary()
 	_update_d6_06_pending_type_counts()
-	return {"committed": committed, "skipped": skipped}
+	return {"committed": committed, "skipped": skipped, "already_persisted": already_persisted}
 
 
 func _commit_authored_money(entry: Dictionary) -> void:
@@ -2763,14 +2851,38 @@ func _commit_authored_money(entry: Dictionary) -> void:
 	if GameState.dialogue_flags.get(flag_key, false) == true:
 		return
 	GameState.dialogue_flags[flag_key] = true
-	D6_06_HIDEOUT_SYNC.commit_money_proof(entry)
-	increment_attempt_counter("d6_06_authored_money_%s" % String(entry.get("currency_type", "cash")), int(entry.get("amount", 1)))
+	var amount := maxi(int(entry.get("amount", 1)), 1)
+	var added := D6_06_HIDEOUT_SYNC.commit_case_cash(amount, entry)
+	increment_attempt_counter("d6_06_authored_money_cash", added)
+	increment_attempt_counter("d6_06_authored_money_%s" % String(entry.get("currency_type", "cash")), amount)
+
+
+func _d6_06_clue_commit_summary() -> String:
+	var n := 0
+	for entry in _d6_06_pending_collectibles:
+		if not bool(entry.get("committed", false)):
+			continue
+		if String(entry.get("collectible_type", "")) in ["evidence_clue", "clue"]:
+			n += 1
+	return "clues_committed_%d" % n
+
+
+func _d6_06_glow_commit_summary() -> String:
+	var n := 0
+	for entry in _d6_06_pending_collectibles:
+		if not bool(entry.get("committed", false)):
+			continue
+		if String(entry.get("collectible_type", "")) == "glow_guy":
+			n += 1
+	return "glow_guys_committed_%d" % n
 
 
 func _clear_pending_authored_collectibles(reason: String = "") -> void:
 	_d6_06_pending_collectibles.clear()
+	_d6_06_authored_commit_applied = false
 	_attempt_runtime_state["d6_06_pending_collectible_count"] = 0
 	_attempt_runtime_state["d6_06_pending_cleared_reason"] = reason
+	_attempt_runtime_state["d6_06_commit_duplicate_blocked"] = false
 	_update_d6_06_pending_type_counts()
 
 
@@ -4855,6 +4967,9 @@ func _runtime_debug_summary() -> Dictionary:
 		"d6_06_money_author_count": int(_attempt_runtime_state.get("d6_06_money_author_count", 0)),
 		"d6_06_polaroid_author_count": int(_attempt_runtime_state.get("d6_06_polaroid_author_count", 0)),
 		"d6_06_tiny_icon_author_count": int(_attempt_runtime_state.get("d6_06_tiny_icon_author_count", 0)),
+		"d6_06_glow_guy_author_count": int(_attempt_runtime_state.get("d6_06_glow_guy_author_count", 0)),
+		"d6_06_clue_author_count": int(_attempt_runtime_state.get("d6_06_clue_author_count", 0)),
+		"d6_06_case_cash_author_count": int(_attempt_runtime_state.get("d6_06_case_cash_author_count", 0)),
 		"d6_06_last_authored_pickup_id": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_id", "")),
 		"d6_06_last_authored_pickup_type": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_type", "")),
 		"d6_06_last_authored_pickup_result": String(_attempt_runtime_state.get("d6_06_last_authored_pickup_result", "")),
@@ -4879,6 +4994,15 @@ func _runtime_debug_summary() -> Dictionary:
 		"d6_06_pending_money": int(_attempt_runtime_state.get("d6_06_pending_money", 0)),
 		"d6_06_pending_polaroid": int(_attempt_runtime_state.get("d6_06_pending_polaroid", 0)),
 		"d6_06_pending_tiny_icon": int(_attempt_runtime_state.get("d6_06_pending_tiny_icon", 0)),
+		"d6_06_pending_glow_guy": int(_attempt_runtime_state.get("d6_06_pending_glow_guy", 0)),
+		"d6_06_pending_clue": int(_attempt_runtime_state.get("d6_06_pending_clue", 0)),
+		"d6_06_pending_case_cash_amount": int(_attempt_runtime_state.get("d6_06_pending_case_cash_amount", 0)),
+		"d6_06_pending_case_cash_instances": int(_attempt_runtime_state.get("d6_06_pending_case_cash_instances", 0)),
+		"d6_06_clue_corkboard_sync": String(_attempt_runtime_state.get("d6_06_clue_corkboard_sync", "")),
+		"d6_06_glow_guy_shelf_sync": String(_attempt_runtime_state.get("d6_06_glow_guy_shelf_sync", "")),
+		"d6_06_case_cash_bank": int(GameState.dialogue_flags.get("d6_06_case_cash_bank", 0)),
+		"d6_06_duplicate_author_id_count": int(_attempt_runtime_state.get("d6_06_duplicate_author_id_count", 0)),
+		"d6_06_duplicate_author_ids": _attempt_runtime_state.get("d6_06_duplicate_author_ids", []),
 		"d6_06_pending_cleared_reason": String(_attempt_runtime_state.get("d6_06_pending_cleared_reason", "")),
 		"search_net_last_role": last_role,
 		"search_net_last_ordinal": last_ordinal,

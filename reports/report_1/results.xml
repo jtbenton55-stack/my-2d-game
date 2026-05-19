@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-05-18" name="report_1" tests="3" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="MissionAuthoredCollectiblePersistenceTest" package="tests/d6_06" timestamp="2026-05-18T19:06:57" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.024">
+		<testcase name="test_persist_flag_key_uses_collectible_id" classname="MissionAuthoredCollectiblePersistenceTest" time="0.004">
+		</testcase>
+		<testcase name="test_is_already_persisted_reads_dialogue_flag" classname="MissionAuthoredCollectiblePersistenceTest" time="0.004">
+		</testcase>
+		<testcase name="test_mark_persisted_sets_flag" classname="MissionAuthoredCollectiblePersistenceTest" time="0.004">
+		</testcase>
+	</testsuite>
+</testsuites>

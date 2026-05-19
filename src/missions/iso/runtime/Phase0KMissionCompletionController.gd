@@ -76,23 +76,15 @@ func complete_mission_and_exit() -> Dictionary:
 		if ok:
 			mission_completed = true
 			return {"success": true, "mission_id": mission_id, "via": "request_exit_completion"}
-	# Phase0K Louis exit (bag + code gate) may be valid before every IsoMission definition objective is flagged.
-	if mission != null and are_exit_requirements_met():
-		if mission.has_method("_commit_pending_authored_collectibles"):
-			mission.call("_commit_pending_authored_collectibles")
-		if mission.has_method("_complete_exit_return_objectives"):
-			mission.call("_complete_exit_return_objectives")
-		mission_completed = true
-		var result := {"success": true, "mission_id": mission_id, "via": "phase0k_louis_exit"}
-		var game_state := get_node_or_null("/root/GameState")
-		if game_state != null and game_state.has_method("complete_mission"):
-			result = game_state.call("complete_mission", mission_id)
-		var scene_manager := get_node_or_null("/root/SceneManager")
-		if scene_manager != null and scene_manager.has_method("show_mission_result"):
-			scene_manager.call("show_mission_result", result)
-		else:
-			_show("Mission complete: return to hideout.")
-		return result
+	# Phase0K Louis exit: Taco-only fallback when formal IsoMission objectives are not all flagged.
+	if mission != null and mission.has_method("apply_phase0k_louis_exit_completion"):
+		var fallback: Dictionary = mission.call("apply_phase0k_louis_exit_completion")
+		if bool(fallback.get("success", false)):
+			mission_completed = true
+			return fallback
+		if String(fallback.get("via", "")) == "fallback_denied":
+			_show("Louis: Exit fallback is not enabled for this mission.")
+			return fallback
 	_show("Louis: Mission exit blocked - finish required objectives first.")
 	return {"success": false, "mission_id": mission_id, "via": "request_exit_completion_rejected"}
 

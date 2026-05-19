@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityCameraAuthor.gd" id="1"]
+
+[node name="SecurityCameraAuthorTemplate" type="Node2D"]
+script = ExtResource("1")
+camera_id = &"CHANGE_ME_CAMERA_ID"
+on_alarm_event = &"CHANGE_ME_CAMERA_ALARM_EVENT"
+range_px = 320.0
+fov_degrees = 55.0

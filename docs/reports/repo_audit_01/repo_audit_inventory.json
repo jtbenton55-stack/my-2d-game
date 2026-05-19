@@ -1,0 +1,876 @@
+{
+  "generated_by": "PHASE 0M-REPO-AUDIT-01",
+  "entry_count": 47,
+  "entries": [
+    {
+      "id": "autoload_gamestate",
+      "kind": "autoload",
+      "path": "project.godot::autoload.GameState",
+      "node_path": "",
+      "system_area": "startup_autoload",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "project.godot autoload entry; used by SceneManager, mission/hideout systems",
+      "references_found": [
+        "project.godot",
+        "src/autoload/GameState.gd",
+        "src/autoload/SceneManager.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Core mission/meta state container"
+    },
+    {
+      "id": "autoload_scenemanager",
+      "kind": "autoload",
+      "path": "project.godot::autoload.SceneManager",
+      "node_path": "",
+      "system_area": "startup_flow",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "Main menu uses SceneManager.start_new_game/continue; mission transitions route through SceneManager",
+      "references_found": [
+        "project.godot",
+        "src/autoload/SceneManager.gd",
+        "src/ui/MainMenu.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Owns global scene transitions"
+    },
+    {
+      "id": "main_menu_scene",
+      "kind": "scene",
+      "path": "scenes/MainMenu.tscn",
+      "node_path": "/root/MainMenu",
+      "system_area": "startup_ui",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "project main_scene points here; runtime tree confirms load",
+      "references_found": [
+        "project.godot",
+        "src/ui/MainMenu.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Verified with play_scene mode=main"
+    },
+    {
+      "id": "hideout_scene",
+      "kind": "scene",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "/root/HideoutHubRoot",
+      "system_area": "hideout_loop",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "SceneManager start_new_game/return_to_hideout targets hideout scene; runtime tree loaded",
+      "references_found": [
+        "src/autoload/SceneManager.gd",
+        "src/hideout/HideoutManager.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Contains managers and layered world"
+    },
+    {
+      "id": "taco_scene_playable",
+      "kind": "scene",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "/root/TacoBellIso_Editable",
+      "system_area": "mission_runtime",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "MissionSceneResolver maps taco_bell_drop to this scene; runtime play succeeded",
+      "references_found": [
+        "src/missions/MissionSceneResolver.gd",
+        "src/hideout/HideoutMissionBoardController.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Primary mission baseline"
+    },
+    {
+      "id": "iso_mission_base",
+      "kind": "script",
+      "path": "src/levels/IsoMissionBase.gd",
+      "node_path": "",
+      "system_area": "mission_framework",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "high",
+      "evidence": "Scene root script for playable mission; contains root creation, objective/security/collectible runtime wiring",
+      "references_found": [
+        "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+        "src/missions/iso/runtime/*.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "modularize_later",
+      "notes": "Large, highly coupled file"
+    },
+    {
+      "id": "security_authoring_root",
+      "kind": "script",
+      "path": "src/missions/iso/authoring/SecurityAuthoringRoot.gd",
+      "node_path": "GameplayRoot/SecurityAuthoringRoot",
+      "system_area": "security_authoring",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Collects beam/camera/spawn/patrol/area/effect/collectible authors for runtime builders",
+      "references_found": [
+        "src/missions/iso/runtime/MissionAuthoringRuntimeBuilder.gd",
+        "src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Authoring aggregator"
+    },
+    {
+      "id": "mission_authoring_builder",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/MissionAuthoringRuntimeBuilder.gd",
+      "node_path": "",
+      "system_area": "security_runtime_builder",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Registers listeners, area triggers, authored cameras/effects",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd",
+        "src/missions/iso/authoring/SecurityAuthoringRoot.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Key authorable->runtime bridge"
+    },
+    {
+      "id": "collectible_authoring_builder",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd",
+      "node_path": "GameplayRoot/GeneratedRuntimeInteractables/AuthoredGeneratedInteractables",
+      "system_area": "collectible_runtime_builder",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Spawns authored pickups into generated runtime parent; used by mission runtime path",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd",
+        "src/missions/iso/authoring/*.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Supports poop/case cash/polaroid/tiny/glow/clue"
+    },
+    {
+      "id": "authored_phase0j_pickup",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/AuthoredPhase0JInteractablePickup.gd",
+      "node_path": "",
+      "system_area": "interaction_collectibles",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Builder sets this as script for authored pickup areas",
+      "references_found": [
+        "src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Defers persistence to mission commit"
+    },
+    {
+      "id": "authored_collectible_pickup_legacy",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/AuthoredCollectiblePickup.gd",
+      "node_path": "",
+      "system_area": "legacy_collectible_runtime",
+      "classification": "LEGACY_DO_NOT_USE",
+      "confidence": "high",
+      "evidence": "Current builder references AuthoredPhase0JInteractablePickup; validators treat this file as deprecated path",
+      "references_found": [
+        "src/tools/editor/d6_06b_interactable_collectible_hideout_sync/phase0md6_06b_static_validator.py"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "not useful",
+      "cleanup_risk": "LOW_RISK_QUARANTINE_CANDIDATE",
+      "recommended_action": "quarantine_later",
+      "notes": "Do not remove in this audit"
+    },
+    {
+      "id": "mission_collectible_sync",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/MissionCollectibleHideoutSync.gd",
+      "node_path": "",
+      "system_area": "hideout_sync",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "HideoutManager applies persisted flags and banked case cash via this helper",
+      "references_found": [
+        "src/hideout/HideoutManager.gd",
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Case cash + display sync bridge"
+    },
+    {
+      "id": "mission_collectible_persistence",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/MissionAuthoredCollectiblePersistence.gd",
+      "node_path": "",
+      "system_area": "collectible_persistence",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Referenced by IsoMissionBase and tests; defines idempotent persistence flags",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd",
+        "tests/d6_06/MissionAuthoredCollectiblePersistenceTest.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Protects replay/idempotency"
+    },
+    {
+      "id": "phase0k_completion_controller",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/Phase0KMissionCompletionController.gd",
+      "node_path": "GameplayRoot/RuntimeHelpers/Phase0KMissionCompletionController",
+      "system_area": "mission_completion",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Louis interactable calls completion checks and mission exit path",
+      "references_found": [
+        "src/missions/iso/runtime/Phase0KLouisExitInteractable.gd",
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Includes fallback gate path"
+    },
+    {
+      "id": "phase0k_louis_exit",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/Phase0KLouisExitInteractable.gd",
+      "node_path": "GameplayRoot/GeneratedRuntimeInteractables/LouisExitToken",
+      "system_area": "mission_completion",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Interaction bridge prioritizes phase0k_louis_exit group",
+      "references_found": [
+        "src/missions/iso/runtime/Phase0JInteractionBridge.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "End-of-mission exit interaction"
+    },
+    {
+      "id": "phase0j_interaction_bridge",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/Phase0JInteractionBridge.gd",
+      "node_path": "GameplayRoot/RuntimeHelpers/Phase0JInteractionBridge",
+      "system_area": "input_interaction",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "E-interact funnel over groups phase0j_interactable/phase0k_louis_exit/interactable",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Critical interaction router"
+    },
+    {
+      "id": "iso_debug_panel",
+      "kind": "script",
+      "path": "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+      "node_path": "IsoMissionDebugPanel",
+      "system_area": "debug_tools",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "IsoMissionBase creates panel and F10 toggles compact debug",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "retain_debug_tooling",
+      "notes": "Developer visibility layer"
+    },
+    {
+      "id": "hideout_manager",
+      "kind": "script",
+      "path": "src/hideout/HideoutManager.gd",
+      "node_path": "GameplayRoot/Managers/HideoutManager",
+      "system_area": "hideout_orchestration",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "high",
+      "evidence": "Scene references script; constructs world/stations/zones/interactions and applies sync",
+      "references_found": [
+        "scenes/hideout/HideoutHub.tscn"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "modularize_later",
+      "notes": "Manager-heavy, multi-responsibility"
+    },
+    {
+      "id": "hideout_state_controller",
+      "kind": "script",
+      "path": "src/hideout/HideoutStateController.gd",
+      "node_path": "GameplayRoot/Managers/HideoutStateController",
+      "system_area": "hideout_state",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Stores case cash, collectible display flags, mission state for hideout panels",
+      "references_found": [
+        "scenes/hideout/HideoutHub.tscn",
+        "src/hideout/HideoutManager.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Meta-loop state anchor"
+    },
+    {
+      "id": "mission_scene_resolver",
+      "kind": "script",
+      "path": "src/missions/MissionSceneResolver.gd",
+      "node_path": "",
+      "system_area": "mission_routing",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Hard maps taco mission to RedesignTest scene; SceneManager uses resolver",
+      "references_found": [
+        "src/autoload/SceneManager.gd",
+        "src/hideout/HideoutMissionBoardController.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "Distinguishes playable vs legacy paths"
+    },
+    {
+      "id": "taco_security_authoring_root_node",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/SecurityAuthoringRoot",
+      "system_area": "security_authoring",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Present in scene; child author nodes include beam/camera/spawn/patrol/area/effects",
+      "references_found": [
+        "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Authoring source of truth"
+    },
+    {
+      "id": "taco_collectible_proof_cluster",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/SecurityAuthoringRoot/CollectibleAuthoringProof",
+      "system_area": "collectible_authoring",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Contains D6_06/D6_07 author nodes referenced by collectible builder",
+      "references_found": [
+        "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "Proof cluster still active for authoring"
+    },
+    {
+      "id": "taco_autolabel_residue",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/SecurityAuthoringRoot/**/@Label@*",
+      "system_area": "scene_clutter",
+      "classification": "UNKNOWN_NEEDS_MANUAL_REVIEW",
+      "confidence": "medium",
+      "evidence": "High counts of auto-named labels around author nodes in scene and editor tree",
+      "references_found": [
+        "scene node scans",
+        "find_nodes_by_type Label"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "unknown",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "manual_review_before_any_move",
+      "notes": "Potential editor/plugin residue; may still assist authoring workflows"
+    },
+    {
+      "id": "taco_generated_runtime_interactables",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/GeneratedRuntimeInteractables",
+      "system_area": "runtime_generation",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "Runtime contains louis exit, objective and collectible interactables",
+      "references_found": [
+        "runtime node query Area2D"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Core generated runtime surface"
+    },
+    {
+      "id": "taco_generated_runtime_marker_debug",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/GeneratedRuntimeMarkerDebugInteractables",
+      "system_area": "debug_generation",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "high",
+      "evidence": "Runtime node list shows very large Debug_* marker interactable set",
+      "references_found": [
+        "runtime Area2D query"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "MEDIUM_RISK_SCENE_CLEANUP",
+      "recommended_action": "reduce_only_with_parity_tests",
+      "notes": "Noisy but likely useful for debug/playtest"
+    },
+    {
+      "id": "taco_marker_root",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/MarkerRoot",
+      "system_area": "marker_system",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "IsoMissionBase ensures marker categories and runtime marker processing",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "May contain legacy + active marker data"
+    },
+    {
+      "id": "hideout_gameplay_managers_node",
+      "kind": "node",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "GameplayRoot/Managers",
+      "system_area": "hideout_orchestration",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "Runtime/editor tree shows full hideout manager cluster under Managers",
+      "references_found": [
+        "scenes/hideout/HideoutHub.tscn"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Core hideout stack"
+    },
+    {
+      "id": "hideout_floor_paint_layer",
+      "kind": "tilemap",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "ArtRoot/World/FloorLayer/PVGamesFloorPaintLayer",
+      "system_area": "tilemap_visual",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Scene/runtime tree includes layer; hideout art stack depends on layered paint model",
+      "references_found": [
+        "scene tree",
+        "runtime tree"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "Active visual paint layer"
+    },
+    {
+      "id": "hideout_wall_paint_layer",
+      "kind": "tilemap",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "ArtRoot/World/WallLayer/PVGamesWallPaintLayer",
+      "system_area": "tilemap_visual",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Present in scene/runtime, part of layered hideout world",
+      "references_found": [
+        "scene tree",
+        "runtime tree"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "Active wall paint layer"
+    },
+    {
+      "id": "hideout_pvg_catalog_layers",
+      "kind": "node",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "ArtRoot/World/PVG_CatalogPaintLayers",
+      "system_area": "tilemap_pipeline",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "medium",
+      "evidence": "Multiple tilemap layers for catalog painting present and loaded",
+      "references_found": [
+        "scene tree",
+        "runtime tree"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "future_useful",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "standardize_later",
+      "notes": "Useful for future map-paint pipeline but taxonomy is heavy"
+    },
+    {
+      "id": "hideout_pvg_depth_layers",
+      "kind": "node",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "ArtRoot/World/PVG_DepthPaintLayers",
+      "system_area": "tilemap_pipeline",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "medium",
+      "evidence": "Depth/occlusion paint groups loaded in runtime hideout tree",
+      "references_found": [
+        "scene tree",
+        "runtime tree"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "future_useful",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "standardize_later",
+      "notes": "Potentially core for depth painting"
+    },
+    {
+      "id": "hideout_pvg_central_security_layers",
+      "kind": "node",
+      "path": "scenes/hideout/HideoutHub.tscn",
+      "node_path": "ArtRoot/World/PVG_CentralSecurityPaintLayers",
+      "system_area": "tilemap_pipeline",
+      "classification": "UNKNOWN_NEEDS_MANUAL_REVIEW",
+      "confidence": "medium",
+      "evidence": "Layers exist in active scene but direct gameplay dependence unclear",
+      "references_found": [
+        "scene tree",
+        "runtime tree"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "future_useful",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "manual_review_before_changes",
+      "notes": "Likely paint workflow support"
+    },
+    {
+      "id": "mission_debug_f10_system",
+      "kind": "system",
+      "path": "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+      "node_path": "",
+      "system_area": "debug_tools",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Script handles F10/F9 and mission runtime debug summaries",
+      "references_found": [
+        "src/levels/IsoMissionBase.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve_with_cleanup_plan",
+      "notes": "Do not remove while debugging/regression needs remain"
+    },
+    {
+      "id": "validator_d6_06b",
+      "kind": "validator",
+      "path": "src/tools/editor/d6_06b_interactable_collectible_hideout_sync/phase0md6_06b_static_validator.py",
+      "node_path": "",
+      "system_area": "validation",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Validator checks authored collectible runtime/persistence/hideout sync contracts",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_VALIDATOR_ONLY",
+      "recommended_action": "keep_and_extend",
+      "notes": "Writes report artifacts when run"
+    },
+    {
+      "id": "validator_d6_07",
+      "kind": "validator",
+      "path": "src/tools/editor/d6_07_broader_interactable_authoring/phase0md6_07_static_validator.py",
+      "node_path": "",
+      "system_area": "validation",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Validates broader interactable authoring contracts",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_VALIDATOR_ONLY",
+      "recommended_action": "keep_and_extend",
+      "notes": "Report-writing validator"
+    },
+    {
+      "id": "validator_d6_07b",
+      "kind": "validator",
+      "path": "src/tools/editor/d6_07b_authorable_standardization/phase0md6_07b_static_validator.py",
+      "node_path": "",
+      "system_area": "validation",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Checks taxonomy/ID uniqueness/placeholder misuse for authorables",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_VALIDATOR_ONLY",
+      "recommended_action": "keep_and_extend",
+      "notes": "Important for safe authoring standardization"
+    },
+    {
+      "id": "validator_d6_08a",
+      "kind": "validator",
+      "path": "src/tools/editor/d6_08a_security_authorables/phase0md6_08a_security_authorable_validator.py",
+      "node_path": "",
+      "system_area": "validation",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Security authorable validator checks IDs/templates/route references",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_VALIDATOR_ONLY",
+      "recommended_action": "keep_and_extend",
+      "notes": "Critical for security authoring hygiene"
+    },
+    {
+      "id": "gdunit_collectible_persistence_test",
+      "kind": "test",
+      "path": "tests/d6_06/MissionAuthoredCollectiblePersistenceTest.gd",
+      "node_path": "",
+      "system_area": "testing",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Directly tests persistence and case cash bank helpers",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_VALIDATOR_ONLY",
+      "recommended_action": "keep_and_expand",
+      "notes": "Run skipped in this audit due write-risk policy"
+    },
+    {
+      "id": "authorable_nodes_guide_doc",
+      "kind": "doc",
+      "path": "docs/AUTHORABLE_NODES_GUIDE.md",
+      "node_path": "",
+      "system_area": "authoring_docs",
+      "classification": "FUTURE_USEFUL",
+      "confidence": "high",
+      "evidence": "Documents current authorable workflow/templates/ID rules and validation steps",
+      "references_found": [
+        "file content"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_DOCS_ONLY",
+      "recommended_action": "maintain",
+      "notes": "Supports plug-and-play authoring onboarding"
+    },
+    {
+      "id": "security_authorables_guide_doc",
+      "kind": "doc",
+      "path": "docs/SECURITY_AUTHORABLES_GUIDE.md",
+      "node_path": "",
+      "system_area": "authoring_docs",
+      "classification": "FUTURE_USEFUL",
+      "confidence": "high",
+      "evidence": "Referenced by authorable docs and aligns with security authoring templates",
+      "references_found": [
+        "docs/AUTHORABLE_NODES_GUIDE.md"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "SAFE_DOCS_ONLY",
+      "recommended_action": "maintain",
+      "notes": "Key roadmap-aligned documentation"
+    },
+    {
+      "id": "taco_tilemap_layers",
+      "kind": "tilemap",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/*TileMapLayer + ArtRoot/*TileMapLayer",
+      "system_area": "tilemap_runtime",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "find_nodes_by_type(TileMapLayer) returns 16 active layers in Taco",
+      "references_found": [
+        "godot mcp find_nodes_by_type TileMapLayer"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Foundational gameplay/art layering"
+    },
+    {
+      "id": "taco_collision_shape_density",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/**/CollisionShape2D",
+      "system_area": "scene_clutter",
+      "classification": "UNKNOWN_NEEDS_MANUAL_REVIEW",
+      "confidence": "medium",
+      "evidence": "find_nodes_by_type(CollisionShape2D) returned 436 in edited scene context",
+      "references_found": [
+        "godot mcp node query dump"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "unknown",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "profile_before_cleanup",
+      "notes": "Could include required boundaries/trigger volumes"
+    },
+    {
+      "id": "taco_label_density",
+      "kind": "node",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "node_path": "GameplayRoot/**/Label",
+      "system_area": "scene_clutter",
+      "classification": "KEEP_BUT_REFACTOR_LATER",
+      "confidence": "medium",
+      "evidence": "find_nodes_by_type(Label) returned very high count including debug/author labels",
+      "references_found": [
+        "godot mcp node query dump"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "MEDIUM_RISK_SCENE_CLEANUP",
+      "recommended_action": "trim_with_scene_diff_later",
+      "notes": "Many labels are debug/authoring support"
+    },
+    {
+      "id": "mission_scene_variant_legacy_editable",
+      "kind": "scene",
+      "path": "scenes/missions_iso/TacoBellIso_Editable.tscn",
+      "node_path": "",
+      "system_area": "legacy_scene_variants",
+      "classification": "UNKNOWN_NEEDS_MANUAL_REVIEW",
+      "confidence": "medium",
+      "evidence": "Resolver prefers RedesignTest; legacy path still declared in MissionSceneResolver roles",
+      "references_found": [
+        "src/missions/MissionSceneResolver.gd"
+      ],
+      "runtime_observed": false,
+      "future_usefulness": "unknown",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "manual_reference_audit_first",
+      "notes": "May support bake/legacy workflows"
+    },
+    {
+      "id": "save_manager",
+      "kind": "autoload",
+      "path": "src/autoload/SaveManager.gd",
+      "node_path": "",
+      "system_area": "save_load",
+      "classification": "PROTECTED_BASELINE",
+      "confidence": "high",
+      "evidence": "MainMenu continue button and SceneManager flow depend on save/load",
+      "references_found": [
+        "src/ui/MainMenu.gd",
+        "src/autoload/SceneManager.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "directly reusable",
+      "cleanup_risk": "NEVER_REMOVE_CURRENTLY_PROTECTED",
+      "recommended_action": "preserve",
+      "notes": "Critical persistence service"
+    },
+    {
+      "id": "collectible_manager_autoload",
+      "kind": "autoload",
+      "path": "src/collectibles/CollectibleManager.gd",
+      "node_path": "",
+      "system_area": "collectibles_global",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Autoload declared in project; manages collected polaroid catalog operations",
+      "references_found": [
+        "project.godot",
+        "src/collectibles/CollectibleManager.gd"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "reusable with adapter",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve",
+      "notes": "Global collectible registry"
+    },
+    {
+      "id": "godot_mcp_autoload_services",
+      "kind": "autoload",
+      "path": "project.godot::autoload.MCP*",
+      "node_path": "",
+      "system_area": "tooling_runtime",
+      "classification": "KEEP_ACTIVE",
+      "confidence": "high",
+      "evidence": "Project autoload includes MCPRuntime/MCPGameInspector/MCPInputService/MCPScreenshot for tooling",
+      "references_found": [
+        "project.godot"
+      ],
+      "runtime_observed": true,
+      "future_usefulness": "future_useful",
+      "cleanup_risk": "HIGH_RISK_DO_NOT_TOUCH_YET",
+      "recommended_action": "preserve_unless_tooling_policy_changes",
+      "notes": "Required for current MCP inspection workflows"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GuardSpawnAuthor.gd" id="1"]
+
+[node name="GuardSpawnAuthorTemplate" type="Node2D"]
+script = ExtResource("1")
+spawn_id = &"CHANGE_ME_SPAWN_ID"
+trigger_events = Array[StringName]([&"CHANGE_ME_TRIGGER_EVENT"])
+max_alive_from_this_spawn = 2

@@ -1,0 +1,11 @@
+id,paths,classification,risk,owner,next_action
+DOC-AUTHORABLE-OVERLAP,"docs/AUTHORABLE_NODES_GUIDE.md; docs/AUTHORABLE_USE_GUIDE.md; docs/SECURITY_AUTHORABLES_GUIDE.md","docs overlap with useful content",low,OpenCode/static,"Consolidate later; do not delete yet"
+REPORT-GDUNIT-DUPES,"reports/report_1/; reports/report_2/; reports/report_3/","duplicate generated GdUnit reports",low,OpenCode/static after approval,"Preserve latest XML summary, then archive/delete duplicates in approved pass"
+MCP-BISECT-GAMESTATE,"src/autoload/GameState_McpBisectShim.gd; src/autoload/GameState_McpBisectStub.gd; uid siblings","MCP playmode bisection artifacts",medium-low,Cursor/runtime validation,"Verify no active references or tooling need before quarantine"
+MCP-BLANK-TEST-SCENE,"scenes/testing/McpRuntimeBlankTest.tscn","MCP runtime harness",keep-tooling,Cursor/runtime validation,"Keep/document unless Jake declares obsolete"
+SCENE-BACKUPS-ACTIVE-FOLDERS,"scenes/characters/player.phase0mc2_*_backup*.tscn; scenes/ui/DialogueBox.phase0mc3_*_backup*.tscn","backup scenes inside active folders",medium,Cursor/runtime validation,"Verify no references, then move to approved archive path later"
+LEGACY-AUTHORED-PICKUP,"src/missions/iso/runtime/AuthoredCollectiblePickup.gd","legacy runtime path",medium-low,Cursor/runtime validation,"Do not remove yet; stale validators still reference it"
+STALE-VALIDATORS-DEPRECATED-PICKUP,"src/tools/editor/d6_06_collectible_authoring/; src/tools/editor/d6_06b_collectible_physical_pickup/","stale validators for deprecated pickup",low-medium,OpenCode/static plus Cursor tests,"Mark superseded or retire after current validators/tests pass"
+TACO-SCENE-VARIANTS,"scenes/missions_iso/TacoBellIso_Editable*.tscn; TacoBellIsoBlockout.tscn; TacoBellIsoHandEditTest.tscn","legacy/dev/bake variants",high,Cursor/runtime validation,"Do not move/delete until references and bake helpers are fully understood"
+HIDEOUT-TOOL-SCENES,"scenes/hideout/tools/*.tscn; scenes/hideout/tests/*.tscn","editor/tooling scenes",medium,Cursor/runtime validation,"Classify active tooling vs archive later"
+OLD-REPORT-BACKUPS,"reports/godot_ignored_backups/; reports/ai/setup-backups/","intentional backup archives",low,OpenCode/static after approval,"Keep now; compress/archive only in separate approved pass"

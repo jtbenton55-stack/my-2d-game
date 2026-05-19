@@ -605,23 +605,29 @@ func _build_collectible_authoring_detail_lines(rsum: Dictionary) -> PackedString
 		]
 	)
 	lines.append(
-		"Pending: %d (poop %d $ %d photo %d tiny %d)  committed: %d"
+		"Pending: %d (poop %d case_cash total %d x%d photo %d tiny %d glow %d clue %d)  committed: %d"
 		% [
 			int(rsum.get("d6_06_pending_collectible_count", 0)),
 			int(rsum.get("d6_06_pending_poop", 0)),
-			int(rsum.get("d6_06_pending_money", 0)),
+			int(rsum.get("d6_06_pending_case_cash_amount", 0)),
+			int(rsum.get("d6_06_pending_case_cash_instances", 0)),
 			int(rsum.get("d6_06_pending_polaroid", 0)),
 			int(rsum.get("d6_06_pending_tiny_icon", 0)),
+			int(rsum.get("d6_06_pending_glow_guy", 0)),
+			int(rsum.get("d6_06_pending_clue", 0)),
 			int(rsum.get("d6_06_committed_collectible_count", 0)),
 		]
 	)
 	lines.append(
-		"By type: poop=%d money=%d polaroid=%d tiny=%d"
+		"Authors: poop=%d legacy_money_alias=%d case_cash=%d photo=%d tiny=%d glow=%d clue=%d"
 		% [
 			int(rsum.get("d6_06_poop_author_count", 0)),
 			int(rsum.get("d6_06_money_author_count", 0)),
+			int(rsum.get("d6_06_case_cash_author_count", 0)),
 			int(rsum.get("d6_06_polaroid_author_count", 0)),
 			int(rsum.get("d6_06_tiny_icon_author_count", 0)),
+			int(rsum.get("d6_06_glow_guy_author_count", 0)),
+			int(rsum.get("d6_06_clue_author_count", 0)),
 		]
 	)
 	lines.append(
@@ -641,14 +647,27 @@ func _build_collectible_authoring_detail_lines(rsum: Dictionary) -> PackedString
 		]
 	)
 	lines.append(
-		"Poop inv: %d  money proof (cash): %d  proof flags: %d"
+		"Poop inv: %d  committed Case Cash: %d  bank(pending hub): %d  proof flags: %d"
 		% [
 			int(rsum.get("d6_06_poop_count", 0)),
 			int(rsum.get("d6_06_money_proof_cash", 0)),
+			int(rsum.get("d6_06_case_cash_bank", 0)),
 			int(rsum.get("d6_06_proof_flags", 0)),
 		]
 	)
-	lines.append("Find: D6-06 proof cluster SW of door lock (~8950,620). Walk into colored circles.")
+	lines.append(
+		"Hideout sync: %s  clues: %s  glow shelf: %s"
+		% [
+			_dash_if_empty(String(rsum.get("d6_06_hideout_sync_status", ""))),
+			_dash_if_empty(String(rsum.get("d6_06_clue_corkboard_sync", ""))),
+			_dash_if_empty(String(rsum.get("d6_06_glow_guy_shelf_sync", ""))),
+		]
+	)
+	lines.append(
+		"Duplicate author IDs blocked: %d"
+		% [int(rsum.get("d6_06_duplicate_author_id_count", 0))]
+	)
+	lines.append("Find: D6-06/07 proof cluster SW of door lock (~8950,620). Walk into colored circles.")
 	return lines
 
 

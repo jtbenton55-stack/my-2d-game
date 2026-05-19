@@ -16,6 +16,18 @@ func _payload() -> Dictionary:
 		payload["polaroid_id"] = String(get_meta("polaroid_id"))
 	if has_meta("icon_id"):
 		payload["icon_id"] = String(get_meta("icon_id"))
+	if has_meta("glow_guy_id"):
+		payload["glow_guy_id"] = String(get_meta("glow_guy_id"))
+	if has_meta("clue_id"):
+		payload["clue_id"] = String(get_meta("clue_id"))
+	if has_meta("clue_title"):
+		payload["clue_title"] = String(get_meta("clue_title"))
+	if has_meta("clue_text"):
+		payload["clue_text"] = String(get_meta("clue_text"))
+	if has_meta("case_id"):
+		payload["case_id"] = String(get_meta("case_id"))
+	if has_meta("commits_as_case_cash"):
+		payload["commits_as_case_cash"] = bool(get_meta("commits_as_case_cash"))
 	return payload
 
 

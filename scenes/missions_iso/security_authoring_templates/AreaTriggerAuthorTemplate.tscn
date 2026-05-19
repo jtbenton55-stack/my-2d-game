@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/AreaTriggerAuthor.gd" id="1"]
+
+[node name="AreaTriggerAuthorTemplate" type="Node2D"]
+script = ExtResource("1")
+trigger_id = &"CHANGE_ME_TRIGGER_ID"
+on_enter_event = &"CHANGE_ME_AREA_EVENT"
+trigger_size = Vector2(96, 96)

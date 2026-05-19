@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityBeamAuthor.gd" id="1"]
+
+[node name="AmbushBeamAuthorTemplate" type="Node2D"]
+script = ExtResource("1")
+beam_id = &"CHANGE_ME_AMBUSH_BEAM_ID"
+alarm_id = &"CHANGE_ME_AMBUSH_BEAM_ID"
+on_trip_event = &"ambush_beam_tripped"
+one_shot = true
+visual_height = 340.0

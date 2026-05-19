@@ -34,6 +34,8 @@ def main() -> int:
     interaction_bridge = root / "src/missions/iso/runtime/Phase0JInteractionBridge.gd"
     builder = root / "src/missions/iso/runtime/CollectibleAuthoringRuntimeBuilder.gd"
     hideout_sync = root / "src/missions/iso/runtime/MissionCollectibleHideoutSync.gd"
+    persist = root / "src/missions/iso/runtime/MissionAuthoredCollectiblePersistence.gd"
+    phase0k = root / "src/missions/iso/runtime/Phase0KMissionCompletionController.gd"
     mission = root / "src/levels/IsoMissionBase.gd"
     panel = root / "src/missions/iso/runtime/IsoMissionDebugPanel.gd"
     hideout_mgr = root / "src/hideout/HideoutManager.gd"
@@ -103,8 +105,16 @@ def main() -> int:
         ):
             if needle not in mt:
                 errors.append(f"IsoMissionBase missing {needle}")
-        if "request_exit_completion" not in mt or "_commit_pending_authored_collectibles" not in mt:
-            errors.append("mission success path must commit pending collectibles")
+        if "commit_authored_collectibles_for_success" not in mt:
+            errors.append("IsoMissionBase missing commit_authored_collectibles_for_success")
+        if "allows_phase0k_louis_exit_fallback" not in mt:
+            errors.append("IsoMissionBase missing allows_phase0k_louis_exit_fallback")
+        if "apply_phase0k_louis_exit_completion" not in mt:
+            errors.append("IsoMissionBase missing apply_phase0k_louis_exit_completion")
+        if "PHASE0K_LOUIS_EXIT_FALLBACK_MISSION_IDS" not in mt:
+            errors.append("IsoMissionBase missing PHASE0K_LOUIS_EXIT_FALLBACK_MISSION_IDS allowlist")
+        if "_d6_06_authored_commit_applied" not in mt:
+            errors.append("IsoMissionBase missing _d6_06_authored_commit_applied guard")
         if mt.find("_clear_pending_authored_collectibles") > mt.find("func fail_level"):
             pass
         else:
@@ -122,6 +132,27 @@ def main() -> int:
         ):
             if needle not in pt:
                 errors.append(f"IsoMissionDebugPanel missing {needle}")
+
+    if persist.is_file():
+        pt = persist.read_text(encoding="utf-8")
+        for needle in ("is_already_persisted", "mark_persisted", "PERSIST_FLAG_PREFIX"):
+            if needle not in pt:
+                errors.append(f"MissionAuthoredCollectiblePersistence missing {needle}")
+    else:
+        errors.append("missing MissionAuthoredCollectiblePersistence.gd")
+
+    if phase0k.is_file():
+        pkt = phase0k.read_text(encoding="utf-8")
+        if "apply_phase0k_louis_exit_completion" not in pkt:
+            errors.append("Phase0KMissionCompletionController must use apply_phase0k_louis_exit_completion")
+        if "_commit_pending_authored_collectibles" in pkt and "apply_phase0k_louis_exit_completion" not in pkt:
+            errors.append("Phase0K must not call _commit_pending_authored_collectibles directly")
+    else:
+        errors.append("missing Phase0KMissionCompletionController.gd")
+
+    gdunit_test = root / "tests/d6_06/MissionAuthoredCollectiblePersistenceTest.gd"
+    if not gdunit_test.is_file():
+        warnings.append("missing GdUnit4 persistence test (tests/d6_06/)")
 
     if hideout_mgr.is_file():
         hmt = read_text(hideout_mgr)
@@ -143,7 +174,7 @@ def main() -> int:
         tt = read_text(taco)
         for proof in (
             "D6_06_PoopBag_Author",
-            "D6_06_Money_Author",
+            "D6_06_CaseCash_LegacyAlias_Author",
             "D6_06_Polaroid_Author",
             "D6_06_TinyIcon_Author",
             "CollectibleAuthoringProof",
