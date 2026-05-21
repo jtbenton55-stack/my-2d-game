@@ -38,6 +38,7 @@ var _rotation_degrees: SpinBox
 var _z_index_override: SpinBox
 var _select_after_stamp: CheckBox
 var _use_undo_redo: CheckBox
+var _place_with_mouse_pending := false
 
 func setup(plugin: EditorPlugin) -> void:
 	_plugin = plugin
@@ -160,10 +161,11 @@ func _build_ui() -> void:
 	var buttons := GridContainer.new()
 	buttons.columns = 1
 	_content.add_child(buttons)
+	_button(buttons, "Ensure Art Stamp Root", _ensure_art_stamp_root_action)
 	_button(buttons, "Dry Run Stamp", _dry_run_stamp_selected)
 	_button(buttons, "Stamp Selected at Typed Position", func() -> void: _stamp_selected_at_position(_typed_position()))
-	_button(buttons, "Stamp Selected at 2D View Center", func() -> void: _stamp_selected_at_position(Vector2.ZERO))
-	_button(buttons, "Place With Mouse (Deferred)", func() -> void: _status_label.text = "Place With Mouse is deferred.")
+	_button(buttons, "Stamp Selected at Scene Origin", func() -> void: _stamp_selected_at_position(Vector2.ZERO))
+	_button(buttons, "Place With Mouse", _begin_place_with_mouse)
 	_button(buttons, "Copy Object ID", _copy_selected_id)
 	_button(buttons, "Refresh Index", _refresh_index)
 
@@ -282,11 +284,55 @@ func _dry_run_stamp_selected() -> void:
 	if _selected_entry.is_empty():
 		_status_label.text = "Error: no selected entry."
 		return
-	var report := {"changed": false, "entry_type": _selected_entry.entry_type, "id": _selected_entry.id, "source_texture": _selected_entry.source_path, "target_container": _target_path(_selected_entry, _selected(_target_container)), "position": _typed_position(), "scale": _typed_scale(), "rotation": _rotation_degrees.value, "z_index": _selected_z_index(), "would_add_collision": false, "would_touch_gameplayroot": false}
+	var scene_root := _edited_scene_root()
+	var report := {"changed": false, "entry_type": _selected_entry.entry_type, "id": _selected_entry.id, "source_texture": _selected_entry.source_path, "target_container": _target_path(_selected_entry, _selected(_target_container), scene_root), "position": _typed_position(), "scale": _typed_scale(), "rotation": _rotation_degrees.value, "z_index": _selected_z_index(), "would_add_collision": false, "would_touch_gameplayroot": false}
 	_status_label.text = "Dry-run OK: %s -> %s" % [_selected_entry.id, report.target_container]
 	print("[PVGames Object Palette] Dry-run stamp: ", JSON.stringify(report, "\t"))
 
-func _stamp_selected_at_position(pos: Vector2) -> void:
+
+func _begin_place_with_mouse() -> void:
+	if _selected_entry.is_empty():
+		_status_label.text = "Error: select an object or icon before mouse placement."
+		return
+	if not ResourceLoader.exists(_selected_entry.source_path):
+		_status_label.text = "Error: source texture missing."
+		return
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		_status_label.text = "Error: no open scene."
+		return
+	if _art_object_root(scene_root) == null:
+		_status_label.text = "Error: ArtRoot not found."
+		return
+	_place_with_mouse_pending = true
+	_status_label.text = "Mouse placement armed: left-click the 2D viewport to stamp, right-click/Esc to cancel."
+
+
+func handle_canvas_gui_input(event: InputEvent) -> bool:
+	if not _place_with_mouse_pending:
+		return false
+	if event is InputEventKey:
+		var key_event := event as InputEventKey
+		if key_event.pressed and key_event.keycode == KEY_ESCAPE:
+			_place_with_mouse_pending = false
+			_status_label.text = "Mouse placement cancelled."
+			return true
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if not mouse_event.pressed:
+			return false
+		if mouse_event.button_index == MOUSE_BUTTON_RIGHT:
+			_place_with_mouse_pending = false
+			_status_label.text = "Mouse placement cancelled."
+			return true
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			_place_with_mouse_pending = false
+			_stamp_selected_from_mouse_event(mouse_event)
+			return true
+	return true
+
+
+func _stamp_selected_from_mouse_event(mouse_event: InputEventMouseButton) -> void:
 	if _selected_entry.is_empty():
 		_status_label.text = "Error: no selected entry."
 		return
@@ -297,14 +343,44 @@ func _stamp_selected_at_position(pos: Vector2) -> void:
 	if scene_root == null:
 		_status_label.text = "Error: no open scene."
 		return
-	if scene_root.get_node_or_null("ArtRoot/World") == null:
-		_status_label.text = "Error: ArtRoot/World not found."
+	if _art_object_root(scene_root) == null:
+		_status_label.text = "Error: ArtRoot not found."
 		return
 	var container := _ensure_container(scene_root, _selected_entry, _selected(_target_container))
 	if container == null or _node_is_under_gameplayroot(container):
 		_status_label.text = "Error: target container unsafe."
 		return
-	var node := _create_node(_selected_entry, pos, _typed_scale(), _rotation_degrees.value, _selected_z_index())
+	var local_event := container.make_input_local(mouse_event) as InputEventMouseButton
+	var node_position := local_event.position if local_event != null else mouse_event.position
+	_position_x.value = node_position.x
+	_position_y.value = node_position.y
+	_stamp_selected_in_container(container, scene_root, node_position)
+
+
+func _stamp_selected_at_position(pos: Vector2, position_is_scene_global := false) -> void:
+	if _selected_entry.is_empty():
+		_status_label.text = "Error: no selected entry."
+		return
+	if not ResourceLoader.exists(_selected_entry.source_path):
+		_status_label.text = "Error: source texture missing."
+		return
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		_status_label.text = "Error: no open scene."
+		return
+	if _art_object_root(scene_root) == null:
+		_status_label.text = "Error: ArtRoot not found."
+		return
+	var container := _ensure_container(scene_root, _selected_entry, _selected(_target_container))
+	if container == null or _node_is_under_gameplayroot(container):
+		_status_label.text = "Error: target container unsafe."
+		return
+	var node_position := container.to_local(pos) if position_is_scene_global else pos
+	_stamp_selected_in_container(container, scene_root, node_position)
+
+
+func _stamp_selected_in_container(container: Node2D, scene_root: Node, node_position: Vector2) -> void:
+	var node := _create_node(_selected_entry, node_position, _typed_scale(), _rotation_degrees.value, _selected_z_index())
 	node.name = _unique_child_name(container, _node_name(_selected_entry))
 	if _use_undo_redo.button_pressed and _plugin != null:
 		var ur := _plugin.get_undo_redo()
@@ -320,43 +396,60 @@ func _stamp_selected_at_position(pos: Vector2) -> void:
 		_select_created_object(node)
 	_status_label.text = "Stamped: %s/%s" % [container.get_path(), node.name]
 
-func _ensure_container(scene_root: Node, entry: Dictionary, container_name: String) -> Node2D:
-	var world := scene_root.get_node_or_null("ArtRoot/World")
-	if world == null:
+
+func _ensure_art_stamp_root_action() -> void:
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		_status_label.text = "Error: no open scene."
+		return
+	var base := _ensure_art_stamp_root(scene_root, true)
+	if base == null:
+		_status_label.text = "Error: ArtRoot not found."
+		return
+	_status_label.text = "Ensured art stamp root: %s" % base.get_path()
+
+
+func _ensure_art_stamp_root(scene_root: Node, include_target_containers := false) -> Node2D:
+	var art_target := _art_object_root(scene_root)
+	if art_target == null:
 		return null
-	var base := world.get_node_or_null("PVG_EditableObjects") as Node2D
+	var base := art_target.get_node_or_null("PVG_EditableObjects") as Node2D
 	if base == null:
 		base = Node2D.new()
 		base.name = "PVG_EditableObjects"
-		world.add_child(base)
+		art_target.add_child(base)
 		_set_owner_recursive(base, scene_root)
+	if include_target_containers:
+		for object_container in OBJECT_CONTAINERS:
+			_ensure_named_container(base, object_container, scene_root)
+		var icons := _ensure_named_container(base, "IconObjects", scene_root)
+		for icon_container in ICON_CONTAINERS:
+			_ensure_named_container(icons, icon_container, scene_root)
+	return base
+
+func _ensure_container(scene_root: Node, entry: Dictionary, container_name: String) -> Node2D:
+	var base := _ensure_art_stamp_root(scene_root)
+	if base == null:
+		return null
 	if entry.entry_type == "icon":
-		var icons := base.get_node_or_null("IconObjects") as Node2D
-		if icons == null:
-			icons = Node2D.new()
-			icons.name = "IconObjects"
-			base.add_child(icons)
-			_set_owner_recursive(icons, scene_root)
+		var icons := _ensure_named_container(base, "IconObjects", scene_root)
 		if not ICON_CONTAINERS.has(container_name):
 			container_name = entry.recommended_container
-		var c := icons.get_node_or_null(container_name) as Node2D
-		if c == null:
-			c = Node2D.new()
-			c.name = container_name
-			c.z_index = _z_for_container(container_name)
-			icons.add_child(c)
-			_set_owner_recursive(c, scene_root)
-		return c
+		return _ensure_named_container(icons, container_name, scene_root)
 	if not OBJECT_CONTAINERS.has(container_name):
 		container_name = entry.recommended_container
-	var obj := base.get_node_or_null(container_name) as Node2D
-	if obj == null:
-		obj = Node2D.new()
-		obj.name = container_name
-		obj.z_index = _z_for_container(container_name)
-		base.add_child(obj)
-		_set_owner_recursive(obj, scene_root)
-	return obj
+	return _ensure_named_container(base, container_name, scene_root)
+
+
+func _ensure_named_container(parent: Node, container_name: String, scene_root: Node) -> Node2D:
+	var container := parent.get_node_or_null(container_name) as Node2D
+	if container == null:
+		container = Node2D.new()
+		container.name = container_name
+		container.z_index = _z_for_container(container_name)
+		parent.add_child(container)
+		_set_owner_recursive(container, scene_root)
+	return container
 
 func _create_node(entry: Dictionary, pos: Vector2, scale: Vector2, rot: float, z: int) -> Node2D:
 	var editable_object_script := load(EDITABLE_OBJECT_SCRIPT) as Script
@@ -381,12 +474,28 @@ func _create_node(entry: Dictionary, pos: Vector2, scale: Vector2, rot: float, z
 		sprite.texture = _load_texture(entry.source_path)
 	return node
 
-func _target_path(entry: Dictionary, container_name: String) -> String:
+func _target_path(entry: Dictionary, container_name: String, scene_root: Node = null) -> String:
+	var root_path := "ArtRoot/World"
+	if scene_root != null and scene_root.get_node_or_null("ArtRoot/World") == null and scene_root.get_node_or_null("ArtRoot") != null:
+		root_path = "ArtRoot"
 	if entry.entry_type == "icon":
 		if not ICON_CONTAINERS.has(container_name):
 			container_name = entry.recommended_container
-		return "ArtRoot/World/PVG_EditableObjects/IconObjects/%s" % container_name
-	return "ArtRoot/World/PVG_EditableObjects/%s" % container_name
+		return "%s/PVG_EditableObjects/IconObjects/%s" % [root_path, container_name]
+	return "%s/PVG_EditableObjects/%s" % [root_path, container_name]
+
+
+func _art_object_root(scene_root: Node) -> Node2D:
+	if scene_root == null:
+		return null
+	var art_root := scene_root.get_node_or_null("ArtRoot") as Node2D
+	if art_root == null:
+		return null
+	var world := art_root.get_node_or_null("World") as Node2D
+	if world != null:
+		return world
+	return art_root
+
 
 func _selected(option: OptionButton) -> String:
 	return option.get_item_text(option.selected) if option != null and option.selected >= 0 else "All"

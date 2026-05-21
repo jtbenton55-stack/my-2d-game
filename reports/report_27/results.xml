@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-05-20" name="report_27" tests="149" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="EffectSetTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:48" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.029">
+		<testcase name="test_effect_set_sets_mission_flag" classname="EffectSetTest" time="0.005">
+		</testcase>
+		<testcase name="test_effect_set_completes_objective" classname="EffectSetTest" time="0.004">
+		</testcase>
+		<testcase name="test_effect_set_stops_on_failure_when_configured" classname="EffectSetTest" time="0.006">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="ExtractionZoneTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:48" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="0.114">
+		<testcase name="test_extraction_zone_extends_mechanic_area_base" classname="ExtractionZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_extracted" classname="ExtractionZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_successful_clean_extraction_without_mission_completion" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_base_requirement_gating_blocks_extraction" classname="ExtractionZoneTest" time="0.006">
+		</testcase>
+		<testcase name="test_required_objective_gating" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_optional_objective_reporting" classname="ExtractionZoneTest" time="0.006">
+		</testcase>
+		<testcase name="test_extraction_flag_sets_namespaced_mission_flag" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_clean_exit_effects_apply_only_for_clean_outcome" classname="ExtractionZoneTest" time="0.006">
+		</testcase>
+		<testcase name="test_messy_exit_effects_when_alerted" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_alert_failure_blocks_extraction_and_completion" classname="ExtractionZoneTest" time="0.007">
+		</testcase>
+		<testcase name="test_mission_completion_request_when_enabled" classname="ExtractionZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_already_extracted_does_not_reapply_effects" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="ExtractionZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_extract" classname="ExtractionZoneTest" time="0.004">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="InteractiveContainerTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:48" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.092">
+		<testcase name="test_interactive_container_extends_search_zone_and_mechanic_area_base" classname="InteractiveContainerTest" time="0.006">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_open" classname="InteractiveContainerTest" time="0.004">
+		</testcase>
+		<testcase name="test_successful_open_search" classname="InteractiveContainerTest" time="0.004">
+		</testcase>
+		<testcase name="test_search_zone_reuse_and_no_duplicate_effects" classname="InteractiveContainerTest" time="0.005">
+		</testcase>
+		<testcase name="test_opened_flag_sets_namespaced_mission_flag" classname="InteractiveContainerTest" time="0.005">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_open_and_search" classname="InteractiveContainerTest" time="0.006">
+		</testcase>
+		<testcase name="test_close_container_keeps_searched_and_flags" classname="InteractiveContainerTest" time="0.005">
+		</testcase>
+		<testcase name="test_close_after_search_ends_closed" classname="InteractiveContainerTest" time="0.005">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="InteractiveContainerTest" time="0.006">
+		</testcase>
+		<testcase name="test_target_toggling_and_missing_path_warnings" classname="InteractiveContainerTest" time="0.005">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_open_container" classname="InteractiveContainerTest" time="0.006">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="LockedInteractionNodeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:48" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="0.083">
+		<testcase name="test_locked_interaction_node_extends_mechanic_area_base" classname="LockedInteractionNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_unlocked" classname="LockedInteractionNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_successful_unlock_without_requirements" classname="LockedInteractionNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_unlocked_flag_sets_namespaced_mission_flag" classname="LockedInteractionNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_requirement_failure_prevents_unlock_and_can_apply_failure_effects" classname="LockedInteractionNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_already_unlocked_does_not_reapply_effects_when_not_staying_available" classname="LockedInteractionNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_prompt_behavior_for_locked_and_unlocked_states" classname="LockedInteractionNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_target_toggling_show_hide_and_collision" classname="LockedInteractionNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_missing_target_path_returns_warnings_without_crash" classname="LockedInteractionNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_unlock" classname="LockedInteractionNodeTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="MechanicAreaBaseTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="0.106">
+		<testcase name="test_ready_adds_groups_and_initializes_used" classname="MechanicAreaBaseTest" time="0.004">
+		</testcase>
+		<testcase name="test_disabled_node_is_unavailable" classname="MechanicAreaBaseTest" time="0.004">
+		</testcase>
+		<testcase name="test_one_shot_used_node_is_unavailable" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_actor_group_filtering" classname="MechanicAreaBaseTest" time="0.004">
+		</testcase>
+		<testcase name="test_empty_requirements_allow_interaction" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_failing_requirements_block_availability_and_show_locked_prompt" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_passing_requirements_allow_interaction" classname="MechanicAreaBaseTest" time="0.006">
+		</testcase>
+		<testcase name="test_success_effect_sets_namespaced_mission_flag" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_one_shot_marks_used_after_successful_activation" classname="MechanicAreaBaseTest" time="0.004">
+		</testcase>
+		<testcase name="test_failure_effects_apply_when_requirements_fail" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_failed_activation_does_not_mark_used" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_interaction_aliases_route_to_activation" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+		<testcase name="test_get_interaction_priority_returns_export" classname="MechanicAreaBaseTest" time="0.006">
+		</testcase>
+		<testcase name="test_is_completed_reflects_used_one_shot" classname="MechanicAreaBaseTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="MissionCompletionBridgeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.032">
+		<testcase name="test_request_complete_uses_game_state_fallback" classname="MissionCompletionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_request_fail_uses_game_state_fallback" classname="MissionCompletionBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_missing_mission_id_fails_cleanly" classname="MissionCompletionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_request_mission_fail_effect_routes_through_applier" classname="MissionCompletionBridgeTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="MissionConstructionKitIntegrationTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.037">
+		<testcase name="test_two_reward_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.005">
+		</testcase>
+		<testcase name="test_two_search_zones_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.005">
+		</testcase>
+		<testcase name="test_two_route_unlock_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.005">
+		</testcase>
+		<testcase name="test_two_side_objective_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="7" name="MissionDialogueBridgeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.040">
+		<testcase name="test_play_simple_line_starts_dialogue_with_one_line" classname="MissionDialogueBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_play_simple_line_supports_lines_payload" classname="MissionDialogueBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_play_dialogue_key_uses_fallback_text" classname="MissionDialogueBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_play_dialogue_key_without_fallback_fails_cleanly" classname="MissionDialogueBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_trigger_simple_dialogue_effect_routes_through_applier" classname="MissionDialogueBridgeTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="8" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="13" failures="0" errors="0" skipped="0" flaky="0" time="0.103">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.007">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.004">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.006">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="9" name="ObjectiveStepControllerTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.083">
+		<testcase name="test_result_contract_has_required_fields" classname="ObjectiveStepControllerTest" time="0.005">
+		</testcase>
+		<testcase name="test_mission_id_resolution_prefers_explicit_argument" classname="ObjectiveStepControllerTest" time="0.005">
+		</testcase>
+		<testcase name="test_mission_id_resolution_uses_context_when_explicit_empty" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_mission_id_resolution_falls_back_to_game_state" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_activate_objective_marks_active" classname="ObjectiveStepControllerTest" time="0.005">
+		</testcase>
+		<testcase name="test_complete_objective_after_activate" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_complete_missing_objective_uses_quest_manager_behavior" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_fail_objective_marks_failed_and_not_active" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_get_objective_record_for_active_and_missing" classname="ObjectiveStepControllerTest" time="0.004">
+		</testcase>
+		<testcase name="test_missing_objective_id_returns_clean_failure" classname="ObjectiveStepControllerTest" time="0.006">
+		</testcase>
+		<testcase name="test_quest_manager_presence" classname="ObjectiveStepControllerTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="10" name="RequirementSetTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.043">
+		<testcase name="test_selected_card_requirement_reads_game_state" classname="RequirementSetTest" time="0.004">
+		</testcase>
+		<testcase name="test_completed_objective_requirement_reads_quest_manager" classname="RequirementSetTest" time="0.004">
+		</testcase>
+		<testcase name="test_mission_flag_requirement_uses_namespaced_dialogue_flag" classname="RequirementSetTest" time="0.006">
+		</testcase>
+		<testcase name="test_typed_collectible_count_requirement_counts_type_and_group" classname="RequirementSetTest" time="0.004">
+		</testcase>
+		<testcase name="test_requirement_set_any_passes_when_one_requirement_passes" classname="RequirementSetTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="11" name="RewardNodeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.087">
+		<testcase name="test_reward_node_extends_mechanic_area_base" classname="RewardNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_collected" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_successful_collection" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_effect_set_reward_and_no_duplicate_on_repeat" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_collected_flag_sets_namespaced_mission_flag" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_collection" classname="RewardNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_already_collected_availability" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="RewardNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_target_toggling_and_missing_path_warnings" classname="RewardNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_grant_typed_collectible_through_effect_set" classname="RewardNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_collect" classname="RewardNodeTest" time="0.004">
+		</testcase>
+	</testsuite>
+	<testsuite id="12" name="RouteUnlockNodeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="0.098">
+		<testcase name="test_route_unlock_node_extends_mechanic_area_base" classname="RouteUnlockNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_unlocked" classname="RouteUnlockNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_successful_route_unlock" classname="RouteUnlockNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_effect_set_and_no_duplicate_on_repeat" classname="RouteUnlockNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_route_flag_sets_namespaced_mission_flag" classname="RouteUnlockNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_unlock" classname="RouteUnlockNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_mission_flag_requirement_delegates_gating" classname="RouteUnlockNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_already_unlocked_availability" classname="RouteUnlockNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="RouteUnlockNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_visual_target_toggling_and_warnings" classname="RouteUnlockNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_collision_target_toggling" classname="RouteUnlockNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_unlock" classname="RouteUnlockNodeTest" time="0.006">
+		</testcase>
+	</testsuite>
+	<testsuite id="13" name="SearchZoneTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="0.078">
+		<testcase name="test_search_zone_extends_mechanic_area_base" classname="SearchZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_searched" classname="SearchZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_successful_search_without_requirements" classname="SearchZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_searched_flag_sets_namespaced_mission_flag" classname="SearchZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_requirement_failure_prevents_search_and_can_apply_failure_effects" classname="SearchZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_already_searched_does_not_reapply_effects_when_not_staying_available" classname="SearchZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_prompt_behavior_for_unsearched_and_searched_states" classname="SearchZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_target_toggling_show_hide_and_visual_shorthand" classname="SearchZoneTest" time="0.006">
+		</testcase>
+		<testcase name="test_missing_target_path_returns_warnings_without_crash" classname="SearchZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_search" classname="SearchZoneTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="14" name="SideObjectiveNodeTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="13" failures="0" errors="0" skipped="0" flaky="0" time="0.115">
+		<testcase name="test_side_objective_node_extends_mechanic_area_base" classname="SideObjectiveNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_handled" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_successful_objective_activation" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_successful_objective_completion" classname="SideObjectiveNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_objective_fail_behavior" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_objective_action" classname="SideObjectiveNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_success_effects_apply_through_activate" classname="SideObjectiveNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_objective_flag_sets_namespaced_mission_flag" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_already_handled_availability" classname="SideObjectiveNodeTest" time="0.004">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="SideObjectiveNodeTest" time="0.006">
+		</testcase>
+		<testcase name="test_missing_objective_id_returns_clean_failure" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_multiple_instance_isolation" classname="SideObjectiveNodeTest" time="0.005">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_handle_objective" classname="SideObjectiveNodeTest" time="0.007">
+		</testcase>
+	</testsuite>
+	<testsuite id="15" name="TriggerZoneTest" package="tests/mission_authoring" timestamp="2026-05-20T09:06:49" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.074">
+		<testcase name="test_trigger_zone_extends_mechanic_area_base" classname="TriggerZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_ready_keeps_mission_mechanic_groups" classname="TriggerZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_script_trigger_activates_and_sets_reason" classname="TriggerZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_build_context_includes_trigger_metadata" classname="TriggerZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_one_shot_marks_used_and_second_trigger_is_already_used" classname="TriggerZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_requirement_failure_applies_failure_effects_without_marking_used" classname="TriggerZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_interact_required_does_not_auto_activate_on_body_enter" classname="TriggerZoneTest" time="0.005">
+		</testcase>
+		<testcase name="test_automatic_on_enter_handler_activates_allowed_actor" classname="TriggerZoneTest" time="0.004">
+		</testcase>
+		<testcase name="test_interact_routes_with_interact_reason" classname="TriggerZoneTest" time="0.004">
+		</testcase>
+	</testsuite>
+</testsuites>
