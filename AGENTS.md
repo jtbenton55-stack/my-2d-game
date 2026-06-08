@@ -33,6 +33,22 @@ After changing code:
 4. Use MCP tools for screenshots, input, runtime inspection, and debugger inspection where available.
 5. Write a report under reports\ai\.
 
+AI Working Loop:
+For non-trivial work:
+1. Inspect the existing code and docs before deciding.
+2. Make the smallest correct reversible change.
+3. Avoid rewrites, broad refactors, and unrelated cleanup.
+4. Preserve existing scene paths, node names, exported properties, signals, resources, and saved data unless the task explicitly requires changing them.
+5. Validate with the narrowest meaningful checks first.
+6. Report what changed, what was tested, and what remains risky.
+
+Engineering Style:
+- Prefer simple code over clever code.
+- Prefer one clear function over new abstractions unless reuse is obvious.
+- Do not add compatibility layers unless there is a concrete need such as shipped data, persisted files, or external consumers.
+- Do not mock important gameplay/editor behavior if it can be tested directly.
+- Follow existing project patterns instead of inventing new architecture.
+
 Nowledge Mem / OpenCode roles:
 - OpenCode is planning/review-only unless Jake explicitly asks otherwise.
 - OpenCode should run on Windows for this Godot project.

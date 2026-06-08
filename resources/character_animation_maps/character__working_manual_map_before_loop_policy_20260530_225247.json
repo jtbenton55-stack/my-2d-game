@@ -1,0 +1,5116 @@
+{
+	"animations": [
+		{
+			"animation_name": "walk_toward_01",
+			"end_frame": 7.0,
+			"fps": 10.1,
+			"frames": [
+				0.0,
+				1.0,
+				2.0,
+				3.0,
+				4.0,
+				5.0,
+				6.0,
+				7.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 0.0,
+					"start_column": 0.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 0.0
+		},
+		{
+			"animation_name": "walk_left_01",
+			"end_frame": 15.0,
+			"fps": 10.1,
+			"frames": [
+				8.0,
+				9.0,
+				10.0,
+				11.0,
+				12.0,
+				13.0,
+				14.0,
+				15.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 15.0,
+					"end_row": 0.0,
+					"start_column": 8.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 8.0
+		},
+		{
+			"animation_name": "walk_right_01",
+			"end_frame": 23.0,
+			"fps": 10.1,
+			"frames": [
+				16.0,
+				17.0,
+				18.0,
+				19.0,
+				20.0,
+				21.0,
+				22.0,
+				23.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 23.0,
+					"end_row": 0.0,
+					"start_column": 16.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 16.0
+		},
+		{
+			"animation_name": "walk_away_01",
+			"end_frame": 31.0,
+			"fps": 10.1,
+			"frames": [
+				24.0,
+				25.0,
+				26.0,
+				27.0,
+				28.0,
+				29.0,
+				30.0,
+				31.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 31.0,
+					"end_row": 0.0,
+					"start_column": 24.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 24.0
+		},
+		{
+			"animation_name": "walk_toward_left_01",
+			"end_frame": 39.0,
+			"fps": 10.1,
+			"frames": [
+				32.0,
+				33.0,
+				34.0,
+				35.0,
+				36.0,
+				37.0,
+				38.0,
+				39.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 39.0,
+					"end_row": 0.0,
+					"start_column": 32.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 32.0
+		},
+		{
+			"animation_name": "walk_away_left_01",
+			"end_frame": 47.0,
+			"fps": 10.1,
+			"frames": [
+				40.0,
+				41.0,
+				42.0,
+				43.0,
+				44.0,
+				45.0,
+				46.0,
+				47.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 0.0,
+					"start_column": 40.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 40.0
+		},
+		{
+			"animation_name": "walk_toward_right_01",
+			"end_frame": 55.0,
+			"fps": 10.1,
+			"frames": [
+				48.0,
+				49.0,
+				50.0,
+				51.0,
+				52.0,
+				53.0,
+				54.0,
+				55.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=32; end=67; frame_count=36; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 5.0,
+					"end_row": 1.0,
+					"start_column": 48.0,
+					"start_row": 0.0
+				}
+			],
+			"start_frame": 48.0
+		},
+		{
+			"animation_name": "walk_away_right_01",
+			"end_frame": 63.0,
+			"fps": 10.1,
+			"frames": [
+				56.0,
+				57.0,
+				58.0,
+				59.0,
+				60.0,
+				61.0,
+				62.0,
+				63.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=32; end=67; frame_count=36; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13.0,
+					"end_row": 1.0,
+					"start_column": 6.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 56.0
+		},
+		{
+			"animation_name": "run_toward_01",
+			"end_frame": 71.0,
+			"fps": 13.1,
+			"frames": [
+				64.0,
+				65.0,
+				66.0,
+				67.0,
+				68.0,
+				69.0,
+				70.0,
+				71.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 21.0,
+					"end_row": 1.0,
+					"start_column": 14.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 64.0
+		},
+		{
+			"animation_name": "run_left_01",
+			"end_frame": 79.0,
+			"fps": 13.1,
+			"frames": [
+				72.0,
+				73.0,
+				74.0,
+				75.0,
+				76.0,
+				77.0,
+				78.0,
+				79.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 1.0,
+					"start_column": 22.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 72.0
+		},
+		{
+			"animation_name": "run_right_01",
+			"end_frame": 87.0,
+			"fps": 13.1,
+			"frames": [
+				80.0,
+				81.0,
+				82.0,
+				83.0,
+				84.0,
+				85.0,
+				86.0,
+				87.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=68; end=101; frame_count=34; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 1.0,
+					"start_column": 30.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 80.0
+		},
+		{
+			"animation_name": "run_away_01",
+			"end_frame": 95.0,
+			"fps": 13.1,
+			"frames": [
+				88.0,
+				89.0,
+				90.0,
+				91.0,
+				92.0,
+				93.0,
+				94.0,
+				95.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=68; end=101; frame_count=34; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 45.0,
+					"end_row": 1.0,
+					"start_column": 38.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 88.0
+		},
+		{
+			"animation_name": "run_toward_left_01",
+			"end_frame": 103.0,
+			"fps": 13.1,
+			"frames": [
+				96.0,
+				97.0,
+				98.0,
+				99.0,
+				100.0,
+				101.0,
+				102.0,
+				103.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=68; end=101; frame_count=34; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 3.0,
+					"end_row": 2.0,
+					"start_column": 46.0,
+					"start_row": 1.0
+				}
+			],
+			"start_frame": 96.0
+		},
+		{
+			"animation_name": "run_away_left_01",
+			"end_frame": 111.0,
+			"fps": 13.1,
+			"frames": [
+				104.0,
+				105.0,
+				106.0,
+				107.0,
+				108.0,
+				109.0,
+				110.0,
+				111.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=102; end=110; frame_count=9; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 11.0,
+					"end_row": 2.0,
+					"start_column": 4.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 104.0
+		},
+		{
+			"animation_name": "run_toward_right_01",
+			"end_frame": 119.0,
+			"fps": 13.1,
+			"frames": [
+				112.0,
+				113.0,
+				114.0,
+				115.0,
+				116.0,
+				117.0,
+				118.0,
+				119.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=111; end=114; frame_count=4; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19.0,
+					"end_row": 2.0,
+					"start_column": 12.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 112.0
+		},
+		{
+			"animation_name": "run_away_right_01",
+			"end_frame": 127.0,
+			"fps": 13.1,
+			"frames": [
+				120.0,
+				121.0,
+				122.0,
+				123.0,
+				124.0,
+				125.0,
+				126.0,
+				127.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=119; end=142; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27.0,
+					"end_row": 2.0,
+					"start_column": 20.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 120.0
+		},
+		{
+			"animation_name": "idle_toward_01",
+			"end_frame": 132.0,
+			"fps": 6.1,
+			"frames": [
+				128.0,
+				129.0,
+				130.0,
+				131.0,
+				132.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=119; end=142; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 2.0,
+					"start_column": 28.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 128.0
+		},
+		{
+			"animation_name": "idle_left_01",
+			"end_frame": 137.0,
+			"fps": 6.1,
+			"frames": [
+				133.0,
+				134.0,
+				135.0,
+				136.0,
+				137.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=119; end=142; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 2.0,
+					"start_column": 33.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 133.0
+		},
+		{
+			"animation_name": "idle_right_01",
+			"end_frame": 142.0,
+			"fps": 6.1,
+			"frames": [
+				138.0,
+				139.0,
+				140.0,
+				141.0,
+				142.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=119; end=142; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 42.0,
+					"end_row": 2.0,
+					"start_column": 38.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 138.0
+		},
+		{
+			"animation_name": "idle_away_01",
+			"end_frame": 147.0,
+			"fps": 6.1,
+			"frames": [
+				143.0,
+				144.0,
+				145.0,
+				146.0,
+				147.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=119; end=142; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 2.0,
+					"start_column": 43.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 143.0
+		},
+		{
+			"animation_name": "idle_toward_left_01",
+			"end_frame": 152.0,
+			"fps": 6.1,
+			"frames": [
+				148.0,
+				149.0,
+				150.0,
+				151.0,
+				152.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2.0,
+					"end_row": 3.0,
+					"start_column": 48.0,
+					"start_row": 2.0
+				}
+			],
+			"start_frame": 148.0
+		},
+		{
+			"animation_name": "idle_away_left_01",
+			"end_frame": 157.0,
+			"fps": 6.1,
+			"frames": [
+				153.0,
+				154.0,
+				155.0,
+				156.0,
+				157.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 3.0,
+					"start_column": 3.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 153.0
+		},
+		{
+			"animation_name": "idle_toward_right_01",
+			"end_frame": 162.0,
+			"fps": 6.1,
+			"frames": [
+				158.0,
+				159.0,
+				160.0,
+				161.0,
+				162.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 12.0,
+					"end_row": 3.0,
+					"start_column": 8.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 158.0
+		},
+		{
+			"animation_name": "idle_away_right_01",
+			"end_frame": 167.0,
+			"fps": 6.1,
+			"frames": [
+				163.0,
+				164.0,
+				165.0,
+				166.0,
+				167.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 17.0,
+					"end_row": 3.0,
+					"start_column": 13.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 163.0
+		},
+		{
+			"animation_name": "idle_toward_02",
+			"end_frame": 172.0,
+			"fps": 6.1,
+			"frames": [
+				168.0,
+				169.0,
+				170.0,
+				171.0,
+				172.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 22.0,
+					"end_row": 3.0,
+					"start_column": 18.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 168.0
+		},
+		{
+			"animation_name": "idle_left_02",
+			"end_frame": 177.0,
+			"fps": 6.1,
+			"frames": [
+				173.0,
+				174.0,
+				175.0,
+				176.0,
+				177.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27.0,
+					"end_row": 3.0,
+					"start_column": 23.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 173.0
+		},
+		{
+			"animation_name": "idle_right_02",
+			"end_frame": 182.0,
+			"fps": 6.1,
+			"frames": [
+				178.0,
+				179.0,
+				180.0,
+				181.0,
+				182.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 3.0,
+					"start_column": 28.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 178.0
+		},
+		{
+			"animation_name": "idle_away_02",
+			"end_frame": 187.0,
+			"fps": 6.1,
+			"frames": [
+				183.0,
+				184.0,
+				185.0,
+				186.0,
+				187.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 3.0,
+					"start_column": 33.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 183.0
+		},
+		{
+			"animation_name": "idle_toward_left_02",
+			"end_frame": 192.0,
+			"fps": 6.1,
+			"frames": [
+				188.0,
+				189.0,
+				190.0,
+				191.0,
+				192.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 42.0,
+					"end_row": 3.0,
+					"start_column": 38.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 188.0
+		},
+		{
+			"animation_name": "idle_away_left_02",
+			"end_frame": 196.0,
+			"fps": 6.1,
+			"frames": [
+				193.0,
+				194.0,
+				195.0,
+				196.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 46.0,
+					"end_row": 3.0,
+					"start_column": 43.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 193.0
+		},
+		{
+			"animation_name": "idle_toward_right_02",
+			"end_frame": 202.0,
+			"fps": 6.1,
+			"frames": [
+				197.0,
+				198.0,
+				199.0,
+				200.0,
+				201.0,
+				202.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2.0,
+					"end_row": 4.0,
+					"start_column": 47.0,
+					"start_row": 3.0
+				}
+			],
+			"start_frame": 197.0
+		},
+		{
+			"animation_name": "idle_away_right_02",
+			"end_frame": 207.0,
+			"fps": 6.1,
+			"frames": [
+				203.0,
+				204.0,
+				205.0,
+				206.0,
+				207.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 4.0,
+					"start_column": 3.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 203.0
+		},
+		{
+			"animation_name": "idle_toward_03",
+			"end_frame": 212.0,
+			"fps": 6.1,
+			"frames": [
+				208.0,
+				209.0,
+				210.0,
+				211.0,
+				212.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 12.0,
+					"end_row": 4.0,
+					"start_column": 8.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 208.0
+		},
+		{
+			"animation_name": "idle_left_03",
+			"end_frame": 217.0,
+			"fps": 6.1,
+			"frames": [
+				213.0,
+				214.0,
+				215.0,
+				216.0,
+				217.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 17.0,
+					"end_row": 4.0,
+					"start_column": 13.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 213.0
+		},
+		{
+			"animation_name": "idle_right_03",
+			"end_frame": 222.0,
+			"fps": 6.1,
+			"frames": [
+				218.0,
+				219.0,
+				220.0,
+				221.0,
+				222.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 22.0,
+					"end_row": 4.0,
+					"start_column": 18.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 218.0
+		},
+		{
+			"animation_name": "idle_away_03",
+			"end_frame": 227.0,
+			"fps": 6.1,
+			"frames": [
+				223.0,
+				224.0,
+				225.0,
+				226.0,
+				227.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27.0,
+					"end_row": 4.0,
+					"start_column": 23.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 223.0
+		},
+		{
+			"animation_name": "idle_toward_left_03",
+			"end_frame": 232.0,
+			"fps": 6.1,
+			"frames": [
+				228.0,
+				229.0,
+				230.0,
+				231.0,
+				232.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 4.0,
+					"start_column": 28.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 228.0
+		},
+		{
+			"animation_name": "idle_away_left_03",
+			"end_frame": 237.0,
+			"fps": 6.1,
+			"frames": [
+				233.0,
+				234.0,
+				235.0,
+				236.0,
+				237.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 4.0,
+					"start_column": 33.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 233.0
+		},
+		{
+			"animation_name": "idle_toward_right_03",
+			"end_frame": 242.0,
+			"fps": 6.1,
+			"frames": [
+				238.0,
+				239.0,
+				240.0,
+				241.0,
+				242.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 42.0,
+					"end_row": 4.0,
+					"start_column": 38.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 238.0
+		},
+		{
+			"animation_name": "idle_away_right_03",
+			"end_frame": 247.0,
+			"fps": 6.1,
+			"frames": [
+				243.0,
+				244.0,
+				245.0,
+				246.0,
+				247.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 4.0,
+					"start_column": 43.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 243.0
+		},
+		{
+			"animation_name": "idle_toward_04",
+			"end_frame": 252.0,
+			"fps": 6.1,
+			"frames": [
+				248.0,
+				249.0,
+				250.0,
+				251.0,
+				252.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2.0,
+					"end_row": 5.0,
+					"start_column": 48.0,
+					"start_row": 4.0
+				}
+			],
+			"start_frame": 248.0
+		},
+		{
+			"animation_name": "idle_left_04",
+			"end_frame": 257.0,
+			"fps": 6.1,
+			"frames": [
+				253.0,
+				254.0,
+				255.0,
+				256.0,
+				257.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 5.0,
+					"start_column": 3.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 253.0
+		},
+		{
+			"animation_name": "idle_right_04",
+			"end_frame": 262.0,
+			"fps": 6.1,
+			"frames": [
+				258.0,
+				259.0,
+				260.0,
+				261.0,
+				262.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 12.0,
+					"end_row": 5.0,
+					"start_column": 8.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 258.0
+		},
+		{
+			"animation_name": "idle_away_04",
+			"end_frame": 267.0,
+			"fps": 6.1,
+			"frames": [
+				263.0,
+				264.0,
+				265.0,
+				266.0,
+				267.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 17.0,
+					"end_row": 5.0,
+					"start_column": 13.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 263.0
+		},
+		{
+			"animation_name": "idle_toward_left_04",
+			"end_frame": 272.0,
+			"fps": 6.1,
+			"frames": [
+				268.0,
+				269.0,
+				270.0,
+				271.0,
+				272.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 22.0,
+					"end_row": 5.0,
+					"start_column": 18.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 268.0
+		},
+		{
+			"animation_name": "idle_away_left_04",
+			"end_frame": 277.0,
+			"fps": 6.1,
+			"frames": [
+				273.0,
+				274.0,
+				275.0,
+				276.0,
+				277.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27.0,
+					"end_row": 5.0,
+					"start_column": 23.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 273.0
+		},
+		{
+			"animation_name": "idle_toward_right_04",
+			"end_frame": 282.0,
+			"fps": 6.1,
+			"frames": [
+				278.0,
+				279.0,
+				280.0,
+				281.0,
+				282.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 5.0,
+					"start_column": 28.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 278.0
+		},
+		{
+			"animation_name": "idle_away_right_04",
+			"end_frame": 287.0,
+			"fps": 6.1,
+			"frames": [
+				283.0,
+				284.0,
+				285.0,
+				286.0,
+				287.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 5.0,
+					"start_column": 33.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 283.0
+		},
+		{
+			"animation_name": "idle_toward_05",
+			"end_frame": 290.0,
+			"fps": 6.1,
+			"frames": [
+				288.0,
+				289.0,
+				290.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 40.0,
+					"end_row": 5.0,
+					"start_column": 38.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 288.0
+		},
+		{
+			"animation_name": "idle_left_05",
+			"end_frame": 293.0,
+			"fps": 6.1,
+			"frames": [
+				291.0,
+				292.0,
+				293.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 43.0,
+					"end_row": 5.0,
+					"start_column": 41.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 291.0
+		},
+		{
+			"animation_name": "idle_right_05",
+			"end_frame": 296.0,
+			"fps": 6.1,
+			"frames": [
+				294.0,
+				295.0,
+				296.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 46.0,
+					"end_row": 5.0,
+					"start_column": 44.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 294.0
+		},
+		{
+			"animation_name": "idle_away_05",
+			"end_frame": 299.0,
+			"fps": 6.1,
+			"frames": [
+				297.0,
+				298.0,
+				299.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 49.0,
+					"end_row": 5.0,
+					"start_column": 47.0,
+					"start_row": 5.0
+				}
+			],
+			"start_frame": 297.0
+		},
+		{
+			"animation_name": "idle_toward_left_05",
+			"end_frame": 302.0,
+			"fps": 6.1,
+			"frames": [
+				300.0,
+				301.0,
+				302.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2.0,
+					"end_row": 6.0,
+					"start_column": 0.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 300.0
+		},
+		{
+			"animation_name": "idle_away_left_05",
+			"end_frame": 305.0,
+			"fps": 6.1,
+			"frames": [
+				303.0,
+				304.0,
+				305.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 5.0,
+					"end_row": 6.0,
+					"start_column": 3.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 303.0
+		},
+		{
+			"animation_name": "idle_toward_right_05",
+			"end_frame": 308.0,
+			"fps": 6.1,
+			"frames": [
+				306.0,
+				307.0,
+				308.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 8.0,
+					"end_row": 6.0,
+					"start_column": 6.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 306.0
+		},
+		{
+			"animation_name": "idle_away_right_05",
+			"end_frame": 311.0,
+			"fps": 6.1,
+			"frames": [
+				309.0,
+				310.0,
+				311.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 11.0,
+					"end_row": 6.0,
+					"start_column": 9.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 309.0
+		},
+		{
+			"animation_name": "idle_toward_06",
+			"end_frame": 314.0,
+			"fps": 6.1,
+			"frames": [
+				312.0,
+				313.0,
+				314.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 14.0,
+					"end_row": 6.0,
+					"start_column": 12.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 312.0
+		},
+		{
+			"animation_name": "idle_left_06",
+			"end_frame": 317.0,
+			"fps": 6.1,
+			"frames": [
+				315.0,
+				316.0,
+				317.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 17.0,
+					"end_row": 6.0,
+					"start_column": 15.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 315.0
+		},
+		{
+			"animation_name": "idle_right_06",
+			"end_frame": 320.0,
+			"fps": 6.1,
+			"frames": [
+				318.0,
+				319.0,
+				320.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 20.0,
+					"end_row": 6.0,
+					"start_column": 18.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 318.0
+		},
+		{
+			"animation_name": "idle_away_06",
+			"end_frame": 323.0,
+			"fps": 6.1,
+			"frames": [
+				321.0,
+				322.0,
+				323.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 23.0,
+					"end_row": 6.0,
+					"start_column": 21.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 321.0
+		},
+		{
+			"animation_name": "idle_toward_left_06",
+			"end_frame": 326.0,
+			"fps": 6.1,
+			"frames": [
+				324.0,
+				325.0,
+				326.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 26.0,
+					"end_row": 6.0,
+					"start_column": 24.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 324.0
+		},
+		{
+			"animation_name": "idle_away_left_06",
+			"end_frame": 329.0,
+			"fps": 6.1,
+			"frames": [
+				327.0,
+				328.0,
+				329.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 6.0,
+					"start_column": 27.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 327.0
+		},
+		{
+			"animation_name": "idle_toward_right_06",
+			"end_frame": 332.0,
+			"fps": 6.1,
+			"frames": [
+				330.0,
+				331.0,
+				332.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 6.0,
+					"start_column": 30.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 330.0
+		},
+		{
+			"animation_name": "idle_away_right_06",
+			"end_frame": 335.0,
+			"fps": 6.1,
+			"frames": [
+				333.0,
+				334.0,
+				335.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 35.0,
+					"end_row": 6.0,
+					"start_column": 33.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 333.0
+		},
+		{
+			"animation_name": "idle_toward_07",
+			"end_frame": 338.0,
+			"fps": 6.1,
+			"frames": [
+				336.0,
+				337.0,
+				338.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 38.0,
+					"end_row": 6.0,
+					"start_column": 36.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 336.0
+		},
+		{
+			"animation_name": "idle_left_07",
+			"end_frame": 341.0,
+			"fps": 6.1,
+			"frames": [
+				339.0,
+				340.0,
+				341.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 41.0,
+					"end_row": 6.0,
+					"start_column": 39.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 339.0
+		},
+		{
+			"animation_name": "idle_right_07",
+			"end_frame": 344.0,
+			"fps": 6.1,
+			"frames": [
+				342.0,
+				343.0,
+				344.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 44.0,
+					"end_row": 6.0,
+					"start_column": 42.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 342.0
+		},
+		{
+			"animation_name": "idle_away_07",
+			"end_frame": 347.0,
+			"fps": 6.1,
+			"frames": [
+				345.0,
+				346.0,
+				347.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 6.0,
+					"start_column": 45.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 345.0
+		},
+		{
+			"animation_name": "idle_toward_left_07",
+			"end_frame": 350.0,
+			"fps": 6.1,
+			"frames": [
+				348.0,
+				349.0,
+				350.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 0.0,
+					"end_row": 7.0,
+					"start_column": 48.0,
+					"start_row": 6.0
+				}
+			],
+			"start_frame": 348.0
+		},
+		{
+			"animation_name": "idle_away_left_07",
+			"end_frame": 353.0,
+			"fps": 6.1,
+			"frames": [
+				351.0,
+				352.0,
+				353.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 3.0,
+					"end_row": 7.0,
+					"start_column": 1.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 351.0
+		},
+		{
+			"animation_name": "idle_toward_right_07",
+			"end_frame": 356.0,
+			"fps": 6.1,
+			"frames": [
+				354.0,
+				355.0,
+				356.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 6.0,
+					"end_row": 7.0,
+					"start_column": 4.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 354.0
+		},
+		{
+			"animation_name": "idle_away_right_07",
+			"end_frame": 359.0,
+			"fps": 6.1,
+			"frames": [
+				357.0,
+				358.0,
+				359.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 9.0,
+					"end_row": 7.0,
+					"start_column": 7.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 357.0
+		},
+		{
+			"animation_name": "idle_toward_08",
+			"end_frame": 364.0,
+			"fps": 6.1,
+			"frames": [
+				360.0,
+				361.0,
+				362.0,
+				363.0,
+				364.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 14.0,
+					"end_row": 7.0,
+					"start_column": 10.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 360.0
+		},
+		{
+			"animation_name": "idle_left_08",
+			"end_frame": 369.0,
+			"fps": 6.1,
+			"frames": [
+				365.0,
+				366.0,
+				367.0,
+				368.0,
+				369.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19.0,
+					"end_row": 7.0,
+					"start_column": 15.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 365.0
+		},
+		{
+			"animation_name": "idle_right_08",
+			"end_frame": 374.0,
+			"fps": 6.1,
+			"frames": [
+				370.0,
+				371.0,
+				372.0,
+				373.0,
+				374.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 24.0,
+					"end_row": 7.0,
+					"start_column": 20.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 370.0
+		},
+		{
+			"animation_name": "idle_away_08",
+			"end_frame": 379.0,
+			"fps": 6.1,
+			"frames": [
+				375.0,
+				376.0,
+				377.0,
+				378.0,
+				379.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 7.0,
+					"start_column": 25.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 375.0
+		},
+		{
+			"animation_name": "idle_toward_left_08",
+			"end_frame": 384.0,
+			"fps": 6.1,
+			"frames": [
+				380.0,
+				381.0,
+				382.0,
+				383.0,
+				384.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 34.0,
+					"end_row": 7.0,
+					"start_column": 30.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 380.0
+		},
+		{
+			"animation_name": "idle_away_left_08",
+			"end_frame": 389.0,
+			"fps": 6.1,
+			"frames": [
+				385.0,
+				386.0,
+				387.0,
+				388.0,
+				389.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 39.0,
+					"end_row": 7.0,
+					"start_column": 35.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 385.0
+		},
+		{
+			"animation_name": "idle_toward_right_08",
+			"end_frame": 394.0,
+			"fps": 6.1,
+			"frames": [
+				390.0,
+				391.0,
+				392.0,
+				393.0,
+				394.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 44.0,
+					"end_row": 7.0,
+					"start_column": 40.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 390.0
+		},
+		{
+			"animation_name": "idle_away_right_08",
+			"end_frame": 399.0,
+			"fps": 6.1,
+			"frames": [
+				395.0,
+				396.0,
+				397.0,
+				398.0,
+				399.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 49.0,
+					"end_row": 7.0,
+					"start_column": 45.0,
+					"start_row": 7.0
+				}
+			],
+			"start_frame": 395.0
+		},
+		{
+			"animation_name": "idle_toward_09",
+			"end_frame": 404.0,
+			"fps": 6.1,
+			"frames": [
+				400.0,
+				401.0,
+				402.0,
+				403.0,
+				404.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 4.0,
+					"end_row": 8.0,
+					"start_column": 0.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 400.0
+		},
+		{
+			"animation_name": "idle_left_09",
+			"end_frame": 409.0,
+			"fps": 6.1,
+			"frames": [
+				405.0,
+				406.0,
+				407.0,
+				408.0,
+				409.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 9.0,
+					"end_row": 8.0,
+					"start_column": 5.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 405.0
+		},
+		{
+			"animation_name": "idle_right_09",
+			"end_frame": 414.0,
+			"fps": 6.1,
+			"frames": [
+				410.0,
+				411.0,
+				412.0,
+				413.0,
+				414.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 14.0,
+					"end_row": 8.0,
+					"start_column": 10.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 410.0
+		},
+		{
+			"animation_name": "idle_away_09",
+			"end_frame": 419.0,
+			"fps": 6.1,
+			"frames": [
+				415.0,
+				416.0,
+				417.0,
+				418.0,
+				419.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19.0,
+					"end_row": 8.0,
+					"start_column": 15.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 415.0
+		},
+		{
+			"animation_name": "idle_toward_left_09",
+			"end_frame": 424.0,
+			"fps": 6.1,
+			"frames": [
+				420.0,
+				421.0,
+				422.0,
+				423.0,
+				424.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 24.0,
+					"end_row": 8.0,
+					"start_column": 20.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 420.0
+		},
+		{
+			"animation_name": "idle_away_left_09",
+			"end_frame": 429.0,
+			"fps": 6.1,
+			"frames": [
+				425.0,
+				426.0,
+				427.0,
+				428.0,
+				429.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 8.0,
+					"start_column": 25.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 425.0
+		},
+		{
+			"animation_name": "idle_toward_right_09",
+			"end_frame": 434.0,
+			"fps": 6.1,
+			"frames": [
+				430.0,
+				431.0,
+				432.0,
+				433.0,
+				434.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 34.0,
+					"end_row": 8.0,
+					"start_column": 30.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 430.0
+		},
+		{
+			"animation_name": "idle_away_right_09",
+			"end_frame": 439.0,
+			"fps": 6.1,
+			"frames": [
+				435.0,
+				436.0,
+				437.0,
+				438.0,
+				439.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 39.0,
+					"end_row": 8.0,
+					"start_column": 35.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 435.0
+		},
+		{
+			"animation_name": "crouch_toward_01",
+			"end_frame": 444.0,
+			"fps": 6.1,
+			"frames": [
+				440.0,
+				441.0,
+				442.0,
+				443.0,
+				444.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 44.0,
+					"end_row": 8.0,
+					"start_column": 40.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 440.0
+		},
+		{
+			"animation_name": "crouch_left_01",
+			"end_frame": 449.0,
+			"fps": 6.1,
+			"frames": [
+				445.0,
+				446.0,
+				447.0,
+				448.0,
+				449.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 49.0,
+					"end_row": 8.0,
+					"start_column": 45.0,
+					"start_row": 8.0
+				}
+			],
+			"start_frame": 445.0
+		},
+		{
+			"animation_name": "crouch_right_01",
+			"end_frame": 454.0,
+			"fps": 6.1,
+			"frames": [
+				450.0,
+				451.0,
+				452.0,
+				453.0,
+				454.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 4.0,
+					"end_row": 9.0,
+					"start_column": 0.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 450.0
+		},
+		{
+			"animation_name": "crouch_away_01",
+			"end_frame": 459.0,
+			"fps": 6.1,
+			"frames": [
+				455.0,
+				456.0,
+				457.0,
+				458.0,
+				459.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 9.0,
+					"end_row": 9.0,
+					"start_column": 5.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 455.0
+		},
+		{
+			"animation_name": "crouch_toward_left_01",
+			"end_frame": 464.0,
+			"fps": 6.1,
+			"frames": [
+				460.0,
+				461.0,
+				462.0,
+				463.0,
+				464.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 14.0,
+					"end_row": 9.0,
+					"start_column": 10.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 460.0
+		},
+		{
+			"animation_name": "crouch_away_left_01",
+			"end_frame": 469.0,
+			"fps": 6.1,
+			"frames": [
+				465.0,
+				466.0,
+				467.0,
+				468.0,
+				469.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19.0,
+					"end_row": 9.0,
+					"start_column": 15.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 465.0
+		},
+		{
+			"animation_name": "crouch_toward_right_01",
+			"end_frame": 474.0,
+			"fps": 6.1,
+			"frames": [
+				470.0,
+				471.0,
+				472.0,
+				473.0,
+				474.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 24.0,
+					"end_row": 9.0,
+					"start_column": 20.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 470.0
+		},
+		{
+			"animation_name": "crouch_away_right_01",
+			"end_frame": 479.0,
+			"fps": 6.1,
+			"frames": [
+				475.0,
+				476.0,
+				477.0,
+				478.0,
+				479.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 9.0,
+					"start_column": 25.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 475.0
+		},
+		{
+			"animation_name": "eating_toward_01",
+			"end_frame": 482.0,
+			"fps": 6.1,
+			"frames": [
+				480.0,
+				481.0,
+				482.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 9.0,
+					"start_column": 30.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 480.0
+		},
+		{
+			"animation_name": "eating_left_01",
+			"end_frame": 485.0,
+			"fps": 6.1,
+			"frames": [
+				483.0,
+				484.0,
+				485.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 35.0,
+					"end_row": 9.0,
+					"start_column": 33.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 483.0
+		},
+		{
+			"animation_name": "eating_right_01",
+			"end_frame": 488.0,
+			"fps": 6.1,
+			"frames": [
+				486.0,
+				487.0,
+				488.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 38.0,
+					"end_row": 9.0,
+					"start_column": 36.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 486.0
+		},
+		{
+			"animation_name": "eating_away_01",
+			"end_frame": 491.0,
+			"fps": 6.1,
+			"frames": [
+				489.0,
+				490.0,
+				491.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 41.0,
+					"end_row": 9.0,
+					"start_column": 39.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 489.0
+		},
+		{
+			"animation_name": "eating_toward_left_01",
+			"end_frame": 494.0,
+			"fps": 6.1,
+			"frames": [
+				492.0,
+				493.0,
+				494.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 44.0,
+					"end_row": 9.0,
+					"start_column": 42.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 492.0
+		},
+		{
+			"animation_name": "eating_away_left_01",
+			"end_frame": 497.0,
+			"fps": 6.1,
+			"frames": [
+				495.0,
+				496.0,
+				497.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 9.0,
+					"start_column": 45.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 495.0
+		},
+		{
+			"animation_name": "eating_toward_right_01",
+			"end_frame": 500.0,
+			"fps": 6.1,
+			"frames": [
+				498.0,
+				499.0,
+				500.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=143; end=167; frame_count=25; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 0.0,
+					"end_row": 10.0,
+					"start_column": 48.0,
+					"start_row": 9.0
+				}
+			],
+			"start_frame": 498.0
+		},
+		{
+			"animation_name": "sit_toward_01",
+			"end_frame": 506.0,
+			"fps": 6.1,
+			"frames": [
+				504.0,
+				505.0,
+				506.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 6.0,
+					"end_row": 10.0,
+					"start_column": 4.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 504.0
+		},
+		{
+			"animation_name": "sit_left_01",
+			"end_frame": 509.0,
+			"fps": 6.1,
+			"frames": [
+				507.0,
+				508.0,
+				509.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 9.0,
+					"end_row": 10.0,
+					"start_column": 7.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 507.0
+		},
+		{
+			"animation_name": "sit_right_01",
+			"end_frame": 512.0,
+			"fps": 6.1,
+			"frames": [
+				510.0,
+				511.0,
+				512.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 12.0,
+					"end_row": 10.0,
+					"start_column": 10.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 510.0
+		},
+		{
+			"animation_name": "sit_toward_left_01",
+			"end_frame": 518.0,
+			"fps": 6.1,
+			"frames": [
+				516.0,
+				517.0,
+				518.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 18.0,
+					"end_row": 10.0,
+					"start_column": 16.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 516.0
+		},
+		{
+			"animation_name": "sit_away_left_01",
+			"end_frame": 521.0,
+			"fps": 6.1,
+			"frames": [
+				519.0,
+				520.0,
+				521.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 21.0,
+					"end_row": 10.0,
+					"start_column": 19.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 519.0
+		},
+		{
+			"animation_name": "sit_toward_right_01",
+			"end_frame": 524.0,
+			"fps": 6.1,
+			"frames": [
+				522.0,
+				523.0,
+				524.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 24.0,
+					"end_row": 10.0,
+					"start_column": 22.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 522.0
+		},
+		{
+			"animation_name": "sit_away_right_01",
+			"end_frame": 527.0,
+			"fps": 6.1,
+			"frames": [
+				525.0,
+				526.0,
+				527.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27.0,
+					"end_row": 10.0,
+					"start_column": 25.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 525.0
+		},
+		{
+			"animation_name": "climb_toward_01",
+			"end_frame": 532.0,
+			"fps": 6.1,
+			"frames": [
+				528.0,
+				529.0,
+				530.0,
+				531.0,
+				532.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 10.0,
+					"start_column": 28.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 528.0
+		},
+		{
+			"animation_name": "climb_left_01",
+			"end_frame": 537.0,
+			"fps": 6.1,
+			"frames": [
+				533.0,
+				534.0,
+				535.0,
+				536.0,
+				537.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 10.0,
+					"start_column": 33.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 533.0
+		},
+		{
+			"animation_name": "climb_right_01",
+			"end_frame": 542.0,
+			"fps": 6.1,
+			"frames": [
+				538.0,
+				539.0,
+				540.0,
+				541.0,
+				542.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 42.0,
+					"end_row": 10.0,
+					"start_column": 38.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 538.0
+		},
+		{
+			"animation_name": "climb_away_01",
+			"end_frame": 547.0,
+			"fps": 6.1,
+			"frames": [
+				543.0,
+				544.0,
+				545.0,
+				546.0,
+				547.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 10.0,
+					"start_column": 43.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 543.0
+		},
+		{
+			"animation_name": "climb_toward_left_01",
+			"end_frame": 552.0,
+			"fps": 6.1,
+			"frames": [
+				548.0,
+				549.0,
+				550.0,
+				551.0,
+				552.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2.0,
+					"end_row": 11.0,
+					"start_column": 48.0,
+					"start_row": 10.0
+				}
+			],
+			"start_frame": 548.0
+		},
+		{
+			"animation_name": "climb_away_left_01",
+			"end_frame": 557.0,
+			"fps": 6.1,
+			"frames": [
+				553.0,
+				554.0,
+				555.0,
+				556.0,
+				557.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 11.0,
+					"start_column": 3.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 553.0
+		},
+		{
+			"animation_name": "climb_toward_right_01",
+			"end_frame": 562.0,
+			"fps": 6.1,
+			"frames": [
+				558.0,
+				559.0,
+				560.0,
+				561.0,
+				562.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 12.0,
+					"end_row": 11.0,
+					"start_column": 8.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 558.0
+		},
+		{
+			"animation_name": "climb_away_right_01",
+			"end_frame": 567.0,
+			"fps": 6.1,
+			"frames": [
+				563.0,
+				564.0,
+				565.0,
+				566.0,
+				567.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 17.0,
+					"end_row": 11.0,
+					"start_column": 13.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 563.0
+		},
+		{
+			"animation_name": "idle_toward_10",
+			"end_frame": 570.0,
+			"fps": 6.1,
+			"frames": [
+				568.0,
+				569.0,
+				570.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 20.0,
+					"end_row": 11.0,
+					"start_column": 18.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 568.0
+		},
+		{
+			"animation_name": "idle_left_10",
+			"end_frame": 573.0,
+			"fps": 6.1,
+			"frames": [
+				571.0,
+				572.0,
+				573.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 23.0,
+					"end_row": 11.0,
+					"start_column": 21.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 571.0
+		},
+		{
+			"animation_name": "idle_right_10",
+			"end_frame": 576.0,
+			"fps": 6.1,
+			"frames": [
+				574.0,
+				575.0,
+				576.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 26.0,
+					"end_row": 11.0,
+					"start_column": 24.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 574.0
+		},
+		{
+			"animation_name": "idle_away_10",
+			"end_frame": 579.0,
+			"fps": 6.1,
+			"frames": [
+				577.0,
+				578.0,
+				579.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 11.0,
+					"start_column": 27.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 577.0
+		},
+		{
+			"animation_name": "idle_toward_left_10",
+			"end_frame": 582.0,
+			"fps": 6.1,
+			"frames": [
+				580.0,
+				581.0,
+				582.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32.0,
+					"end_row": 11.0,
+					"start_column": 30.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 580.0
+		},
+		{
+			"animation_name": "idle_away_left_10",
+			"end_frame": 585.0,
+			"fps": 6.1,
+			"frames": [
+				583.0,
+				584.0,
+				585.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 35.0,
+					"end_row": 11.0,
+					"start_column": 33.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 583.0
+		},
+		{
+			"animation_name": "idle_toward_right_10",
+			"end_frame": 588.0,
+			"fps": 6.1,
+			"frames": [
+				586.0,
+				587.0,
+				588.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 38.0,
+					"end_row": 11.0,
+					"start_column": 36.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 586.0
+		},
+		{
+			"animation_name": "idle_away_right_10",
+			"end_frame": 591.0,
+			"fps": 6.1,
+			"frames": [
+				589.0,
+				590.0,
+				591.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 41.0,
+					"end_row": 11.0,
+					"start_column": 39.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 589.0
+		},
+		{
+			"animation_name": "jump_toward_01",
+			"end_frame": 596.0,
+			"fps": 10.1,
+			"frames": [
+				592.0,
+				593.0,
+				594.0,
+				595.0,
+				596.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 46.0,
+					"end_row": 11.0,
+					"start_column": 42.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 592.0
+		},
+		{
+			"animation_name": "jump_left_01",
+			"end_frame": 601.0,
+			"fps": 10.1,
+			"frames": [
+				597.0,
+				598.0,
+				599.0,
+				600.0,
+				601.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 1.0,
+					"end_row": 12.0,
+					"start_column": 47.0,
+					"start_row": 11.0
+				}
+			],
+			"start_frame": 597.0
+		},
+		{
+			"animation_name": "jump_right_01",
+			"end_frame": 606.0,
+			"fps": 10.1,
+			"frames": [
+				602.0,
+				603.0,
+				604.0,
+				605.0,
+				606.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 6.0,
+					"end_row": 12.0,
+					"start_column": 2.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 602.0
+		},
+		{
+			"animation_name": "jump_away_01",
+			"end_frame": 611.0,
+			"fps": 10.1,
+			"frames": [
+				607.0,
+				608.0,
+				609.0,
+				610.0,
+				611.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 11.0,
+					"end_row": 12.0,
+					"start_column": 7.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 607.0
+		},
+		{
+			"animation_name": "jump_toward_left_01",
+			"end_frame": 616.0,
+			"fps": 10.1,
+			"frames": [
+				612.0,
+				613.0,
+				614.0,
+				615.0,
+				616.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 16.0,
+					"end_row": 12.0,
+					"start_column": 12.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 612.0
+		},
+		{
+			"animation_name": "jump_away_left_01",
+			"end_frame": 621.0,
+			"fps": 10.1,
+			"frames": [
+				617.0,
+				618.0,
+				619.0,
+				620.0,
+				621.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 21.0,
+					"end_row": 12.0,
+					"start_column": 17.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 617.0
+		},
+		{
+			"animation_name": "jump_toward_right_01",
+			"end_frame": 626.0,
+			"fps": 10.1,
+			"frames": [
+				622.0,
+				623.0,
+				624.0,
+				625.0,
+				626.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 26.0,
+					"end_row": 12.0,
+					"start_column": 22.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 622.0
+		},
+		{
+			"animation_name": "jump_away_right_01",
+			"end_frame": 631.0,
+			"fps": 10.1,
+			"frames": [
+				627.0,
+				628.0,
+				629.0,
+				630.0,
+				631.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 31.0,
+					"end_row": 12.0,
+					"start_column": 27.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 627.0
+		},
+		{
+			"animation_name": "sneak_toward_01",
+			"end_frame": 639.0,
+			"fps": 8.1,
+			"frames": [
+				632.0,
+				633.0,
+				634.0,
+				635.0,
+				636.0,
+				637.0,
+				638.0,
+				639.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 39.0,
+					"end_row": 12.0,
+					"start_column": 32.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 632.0
+		},
+		{
+			"animation_name": "sneak_left_01",
+			"end_frame": 647.0,
+			"fps": 8.1,
+			"frames": [
+				640.0,
+				641.0,
+				642.0,
+				643.0,
+				644.0,
+				645.0,
+				646.0,
+				647.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47.0,
+					"end_row": 12.0,
+					"start_column": 40.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 640.0
+		},
+		{
+			"animation_name": "sneak_right_01",
+			"end_frame": 655.0,
+			"fps": 8.1,
+			"frames": [
+				648.0,
+				649.0,
+				650.0,
+				651.0,
+				652.0,
+				653.0,
+				654.0,
+				655.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 5.0,
+					"end_row": 13.0,
+					"start_column": 48.0,
+					"start_row": 12.0
+				}
+			],
+			"start_frame": 648.0
+		},
+		{
+			"animation_name": "sneak_away_01",
+			"end_frame": 663.0,
+			"fps": 8.1,
+			"frames": [
+				656.0,
+				657.0,
+				658.0,
+				659.0,
+				660.0,
+				661.0,
+				662.0,
+				663.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13.0,
+					"end_row": 13.0,
+					"start_column": 6.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 656.0
+		},
+		{
+			"animation_name": "sneak_toward_left_01",
+			"end_frame": 671.0,
+			"fps": 8.1,
+			"frames": [
+				664.0,
+				665.0,
+				666.0,
+				667.0,
+				668.0,
+				669.0,
+				670.0,
+				671.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 21.0,
+					"end_row": 13.0,
+					"start_column": 14.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 664.0
+		},
+		{
+			"animation_name": "sneak_away_left_01",
+			"end_frame": 679.0,
+			"fps": 8.1,
+			"frames": [
+				672.0,
+				673.0,
+				674.0,
+				675.0,
+				676.0,
+				677.0,
+				678.0,
+				679.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29.0,
+					"end_row": 13.0,
+					"start_column": 22.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 672.0
+		},
+		{
+			"animation_name": "sneak_toward_right_01",
+			"end_frame": 687.0,
+			"fps": 8.1,
+			"frames": [
+				680.0,
+				681.0,
+				682.0,
+				683.0,
+				684.0,
+				685.0,
+				686.0,
+				687.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 13.0,
+					"start_column": 30.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 680.0
+		},
+		{
+			"animation_name": "sneak_away_right_01",
+			"end_frame": 695.0,
+			"fps": 8.1,
+			"frames": [
+				688.0,
+				689.0,
+				690.0,
+				691.0,
+				692.0,
+				693.0,
+				694.0,
+				695.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 45.0,
+					"end_row": 13.0,
+					"start_column": 38.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 688.0
+		},
+		{
+			"animation_name": "crouch_toward_02",
+			"end_frame": 698.0,
+			"fps": 6.1,
+			"frames": [
+				696.0,
+				697.0,
+				698.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 48.0,
+					"end_row": 13.0,
+					"start_column": 46.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 696.0
+		},
+		{
+			"animation_name": "crouch_left_02",
+			"end_frame": 701.0,
+			"fps": 6.1,
+			"frames": [
+				699.0,
+				700.0,
+				701.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 1.0,
+					"end_row": 14.0,
+					"start_column": 49.0,
+					"start_row": 13.0
+				}
+			],
+			"start_frame": 699.0
+		},
+		{
+			"animation_name": "crouch_right_02",
+			"end_frame": 704.0,
+			"fps": 6.1,
+			"frames": [
+				702.0,
+				703.0,
+				704.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 4.0,
+					"end_row": 14.0,
+					"start_column": 2.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 702.0
+		},
+		{
+			"animation_name": "crouch_away_02",
+			"end_frame": 707.0,
+			"fps": 6.1,
+			"frames": [
+				705.0,
+				706.0,
+				707.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7.0,
+					"end_row": 14.0,
+					"start_column": 5.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 705.0
+		},
+		{
+			"animation_name": "crouch_toward_left_02",
+			"end_frame": 710.0,
+			"fps": 6.1,
+			"frames": [
+				708.0,
+				709.0,
+				710.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 10.0,
+					"end_row": 14.0,
+					"start_column": 8.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 708.0
+		},
+		{
+			"animation_name": "crouch_away_left_02",
+			"end_frame": 713.0,
+			"fps": 6.1,
+			"frames": [
+				711.0,
+				712.0,
+				713.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13.0,
+					"end_row": 14.0,
+					"start_column": 11.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 711.0
+		},
+		{
+			"animation_name": "crouch_toward_right_02",
+			"end_frame": 716.0,
+			"fps": 6.1,
+			"frames": [
+				714.0,
+				715.0,
+				716.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 16.0,
+					"end_row": 14.0,
+					"start_column": 14.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 714.0
+		},
+		{
+			"animation_name": "crouch_away_right_02",
+			"end_frame": 719.0,
+			"fps": 6.1,
+			"frames": [
+				717.0,
+				718.0,
+				719.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19.0,
+					"end_row": 14.0,
+					"start_column": 17.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 717.0
+		},
+		{
+			"animation_name": "punch_toward_01",
+			"end_frame": 722.0,
+			"fps": 12.1,
+			"frames": [
+				720.0,
+				721.0,
+				722.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 22.0,
+					"end_row": 14.0,
+					"start_column": 20.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 720.0
+		},
+		{
+			"animation_name": "punch_left_01",
+			"end_frame": 725.0,
+			"fps": 12.1,
+			"frames": [
+				723.0,
+				724.0,
+				725.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 25.0,
+					"end_row": 14.0,
+					"start_column": 23.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 723.0
+		},
+		{
+			"animation_name": "punch_right_01",
+			"end_frame": 728.0,
+			"fps": 12.1,
+			"frames": [
+				726.0,
+				727.0,
+				728.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 28.0,
+					"end_row": 14.0,
+					"start_column": 26.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 726.0
+		},
+		{
+			"animation_name": "punch_away_01",
+			"end_frame": 731.0,
+			"fps": 10.1,
+			"frames": [
+				729.0,
+				730.0,
+				731.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 31.0,
+					"end_row": 14.0,
+					"start_column": 29.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 729.0
+		},
+		{
+			"animation_name": "punch_toward_left_01",
+			"end_frame": 734.0,
+			"fps": 12.1,
+			"frames": [
+				732.0,
+				733.0,
+				734.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 34.0,
+					"end_row": 14.0,
+					"start_column": 32.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 732.0
+		},
+		{
+			"animation_name": "punch_away_left_01",
+			"end_frame": 737.0,
+			"fps": 12.1,
+			"frames": [
+				735.0,
+				736.0,
+				737.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37.0,
+					"end_row": 14.0,
+					"start_column": 35.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 735.0
+		},
+		{
+			"animation_name": "punch_toward_right_01",
+			"end_frame": 740.0,
+			"fps": 12.1,
+			"frames": [
+				738.0,
+				739.0,
+				740.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 40.0,
+					"end_row": 14.0,
+					"start_column": 38.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 738.0
+		},
+		{
+			"animation_name": "punch_away_right_01",
+			"end_frame": 743.0,
+			"fps": 12.1,
+			"frames": [
+				741.0,
+				742.0,
+				743.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 43.0,
+					"end_row": 14.0,
+					"start_column": 41.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 741.0
+		},
+		{
+			"animation_name": "death_left_01",
+			"end_frame": 753.0,
+			"fps": 8.1,
+			"frames": [
+				749.0,
+				750.0,
+				751.0,
+				752.0,
+				753.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 3.0,
+					"end_row": 15.0,
+					"start_column": 49.0,
+					"start_row": 14.0
+				}
+			],
+			"start_frame": 749.0
+		},
+		{
+			"animation_name": "death_away_01",
+			"end_frame": 763.0,
+			"fps": 10.1,
+			"frames": [
+				759.0,
+				760.0,
+				761.0,
+				762.0,
+				763.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13.0,
+					"end_row": 15.0,
+					"start_column": 9.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 759.0
+		},
+		{
+			"animation_name": "death_toward_left_01",
+			"end_frame": 768.0,
+			"fps": 8.1,
+			"frames": [
+				764.0,
+				765.0,
+				766.0,
+				767.0,
+				768.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 18.0,
+					"end_row": 15.0,
+					"start_column": 14.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 764.0
+		},
+		{
+			"animation_name": "death_away_left_01",
+			"end_frame": 773.0,
+			"fps": 8.1,
+			"frames": [
+				769.0,
+				770.0,
+				771.0,
+				772.0,
+				773.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 23.0,
+					"end_row": 15.0,
+					"start_column": 19.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 769.0
+		},
+		{
+			"animation_name": "death_toward_right_01",
+			"end_frame": 778.0,
+			"fps": 8.1,
+			"frames": [
+				774.0,
+				775.0,
+				776.0,
+				777.0,
+				778.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 28.0,
+					"end_row": 15.0,
+					"start_column": 24.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 774.0
+		},
+		{
+			"animation_name": "death_away_right_01",
+			"end_frame": 783.0,
+			"fps": 10.1,
+			"frames": [
+				779.0,
+				780.0,
+				781.0,
+				782.0,
+				783.0
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 33.0,
+					"end_row": 15.0,
+					"start_column": 29.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 779.0
+		},
+		{
+			"animation_name": "death_toward_02",
+			"end_frame": 788.0,
+			"fps": 8.1,
+			"frames": [
+				784.0,
+				785.0,
+				786.0,
+				787.0,
+				788.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 38.0,
+					"end_row": 15.0,
+					"start_column": 34.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 784.0
+		},
+		{
+			"animation_name": "death_left_02",
+			"end_frame": 793.0,
+			"fps": 8.1,
+			"frames": [
+				789.0,
+				790.0,
+				791.0,
+				792.0,
+				793.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 43.0,
+					"end_row": 15.0,
+					"start_column": 39.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 789.0
+		},
+		{
+			"animation_name": "death_right_02",
+			"end_frame": 798.0,
+			"fps": 8.1,
+			"frames": [
+				794.0,
+				795.0,
+				796.0,
+				797.0,
+				798.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 48.0,
+					"end_row": 15.0,
+					"start_column": 44.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 794.0
+		},
+		{
+			"animation_name": "death_away_02",
+			"end_frame": 803.0,
+			"fps": 8.1,
+			"frames": [
+				799.0,
+				800.0,
+				801.0,
+				802.0,
+				803.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 3.0,
+					"end_row": 16.0,
+					"start_column": 49.0,
+					"start_row": 15.0
+				}
+			],
+			"start_frame": 799.0
+		},
+		{
+			"animation_name": "death_toward_left_02",
+			"end_frame": 808.0,
+			"fps": 8.1,
+			"frames": [
+				804.0,
+				805.0,
+				806.0,
+				807.0,
+				808.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 8.0,
+					"end_row": 16.0,
+					"start_column": 4.0,
+					"start_row": 16.0
+				}
+			],
+			"start_frame": 804.0
+		},
+		{
+			"animation_name": "death_away_left_02",
+			"end_frame": 813.0,
+			"fps": 8.1,
+			"frames": [
+				809.0,
+				810.0,
+				811.0,
+				812.0,
+				813.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13.0,
+					"end_row": 16.0,
+					"start_column": 9.0,
+					"start_row": 16.0
+				}
+			],
+			"start_frame": 809.0
+		},
+		{
+			"animation_name": "death_toward_right_02",
+			"end_frame": 818.0,
+			"fps": 8.1,
+			"frames": [
+				814.0,
+				815.0,
+				816.0,
+				817.0,
+				818.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 18.0,
+					"end_row": 16.0,
+					"start_column": 14.0,
+					"start_row": 16.0
+				}
+			],
+			"start_frame": 814.0
+		},
+		{
+			"animation_name": "death_away_right_02",
+			"end_frame": 823.0,
+			"fps": 8.1,
+			"frames": [
+				819.0,
+				820.0,
+				821.0,
+				822.0,
+				823.0
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=492; end=518; frame_count=27; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 23.0,
+					"end_row": 16.0,
+					"start_column": 19.0,
+					"start_row": 16.0
+				}
+			],
+			"start_frame": 819.0
+		},
+		{
+			"animation_name": "slumped_toward_01",
+			"end_frame": 824,
+			"fps": 6.1,
+			"frames": [
+				824
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 24,
+					"end_row": 16,
+					"start_column": 24,
+					"start_row": 16
+				}
+			],
+			"start_frame": 824
+		},
+		{
+			"animation_name": "slumped_left_01",
+			"end_frame": 825,
+			"fps": 6.1,
+			"frames": [
+				825
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 25,
+					"end_row": 16,
+					"start_column": 25,
+					"start_row": 16
+				}
+			],
+			"start_frame": 825
+		},
+		{
+			"animation_name": "slumped_right_01",
+			"end_frame": 826,
+			"fps": 6.1,
+			"frames": [
+				826
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 26,
+					"end_row": 16,
+					"start_column": 26,
+					"start_row": 16
+				}
+			],
+			"start_frame": 826
+		},
+		{
+			"animation_name": "slumped_away_01",
+			"end_frame": 827,
+			"fps": 6.1,
+			"frames": [
+				827
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 27,
+					"end_row": 16,
+					"start_column": 27,
+					"start_row": 16
+				}
+			],
+			"start_frame": 827
+		},
+		{
+			"animation_name": "slumped_toward_left_01",
+			"end_frame": 828,
+			"fps": 6.1,
+			"frames": [
+				828
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 28,
+					"end_row": 16,
+					"start_column": 28,
+					"start_row": 16
+				}
+			],
+			"start_frame": 828
+		},
+		{
+			"animation_name": "slumped_away_left_01",
+			"end_frame": 829,
+			"fps": 6.1,
+			"frames": [
+				829
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 29,
+					"end_row": 16,
+					"start_column": 29,
+					"start_row": 16
+				}
+			],
+			"start_frame": 829
+		},
+		{
+			"animation_name": "slumped_toward_right_01",
+			"end_frame": 830,
+			"fps": 6.1,
+			"frames": [
+				830
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 30,
+					"end_row": 16,
+					"start_column": 30,
+					"start_row": 16
+				}
+			],
+			"start_frame": 830
+		},
+		{
+			"animation_name": "slumped_away_right_01",
+			"end_frame": 831,
+			"fps": 6.1,
+			"frames": [
+				831
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 31,
+					"end_row": 16,
+					"start_column": 31,
+					"start_row": 16
+				}
+			],
+			"start_frame": 831
+		},
+		{
+			"animation_name": "face_down_toward_01",
+			"end_frame": 832,
+			"fps": 6.1,
+			"frames": [
+				832
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 32,
+					"end_row": 16,
+					"start_column": 32,
+					"start_row": 16
+				}
+			],
+			"start_frame": 832
+		},
+		{
+			"animation_name": "face_down_left_01",
+			"end_frame": 833,
+			"fps": 6.1,
+			"frames": [
+				833
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 33,
+					"end_row": 16,
+					"start_column": 33,
+					"start_row": 16
+				}
+			],
+			"start_frame": 833
+		},
+		{
+			"animation_name": "face_down_right_01",
+			"end_frame": 834,
+			"fps": 6.1,
+			"frames": [
+				834
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 34,
+					"end_row": 16,
+					"start_column": 34,
+					"start_row": 16
+				}
+			],
+			"start_frame": 834
+		},
+		{
+			"animation_name": "face_down_away_01",
+			"end_frame": 835,
+			"fps": 6.1,
+			"frames": [
+				835
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 35,
+					"end_row": 16,
+					"start_column": 35,
+					"start_row": 16
+				}
+			],
+			"start_frame": 835
+		},
+		{
+			"animation_name": "face_down_toward_left_01",
+			"end_frame": 836,
+			"fps": 6.1,
+			"frames": [
+				836
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 36,
+					"end_row": 16,
+					"start_column": 36,
+					"start_row": 16
+				}
+			],
+			"start_frame": 836
+		},
+		{
+			"animation_name": "face_down_away_left_01",
+			"end_frame": 837,
+			"fps": 6.1,
+			"frames": [
+				837
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 37,
+					"end_row": 16,
+					"start_column": 37,
+					"start_row": 16
+				}
+			],
+			"start_frame": 837
+		},
+		{
+			"animation_name": "face_down_toward_right_01",
+			"end_frame": 838,
+			"fps": 6.1,
+			"frames": [
+				838
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 38,
+					"end_row": 16,
+					"start_column": 38,
+					"start_row": 16
+				}
+			],
+			"start_frame": 838
+		},
+		{
+			"animation_name": "face_down_away_right_01",
+			"end_frame": 839,
+			"fps": 6.1,
+			"frames": [
+				839
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 39,
+					"end_row": 16,
+					"start_column": 39,
+					"start_row": 16
+				}
+			],
+			"start_frame": 839
+		},
+		{
+			"animation_name": "face_up_toward_01",
+			"end_frame": 840,
+			"fps": 6.1,
+			"frames": [
+				840
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 40,
+					"end_row": 16,
+					"start_column": 40,
+					"start_row": 16
+				}
+			],
+			"start_frame": 840
+		},
+		{
+			"animation_name": "face_up_right_01",
+			"end_frame": 841,
+			"fps": 6.1,
+			"frames": [
+				841
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 41,
+					"end_row": 16,
+					"start_column": 41,
+					"start_row": 16
+				}
+			],
+			"start_frame": 841
+		},
+		{
+			"animation_name": "face_up_left_01",
+			"end_frame": 842,
+			"fps": 6.1,
+			"frames": [
+				842
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 42,
+					"end_row": 16,
+					"start_column": 42,
+					"start_row": 16
+				}
+			],
+			"start_frame": 842
+		},
+		{
+			"animation_name": "face_up_away_01",
+			"end_frame": 843,
+			"fps": 6.1,
+			"frames": [
+				843
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 43,
+					"end_row": 16,
+					"start_column": 43,
+					"start_row": 16
+				}
+			],
+			"start_frame": 843
+		},
+		{
+			"animation_name": "face_up_away_right_01",
+			"end_frame": 844,
+			"fps": 6.1,
+			"frames": [
+				844
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 44,
+					"end_row": 16,
+					"start_column": 44,
+					"start_row": 16
+				}
+			],
+			"start_frame": 844
+		},
+		{
+			"animation_name": "face_up_toward_right_01",
+			"end_frame": 845,
+			"fps": 6.1,
+			"frames": [
+				845
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 45,
+					"end_row": 16,
+					"start_column": 45,
+					"start_row": 16
+				}
+			],
+			"start_frame": 845
+		},
+		{
+			"animation_name": "face_up_away_left_01",
+			"end_frame": 846,
+			"fps": 6.1,
+			"frames": [
+				846
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 46,
+					"end_row": 16,
+					"start_column": 46,
+					"start_row": 16
+				}
+			],
+			"start_frame": 846
+		},
+		{
+			"animation_name": "face_up_toward_left_01",
+			"end_frame": 847,
+			"fps": 6.1,
+			"frames": [
+				847
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47,
+					"end_row": 16,
+					"start_column": 47,
+					"start_row": 16
+				}
+			],
+			"start_frame": 847
+		},
+		{
+			"animation_name": "face_up_toward_02",
+			"end_frame": 848,
+			"fps": 6.1,
+			"frames": [
+				848
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 48,
+					"end_row": 16,
+					"start_column": 48,
+					"start_row": 16
+				}
+			],
+			"start_frame": 848
+		},
+		{
+			"animation_name": "face_up_right_02",
+			"end_frame": 849,
+			"fps": 6.1,
+			"frames": [
+				849
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 49,
+					"end_row": 16,
+					"start_column": 49,
+					"start_row": 16
+				}
+			],
+			"start_frame": 849
+		},
+		{
+			"animation_name": "face_up_left_02",
+			"end_frame": 850,
+			"fps": 6.1,
+			"frames": [
+				850
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 0,
+					"end_row": 17,
+					"start_column": 0,
+					"start_row": 17
+				}
+			],
+			"start_frame": 850
+		},
+		{
+			"animation_name": "face_up_away_02",
+			"end_frame": 851,
+			"fps": 6.1,
+			"frames": [
+				851
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 1,
+					"end_row": 17,
+					"start_column": 1,
+					"start_row": 17
+				}
+			],
+			"start_frame": 851
+		},
+		{
+			"animation_name": "face_up_toward_left_02",
+			"end_frame": 852,
+			"fps": 6.1,
+			"frames": [
+				852
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 2,
+					"end_row": 17,
+					"start_column": 2,
+					"start_row": 17
+				}
+			],
+			"start_frame": 852
+		},
+		{
+			"animation_name": "face_up_away_left_02",
+			"end_frame": 853,
+			"fps": 6.1,
+			"frames": [
+				853
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 3,
+					"end_row": 17,
+					"start_column": 3,
+					"start_row": 17
+				}
+			],
+			"start_frame": 853
+		},
+		{
+			"animation_name": "face_up_toward_right_02",
+			"end_frame": 854,
+			"fps": 6.1,
+			"frames": [
+				854
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 4,
+					"end_row": 17,
+					"start_column": 4,
+					"start_row": 17
+				}
+			],
+			"start_frame": 854
+		},
+		{
+			"animation_name": "face_up_away_right_02",
+			"end_frame": 855,
+			"fps": 6.1,
+			"frames": [
+				855
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 5,
+					"end_row": 17,
+					"start_column": 5,
+					"start_row": 17
+				}
+			],
+			"start_frame": 855
+		},
+		{
+			"animation_name": "roll_toward_01",
+			"end_frame": 860,
+			"fps": 10.1,
+			"frames": [
+				856,
+				857,
+				858,
+				859,
+				860
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 10,
+					"end_row": 17,
+					"start_column": 6,
+					"start_row": 17
+				}
+			],
+			"start_frame": 856
+		},
+		{
+			"animation_name": "roll_left_01",
+			"end_frame": 865,
+			"fps": 10.1,
+			"frames": [
+				861,
+				862,
+				863,
+				864,
+				865
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 15,
+					"end_row": 17,
+					"start_column": 11,
+					"start_row": 17
+				}
+			],
+			"start_frame": 861
+		},
+		{
+			"animation_name": "roll_right_01",
+			"end_frame": 870,
+			"fps": 10.1,
+			"frames": [
+				866,
+				867,
+				868,
+				869,
+				870
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 20,
+					"end_row": 17,
+					"start_column": 16,
+					"start_row": 17
+				}
+			],
+			"start_frame": 866
+		},
+		{
+			"animation_name": "roll_away_01",
+			"end_frame": 875,
+			"fps": 10.1,
+			"frames": [
+				871,
+				872,
+				873,
+				874,
+				875
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 25,
+					"end_row": 17,
+					"start_column": 21,
+					"start_row": 17
+				}
+			],
+			"start_frame": 871
+		},
+		{
+			"animation_name": "roll_toward_left_01",
+			"end_frame": 880,
+			"fps": 10.1,
+			"frames": [
+				876,
+				877,
+				878,
+				879,
+				880
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 30,
+					"end_row": 17,
+					"start_column": 26,
+					"start_row": 17
+				}
+			],
+			"start_frame": 876
+		},
+		{
+			"animation_name": "roll_away_left_01",
+			"end_frame": 885,
+			"fps": 10.1,
+			"frames": [
+				881,
+				882,
+				883,
+				884,
+				885
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 35,
+					"end_row": 17,
+					"start_column": 31,
+					"start_row": 17
+				}
+			],
+			"start_frame": 881
+		},
+		{
+			"animation_name": "roll_toward_right_01",
+			"end_frame": 890,
+			"fps": 10.1,
+			"frames": [
+				886,
+				887,
+				888,
+				889,
+				890
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 40,
+					"end_row": 17,
+					"start_column": 36,
+					"start_row": 17
+				}
+			],
+			"start_frame": 886
+		},
+		{
+			"animation_name": "roll_away_right_01",
+			"end_frame": 895,
+			"fps": 10.1,
+			"frames": [
+				891,
+				892,
+				893,
+				894,
+				895
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 45,
+					"end_row": 17,
+					"start_column": 41,
+					"start_row": 17
+				}
+			],
+			"start_frame": 891
+		},
+		{
+			"animation_name": "idle_toward_11",
+			"end_frame": 897,
+			"fps": 6.1,
+			"frames": [
+				896,
+				897
+			],
+			"loop": true,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 47,
+					"end_row": 17,
+					"start_column": 46,
+					"start_row": 17
+				}
+			],
+			"start_frame": 896
+		},
+		{
+			"animation_name": "dodge_toward_01",
+			"end_frame": 898,
+			"fps": 8.1,
+			"frames": [
+				896,
+				897,
+				898
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 48,
+					"end_row": 17,
+					"start_column": 46,
+					"start_row": 17
+				}
+			],
+			"start_frame": 896
+		},
+		{
+			"animation_name": "dodge_left_01",
+			"end_frame": 901,
+			"fps": 8.1,
+			"frames": [
+				899,
+				900,
+				901
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 1,
+					"end_row": 18,
+					"start_column": 49,
+					"start_row": 17
+				}
+			],
+			"start_frame": 899
+		},
+		{
+			"animation_name": "dodge_right_01",
+			"end_frame": 904,
+			"fps": 8.1,
+			"frames": [
+				902,
+				903,
+				904
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 4,
+					"end_row": 18,
+					"start_column": 2,
+					"start_row": 18
+				}
+			],
+			"start_frame": 902
+		},
+		{
+			"animation_name": "dodge_away_01",
+			"end_frame": 907,
+			"fps": 8.1,
+			"frames": [
+				905,
+				906,
+				907
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 7,
+					"end_row": 18,
+					"start_column": 5,
+					"start_row": 18
+				}
+			],
+			"start_frame": 905
+		},
+		{
+			"animation_name": "dodge_toward_left_01",
+			"end_frame": 910,
+			"fps": 8.1,
+			"frames": [
+				908,
+				909,
+				910
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 10,
+					"end_row": 18,
+					"start_column": 8,
+					"start_row": 18
+				}
+			],
+			"start_frame": 908
+		},
+		{
+			"animation_name": "dodge_away_left_01",
+			"end_frame": 913,
+			"fps": 8.1,
+			"frames": [
+				911,
+				912,
+				913
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 13,
+					"end_row": 18,
+					"start_column": 11,
+					"start_row": 18
+				}
+			],
+			"start_frame": 911
+		},
+		{
+			"animation_name": "dodge_toward_right_01",
+			"end_frame": 916,
+			"fps": 8.1,
+			"frames": [
+				914,
+				915,
+				916
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 16,
+					"end_row": 18,
+					"start_column": 14,
+					"start_row": 18
+				}
+			],
+			"start_frame": 914
+		},
+		{
+			"animation_name": "dodge_away_right_01",
+			"end_frame": 919,
+			"fps": 8.1,
+			"frames": [
+				917,
+				918,
+				919
+			],
+			"loop": false,
+			"notes": "detected_by=image_signature; reason=motion_cluster; start=0; end=23; frame_count=24; manual_range_edit=true",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 19,
+					"end_row": 18,
+					"start_column": 17,
+					"start_row": 18
+				}
+			],
+			"start_frame": 917
+		}
+	],
+	"columns": 50,
+	"frame_height": 200,
+	"frame_width": 200,
+	"rows": 50,
+	"schema_version": 1,
+	"source_sheet": "res://assets/characters/generated_player_visuals/manual_5pack_20260521/character_01_parmida_reference_variant_sheet.png",
+	"tool": "CharacterAnimationMapperDock"
+}

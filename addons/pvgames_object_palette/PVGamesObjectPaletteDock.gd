@@ -10,6 +10,12 @@ const CATEGORIES := ["wall", "barrier", "prop", "sign", "terminal", "furniture",
 const ICON_QUALITIES := ["READY_UI_ICON", "READY_WORLD_DECAL", "READY_BOTH", "READY_UI_PANEL", "REVIEW_MANUALLY"]
 const ICON_USES := ["store_terminal", "storefront_item", "mission_board", "scheme_card", "evidence_board", "big_case", "objective_marker", "warning_indicator", "security_indicator", "world_decal", "wall_sticker", "hologram_marker", "decor_shop_thumbnail"]
 const MAX_RESULTS := 200
+const BRUSH_ALIGNMENTS := ["Auto Axis", "Horizontal", "Vertical", "Freeform"]
+const BRUSH_AXIS_HORIZONTAL := "horizontal"
+const BRUSH_AXIS_VERTICAL := "vertical"
+const BRUSH_AXIS_FREEFORM := "freeform"
+const BRUSH_AXIS_AUTO_THRESHOLD := 12.0
+const BRUSH_VISIBLE_ALPHA_THRESHOLD := 0.01
 
 var _plugin: EditorPlugin
 var _editor_interface: EditorInterface
@@ -38,7 +44,20 @@ var _rotation_degrees: SpinBox
 var _z_index_override: SpinBox
 var _select_after_stamp: CheckBox
 var _use_undo_redo: CheckBox
+var _brush_mode: CheckBox
+var _brush_spacing_spin: SpinBox
+var _brush_alignment: OptionButton
+var _brush_auto_spacing: CheckBox
 var _place_with_mouse_pending := false
+var _brush_stroke_active := false
+var _brush_container: Node2D
+var _brush_scene_root: Node
+var _brush_points: Array[Vector2] = []
+var _brush_last_point: Vector2 = Vector2.INF
+var _brush_anchor: Vector2 = Vector2.ZERO
+var _brush_axis: String = ""
+var _brush_axis_locked := false
+var _brush_visible_size_cache: Dictionary = {}
 
 func setup(plugin: EditorPlugin) -> void:
 	_plugin = plugin
@@ -157,6 +176,29 @@ func _build_ui() -> void:
 	_use_undo_redo.text = "Create UndoRedo action"
 	_use_undo_redo.button_pressed = true
 	_content.add_child(_use_undo_redo)
+	_content.add_child(_heading("Brush Placement"))
+	_brush_mode = CheckBox.new()
+	_brush_mode.text = "Brush Mode"
+	_brush_mode.toggled.connect(_on_brush_mode_toggled)
+	_content.add_child(_brush_mode)
+	var brush_grid := GridContainer.new()
+	brush_grid.columns = 2
+	_content.add_child(brush_grid)
+	brush_grid.add_child(_label("Brush Spacing"))
+	_brush_spacing_spin = _spin(8, 4096, 96, 1)
+	brush_grid.add_child(_brush_spacing_spin)
+	brush_grid.add_child(_label("Brush Alignment"))
+	_brush_alignment = _option(BRUSH_ALIGNMENTS)
+	_brush_alignment.select(0)
+	brush_grid.add_child(_brush_alignment)
+	_brush_auto_spacing = CheckBox.new()
+	_brush_auto_spacing.text = "Auto Asset Spacing"
+	_brush_auto_spacing.button_pressed = true
+	_content.add_child(_brush_auto_spacing)
+	var brush_help := Label.new()
+	brush_help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	brush_help.text = "Brush Mode: left-drag to stamp. Auto Axis locks to horizontal/vertical strips. Auto Asset Spacing uses visible opaque bounds for edge-to-edge PVGames repeats. Release LMB commits one undo; RMB/Esc cancels."
+	_content.add_child(brush_help)
 	_content.add_child(_heading("Actions"))
 	var buttons := GridContainer.new()
 	buttons.columns = 1
@@ -309,8 +351,16 @@ func _begin_place_with_mouse() -> void:
 
 
 func handle_canvas_gui_input(event: InputEvent) -> bool:
-	if not _place_with_mouse_pending:
+	if _brush_stroke_active:
+		return _handle_brush_canvas_input(event)
+	if _place_with_mouse_pending:
+		return _handle_place_with_mouse_canvas_input(event)
+	if _brush_mode == null or not _brush_mode.button_pressed:
 		return false
+	return _handle_brush_canvas_input(event)
+
+
+func _handle_place_with_mouse_canvas_input(event: InputEvent) -> bool:
 	if event is InputEventKey:
 		var key_event := event as InputEventKey
 		if key_event.pressed and key_event.keycode == KEY_ESCAPE:
@@ -332,6 +382,304 @@ func handle_canvas_gui_input(event: InputEvent) -> bool:
 	return true
 
 
+func _handle_brush_canvas_input(event: InputEvent) -> bool:
+	if event is InputEventKey:
+		var key_event := event as InputEventKey
+		if key_event.pressed and key_event.keycode == KEY_ESCAPE and _brush_stroke_active:
+			_cancel_brush_stroke()
+			return true
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_RIGHT:
+			if _brush_stroke_active:
+				_cancel_brush_stroke()
+				return true
+			return false
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			if mouse_event.pressed:
+				if not _brush_stroke_active:
+					if not _can_start_brush():
+						return false
+					_begin_brush_stroke(mouse_event)
+					return true
+				return true
+			if _brush_stroke_active:
+				_commit_brush_stroke()
+				return true
+	if event is InputEventMouseMotion and _brush_stroke_active:
+		var motion_event := event as InputEventMouseMotion
+		if motion_event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+			if _brush_container != null:
+				_update_brush_points_from_motion(_event_position_in_container(motion_event, _brush_container))
+			return true
+	return _brush_stroke_active
+
+
+func _on_brush_mode_toggled(enabled: bool) -> void:
+	if not enabled and _brush_stroke_active:
+		_cancel_brush_stroke()
+	elif enabled:
+		_status_label.text = "Brush Mode on: left-drag in the 2D viewport to stamp; release to commit."
+
+
+func _can_start_brush() -> bool:
+	if _selected_entry.is_empty():
+		_status_label.text = "Error: select an object or icon before brush placement."
+		return false
+	if not ResourceLoader.exists(_selected_entry.source_path):
+		_status_label.text = "Error: source texture missing."
+		return false
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		_status_label.text = "Error: no open scene."
+		return false
+	if _art_object_root(scene_root) == null:
+		_status_label.text = "Error: ArtRoot not found."
+		return false
+	var container := _ensure_container(scene_root, _selected_entry, _selected(_target_container))
+	if container == null or _node_is_under_gameplayroot(container):
+		_status_label.text = "Error: target container unsafe."
+		return false
+	return true
+
+
+func _begin_brush_stroke(mouse_event: InputEventMouseButton) -> void:
+	var scene_root := _edited_scene_root()
+	_brush_scene_root = scene_root
+	_brush_container = _ensure_container(scene_root, _selected_entry, _selected(_target_container))
+	_brush_points.clear()
+	_brush_last_point = Vector2.INF
+	_brush_axis = ""
+	_brush_axis_locked = false
+	_brush_stroke_active = true
+	_brush_anchor = _event_position_in_container(mouse_event, _brush_container)
+	var alignment := _selected_brush_alignment()
+	if alignment == "Horizontal":
+		_brush_axis = BRUSH_AXIS_HORIZONTAL
+		_brush_axis_locked = true
+	elif alignment == "Vertical":
+		_brush_axis = BRUSH_AXIS_VERTICAL
+		_brush_axis_locked = true
+	elif alignment == "Freeform":
+		_brush_axis = BRUSH_AXIS_FREEFORM
+	_update_brush_points_from_motion(_brush_anchor)
+	_status_label.text = "Brush stroke started: drag to place stamps, release left mouse to commit."
+
+
+func _update_brush_points_from_motion(current_point: Vector2) -> void:
+	if _brush_axis == BRUSH_AXIS_FREEFORM or _selected_brush_alignment() == "Freeform":
+		_append_brush_point_if_far_enough(current_point)
+	else:
+		_rebuild_axis_locked_brush_points(current_point)
+
+
+func _append_brush_point_if_far_enough(pos: Vector2) -> void:
+	var spacing := _effective_brush_spacing(BRUSH_AXIS_FREEFORM)
+	if _brush_last_point == Vector2.INF or _brush_last_point.distance_to(pos) >= spacing:
+		if _brush_points.is_empty() or not _points_equal_or_close(_brush_points[_brush_points.size() - 1], pos):
+			_brush_points.append(pos)
+			_brush_last_point = pos
+
+
+func _rebuild_axis_locked_brush_points(current_point: Vector2) -> void:
+	if not _brush_axis_locked:
+		var resolved_axis := _resolve_brush_axis(current_point)
+		if resolved_axis == "":
+			_brush_points = [_brush_anchor]
+			_brush_last_point = _brush_anchor
+			return
+		_brush_axis = resolved_axis
+		_brush_axis_locked = true
+	var projected := _project_point_to_brush_axis(current_point)
+	var spacing := _effective_brush_spacing(_brush_axis)
+	var new_points: Array[Vector2] = []
+	if spacing <= 0.0:
+		new_points.append(_brush_anchor)
+	else:
+		var signed_distance := projected.x - _brush_anchor.x
+		if _brush_axis == BRUSH_AXIS_VERTICAL:
+			signed_distance = projected.y - _brush_anchor.y
+		var step_count := int(floor(absf(signed_distance) / spacing))
+		var direction := -1.0 if signed_distance < 0.0 else 1.0
+		for step in range(step_count + 1):
+			var offset := direction * spacing * float(step)
+			var stamp_pos := _brush_anchor
+			if _brush_axis == BRUSH_AXIS_HORIZONTAL:
+				stamp_pos.x += offset
+			else:
+				stamp_pos.y += offset
+			new_points.append(stamp_pos)
+	_brush_points = new_points
+	if not new_points.is_empty():
+		_brush_last_point = new_points[new_points.size() - 1]
+
+
+func _resolve_brush_axis(current_point: Vector2) -> String:
+	var alignment := _selected_brush_alignment()
+	if alignment == "Horizontal":
+		return BRUSH_AXIS_HORIZONTAL
+	if alignment == "Vertical":
+		return BRUSH_AXIS_VERTICAL
+	if alignment == "Freeform":
+		return BRUSH_AXIS_FREEFORM
+	var delta := current_point - _brush_anchor
+	if delta.length() < BRUSH_AXIS_AUTO_THRESHOLD:
+		return _brush_axis
+	if absf(delta.x) >= absf(delta.y):
+		return BRUSH_AXIS_HORIZONTAL
+	return BRUSH_AXIS_VERTICAL
+
+
+func _project_point_to_brush_axis(point: Vector2) -> Vector2:
+	if _brush_axis == BRUSH_AXIS_HORIZONTAL:
+		return Vector2(point.x, _brush_anchor.y)
+	if _brush_axis == BRUSH_AXIS_VERTICAL:
+		return Vector2(_brush_anchor.x, point.y)
+	return point
+
+
+func _selected_asset_scaled_size() -> Vector2:
+	if _selected_entry.is_empty():
+		return Vector2.ZERO
+	var texture := _load_texture(_selected_entry.source_path)
+	if texture == null:
+		return Vector2.ZERO
+	var scale := _typed_scale()
+	return texture.get_size() * Vector2(absf(scale.x), absf(scale.y))
+
+
+func _selected_asset_scaled_visible_size() -> Vector2:
+	if _selected_entry.is_empty():
+		return Vector2.ZERO
+	var source_path := String(_selected_entry.source_path)
+	var texture := _load_texture(source_path)
+	if texture == null:
+		return Vector2.ZERO
+	var visible_unscaled := _texture_visible_size(texture, source_path)
+	var scale := _typed_scale()
+	return visible_unscaled * Vector2(absf(scale.x), absf(scale.y))
+
+
+func _texture_visible_size(texture: Texture2D, source_path: String) -> Vector2:
+	if source_path != "" and _brush_visible_size_cache.has(source_path):
+		return _brush_visible_size_cache[source_path]
+	var fallback_size := texture.get_size()
+	var image := texture.get_image()
+	var visible_size := _compute_image_visible_size(image, fallback_size)
+	if source_path != "":
+		_brush_visible_size_cache[source_path] = visible_size
+	return visible_size
+
+
+func _compute_image_visible_size(image: Image, fallback_size: Vector2) -> Vector2:
+	if image == null or image.is_empty():
+		return fallback_size
+	var width := image.get_width()
+	var height := image.get_height()
+	if width <= 0 or height <= 0:
+		return fallback_size
+	var min_x := width
+	var min_y := height
+	var max_x := -1
+	var max_y := -1
+	var found_visible := false
+	for y in range(height):
+		for x in range(width):
+			if image.get_pixel(x, y).a > BRUSH_VISIBLE_ALPHA_THRESHOLD:
+				found_visible = true
+				min_x = mini(min_x, x)
+				min_y = mini(min_y, y)
+				max_x = maxi(max_x, x)
+				max_y = maxi(max_y, y)
+	if not found_visible:
+		return fallback_size
+	return Vector2(max_x - min_x + 1, max_y - min_y + 1)
+
+
+func _effective_brush_spacing(axis: String) -> float:
+	if _brush_auto_spacing != null and _brush_auto_spacing.button_pressed:
+		var asset_size := _selected_asset_scaled_visible_size()
+		if asset_size != Vector2.ZERO:
+			if axis == BRUSH_AXIS_HORIZONTAL and asset_size.x > 0.0:
+				return asset_size.x
+			if axis == BRUSH_AXIS_VERTICAL and asset_size.y > 0.0:
+				return asset_size.y
+			if axis == BRUSH_AXIS_FREEFORM:
+				return maxf(asset_size.x, asset_size.y)
+	return maxf(float(_brush_spacing_spin.value), 1.0)
+
+
+func _selected_brush_alignment() -> String:
+	return _selected(_brush_alignment) if _brush_alignment != null else "Auto Axis"
+
+
+func _points_equal_or_close(a: Vector2, b: Vector2, epsilon: float = 0.5) -> bool:
+	return a.distance_to(b) <= epsilon
+
+
+func _commit_brush_stroke() -> void:
+	if not _brush_stroke_active:
+		return
+	var container := _brush_container
+	var scene_root := _brush_scene_root
+	var points := _brush_points.duplicate()
+	_brush_stroke_active = false
+	_brush_container = null
+	_brush_scene_root = null
+	_brush_points.clear()
+	_brush_last_point = Vector2.INF
+	_brush_axis = ""
+	_brush_axis_locked = false
+	if container == null or scene_root == null or points.is_empty():
+		_status_label.text = "Brush stroke cancelled (no points)."
+		return
+	_stamp_brush_points_in_container(container, scene_root, points)
+
+
+func _cancel_brush_stroke() -> void:
+	_brush_stroke_active = false
+	_brush_container = null
+	_brush_scene_root = null
+	_brush_points.clear()
+	_brush_last_point = Vector2.INF
+	_brush_axis = ""
+	_brush_axis_locked = false
+	_status_label.text = "Brush stroke cancelled."
+
+
+func _stamp_brush_points_in_container(container: Node2D, scene_root: Node, points: Array[Vector2]) -> void:
+	var nodes: Array[Node2D] = []
+	var reserved_names: Array[String] = []
+	for pos in points:
+		var node := _create_node(_selected_entry, pos, _typed_scale(), _rotation_degrees.value, _selected_z_index())
+		var node_name := _unique_child_name_for_batch(container, _node_name(_selected_entry), reserved_names)
+		reserved_names.append(node_name)
+		node.name = node_name
+		nodes.append(node)
+	if nodes.is_empty():
+		_status_label.text = "Brush stroke produced no stamps."
+		return
+	if _use_undo_redo.button_pressed and _plugin != null:
+		var ur := _plugin.get_undo_redo()
+		ur.create_action("Brush Stamp PVGames Palette Entries")
+		for node in nodes:
+			ur.add_do_method(container, "add_child", node)
+		for node in nodes:
+			ur.add_do_method(self, "_set_owner_recursive", node, scene_root)
+		for i in range(nodes.size() - 1, -1, -1):
+			ur.add_undo_method(container, "remove_child", nodes[i])
+		ur.commit_action()
+		if _select_after_stamp.button_pressed:
+			_select_created_object(nodes[nodes.size() - 1])
+	else:
+		for node in nodes:
+			container.add_child(node)
+			_set_owner_recursive(node, scene_root)
+		if _select_after_stamp.button_pressed:
+			_select_created_object(nodes[nodes.size() - 1])
+	_status_label.text = "Brush stamped %d entries under %s" % [nodes.size(), container.get_path()]
+
+
 func _stamp_selected_from_mouse_event(mouse_event: InputEventMouseButton) -> void:
 	if _selected_entry.is_empty():
 		_status_label.text = "Error: no selected entry."
@@ -350,8 +698,7 @@ func _stamp_selected_from_mouse_event(mouse_event: InputEventMouseButton) -> voi
 	if container == null or _node_is_under_gameplayroot(container):
 		_status_label.text = "Error: target container unsafe."
 		return
-	var local_event := container.make_input_local(mouse_event) as InputEventMouseButton
-	var node_position := local_event.position if local_event != null else mouse_event.position
+	var node_position := _event_position_in_container(mouse_event, container)
 	_position_x.value = node_position.x
 	_position_y.value = node_position.y
 	_stamp_selected_in_container(container, scene_root, node_position)
@@ -525,6 +872,7 @@ func _copy_selected_id() -> void:
 	_status_label.text = "Copied: %s" % _selected_entry.id
 
 func _refresh_index() -> void:
+	_brush_visible_size_cache.clear()
 	_load_indexes()
 	_apply_filters()
 
@@ -547,6 +895,32 @@ func _unique_child_name(parent: Node, base: String) -> String:
 		name = "%s_%04d" % [base, i]
 		i += 1
 	return name
+
+
+func _unique_child_name_for_batch(parent: Node, base: String, reserved_names: Array[String]) -> String:
+	var name := _unique_child_name(parent, base)
+	var i := 1
+	while reserved_names.has(name):
+		name = "%s_%04d" % [base, i]
+		i += 1
+	return name
+
+
+func _editor_viewport_2d() -> SubViewport:
+	return _editor_interface.get_editor_viewport_2d() if _editor_interface != null else null
+
+
+func _canvas_position_from_mouse_event(_event: InputEventMouse) -> Vector2:
+	var viewport := _editor_viewport_2d()
+	if viewport == null:
+		return _event.position
+	var viewport_mouse := viewport.get_mouse_position()
+	return viewport.get_canvas_transform().affine_inverse() * viewport_mouse
+
+
+func _event_position_in_container(event: InputEventMouse, container: Node2D) -> Vector2:
+	var canvas_pos := _canvas_position_from_mouse_event(event)
+	return container.get_global_transform().affine_inverse() * canvas_pos
 
 func _set_owner_recursive(node: Node, owner_node: Node) -> void:
 	node.owner = owner_node

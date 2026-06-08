@@ -1379,6 +1379,14 @@ Purpose:
 
 The Mission Paint Dock should make visual passes faster without blurring the boundary between art, collision, and mission logic.
 
+Current implementation status as of 2026-05-21:
+
+1. `addons/mission_paint_dock/` implements Mission Paint Dock v1.
+2. The dock has a safe visual paint mode plus locked layout/collision modes for Taco-style `GameplayRoot/LayoutRoot` layers.
+3. Collision barrier painting and erasing are intentionally gated behind explicit unlocks because they can affect runtime movement/blockers.
+4. This tool must still be treated as an editor aid; it does not create mission mechanics, `Area2D`, `StaticBody2D`, `CollisionShape2D`, or mission state.
+5. After any `WallLayer` or `CollisionBarrierLayer` edit, run movement/collision validation and the relevant mission-authoring tests when available.
+
 ### Manual Animation Mapper And Reviewer
 
 Use this instead of relying on generated classifier names such as `walk_best` or `run_best`.
@@ -1409,6 +1417,18 @@ Required reviewer features:
 7. Preserve rejected/questionable ranges for future review without promoting them.
 
 This tool should be part of the Phase 3 art-tool lane, not the runtime mission-authoring lane.
+
+Current implementation status as of 2026-05-22:
+
+1. `addons/character_animation_mapper/` implements Manual Animation Mapper / Reviewer v1.
+2. The dock loads PVGames/composite sheets, supports numeric/click-based range selection, previews ranges, saves reviewed JSON maps under `res://resources/character_animation_maps/`, and can generate validation-only `SpriteFrames` under `res://resources/character_animation_maps/generated_preview/`. The current dock output for Parmida is the small external-reference `character_01_parmida_reference_variant_preview_spriteframes.tres`; the older embedded `parmida_manual_preview_spriteframes.tres` is a legacy artifact and should not be auto-loaded.
+3. Large Review Canvas support now exists in `addons/character_animation_mapper/` through a grid canvas/window/helper split. It supports zooming, hover readout, linear global drag selection across row boundaries, Replace/Add/Remove selection modes, in-window labeling, preview, and dock integration.
+4. Five manual composite character sheets were generated under `res://assets/characters/generated_player_visuals/manual_5pack_20260521/` with metadata/contact preview for mapper review. They are intended as 200x200 frames on a 50x50 grid.
+5. Manual QA confirmed one reviewed `walk_toward_01` selection could be added, marked reviewed, exported to validation `SpriteFrames`, opened in the preview sandbox, and played correctly.
+6. The Large Review Canvas repair fixed the generated-sheet auto-detection and zoomed full-sheet scroll/pan defects. Manual QA confirmed 50x50 auto-detection, usable full-grid navigation, visible selection controls, save/reload behavior, reviewed `SpriteFrames` generation, and sandbox playback.
+7. The output is review data, not production promotion. Do not assign generated preview `SpriteFrames` to `player.tscn`, Taco, or shared runtime scenes without a separate promotion packet.
+8. Existing classifier outputs such as `walk_best` / `run_best` remain diagnostic-only. They may be imported later as `needs_review` suggestions, but never as automatically reviewed production truth.
+9. Next packet should sandbox-validate the reviewed manual 5-pack maps and small external-reference preview `SpriteFrames` before any production promotion packet.
 
 ### Larger Scene/Asset Browser Dock
 
@@ -1855,6 +1875,285 @@ Extend:
 ### Rule
 
 Mission effects should not directly manipulate hideout UI nodes. They should grant data or flags. Hideout controllers should read and present that state.
+
+## Complete Phase Scope Index
+
+This section is the blueprint-level source of truth for phase and subphase scope. The detailed Phase 1A-1K sections above remain the implementation-level source for the already-scoped foundation. Later phase sections may be expanded packet-by-packet, but the boundaries below should be preserved unless the roadmap is intentionally revised.
+
+### Phase 0: Protect And Extend Existing Spine
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 0A | Ownership audit | Document which existing systems own mission state, objectives, cards, dialogue, completion, save/load, security, collectibles, hideout rewards, and player/Bentley behavior. | No implementation starts until authoritative owners are known. |
+| Phase 0B | Adapter-point audit | Identify the narrowest safe adapter points around `GameState`, `QuestManager`, `CardManager`, `CardEffects`, `DialogueManager`, `MissionAlertController`, Phase0J, Phase0K, and security authoring. | No duplicate manager is proposed when an existing owner can be wrapped. |
+| Phase 0C | Baseline tests and reports | Capture current branch, dirty state, key passing test counts, canonical Taco scene, and known limitations. | Future packets can compare against a documented baseline. |
+| Phase 0D | Production safety rules | Lock down do-not-touch systems for early packets: `project.godot`, autoloads, `IsoMissionBase`, canonical Taco bag/manifest/Louis flow, Phase0J/Phase0K scripts, generated runtime collision, and unrelated scenes. | Every later packet names what it preserves. |
+| Phase 0E | Rollback strategy | Define small reversible packet boundaries and report requirements. | Each packet can be reverted without broad scene/project damage. |
+
+### Phase 1: Shared Authoring Foundation
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 1A | Mission facts | `MissionFactBridge` over current authoritative managers. | Fact reads/writes are tested without duplicate state owners. |
+| Phase 1B | Atomic requirements | `MissionRequirement` Resource. | Requirement evaluation returns consistent result dictionaries. |
+| Phase 1C | Requirement sets | `RequirementSet` Resource with all/any/none behavior. | Failure reasons are designer-readable and test-covered. |
+| Phase 1D | Atomic effects | `MissionEffect` Resource. | Effect rows are serializable, explicit, and narrow. |
+| Phase 1E | Effect sets | `EffectSet` ordered effect collection. | Ordered application and failure handling are test-covered. |
+| Phase 1F | Effect applier | `MissionEffectApplier` routing to existing systems. | Effects do not bypass existing authoritative managers. |
+| Phase 1G | Dialogue bridge | `MissionDialogueBridge`. | Mechanics can trigger dialogue without depending on implementation details. |
+| Phase 1H | Completion bridge | `MissionCompletionBridge`. | Completion/failure routes through existing completion flow. |
+| Phase 1I | Mechanic base | `MechanicAreaBase`. | One-shot, prompts, requirements, effects, debug labels, and groups work. |
+| Phase 1J | Interaction bridge | `MissionInteractionBridge`. | Candidate selection and Phase0J compatibility boundaries are validated. |
+| Phase 1K | Proof trigger | `TriggerZone` and validation room. | A placed proof node evaluates requirements and applies effects safely. |
+
+### Phase 2: Mission Construction Kit
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 2A | Objective adapter | `ObjectiveStepController` over `QuestManager`. | Objectives can activate/complete/fail without direct scattered `QuestManager` calls. |
+| Phase 2B | Extraction | `ExtractionZone` with clean/messy/failure exit effects. | Extraction can require objectives and route completion through `MissionCompletionBridge`. |
+| Phase 2C | Locks and gates | `LockedInteractionNode`. | Doors/gates/safes/terminals can be requirement-gated without one-off scripts. |
+| Phase 2D | Search | `SearchZone`. | Searchable spots can grant effects and persist searched state. |
+| Phase 2E | Containers | `InteractiveContainer`. | Open/search container patterns work without inventory UI. |
+| Phase 2F | Rewards | `RewardNode`. | Visible rewards route through `EffectSet` and existing collectible/fact systems. |
+| Phase 2G | Routes | `RouteUnlockNode`. | Routes can show/hide visuals and enable/disable local blockers deterministically. |
+| Phase 2H | Side objectives | `SideObjectiveNode`. | Optional/side objective steps use `ObjectiveStepController`. |
+| Phase 2I | Multi-instance isolation | Duplicate mechanics of the same class in one mission. | Unique IDs/flags prevent cross-contamination. |
+| Phase 2J | First production adoption | One non-critical Taco route/search/reward/extraction slice beside Phase0J. | Pilot path does not double-complete objectives or break canonical Taco flow. |
+| Phase 2K | Authoring UX entry point | Mission Authoring Palette and Mission Assist Browser planning only; implementation after core nodes stabilize. | Tooling uses existing mechanic classes, not a parallel format. |
+
+### Phase 3: Visual Tile / Asset Painting Pipeline
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 3A | Visual safety baseline | Taco visual layer taxonomy, paint-readiness checklist, screenshot bookmarks. | Visual packets know what is gameplay, visual-only, debug-only, generated, or protected. |
+| Phase 3B | South pilot readability | Scene-local visual affordances around the first plug-and-play pilot lane. | Pilot interactions are readable without changing gameplay. |
+| Phase 3C | Runtime debug residue policy | Hide generated marker labels in player-facing runtime while preserving recoverability. | Runtime labels are hidden; authoring data remains intact. |
+| Phase 3D | Security author label policy | Hide security author labels/residue at runtime while preserving author nodes. | Security authoring still works and proof labels are recoverable. |
+| Phase 3E | Security hazard readability | Player-facing hazard affordances for beams/cameras/security tests. | Hazards are readable without changing detection behavior. |
+| Phase 3F | Visual layer taxonomy | Formal fixed-Z, foreground, debug, and sortable-world layer vocabulary. | Future paint packets have shared layer rules. |
+| Phase 3G | PVGames Object Palette v2 | Brush/repeat placement, safe art-root routing, UndoRedo brush strokes, later Y-sort route awareness. | Repeated visual assets can be placed safely without one-by-one dragging. |
+| Phase 3H | Mission Paint Dock | Visual-only floor/wall/decal/foreground painting. | Paint dock cannot touch collision, mechanics, Phase0J/Phase0K, or mission state. |
+| Phase 3I | Manual animation mapper | Reviewed PVGames row/column animation maps, Large Review Canvas frame selection, and generated validation `SpriteFrames`. | Character animation labels come from manual review, not classifier guesses; full-sheet canvas zoom/scroll and 50x50 auto-detect passed manual QA, so the next gate is real reviewed-map curation and sandbox validation. |
+| Phase 3J | Sortable 2.5D pilot | Small test lane with player/NPC/sortable PVGames prop depth validation. | Player can walk in front/behind prop correctly. |
+| Phase 3K | Scene/Asset Browser planning | Read/search/select browser that unifies proven categories only after smaller tools work. | Browser does not invent categories or target routes prematurely. |
+
+Status note as of 2026-05-22, updated 2026-06-08: Phase 3G, Phase 3H, and Phase 3I each have v1 tooling in the repo. Phase 3I now has a manually validated Large Review Canvas repair: 50x50 sheet auto-detection, full-sheet zoom/scroll/pan, frame selection, JSON save/reload, reviewed preview `SpriteFrames`, and sandbox playback have been confirmed in editor QA. The dock's validation export now targets the small external-reference Parmida preview rather than the legacy embedded file. Treat these as usable editor-tool foundations, not final production pipelines. The next narrow animation step is sandbox validation of the reviewed manual 5-pack previews; the next broader Phase 3 milestone after that remains the sortable 2.5D pilot.
+
+### Phase 4: Stealth Readability And Escalation
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 4A | Alert bridge hardening | Extend `MissionAlertController` and `MissionEffectApplier` alert effects. | Alert changes remain data-driven through effects. |
+| Phase 4B | Suspicion vocabulary | Suspicion exposure, reduction, source IDs, and result dictionaries. | Suspicion can be debugged without a new global manager. |
+| Phase 4C | Visual feedback | Alert/suspicion HUD/debug/scene affordances. | Player can understand normal/suspicious/alerted/resolved states. |
+| Phase 4D | Security authoring polish | Existing beams, cameras, patrols, spawns, and area triggers use consistent outputs. | Existing D6 security authorables do not regress. |
+| Phase 4E | Camera sweep loops | Extend camera behavior only after current cameras are stable. | Camera loops are predictable and testable. |
+| Phase 4F | Hide spots | Simple safe/hiding zones gated by requirements/effects. | Hide spots interact with alert/suspicion without AI rewrite. |
+| Phase 4G | Production security slice | One mission area demonstrates detection, consequences, and recovery. | Security events activate facts/objectives/routes without hardcoded mission scripts. |
+
+### Phase 5: Inventory / Heist Kit
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 5A | Item data | `ItemData` Resource and category vocabulary. | Items are data, not hardcoded mechanic branches. |
+| Phase 5B | Mission inventory adapter | Lightweight mission-only inventory module. | Mission-only items do not pollute permanent save data. |
+| Phase 5C | Requirement/effect integration | `inventory_has_item`, `GRANT_ITEM`, `REMOVE_ITEM`, `CLEAR_MISSION_ITEMS`. | Locks/search/extraction can require or grant items. |
+| Phase 5D | Pickup mechanics | `InventoryPickupNode` or `RewardNode` integration. | Item pickups are reusable and instance-safe. |
+| Phase 5E | Debug UI | Simple inventory debug list, not a full grid UI. | Designers can inspect mission item state. |
+| Phase 5F | Persistence policy | Explicit persistent-vs-mission-only cleanup rules. | Restart/failure/success paths do not duplicate or leak items. |
+
+### Phase 6: Scheme Card Mission Modifiers
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 6A | Card fact bridge | Selected/unlocked card facts through existing `GameState`, `CardManager`, and `MissionSchemeBridge`. | Mechanics query cards through requirements, not direct hardcoded checks. |
+| Phase 6B | Mission modifier data | `MissionModifierSet` and setup effect bundles. | Card setup changes are inspectable and data-driven. |
+| Phase 6C | Card-triggered nodes | `SchemeCardTriggerNode` or equivalent placed trigger. | One selected card changes mission setup. |
+| Phase 6D | Route modifiers | Card-driven route unlocks. | Louis-style route cards can alter access without custom scene scripts. |
+| Phase 6E | Starting item/modifier hooks | Cards grant starting tools, hints, or route facts. | Card effects remain centralized and debuggable. |
+| Phase 6F | Production card slice | One real card changes a placed node in a production mission. | Card behavior is visible in debug reports and playtest. |
+
+### Phase 7: Bentley Core Verbs
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 7A | Command point base | `CompanionCommandPoint` extending `MechanicAreaBase`. | Bentley actions use requirements/effects like other mechanics. |
+| Phase 7B | Sniff | `BentleySniffTrail`. | Sniff can reveal route/clue/objective state. |
+| Phase 7C | Fetch | `BentleyFetchTarget`. | Fetch can grant an item/reward through effects. |
+| Phase 7D | Bark distraction | `BentleyBarkDistractionPoint`. | Bark produces effect/noise output without AI rewrite. |
+| Phase 7E | Crawlspace | `BentleyCrawlspaceConnector`. | Bentley can unlock/toggle a route in a controlled slice. |
+| Phase 7F | Wait marker | `BentleyWaitMarker`. | Bentley position/timing can support puzzles. |
+| Phase 7G | Card modifiers | Scheme cards adjust Bentley cooldown/range/effects through existing card systems. | Bentley card behavior is centralized and testable. |
+
+### Phase 8: Puzzle And Side Job Kit
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 8A | Terminal/hack | `TerminalHackNode` built from locked interaction patterns. | Hacking is requirement/effect-driven. |
+| Phase 8B | Power/switches | `PowerCircuitNode`, `TimedSwitchNode`, `PressurePlateNode`. | Local puzzles toggle facts/routes without custom scripts. |
+| Phase 8C | Dead drops | `DeadDropNode` for deposit/retrieve flows. | Drop state is explicit and replay-safe. |
+| Phase 8D | Object swap/carry | `ObjectSwapNode` and carry-object requirements. | Carry/swap actions use inventory/facts. |
+| Phase 8E | Bug/eavesdrop | `BugPlantNode`, `EavesdropZone`. | Timed stealth objectives are effect-driven. |
+| Phase 8F | Custom chronographic sequences | `CustomSequenceResource`, `CustomSequenceStep`, `CustomSequenceRunner`. | Ordered steps enforce first-before-second logic without a giant orchestrator. |
+| Phase 8G | First side job | One small side job assembled mostly from reusable nodes. | Side job has validation scene/report and no mission-specific script dependency. |
+| Phase 8H | Second side job | Second side job using a different node combination. | Reuse is proven across more than one scenario. |
+
+### Phase 9: Narrative And Presentation
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 9A | Dialogue key registry | Expand `MissionDialogueBridge` beyond fallback lines. | Mechanics trigger dialogue keys without knowing dialogue implementation. |
+| Phase 9B | Dialogue/bark triggers | `DialogueTriggerZone`, `BarkTrigger`, cooldown/one-shot rules. | Bark/dialogue spam is prevented. |
+| Phase 9C | Sequence runner presentation | Presentation-safe sequence steps for intro/outro/flavor beats. | Sequence runner does not own camera/player/audio directly. |
+| Phase 9D | Camera bridge | `CameraBridge` with optional PhantomCamera adapter. | Missing PhantomCamera fails safely or falls back. |
+| Phase 9E | Player control bridge | `PlayerControlBridge` for short locks/restores. | Player control always restores after interruption. |
+| Phase 9F | Audio-visual bridge | `AudioVisualBridge` with optional Resonant adapter. | Resonant remains presentation-only and not mission-state authority. |
+| Phase 9G | Mission intro/outro hooks | Data-driven start/end beats. | Intro/outro trigger from mission state without custom mission scripts. |
+| Phase 9H | Microcutscene decision gate | Add `MicroCutscenePlayer` only if sequence runner is too small. | No overlapping presentation systems are created prematurely. |
+
+### Phase 10: Social Stealth Identity
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 10A | Social fact vocabulary | Cover story, credential, protocol, believable task, professionalism facts. | Social state starts as mission facts/effects. |
+| Phase 10B | Credential data | `CredentialData` and simple inspection requirements. | Inspection can check credentials without NPC rewrite. |
+| Phase 10C | Cover story data | `CoverStoryData` and requirement integration. | Plausible reason-to-be-there gates can be authored. |
+| Phase 10D | Inspection zones | `InspectionZone`. | NPC/security zone accepts/rejects player using data. |
+| Phase 10E | Believable tasks | `BelievableTaskZone`. | Performing tasks can reduce suspicion or unlock routes. |
+| Phase 10F | Protocol/cleanliness | `ProtocolZone`, `CleanlinessGate`, simple professionalism meter. | Social/protocol outcomes affect mission facts/results. |
+| Phase 10G | First social stealth slice | One mission area proves believable-action gameplay. | Player can pass through social logic without combat/AI overhaul. |
+
+### Phase 11: Paper Trail / Deniability
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 11A | Trace event schema | Trace IDs, source IDs, type, severity, cleanup eligibility. | Trace events are inspectable and namespaced. |
+| Phase 11B | Trace recording adapter | Paper-trail adapter over mission facts/results. | Evidence/trace does not require new global state first. |
+| Phase 11C | Cleanup mechanics | `AuditTrailCleanupNode`, wipe/cleanup effects. | Player can reduce or clear specific trace events. |
+| Phase 11D | Heat sink objects | `HeatSinkObject` or equivalent plausible misdirection. | Trace can be redirected or weakened through authored mechanics. |
+| Phase 11E | Door/action memory | `DoorStateMemoryNode` and suspicious-state facts. | Player actions can affect deniability. |
+| Phase 11F | Result summary integration | Mission result reflects clean/messy/explainable/seen states. | Trace affects results before complex NPC behavior. |
+
+### Phase 12: Hideout Cozy Meta
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 12A | Reward-to-hideout contract | Define which mission rewards become hideout-visible state. | Mission effects grant data, not direct UI mutations. |
+| Phase 12B | Plant data | Plant Resource and growth stage data. | Plant state is save/load-safe. |
+| Phase 12C | Care station improvements | Extend existing care/store/hideout controllers. | Hideout controllers own UI and interactions. |
+| Phase 12D | Mission-return hooks | Growth/reward triggers after mission completion. | Rewards apply after success, not failure/restart. |
+| Phase 12E | Dialogue/reward flavor | Plant/Bentley/hideout dialogue tied to rewards. | Flavor uses dialogue bridge/provider patterns. |
+| Phase 12F | Save/load and regression | Full save/load validation for cozy meta changes. | Hideout state persists cleanly. |
+
+### Phase 13: Encounter / Boss Challenges
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 13A | Encounter design contract | Define non-HP challenge principles: stealth, social, route, evidence, Bentley, deniability. | Encounter work does not default to traditional combat. |
+| Phase 13B | Encounter data | `EncounterPhaseData` and challenge meter definitions. | Encounter phase logic is data-driven. |
+| Phase 13C | Encounter controller | `EncounterController` that reads facts/objectives/effects. | Controller does not duplicate objective or alert managers. |
+| Phase 13D | Challenge objective nodes | `ChallengeObjectiveNode` and phase-gated mechanic integration. | Challenge steps reuse mission-authoring mechanics. |
+| Phase 13E | Meter integration | Suspicion, security integrity, evidence strength, Bentley confidence, deniability meters. | Meters derive from existing facts/events. |
+| Phase 13F | First challenge prototype | One contained encounter validation scene. | Player can win through authored systems, not HP combat. |
+| Phase 13G | Production challenge gate | Only after side jobs/social/paper trail are stable. | No production boss challenge begins before required systems exist. |
+
+### Phase 14: Advanced Reactive NPC/Social Systems
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 14A | AI readiness audit | Identify what current guards/NPCs/social systems cannot express. | LimboAI is justified by concrete needs, not novelty. |
+| Phase 14B | LimboAI adapter spike | Optional behavior-tree/state-machine adapter behind project-owned interfaces. | Existing guards/security do not depend directly on plugin APIs. |
+| Phase 14C | Witness/courier prototype | A small witness courier or routine NPC scenario. | NPC behavior reacts to facts/events without global rewrite. |
+| Phase 14D | Gossip/authority chain | Gossip propagation and authority escalation as bounded experiments. | Social propagation remains debuggable and capped. |
+| Phase 14E | Routine tampering/emergency drill | Advanced reactive scenarios after simpler social stealth works. | Systems degrade safely when events are missing. |
+| Phase 14F | Attention budget/cascading failure | Bounded simulation rules to avoid runaway behavior. | Debug panels show why reactions happen. |
+| Phase 14G | Production adoption gate | Only after NPC, suspicion, social stealth, route, and fact systems are stable. | Plugin dependency and fallback policy are documented. |
+
+## Phase 13: Encounter / Boss Challenge Layer
+
+### Timing
+
+Implement after mission construction, inventory, cards, suspicion/alert, Bentley, puzzle/side jobs, narrative presentation, social stealth, paper trail, and at least one hideout reward loop are stable enough to support a larger challenge.
+
+### Future Files
+
+| Future File | Class Name | Type | Purpose |
+|---|---|---|---|
+| `src/missions/iso/encounters/EncounterPhaseData.gd` | `EncounterPhaseData` | `Resource` | Data for one challenge phase: requirements, objectives, effects, meter thresholds, and transition rules. |
+| `src/missions/iso/encounters/EncounterController.gd` | `EncounterController` | `Node` | Mission-local controller that advances phases based on facts/objectives/effects. |
+| `src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd` | `ChallengeObjectiveNode` | `MechanicAreaBase` | Placed objective node for challenge-specific actions. |
+| `src/missions/iso/encounters/ChallengeMeterData.gd` | `ChallengeMeterData` | `Resource` | Defines meter id, display name, min/max, warning thresholds, and result mapping. |
+
+### Initial Meter Vocabulary
+
+Use these meters before inventing combat health:
+
+1. Suspicion pressure.
+2. Security integrity.
+3. Evidence strength.
+4. Bentley confidence or support readiness.
+5. Plausible deniability.
+6. Route control.
+
+### Rules
+
+1. Encounter phases must read facts/objectives/effects instead of owning parallel mission state.
+2. Encounter controllers are mission-local, not new global autoloads.
+3. Challenge nodes should reuse `MechanicAreaBase`, `RequirementSet`, and `EffectSet` whenever possible.
+4. Traditional HP combat is not the default challenge model.
+5. A validation scene must prove phase advancement before production adoption.
+
+### Done Criteria
+
+1. A challenge progresses through phases using existing mission facts/objectives/effects.
+2. The player can win through stealth, social, route, evidence, Bentley, or deniability play.
+3. Encounter state is debuggable in a report or debug panel.
+4. No duplicate objective, alert, card, inventory, or completion manager is introduced.
+
+## Phase 14: Advanced Reactive NPC / Social Systems
+
+### Timing
+
+Defer until NPC, suspicion, social stealth, route, fact, card, Bentley, and security authoring systems are stable. This phase is intentionally late because it can become a large behavior-system rewrite if started too early.
+
+### LimboAI Policy
+
+LimboAI is appropriate only when concrete reactive NPC behavior exceeds the current authored security/Bentley/mission fact approach.
+
+Initial LimboAI work must be behind a project-owned adapter. Do not call LimboAI APIs directly from mission mechanics, effects, or production scene scripts.
+
+### Future Files
+
+| Future File | Class Name | Type | Purpose |
+|---|---|---|---|
+| `src/missions/iso/ai/ReactiveNpcBrainAdapter.gd` | `ReactiveNpcBrainAdapter` | `Node` | Thin wrapper around behavior-tree/state-machine implementation. |
+| `src/missions/iso/ai/NpcAttentionBudget.gd` | `NpcAttentionBudget` | `Resource` or helper | Caps how much reactive behavior can cascade at once. |
+| `src/missions/iso/ai/SocialSignalEvent.gd` | `SocialSignalEvent` | `Resource` or dictionary schema | Describes gossip, witness, suspicion, and authority-chain events. |
+| `src/missions/iso/authoring/mechanics/InvestigationPointNode.gd` | `InvestigationPointNode` | `MechanicAreaBase` | Places bounded points NPCs can inspect after events. |
+
+### First Prototype Candidates
+
+1. Witness courier walks to a manager/security point after seeing suspicious action.
+2. Routine tampering causes an NPC to investigate a specific authored point.
+3. Emergency drill temporarily changes routes and inspection rules.
+4. Gossip event raises suspicion only inside a bounded zone.
+
+### Rules
+
+1. Start with one validation scene, not production Taco.
+2. Keep behavior bounded and debuggable.
+3. Preserve existing security authorables and event routing.
+4. Use mission facts/events as the interface between AI and mission systems.
+5. Provide fallback behavior when LimboAI is absent or disabled.
+6. Do not create open-ended gossip/cascading systems without caps, cooldowns, and debug output.
+
+### Done Criteria
+
+1. One advanced NPC/social scenario reacts to authored mission facts/events.
+2. Behavior is inspectable in debug output.
+3. LimboAI dependency is optional or clearly gated.
+4. Existing guard/security/Bentley systems continue to work without behavior-tree dependency.
 
 ## Resource Authoring Naming Conventions
 
@@ -2392,6 +2691,8 @@ Do not start these until Packet 6 proves at least one non-critical production sl
 9. `CameraBridge` with optional PhantomCamera integration.
 10. `PlayerControlBridge` for short sequence control.
 
+2026-05-22 progress note: PVGames Object Palette v2, Mission Paint Dock v1, and Manual Animation Mapper v1.3 now exist as focused editor tools. The Manual Animation Mapper has a repaired Large Review Canvas and successfully validated one reviewed `walk_toward_01` range through generated preview `SpriteFrames` in the sandbox. Production animation wiring is intentionally deferred to a separate promotion packet. The next animation gate is real reviewed-map curation from the manual 5-pack sheets, not production runtime wiring.
+
 ## Anti-Patterns To Avoid
 
 1. Do not add one script per mission-specific locked door.
@@ -2457,6 +2758,8 @@ After that foundation is validated, implement editor and presentation tooling in
 4. Mission Authoring Palette.
 5. Mission Assist Browser and core gizmos.
 6. Larger Scene/Asset Browser.
+
+Current status as of 2026-05-22: Items 1-3 have v1 implementations, and the immediate Large Review Canvas auto-detection/full-sheet scroll repair has passed manual QA. Before item 4, finish the animation review gate: curate a small reviewed map from the manual 5-pack sheets, generate validation-only `SpriteFrames`, and validate them in a sandbox without touching production player/Taco scenes.
 7. Custom chronographic sequences.
 8. `AudioVisualBridge` plus optional Resonant integration.
 9. `CameraBridge` plus optional PhantomCamera integration.

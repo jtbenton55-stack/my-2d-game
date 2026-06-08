@@ -1,0 +1,236 @@
+{
+	"schema_version": 1,
+	"source_map": "res://resources/character_animation_maps/character__working_manual_map.json",
+	"generated_at": "2026-06-06T20:38:56",
+	"high_confidence_added": [
+		"eating_away_right_01",
+		"sit_away_01",
+		"death_toward_01",
+		"death_right_01",
+		"land_away_left_01",
+		"punch_away_right_02",
+		"punch_down_toward_right_01"
+	],
+	"high_confidence_skipped": [],
+	"needs_visual_review": [
+		{
+			"issue_type": "incomplete_direction_group",
+			"title": "crouch_04 incomplete directions",
+			"group": "crouch_04",
+			"present_directions": [
+				"toward",
+				"right",
+				"away_left",
+				"left"
+			],
+			"missing_directions": [
+				"toward_right",
+				"away_right",
+				"away",
+				"toward_left"
+			],
+			"start_frame": 968,
+			"end_frame": 979,
+			"frames": [
+				968,
+				969,
+				970,
+				971,
+				972,
+				973,
+				974,
+				975,
+				976,
+				977,
+				978,
+				979
+			],
+			"note": "Structurally incomplete; visually inspect nearby unused frames 986..991."
+		},
+		{
+			"issue_type": "incomplete_direction_group",
+			"title": "crouch_05 incomplete directions",
+			"group": "crouch_05",
+			"present_directions": [
+				"toward",
+				"away_left"
+			],
+			"missing_directions": [
+				"toward_right",
+				"right",
+				"away_right",
+				"away",
+				"left",
+				"toward_left"
+			],
+			"start_frame": 980,
+			"end_frame": 985,
+			"frames": [
+				980,
+				981,
+				982,
+				983,
+				984,
+				985
+			],
+			"note": "Only two directions mapped; visually inspect whether this is intentionally partial."
+		},
+		{
+			"issue_type": "naming_variant_mismatch",
+			"title": "idle_11 / idle_12 variant suspicion",
+			"group": "idle_11_idle_12",
+			"start_frame": 896,
+			"end_frame": 1167,
+			"frames": [
+				896,
+				897,
+				1128,
+				1129,
+				1130,
+				1131,
+				1132,
+				1133,
+				1134,
+				1135,
+				1136,
+				1137,
+				1138,
+				1139,
+				1140,
+				1141,
+				1142,
+				1143,
+				1144,
+				1145,
+				1146,
+				1147,
+				1148,
+				1149,
+				1150,
+				1151,
+				1152,
+				1153,
+				1154,
+				1155,
+				1156,
+				1157,
+				1158,
+				1159,
+				1160,
+				1161,
+				1162,
+				1163,
+				1164,
+				1165,
+				1166,
+				1167
+			],
+			"note": "idle_toward_12 at 1128..1132 may belong with idle_*_11 at 1133..1167; idle_toward_11 at 896..897 overlaps dodge_toward_01."
+		}
+	],
+	"duplicate_frame_warnings": [
+		{
+			"issue_type": "duplicate_frame",
+			"title": "Duplicate frame use: 896..897",
+			"frames": [
+				896,
+				897
+			],
+			"start_frame": 896,
+			"end_frame": 897,
+			"animations": [
+				"idle_toward_11",
+				"dodge_toward_01"
+			],
+			"note": "Same frame(s) assigned to multiple animations."
+		},
+		{
+			"issue_type": "duplicate_frame",
+			"title": "Duplicate frame use: 1904..1904",
+			"frames": [
+				1904
+			],
+			"start_frame": 1904,
+			"end_frame": 1904,
+			"animations": [
+				"punch_away_right_03",
+				"kick_toward_01"
+			],
+			"note": "Same frame(s) assigned to multiple animations."
+		}
+	],
+	"unassigned_frame_ranges": [
+		{
+			"start_frame": 986,
+			"end_frame": 991,
+			"frame_count": 6,
+			"start_row": 19,
+			"start_column": 36,
+			"end_row": 19,
+			"end_column": 41
+		},
+		{
+			"start_frame": 1040,
+			"end_frame": 1064,
+			"frame_count": 25,
+			"start_row": 20,
+			"start_column": 40,
+			"end_row": 21,
+			"end_column": 14
+		},
+		{
+			"start_frame": 1216,
+			"end_frame": 1479,
+			"frame_count": 264,
+			"start_row": 24,
+			"start_column": 16,
+			"end_row": 29,
+			"end_column": 29
+		},
+		{
+			"start_frame": 1544,
+			"end_frame": 1583,
+			"frame_count": 40,
+			"start_row": 30,
+			"start_column": 44,
+			"end_row": 31,
+			"end_column": 33
+		},
+		{
+			"start_frame": 1632,
+			"end_frame": 1863,
+			"frame_count": 232,
+			"start_row": 32,
+			"start_column": 32,
+			"end_row": 37,
+			"end_column": 13
+		},
+		{
+			"start_frame": 1928,
+			"end_frame": 2119,
+			"frame_count": 192,
+			"start_row": 38,
+			"start_column": 28,
+			"end_row": 42,
+			"end_column": 19
+		},
+		{
+			"start_frame": 2144,
+			"end_frame": 2271,
+			"frame_count": 128,
+			"start_row": 42,
+			"start_column": 44,
+			"end_row": 45,
+			"end_column": 21
+		},
+		{
+			"start_frame": 2496,
+			"end_frame": 2499,
+			"frame_count": 4,
+			"start_row": 49,
+			"start_column": 46,
+			"end_row": 49,
+			"end_column": 49
+		}
+	]
+}

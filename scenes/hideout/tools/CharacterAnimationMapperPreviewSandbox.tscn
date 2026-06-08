@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dnyn640gycqbx"]
+
+[ext_resource type="Script" uid="uid://dl6wo08lntgd0" path="res://src/tools/editor/CharacterAnimationMapperPreviewSandbox.gd" id="1_sandbox"]
+
+[node name="CharacterAnimationMapperPreviewSandbox" type="Node2D" unique_id=282979266]
+script = ExtResource("1_sandbox")
+auto_play = false
+
+[node name="Background" type="Polygon2D" parent="." unique_id=1384892451]
+z_index = -10
+color = Color(0.08, 0.09, 0.12, 1)
+polygon = PackedVector2Array(-40, -40, 900, -40, 900, 520, -40, 520)
+
+[node name="Title" type="Label" parent="." unique_id=1576837700]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 880.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 16
+text = "Character Animation Mapper — Validation Preview Sandbox (NOT production)"
+
+[node name="UI" type="VBoxContainer" parent="." unique_id=1993735968]
+offset_left = 16.0
+offset_top = 52.0
+offset_right = 880.0
+offset_bottom = 200.0
+
+[node name="PathLabel" type="Label" parent="UI" unique_id=1604002903]
+layout_mode = 2
+text = "SpriteFrames: (loading)"
+autowrap_mode = 3
+
+[node name="PreviewRow" type="HBoxContainer" parent="UI" unique_id=574293422]
+layout_mode = 2
+
+[node name="PreviewLabel" type="Label" parent="UI/PreviewRow" unique_id=1442849955]
+layout_mode = 2
+text = "Preview character"
+
+[node name="PreviewOptionButton" type="OptionButton" parent="UI/PreviewRow" unique_id=887801063]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LoadPreviewButton" type="Button" parent="UI/PreviewRow"]
+layout_mode = 2
+text = "Load Preview"
+
+[node name="StatusLabel" type="Label" parent="UI" unique_id=1097986536]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.75, 0.35, 1)
+text = "Status"
+autowrap_mode = 3
+
+[node name="AnimRow" type="HBoxContainer" parent="UI" unique_id=400273193]
+layout_mode = 2
+
+[node name="AnimLabel" type="Label" parent="UI/AnimRow" unique_id=364754674]
+layout_mode = 2
+text = "Animation"
+
+[node name="AnimOptionButton" type="OptionButton" parent="UI/AnimRow" unique_id=1066009434]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayButton" type="Button" parent="UI/AnimRow" unique_id=1417504209]
+layout_mode = 2
+text = "Play"
+
+[node name="StopButton" type="Button" parent="UI/AnimRow" unique_id=1266857914]
+layout_mode = 2
+text = "Stop"
+
+[node name="InfoLabel" type="Label" parent="UI" unique_id=963336770]
+layout_mode = 2
+text = "Info"
+autowrap_mode = 3
+
+[node name="PreviewColumn" type="Node2D" parent="." unique_id=489433562]
+position = Vector2(320, 280)
+
+[node name="PreviewLabel" type="Label" parent="PreviewColumn" unique_id=797457136]
+offset_left = -120.0
+offset_top = -200.0
+offset_right = 120.0
+offset_bottom = -170.0
+text = "AnimatedSprite2D preview"
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PreviewColumn" unique_id=1272295181]
+texture_filter = 1
+scale = Vector2(1.35, 1.35)

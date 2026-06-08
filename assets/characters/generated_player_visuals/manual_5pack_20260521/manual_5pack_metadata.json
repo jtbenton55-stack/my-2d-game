@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "tool": "character_animation_generate_manual_5pack.py",
+  "frame_width": 200,
+  "frame_height": 200,
+  "columns": 50,
+  "rows": 50,
+  "total_frames_per_character": 2500,
+  "output_dir": "assets/characters/generated_player_visuals/manual_5pack_20260521",
+  "contact_sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/manual_5pack_contact_sheet_preview.png",
+  "characters": [
+    {
+      "id": "character_01_parmida_reference_variant",
+      "display_name": "Parmida reference variant",
+      "gender": "Female",
+      "description": "Close to the existing Parmida diagnostic stack, kept as a continuity/reference character.",
+      "sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/character_01_parmida_reference_variant_sheet.png",
+      "frame_width": 200,
+      "frame_height": 200,
+      "columns": 50,
+      "rows": 50,
+      "total_frames": 2500,
+      "layers": [
+        {
+          "role": "base",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_3/Spritesheet.png"
+        },
+        {
+          "role": "bottoms",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_13/Spritesheet.png"
+        },
+        {
+          "role": "tops",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_24/Spritesheet.png"
+        },
+        {
+          "role": "head",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_4/Spritesheet.png"
+        },
+        {
+          "role": "hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_7/Spritesheet.png"
+        },
+        {
+          "role": "accessories",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Accessories/CyberCity_2/Spritesheet.png"
+        }
+      ],
+      "metrics": {
+        "alpha_bbox_full_sheet": [
+          37,
+          50,
+          9964,
+          9961
+        ],
+        "alpha_coverage_full_sheet": 0.043531,
+        "first_frame_alpha_bbox": [
+          80,
+          56,
+          122,
+          148
+        ],
+        "first_frame_alpha_coverage": 0.045196
+      }
+    },
+    {
+      "id": "character_02_neon_runner",
+      "display_name": "Neon runner",
+      "gender": "Female",
+      "description": "High-contrast runner look with different base, outfit, hair, and accessory layers.",
+      "sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/character_02_neon_runner_sheet.png",
+      "frame_width": 200,
+      "frame_height": 200,
+      "columns": 50,
+      "rows": 50,
+      "total_frames": 2500,
+      "layers": [
+        {
+          "role": "base",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_1/Spritesheet.png"
+        },
+        {
+          "role": "bottoms",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_5/Spritesheet.png"
+        },
+        {
+          "role": "tops",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_9/Spritesheet.png"
+        },
+        {
+          "role": "head",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_8/Spritesheet.png"
+        },
+        {
+          "role": "hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_14/Spritesheet.png"
+        },
+        {
+          "role": "accessories",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Accessories/CyberCity_9/Spritesheet.png"
+        }
+      ],
+      "metrics": {
+        "alpha_bbox_full_sheet": [
+          37,
+          47,
+          9964,
+          9966
+        ],
+        "alpha_coverage_full_sheet": 0.04351,
+        "first_frame_alpha_bbox": [
+          80,
+          55,
+          122,
+          150
+        ],
+        "first_frame_alpha_coverage": 0.044921
+      }
+    },
+    {
+      "id": "character_03_cyber_tech",
+      "display_name": "Cyber tech",
+      "gender": "Female",
+      "description": "Tech-oriented female variant with weapon layer for silhouette/accessory review.",
+      "sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/character_03_cyber_tech_sheet.png",
+      "frame_width": 200,
+      "frame_height": 200,
+      "columns": 50,
+      "rows": 50,
+      "total_frames": 2500,
+      "layers": [
+        {
+          "role": "base",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Base/CyberCity_5/Spritesheet.png"
+        },
+        {
+          "role": "bottoms",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Bottoms/CyberCity_18/Spritesheet.png"
+        },
+        {
+          "role": "tops",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Tops/CyberCity_17/Spritesheet.png"
+        },
+        {
+          "role": "head",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Head/CyberCity_12/Spritesheet.png"
+        },
+        {
+          "role": "hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Hair/CyberCity_3/Spritesheet.png"
+        },
+        {
+          "role": "accessories",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_1/CyberCity Character Creator Kit/Female/Accessories/CyberCity_13/Spritesheet.png"
+        },
+        {
+          "role": "weapon",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_2/CyberCity Character Creator Kit/Female/Weapons/CyberCity_2/Spritesheet.png"
+        }
+      ],
+      "metrics": {
+        "alpha_bbox_full_sheet": [
+          37,
+          49,
+          9964,
+          9960
+        ],
+        "alpha_coverage_full_sheet": 0.041931,
+        "first_frame_alpha_bbox": [
+          80,
+          56,
+          122,
+          148
+        ],
+        "first_frame_alpha_coverage": 0.045305
+      }
+    },
+    {
+      "id": "character_04_street_bruiser",
+      "display_name": "Street bruiser",
+      "gender": "Male",
+      "description": "Male variant with facial hair, accessory, and weapon layers for a heavier street silhouette.",
+      "sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/character_04_street_bruiser_sheet.png",
+      "frame_width": 200,
+      "frame_height": 200,
+      "columns": 50,
+      "rows": 50,
+      "total_frames": 2500,
+      "layers": [
+        {
+          "role": "base",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Base/CyberCity_4/Spritesheet.png"
+        },
+        {
+          "role": "bottoms",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Bottoms/CyberCity_16/Spritesheet.png"
+        },
+        {
+          "role": "tops",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Tops/CyberCity_19/Spritesheet.png"
+        },
+        {
+          "role": "head",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Head/CyberCity_6/Spritesheet.png"
+        },
+        {
+          "role": "hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Hair/CyberCity_5/Spritesheet.png"
+        },
+        {
+          "role": "facial_hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/FacialHair/CyberCity_2/Spritesheet.png"
+        },
+        {
+          "role": "accessories",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Accessories/CyberCity_11/Spritesheet.png"
+        },
+        {
+          "role": "weapon",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Weapons/CyberCity_3/Spritesheet.png"
+        }
+      ],
+      "metrics": {
+        "alpha_bbox_full_sheet": [
+          30,
+          43,
+          9973,
+          9962
+        ],
+        "alpha_coverage_full_sheet": 0.07992,
+        "first_frame_alpha_bbox": [
+          80,
+          51,
+          125,
+          152
+        ],
+        "first_frame_alpha_coverage": 0.074509
+      }
+    },
+    {
+      "id": "character_05_nocturne_guard",
+      "display_name": "Nocturne guard",
+      "gender": "Male",
+      "description": "Male guard/security-style variant with a different base, clothing set, hair, accessory, and weapon.",
+      "sheet_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/character_05_nocturne_guard_sheet.png",
+      "frame_width": 200,
+      "frame_height": 200,
+      "columns": 50,
+      "rows": 50,
+      "total_frames": 2500,
+      "layers": [
+        {
+          "role": "base",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Base/CyberCity_2/Spritesheet.png"
+        },
+        {
+          "role": "bottoms",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Bottoms/CyberCity_8/Spritesheet.png"
+        },
+        {
+          "role": "tops",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Tops/CyberCity_7/Spritesheet.png"
+        },
+        {
+          "role": "head",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Head/CyberCity_10/Spritesheet.png"
+        },
+        {
+          "role": "hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Hair/CyberCity_9/Spritesheet.png"
+        },
+        {
+          "role": "facial_hair",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/FacialHair/CyberCity_1/Spritesheet.png"
+        },
+        {
+          "role": "accessories",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_3/CyberCity Character Creator Kit/Male/Accessories/CyberCity_4/Spritesheet.png"
+        },
+        {
+          "role": "weapon",
+          "source_sheet": "assets/characters/pvgames_cyber_city_character_creator_kit/CyberCity_CharacterCreatorKit_4/CyberCity Character Creator Kit/Male/Weapons/CyberCity_6/Spritesheet.png"
+        }
+      ],
+      "metrics": {
+        "alpha_bbox_full_sheet": [
+          30,
+          44,
+          9966,
+          9962
+        ],
+        "alpha_coverage_full_sheet": 0.055084,
+        "first_frame_alpha_bbox": [
+          77,
+          52,
+          125,
+          151
+        ],
+        "first_frame_alpha_coverage": 0.061416
+      }
+    }
+  ],
+  "metadata_path": "assets/characters/generated_player_visuals/manual_5pack_20260521/manual_5pack_metadata.json"
+}

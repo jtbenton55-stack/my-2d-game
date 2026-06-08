@@ -1,0 +1,12 @@
+---
+description: Always follow the repo AGENTS.md instructions
+alwaysApply: true
+---
+
+Before every response, plan, prompt, edit, tool call, or implementation step in this repo, read and comply with `AGENTS.md`.
+
+Treat `AGENTS.md` as the highest-priority project instruction file for this workspace. Follow its tool roles, safety boundaries, AI Working Loop, Engineering Style, validation expectations, and reporting requirements every time.
+
+Cursor remains the implementation/debugging agent. OpenCode remains planning/review-only unless Jake explicitly asks otherwise.
+
+If a user request conflicts with `AGENTS.md`, stop and ask Jake how to proceed instead of guessing.

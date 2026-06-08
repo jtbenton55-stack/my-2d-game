@@ -1268,6 +1268,18 @@ Do not rely on ad hoc child `Sprite2D.z_index` offsets such as `-90` as the prim
 4. Pilot a sortable 2.5D prop lane in Taco with pivot/contact-point validation.
 5. Build the larger Scene/Asset Browser only after the smaller tools prove their asset categories and target routes.
 
+### Phase 3 Tooling Status As Of 2026-05-22
+
+The first focused editor tools now exist, but several still need manual validation and production follow-up packets before they should be treated as final pipeline infrastructure.
+
+| Tool | Current status | Notes / next gate |
+|---|---|---|
+| PVGames Object Palette v2 | Implemented enough for brush/repeat placement | Brush mode, axis lock, UndoRedo, and visible-bounds auto spacing are available. Remaining route/Y-sort awareness, jitter, rectangle/scatter, and erase-created-by-palette modes are future improvements. |
+| Mission Paint Dock v1 | Implemented enough for manual paint/blockout testing | Includes visual paint mode plus locked layout/collision modes for `GameplayRoot/LayoutRoot` layers. Collision barrier erase was repaired after playtest. Keep collision edits explicit and validate movement after use. |
+| Manual Animation Mapper / Reviewer v1.3 | Implemented as an editor-only review dock with manually validated Large Review Canvas repair | Loads PVGames/composite sheets, saves reviewed JSON maps, and can generate validation-only `SpriteFrames`. The dock now writes the small external-reference Parmida preview at `res://resources/character_animation_maps/generated_preview/character_01_parmida_reference_variant_preview_spriteframes.tres`; the old embedded `parmida_manual_preview_spriteframes.tres` is legacy/unsafe for auto-loading. The Large Review Canvas now supports zoom, full-sheet scroll/pan, hover readout, linear global drag selection, in-window labeling, and preview on the generated 50x50 manual 5-pack sheets. Manual QA confirmed 50x50 auto-detection, usable zoom/scroll/pan, clear selection workflow, JSON save/reload, reviewed `SpriteFrames` generation, and sandbox playback. It still must not promote animations to `player.tscn`, Taco, or runtime controllers without a separate production promotion packet. |
+
+Current animation gate: the reviewed manual 5-pack maps and small preview `SpriteFrames` should be sandbox-validated before production runtime wiring. Only after reviewed maps validate should a separate production promotion packet wire animations into player/runtime scenes. The next broader Phase 3 milestone after mapper validation remains the sortable 2.5D pilot.
+
 ### Proposed Visual Depth Bands
 
 The initial authoring vocabulary should be:
@@ -1631,20 +1643,22 @@ This is the recommended first implementation sequence:
 11. `RouteUnlockNode`.
 12. PVGames Object Palette v2 brush/repeat placement and Y-sort route awareness.
 13. Mission Paint Dock for visual-only floor/wall/decal/foreground passes.
-14. Manual PVGames character animation mapper/reviewer.
-15. Taco visual readability / tile painting pass, including a first Y-sortable 2.5D visual lane.
-16. Mission Authoring Palette.
-17. Mission Assist Browser and core gizmos.
-18. Heist-kit inventory.
-19. Scheme card facts/modifiers.
-20. Suspicion/alarm wrapper.
-21. Bentley `CompanionCommandPoint`.
-22. Noise/distraction.
-23. First side job.
-24. Custom chronographic sequences.
-25. `AudioVisualBridge` with optional Resonant integration.
-26. `CameraBridge` with optional PhantomCamera integration.
-27. `PlayerControlBridge` for sequence control.
+14. Manual PVGames character animation mapper/reviewer foundation.
+15. Reviewed animation-map curation for the manual 5-pack sheets using the repaired Large Review Canvas.
+16. Sandbox validation of generated animation `SpriteFrames`, then a separate production promotion decision.
+17. Taco visual readability / tile painting pass, including a first Y-sortable 2.5D visual lane.
+18. Mission Authoring Palette.
+19. Mission Assist Browser and core gizmos.
+20. Heist-kit inventory.
+21. Scheme card facts/modifiers.
+22. Suspicion/alarm wrapper.
+23. Bentley `CompanionCommandPoint`.
+24. Noise/distraction.
+25. First side job.
+26. Custom chronographic sequences.
+27. `AudioVisualBridge` with optional Resonant integration.
+28. `CameraBridge` with optional PhantomCamera integration.
+29. `PlayerControlBridge` for sequence control.
 
 ## Strategic Identity
 

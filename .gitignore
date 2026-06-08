@@ -52,6 +52,9 @@ reports/**/vendor/
 *.tar.gz
 *.tgz
 
+# Local legacy embedded animation preview; too large for GitHub and superseded by external-reference previews.
+resources/character_animation_maps/generated_preview/parmida_manual_preview_spriteframes.tres
+
 # Windows shell metadata
 Thumbs.db
 Desktop.ini

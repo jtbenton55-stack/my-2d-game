@@ -1,0 +1,73 @@
+{
+	"animations": [
+		{
+			"animation_name": "needs_review_idle",
+			"end_frame": 431,
+			"fps": 8.0,
+			"frames": [
+				420,
+				421,
+				422,
+				423,
+				424,
+				425,
+				426,
+				427,
+				428,
+				429,
+				430,
+				431
+			],
+			"loop": true,
+			"notes": "Phase3I validation sample from row 35",
+			"review_status": "needs_review",
+			"row_column_ranges": [
+				{
+					"end_column": 11,
+					"end_row": 35,
+					"start_column": 0,
+					"start_row": 35
+				}
+			],
+			"start_frame": 420
+		},
+		{
+			"animation_name": "walk",
+			"end_frame": 455,
+			"fps": 10.0,
+			"frames": [
+				444,
+				445,
+				446,
+				447,
+				448,
+				449,
+				450,
+				451,
+				452,
+				453,
+				454,
+				455
+			],
+			"loop": true,
+			"notes": "Phase3I validation sample from row 37",
+			"review_status": "reviewed",
+			"row_column_ranges": [
+				{
+					"end_column": 11,
+					"end_row": 37,
+					"start_column": 0,
+					"start_row": 37
+				}
+			],
+			"start_frame": 444
+		}
+	],
+	"columns": 12,
+	"frame_height": 200,
+	"frame_width": 200,
+	"rows": 2,
+	"schema_version": 1,
+	"source_sheet": "res://assets/characters/generated_player_visuals/c2b_full_animation/parmida_player_composite_sheet_0mc2b.png",
+	"tool": "CharacterAnimationMapperDock"
+}
