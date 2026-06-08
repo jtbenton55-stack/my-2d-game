@@ -1,3 +1,4 @@
+@tool
 extends Window
 
 const MAPPER_HELPERS := preload("res://addons/character_animation_mapper/CharacterAnimationMapperHelpers.gd")

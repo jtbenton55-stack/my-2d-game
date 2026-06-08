@@ -1,3 +1,4 @@
+@tool
 extends Window
 
 const GridCanvasScript := preload("res://addons/character_animation_mapper/CharacterAnimationGridCanvas.gd")

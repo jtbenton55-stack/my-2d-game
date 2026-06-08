@@ -1243,7 +1243,7 @@ func _sanitize_filename(name: String) -> String:
 		base += ".json"
 	var safe := ""
 	for c in base:
-		if c.is_valid_identifier() or c == '.' or c == '-' or c == '_':
+		if c.is_valid_identifier() or c.is_valid_int() or c == '.' or c == '-' or c == '_':
 			safe += c
 		elif c == ' ':
 			safe += "_"
