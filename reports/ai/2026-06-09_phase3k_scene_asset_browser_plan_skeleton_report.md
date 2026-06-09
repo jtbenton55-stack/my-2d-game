@@ -55,7 +55,8 @@ Plan Phase 3K and add the first read-only Scene/Asset Browser editor dock skelet
 
 - `python src\tools\editor\phase3k_scene_asset_browser\phase3k_scene_asset_browser_static_validator.py` — PASS.
 - `git diff --check` — PASS.
-- Godot editor/MCP runtime validation — not run in this environment.
+- Godot editor manual validation — PASS, confirmed by Jake on 2026-06-09.
+- Godot MCP runtime validation — not run in this environment.
 - Godot CLI parse check — not run; `godot` is not available on `PATH` in this shell.
 - Godot LSP diagnostics — not run in this environment.
 - GdUnit4 — not run; this pass adds an editor dock skeleton and does not touch mission-authoring runtime scripts.
@@ -91,10 +92,10 @@ Second follow-up fix applied:
 
 ## Known Limitations
 
-- Runtime/editor validation has not yet been performed in this report.
+- Editor validation is complete, but Godot MCP runtime/editor inspection was not available from this environment.
 - The first skeleton keeps category loading in one dock script; providers can be split later if needed.
 - Report indexing is intentionally bounded to avoid turning the browser into a broad repo explorer.
 
 ## Recommended Next Step
 
-Manually enable the plugin and smoke-test the read-only browser in the editor. If it loads cleanly, the next pass should either split providers out of the dock or add focused UI polish only after the read-only boundary is confirmed.
+Phase 3K is complete as a read-only browser foundation. Do not expand this dock into placement, stamping, painting, generation, promotion, save, route invention, or mechanic-default creation. Return to the production pilot / mission-authoring sequence unless a specific Phase 3 polish packet is prioritized.

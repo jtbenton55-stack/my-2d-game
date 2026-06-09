@@ -1276,9 +1276,10 @@ The first focused editor tools now exist, but several still need manual validati
 |---|---|---|
 | PVGames Object Palette v2 | Implemented enough for brush/repeat placement | Brush mode, axis lock, UndoRedo, and visible-bounds auto spacing are available. Remaining route/Y-sort awareness, jitter, rectangle/scatter, and erase-created-by-palette modes are future improvements. |
 | Mission Paint Dock v1 | Implemented enough for manual paint/blockout testing | Includes visual paint mode plus locked layout/collision modes for `GameplayRoot/LayoutRoot` layers. Collision barrier erase was repaired after playtest. Keep collision edits explicit and validate movement after use. |
-| Manual Animation Mapper / Reviewer v1.3 | Implemented as an editor-only review dock with manually validated Large Review Canvas repair | Loads PVGames/composite sheets, saves reviewed JSON maps, and can generate validation-only `SpriteFrames`. The dock now writes the small external-reference Parmida preview at `res://resources/character_animation_maps/generated_preview/character_01_parmida_reference_variant_preview_spriteframes.tres`; the old embedded `parmida_manual_preview_spriteframes.tres` is legacy/unsafe for auto-loading. The Large Review Canvas now supports zoom, full-sheet scroll/pan, hover readout, linear global drag selection, in-window labeling, and preview on the generated 50x50 manual 5-pack sheets. Manual QA confirmed 50x50 auto-detection, usable zoom/scroll/pan, clear selection workflow, JSON save/reload, reviewed `SpriteFrames` generation, and sandbox playback. It still must not promote animations to `player.tscn`, Taco, or runtime controllers without a separate production promotion packet. |
+| Manual Animation Mapper / Reviewer v1.3 | Phase 3I animation preview validation complete | Loads PVGames/composite sheets, saves reviewed JSON maps, and can generate validation-only `SpriteFrames`. The dock writes the small external-reference Parmida preview at `res://resources/character_animation_maps/generated_preview/character_01_parmida_reference_variant_preview_spriteframes.tres`; the old embedded `parmida_manual_preview_spriteframes.tres` is legacy/unsafe for auto-loading. Manual QA confirmed 50x50 auto-detection, usable zoom/scroll/pan, clear selection workflow, JSON save/reload, reviewed `SpriteFrames` generation, sandbox playback, and 2026-06-09 animation preview validation. It still must not promote animations to `player.tscn`, Taco, or runtime controllers without a separate production promotion packet. |
+| Scene/Asset Browser | Phase 3K complete as read-only browser foundation | The dock searches/selects/opens proven PVGames objects/icons, templates, animation maps/previews, dev scenes, and reports. Manual editor validation was completed on 2026-06-09. It remains explicitly non-authoring: no placement, stamping, painting, generation, promotion, save, route invention, or default-mechanic creation. |
 
-Current animation gate: the reviewed manual 5-pack maps and small preview `SpriteFrames` should be sandbox-validated before production runtime wiring. Only after reviewed maps validate should a separate production promotion packet wire animations into player/runtime scenes. The next broader Phase 3 milestone after mapper validation remains the sortable 2.5D pilot.
+Current animation gate status: Phase 3I preview validation passed on 2026-06-09. A separate production promotion packet is still required before any generated preview `SpriteFrames` are wired into `player.tscn`, Taco, or runtime controllers. Phase 3J and Phase 3K are complete as validation/tooling foundations, so the next gameplay-facing work should return to the production pilot / mission-authoring sequence unless a specific Phase 3 polish packet is prioritized.
 
 ### Proposed Visual Depth Bands
 
@@ -1625,6 +1626,37 @@ Make mature levels feel alive and reactive after the core systems are stable.
 
 - Only start this phase after NPC, suspicion, social stealth, route, and fact systems are stable.
 - LimboAI is used for mature NPC/guard/social behavior only after simpler authored command points and security authoring prove insufficient.
+
+## Current Short-Term Dependency-Order Plan
+
+Date: 2026-06-09
+
+This section records the current short-term execution order. It is intended to be referenced and revised as validation results come in. The order below is dependency-driven rather than strict numeric phase order.
+
+| Order | Work | Roadmap / Blueprint ID | Notes |
+|---:|---|---|---|
+| First | Validate Mission Paint Dock if using collision/layout edits | Phase 3H | Complete as of 2026-06-09. Jake confirmed Mission Paint Dock validation passed after the quick paint/collision-layout check. |
+| Second | Validate animation previews before production promotion | Phase 3I | Complete as of 2026-06-09. Jake confirmed animation preview validation passed. Production animation promotion still requires a separate packet. |
+| Third | Validate Taco production pilot / Packet 6C | Phase 2J, Packet 6C follow-up | Complete as of 2026-06-09. Jake confirmed Packet 6C passed: live pilot validation did not expose Phase0J/Phase0K regression. |
+| Fourth | Fix pilot issues found during Packet 6C | Phase 2J follow-up | No immediate fix pass required after the 2026-06-09 Packet 6C pass. Reopen only if later validation finds pilot issues. |
+| Fifth | Confirm core reusable mechanic kit status | Phase 1C, Phase 1E, Phase 1J, Phase 1K, Phase 2A-2H | Complete as of 2026-06-09. Jake confirmed GdUnit `mission_authoring` PASS, `MechanicAuthoringTestRoom` live chain PASS, Taco Packet 6C already confirmed, and no new core-kit fixes required. |
+| Sixth | Finish necessary PVGames Palette v2 safety features | Phase 3G | Prioritize Y-sort route awareness and erase-created-by-palette mode. Defer optional productivity polish unless needed. |
+| Seventh | Add Mission Authoring Palette | Phase 2K | Place approved reusable mechanic templates with safe defaults. |
+| Eighth | Add small Mission Assist Browser | Phase 2K | Validate scene mechanics: duplicate IDs, broken links, missing resources, unsafe effects, and quick node selection. |
+| Ninth | Add card-driven modifiers | Phase 6A-6F | Cards should plug into reusable mechanics through requirements/effects and support route/passages/escape options. |
+| Tenth | Phase 4 stealth readability | Phase 4A-4G | Alert/suspicion/readability work after the production pilot foundation is trusted. |
+| Eleventh | Phase 5 inventory / heist kit | Phase 5A-5F | Item data, mission inventory, and requirement/effect integration. |
+| Twelfth | Bentley command points | Phase 7A-7G | Companion command mechanics built on the reusable mechanic foundation. |
+| Thirteenth | Noise / distraction | Roadmap System Family 10; Blueprint Noise And Distraction section; related to Phase 7D | Sound/noise events, emitters, listeners, and distraction objects. |
+| Fourteenth | Side jobs | Phase 8G-8H | First and second small side jobs assembled mostly from reusable nodes. |
+| Fifteenth | Hideout rewards | Phase 12A-12F | Reward-to-hideout contract and cozy meta hooks. |
+| Sixteenth | Paper trail | Phase 11A-11F | Trace events, cleanup, deniability, suspicious action memory, and result integration. |
+| Seventeenth | Social stealth | Phase 10A-10G | Cover stories, credentials, believable tasks, inspections, and protocol/cleanliness. |
+| Eighteenth | Encounters | Phase 13A-13G | Non-HP challenge/encounter layer. |
+| Nineteenth | Advanced NPC | Phase 14A-14G | Reactive NPC/social systems after simpler systems are stable. |
+| Twentieth | Narrative / presentation | Phase 9A-9H | Dialogue keys, barks, presentation sequences, camera/player/audio bridges. |
+
+Update rule: revise this section after each completed gate or when validation changes the dependency order.
 
 ## Highest-Value Near-Term Build Order
 
