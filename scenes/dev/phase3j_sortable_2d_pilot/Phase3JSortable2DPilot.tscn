@@ -1,0 +1,162 @@
+[gd_scene load_steps=2 format=3 uid="uid://cphase3jsortpilot01"]
+
+[ext_resource type="Script" path="res://src/dev/phase3j_sortable_2d_pilot/Phase3JSortable2DPilot.gd" id="1_pilot"]
+
+[node name="Phase3JSortable2DPilot" type="Node2D"]
+script = ExtResource("1_pilot")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="BackgroundArt" type="Node2D" parent="VisualRoot"]
+z_index = -200
+
+[node name="FloorLane" type="Polygon2D" parent="VisualRoot/BackgroundArt"]
+color = Color(0.14, 0.16, 0.2, 1)
+polygon = PackedVector2Array(80, 120, 880, 120, 880, 560, 80, 560)
+
+[node name="FloorGridHint" type="Line2D" parent="VisualRoot/BackgroundArt"]
+width = 1.0
+default_color = Color(0.28, 0.32, 0.38, 0.45)
+points = PackedVector2Array(480, 140, 480, 540)
+
+[node name="BehindLabel" type="Label" parent="VisualRoot/BackgroundArt"]
+offset_left = 96.0
+offset_top = 132.0
+offset_right = 320.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.55, 0.62, 0.72, 1)
+text = "BackgroundArt (fixed behind sortable world)"
+
+[node name="SortableWorld" type="Node2D" parent="VisualRoot"]
+y_sort_enabled = true
+
+[node name="PlayerProxy" type="Node2D" parent="VisualRoot/SortableWorld"]
+position = Vector2(480, 260)
+
+[node name="Body" type="Polygon2D" parent="VisualRoot/SortableWorld/PlayerProxy"]
+color = Color(0.35, 0.72, 0.95, 1)
+polygon = PackedVector2Array(-14, 0, -20, -48, 0, -64, 20, -48, 14, 0)
+
+[node name="ProxyLabel" type="Label" parent="VisualRoot/SortableWorld/PlayerProxy"]
+offset_left = -36.0
+offset_top = -88.0
+offset_right = 36.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 11
+text = "Player"
+horizontal_alignment = 1
+
+[node name="FloorPivot" type="Polygon2D" parent="VisualRoot/SortableWorld/PlayerProxy"]
+color = Color(0.95, 0.85, 0.2, 1)
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[node name="NPCProxy" type="Node2D" parent="VisualRoot/SortableWorld"]
+position = Vector2(620, 420)
+
+[node name="Body" type="Polygon2D" parent="VisualRoot/SortableWorld/NPCProxy"]
+color = Color(0.92, 0.45, 0.55, 1)
+polygon = PackedVector2Array(-12, 0, -18, -44, 0, -58, 18, -44, 12, 0)
+
+[node name="ProxyLabel" type="Label" parent="VisualRoot/SortableWorld/NPCProxy"]
+offset_left = -28.0
+offset_top = -82.0
+offset_right = 28.0
+offset_bottom = -62.0
+theme_override_font_sizes/font_size = 11
+text = "NPC"
+horizontal_alignment = 1
+
+[node name="FloorPivot" type="Polygon2D" parent="VisualRoot/SortableWorld/NPCProxy"]
+color = Color(0.95, 0.85, 0.2, 1)
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[node name="SortableProp" type="Node2D" parent="VisualRoot/SortableWorld"]
+position = Vector2(480, 400)
+
+[node name="PropBody" type="Polygon2D" parent="VisualRoot/SortableWorld/SortableProp"]
+color = Color(0.55, 0.42, 0.28, 1)
+polygon = PackedVector2Array(-72, 0, -80, -88, 80, -88, 72, 0)
+
+[node name="PropTop" type="Polygon2D" parent="VisualRoot/SortableWorld/SortableProp"]
+color = Color(0.68, 0.52, 0.34, 1)
+polygon = PackedVector2Array(-80, -88, -84, -96, 84, -96, 80, -88)
+
+[node name="PropLabel" type="Label" parent="VisualRoot/SortableWorld/SortableProp"]
+offset_left = -52.0
+offset_top = -118.0
+offset_right = 52.0
+offset_bottom = -98.0
+theme_override_font_sizes/font_size = 11
+text = "Sortable prop"
+horizontal_alignment = 1
+
+[node name="FloorPivot" type="Polygon2D" parent="VisualRoot/SortableWorld/SortableProp"]
+color = Color(0.95, 0.85, 0.2, 1)
+polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
+
+[node name="ForegroundArt" type="Node2D" parent="VisualRoot"]
+z_index = 160
+
+[node name="ForegroundStrip" type="Polygon2D" parent="VisualRoot/ForegroundArt"]
+color = Color(0.08, 0.1, 0.14, 0.72)
+polygon = PackedVector2Array(80, 500, 880, 500, 880, 560, 80, 560)
+
+[node name="ForegroundLabel" type="Label" parent="VisualRoot/ForegroundArt"]
+offset_left = 96.0
+offset_top = 512.0
+offset_right = 420.0
+offset_bottom = 536.0
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+text = "ForegroundArt (fixed in front of sortable world)"
+
+[node name="DebugVisuals" type="Node2D" parent="VisualRoot"]
+z_index = 2400
+
+[node name="TitleLabel" type="Label" parent="VisualRoot/DebugVisuals"]
+offset_left = 96.0
+offset_top = 24.0
+offset_right = 860.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 16
+text = "Phase 3J — Sortable 2.5D Pilot (validation only)"
+
+[node name="InstructionLabel" type="Label" parent="VisualRoot/DebugVisuals"]
+offset_left = 96.0
+offset_top = 56.0
+offset_right = 860.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0.82, 0.88, 0.95, 1)
+text = "Move above/below the prop. Above = behind prop. Below = in front of prop."
+autowrap_mode = 3
+
+[node name="InfoLabel" type="Label" parent="VisualRoot/DebugVisuals"]
+offset_left = 96.0
+offset_top = 100.0
+offset_right = 860.0
+offset_bottom = 124.0
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.65, 0.72, 0.82, 1)
+text = "Loading..."
+
+[node name="SortHintLabel" type="Label" parent="VisualRoot/DebugVisuals"]
+offset_left = 96.0
+offset_top = 568.0
+offset_right = 860.0
+offset_bottom = 592.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+text = "Sort hint"
+
+[node name="PVGSortableObjectsRouteNote" type="Label" parent="VisualRoot/DebugVisuals"]
+offset_left = 520.0
+offset_top = 132.0
+offset_right = 860.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.5, 0.58, 0.68, 1)
+text = "Future PVGames palette route: SortableWorld/PVGSortableObjects (props stamped as direct SortableWorld children for Y-sort)."
+autowrap_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(480, 340)
+zoom = Vector2(1.15, 1.15)

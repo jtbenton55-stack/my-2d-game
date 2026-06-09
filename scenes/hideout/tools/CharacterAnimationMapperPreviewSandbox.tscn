@@ -4,7 +4,6 @@
 
 [node name="CharacterAnimationMapperPreviewSandbox" type="Node2D" unique_id=282979266]
 script = ExtResource("1_sandbox")
-auto_play = false
 
 [node name="Background" type="Polygon2D" parent="." unique_id=1384892451]
 z_index = -10
@@ -41,7 +40,7 @@ text = "Preview character"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LoadPreviewButton" type="Button" parent="UI/PreviewRow"]
+[node name="LoadPreviewButton" type="Button" parent="UI/PreviewRow" unique_id=86721712]
 layout_mode = 2
 text = "Load Preview"
 
