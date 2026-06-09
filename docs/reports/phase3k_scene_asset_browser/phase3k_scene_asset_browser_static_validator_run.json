@@ -1,0 +1,19 @@
+{
+  "phase": "3K",
+  "validator": "phase3k_scene_asset_browser_static_validator.py",
+  "pass_fail_partial": "PASS",
+  "failures": [],
+  "warnings": [],
+  "checked_files": [
+    "addons/scene_asset_browser/plugin.cfg",
+    "addons/scene_asset_browser/SceneAssetBrowserPlugin.gd",
+    "addons/scene_asset_browser/SceneAssetBrowserDock.gd",
+    "docs/reports/phase3k_scene_asset_browser/phase3k_scene_asset_browser_plan.md",
+    "docs/reports/pvgames_editable_object_asset_index.json",
+    "docs/reports/pvgames_editable_object_palette/pvgames_editable_object_palette_index_by_container.json",
+    "docs/reports/pvgames_icon_library/pvgames_verified_icon_catalog.json",
+    "docs/SECURITY_AUTHORABLES_GUIDE.md",
+    "docs/PLUG_AND_PLAY_IMPLEMENTATION_BLUEPRINT.md",
+    "resources/character_animation_maps/generated_preview/parmida_manual_preview_spriteframes.tres"
+  ]
+}

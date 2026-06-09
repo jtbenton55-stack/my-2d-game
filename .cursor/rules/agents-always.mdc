@@ -9,4 +9,8 @@ Treat `AGENTS.md` as the highest-priority project instruction file for this work
 
 Cursor remains the implementation/debugging agent. OpenCode remains planning/review-only unless Jake explicitly asks otherwise.
 
+After completing each major game-development stage or phase, such as 2D, 3I, 3K, or similar milestone labels, Cursor must create or update the appropriate status/report files, update the relevant roadmap and blueprint docs, and save an appropriate Nowledge Mem memory or handoff with evidence, validation, risks, and next steps.
+
+After each GitHub commit, Cursor must save an appropriate Nowledge Mem memory or handoff with the branch, commit hash, commit message, summary of changes, validation evidence, and remaining risks or follow-ups. Avoid update loops by including stage-completion status/report, roadmap, and blueprint updates before the commit when possible; after the commit, only save Nowledge Mem unless Jake asks for more file changes.
+
 If a user request conflicts with `AGENTS.md`, stop and ask Jake how to proceed instead of guessing.

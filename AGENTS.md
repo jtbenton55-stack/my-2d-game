@@ -33,6 +33,13 @@ After changing code:
 4. Use MCP tools for screenshots, input, runtime inspection, and debugger inspection where available.
 5. Write a report under reports\ai\.
 
+Stage and commit continuity:
+- After completing each major game-development stage or phase, such as 2D, 3I, 3K, or similar milestone labels, create or update a status/report file under reports\ai\ or docs\reports\ as appropriate.
+- After completing each major game-development stage or phase, update the relevant roadmap and blueprint docs, especially docs\PLUG_AND_PLAY_MISSION_SYSTEM_ROADMAP.md and docs\PLUG_AND_PLAY_IMPLEMENTATION_BLUEPRINT.md when the stage changes project direction, implementation status, validation status, risks, or next steps.
+- After completing each major game-development stage or phase, save an appropriate Nowledge Mem memory or handoff with the stage label, evidence, files changed, validation results, risks, and recommended next steps.
+- After each GitHub commit, save an appropriate Nowledge Mem memory or handoff with the branch, commit hash, commit message, summary of changes, validation evidence, and remaining risks or follow-ups.
+- Avoid update loops: include required status/report, roadmap, and blueprint updates before making a stage-completion commit when possible; after the commit, only save the Nowledge Mem entry unless Jake asks for additional file changes.
+
 AI Working Loop:
 For non-trivial work:
 1. Inspect the existing code and docs before deciding.
