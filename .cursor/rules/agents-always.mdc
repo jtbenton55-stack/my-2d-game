@@ -13,4 +13,8 @@ After completing each major game-development stage or phase, such as 2D, 3I, 3K,
 
 After each GitHub commit, Cursor must save an appropriate Nowledge Mem memory or handoff with the branch, commit hash, commit message, summary of changes, validation evidence, and remaining risks or follow-ups. Avoid update loops by including stage-completion status/report, roadmap, and blueprint updates before the commit when possible; after the commit, only save Nowledge Mem unless Jake asks for more file changes.
 
+If Nowledge Mem wrapper or CLI paths fail with `nmem CLI not found`, do not retry `nmem`. Use the local Nowledge Mem HTTP API directly at `http://127.0.0.1:14242` via PowerShell `Invoke-RestMethod`: `POST /memories/search` to search, `POST /memories` to save/upsert, and `PATCH /memories/{memory_id}` to update an existing memory when the memory limit blocks new writes.
+
+For Godot validation, use `godot-mcp-pro` for broad editor/runtime control, `godot-lsp-diagnostics` only for diagnostics, and `godot-dap-debugger` only for debugger work. If Godot MCP Pro runtime/play-mode calls fail, check that Godot is open, the plugin is enabled, Cursor MCP servers have been restarted, and only one MCP Pro server/editor instance is attached before falling back to manual QA evidence.
+
 If a user request conflicts with `AGENTS.md`, stop and ask Jake how to proceed instead of guessing.

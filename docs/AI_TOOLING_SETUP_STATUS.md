@@ -33,7 +33,7 @@
 5. Install GdUnit4 manually from official source (AssetLib or official release) into:
    `addons\gdUnit4\`
 6. Open Godot and enable GdUnit4 plugin.
-7. Optional toolchain (`opencode`, `nmem`, `godot`) is missing from PATH in this environment.
+7. Optional toolchain (`opencode`, `godot`) may be missing from PATH in some shells. Do not depend on `nmem`; use the Nowledge Mem HTTP API workaround instead.
 
 ## Manual Instructions: GdUnit4 Install
 
@@ -48,9 +48,10 @@
 ## Manual Instructions: OpenCode + Nowledge Mem
 
 - Start Nowledge Mem.
-- Ensure `nmem` CLI is in PATH.
-- Confirm:
-  - `nmem status`
-  - `opencode --version`
-- Then run:
-  - `opencode plugin opencode-nowledge-mem -g`
+- Confirm the local API is reachable:
+  - `Invoke-RestMethod -Uri "http://127.0.0.1:14242/health" -Method Get`
+- Use `http://127.0.0.1:14242` directly for memory automation when wrappers fail:
+  - `POST /memories/search`
+  - `POST /memories`
+  - `PATCH /memories/{memory_id}`
+- `opencode plugin opencode-nowledge-mem -g` may remain installed, but do not retry `nmem` if the wrapper reports `nmem CLI not found`.

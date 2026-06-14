@@ -61,4 +61,5 @@ Nowledge Mem / OpenCode roles:
 - OpenCode should run on Windows for this Godot project.
 - Before major planning, OpenCode should read Nowledge Working Memory and search for relevant memories.
 - After major planning/debugging sessions, save a concise handoff to Nowledge Mem.
+- If Nowledge Mem wrapper tools fail with `nmem CLI not found`, do not retry `nmem`; use the local HTTP API directly at `http://127.0.0.1:14242` (`POST /memories/search`, `POST /memories`, or `PATCH /memories/{memory_id}`) via PowerShell `Invoke-RestMethod`.
 - Cursor remains the implementation/debugging agent.

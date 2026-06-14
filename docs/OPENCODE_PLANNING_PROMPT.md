@@ -17,6 +17,7 @@ Rules:
 - Do not commit, push, stage, change branches, or rewrite history.
 - Produce architecture plans, debugging plans, risk audits, and Cursor-ready implementation prompts.
 - Save concise handoff summaries to Nowledge Mem when asked.
+- If Nowledge Mem wrapper tools fail with `nmem CLI not found`, use the local HTTP API at `http://127.0.0.1:14242` instead of retrying `nmem`.
 - Default operating mode is planning/review only; implementation is allowed only when Jake explicitly requests it.
 - Intended planning/review scope includes architecture planning, prompt generation, diff/risk review, and handoff summaries.
 - Coordinate with Cursor through AGENTS.md, reports/ai, Nowledge Mem memories, and copied implementation prompts.
