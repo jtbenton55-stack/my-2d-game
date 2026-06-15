@@ -7,7 +7,9 @@ Before every response, plan, prompt, edit, tool call, or implementation step in 
 
 Treat `AGENTS.md` as the highest-priority project instruction file for this workspace. Follow its tool roles, safety boundaries, AI Working Loop, Engineering Style, validation expectations, and reporting requirements every time.
 
-Cursor remains the implementation/debugging agent. OpenCode remains planning/review-only unless Jake explicitly asks otherwise.
+Cursor and OpenCode are both implementation/debugging agents. Treat `AGENTS.md` as the source of truth for current agent roles. Also treat `docs/Prompt_Improvement.md` as mandatory supplemental operating context, but defer to `AGENTS.md` if the documents conflict.
+
+Before implementation/debugging work, search Nowledge Mem for the active phase/subsystem and inspect recent `reports/ai/` handoffs so Cursor and OpenCode can verify exactly what the other changed, tested, deferred, or left risky.
 
 After completing each major game-development stage or phase, such as 2D, 3I, 3K, or similar milestone labels, Cursor must create or update the appropriate status/report files, update the relevant roadmap and blueprint docs, and save an appropriate Nowledge Mem memory or handoff with evidence, validation, risks, and next steps.
 

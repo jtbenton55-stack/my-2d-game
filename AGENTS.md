@@ -11,13 +11,19 @@ C:\Users\jtben\Documents\PBD 2026\tools
 Do not commit, push, stage, change branches, rewrite history, or modify unrelated files unless Jake explicitly asks.
 
 Tool roles:
-- Cursor Ultra Auto is the implementation/debugging agent.
+- Cursor Ultra Auto is an implementation/debugging agent.
+- OpenCode is an implementation/debugging agent.
 - Godot MCP Pro is the only broad Godot editor/runtime-control MCP.
 - minimal-godot-mcp is diagnostics-only.
 - Godot DAP MCP Server is debugger-only.
 - GdUnit4 is the regression test framework.
-- OpenCode is planning/review-only.
 - Nowledge Mem and project docs preserve decisions and handoffs.
+
+Mandatory operating context:
+- `AGENTS.md` is the highest-priority repo-local source of truth for workflow, scope, permissions, validation, reporting, and handoff requirements.
+- `docs/Prompt_Improvement.md` is mandatory supplemental operating context for Cursor and OpenCode implementation/debugging work.
+- If `docs/Prompt_Improvement.md` conflicts with `AGENTS.md`, follow `AGENTS.md` and report the conflict.
+- Before non-trivial implementation/debugging work, read `AGENTS.md`, relevant sections of `docs/Prompt_Improvement.md`, current roadmap/blueprint docs, recent `reports\ai\` handoffs, and relevant Nowledge Mem memories.
 
 Before changing code:
 1. Check git status.
@@ -56,10 +62,10 @@ Engineering Style:
 - Do not mock important gameplay/editor behavior if it can be tested directly.
 - Follow existing project patterns instead of inventing new architecture.
 
-Nowledge Mem / OpenCode roles:
-- OpenCode is planning/review-only unless Jake explicitly asks otherwise.
-- OpenCode should run on Windows for this Godot project.
-- Before major planning, OpenCode should read Nowledge Working Memory and search for relevant memories.
-- After major planning/debugging sessions, save a concise handoff to Nowledge Mem.
+Nowledge Mem / cross-agent continuity:
+- Cursor and OpenCode should run on Windows for this Godot project.
+- Before implementation/debugging work, search Nowledge Mem for the active phase/subsystem and inspect recent `reports\ai\` handoffs so each system can verify exactly what the other did last.
+- After implementation/debugging sessions, save or update a concise Nowledge Mem handoff with exact files changed, validation run, risks, and next steps.
+- If new memory creation is blocked by a memory limit, update an existing related memory rather than skipping the handoff.
 - If Nowledge Mem wrapper tools fail with `nmem CLI not found`, do not retry `nmem`; use the local HTTP API directly at `http://127.0.0.1:14242` (`POST /memories/search`, `POST /memories`, or `PATCH /memories/{memory_id}`) via PowerShell `Invoke-RestMethod`.
-- Cursor remains the implementation/debugging agent.
+- Use `reports\ai\` plus Nowledge Mem so Cursor and OpenCode can verify exactly what the other changed, tested, deferred, or left risky.

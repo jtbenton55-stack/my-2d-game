@@ -1,6 +1,6 @@
 # Nowledge Mem + OpenCode Setup (Windows)
 
-This project uses Windows-native tooling for memory and planning support.
+This project uses Windows-native tooling for memory, implementation, debugging, planning, and cross-agent handoffs.
 
 ## Required Runtime
 
@@ -38,12 +38,15 @@ opencode
 
 ## Role Boundaries
 
-1. OpenCode is planning/review-only.
-2. Cursor remains the implementation/debugging agent.
-3. Nowledge Mem is for decisions, handoffs, debugging findings, and project memory.
-4. Do not save random noise.
-5. Do not use Nowledge Mem as a replacement for `AGENTS.md` or repo docs.
-6. Coordination happens through `AGENTS.md`, `reports/ai`, Nowledge Mem, and copied prompts.
+1. OpenCode and Cursor are both implementation/debugging agents for this project.
+2. `AGENTS.md` is the highest-priority repo-local source of truth for roles, workflow, scope, validation, reporting, and handoff requirements.
+3. `docs/Prompt_Improvement.md` is mandatory supplemental operating context for non-trivial OpenCode and Cursor implementation/debugging work, but it defers to `AGENTS.md` on conflicts.
+4. Nowledge Mem is for decisions, handoffs, debugging findings, and project memory.
+5. Do not save random noise.
+6. Do not use Nowledge Mem as a replacement for `AGENTS.md` or repo docs.
+7. Before implementation/debugging work, search Nowledge Mem for the active phase/subsystem and inspect recent `reports/ai/` handoffs so each system can verify exactly what the other did last.
+8. After implementation/debugging work, save or update a concise Nowledge Mem handoff with exact files changed, validation run, risks, and next steps.
+9. Coordination happens through `AGENTS.md`, `docs/Prompt_Improvement.md`, `reports/ai`, Nowledge Mem, and copied prompts.
 
 ## What to Save in Nowledge Mem
 
