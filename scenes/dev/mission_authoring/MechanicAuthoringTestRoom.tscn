@@ -4,34 +4,65 @@
 [ext_resource type="Script" uid="uid://bnk83jlus4qr4" path="res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd" id="2_bridge"]
 [ext_resource type="Script" uid="uid://bkjiwk56ajsnk" path="res://src/missions/iso/authoring/mechanics/TriggerZone.gd" id="3_trigger"]
 [ext_resource type="Script" uid="uid://bj8kkypu25tmf" path="res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd" id="4_locked"]
+[ext_resource type="Script" uid="uid://itonxd557d50" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="5_gqhhr"]
 [ext_resource type="Script" uid="uid://bmlbgnql5krh8" path="res://src/missions/iso/authoring/mechanics/SearchZone.gd" id="5_search"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ExtractionZone.gd" id="6_extraction"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd" id="7_container"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="8_reward"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="9_route"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="10_side_objective"]
+[ext_resource type="Script" uid="uid://bmh6akki64y22" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="6_bwj2c"]
+[ext_resource type="Script" uid="uid://c3t32kqy3q01c" path="res://src/missions/iso/authoring/mechanics/ExtractionZone.gd" id="6_extraction"]
+[ext_resource type="Script" uid="uid://bx3ncfqsk364q" path="res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd" id="7_container"]
+[ext_resource type="Script" uid="uid://bkjgi62h5grna" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="8_reward"]
+[ext_resource type="Script" uid="uid://b6cakipmcv6jr" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="9_route"]
+[ext_resource type="Script" uid="uid://bu88u3f2yiheq" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="10_side_objective"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
 
-[node name="MechanicAuthoringTestRoom" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhsj6"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jajaa"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_cqg14"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_qa_trigger_effect_01"
+key = "qa_trigger_effect_done"
+
+[sub_resource type="Resource" id="Resource_6upad"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_qa_trigger_effect_01"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_cqg14")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gkjd"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_dweh2"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_qa_trigger_effect_01"
+key = "qa_trigger_effect_done"
+
+[sub_resource type="Resource" id="Resource_xp6ql"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_qa_trigger_effect_01"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_dweh2")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6vm7b"]
+size = Vector2(96, 96)
+
+[node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 0)
-zoom = Vector2(1, 1)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1776398706]
 
-[node name="Player" type="Node2D" parent="." groups=["player"]]
-position = Vector2(0, 0)
+[node name="Player" type="Node2D" parent="." unique_id=598133946 groups=["player"]]
 
-[node name="Body" type="ColorRect" parent="Player"]
+[node name="Body" type="ColorRect" parent="Player" unique_id=1086889778]
 offset_left = -12.0
 offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
 color = Color(0.2, 0.85, 0.4, 1)
 
-[node name="Label" type="Label" parent="Player"]
+[node name="Label" type="Label" parent="Player" unique_id=1511894088]
 offset_left = -28.0
 offset_top = 16.0
 offset_right = 28.0
@@ -40,23 +71,22 @@ theme_override_font_sizes/font_size = 10
 text = "Player"
 horizontal_alignment = 1
 
-[node name="MissionInteractionBridge" type="Node" parent="."]
+[node name="MissionInteractionBridge" type="Node" parent="." unique_id=808217570]
 script = ExtResource("2_bridge")
 interaction_radius = 220.0
-debug_enabled = true
 
-[node name="Triggers" type="Node2D" parent="."]
+[node name="Triggers" type="Node2D" parent="." unique_id=432216231]
 
-[node name="AlwaysTrigger" type="Area2D" parent="Triggers"]
+[node name="AlwaysTrigger" type="Area2D" parent="Triggers" unique_id=843432752]
 position = Vector2(-200, -80)
+collision_layer = 8
 script = ExtResource("3_trigger")
-interaction_mode = 1
 preview_color = Color(0.3, 0.9, 0.4, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/AlwaysTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/AlwaysTrigger" unique_id=2105066908]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Triggers/AlwaysTrigger"]
+[node name="HintLabel" type="Label" parent="Triggers/AlwaysTrigger" unique_id=989278075]
 offset_left = -90.0
 offset_top = -56.0
 offset_right = 90.0
@@ -65,16 +95,15 @@ theme_override_font_sizes/font_size = 9
 text = "A: Always available"
 horizontal_alignment = 1
 
-[node name="UnlockTrigger" type="Area2D" parent="Triggers"]
+[node name="UnlockTrigger" type="Area2D" parent="Triggers" unique_id=2132225554]
 position = Vector2(-40, -120)
+collision_layer = 8
 script = ExtResource("3_trigger")
-interaction_mode = 1
-preview_color = Color(0.3, 0.7, 1, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/UnlockTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/UnlockTrigger" unique_id=1818129871]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Triggers/UnlockTrigger"]
+[node name="HintLabel" type="Label" parent="Triggers/UnlockTrigger" unique_id=1553515062]
 offset_left = -90.0
 offset_top = -56.0
 offset_right = 90.0
@@ -83,16 +112,16 @@ theme_override_font_sizes/font_size = 9
 text = "C: Sets dev_unlock_flag (opens gate)"
 horizontal_alignment = 1
 
-[node name="LockedTrigger" type="Area2D" parent="Triggers"]
+[node name="LockedTrigger" type="Area2D" parent="Triggers" unique_id=394799567]
 position = Vector2(120, -80)
+collision_layer = 8
 script = ExtResource("3_trigger")
-interaction_mode = 1
 preview_color = Color(0.95, 0.75, 0.2, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/LockedTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/LockedTrigger" unique_id=1882475489]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Triggers/LockedTrigger"]
+[node name="HintLabel" type="Label" parent="Triggers/LockedTrigger" unique_id=357166013]
 offset_left = -100.0
 offset_top = -56.0
 offset_right = 100.0
@@ -101,17 +130,16 @@ theme_override_font_sizes/font_size = 9
 text = "B: Locked until unlock"
 horizontal_alignment = 1
 
-[node name="FailureTrigger" type="Area2D" parent="Triggers"]
+[node name="FailureTrigger" type="Area2D" parent="Triggers" unique_id=927797703]
 position = Vector2(200, 40)
+collision_layer = 8
 script = ExtResource("3_trigger")
-interaction_mode = 1
-one_shot = true
 preview_color = Color(0.95, 0.35, 0.35, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger" unique_id=1113234325]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Triggers/FailureTrigger"]
+[node name="HintLabel" type="Label" parent="Triggers/FailureTrigger" unique_id=446527266]
 offset_left = -100.0
 offset_top = -56.0
 offset_right = 100.0
@@ -120,16 +148,66 @@ theme_override_font_sizes/font_size = 9
 text = "D: Failure effect only"
 horizontal_alignment = 1
 
-[node name="DialogueTrigger" type="Area2D" parent="Triggers"]
-position = Vector2(-120, 100)
+[node name="RewardNode_qa_reward_node_01" type="Area2D" parent="Triggers/FailureTrigger" unique_id=227181046]
+position = Vector2(194.31537, -324.38095)
+collision_layer = 8
+script = ExtResource("8_reward")
+reward_id = &"qa_reward_node_01"
+collected_flag = &"qa_reward_node_01_collected"
+mechanic_id = &"qa_reward_node_01"
+display_name = "QA Reward Node 01"
+prompt_text = "Press E: Collect QA"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01" unique_id=1028417814]
+shape = SubResource("RectangleShape2D_fhsj6")
+
+[node name="RewardNode_qa_reward_node_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01" unique_id=224622818]
+position = Vector2(-826.31537, 460.38095)
+collision_layer = 8
+script = ExtResource("8_reward")
+reward_id = &"qa_reward_node_01"
+collected_flag = &"qa_reward_node_01_collected"
+mechanic_id = &"qa_reward_node_01"
+display_name = "QA Reward Node 01"
+prompt_text = "Press E: Collect QA"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01" unique_id=269925099]
+shape = SubResource("RectangleShape2D_jajaa")
+
+[node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01" unique_id=772068810]
+position = Vector2(128, 136)
+collision_layer = 8
 script = ExtResource("3_trigger")
-interaction_mode = 1
+trigger_on_enter = false
+mechanic_id = &"qa_trigger_effect_01"
+prompt_text = "Press E: Trigger"
+success_effects = SubResource("Resource_6upad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01" unique_id=346846025]
+shape = SubResource("RectangleShape2D_2gkjd")
+
+[node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01" unique_id=2019499074]
+position = Vector2(-310, -177)
+collision_layer = 8
+script = ExtResource("3_trigger")
+trigger_on_enter = false
+mechanic_id = &"qa_trigger_effect_01"
+prompt_text = "Press E: Trigger"
+success_effects = SubResource("Resource_xp6ql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01/TriggerZone_qa_trigger_effect_01" unique_id=706839046]
+shape = SubResource("RectangleShape2D_6vm7b")
+
+[node name="DialogueTrigger" type="Area2D" parent="Triggers" unique_id=978170780]
+position = Vector2(-120, 100)
+collision_layer = 8
+script = ExtResource("3_trigger")
 preview_color = Color(0.75, 0.45, 0.95, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/DialogueTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/DialogueTrigger" unique_id=869172439]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Triggers/DialogueTrigger"]
+[node name="HintLabel" type="Label" parent="Triggers/DialogueTrigger" unique_id=54560845]
 offset_left = -90.0
 offset_top = -56.0
 offset_right = 90.0
@@ -138,30 +216,29 @@ theme_override_font_sizes/font_size = 9
 text = "E: Simple dialogue"
 horizontal_alignment = 1
 
-[node name="Locks" type="Node2D" parent="."]
+[node name="Locks" type="Node2D" parent="." unique_id=202733637]
 
-[node name="DevLockedGate" type="Area2D" parent="Locks"]
+[node name="DevLockedGate" type="Area2D" parent="Locks" unique_id=889567624]
 position = Vector2(0, 140)
+collision_layer = 8
 script = ExtResource("4_locked")
-interaction_mode = 1
 lock_kind = "gate"
 preview_color = Color(0.95, 0.55, 0.2, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Locks/DevLockedGate"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Locks/DevLockedGate" unique_id=2014965596]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="GateVisual" type="ColorRect" parent="Locks/DevLockedGate"]
+[node name="GateVisual" type="ColorRect" parent="Locks/DevLockedGate" unique_id=221921679]
 offset_left = -40.0
 offset_top = -8.0
 offset_right = 40.0
 offset_bottom = 8.0
 color = Color(0.85, 0.35, 0.15, 0.9)
 
-[node name="GateBlocker" type="CollisionShape2D" parent="Locks/DevLockedGate"]
-position = Vector2(0, 0)
+[node name="GateBlocker" type="CollisionShape2D" parent="Locks/DevLockedGate" unique_id=1905637280]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Locks/DevLockedGate"]
+[node name="HintLabel" type="Label" parent="Locks/DevLockedGate" unique_id=1387490335]
 offset_left = -110.0
 offset_top = -56.0
 offset_right = 110.0
@@ -170,26 +247,26 @@ theme_override_font_sizes/font_size = 9
 text = "F: Locked gate (needs C first)"
 horizontal_alignment = 1
 
-[node name="Searches" type="Node2D" parent="."]
+[node name="Searches" type="Node2D" parent="." unique_id=1676384561]
 
-[node name="DevSearchDrawer" type="Area2D" parent="Searches"]
+[node name="DevSearchDrawer" type="Area2D" parent="Searches" unique_id=1172388537]
 position = Vector2(-200, 140)
+collision_layer = 8
 script = ExtResource("5_search")
-interaction_mode = 1
 search_kind = "drawer"
 preview_color = Color(0.45, 0.65, 0.95, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Searches/DevSearchDrawer"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Searches/DevSearchDrawer" unique_id=1886494444]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="DrawerClosedVisual" type="ColorRect" parent="Searches/DevSearchDrawer"]
+[node name="DrawerClosedVisual" type="ColorRect" parent="Searches/DevSearchDrawer" unique_id=975883740]
 offset_left = -28.0
 offset_top = -10.0
 offset_right = 28.0
 offset_bottom = 10.0
 color = Color(0.35, 0.45, 0.75, 0.95)
 
-[node name="DrawerFoundVisual" type="ColorRect" parent="Searches/DevSearchDrawer"]
+[node name="DrawerFoundVisual" type="ColorRect" parent="Searches/DevSearchDrawer" unique_id=1926224140]
 visible = false
 offset_left = -28.0
 offset_top = -10.0
@@ -197,7 +274,7 @@ offset_right = 28.0
 offset_bottom = 10.0
 color = Color(0.2, 0.85, 0.55, 0.95)
 
-[node name="HintLabel" type="Label" parent="Searches/DevSearchDrawer"]
+[node name="HintLabel" type="Label" parent="Searches/DevSearchDrawer" unique_id=2052455084]
 offset_left = -100.0
 offset_top = -56.0
 offset_right = 100.0
@@ -206,26 +283,26 @@ theme_override_font_sizes/font_size = 9
 text = "G: Search dev drawer"
 horizontal_alignment = 1
 
-[node name="Containers" type="Node2D" parent="."]
+[node name="Containers" type="Node2D" parent="." unique_id=1056894401]
 
-[node name="DevLocker" type="Area2D" parent="Containers"]
+[node name="DevLocker" type="Area2D" parent="Containers" unique_id=2082785695]
 position = Vector2(0, -200)
+collision_layer = 8
 script = ExtResource("7_container")
-interaction_mode = 1
 container_kind = "locker"
 preview_color = Color(0.75, 0.55, 0.95, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Containers/DevLocker"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Containers/DevLocker" unique_id=1415716158]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="LockerClosedVisual" type="ColorRect" parent="Containers/DevLocker"]
+[node name="LockerClosedVisual" type="ColorRect" parent="Containers/DevLocker" unique_id=749336385]
 offset_left = -32.0
 offset_top = -12.0
 offset_right = 32.0
 offset_bottom = 12.0
 color = Color(0.55, 0.4, 0.75, 0.95)
 
-[node name="LockerOpenVisual" type="ColorRect" parent="Containers/DevLocker"]
+[node name="LockerOpenVisual" type="ColorRect" parent="Containers/DevLocker" unique_id=2017741246]
 visible = false
 offset_left = -32.0
 offset_top = -12.0
@@ -233,7 +310,7 @@ offset_right = 32.0
 offset_bottom = 12.0
 color = Color(0.85, 0.65, 0.25, 0.95)
 
-[node name="HintLabel" type="Label" parent="Containers/DevLocker"]
+[node name="HintLabel" type="Label" parent="Containers/DevLocker" unique_id=552918583]
 offset_left = -100.0
 offset_top = -56.0
 offset_right = 100.0
@@ -242,26 +319,26 @@ theme_override_font_sizes/font_size = 9
 text = "I: Open dev locker"
 horizontal_alignment = 1
 
-[node name="Rewards" type="Node2D" parent="."]
+[node name="Rewards" type="Node2D" parent="." unique_id=923995061]
 
-[node name="DevRewardPickup" type="Area2D" parent="Rewards"]
+[node name="DevRewardPickup" type="Area2D" parent="Rewards" unique_id=390720118]
 position = Vector2(120, -200)
+collision_layer = 8
 script = ExtResource("8_reward")
-interaction_mode = 1
 reward_kind = "clue"
 preview_color = Color(0.95, 0.85, 0.25, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Rewards/DevRewardPickup"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Rewards/DevRewardPickup" unique_id=1160546569]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RewardVisual" type="ColorRect" parent="Rewards/DevRewardPickup"]
+[node name="RewardVisual" type="ColorRect" parent="Rewards/DevRewardPickup" unique_id=1221291558]
 offset_left = -24.0
 offset_top = -12.0
 offset_right = 24.0
 offset_bottom = 12.0
 color = Color(0.95, 0.8, 0.2, 0.95)
 
-[node name="RewardCollectedVisual" type="ColorRect" parent="Rewards/DevRewardPickup"]
+[node name="RewardCollectedVisual" type="ColorRect" parent="Rewards/DevRewardPickup" unique_id=1195826669]
 visible = false
 offset_left = -24.0
 offset_top = -12.0
@@ -269,7 +346,7 @@ offset_right = 24.0
 offset_bottom = 12.0
 color = Color(0.35, 0.85, 0.45, 0.95)
 
-[node name="HintLabel" type="Label" parent="Rewards/DevRewardPickup"]
+[node name="HintLabel" type="Label" parent="Rewards/DevRewardPickup" unique_id=1257170572]
 offset_left = -100.0
 offset_top = -56.0
 offset_right = 100.0
@@ -278,25 +355,25 @@ theme_override_font_sizes/font_size = 9
 text = "J: Collect dev reward"
 horizontal_alignment = 1
 
-[node name="Routes" type="Node2D" parent="."]
+[node name="Routes" type="Node2D" parent="." unique_id=148873116]
 
-[node name="DevRouteUnlock" type="Area2D" parent="Routes"]
+[node name="DevRouteUnlock" type="Area2D" parent="Routes" unique_id=1350094818]
 position = Vector2(-120, -200)
+collision_layer = 8
 script = ExtResource("9_route")
-interaction_mode = 1
 preview_color = Color(0.35, 0.75, 0.95, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Routes/DevRouteUnlock"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Routes/DevRouteUnlock" unique_id=288094725]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RouteBlockedVisual" type="ColorRect" parent="Routes/DevRouteUnlock"]
+[node name="RouteBlockedVisual" type="ColorRect" parent="Routes/DevRouteUnlock" unique_id=2079936086]
 offset_left = -36.0
 offset_top = -10.0
 offset_right = 36.0
 offset_bottom = 10.0
 color = Color(0.75, 0.25, 0.25, 0.95)
 
-[node name="RouteOpenVisual" type="ColorRect" parent="Routes/DevRouteUnlock"]
+[node name="RouteOpenVisual" type="ColorRect" parent="Routes/DevRouteUnlock" unique_id=883469956]
 visible = false
 offset_left = -36.0
 offset_top = -10.0
@@ -304,14 +381,14 @@ offset_right = 36.0
 offset_bottom = 10.0
 color = Color(0.25, 0.75, 0.95, 0.95)
 
-[node name="RouteBlocker" type="CollisionShape2D" parent="Routes/DevRouteUnlock"]
+[node name="RouteBlocker" type="CollisionShape2D" parent="Routes/DevRouteUnlock" unique_id=2044437675]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RoutePassageShape" type="CollisionShape2D" parent="Routes/DevRouteUnlock"]
+[node name="RoutePassageShape" type="CollisionShape2D" parent="Routes/DevRouteUnlock" unique_id=728642136]
+shape = SubResource("RectangleShape2D_trigger")
 disabled = true
-shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Routes/DevRouteUnlock"]
+[node name="HintLabel" type="Label" parent="Routes/DevRouteUnlock" unique_id=1708929665]
 offset_left = -110.0
 offset_top = -56.0
 offset_right = 110.0
@@ -320,18 +397,18 @@ theme_override_font_sizes/font_size = 9
 text = "K: Unlock route (needs reward)"
 horizontal_alignment = 1
 
-[node name="Objectives" type="Node2D" parent="."]
+[node name="Objectives" type="Node2D" parent="." unique_id=550429973]
 
-[node name="DevSideObjective" type="Area2D" parent="Objectives"]
+[node name="DevSideObjective" type="Area2D" parent="Objectives" unique_id=1560091702]
 position = Vector2(0, -280)
+collision_layer = 8
 script = ExtResource("10_side_objective")
-interaction_mode = 1
 preview_color = Color(0.55, 0.9, 0.55, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Objectives/DevSideObjective"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Objectives/DevSideObjective" unique_id=402346539]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Objectives/DevSideObjective"]
+[node name="HintLabel" type="Label" parent="Objectives/DevSideObjective" unique_id=575587885]
 offset_left = -120.0
 offset_top = -56.0
 offset_right = 120.0
@@ -340,26 +417,26 @@ theme_override_font_sizes/font_size = 9
 text = "L: Complete side objective (needs route)"
 horizontal_alignment = 1
 
-[node name="MultiInstance" type="Node2D" parent="."]
+[node name="MultiInstance" type="Node2D" parent="." unique_id=1531236665]
 
-[node name="RewardA" type="Area2D" parent="MultiInstance"]
+[node name="RewardA" type="Area2D" parent="MultiInstance" unique_id=356035053]
 position = Vector2(280, -60)
+collision_layer = 8
 script = ExtResource("8_reward")
-interaction_mode = 1
 reward_kind = "token"
 preview_color = Color(0.95, 0.7, 0.35, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RewardA"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RewardA" unique_id=567470440]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RewardVisual" type="ColorRect" parent="MultiInstance/RewardA"]
+[node name="RewardVisual" type="ColorRect" parent="MultiInstance/RewardA" unique_id=477980758]
 offset_left = -20.0
 offset_top = -10.0
 offset_right = 20.0
 offset_bottom = 10.0
 color = Color(0.9, 0.55, 0.2, 0.95)
 
-[node name="HintLabel" type="Label" parent="MultiInstance/RewardA"]
+[node name="HintLabel" type="Label" parent="MultiInstance/RewardA" unique_id=150179279]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -368,24 +445,24 @@ theme_override_font_sizes/font_size = 8
 text = "M1: Reward A"
 horizontal_alignment = 1
 
-[node name="RewardB" type="Area2D" parent="MultiInstance"]
+[node name="RewardB" type="Area2D" parent="MultiInstance" unique_id=1316168013]
 position = Vector2(400, -60)
+collision_layer = 8
 script = ExtResource("8_reward")
-interaction_mode = 1
 reward_kind = "token"
 preview_color = Color(0.75, 0.45, 0.95, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RewardB"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RewardB" unique_id=720054392]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RewardVisual" type="ColorRect" parent="MultiInstance/RewardB"]
+[node name="RewardVisual" type="ColorRect" parent="MultiInstance/RewardB" unique_id=2099661558]
 offset_left = -20.0
 offset_top = -10.0
 offset_right = 20.0
 offset_bottom = 10.0
 color = Color(0.65, 0.35, 0.9, 0.95)
 
-[node name="HintLabel" type="Label" parent="MultiInstance/RewardB"]
+[node name="HintLabel" type="Label" parent="MultiInstance/RewardB" unique_id=2077167070]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -394,24 +471,24 @@ theme_override_font_sizes/font_size = 8
 text = "M2: Reward B"
 horizontal_alignment = 1
 
-[node name="SearchA" type="Area2D" parent="MultiInstance"]
+[node name="SearchA" type="Area2D" parent="MultiInstance" unique_id=1380764158]
 position = Vector2(280, 60)
+collision_layer = 8
 script = ExtResource("5_search")
-interaction_mode = 1
 search_kind = "crate"
 preview_color = Color(0.45, 0.8, 0.55, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/SearchA"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/SearchA" unique_id=588731880]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="SearchClosedVisual" type="ColorRect" parent="MultiInstance/SearchA"]
+[node name="SearchClosedVisual" type="ColorRect" parent="MultiInstance/SearchA" unique_id=1944375279]
 offset_left = -22.0
 offset_top = -10.0
 offset_right = 22.0
 offset_bottom = 10.0
 color = Color(0.35, 0.65, 0.45, 0.95)
 
-[node name="HintLabel" type="Label" parent="MultiInstance/SearchA"]
+[node name="HintLabel" type="Label" parent="MultiInstance/SearchA" unique_id=1330167299]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -420,24 +497,24 @@ theme_override_font_sizes/font_size = 8
 text = "M3: Search A"
 horizontal_alignment = 1
 
-[node name="SearchB" type="Area2D" parent="MultiInstance"]
+[node name="SearchB" type="Area2D" parent="MultiInstance" unique_id=1346175925]
 position = Vector2(400, 60)
+collision_layer = 8
 script = ExtResource("5_search")
-interaction_mode = 1
 search_kind = "crate"
 preview_color = Color(0.55, 0.55, 0.85, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/SearchB"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/SearchB" unique_id=1130706893]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="SearchClosedVisual" type="ColorRect" parent="MultiInstance/SearchB"]
+[node name="SearchClosedVisual" type="ColorRect" parent="MultiInstance/SearchB" unique_id=1429688842]
 offset_left = -22.0
 offset_top = -10.0
 offset_right = 22.0
 offset_bottom = 10.0
 color = Color(0.4, 0.4, 0.75, 0.95)
 
-[node name="HintLabel" type="Label" parent="MultiInstance/SearchB"]
+[node name="HintLabel" type="Label" parent="MultiInstance/SearchB" unique_id=1463734157]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -446,16 +523,16 @@ theme_override_font_sizes/font_size = 8
 text = "M4: Search B"
 horizontal_alignment = 1
 
-[node name="RouteA" type="Area2D" parent="MultiInstance"]
+[node name="RouteA" type="Area2D" parent="MultiInstance" unique_id=1962947315]
 position = Vector2(280, 180)
+collision_layer = 8
 script = ExtResource("9_route")
-interaction_mode = 1
 preview_color = Color(0.35, 0.85, 0.75, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RouteA"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RouteA" unique_id=454222919]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="MultiInstance/RouteA"]
+[node name="HintLabel" type="Label" parent="MultiInstance/RouteA" unique_id=277928631]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -464,16 +541,16 @@ theme_override_font_sizes/font_size = 8
 text = "M5: Route A"
 horizontal_alignment = 1
 
-[node name="RouteB" type="Area2D" parent="MultiInstance"]
+[node name="RouteB" type="Area2D" parent="MultiInstance" unique_id=349387609]
 position = Vector2(400, 180)
+collision_layer = 8
 script = ExtResource("9_route")
-interaction_mode = 1
 preview_color = Color(0.85, 0.55, 0.35, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RouteB"]
+[node name="InteractionShape" type="CollisionShape2D" parent="MultiInstance/RouteB" unique_id=2047847907]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="MultiInstance/RouteB"]
+[node name="HintLabel" type="Label" parent="MultiInstance/RouteB" unique_id=1074406879]
 offset_left = -90.0
 offset_top = -48.0
 offset_right = 90.0
@@ -482,18 +559,18 @@ theme_override_font_sizes/font_size = 8
 text = "M6: Route B"
 horizontal_alignment = 1
 
-[node name="Exits" type="Node2D" parent="."]
+[node name="Exits" type="Node2D" parent="." unique_id=1884365966]
 
-[node name="DevExtractionZone" type="Area2D" parent="Exits"]
+[node name="DevExtractionZone" type="Area2D" parent="Exits" unique_id=1766905267]
 position = Vector2(200, 140)
+collision_layer = 8
 script = ExtResource("6_extraction")
-interaction_mode = 1
 preview_color = Color(0.2, 0.9, 0.75, 0.35)
 
-[node name="InteractionShape" type="CollisionShape2D" parent="Exits/DevExtractionZone"]
+[node name="InteractionShape" type="CollisionShape2D" parent="Exits/DevExtractionZone" unique_id=1634084224]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="Exits/DevExtractionZone"]
+[node name="HintLabel" type="Label" parent="Exits/DevExtractionZone" unique_id=1345520043]
 offset_left = -110.0
 offset_top = -56.0
 offset_right = 110.0
@@ -502,12 +579,14 @@ theme_override_font_sizes/font_size = 9
 text = "H: Extract (needs drawer clue)"
 horizontal_alignment = 1
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=2062563218]
 
-[node name="StatusLabel" type="Label" parent="UI"]
+[node name="StatusLabel" type="Label" parent="UI" unique_id=201622895]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 520.0
 offset_bottom = 140.0
 theme_override_font_sizes/font_size = 12
 text = "Loading..."
+
+[node name="MissionMechanics" type="Node2D" parent="." unique_id=916833401]

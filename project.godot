@@ -55,7 +55,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/character_animation_mapper/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/godot-runtime-bridge/plugin.cfg", "res://addons/godot_mcp/plugin.cfg", "res://addons/mission_paint_dock/plugin.cfg", "res://addons/pvgames_object_palette/plugin.cfg", "res://addons/scene_asset_browser/plugin.cfg")
+enabled=PackedStringArray("res://addons/character_animation_mapper/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/godot-runtime-bridge/plugin.cfg", "res://addons/godot_mcp/plugin.cfg", "res://addons/mission_dock/plugin.cfg", "res://addons/mission_paint_dock/plugin.cfg", "res://addons/pvgames_object_palette/plugin.cfg", "res://addons/scene_asset_browser/plugin.cfg")
 
 [input]
 

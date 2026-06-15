@@ -1470,6 +1470,15 @@ theme_override_font_sizes/font_size = 11
 text = "test_area_ambush -> test_area_entered"
 horizontal_alignment = 1
 
+[node name="@Label@19556" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/TestAreaGuardTrigger_Author" unique_id=507397332]
+offset_left = -100.0
+offset_top = -88.0
+offset_right = 108.0
+offset_bottom = -65.0
+theme_override_font_sizes/font_size = 11
+text = "test_area_ambush -> test_area_entered"
+horizontal_alignment = 1
+
 [node name="D6_05_ProofMarker" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1988776601]
 position = Vector2(8990, 191)
 
@@ -1696,6 +1705,15 @@ theme_override_font_sizes/font_size = 11
 text = "LOCK ZONE -> d6_05a_lock_test_door"
 horizontal_alignment = 1
 
+[node name="@Label@19557" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/TestDoorLockProof/D6_05A_LockZone_Author" unique_id=1540803482]
+offset_left = -100.0
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -53.0
+theme_override_font_sizes/font_size = 11
+text = "LOCK ZONE -> d6_05a_lock_test_door"
+horizontal_alignment = 1
+
 [node name="D6_05A_UnlockZone_Author" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/TestDoorLockProof" unique_id=1988776615]
 z_index = 1
 position = Vector2(168, -208)
@@ -1816,6 +1834,15 @@ text = "UNLOCK ZONE -> d6_05a_unlock_test_door"
 horizontal_alignment = 1
 
 [node name="@Label@19233" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/TestDoorLockProof/D6_05A_UnlockZone_Author" unique_id=1268031092]
+offset_left = -100.0
+offset_top = -76.0
+offset_right = 126.0
+offset_bottom = -53.0
+theme_override_font_sizes/font_size = 11
+text = "UNLOCK ZONE -> d6_05a_unlock_test_door"
+horizontal_alignment = 1
+
+[node name="@Label@19558" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/TestDoorLockProof/D6_05A_UnlockZone_Author" unique_id=444067332]
 offset_left = -100.0
 offset_top = -76.0
 offset_right = 126.0
@@ -5778,6 +5805,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19559" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/default" unique_id=516060945]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="spawn_route_louis_entry" type="Node2D" parent="GameplayRoot/MarkerRoot/Spawns" unique_id=1872353001]
 position = Vector2(5664, 656)
 script = ExtResource("7_l5qdk")
@@ -6118,6 +6155,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19235" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_louis_entry" unique_id=1778300116]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19560" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_louis_entry" unique_id=659648332]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -6476,6 +6523,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19561" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_louis_return" unique_id=1691927814]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="spawn_route_vent_entry" type="Node2D" parent="GameplayRoot/MarkerRoot/Spawns" unique_id=669373857]
 position = Vector2(3840, 192)
 script = ExtResource("7_l5qdk")
@@ -6816,6 +6873,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19237" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_vent_entry" unique_id=1356243726]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19562" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_vent_entry" unique_id=828094397]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -7174,6 +7241,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19563" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/spawn_route_vent_return" unique_id=1651207244]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="player_spawn_main" type="Node2D" parent="GameplayRoot/MarkerRoot/Spawns" unique_id=1285817354]
 position = Vector2(-1088, 32)
 script = ExtResource("7_l5qdk")
@@ -7514,6 +7591,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19564" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/player_spawn_main" unique_id=896454702]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="bentley_spawn_main" type="Node2D" parent="GameplayRoot/MarkerRoot/Spawns" unique_id=1759701395]
 position = Vector2(-928, 48)
 script = ExtResource("7_l5qdk")
@@ -7845,6 +7932,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19240" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/bentley_spawn_main" unique_id=967964449]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19565" type="Label" parent="GameplayRoot/MarkerRoot/Spawns/bentley_spawn_main" unique_id=1076633591]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -8199,6 +8296,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19566" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_talk_to_louis" unique_id=652189912]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_inspect_sauce_packets_or_receipt" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=1108948677]
 position = Vector2(1216, 32)
 script = ExtResource("7_l5qdk")
@@ -8529,6 +8636,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19242" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_inspect_sauce_packets_or_receipt" unique_id=1294343980]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19567" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_inspect_sauce_packets_or_receipt" unique_id=1321817472]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -8884,6 +9001,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19568" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_real_parking_garage_03" unique_id=1135941782]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_enter_parking_garage" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=624728804]
 position = Vector2(7808, 64)
 script = ExtResource("7_l5qdk")
@@ -9214,6 +9341,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19244" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_enter_parking_garage" unique_id=1847139772]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19569" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_enter_parking_garage" unique_id=805276869]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -9562,6 +9699,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19570" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_get_garage_staff_keycard_or_bypass" unique_id=340463581]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_retrieve_delivery_bag" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=1766891280]
 position = Vector2(15392, 336)
 script = ExtResource("7_l5qdk")
@@ -9892,6 +10039,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19246" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_retrieve_delivery_bag" unique_id=1556346179]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19571" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_retrieve_delivery_bag" unique_id=1998683227]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -10240,6 +10397,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19572" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_escape_and_return_to_louis" unique_id=1366094412]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_find_hidden_dog_station_poop_bag_pack" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=402590523]
 position = Vector2(-1570, 415)
 script = ExtResource("7_l5qdk")
@@ -10579,6 +10746,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19573" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_find_hidden_dog_station_poop_bag_pack" unique_id=1837193391]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_complete_without_triggering_garage_alarm" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=1791606758]
 position = Vector2(10336, 240)
 script = ExtResource("7_l5qdk")
@@ -10909,6 +11086,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19249" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_complete_without_triggering_garage_alarm" unique_id=1073649892]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19574" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_complete_without_triggering_garage_alarm" unique_id=341355965]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -11264,6 +11451,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19575" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_fake_loading_dock" unique_id=1235896698]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_find_glow_guy_under_garage_stairs" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=847860352]
 position = Vector2(1343, 0)
 script = ExtResource("7_l5qdk")
@@ -11594,6 +11791,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19251" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_find_glow_guy_under_garage_stairs" unique_id=1087747476]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19576" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_find_glow_guy_under_garage_stairs" unique_id=1913112006]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -11942,6 +12149,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19577" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_find_hidden_polaroid" unique_id=1731356541]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="objective_reach_exit_with_all_three_poop_bags" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=315739461]
 position = Vector2(-865, 174)
 script = ExtResource("7_l5qdk")
@@ -12272,6 +12489,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19253" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_reach_exit_with_all_three_poop_bags" unique_id=161965302]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19578" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/objective_reach_exit_with_all_three_poop_bags" unique_id=346732506]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -12627,6 +12854,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19579" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area" unique_id=1049629080]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="scent_fake_trash_area_02" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=1023123514]
 position = Vector2(3616, -592)
 script = ExtResource("7_l5qdk")
@@ -12973,6 +13210,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19580" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area_02" unique_id=120742767]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="scent_fake_trash_area_03" type="Node2D" parent="GameplayRoot/MarkerRoot/Objectives" unique_id=556459010]
 position = Vector2(2880, 608)
 script = ExtResource("7_l5qdk")
@@ -13310,6 +13557,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19256" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area_03" unique_id=148437328]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19581" type="Label" parent="GameplayRoot/MarkerRoot/Objectives/scent_fake_trash_area_03" unique_id=1018944043]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -13667,6 +13924,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19582" type="Label" parent="GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_01" unique_id=1228291766]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="patrol_garage_floor_1_guard_placeholder_02" type="Node2D" parent="GameplayRoot/MarkerRoot/Patrols" unique_id=113153516]
 position = Vector2(13376, 96)
 script = ExtResource("7_l5qdk")
@@ -14000,6 +14267,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19258" type="Label" parent="GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_02" unique_id=1858793150]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19583" type="Label" parent="GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_02" unique_id=2039382934]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -14351,6 +14628,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19584" type="Label" parent="GameplayRoot/MarkerRoot/Patrols/patrol_garage_floor_1_guard_placeholder_03" unique_id=849537608]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Phase0IAuthoringHider" type="Node" parent="GameplayRoot/MarkerRoot/Patrols" unique_id=746732603]
 script = ExtResource("6_rh0i0")
 force_low_z_index = false
@@ -14688,6 +14975,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19260" type="Label" parent="GameplayRoot/MarkerRoot/Enemies/garage_floor_1_guard_placeholder" unique_id=1928872689]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19585" type="Label" parent="GameplayRoot/MarkerRoot/Enemies/garage_floor_1_guard_placeholder" unique_id=327855077]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -15044,6 +15341,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19586" type="Label" parent="GameplayRoot/MarkerRoot/LightZones/lightzone_fake_scent_trail_a_trash_area" unique_id=139417095]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="lightzone_fake_scent_trail_b_loading_dock" type="Node2D" parent="GameplayRoot/MarkerRoot/LightZones" unique_id=1993888745]
 position = Vector2(32, 112)
 script = ExtResource("7_l5qdk")
@@ -15383,6 +15690,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19587" type="Label" parent="GameplayRoot/MarkerRoot/LightZones/lightzone_fake_scent_trail_b_loading_dock" unique_id=1131988180]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="lightzone_parking_garage_floor_1" type="Node2D" parent="GameplayRoot/MarkerRoot/LightZones" unique_id=178073171]
 position = Vector2(864, 16)
 script = ExtResource("7_l5qdk")
@@ -15713,6 +16030,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19263" type="Label" parent="GameplayRoot/MarkerRoot/LightZones/lightzone_parking_garage_floor_1" unique_id=1420278269]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19588" type="Label" parent="GameplayRoot/MarkerRoot/LightZones/lightzone_parking_garage_floor_1" unique_id=57020807]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -16063,6 +16390,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19589" type="Label" parent="GameplayRoot/MarkerRoot/AlarmZones/alarmzone_alarm_zone_placeholder" unique_id=1292749719]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EncounterZones" type="Node2D" parent="GameplayRoot/MarkerRoot" unique_id=1546747678]
 
 [node name="encounter_garage_floor_2_ambush_marker" type="Node2D" parent="GameplayRoot/MarkerRoot/EncounterZones" unique_id=307144049]
@@ -16395,6 +16732,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19265" type="Label" parent="GameplayRoot/MarkerRoot/EncounterZones/encounter_garage_floor_2_ambush_marker" unique_id=339774870]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19590" type="Label" parent="GameplayRoot/MarkerRoot/EncounterZones/encounter_garage_floor_2_ambush_marker" unique_id=33761869]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -16746,6 +17093,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19591" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_sterling_delivery_token" unique_id=444564180]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="clue_velvet_paw_stamp" type="Node2D" parent="GameplayRoot/MarkerRoot/Clues" unique_id=1873057535]
 position = Vector2(7520, 400)
 script = ExtResource("7_l5qdk")
@@ -17077,6 +17434,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19267" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_velvet_paw_stamp" unique_id=353432736]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19592" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_velvet_paw_stamp" unique_id=1451237085]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -17426,6 +17793,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19593" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_route_manifest_half" unique_id=2058764655]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="clue_sauce_packet_vp" type="Node2D" parent="GameplayRoot/MarkerRoot/Clues" unique_id=414929217]
 position = Vector2(7520, -368)
 script = ExtResource("7_l5qdk")
@@ -17757,6 +18134,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19269" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_sauce_packet_vp" unique_id=573997811]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19594" type="Label" parent="GameplayRoot/MarkerRoot/Clues/clue_sauce_packet_vp" unique_id=496863952]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -18112,6 +18499,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19595" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/hidden_polaroid_market_rain" unique_id=806977330]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="perfect_polaroid_garage_ambush" type="Node2D" parent="GameplayRoot/MarkerRoot/Collectibles" unique_id=69003598]
 position = Vector2(13536, -336)
 script = ExtResource("7_l5qdk")
@@ -18443,6 +18840,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19271" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/perfect_polaroid_garage_ambush" unique_id=496741319]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19596" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/perfect_polaroid_garage_ambush" unique_id=635010704]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -18792,6 +19199,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19597" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/glow_guy_garage_stairs" unique_id=1008319381]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="tiny_icon_louis_delivery" type="Node2D" parent="GameplayRoot/MarkerRoot/Collectibles" unique_id=921425166]
 position = Vector2(4060, 763)
 script = ExtResource("7_l5qdk")
@@ -19123,6 +19540,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19273" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/tiny_icon_louis_delivery" unique_id=360438340]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19598" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/tiny_icon_louis_delivery" unique_id=1272659479]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -19472,6 +19899,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19599" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/keycard_garage_staff" unique_id=677139934]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="poop_bag_dog_station" type="Node2D" parent="GameplayRoot/MarkerRoot/Collectibles" unique_id=800930296]
 position = Vector2(1280, -736)
 script = ExtResource("7_l5qdk")
@@ -19803,6 +20240,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19275" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/poop_bag_dog_station" unique_id=315591436]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19600" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/poop_bag_dog_station" unique_id=124052757]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -20152,6 +20599,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19601" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/poop_bag_garage_pet_bin" unique_id=1125380645]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="poop_bag_lobby_trash" type="Node2D" parent="GameplayRoot/MarkerRoot/Collectibles" unique_id=1166179896]
 position = Vector2(2688, 704)
 script = ExtResource("7_l5qdk")
@@ -20483,6 +20940,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19277" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/poop_bag_lobby_trash" unique_id=1522298576]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19602" type="Label" parent="GameplayRoot/MarkerRoot/Collectibles/poop_bag_lobby_trash" unique_id=680146519]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -20845,6 +21312,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19603" type="Label" parent="GameplayRoot/MarkerRoot/ScentTrails/scent_real_parking_garage" unique_id=452045467]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="scent_real_parking_garage_02" type="Node2D" parent="GameplayRoot/MarkerRoot/ScentTrails" unique_id=1280136864]
 position = Vector2(5984, 112)
 script = ExtResource("7_l5qdk")
@@ -21192,6 +21669,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19604" type="Label" parent="GameplayRoot/MarkerRoot/ScentTrails/scent_real_parking_garage_02" unique_id=321964097]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Gates" type="Node2D" parent="GameplayRoot/MarkerRoot" unique_id=541855916]
 
 [node name="code_gate_garage_office" type="Node2D" parent="GameplayRoot/MarkerRoot/Gates" unique_id=961207674]
@@ -21525,6 +22012,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19280" type="Label" parent="GameplayRoot/MarkerRoot/Gates/code_gate_garage_office" unique_id=1472084626]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19605" type="Label" parent="GameplayRoot/MarkerRoot/Gates/code_gate_garage_office" unique_id=2025090440]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -21885,6 +22382,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19606" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_bentley_vent" unique_id=56905697]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="route_louis_delivery_future" type="Node2D" parent="GameplayRoot/MarkerRoot/Routes" unique_id=1726013584]
 position = Vector2(576, -61)
 script = ExtResource("7_l5qdk")
@@ -22234,6 +22741,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19607" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_louis_delivery_future" unique_id=1930224073]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="route_garage_staff_keycard_route" type="Node2D" parent="GameplayRoot/MarkerRoot/Routes" unique_id=1552284195]
 position = Vector2(912, -183)
 script = ExtResource("7_l5qdk")
@@ -22571,6 +23088,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19283" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_garage_staff_keycard_route" unique_id=805999546]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19608" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_garage_staff_keycard_route" unique_id=1232506648]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -22927,6 +23454,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19609" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_poopbagdecoy_loading_dock" unique_id=1867110302]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="route_cameraterminal_security_booth" type="Node2D" parent="GameplayRoot/MarkerRoot/Routes" unique_id=923323438]
 position = Vector2(990, -83)
 script = ExtResource("7_l5qdk")
@@ -23263,6 +23800,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19285" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_cameraterminal_security_booth" unique_id=286852902]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19610" type="Label" parent="GameplayRoot/MarkerRoot/Routes/route_cameraterminal_security_booth" unique_id=833079067]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -23622,6 +24169,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19611" type="Label" parent="GameplayRoot/MarkerRoot/Transitions/transition_garage_floor2_service_stairs" unique_id=1071072669]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="transition_route_louis_return" type="Node2D" parent="GameplayRoot/MarkerRoot/Transitions" unique_id=1453808858]
 position = Vector2(3840, 0)
 script = ExtResource("7_l5qdk")
@@ -23961,6 +24518,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19287" type="Label" parent="GameplayRoot/MarkerRoot/Transitions/transition_route_louis_return" unique_id=2036986141]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19612" type="Label" parent="GameplayRoot/MarkerRoot/Transitions/transition_route_louis_return" unique_id=1979247812]
 visible = false
 offset_left = -80.0
 offset_top = -42.0
@@ -24318,6 +24885,16 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="@Label@19613" type="Label" parent="GameplayRoot/MarkerRoot/Transitions/transition_route_vent_return" unique_id=1839934724]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Phase0IAuthoringHider" type="Node" parent="GameplayRoot/MarkerRoot/Transitions" unique_id=1493752916]
 script = ExtResource("6_rh0i0")
 force_low_z_index = false
@@ -24655,6 +25232,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="@Label@19289" type="Label" parent="GameplayRoot/MarkerRoot/Exit/exit_return_to_louis" unique_id=339601424]
+visible = false
+offset_left = -80.0
+offset_top = -42.0
+offset_right = 80.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@Label@19614" type="Label" parent="GameplayRoot/MarkerRoot/Exit/exit_return_to_louis" unique_id=512487375]
 visible = false
 offset_left = -80.0
 offset_top = -42.0

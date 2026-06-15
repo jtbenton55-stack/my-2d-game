@@ -1932,7 +1932,7 @@ This section is the blueprint-level source of truth for phase and subphase scope
 | Phase 2H | Side objectives | `SideObjectiveNode`. | Optional/side objective steps use `ObjectiveStepController`. |
 | Phase 2I | Multi-instance isolation | Duplicate mechanics of the same class in one mission. | Core reusable mechanic kit status confirmed on 2026-06-09: GdUnit `mission_authoring` PASS, dev-room live chain PASS, Taco Packet 6C already confirmed, and no new core-kit fixes required. |
 | Phase 2J | First production adoption | One non-critical Taco route/search/reward/extraction slice beside Phase0J. | Packet 6C live Taco pilot validation passed on 2026-06-09; no immediate pilot fix pass is required unless later validation finds issues. |
-| Phase 2K | Authoring UX entry point | Mission Authoring Palette and Mission Assist Browser planning only; implementation after core nodes stabilize. | Tooling uses existing mechanic classes, not a parallel format. |
+| Phase 2K | Authoring UX entry point | Combined **Mission Dock** plugin with Mission Authoring Palette + Mission Assist Browser tabs. | Implementation landed 2026-06-13: plugin files under `addons/mission_dock/`, all approved mechanic classes supported with safe defaults, read-only audit browser, static validator, plugin enabled in `project.godot`. Post-manual-QA fix pass addressed parent fallback, BBCode details, starter requirements, and placement/resource summaries; Jake retest passed. Tooling uses existing mechanic classes, not a parallel format. |
 
 ### Phase 3: Visual Tile / Asset Painting Pipeline
 
