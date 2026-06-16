@@ -12,12 +12,31 @@
 [ext_resource type="Script" uid="uid://bkjgi62h5grna" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="8_reward"]
 [ext_resource type="Script" uid="uid://b6cakipmcv6jr" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="9_route"]
 [ext_resource type="Script" uid="uid://bu88u3f2yiheq" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="10_side_objective"]
+[ext_resource type="Script" uid="uid://n74vasl56n5p" path="res://src/missions/iso/dev/Phase6ACardTestHarness.gd" id="11_phase6a_harness"]
+[ext_resource type="Script" uid="uid://c1lfayggsea3a" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="12_bwj2c"]
+[ext_resource type="Script" uid="uid://bb7g8ecmo8ul2" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="13_mq6f0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhsj6"]
 size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_nxfwk"]
+script = ExtResource("12_bwj2c")
+requirement_id = &"phase6a_requires_delivery_route_effect"
+fact_type = &"scheme_effect"
+key = "has_delivery_route"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Requires Louis Delivery Route effect."
+debug_note = "Phase 6A scheme_effect test using louis_delivery_route effect_key."
+metadata/_custom_type_script = "uid://c1lfayggsea3a"
+
+[sub_resource type="Resource" id="Resource_fhsj6"]
+script = ExtResource("13_mq6f0")
+requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_nxfwk")])
+metadata/_custom_type_script = "uid://bb7g8ecmo8ul2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jajaa"]
 size = Vector2(96, 96)
@@ -81,6 +100,7 @@ interaction_radius = 220.0
 position = Vector2(-200, -80)
 collision_layer = 8
 script = ExtResource("3_trigger")
+interaction_mode = 0
 preview_color = Color(0.3, 0.9, 0.4, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/AlwaysTrigger" unique_id=2105066908]
@@ -99,6 +119,7 @@ horizontal_alignment = 1
 position = Vector2(-40, -120)
 collision_layer = 8
 script = ExtResource("3_trigger")
+interaction_mode = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/UnlockTrigger" unique_id=1818129871]
 shape = SubResource("RectangleShape2D_trigger")
@@ -116,6 +137,7 @@ horizontal_alignment = 1
 position = Vector2(120, -80)
 collision_layer = 8
 script = ExtResource("3_trigger")
+interaction_mode = 0
 preview_color = Color(0.95, 0.75, 0.2, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/LockedTrigger" unique_id=1882475489]
@@ -134,6 +156,7 @@ horizontal_alignment = 1
 position = Vector2(200, 40)
 collision_layer = 8
 script = ExtResource("3_trigger")
+interaction_mode = 0
 preview_color = Color(0.95, 0.35, 0.35, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger" unique_id=1113234325]
@@ -148,60 +171,11 @@ theme_override_font_sizes/font_size = 9
 text = "D: Failure effect only"
 horizontal_alignment = 1
 
-[node name="RewardNode_qa_reward_node_01" type="Area2D" parent="Triggers/FailureTrigger" unique_id=227181046]
-position = Vector2(194.31537, -324.38095)
-collision_layer = 8
-script = ExtResource("8_reward")
-reward_id = &"qa_reward_node_01"
-collected_flag = &"qa_reward_node_01_collected"
-mechanic_id = &"qa_reward_node_01"
-display_name = "QA Reward Node 01"
-prompt_text = "Press E: Collect QA"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01" unique_id=1028417814]
-shape = SubResource("RectangleShape2D_fhsj6")
-
-[node name="RewardNode_qa_reward_node_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01" unique_id=224622818]
-position = Vector2(-826.31537, 460.38095)
-collision_layer = 8
-script = ExtResource("8_reward")
-reward_id = &"qa_reward_node_01"
-collected_flag = &"qa_reward_node_01_collected"
-mechanic_id = &"qa_reward_node_01"
-display_name = "QA Reward Node 01"
-prompt_text = "Press E: Collect QA"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01" unique_id=269925099]
-shape = SubResource("RectangleShape2D_jajaa")
-
-[node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01" unique_id=772068810]
-position = Vector2(128, 136)
-collision_layer = 8
-script = ExtResource("3_trigger")
-trigger_on_enter = false
-mechanic_id = &"qa_trigger_effect_01"
-prompt_text = "Press E: Trigger"
-success_effects = SubResource("Resource_6upad")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01" unique_id=346846025]
-shape = SubResource("RectangleShape2D_2gkjd")
-
-[node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01" unique_id=2019499074]
-position = Vector2(-310, -177)
-collision_layer = 8
-script = ExtResource("3_trigger")
-trigger_on_enter = false
-mechanic_id = &"qa_trigger_effect_01"
-prompt_text = "Press E: Trigger"
-success_effects = SubResource("Resource_xp6ql")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/FailureTrigger/RewardNode_qa_reward_node_01/RewardNode_qa_reward_node_01/TriggerZone_qa_trigger_effect_01/TriggerZone_qa_trigger_effect_01" unique_id=706839046]
-shape = SubResource("RectangleShape2D_6vm7b")
-
 [node name="DialogueTrigger" type="Area2D" parent="Triggers" unique_id=978170780]
 position = Vector2(-120, 100)
 collision_layer = 8
 script = ExtResource("3_trigger")
+interaction_mode = 0
 preview_color = Color(0.75, 0.45, 0.95, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/DialogueTrigger" unique_id=869172439]
@@ -589,4 +563,85 @@ offset_bottom = 140.0
 theme_override_font_sizes/font_size = 12
 text = "Loading..."
 
+[node name="Phase6ACardTestHarness" type="PanelContainer" parent="UI" unique_id=1840479650]
+offset_left = 540.0
+offset_top = 8.0
+offset_right = 1040.0
+offset_bottom = 238.0
+script = ExtResource("11_phase6a_harness")
+
 [node name="MissionMechanics" type="Node2D" parent="." unique_id=916833401]
+
+[node name="RewardNode_qa_reward_node_01" type="Area2D" parent="MissionMechanics" unique_id=227181046]
+position = Vector2(394.31537, -284.38095)
+collision_layer = 8
+script = ExtResource("8_reward")
+reward_id = &"qa_reward_node_01"
+collected_flag = &"qa_reward_node_01_collected"
+mechanic_id = &"qa_reward_node_01"
+display_name = "QA Reward Node 01"
+prompt_text = "Press E: Collect QA"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RewardNode_qa_reward_node_01" unique_id=1028417814]
+shape = SubResource("RectangleShape2D_fhsj6")
+
+[node name="RewardNode_qa_reward_node_02" type="Area2D" parent="MissionMechanics" unique_id=224622818]
+position = Vector2(-432, 176)
+collision_layer = 8
+script = ExtResource("8_reward")
+reward_id = &"qa_reward_node_02"
+collected_flag = &"qa_reward_node_02_collected"
+target_visual_path = NodePath("GateVisual")
+collected_message = "Phase 6A reward collected."
+mechanic_id = &"qa_reward_node_02"
+display_name = "QA Reward Node 02"
+prompt_text = "Press E: Collect Phase 6A reward"
+locked_prompt_text = "Requires Louis Delivery Route effect."
+requirements = SubResource("Resource_fhsj6")
+debug_label_path = NodePath("HintLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RewardNode_qa_reward_node_02" unique_id=269925099]
+shape = SubResource("RectangleShape2D_jajaa")
+
+[node name="GateVisual" type="ColorRect" parent="MissionMechanics/RewardNode_qa_reward_node_02" unique_id=1378904851]
+offset_left = -40.0
+offset_top = -8.0
+offset_right = 40.0
+offset_bottom = 8.0
+color = Color(0.85, 0.35, 0.15, 0.9)
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/RewardNode_qa_reward_node_02" unique_id=474003999]
+offset_left = -110.0
+offset_top = -56.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+
+[node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="MissionMechanics" unique_id=772068810]
+position = Vector2(-304, 312)
+collision_layer = 8
+script = ExtResource("3_trigger")
+trigger_on_enter = false
+mechanic_id = &"qa_trigger_effect_01"
+interaction_mode = 0
+prompt_text = "Press E: Trigger"
+success_effects = SubResource("Resource_6upad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/TriggerZone_qa_trigger_effect_01" unique_id=346846025]
+shape = SubResource("RectangleShape2D_2gkjd")
+
+[node name="TriggerZone_qa_trigger_effect_02" type="Area2D" parent="MissionMechanics" unique_id=2019499074]
+position = Vector2(-614, 135)
+collision_layer = 8
+script = ExtResource("3_trigger")
+trigger_on_enter = false
+mechanic_id = &"qa_trigger_effect_01"
+interaction_mode = 0
+prompt_text = "Press E: Trigger"
+success_effects = SubResource("Resource_xp6ql")
+collision_shape_path = NodePath("../TriggerZone_qa_trigger_effect_01/CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/TriggerZone_qa_trigger_effect_02" unique_id=706839046]
+shape = SubResource("RectangleShape2D_6vm7b")

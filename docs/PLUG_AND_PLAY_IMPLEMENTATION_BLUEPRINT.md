@@ -1979,7 +1979,7 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 6A | Card fact bridge | Selected/unlocked card facts through existing `GameState`, `CardManager`, and `MissionSchemeBridge`. | Mechanics query cards through requirements, not direct hardcoded checks. |
+| Phase 6A | Card fact bridge | Selected/unlocked/effect card facts through existing `GameState`, `CardManager`, and `MissionSchemeBridge`. | Implemented 2026-06-15: `selected_card`, `unlocked_card`, and `scheme_effect` are queryable through `RequirementSet` / `MissionRequirement`; `scheme_effect` now uses `MissionSchemeBridge.get_active_scheme_cards()` so selected cards and current planning loadout effects are visible to authored requirements without changing `CardEffects.gd` or adding a new manager. |
 | Phase 6B | Mission modifier data | `MissionModifierSet` and setup effect bundles. | Card setup changes are inspectable and data-driven. |
 | Phase 6C | Card-triggered nodes | `SchemeCardTriggerNode` or equivalent placed trigger. | One selected card changes mission setup. |
 | Phase 6D | Route modifiers | Card-driven route unlocks. | Louis-style route cards can alter access without custom scene scripts. |

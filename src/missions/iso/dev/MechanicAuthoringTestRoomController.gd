@@ -506,6 +506,8 @@ func _snapshot_game_state() -> void:
 		"current_mission_id": GameState.current_mission_id,
 		"pending_mission_id": GameState.pending_mission_id,
 		"dialogue_flags": GameState.dialogue_flags.duplicate(true),
+		"selected_cards": GameState.selected_cards.duplicate(),
+		"current_scheme_loadout": GameState.get_current_scheme_loadout() if GameState.has_method("get_current_scheme_loadout") else GameState.get("current_scheme_loadout"),
 		"quest_manager": _snapshot_quest_manager_state(),
 	}
 
@@ -516,7 +518,22 @@ func _restore_game_state() -> void:
 	GameState.current_mission_id = String(_game_state_snapshot.get("current_mission_id", ""))
 	GameState.pending_mission_id = String(_game_state_snapshot.get("pending_mission_id", ""))
 	GameState.dialogue_flags = (_game_state_snapshot.get("dialogue_flags", {}) as Dictionary).duplicate(true)
+	_restore_string_array(GameState.selected_cards, _game_state_snapshot.get("selected_cards", []))
+	var loadout: Variant = _game_state_snapshot.get("current_scheme_loadout", {})
+	if loadout is Dictionary:
+		if GameState.has_method("set_current_scheme_loadout"):
+			GameState.set_current_scheme_loadout(loadout as Dictionary)
+		else:
+			GameState.set("current_scheme_loadout", (loadout as Dictionary).duplicate(true))
 	_restore_quest_manager_state(_game_state_snapshot.get("quest_manager", {}))
+
+
+func _restore_string_array(target: Array[String], previous: Variant) -> void:
+	target.clear()
+	if not (previous is Array):
+		return
+	for item in previous:
+		target.append(String(item))
 
 
 func _snapshot_quest_manager_state() -> Dictionary:

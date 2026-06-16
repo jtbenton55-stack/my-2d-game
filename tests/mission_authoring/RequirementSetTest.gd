@@ -28,6 +28,68 @@ func test_selected_card_requirement_reads_game_state() -> void:
 	_restore_string_array(GameState.unlocked_cards, prev_unlocked)
 
 
+func test_unlocked_card_requirement_reads_typed_scheme_registry() -> void:
+	var prev_unlocked := GameState.unlocked_cards.duplicate()
+	var prev_scheme_cards := GameState.unlocked_scheme_cards.duplicate(true)
+	GameState.unlocked_cards.clear()
+	GameState.unlocked_scheme_cards.clear()
+	GameState.unlocked_scheme_cards["mere_legal_eyes"] = {"is_unlocked": true}
+
+	var req := MissionRequirementScript.new()
+	req.fact_type = &"unlocked_card"
+	req.key = "mere_legal_eyes"
+	req.operator = MissionRequirementScript.Operator.EXISTS
+	req.expected_value_type = "exists"
+
+	var result: Dictionary = req.evaluate({"mission_id": "taco_bell_drop"})
+	assert_bool(result.get("ok", false)).is_true()
+
+	_restore_string_array(GameState.unlocked_cards, prev_unlocked)
+	GameState.unlocked_scheme_cards = prev_scheme_cards
+
+
+func test_scheme_effect_requirement_reads_selected_card_effect() -> void:
+	_ensure_card_catalog_loaded()
+	var prev_selected := GameState.selected_cards.duplicate()
+	var prev_unlocked := GameState.unlocked_cards.duplicate()
+	GameState.unlocked_cards.clear()
+	GameState.unlocked_cards.append("louis_delivery_route")
+	GameState.selected_cards.clear()
+	GameState.selected_cards.append("louis_delivery_route")
+
+	var req := MissionRequirementScript.new()
+	req.fact_type = &"scheme_effect"
+	req.key = "has_delivery_route"
+	req.operator = MissionRequirementScript.Operator.EXISTS
+	req.expected_value_type = "exists"
+
+	var result: Dictionary = req.evaluate({"mission_id": "taco_bell_drop"})
+	assert_bool(result.get("ok", false)).is_true()
+
+	_restore_string_array(GameState.selected_cards, prev_selected)
+	_restore_string_array(GameState.unlocked_cards, prev_unlocked)
+
+
+func test_scheme_effect_requirement_reads_current_loadout_effect() -> void:
+	_ensure_card_catalog_loaded()
+	var prev_selected := GameState.selected_cards.duplicate()
+	var prev_loadout := GameState.get_current_scheme_loadout()
+	GameState.selected_cards.clear()
+	GameState.set_current_scheme_loadout({"plan": "louis_delivery_route", "trick": "", "comfort_chaos": ""})
+
+	var req := MissionRequirementScript.new()
+	req.fact_type = &"scheme_effect"
+	req.key = "has_delivery_route"
+	req.operator = MissionRequirementScript.Operator.EXISTS
+	req.expected_value_type = "exists"
+
+	var result: Dictionary = req.evaluate({"mission_id": "taco_bell_drop"})
+	assert_bool(result.get("ok", false)).is_true()
+
+	_restore_string_array(GameState.selected_cards, prev_selected)
+	GameState.set_current_scheme_loadout(prev_loadout)
+
+
 func test_completed_objective_requirement_reads_quest_manager() -> void:
 	var prev_active_quest_id := QuestManager.active_quest_id
 	var prev_active_objective := QuestManager.active_objective
@@ -126,3 +188,8 @@ func _restore_string_array(target: Array[String], previous: Array) -> void:
 	target.clear()
 	for item in previous:
 		target.append(String(item))
+
+
+func _ensure_card_catalog_loaded() -> void:
+	if CardManager.cards.is_empty() and CardManager.has_method("load_cards"):
+		CardManager.load_cards()

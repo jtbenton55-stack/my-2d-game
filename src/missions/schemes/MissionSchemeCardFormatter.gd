@@ -27,7 +27,11 @@ static func display_name_for_id(card_id: String, snapshot_display: String = "") 
 	if MissionAutoloadResolver.has_card_manager():
 		var res = CardManager.get_card(cid)
 		if res != null:
-			return String(res.get("display_name", res.get("id", cid)))
+			var display_name := String(res.get("display_name")).strip_edges()
+			if display_name != "":
+				return display_name
+			var resource_id := String(res.get("id")).strip_edges()
+			return resource_id if resource_id != "" else cid
 	return _snake_case_to_title(cid)
 
 

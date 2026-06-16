@@ -11,11 +11,18 @@ static func _card_dict_from_resource(card) -> Dictionary:
 	if card == null:
 		return {}
 	return {
-		"id": String(card.get("id", "")),
-		"display_name": String(card.get("display_name", card.get("id", ""))),
-		"effect_key": String(card.get("effect_key", "")),
-		"effect_value": float(card.get("effect_value", 0.0)),
+		"id": String(_card_property(card, "id", "")),
+		"display_name": String(_card_property(card, "display_name", _card_property(card, "id", ""))),
+		"effect_key": String(_card_property(card, "effect_key", "")),
+		"effect_value": float(_card_property(card, "effect_value", 0.0)),
 	}
+
+
+static func _card_property(card, property_name: String, default_value: Variant = null) -> Variant:
+	if card == null:
+		return default_value
+	var value: Variant = card.get(property_name)
+	return default_value if value == null else value
 
 
 static func _append_card_row(equipped: Array, seen: Dictionary, row: Dictionary) -> void:
@@ -134,10 +141,11 @@ static func _merged_unlocked_scheme_ids() -> Array[String]:
 	return out
 
 
-static func has_scheme_effect(effect_id: String, _mission_id: String = "") -> bool:
-	if effect_id == "" or not MissionAutoloadResolver.has_card_manager():
+static func has_scheme_effect(effect_id: String, mission_id: String = "") -> bool:
+	var needle := effect_id.strip_edges()
+	if needle == "" or not MissionAutoloadResolver.has_card_manager():
 		return false
-	for card in CardManager.get_selected_cards():
-		if card != null and String(card.get("effect_key", "")) == effect_id:
+	for card in get_active_scheme_cards(mission_id):
+		if card != null and String(_card_property(card, "effect_key", "")).strip_edges() == needle:
 			return true
 	return false
