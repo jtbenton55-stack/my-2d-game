@@ -482,6 +482,8 @@ func _refresh_status() -> void:
 		"dev_reward_effect_applied: %s" % str(get_flag_state("dev_reward_effect_applied")),
 		"dev_route_open: %s" % str(get_flag_state("dev_route_open")),
 		"dev_route_effect_applied: %s" % str(get_flag_state("dev_route_effect_applied")),
+		"phase6c_scheme_route_ready: %s" % str(get_flag_state("phase6c_scheme_route_ready")),
+		"phase6d_card_route_open: %s" % str(get_flag_state("phase6d_card_route_open")),
 		"dev_side_objective_handled: %s" % str(get_flag_state("dev_side_objective_handled")),
 		"dev_side_objective_effect_applied: %s" % str(get_flag_state("dev_side_objective_effect_applied")),
 		"dev_side_objective_completed: %s" % str(_is_dev_side_objective_completed()),

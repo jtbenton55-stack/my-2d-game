@@ -1981,9 +1981,9 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 |---|---|---|---|
 | Phase 6A | Card fact bridge | Selected/unlocked/effect card facts through existing `GameState`, `CardManager`, and `MissionSchemeBridge`. | Implemented 2026-06-15: `selected_card`, `unlocked_card`, and `scheme_effect` are queryable through `RequirementSet` / `MissionRequirement`; `scheme_effect` now uses `MissionSchemeBridge.get_active_scheme_cards()` so selected cards and current planning loadout effects are visible to authored requirements without changing `CardEffects.gd` or adding a new manager. |
 | Phase 6B | Mission modifier data | `MissionModifierSet` and setup effect bundles. | Implemented 2026-06-16: `MissionModifierSet` is an inspectable data Resource for `source_card_id`, optional `RequirementSet`, optional setup `EffectSet`, and `debug_note`; no global modifier manager or production card behavior was added. |
-| Phase 6C | Card-triggered nodes | `SchemeCardTriggerNode` or equivalent placed trigger. | One selected card changes mission setup. |
-| Phase 6D | Route modifiers | Card-driven route unlocks. | Louis-style route cards can alter access without custom scene scripts. |
-| Phase 6E | Starting item/modifier hooks | Cards grant starting tools, hints, or route facts. | Card effects remain centralized and debuggable. |
+| Phase 6C | Card-triggered nodes | `SchemeCardTriggerNode` or equivalent placed trigger. | Implemented 2026-06-17: `SchemeCardTriggerNode` consumes `MissionModifierSet` Resources, reads active cards through `MissionSchemeBridge`, and applies setup `EffectSet` data without production scene scripts or a global modifier manager. |
+| Phase 6D | Route modifiers | Card-driven route unlocks. | Lite proof implemented 2026-06-17: focused tests and the dev-room sample show Louis-style card setup writing a route-gating mission flag that a reusable `RouteUnlockNode` can require. |
+| Phase 6E | Starting item/modifier hooks | Cards grant starting tools, hints, or route facts. | Lite proof implemented 2026-06-17: `SchemeCardTriggerNode.apply_on_ready` can run setup effects at scene start for route facts/hints; inventory/item grants remain deferred to Phase 5. |
 | Phase 6F | Production card slice | One real card changes a placed node in a production mission. | Card behavior is visible in debug reports and playtest. |
 
 ### Phase 7: Bentley Core Verbs

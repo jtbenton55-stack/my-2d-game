@@ -242,11 +242,12 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Dev validation scene only; not used in Taco or production iso missions
 - No full visual authoring palette in the editor
 - `TriggerZone` defaults to `AUTOMATIC_ON_ENTER` in `_init()`; dev room overrides to `INTERACT_REQUIRED` in the controller
+- `SchemeCardTriggerNode` is validated for reusable card-driven setup, route facts, and ready-time hooks, but has not yet been wired into a production Taco scene
 - No inventory/heist kit, Bentley commands, noise, or social stealth in this foundation
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
-## Next recommended mechanic nodes
+## Recent mechanic nodes
 
 1. `MissionModifierSet` — mission-wide modifier bundles  
 2. `SchemeCardTriggerNode` — card-triggered mission effects  

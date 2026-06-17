@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://n74vasl56n5p" path="res://src/missions/iso/dev/Phase6ACardTestHarness.gd" id="11_phase6a_harness"]
 [ext_resource type="Script" uid="uid://c1lfayggsea3a" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="12_bwj2c"]
 [ext_resource type="Script" uid="uid://bb7g8ecmo8ul2" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="13_mq6f0"]
+[ext_resource type="Script" uid="uid://c27tmd6xl35ad" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="14_scheme_trigger"]
+[ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="15_modifier"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -66,6 +68,37 @@ effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_dweh2")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vm7b"]
 size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_phase6c_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase6c_scheme_route_ready"
+key = "phase6c_scheme_route_ready"
+
+[sub_resource type="Resource" id="Resource_phase6c_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase6c_scheme_route_ready"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase6c_effect")])
+
+[sub_resource type="Resource" id="Resource_phase6c_modifier"]
+script = ExtResource("15_modifier")
+modifier_id = &"phase6c_louis_delivery_route_setup"
+source_card_id = &"louis_delivery_route"
+setup_effects = SubResource("Resource_phase6c_effect_set")
+debug_note = "Dev-room Phase 6C/6D-lite proof: Louis Delivery Route opens a reusable route flag."
+
+[sub_resource type="Resource" id="Resource_phase6d_route_req"]
+script = ExtResource("12_bwj2c")
+requirement_id = &"phase6d_requires_scheme_route_ready"
+fact_type = &"mission_flag"
+key = "phase6c_scheme_route_ready"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Trigger Louis Delivery Route setup first."
+
+[sub_resource type="Resource" id="Resource_phase6d_route_req_set"]
+script = ExtResource("13_mq6f0")
+requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_phase6d_route_req")])
+locked_message = "Pick Louis Delivery Route, then trigger card setup."
 
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
@@ -645,3 +678,91 @@ collision_shape_path = NodePath("../TriggerZone_qa_trigger_effect_01/CollisionSh
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/TriggerZone_qa_trigger_effect_02" unique_id=706839046]
 shape = SubResource("RectangleShape2D_6vm7b")
+
+[node name="SchemeCardTrigger_phase6c_louis_route" type="Area2D" parent="MissionMechanics" unique_id=293570009]
+position = Vector2(520, -260)
+collision_layer = 8
+script = ExtResource("14_scheme_trigger")
+modifier_sets = Array[Resource]([SubResource("Resource_phase6c_modifier")])
+missing_card_message = "Pick Louis Delivery Route in the card harness first."
+mechanic_id = &"phase6c_louis_route_setup"
+display_name = "Phase 6C Louis Route Setup"
+interaction_priority = 450
+prompt_text = "Press E: Apply Louis card setup"
+locked_prompt_text = "Pick Louis Delivery Route in the card harness first."
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/SchemeCardTrigger_phase6c_louis_route" unique_id=974563883]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/SchemeCardTrigger_phase6c_louis_route" unique_id=437874001]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "6C: Apply Louis card setup"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/SchemeCardTrigger_phase6c_louis_route"]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "CARD LOCKED"
+horizontal_alignment = 1
+
+[node name="RouteUnlockNode_phase6d_card_route" type="Area2D" parent="MissionMechanics" unique_id=1537818184]
+position = Vector2(520, -140)
+collision_layer = 8
+script = ExtResource("9_route")
+route_id = &"phase6d_card_route"
+route_flag = &"phase6d_card_route_open"
+nodes_to_show = Array[NodePath]([NodePath("RouteVisual")])
+nodes_to_hide = Array[NodePath]([NodePath("RouteLockedVisual")])
+locked_route_message = "Trigger the Louis card setup first."
+mechanic_id = &"phase6d_card_route"
+display_name = "Phase 6D Card Route"
+one_shot = false
+interaction_priority = 440
+prompt_text = "Press E: Unlock card route"
+locked_prompt_text = "Trigger the Louis card setup first."
+requirements = SubResource("Resource_phase6d_route_req_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=181149908]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="RouteLockedVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route"]
+offset_left = -36.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = 10.0
+color = Color(0.75, 0.25, 0.25, 0.95)
+
+[node name="RouteVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=798705462]
+visible = false
+offset_left = -36.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = 10.0
+color = Color(0.35, 0.75, 0.95, 0.95)
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=197659175]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "6D-lite: Unlock card route"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route"]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "LOCKED"
+horizontal_alignment = 1

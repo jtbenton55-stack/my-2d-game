@@ -1,11 +1,18 @@
 extends PanelContainer
 
 const EMPTY_LOADOUT := {"plan": "", "trick": "", "comfort_chaos": ""}
+const EXPANDED_MINIMUM_SIZE := Vector2(500, 230)
+const COLLAPSED_MINIMUM_SIZE := Vector2(320, 34)
 
 var _card_option: OptionButton
 var _readout: RichTextLabel
+var _body: VBoxContainer
+var _collapse_button: Button
 var _rows: Array[Dictionary] = []
 var _has_applied_loadout := false
+var _collapsed := false
+var _dragging := false
+var _drag_offset := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -15,31 +22,96 @@ func _ready() -> void:
 
 
 func _build_ui() -> void:
-	custom_minimum_size = Vector2(500, 230)
+	custom_minimum_size = EXPANDED_MINIMUM_SIZE
 	var root := VBoxContainer.new()
 	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	add_child(root)
 
+	var header := HBoxContainer.new()
+	header.mouse_default_cursor_shape = Control.CURSOR_MOVE
+	header.gui_input.connect(_on_header_gui_input)
+	root.add_child(header)
+
 	var title := Label.new()
 	title.text = "Phase 6A Card Test Harness"
 	title.add_theme_font_size_override("font_size", 14)
-	root.add_child(title)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	header.add_child(title)
+
+	var drag_hint := Label.new()
+	drag_hint.text = "drag"
+	drag_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	header.add_child(drag_hint)
+
+	_collapse_button = Button.new()
+	_collapse_button.text = "-"
+	_collapse_button.tooltip_text = "Collapse/expand card harness"
+	_collapse_button.pressed.connect(_toggle_collapsed)
+	header.add_child(_collapse_button)
+
+	_body = VBoxContainer.new()
+	_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	root.add_child(_body)
 
 	var help := Label.new()
 	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	help.text = "Dev-only: choose a resource card to write GameState.current_scheme_loadout.plan for scheme_effect requirements."
-	root.add_child(help)
+	_body.add_child(help)
 
 	_card_option = OptionButton.new()
 	_card_option.item_selected.connect(_on_card_selected)
-	root.add_child(_card_option)
+	_body.add_child(_card_option)
 
 	_readout = RichTextLabel.new()
 	_readout.bbcode_enabled = true
 	_readout.fit_content = false
 	_readout.scroll_active = true
 	_readout.custom_minimum_size = Vector2(480, 130)
-	root.add_child(_readout)
+	_body.add_child(_readout)
+
+
+func _input(event: InputEvent) -> void:
+	if not _dragging:
+		return
+	if event is InputEventMouseMotion:
+		position = _clamped_panel_position(get_viewport().get_mouse_position() - _drag_offset)
+		accept_event()
+	elif event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT and not mouse_event.pressed:
+			_dragging = false
+			accept_event()
+
+
+func _on_header_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index != MOUSE_BUTTON_LEFT:
+			return
+		_dragging = mouse_event.pressed
+		_drag_offset = get_viewport().get_mouse_position() - position
+		accept_event()
+
+
+func _toggle_collapsed() -> void:
+	_collapsed = not _collapsed
+	_body.visible = not _collapsed
+	_collapse_button.text = "+" if _collapsed else "-"
+	custom_minimum_size = COLLAPSED_MINIMUM_SIZE if _collapsed else EXPANDED_MINIMUM_SIZE
+	size = custom_minimum_size
+	position = _clamped_panel_position(position)
+
+
+func _clamped_panel_position(candidate: Vector2) -> Vector2:
+	var viewport_size := get_viewport_rect().size
+	var panel_size := size
+	if panel_size.x <= 0.0 or panel_size.y <= 0.0:
+		panel_size = custom_minimum_size
+	return Vector2(
+		clampf(candidate.x, 0.0, maxf(viewport_size.x - panel_size.x, 0.0)),
+		clampf(candidate.y, 0.0, maxf(viewport_size.y - panel_size.y, 0.0))
+	)
 
 
 func _populate_cards() -> void:
