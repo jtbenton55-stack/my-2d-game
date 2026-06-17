@@ -206,6 +206,20 @@ func equip_card(card_id: String, slot_type: String) -> bool:
 	_clear_duplicate_card_from_other_slots(card_id, slot_type)
 	return true
 
+
+func dev_equip_scheme_card_override(card_id: String, slot_type: String) -> bool:
+	match slot_type:
+		"plan":
+			equipped_plan_card = card_id
+		"trick":
+			equipped_trick_card = card_id
+		"comfort_chaos":
+			equipped_comfort_chaos_card = card_id
+		_:
+			return false
+	_clear_duplicate_card_from_other_slots(card_id, slot_type)
+	return true
+
 func clear_loadout() -> void:
 	equipped_plan_card = ""
 	equipped_trick_card = ""

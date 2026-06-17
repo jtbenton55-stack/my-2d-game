@@ -268,6 +268,9 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"clear_scheme_loadout":
 			var clear_all_message: String = _scheme_cards.clear_loadout(_state) if _scheme_cards.has_method("clear_loadout") else "Loadout clear handled safely."
 			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), clear_all_message)
+		"dev_equip_louis_delivery_route":
+			var dev_equip_message: String = _scheme_cards.dev_equip_louis_delivery_route(_state) if _scheme_cards.has_method("dev_equip_louis_delivery_route") else "DEV card override handled safely."
+			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), dev_equip_message)
 		"clear_loadout":
 			var clear_message: String = _scheme_cards.clear_loadout(_state) if _scheme_cards.has_method("clear_loadout") else "Loadout clear handled safely."
 			_refresh_root_panel_with_feedback(_scheme_cards.get_panel_data(_state), clear_message)

@@ -2,12 +2,15 @@
 extends GdUnitTestSuite
 
 const EffectSetScript := preload("res://src/missions/iso/authoring/core/EffectSet.gd")
+const HideoutSchemeCardControllerScript := preload("res://src/hideout/HideoutSchemeCardController.gd")
+const HideoutStateControllerScript := preload("res://src/hideout/HideoutStateController.gd")
 const MissionEffectScript := preload("res://src/missions/iso/authoring/core/MissionEffect.gd")
 const MissionModifierSetScript := preload("res://src/missions/iso/authoring/core/MissionModifierSet.gd")
 const MissionRequirementScript := preload("res://src/missions/iso/authoring/core/MissionRequirement.gd")
 const RequirementSetScript := preload("res://src/missions/iso/authoring/core/RequirementSet.gd")
 const RouteUnlockNodeScript := preload("res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd")
 const SchemeCardTriggerNodeScript := preload("res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd")
+const TacoProductionScene := preload("res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn")
 
 
 func test_selected_card_modifier_applies_setup_effect() -> void:
@@ -97,6 +100,72 @@ func test_apply_on_ready_runs_starting_setup_hook() -> void:
 	_free_node(trigger)
 
 
+func test_phase6f_taco_scene_has_louis_route_card_slice() -> void:
+	var scene_root: Node = TacoProductionScene.instantiate()
+	var setup: Node = scene_root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthLouisRouteCardSetup")
+	var route: Node = scene_root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthRoutePeek")
+
+	assert_object(setup).is_not_null()
+	assert_object(route).is_not_null()
+	assert_bool(bool(setup.get("apply_on_ready"))).is_true()
+	assert_bool(bool(setup.get("require_matching_modifier"))).is_true()
+	assert_str(String(setup.get("mission_id_override"))).is_equal("taco_bell_drop")
+	assert_str(String(setup.get("mechanic_id"))).is_equal("pp_taco_south_louis_route_card_setup")
+
+	var modifier_sets: Array = setup.get("modifier_sets")
+	assert_int(modifier_sets.size()).is_equal(1)
+	assert_str(String(modifier_sets[0].get("source_card_id"))).is_equal("louis_delivery_route")
+
+	var requirements: Resource = route.get("requirements")
+	assert_object(requirements).is_not_null()
+	assert_int(int(requirements.get("match_mode"))).is_equal(RequirementSetScript.MatchMode.ANY)
+	var route_requirements: Array = requirements.get("requirements")
+	assert_int(route_requirements.size()).is_equal(2)
+	assert_str(String(route_requirements[0].get("key"))).is_equal("pp_taco_south_reward_collected")
+	assert_str(String(route_requirements[1].get("key"))).is_equal("pp_taco_south_louis_route_card_ready")
+
+	_free_node(scene_root)
+
+
+func test_planning_table_dev_louis_override_does_not_unlock_card() -> void:
+	var state: Node = HideoutStateControllerScript.new()
+	var controller: Node = HideoutSchemeCardControllerScript.new()
+	add_child(state)
+	add_child(controller)
+	state.call("apply_debug_state", "fresh")
+
+	var unlocked_before: Array = state.get("unlocked_scheme_cards").duplicate()
+	var message: String = controller.call("dev_equip_louis_delivery_route", state)
+	var loadout: Dictionary = state.call("get_current_scheme_loadout")
+
+	assert_bool(message.contains("DEV override equipped Louis Delivery Route")).is_true()
+	assert_str(String(loadout.get("plan", ""))).is_equal("louis_delivery_route")
+	assert_bool((state.get("unlocked_scheme_cards") as Array).has("louis_delivery_route")).is_false()
+	assert_array(state.get("unlocked_scheme_cards")).is_equal(unlocked_before)
+	assert_str(controller.call("card_name", "louis_delivery_route")).is_equal("Louis Delivery Route")
+
+	_free_node(controller)
+	_free_node(state)
+
+
+func test_start_mission_clears_stale_phase6f_attempt_flags() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.dialogue_flags.clear()
+	GameState.dialogue_flags["mission_flag:taco_bell_drop:pp_taco_south_louis_route_card_ready"] = true
+	GameState.dialogue_flags["mission_flag:taco_bell_drop:pp_taco_south_reward_collected"] = true
+	GameState.dialogue_flags["mission_flag:other_mission:pp_taco_south_louis_route_card_ready"] = true
+	GameState.dialogue_flags["met_louis"] = true
+
+	GameState.start_mission("taco_bell_drop")
+
+	assert_bool(GameState.dialogue_flags.has("mission_flag:taco_bell_drop:pp_taco_south_louis_route_card_ready")).is_false()
+	assert_bool(GameState.dialogue_flags.has("mission_flag:taco_bell_drop:pp_taco_south_reward_collected")).is_false()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:other_mission:pp_taco_south_louis_route_card_ready", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("met_louis", false)).is_true()
+
+	_restore_game_state(snapshot)
+
+
 func _spawn_trigger() -> Node:
 	var trigger: Node = SchemeCardTriggerNodeScript.new()
 	trigger.name = "TestSchemeCardTrigger"
@@ -154,6 +223,9 @@ func _snapshot_game_state() -> Dictionary:
 		"current_scheme_loadout": GameState.get_current_scheme_loadout(),
 		"current_mission_id": GameState.current_mission_id,
 		"pending_mission_id": GameState.pending_mission_id,
+		"is_in_mission": GameState.is_in_mission,
+		"poop_bags_this_mission_attempt": GameState.poop_bags_this_mission_attempt,
+		"mission_performance": GameState.mission_performance.duplicate(true),
 	}
 
 
@@ -163,6 +235,9 @@ func _restore_game_state(snapshot: Dictionary) -> void:
 	GameState.set_current_scheme_loadout(snapshot.get("current_scheme_loadout", {}) as Dictionary)
 	GameState.current_mission_id = String(snapshot.get("current_mission_id", ""))
 	GameState.pending_mission_id = String(snapshot.get("pending_mission_id", ""))
+	GameState.is_in_mission = bool(snapshot.get("is_in_mission", false))
+	GameState.poop_bags_this_mission_attempt = int(snapshot.get("poop_bags_this_mission_attempt", 0))
+	GameState.mission_performance = (snapshot.get("mission_performance", {}) as Dictionary).duplicate(true)
 
 
 func _restore_string_array(target: Array[String], previous: Array) -> void:

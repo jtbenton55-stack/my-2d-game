@@ -164,6 +164,15 @@ func clear_mission_mutations(mission_id: String) -> void:
 	mission_mutation_state.erase(mission_id)
 
 
+func clear_mission_flags(mission_id: String) -> void:
+	if mission_id.strip_edges() == "":
+		return
+	var prefix := "mission_flag:%s:" % mission_id
+	for key in dialogue_flags.keys():
+		if String(key).begins_with(prefix):
+			dialogue_flags.erase(key)
+
+
 func register_sterling_clue(clue_id: String, data: Dictionary) -> void:
 	var d := data.duplicate(true)
 	if not d.has("discovered"):
@@ -287,6 +296,7 @@ func reset_for_new_game(emit_change = true) -> void:
 func start_mission(mission_id: String) -> void:
 	current_mission_id = mission_id
 	is_in_mission = true
+	clear_mission_flags(mission_id)
 	player_health = player_max_health
 	poop_bags_this_mission_attempt = 0
 	poop_bag_inventory["collected_this_mission"] = 0

@@ -2,6 +2,8 @@ extends Node
 class_name HideoutSchemeCardController
 
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
+const DEV_LOUIS_ROUTE_CARD_ID := "louis_delivery_route"
+const DEV_LOUIS_ROUTE_CARD_NAME := "Louis Delivery Route"
 
 func get_panel_data(state_controller: Node = null) -> Dictionary:
 	return {
@@ -33,7 +35,10 @@ func get_panel_body(state_controller = null) -> String:
 	lines.append("Locked Taco Bell Cards:")
 	_append_locked_taco_bell_cards(lines, state_controller)
 	lines.append("")
-	lines.append("Equip actions update the hideout loadout state only. Real mission gameplay effects are intentionally deferred.")
+	lines.append("DEV Card Override:")
+	lines.append("- %s: temporarily equips a route card for the next Taco run without unlocking it permanently." % DEV_LOUIS_ROUTE_CARD_NAME)
+	lines.append("")
+	lines.append("Equip actions update the hideout loadout state. DEV override is temporary and does not grant progression unlocks.")
 	return "\n".join(lines)
 
 func get_buttons(state_controller: Node = null) -> Array:
@@ -46,6 +51,7 @@ func get_buttons(state_controller: Node = null) -> Array:
 	buttons.append({"id": "clear_trick", "label": "Clear Trick Slot", "action": "clear_scheme_slot:trick", "slot_type": "trick"})
 	buttons.append({"id": "clear_comfort", "label": "Clear Comfort/Chaos Slot", "action": "clear_scheme_slot:comfort_chaos", "slot_type": "comfort_chaos"})
 	buttons.append({"id": "clear_all", "label": "Clear All Slots", "action": "clear_scheme_loadout"})
+	buttons.append({"id": "dev_equip_louis_delivery_route", "label": "DEV: Equip Louis Delivery Route", "action": "dev_equip_louis_delivery_route"})
 	buttons.append({"id": "close", "label": "Close", "action": "close"})
 	return buttons
 
@@ -70,7 +76,17 @@ func clear_loadout(state_controller: Node = null) -> String:
 		state_controller.clear_loadout()
 	return "Scheme loadout cleared."
 
+
+func dev_equip_louis_delivery_route(state_controller: Node = null) -> String:
+	if state_controller == null or not state_controller.has_method("dev_equip_scheme_card_override"):
+		return "DEV Louis Delivery Route override could not be applied."
+	if state_controller.dev_equip_scheme_card_override(DEV_LOUIS_ROUTE_CARD_ID, "plan"):
+		return "DEV override equipped %s to Plan Card for the next Taco run. This did not permanently unlock the card." % DEV_LOUIS_ROUTE_CARD_NAME
+	return "DEV Louis Delivery Route override could not be applied."
+
 func card_name(card_id: String) -> String:
+	if card_id == DEV_LOUIS_ROUTE_CARD_ID:
+		return DEV_LOUIS_ROUTE_CARD_NAME
 	for card in Catalog.scheme_cards():
 		if String(card.get("card_id", "")) == card_id:
 			return String(card.get("display_name", card_id))
