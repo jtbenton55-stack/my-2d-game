@@ -56,6 +56,41 @@ Existing systems that should be preserved and extended:
 9. Every reusable node should expose author-facing properties with clear names and safe defaults.
 10. Runtime-only systems should be thin, explicit, and easy to debug from mission debug panels.
 
+## Accelerated Implementation Strategy
+
+As of 2026-06-17, the preferred implementation mode is larger grouped milestones that complete more of the roadmap per prompt without cutting scope.
+
+### Grouped Milestone Policy
+
+- Default to broad grouped packets when multiple roadmap phases share the same contracts, such as `RequirementSet`, `EffectSet`, mission facts, security events, inventory items, paper-trail events, or mission result payloads.
+- If a grouped packet becomes too buggy or hard to validate, fall back to 2-3 tightly related phase slices until the foundation stabilizes.
+- Use the Phase 6C/6D-lite/6E-lite pattern as the model: implement related slices together, keep phase labels explicit, validate with tests and scene proof, then report and save handoffs.
+- Commit after a grouped milestone, not after every tiny slice, when Jake asks for a commit.
+- Save Nowledge Mem handoffs after each phase packet inside the milestone so future agents can resume safely.
+
+### Completion Standard
+
+A roadmap system is not considered complete merely because a runtime script exists. Completion should account for:
+
+- Runtime code.
+- Resource/data classes.
+- Tests.
+- Dev scene or production scene proof.
+- Template scene where useful.
+- Static validator where useful.
+- Docs/report.
+- Mission Dock or authoring integration when relevant.
+- Debug/readability support.
+
+### Architecture Guardrails
+
+- Move faster by bundling related systems, not by bypassing the plug-and-play architecture.
+- Prefer adapters and mission-local state first.
+- Allow dedicated managers only when a system clearly owns state across multiple mechanics, missions, or result screens.
+- Inventory, paper trail, and mission rating/result systems may justify dedicated state systems.
+- Suspicion and alert work should extend or wrap `MissionAlertController` before adding any global suspicion manager.
+- For bigger swings, require automated tests plus at least one Godot scene/headless smoke when feasible. Production Taco changes should include a manual QA checklist and preferably Jake's manual confirmation before grouped milestone commit.
+
 ## System Family 1: World State, Requirements, And Effects
 
 ### Combines
@@ -1332,6 +1367,12 @@ Make detection, suspicion, and alarm states readable and reusable.
 - Suspicion is debuggable.
 - Detection consequences are data-driven through effects.
 - Security events can activate mission facts, objectives, routes, or alarms.
+
+### Phase 4A Status As Of 2026-06-17
+
+- Started with a narrow security event bridge instead of a broad stealth rewrite.
+- `SecurityEffectSetAuthor` lets mission-local `SecurityEventRouter` events apply normal `EffectSet` resources, so beams/cameras/area triggers can drive mission flags, objectives, alert state, routes, or other existing effect types through the plug-and-play contract.
+- This remains mission-local authoring; it does not add a global suspicion manager or change Taco security runtime behavior by itself.
 
 ## Phase 5: Inventory / Heist Kit
 

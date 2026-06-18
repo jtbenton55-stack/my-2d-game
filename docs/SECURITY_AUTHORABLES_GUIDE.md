@@ -47,7 +47,7 @@ Legacy parallel systems (do not duplicate in new work):
 | Patrol route | **READY** | `route_id` + ≥2 `Waypoint*` children | `GuardPatrolRouteAuthor.get_patrol_points_global` |
 | Patrol waypoint | **READY** (structural) | None — child `Node2D` under route | Included in route points |
 | Area trigger | **READY** | `trigger_id`, `on_enter_event` | `AreaTriggerAuthor.setup_runtime_trigger` |
-| Security effects | **NEEDS BRIDGE** | `effect_id`, `trigger_events[]` | `SecurityEffectAuthorBase` subclasses |
+| Security effects | **PARTIAL** | `effect_id`, `trigger_events[]`, optional `EffectSet` | `SecurityEffectAuthorBase` subclasses, including `SecurityEffectSetAuthor` |
 | Alarm group | **NEEDS BRIDGE** | Event string names today (`alarm_id`, `on_alarm_event`) | No dedicated author node |
 | Idle / placed guard | **NEEDS BRIDGE** | N/A | `Phase0KGuardSpawner` / markers |
 | Door / keypad | **AUDIT ONLY** | `DoorLockEffectAuthor` for proof effects | Mission gate APIs, not full keypad UI |
@@ -76,6 +76,7 @@ scenes/missions_iso/security_authoring_templates/
 - `GuardAuthorTemplate` (idle guard) — no author script yet
 - `AlarmGroupAuthorTemplate` — use matching event strings on beams/cameras/spawns
 - `DoorKeypadAuthorTemplate` — door/keypad flow still audit-only
+- `SecurityEffectSetAuthorTemplate` — bridge exists, but no drag/drop template has been validated yet
 
 ## How to place security authorables
 
@@ -125,6 +126,7 @@ python src/tools/editor/d6_08a_security_authorables/phase0md6_08a_security_autho
 - Drag/drop **idle** guards (replacing Phase0K marker spawns).
 - Dedicated **alarm group** author node.
 - Full **door/keypad** authoring across missions.
+- Validated production template for `SecurityEffectSetAuthor`.
 
 ## Planned phases
 

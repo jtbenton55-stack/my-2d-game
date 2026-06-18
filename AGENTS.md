@@ -55,6 +55,19 @@ For non-trivial work:
 5. Validate with the narrowest meaningful checks first.
 6. Report what changed, what was tested, and what remains risky.
 
+Accelerated grouped-milestone mode:
+- Jake wants faster implementation of the plug-and-play game-system roadmap without cutting roadmap/blueprint objectives.
+- Default to larger grouped implementation packets when the requested systems naturally share contracts, files, validation, or authoring flow. This is the preferred "bigger swing" mode unless Jake asks for a narrow fix or the work proves too buggy.
+- If a broad grouped packet becomes unstable, fall back to 2-3 tightly related phase slices per prompt until the system stabilizes.
+- Use the Phase 6C/6D-lite/6E-lite style as the model: multiple related slices in one milestone, clear phase labels, direct implementation, tests, docs/report, and scene/dev proof where feasible.
+- Preserve the architecture while moving faster: prefer adapters and mission-local systems first; allow new managers only when a system clearly needs authoritative state across multiple mechanics, missions, or result screens.
+- Inventory, paper trail, and mission rating/result systems may justify dedicated state systems. Suspicion/alert work should extend or wrap `MissionAlertController` before introducing a new global suspicion manager.
+- Treat a system as complete only when the milestone accounts for runtime code, Resource/data classes, tests, dev or production scene proof, template scenes where useful, static validators where useful, docs/report, Mission Dock/authoring integration when relevant, and debug/readability support.
+- High-risk implementation is acceptable only with guardrails: no broad rewrites, no duplicate managers without justification, no unrelated cleanup, tests for each new fact/effect/mechanic path, scene/headless smoke when feasible, and clear rollback boundaries.
+- For bigger swings, require automated tests plus at least one Godot scene/headless smoke when feasible. For production Taco changes, provide a manual QA checklist and prefer Jake's manual confirmation before a grouped milestone commit.
+- Commit after grouped milestones when Jake asks. Save or update Nowledge Mem handoffs after each phase packet inside the grouped milestone, including files changed, validation, risks, and next steps.
+- Before final response on every non-trivial implementation/debugging prompt, review this section along with roadmap/blueprint status and report whether the work stayed in grouped-milestone mode or fell back to narrower slices.
+
 Engineering Style:
 - Prefer simple code over clever code.
 - Prefer one clear function over new abstractions unless reuse is obvious.

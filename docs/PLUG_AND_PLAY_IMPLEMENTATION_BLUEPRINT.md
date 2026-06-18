@@ -82,6 +82,67 @@ BentleyBarkDistractionPoint
   -> MissionAlertController or future Noise system reacts
 ```
 
+## Accelerated Grouped-Milestone Operating Mode
+
+Jake wants the remaining game-system roadmap implemented in larger, complete chunks so level building can start on top of finished systems, not minimal placeholders. The implementation strategy is high-risk with guardrails.
+
+### Packet Shape
+
+Prefer grouped milestones over isolated one-file slices when systems naturally connect. A good grouped packet may include several labeled phase slices, such as:
+
+```text
+Phase 4B scene proof
+Phase 4C template/validator
+Phase 4D debug readability
+```
+
+or:
+
+```text
+Phase 5A inventory Resources
+Phase 5B mission inventory state
+Phase 5C requirement/effect integration
+Phase 5D pickup node + dev proof
+```
+
+If the grouped packet becomes unstable, narrow the work to 2-3 tightly related slices and continue from the last validated boundary.
+
+### Completion Checklist
+
+For each grouped milestone, complete as many of these as apply:
+
+1. Runtime code.
+2. Resource/data classes.
+3. Requirement/effect/fact integration.
+4. Focused GdUnit tests and broader affected-suite tests.
+5. Dev scene or production scene proof.
+6. Template scenes for authorable nodes where useful.
+7. Static validators where useful.
+8. Mission Dock or authoring integration when relevant.
+9. Debug/readability output.
+10. Roadmap/blueprint/docs/report updates.
+11. Nowledge Mem handoff per phase packet.
+
+### Manager Policy
+
+Default to adapters and mission-local state. Add a dedicated manager only when the system needs authoritative state across multiple mechanics, missions, or result screens.
+
+Likely manager candidates:
+
+- Mission inventory / heist-kit state.
+- Paper-trail event state.
+- Mission rating/result aggregation.
+
+Likely adapter-first systems:
+
+- Suspicion/alert extensions through `MissionAlertController`.
+- Security event consequences through `SecurityEventRouter` and `EffectSet`.
+- Scheme-card mission modifiers through `MissionSchemeBridge`, `MissionModifierSet`, and placed nodes.
+
+### Validation Policy
+
+For bigger swings, run automated tests plus at least one Godot scene/headless smoke when feasible. For production Taco changes, provide a manual QA checklist and prefer Jake's manual confirmation before a grouped milestone commit.
+
 ## Recommended Future File Layout
 
 Use the existing `src/missions/iso` area for the first implementation because the current real authored mission systems already live there. Avoid moving existing files during the first pass.
@@ -1700,6 +1761,23 @@ Do not introduce `lockdown` or `escape` into Resources until `MissionAlertContro
 | Search suspicious drawer while watched | Add suspicion. |
 | Enter restricted zone without credential | Set alert state suspicious. |
 | Trip camera beam | Use existing security event routing. |
+
+### Roadmap Phase 4A Security Event Bridge
+
+Current additive file:
+
+`src/missions/iso/authoring/SecurityEffectSetAuthor.gd`
+
+Use it when an existing `SecurityEventRouter` event should apply reusable mission-authoring effects:
+
+```text
+Security beam / camera / area trigger
+  -> SecurityEventRouter emits event_id
+  -> SecurityEffectSetAuthor listens for event_id
+  -> EffectSet applies mission flags, objectives, alert state, route toggles, dialogue, or completion effects
+```
+
+Do not add one-off security consequences directly into Taco scripts when an `EffectSet` can express the same behavior.
 
 ## Phase 7: Bentley Command Points
 
