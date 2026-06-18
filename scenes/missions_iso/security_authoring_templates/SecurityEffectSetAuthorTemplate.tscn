@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="1_effect_author"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="2_effect"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="3_effect_set"]
+
+[sub_resource type="Resource" id="Resource_template_effect"]
+script = ExtResource("2_effect")
+effect_id = &"CHANGE_ME_EFFECT_ID"
+key = "CHANGE_ME_MISSION_FLAG"
+debug_note = "Replace this placeholder effect with the desired mission flag/objective/alert/route effect."
+
+[sub_resource type="Resource" id="Resource_template_effect_set"]
+script = ExtResource("3_effect_set")
+set_id = &"CHANGE_ME_EFFECT_SET_ID"
+effects = Array[ExtResource("2_effect")]([SubResource("Resource_template_effect")])
+debug_note = "Security event -> normal plug-and-play EffectSet."
+
+[node name="SecurityEffectSetAuthorTemplate" type="Node2D"]
+script = ExtResource("1_effect_author")
+effect_id = &"CHANGE_ME_SECURITY_EFFECT_ID"
+trigger_events = Array[StringName]([&"CHANGE_ME_TRIGGER_EVENT"])
+effects = SubResource("Resource_template_effect_set")
+debug_chain_label = "CHANGE_ME_TRIGGER_EVENT -> CHANGE_ME_EFFECT_SET_ID"

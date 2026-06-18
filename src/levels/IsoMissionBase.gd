@@ -2891,11 +2891,26 @@ func _find_phase0j_mission_state_adapter() -> Node:
 
 
 func _store_d6_05_effect_author_counts(door_n: int, lockdown_n: int, objective_n: int, toggle_n: int) -> void:
-	_attempt_runtime_state["d6_05_effect_author_count"] = door_n + lockdown_n + objective_n + toggle_n
 	_attempt_runtime_state["d6_05_door_effect_count"] = door_n
 	_attempt_runtime_state["d6_05_lockdown_effect_count"] = lockdown_n
 	_attempt_runtime_state["d6_05_objective_effect_count"] = objective_n
 	_attempt_runtime_state["d6_05_node_toggle_effect_count"] = toggle_n
+	_recompute_d6_05_effect_author_count()
+
+
+func _store_d6_05_effect_set_author_count(effect_set_n: int) -> void:
+	_attempt_runtime_state["d6_05_effect_set_count"] = effect_set_n
+	_recompute_d6_05_effect_author_count()
+
+
+func _recompute_d6_05_effect_author_count() -> void:
+	_attempt_runtime_state["d6_05_effect_author_count"] = (
+		int(_attempt_runtime_state.get("d6_05_door_effect_count", 0))
+		+ int(_attempt_runtime_state.get("d6_05_lockdown_effect_count", 0))
+		+ int(_attempt_runtime_state.get("d6_05_objective_effect_count", 0))
+		+ int(_attempt_runtime_state.get("d6_05_node_toggle_effect_count", 0))
+		+ int(_attempt_runtime_state.get("d6_05_effect_set_count", 0))
+	)
 
 
 func _record_authoring_effect_result(effect_type: String, author: Node, result: Dictionary) -> void:
@@ -2909,6 +2924,13 @@ func _record_authoring_effect_result(effect_type: String, author: Node, result: 
 	_attempt_runtime_state["d6_05_last_effect_target"] = String(
 		result.get("target_path", result.get("target_gate_id", result.get("objective_id", "")))
 	)
+	if effect_type == "effect_set":
+		_attempt_runtime_state["d6_05_last_effect_set_id"] = String(result.get("effect_set_id", ""))
+		_attempt_runtime_state["d6_05_last_effect_set_message"] = String(result.get("effect_set_message", ""))
+		_attempt_runtime_state["d6_05_last_effect_set_summary"] = String(result.get("effect_set_summary", ""))
+		_attempt_runtime_state["d6_05_last_effect_set_applied_count"] = int(result.get("effect_set_applied_count", 0))
+		_attempt_runtime_state["d6_05_last_effect_set_failed_count"] = int(result.get("effect_set_failed_count", 0))
+		_attempt_runtime_state["d6_05_last_effect_chain"] = result.get("debug_chain", [])
 	if effect_type == "lockdown":
 		_attempt_runtime_state["d6_05_lockdown_active"] = true
 		_attempt_runtime_state["d6_05_lockdown_level"] = int(result.get("lockdown_level", 0))
@@ -4933,12 +4955,19 @@ func _runtime_debug_summary() -> Dictionary:
 		"d6_05_lockdown_effect_count": int(_attempt_runtime_state.get("d6_05_lockdown_effect_count", 0)),
 		"d6_05_objective_effect_count": int(_attempt_runtime_state.get("d6_05_objective_effect_count", 0)),
 		"d6_05_node_toggle_effect_count": int(_attempt_runtime_state.get("d6_05_node_toggle_effect_count", 0)),
+		"d6_05_effect_set_count": int(_attempt_runtime_state.get("d6_05_effect_set_count", 0)),
 		"d6_05_last_effect_id": String(_attempt_runtime_state.get("d6_05_last_effect_id", "")),
 		"d6_05_last_effect_type": String(_attempt_runtime_state.get("d6_05_last_effect_type", "")),
 		"d6_05_last_effect_event": String(_attempt_runtime_state.get("d6_05_last_effect_event", "")),
 		"d6_05_last_effect_target": String(_attempt_runtime_state.get("d6_05_last_effect_target", "")),
 		"d6_05_last_effect_result": String(_attempt_runtime_state.get("d6_05_last_effect_result", "")),
 		"d6_05_last_effect_reason": String(_attempt_runtime_state.get("d6_05_last_effect_reason", "")),
+		"d6_05_last_effect_set_id": String(_attempt_runtime_state.get("d6_05_last_effect_set_id", "")),
+		"d6_05_last_effect_set_message": String(_attempt_runtime_state.get("d6_05_last_effect_set_message", "")),
+		"d6_05_last_effect_set_summary": String(_attempt_runtime_state.get("d6_05_last_effect_set_summary", "")),
+		"d6_05_last_effect_set_applied_count": int(_attempt_runtime_state.get("d6_05_last_effect_set_applied_count", 0)),
+		"d6_05_last_effect_set_failed_count": int(_attempt_runtime_state.get("d6_05_last_effect_set_failed_count", 0)),
+		"d6_05_last_effect_chain": _attempt_runtime_state.get("d6_05_last_effect_chain", []),
 		"d6_05_lockdown_active": _attempt_runtime_state.get("d6_05_lockdown_active", false),
 		"d6_05_lockdown_alert_state": String(_attempt_runtime_state.get("d6_05_lockdown_alert_state", "")),
 		"d6_05_last_door_effect_id": String(_attempt_runtime_state.get("d6_05_last_door_effect_id", "")),

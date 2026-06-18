@@ -280,11 +280,12 @@ func _build_authoring_security_f10_lines(
 		_format_debug_section(
 			"effects",
 			"Downstream Effects",
-			"total %d door %d"
-			% [
-				int(rsum.get("d6_05_effect_author_count", 0)),
-				int(rsum.get("d6_05_door_effect_count", 0)),
-			],
+		"total %d sets %d door %d"
+		% [
+			int(rsum.get("d6_05_effect_author_count", 0)),
+			int(rsum.get("d6_05_effect_set_count", 0)),
+			int(rsum.get("d6_05_door_effect_count", 0)),
+		],
 			_build_downstream_effects_detail_lines(rsum)
 		)
 	)
@@ -506,9 +507,10 @@ func _build_guard_spawn_detail_lines(rsum: Dictionary) -> PackedStringArray:
 func _build_downstream_effects_detail_lines(rsum: Dictionary) -> PackedStringArray:
 	var lines: PackedStringArray = []
 	lines.append(
-		"Effects: %d (door %d lockdown %d objective %d toggle %d)"
+		"Effects: %d (sets %d door %d lockdown %d objective %d toggle %d)"
 		% [
 			int(rsum.get("d6_05_effect_author_count", 0)),
+			int(rsum.get("d6_05_effect_set_count", 0)),
 			int(rsum.get("d6_05_door_effect_count", 0)),
 			int(rsum.get("d6_05_lockdown_effect_count", 0)),
 			int(rsum.get("d6_05_objective_effect_count", 0)),
@@ -538,6 +540,16 @@ func _build_downstream_effects_detail_lines(rsum: Dictionary) -> PackedStringArr
 			_dash_if_empty(String(rsum.get("d6_05_lockdown_alert_state", ""))),
 		]
 	)
+	if int(rsum.get("d6_05_effect_set_count", 0)) > 0 or String(rsum.get("d6_05_last_effect_set_id", "")) != "":
+		lines.append(
+			"EffectSet: %s applied %d failed %d"
+			% [
+				_dash_if_empty(String(rsum.get("d6_05_last_effect_set_id", ""))),
+				int(rsum.get("d6_05_last_effect_set_applied_count", 0)),
+				int(rsum.get("d6_05_last_effect_set_failed_count", 0)),
+			]
+		)
+		lines.append("Chain: %s" % _format_debug_chain(rsum.get("d6_05_last_effect_chain", [])))
 	return lines
 
 
@@ -745,6 +757,20 @@ func _format_rejection_reasons(reasons: Variant) -> String:
 	if ":" in first:
 		return first.get_slice(":", -1).strip_edges()
 	return first
+
+
+func _format_debug_chain(chain_value: Variant) -> String:
+	var parts := PackedStringArray()
+	if chain_value is PackedStringArray:
+		parts = chain_value as PackedStringArray
+	elif chain_value is Array:
+		for item in (chain_value as Array):
+			var text := String(item).strip_edges()
+			if text != "":
+				parts.append(text)
+	if parts.is_empty():
+		return "-"
+	return " -> ".join(parts)
 
 
 func _beam_direct_fallback_label(rsum: Dictionary) -> String:

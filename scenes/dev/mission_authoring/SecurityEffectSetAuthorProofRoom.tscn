@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/dev/SecurityEffectSetAuthorProofController.gd" id="1_controller"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityAuthoringRoot.gd" id="2_root"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/AreaTriggerAuthor.gd" id="3_area"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="4_effect_author"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="5_effect"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="6_effect_set"]
+
+[sub_resource type="Resource" id="Resource_phase4b_flag_effect"]
+script = ExtResource("5_effect")
+effect_id = &"effect_phase4b_area_alarm_seen"
+key = "phase4b_area_alarm_effect_seen"
+
+[sub_resource type="Resource" id="Resource_phase4b_effect_set"]
+script = ExtResource("6_effect_set")
+set_id = &"effectset_phase4b_area_alarm"
+effects = Array[ExtResource("5_effect")]([SubResource("Resource_phase4b_flag_effect")])
+debug_note = "Phase 4B dev proof: a security event applies a normal mission flag EffectSet."
+
+[node name="SecurityEffectSetAuthorProofRoom" type="Node2D"]
+script = ExtResource("1_controller")
+
+[node name="GameplayRoot" type="Node2D" parent="."]
+
+[node name="RuntimeSystems" type="Node2D" parent="GameplayRoot"]
+
+[node name="SecurityAuthoringRoot" type="Node2D" parent="GameplayRoot"]
+script = ExtResource("2_root")
+debug_authoring = true
+
+[node name="Phase4B_AreaAlarm_Author" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(-96, 0)
+script = ExtResource("3_area")
+trigger_id = &"phase4b_area_alarm_author"
+on_enter_event = &"phase4b_area_alarm"
+zone_display_name = "Phase 4B Area Alarm"
+preview_color = Color(0.35, 0.55, 1, 0.85)
+
+[node name="Phase4B_EffectSet_Author" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(96, 0)
+script = ExtResource("4_effect_author")
+effect_id = &"phase4b_area_alarm_effect_set_author"
+trigger_events = Array[StringName]([&"phase4b_area_alarm"])
+effects = SubResource("Resource_phase4b_effect_set")
+mission_id_override = "phase4b_security_effect_set_proof"
+debug_chain_label = "Area alarm -> mission flag EffectSet"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="StatusLabel" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 520.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 14
+text = "Phase 4B security EffectSet proof"

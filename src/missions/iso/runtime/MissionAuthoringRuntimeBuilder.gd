@@ -93,6 +93,7 @@ static func _store_effect_author_counts(mission: Node, authoring_root: Node2D) -
 	var lockdown_n := 0
 	var objective_n := 0
 	var toggle_n := 0
+	var effect_set_n := 0
 	if authoring_root.has_method("collect_door_lock_effect_authors"):
 		door_n = authoring_root.call("collect_door_lock_effect_authors").size()
 	if authoring_root.has_method("collect_lockdown_effect_authors"):
@@ -101,7 +102,11 @@ static func _store_effect_author_counts(mission: Node, authoring_root: Node2D) -
 		objective_n = authoring_root.call("collect_objective_effect_authors").size()
 	if authoring_root.has_method("collect_node_toggle_effect_authors"):
 		toggle_n = authoring_root.call("collect_node_toggle_effect_authors").size()
+	if authoring_root.has_method("collect_effect_set_authors"):
+		effect_set_n = authoring_root.call("collect_effect_set_authors").size()
 	mission.call("_store_d6_05_effect_author_counts", door_n, lockdown_n, objective_n, toggle_n)
+	if mission.has_method("_store_d6_05_effect_set_author_count"):
+		mission.call("_store_d6_05_effect_set_author_count", effect_set_n)
 
 
 static func _setup_authored_cameras(mission: Node, router: Node, authoring_root: Node2D) -> void:

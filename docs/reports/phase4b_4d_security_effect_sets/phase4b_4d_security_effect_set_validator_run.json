@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static check only; GdUnit and Godot scene smoke remain the runtime gates.",
+    "Does not inspect editor-assigned UIDs because templates intentionally use paths."
+  ]
+}

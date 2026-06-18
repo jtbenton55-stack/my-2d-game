@@ -1374,6 +1374,13 @@ Make detection, suspicion, and alarm states readable and reusable.
 - `SecurityEffectSetAuthor` lets mission-local `SecurityEventRouter` events apply normal `EffectSet` resources, so beams/cameras/area triggers can drive mission flags, objectives, alert state, routes, or other existing effect types through the plug-and-play contract.
 - This remains mission-local authoring; it does not add a global suspicion manager or change Taco security runtime behavior by itself.
 
+### Phase 4B-4D Grouped Status As Of 2026-06-17
+
+- Added a dev-scene proof for `SecurityEffectSetAuthor` at `scenes/dev/mission_authoring/SecurityEffectSetAuthorProofRoom.tscn`, using an authored area event to set a normal mission flag through `EffectSet`.
+- Added `SecurityEffectSetAuthorTemplate.tscn` so designers can drag/drop the event-to-effects bridge under `GameplayRoot/SecurityAuthoringRoot`.
+- Added effect-chain debug summaries and downstream-effect counts for `effect_set` authors, keeping the work adapter-first and mission-local.
+- Added a Phase 4B-4D static validator under `src/tools/editor/phase4b_4d_security_effect_sets/`.
+
 ## Phase 5: Inventory / Heist Kit
 
 ### Goal

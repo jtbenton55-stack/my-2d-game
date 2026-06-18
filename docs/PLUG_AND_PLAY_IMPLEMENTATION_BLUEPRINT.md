@@ -1779,6 +1779,14 @@ Security beam / camera / area trigger
 
 Do not add one-off security consequences directly into Taco scripts when an `EffectSet` can express the same behavior.
 
+Phase 4B-4D grouped proof files:
+
+| File | Purpose |
+|---|---|
+| `scenes/dev/mission_authoring/SecurityEffectSetAuthorProofRoom.tscn` | Dev proof that an authored area security event applies a normal `EffectSet`. |
+| `scenes/missions_iso/security_authoring_templates/SecurityEffectSetAuthorTemplate.tscn` | Drag/drop template for event-to-EffectSet authoring. |
+| `src/tools/editor/phase4b_4d_security_effect_sets/phase4b_4d_security_effect_set_validator.py` | Static guard for the proof scene, template, and debug contract. |
+
 ## Phase 7: Bentley Command Points
 
 ### Timing
@@ -2035,9 +2043,9 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
 | Phase 4A | Alert bridge hardening | Extend `MissionAlertController` and `MissionEffectApplier` alert effects. | Alert changes remain data-driven through effects. |
-| Phase 4B | Suspicion vocabulary | Suspicion exposure, reduction, source IDs, and result dictionaries. | Suspicion can be debugged without a new global manager. |
-| Phase 4C | Visual feedback | Alert/suspicion HUD/debug/scene affordances. | Player can understand normal/suspicious/alerted/resolved states. |
-| Phase 4D | Security authoring polish | Existing beams, cameras, patrols, spawns, and area triggers use consistent outputs. | Existing D6 security authorables do not regress. |
+| Phase 4B | Suspicion vocabulary | Lite proof implemented 2026-06-17: `SecurityEffectSetAuthor` event chains now expose source/event/effect-set result dictionaries and a dev scene proves event consequences stay data-driven. | Suspicion/security event consequences can be debugged without a new global manager. |
+| Phase 4C | Visual feedback | Lite proof implemented 2026-06-17: `IsoMissionDebugPanel` downstream effects block includes `effect_set` counts and last chain summary. | Designers can see event-to-effect consequences in existing debug output. |
+| Phase 4D | Security authoring polish | Lite proof implemented 2026-06-17: `SecurityEffectSetAuthorTemplate.tscn`, collector/count plumbing, and static validator cover the reusable security effect bridge. | Existing D6 security authorables do not regress. |
 | Phase 4E | Camera sweep loops | Extend camera behavior only after current cameras are stable. | Camera loops are predictable and testable. |
 | Phase 4F | Hide spots | Simple safe/hiding zones gated by requirements/effects. | Hide spots interact with alert/suspicion without AI rewrite. |
 | Phase 4G | Production security slice | One mission area demonstrates detection, consequences, and recovery. | Security events activate facts/objectives/routes without hardcoded mission scripts. |

@@ -4,6 +4,7 @@ extends GdUnitTestSuite
 const SecurityEffectSetAuthorScript := preload("res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd")
 const MissionEffectScript := preload("res://src/missions/iso/authoring/core/MissionEffect.gd")
 const EffectSetScript := preload("res://src/missions/iso/authoring/core/EffectSet.gd")
+const ProofScene := preload("res://scenes/dev/mission_authoring/SecurityEffectSetAuthorProofRoom.tscn")
 
 const TEST_MISSION_ID := "security_effect_set_test"
 
@@ -56,6 +57,43 @@ func test_missing_effect_set_rejects_security_event() -> void:
 	assert_str(String(result.get("reason", ""))).is_equal("rejected_missing_effect_set")
 
 	_free_node(author)
+
+
+func test_debug_summary_exposes_effect_chain_result() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.dialogue_flags.clear()
+	GameState.current_mission_id = TEST_MISSION_ID
+
+	var author := _spawn_author(&"camera_alarm", _mission_flag_effect("debug_summary_seen"))
+	author.debug_chain_label = "Camera alarm -> debug summary flag"
+	var result: Dictionary = author.on_security_event(&"camera_alarm", {"source_id": "test_camera"})
+	var summary: Dictionary = author.call("get_security_effect_debug_summary")
+
+	assert_bool(result.get("handled", false)).is_true()
+	assert_str(String(summary.get("effect_type", ""))).is_equal("effect_set")
+	assert_str(String(summary.get("effect_set_id", ""))).is_equal("security_event_effect_set")
+	assert_str(String(summary.get("last_result", ""))).is_equal("effect_set_applied")
+	assert_int(int(summary.get("last_applied_count", 0))).is_equal(1)
+
+	_restore_game_state(snapshot)
+	_free_node(author)
+
+
+func test_dev_scene_security_event_applies_effect_set() -> void:
+	var scene := ProofScene.instantiate()
+	add_child(scene)
+	await get_tree().process_frame
+
+	var result: Dictionary = scene.call("emit_phase4b_test_event")
+	var summary: Dictionary = scene.call("get_phase4b_debug_summary")
+
+	assert_bool(result.get("handled", false)).is_true()
+	assert_bool(scene.call("is_phase4b_flag_set")).is_true()
+	assert_int(int(summary.get("registered_event_count", 0))).is_equal(1)
+	assert_int(int(summary.get("effect_set_count", 0))).is_equal(1)
+	assert_str(String(summary.get("last_effect_type", ""))).is_equal("effect_set")
+
+	_free_node(scene)
 
 
 func _spawn_author(trigger_event: StringName, effect: MissionEffect) -> Node:

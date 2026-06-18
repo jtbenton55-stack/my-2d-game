@@ -47,7 +47,7 @@ Legacy parallel systems (do not duplicate in new work):
 | Patrol route | **READY** | `route_id` + ≥2 `Waypoint*` children | `GuardPatrolRouteAuthor.get_patrol_points_global` |
 | Patrol waypoint | **READY** (structural) | None — child `Node2D` under route | Included in route points |
 | Area trigger | **READY** | `trigger_id`, `on_enter_event` | `AreaTriggerAuthor.setup_runtime_trigger` |
-| Security effects | **PARTIAL** | `effect_id`, `trigger_events[]`, optional `EffectSet` | `SecurityEffectAuthorBase` subclasses, including `SecurityEffectSetAuthor` |
+| Security effects | **READY** | `effect_id`, `trigger_events[]`, `EffectSet` | `SecurityEffectAuthorBase` subclasses, including `SecurityEffectSetAuthor` |
 | Alarm group | **NEEDS BRIDGE** | Event string names today (`alarm_id`, `on_alarm_event`) | No dedicated author node |
 | Idle / placed guard | **NEEDS BRIDGE** | N/A | `Phase0KGuardSpawner` / markers |
 | Door / keypad | **AUDIT ONLY** | `DoorLockEffectAuthor` for proof effects | Mission gate APIs, not full keypad UI |
@@ -70,19 +70,19 @@ scenes/missions_iso/security_authoring_templates/
 | `GuardPatrolRouteAuthorTemplate.tscn` | `GuardPatrolRouteAuthor` | `CHANGE_ME_ROUTE_ID` + 2 waypoints |
 | `PatrolWaypointTemplate.tscn` | plain `Node2D` | Rename `WaypointN` under a route |
 | `AreaTriggerAuthorTemplate.tscn` | `AreaTriggerAuthor` | trigger + enter event |
+| `SecurityEffectSetAuthorTemplate.tscn` | `SecurityEffectSetAuthor` | trigger event + placeholder `EffectSet` |
 
 **Deferred (no template — by design):**
 
 - `GuardAuthorTemplate` (idle guard) — no author script yet
 - `AlarmGroupAuthorTemplate` — use matching event strings on beams/cameras/spawns
 - `DoorKeypadAuthorTemplate` — door/keypad flow still audit-only
-- `SecurityEffectSetAuthorTemplate` — bridge exists, but no drag/drop template has been validated yet
 
 ## How to place security authorables
 
 1. Open the mission scene (Taco proof: `TacoBellIso_Editable_RedesignTest.tscn`).
 2. Drag a template under `GameplayRoot/SecurityAuthoringRoot` (not under `MarkerRoot`).
-3. Set unique IDs and event names; wire `GuardSpawnAuthor.trigger_events` to beam/camera/area events.
+3. Set unique IDs and event names; wire `GuardSpawnAuthor.trigger_events` or `SecurityEffectSetAuthor.trigger_events` to beam/camera/area events.
 4. For patrol spawns: set `patrol_route_id` on spawn author to match a route’s `route_id`.
 5. Add `Waypoint0`, `Waypoint1`, … as children of patrol routes (or duplicate `PatrolWaypointTemplate`).
 6. Run the static validator (below).
@@ -126,7 +126,7 @@ python src/tools/editor/d6_08a_security_authorables/phase0md6_08a_security_autho
 - Drag/drop **idle** guards (replacing Phase0K marker spawns).
 - Dedicated **alarm group** author node.
 - Full **door/keypad** authoring across missions.
-- Validated production template for `SecurityEffectSetAuthor`.
+- Production scene placement for `SecurityEffectSetAuthor` beyond the dev-room proof.
 
 ## Planned phases
 

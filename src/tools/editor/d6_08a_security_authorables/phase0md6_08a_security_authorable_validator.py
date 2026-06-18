@@ -18,6 +18,7 @@ READY_TEMPLATES = (
     "GuardPatrolRouteAuthorTemplate.tscn",
     "PatrolWaypointTemplate.tscn",
     "AreaTriggerAuthorTemplate.tscn",
+    "SecurityEffectSetAuthorTemplate.tscn",
 )
 
 PROTECTED_PATHS = (
@@ -158,6 +159,7 @@ def main() -> int:
         "src/missions/iso/authoring/GuardSpawnAuthor.gd",
         "src/missions/iso/authoring/GuardPatrolRouteAuthor.gd",
         "src/missions/iso/authoring/AreaTriggerAuthor.gd",
+        "src/missions/iso/authoring/SecurityEffectSetAuthor.gd",
         "src/missions/iso/runtime/MissionAuthoringRuntimeBuilder.gd",
     ]
     for rel in required_scripts:

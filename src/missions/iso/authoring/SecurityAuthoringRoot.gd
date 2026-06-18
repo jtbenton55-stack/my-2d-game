@@ -129,6 +129,10 @@ func collect_node_toggle_effect_authors() -> Array[Node2D]:
 	return _collect_effect_authors_by_type("node_toggle")
 
 
+func collect_effect_set_authors() -> Array[Node2D]:
+	return _collect_effect_authors_by_type("effect_set")
+
+
 func _collect_effect_authors_by_type(effect_type: String) -> Array[Node2D]:
 	var out: Array[Node2D] = []
 	for author in collect_effect_authors():
