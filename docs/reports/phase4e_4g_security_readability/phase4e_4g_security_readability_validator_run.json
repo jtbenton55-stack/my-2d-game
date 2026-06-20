@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot prove manual Taco playability; use GdUnit/headless smoke/manual QA.",
+    "Hide spot art/tutorialization is intentionally out of scope for this lite packet."
+  ]
+}

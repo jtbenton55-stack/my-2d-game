@@ -67,9 +67,22 @@
 [ext_resource type="Script" uid="uid://bmh6akki64y22" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="70_pp_effectset"]
 [ext_resource type="Script" uid="uid://c27tmd6xl35ad" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="71_pp_scheme_trigger"]
 [ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="72_pp_modifier"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="73_phase4g_security_effectset"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d605b_door"]
 size = Vector2(140, 32)
+
+[sub_resource type="Resource" id="Resource_phase4g_camera_alarm_flag_effect"]
+script = ExtResource("69_pp_effect")
+effect_id = &"effect_phase4g_camera_alarm_seen"
+key = "phase4g_camera_alarm_seen"
+debug_note = "Phase 4G-lite Taco proof: existing camera alarm writes a mission flag through SecurityEffectSetAuthor."
+
+[sub_resource type="Resource" id="Resource_phase4g_camera_alarm_effect_set"]
+script = ExtResource("70_pp_effectset")
+set_id = &"effectset_phase4g_camera_alarm_seen"
+effects = Array[ExtResource("69_pp_effect")]([SubResource("Resource_phase4g_camera_alarm_flag_effect")])
+debug_note = "Taco camera alarm -> mission flag EffectSet proof."
 
 [sub_resource type="Image" id="Image_pc8s5"]
 data = {
@@ -1345,6 +1358,25 @@ offset_right = 219.0
 offset_bottom = -5.0
 theme_override_font_sizes/font_size = 11
 text = "SPAWN camera_alarm_guard_spawn <- test_camera_alarm"
+horizontal_alignment = 1
+
+[node name="Phase4G_CameraAlarmEffectSet_Author" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=2144104001]
+position = Vector2(8740, 135)
+script = ExtResource("73_phase4g_security_effectset")
+effect_id = &"phase4g_camera_alarm_effect_set_author"
+trigger_events = Array[StringName]([&"test_camera_alarm"])
+effects = SubResource("Resource_phase4g_camera_alarm_effect_set")
+mission_id_override = "taco_bell_drop"
+debug_chain_label = "Taco camera alarm -> Phase 4G mission flag"
+preview_color = Color(0.45, 0.85, 1, 0.9)
+
+[node name="AuthorLabel" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/Phase4G_CameraAlarmEffectSet_Author" unique_id=2144104002]
+offset_left = -120.0
+offset_top = -28.0
+offset_right = 255.0
+offset_bottom = -5.0
+theme_override_font_sizes/font_size = 11
+text = "EFFECT_SET phase4g_camera_alarm_seen <- test_camera_alarm"
 horizontal_alignment = 1
 
 [node name="AmbushTestPatrol" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=2017610269]

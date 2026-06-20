@@ -2046,9 +2046,9 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Phase 4B | Suspicion vocabulary | Lite proof implemented 2026-06-17: `SecurityEffectSetAuthor` event chains now expose source/event/effect-set result dictionaries and a dev scene proves event consequences stay data-driven. | Suspicion/security event consequences can be debugged without a new global manager. |
 | Phase 4C | Visual feedback | Lite proof implemented 2026-06-17: `IsoMissionDebugPanel` downstream effects block includes `effect_set` counts and last chain summary. | Designers can see event-to-effect consequences in existing debug output. |
 | Phase 4D | Security authoring polish | Lite proof implemented 2026-06-17: `SecurityEffectSetAuthorTemplate.tscn`, collector/count plumbing, and static validator cover the reusable security effect bridge. | Existing D6 security authorables do not regress. |
-| Phase 4E | Camera sweep loops | Extend camera behavior only after current cameras are stable. | Camera loops are predictable and testable. |
-| Phase 4F | Hide spots | Simple safe/hiding zones gated by requirements/effects. | Hide spots interact with alert/suspicion without AI rewrite. |
-| Phase 4G | Production security slice | One mission area demonstrates detection, consequences, and recovery. | Security events activate facts/objectives/routes without hardcoded mission scripts. |
+| Phase 4E | Camera sweep loops | Lite proof implemented 2026-06-17: camera runtime and author nodes expose sweep debug/readability summaries; F12 QA Review exposes camera-readability paths/checks. | Camera loops are predictable and testable. |
+| Phase 4F | Hide spots | Lite proof implemented 2026-06-17: `HideSpotNode` reduces detection through `MissionAlertController` and remains a normal `MechanicAreaBase` node. | Hide spots interact with alert/suspicion without AI rewrite. |
+| Phase 4G | Production security slice | Lite proof implemented 2026-06-17: Taco `test_camera_alarm` drives `phase4g_camera_alarm_seen` through `SecurityEffectSetAuthor` and `EffectSet`, not Taco script hardcoding; F12 QA Review adds a dropdown checklist, live PASS/WAIT states, and teleport/reset helpers for manual validation. F12 intentionally avoids Godot Editor's F8 stop-running shortcut. | Security events activate facts/objectives/routes without hardcoded mission scripts and can be manually verified without parsing raw F10 output. |
 
 ### Phase 5: Inventory / Heist Kit
 

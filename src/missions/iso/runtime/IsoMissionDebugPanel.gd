@@ -6,6 +6,8 @@ const SHOW_LEGACY_SECURITY_DEBUG := false
 ## Which F10 section is expanded by default (others show one-line summaries when collapsed).
 const DEBUG_FOCUS_SECTION := "collectibles"
 const SHOW_COLLAPSED_DEBUG_SECTIONS := true
+const QA_PANEL_TOGGLE_KEY := KEY_F12
+const QA_PANEL_SCRIPT := preload("res://src/missions/iso/runtime/MissionQAChecklistPanel.gd")
 
 @export var mission_id: String = ""
 @export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
@@ -17,6 +19,7 @@ var _compact_panel: Panel = null
 var _details_panel: Panel = null
 var _status: Label = null
 var _details: RichTextLabel = null
+var _qa_panel: Control = null
 
 
 func _ready() -> void:
@@ -48,6 +51,12 @@ func _process(_delta: float) -> void:
 			toggle_debug_details()
 	elif get_meta("f9_latched", false):
 		set_meta("f9_latched", false)
+	if Input.is_key_pressed(QA_PANEL_TOGGLE_KEY):
+		if not get_meta("f8_latched", false):
+			set_meta("f8_latched", true)
+			toggle_qa_review()
+	elif get_meta("f8_latched", false):
+		set_meta("f8_latched", false)
 	if not visible:
 		return
 	_refresh_status()
@@ -96,6 +105,9 @@ func _build_ui() -> void:
 	_details.scroll_active = true
 	_details_panel.add_child(_details)
 	_apply_red_text_style(_details)
+	_qa_panel = QA_PANEL_SCRIPT.new() as Control
+	_qa_panel.call("set_mission", _mission)
+	add_child(_qa_panel)
 
 
 func toggle_compact_hud() -> void:
@@ -105,6 +117,14 @@ func toggle_compact_hud() -> void:
 func toggle_debug_details() -> void:
 	if _details_panel != null:
 		_details_panel.visible = not _details_panel.visible
+
+
+func toggle_qa_review() -> void:
+	if _qa_panel == null:
+		return
+	if not visible and not _qa_panel.visible:
+		visible = true
+	_qa_panel.call("toggle_panel")
 
 
 func _refresh_status() -> void:

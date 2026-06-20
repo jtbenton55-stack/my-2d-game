@@ -13,6 +13,7 @@ signal player_detected(source_id: String)
 @export var sweep_min_degrees: float = -45.0
 @export var sweep_max_degrees: float = 45.0
 @export var sweep_speed: float = 0.85
+@export var sweep_readability_label: String = ""
 ## When false, cone occupancy alone drives exposure (Taco: LOS often blocked by iso walls, leaving many cameras “dead”).
 @export var require_line_of_sight: bool = false
 
@@ -50,6 +51,7 @@ func apply_authoring_config(cfg: Dictionary) -> void:
 	detection_decay = float(cfg.get("detection_decay", detection_decay))
 	detection_threshold = float(cfg.get("alarm_threshold", cfg.get("detection_threshold", detection_threshold)))
 	enabled = bool(cfg.get("enabled", enabled))
+	sweep_readability_label = String(cfg.get("sweep_readability_label", sweep_readability_label))
 	require_line_of_sight = bool(cfg.get("require_line_of_sight", require_line_of_sight))
 	var sweep_on := bool(cfg.get("sweep_enabled", false))
 	if sweep_on:
@@ -104,7 +106,7 @@ func is_player_in_cone() -> bool:
 
 
 func get_runtime_debug_state() -> Dictionary:
-	return {
+	var state := {
 		"camera_id": camera_id,
 		"class_name": get_class(),
 		"enabled": enabled,
@@ -119,6 +121,40 @@ func get_runtime_debug_state() -> Dictionary:
 		"detection_value": _detection_value,
 		"controller_found": _controller != null,
 	}
+	state["sweep"] = get_sweep_debug_state()
+	state["sweep_readability_line"] = get_sweep_readability_line()
+	return state
+
+
+func get_sweep_debug_state() -> Dictionary:
+	var span := maxf(0.0, sweep_max_degrees - sweep_min_degrees)
+	return {
+		"enabled": sweep_speed > 0.0 and span > 0.01,
+		"min_degrees": sweep_min_degrees,
+		"max_degrees": sweep_max_degrees,
+		"span_degrees": span,
+		"speed": sweep_speed,
+		"loop_seconds": get_sweep_loop_seconds(),
+		"base_rotation_degrees": rad_to_deg(_base_rotation),
+		"current_rotation_degrees": rad_to_deg(global_rotation),
+		"label": sweep_readability_label,
+	}
+
+
+func get_sweep_loop_seconds() -> float:
+	if sweep_speed <= 0.0:
+		return 0.0
+	return TAU / sweep_speed
+
+
+func get_sweep_readability_line() -> String:
+	var label := sweep_readability_label.strip_edges()
+	if label == "":
+		label = camera_id
+	var span := maxf(0.0, sweep_max_degrees - sweep_min_degrees)
+	if sweep_speed <= 0.0 or span <= 0.01:
+		return "%s: fixed camera cone" % label
+	return "%s: sweeps %.0f deg every %.1fs" % [label, span, get_sweep_loop_seconds()]
 
 
 func refresh_sweep_basis_from_world() -> void:

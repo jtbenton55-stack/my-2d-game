@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/HideSpotNode.gd" id="1_hide_spot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hide_spot"]
+size = Vector2(96, 96)
+
+[node name="HideSpotNodeTemplate" type="Area2D"]
+script = ExtResource("1_hide_spot")
+mechanic_id = &"CHANGE_ME_HIDE_SPOT_ID"
+display_name = "Hide Spot"
+shape_size = Vector2(96, 96)
+hidden_detection_modifier = 0.35
+exposure_decay_on_enter = 0.25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hide_spot")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -70.0
+offset_top = -60.0
+offset_right = 70.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Hide Spot"
+horizontal_alignment = 1

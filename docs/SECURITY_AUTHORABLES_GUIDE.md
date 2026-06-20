@@ -87,6 +87,14 @@ scenes/missions_iso/security_authoring_templates/
 5. Add `Waypoint0`, `Waypoint1`, … as children of patrol routes (or duplicate `PatrolWaypointTemplate`).
 6. Run the static validator (below).
 7. Play Taco, press **F10** — security authoring section shows beam/camera/spawn/patrol counts.
+8. Press **F12** for the task-focused QA Review panel when manually testing Phase 4 security slices. Do not use F8; Godot Editor uses F8 to stop the running project.
+
+### Phase 4E-4G-lite additions
+
+- Authored cameras can set `sweep_readability_label`; runtime cameras expose sweep debug dictionaries and plain-English sweep lines for debug UI/tests.
+- `HideSpotNodeTemplate.tscn` lives under `scenes/missions/iso/authoring/` because hide spots are regular plug-and-play mechanics, not children of `SecurityAuthoringRoot`.
+- Taco has a minimal `SecurityEffectSetAuthor` proof node named `Phase4G_CameraAlarmEffectSet_Author`. It listens to `test_camera_alarm` and sets the mission flag `phase4g_camera_alarm_seen` through `EffectSet`.
+- The Taco debug HUD now has an **F12 Mission QA Review** panel for manual testing. Select `Phase 4G - Camera Alarm EffectSet` to see exact paths, next action, live PASS/WAIT checks, and buttons for teleporting to the camera test position and resetting the Phase 4G flag.
 
 ## ID and linking rules
 
@@ -116,9 +124,10 @@ python src/tools/editor/d6_08a_security_authorables/phase0md6_08a_security_autho
 
 1. Run `TacoBellIso_Editable_RedesignTest.tscn`.
 2. F10: `security` section — root found, beam/camera/spawn/patrol counts.
-3. Trip ambush beam → guard spawn + event router activity.
-4. Enter camera cone → `test_camera_alarm` → camera alarm spawn.
-5. No new red errors in Godot output.
+3. F12: select `Phase 4G - Camera Alarm EffectSet` for the task-focused manual checklist.
+4. Trip ambush beam → guard spawn + event router activity.
+5. Enter camera cone or use the F12 teleport button -> `test_camera_alarm` -> camera alarm spawn and `phase4g_camera_alarm_seen` flag.
+6. No new red errors in Godot output.
 
 ## What is not implemented yet
 
@@ -127,6 +136,7 @@ python src/tools/editor/d6_08a_security_authorables/phase0md6_08a_security_autho
 - Dedicated **alarm group** author node.
 - Full **door/keypad** authoring across missions.
 - Production scene placement for `SecurityEffectSetAuthor` beyond the dev-room proof.
+- Full hide-spot art pass, animation, and player-facing tutorialization.
 
 ## Planned phases
 

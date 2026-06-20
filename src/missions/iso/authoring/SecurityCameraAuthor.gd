@@ -14,6 +14,7 @@ extends Node2D
 @export var sweep_enabled := false
 @export var sweep_arc_degrees: float = 90.0
 @export var sweep_speed_degrees: float = 45.0
+@export var sweep_readability_label: String = ""
 
 @export_group("Detection")
 @export var detection_rate: float = 0.7
@@ -67,6 +68,7 @@ func build_runtime_config() -> Dictionary:
 		"sweep_enabled": sweep_enabled,
 		"sweep_arc_degrees": sweep_arc_degrees,
 		"sweep_speed_degrees": sweep_speed_degrees,
+		"sweep_readability_label": sweep_readability_label,
 		"detection_rate": detection_rate,
 		"detection_decay": detection_decay,
 		"alarm_threshold": alarm_threshold,
@@ -74,7 +76,7 @@ func build_runtime_config() -> Dictionary:
 		"on_alarm_event": String(on_alarm_event),
 		"emit_detect_event": emit_detect_event,
 		"emit_alarm_event": emit_alarm_event,
-		"author_path": str(get_path()),
+		"author_path": str(get_path()) if is_inside_tree() else "",
 	}
 
 
@@ -185,6 +187,15 @@ func _preview_signature() -> String:
 	]
 
 
+func get_camera_readability_summary() -> String:
+	var label := sweep_readability_label.strip_edges()
+	if label == "":
+		label = String(camera_id)
+	if sweep_enabled:
+		return "%s sweeps %.0f deg at %.0f deg/s" % [label, sweep_arc_degrees, sweep_speed_degrees]
+	return "%s fixed %.0f deg cone" % [label, fov_degrees]
+
+
 func _ensure_label() -> void:
 	if _label != null and is_instance_valid(_label):
 		return
@@ -204,5 +215,5 @@ func _refresh_label() -> void:
 	_ensure_label()
 	if _label == null or not show_label:
 		return
-	_label.text = "CAM %s -> %s" % [String(camera_id), String(on_alarm_event)]
+	_label.text = "CAM %s -> %s\n%s" % [String(camera_id), String(on_alarm_event), get_camera_readability_summary()]
 	_label.position = Vector2(-100.0, -maxf(32.0, range_px) - 24.0)

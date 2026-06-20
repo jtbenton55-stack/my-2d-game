@@ -1381,6 +1381,14 @@ Make detection, suspicion, and alarm states readable and reusable.
 - Added effect-chain debug summaries and downstream-effect counts for `effect_set` authors, keeping the work adapter-first and mission-local.
 - Added a Phase 4B-4D static validator under `src/tools/editor/phase4b_4d_security_effect_sets/`.
 
+### Phase 4E-4G-Lite Grouped Status As Of 2026-06-17
+
+- `MissionSecurityCamera` and `SecurityCameraAuthor` now expose sweep/readability summaries so authored camera loops are inspectable and testable without changing the detection contract.
+- Added `HideSpotNode`, a reusable `MechanicAreaBase` hide/safe spot that reduces detection through the existing `MissionAlertController` instead of a new suspicion manager.
+- Added a minimal Taco production proof node, `Phase4G_CameraAlarmEffectSet_Author`, that listens to the existing `test_camera_alarm` event and writes `phase4g_camera_alarm_seen` through a normal `EffectSet`.
+- Added a Phase 4E-4G-lite static validator under `src/tools/editor/phase4e_4g_security_readability/`.
+- Added an F12 task-focused `MissionQAChecklistPanel` layered on top of the existing debug HUD so manual Phase 4E/4F/4G and Taco security regression checks show exact paths, next actions, and PASS/WAIT state instead of requiring designers to parse the raw F10 debug wall. It intentionally avoids F8 because Godot Editor uses F8 to stop the running project.
+
 ## Phase 5: Inventory / Heist Kit
 
 ### Goal
