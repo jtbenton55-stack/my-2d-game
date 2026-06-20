@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; focused GdUnit covers the first runtime contract.",
+    "Pickup mechanics, debug UI, and persistent inventory remain intentionally deferred."
+  ]
+}

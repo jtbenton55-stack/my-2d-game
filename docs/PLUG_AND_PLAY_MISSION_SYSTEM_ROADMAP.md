@@ -1420,6 +1420,15 @@ Create a lightweight shared item vocabulary for mission mechanics.
 - Extraction can require an item.
 - Mission-only items do not pollute permanent save data unless explicitly intended.
 
+### Phase 5A-5C-lite Status - 2026-06-20
+
+- Added `ItemData` and `InventoryEntry` Resources for the first shared item vocabulary without adding a grid UI, crafting system, merchant economy, or equipment plugin.
+- Added lightweight mission-only `MissionInventory` runtime state for add/remove/has/count/category/snapshot operations.
+- Added requirement facts `inventory_has_item`, `inventory_item_count`, and `inventory_has_category` through `MissionFactBridge`.
+- Added effects `GRANT_ITEM`, `REMOVE_ITEM`, and `CLEAR_MISSION_ITEMS` through `MissionEffectApplier`, with Mission Dock vocabulary updated for authoring visibility.
+- Kept item state out of `GameState.to_dict()` / `from_dict()` and clears mission-only entries on new game, mission start, mission completion, and mission failure.
+- Deferred `InventoryPickupNode`, debug inventory UI, production Taco item placement, and persistent item save schema to later Phase 5 slices.
+
 ## Phase 6: Scheme Card Mission Modifiers
 
 ### Goal

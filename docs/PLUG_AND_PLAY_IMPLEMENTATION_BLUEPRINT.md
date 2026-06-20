@@ -1640,6 +1640,8 @@ Do not implement inventory before `RequirementSet`, `EffectSet`, and the first f
 
 Use mission-only inventory first. Do not add permanent save data until at least one mission proves it needs persistent items.
 
+2026-06-20 Phase 5A-5C-lite status: implemented the first mission-only inventory contract with `ItemData`, `InventoryEntry`, and `MissionInventory`. Runtime state is held outside `GameState.to_dict()` / `from_dict()`, clears through mission lifecycle hooks, and can be queried by authored requirements before pickup mechanics or inventory UI are introduced.
+
 ### Requirement Integration
 
 Add fact types:
@@ -2055,8 +2057,8 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
 | Phase 5A | Item data | `ItemData` Resource and category vocabulary. | Items are data, not hardcoded mechanic branches. |
-| Phase 5B | Mission inventory adapter | Lightweight mission-only inventory module. | Mission-only items do not pollute permanent save data. |
-| Phase 5C | Requirement/effect integration | `inventory_has_item`, `GRANT_ITEM`, `REMOVE_ITEM`, `CLEAR_MISSION_ITEMS`. | Locks/search/extraction can require or grant items. |
+| Phase 5B | Mission inventory adapter | Implemented 2026-06-20: lightweight `MissionInventory` static adapter stores `InventoryEntry` records in mission runtime memory only and clears mission-only entries on new game, mission start, completion, and failure. | Mission-only items do not pollute permanent save data. |
+| Phase 5C | Requirement/effect integration | Implemented 2026-06-20: `MissionFactBridge` supports `inventory_has_item`, `inventory_item_count`, and `inventory_has_category`; `MissionEffectApplier` supports `GRANT_ITEM`, `REMOVE_ITEM`, and `CLEAR_MISSION_ITEMS`; Mission Dock vocabulary includes the new fact/effect types. | Locks/search/extraction can require or grant items. |
 | Phase 5D | Pickup mechanics | `InventoryPickupNode` or `RewardNode` integration. | Item pickups are reusable and instance-safe. |
 | Phase 5E | Debug UI | Simple inventory debug list, not a full grid UI. | Designers can inspect mission item state. |
 | Phase 5F | Persistence policy | Explicit persistent-vs-mission-only cleanup rules. | Restart/failure/success paths do not duplicate or leak items. |

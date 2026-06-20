@@ -1,6 +1,8 @@
 class_name MissionFactBridge
 extends RefCounted
 
+const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+
 const FACT_ALWAYS := &"always"
 const FACT_MISSION_ID := &"mission_id"
 const FACT_MISSION_COMPLETED := &"mission_completed"
@@ -17,6 +19,9 @@ const FACT_ALERT_STATE := &"alert_state"
 const FACT_DIALOGUE_FLAG := &"dialogue_flag"
 const FACT_MISSION_FLAG := &"mission_flag"
 const FACT_POOP_BAG_COUNT := &"poop_bag_count"
+const FACT_INVENTORY_HAS_ITEM := &"inventory_has_item"
+const FACT_INVENTORY_ITEM_COUNT := &"inventory_item_count"
+const FACT_INVENTORY_HAS_CATEGORY := &"inventory_has_category"
 
 
 static func resolve_mission_id(context: Dictionary = {}) -> String:
@@ -87,6 +92,12 @@ static func get_fact_value(fact_type: StringName, key: String, context: Dictiona
 			return _dialogue_flags(game_state).get(_mission_flag_key(resolve_mission_id(context), key), false)
 		FACT_POOP_BAG_COUNT:
 			return int(game_state.call("get_poop_bag_count")) if game_state != null and game_state.has_method("get_poop_bag_count") else 0
+		FACT_INVENTORY_HAS_ITEM:
+			return MissionInventoryScript.has_item(key)
+		FACT_INVENTORY_ITEM_COUNT:
+			return MissionInventoryScript.get_item_count(key)
+		FACT_INVENTORY_HAS_CATEGORY:
+			return MissionInventoryScript.has_category(key)
 		_:
 			return null
 
@@ -185,6 +196,9 @@ static func is_known_fact_type(fact_type: StringName) -> bool:
 		FACT_DIALOGUE_FLAG,
 		FACT_MISSION_FLAG,
 		FACT_POOP_BAG_COUNT,
+		FACT_INVENTORY_HAS_ITEM,
+		FACT_INVENTORY_ITEM_COUNT,
+		FACT_INVENTORY_HAS_CATEGORY,
 	]
 
 

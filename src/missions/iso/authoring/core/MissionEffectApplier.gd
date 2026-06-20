@@ -1,6 +1,8 @@
 class_name MissionEffectApplier
 extends RefCounted
 
+const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+
 
 static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictionary:
 	if effect == null:
@@ -46,6 +48,12 @@ static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictiona
 			return _apply_toggle_node(effect, context)
 		MissionEffect.EffectType.CALL_METHOD:
 			return _apply_call_method(effect, context)
+		MissionEffect.EffectType.GRANT_ITEM:
+			return _apply_grant_item(effect)
+		MissionEffect.EffectType.REMOVE_ITEM:
+			return _apply_remove_item(effect)
+		MissionEffect.EffectType.CLEAR_MISSION_ITEMS:
+			return MissionInventoryScript.clear_mission_items()
 		MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY:
 			return _apply_dialogue_key(effect, context)
 		MissionEffect.EffectType.TRIGGER_SIMPLE_DIALOGUE:
@@ -100,6 +108,22 @@ static func _apply_poop_bag(add: bool, effect: Resource) -> Dictionary:
 		var consumed := bool(game_state.call("try_consume_poop_bag"))
 		return _result(consumed, "poop_bag_consumed" if consumed else "poop_bag_unavailable", "Poop bag consumed." if consumed else "No poop bag available.", String(effect.get("effect_id")))
 	return _result(false, "poop_bag_api_missing", "Poop bag API is missing.", String(effect.get("effect_id")))
+
+
+static func _apply_grant_item(effect: Resource) -> Dictionary:
+	var item_id := String(effect.get("key")).strip_edges()
+	if item_id == "":
+		return _result(false, "item_id_missing", "Grant item effect is missing key/item_id.", String(effect.get("effect_id")))
+	var data := _payload(effect)
+	data["item_id"] = item_id
+	return MissionInventoryScript.add_item(item_id, _item_amount(effect), data)
+
+
+static func _apply_remove_item(effect: Resource) -> Dictionary:
+	var item_id := String(effect.get("key")).strip_edges()
+	if item_id == "":
+		return _result(false, "item_id_missing", "Remove item effect is missing key/item_id.", String(effect.get("effect_id")))
+	return MissionInventoryScript.remove_item(item_id, _item_amount(effect))
 
 
 static func _apply_alert_state(effect: Resource, context: Dictionary) -> Dictionary:
@@ -216,6 +240,15 @@ static func _payload(effect: Resource) -> Dictionary:
 	if value is Dictionary:
 		return (value as Dictionary).duplicate(true)
 	return {}
+
+
+static func _item_amount(effect: Resource) -> int:
+	var data := _payload(effect)
+	if data.has("count"):
+		return maxi(1, int(data.get("count")))
+	if String(effect.get("value_type")) == "int":
+		return maxi(1, int(effect.get("value_int")))
+	return 1
 
 
 static func _autoload(name: String) -> Node:

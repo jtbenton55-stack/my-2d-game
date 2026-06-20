@@ -24,6 +24,9 @@ enum EffectType {
 	REQUEST_MISSION_FAIL,
 	TOGGLE_NODE,
 	CALL_METHOD,
+	GRANT_ITEM,
+	REMOVE_ITEM,
+	CLEAR_MISSION_ITEMS,
 }
 
 @export var effect_id: StringName = &"effect"

@@ -1,5 +1,7 @@
 extends Node
 
+const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+
 const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
 
@@ -286,6 +288,7 @@ func reset_for_new_game(emit_change = true) -> void:
 	mission_heat_states.clear()
 	mission_performance.clear()
 	mission_alert_states.clear()
+	MissionInventoryScript.clear_all()
 	poop_bag_count = 0
 	poop_bags_this_mission_attempt = 0
 	poop_bag_inventory = {"count": 0, "collected_this_mission": 0, "used_this_mission": 0}
@@ -297,6 +300,7 @@ func start_mission(mission_id: String) -> void:
 	current_mission_id = mission_id
 	is_in_mission = true
 	clear_mission_flags(mission_id)
+	MissionInventoryScript.clear_mission_items()
 	player_health = player_max_health
 	poop_bags_this_mission_attempt = 0
 	poop_bag_inventory["collected_this_mission"] = 0
@@ -325,6 +329,7 @@ func complete_mission(mission_id = "") -> Dictionary:
 		mission_id = "test_mission"
 	is_in_mission = false
 	current_mission_id = ""
+	MissionInventoryScript.clear_mission_items()
 	if mission_id == "velvet_paw_jazz_club":
 		velvet_paw_club_hostile = false
 		velvet_paw_basement_shard_collected = false
@@ -348,6 +353,7 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		mission_id = "test_mission"
 	is_in_mission = false
 	current_mission_id = ""
+	MissionInventoryScript.clear_mission_items()
 	if mission_id == "velvet_paw_jazz_club":
 		velvet_paw_club_hostile = false
 		velvet_paw_basement_shard_collected = false

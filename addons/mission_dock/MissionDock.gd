@@ -44,6 +44,8 @@ const EFFECT_TYPES_REQUIRING_KEY: Array[int] = [
 	MissionEffect.EffectType.GRANT_CARD,
 	MissionEffect.EffectType.GRANT_TYPED_COLLECTIBLE,
 	MissionEffect.EffectType.GRANT_EVIDENCE_CLUE,
+	MissionEffect.EffectType.GRANT_ITEM,
+	MissionEffect.EffectType.REMOVE_ITEM,
 	MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY,
 ]
 
@@ -63,6 +65,9 @@ const FACT_TYPES: Array[String] = [
 	"evidence_clue",
 	"crew_assist",
 	"poop_bag_count",
+	"inventory_has_item",
+	"inventory_item_count",
+	"inventory_has_category",
 ]
 
 var _plugin: EditorPlugin
