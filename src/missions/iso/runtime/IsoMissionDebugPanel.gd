@@ -8,6 +8,7 @@ const DEBUG_FOCUS_SECTION := "collectibles"
 const SHOW_COLLAPSED_DEBUG_SECTIONS := true
 const QA_PANEL_TOGGLE_KEY := KEY_F12
 const QA_PANEL_SCRIPT := preload("res://src/missions/iso/runtime/MissionQAChecklistPanel.gd")
+const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
 
 @export var mission_id: String = ""
 @export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
@@ -173,6 +174,7 @@ func _refresh_status() -> void:
 		int(pbi.get("collected_this_mission", 0)),
 		int(pbi.get("used_this_mission", 0)),
 	]
+	var inventory_line := "\n" + _format_mission_inventory_line()
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
 	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
@@ -180,7 +182,7 @@ func _refresh_status() -> void:
 	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
 		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
 		sec_lines = _build_authoring_security_f10_lines(rsum, heat, alert, mid, garage_code, controller)
-	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s" % [
+	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s" % [
 		mid,
 		heat,
 		int(GameState.failed_attempts.get(mid, 0)),
@@ -197,6 +199,7 @@ func _refresh_status() -> void:
 		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0))),
 		p0j_counts,
 		poop_line,
+		inventory_line,
 		sec_lines,
 		obj_line,
 	]
@@ -840,6 +843,19 @@ func _fit_compact_status_height() -> void:
 	var line_h: float = float(_status.get_line_height())
 	var h: float = line_h * float(lines) + 8.0
 	_status.custom_minimum_size.y = maxf(40.0, h)
+
+
+func _format_mission_inventory_line() -> String:
+	var snapshot: Dictionary = MissionInventoryScript.get_snapshot()
+	var items: Dictionary = snapshot.get("items", {})
+	if items.is_empty():
+		return "mission_inv empty"
+	var parts: Array[String] = []
+	for item_id in items.keys():
+		var entry: Dictionary = items[item_id]
+		parts.append("%s x%d [%s]" % [String(item_id), int(entry.get("count", 0)), String(entry.get("category", ""))])
+	parts.sort()
+	return "mission_inv %s" % "; ".join(parts)
 
 
 func _typed_collectible_summary() -> Dictionary:

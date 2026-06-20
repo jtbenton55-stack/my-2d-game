@@ -3,7 +3,7 @@
   "errors": [],
   "warnings": [],
   "limitations": [
-    "Static validator cannot execute GDScript; focused GdUnit covers the first runtime contract.",
-    "Pickup mechanics, debug UI, and persistent inventory remain intentionally deferred."
+    "Static validator cannot execute GDScript; focused and full GdUnit cover runtime contracts.",
+    "Persistent item save schema and production mission item placement remain intentionally deferred."
   ]
 }

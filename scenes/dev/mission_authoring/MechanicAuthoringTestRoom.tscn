@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bb7g8ecmo8ul2" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="13_mq6f0"]
 [ext_resource type="Script" uid="uid://c27tmd6xl35ad" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="14_scheme_trigger"]
 [ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="15_modifier"]
+[ext_resource type="Script" uid="uid://cqkwr5y3ohg0n" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="16_inventory_pickup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -99,6 +100,20 @@ fail_message = "Trigger Louis Delivery Route setup first."
 script = ExtResource("13_mq6f0")
 requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_phase6d_route_req")])
 locked_message = "Pick Louis Delivery Route, then trigger card setup."
+
+[sub_resource type="Resource" id="Resource_phase5d_item_req"]
+script = ExtResource("12_bwj2c")
+requirement_id = &"phase5d_requires_delivery_badge"
+fact_type = &"inventory_has_item"
+key = "delivery_badge"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Pick up the delivery badge first."
+
+[sub_resource type="Resource" id="Resource_phase5d_item_req_set"]
+script = ExtResource("13_mq6f0")
+requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_phase5d_item_req")])
+locked_message = "Pick up delivery badge first."
 
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
@@ -759,6 +774,99 @@ text = "6D-lite: Unlock card route"
 horizontal_alignment = 1
 
 [node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route"]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "LOCKED"
+horizontal_alignment = 1
+
+[node name="InventoryPickupNode_phase5d_delivery_badge" type="Area2D" parent="MissionMechanics" unique_id=1868895068]
+position = Vector2(264, -296)
+collision_layer = 8
+script = ExtResource("16_inventory_pickup")
+item_id = &"delivery_badge"
+item_category = "credential"
+item_max_stack = 1
+reward_kind = "item"
+reward_id = &"delivery_badge"
+collected_flag = &"phase5d_delivery_badge_collected"
+mechanic_id = &"phase5d_delivery_badge_pickup"
+display_name = "Phase 5D Delivery Badge Pickup"
+one_shot = false
+interaction_priority = 430
+prompt_text = "Press E: Pick up delivery badge"
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InventoryPickupNode_phase5d_delivery_badge" unique_id=2022346036]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/InventoryPickupNode_phase5d_delivery_badge" unique_id=2045589556]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "5D: Pick up delivery badge"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/InventoryPickupNode_phase5d_delivery_badge" unique_id=29594770]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "ITEM READY"
+horizontal_alignment = 1
+
+[node name="RouteUnlockNode_phase5d_badge_route" type="Area2D" parent="MissionMechanics" unique_id=217598773]
+position = Vector2(264, -176)
+collision_layer = 8
+script = ExtResource("9_route")
+route_id = &"phase5d_badge_route"
+route_flag = &"phase5d_badge_route_open"
+nodes_to_show = Array[NodePath]([NodePath("RouteVisual")])
+nodes_to_hide = Array[NodePath]([NodePath("RouteLockedVisual")])
+locked_route_message = "Pick up delivery badge first."
+mechanic_id = &"phase5d_badge_route"
+display_name = "Phase 5D Badge Route"
+one_shot = false
+interaction_priority = 420
+prompt_text = "Press E: Unlock badge route"
+locked_prompt_text = "Pick up delivery badge first."
+requirements = SubResource("Resource_phase5d_item_req_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=1351230218]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="RouteLockedVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=1198109692]
+offset_left = -36.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = 10.0
+color = Color(0.75, 0.25, 0.25, 0.95)
+metadata/_edit_use_anchors_ = true
+
+[node name="RouteVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=2109828200]
+visible = false
+offset_left = -36.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = 10.0
+color = Color(0.35, 0.95, 0.55, 0.95)
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=1764541713]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "5D: Badge-gated route"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=560756521]
 offset_left = -130.0
 offset_top = -56.0
 offset_right = 130.0

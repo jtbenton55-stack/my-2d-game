@@ -1640,7 +1640,9 @@ Do not implement inventory before `RequirementSet`, `EffectSet`, and the first f
 
 Use mission-only inventory first. Do not add permanent save data until at least one mission proves it needs persistent items.
 
-2026-06-20 Phase 5A-5C-lite status: implemented the first mission-only inventory contract with `ItemData`, `InventoryEntry`, and `MissionInventory`. Runtime state is held outside `GameState.to_dict()` / `from_dict()`, clears through mission lifecycle hooks, and can be queried by authored requirements before pickup mechanics or inventory UI are introduced.
+2026-06-20 Phase 5A-5C-lite status: implemented the first mission-only inventory contract with `ItemData`, `InventoryEntry`, and `MissionInventory`. Runtime state is held outside `GameState.to_dict()` / `from_dict()`, clears through mission lifecycle hooks, and can be queried by authored requirements.
+
+2026-06-20 Phase 5D-5F-lite status: implemented `InventoryPickupNode` as a `RewardNode`-based item pickup, added an authoring template, Mission Dock placement/audit support, a dev-room pickup-to-route proof using `inventory_has_item`, and a compact F10 `mission_inv` debug line. Persistent inventory save schema and production item placement remain deferred.
 
 ### Requirement Integration
 
@@ -2059,9 +2061,9 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Phase 5A | Item data | `ItemData` Resource and category vocabulary. | Items are data, not hardcoded mechanic branches. |
 | Phase 5B | Mission inventory adapter | Implemented 2026-06-20: lightweight `MissionInventory` static adapter stores `InventoryEntry` records in mission runtime memory only and clears mission-only entries on new game, mission start, completion, and failure. | Mission-only items do not pollute permanent save data. |
 | Phase 5C | Requirement/effect integration | Implemented 2026-06-20: `MissionFactBridge` supports `inventory_has_item`, `inventory_item_count`, and `inventory_has_category`; `MissionEffectApplier` supports `GRANT_ITEM`, `REMOVE_ITEM`, and `CLEAR_MISSION_ITEMS`; Mission Dock vocabulary includes the new fact/effect types. | Locks/search/extraction can require or grant items. |
-| Phase 5D | Pickup mechanics | `InventoryPickupNode` or `RewardNode` integration. | Item pickups are reusable and instance-safe. |
-| Phase 5E | Debug UI | Simple inventory debug list, not a full grid UI. | Designers can inspect mission item state. |
-| Phase 5F | Persistence policy | Explicit persistent-vs-mission-only cleanup rules. | Restart/failure/success paths do not duplicate or leak items. |
+| Phase 5D | Pickup mechanics | Implemented 2026-06-20: `InventoryPickupNode` extends `RewardNode`, grants through `MissionEffect.GRANT_ITEM` / `MissionEffectApplier`, has a template scene, and is placeable/auditable in Mission Dock. | Item pickups are reusable and instance-safe. |
+| Phase 5E | Debug UI | Lite proof implemented 2026-06-20: F10 debug HUD shows compact `mission_inv` snapshot lines. | Designers can inspect mission item state without a full grid UI. |
+| Phase 5F | Persistence policy | Lite policy implemented 2026-06-20: mission-only items remain outside save data and clear through new-game/start/complete/fail lifecycle hooks; persistent item schema is still deferred. | Restart/failure/success paths do not duplicate or leak mission-only items. |
 
 ### Phase 6: Scheme Card Mission Modifiers
 

@@ -29,6 +29,7 @@ This replaces ad-hoc per-mission scripts for simple triggers, flags, and dialogu
 - Includes a `RewardNode` sample pickup (`Rewards/DevRewardPickup`) that sets `dev_reward_collected` and `dev_reward_effect_applied`
 - Includes a `RouteUnlockNode` sample shortcut (`Routes/DevRouteUnlock`) that requires `dev_reward_collected`, then sets `dev_route_open` and toggles route visuals/collisions
 - Includes a `SideObjectiveNode` sample (`Objectives/DevSideObjective`) that requires `dev_route_open`, completes `dev_side_objective`, and sets handled/effect flags
+- Includes a Phase 5D inventory proof (`InventoryPickupNode_phase5d_delivery_badge` -> `RouteUnlockNode_phase5d_badge_route`) where a picked-up item unlocks a route through `inventory_has_item`
 
 **Not** the main scene and **not** wired into production missions. Use only for authoring validation.
 
@@ -200,6 +201,20 @@ Example: visible pickup sets `dev_reward_collected`, applies `dev_reward_effect_
 
 **Limitations:** No inventory UI or reward popup. Reward specifics are delegated to `EffectSet` / `MissionEffectApplier`.
 
+## InventoryPickupNode
+
+Use for visible mission-only item pickups such as keys, badges, route tokens, tools, evidence, and heist-kit objects.
+
+1. Add an `Area2D` and attach `res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd`, or instance `res://scenes/missions/iso/authoring/InventoryPickupNodeTemplate.tscn`.
+2. Set `item_id`, `item_count`, `item_category`, and `collected_flag`. If using `item_data`, the node reads the item id/category/stack policy from that Resource.
+3. Set `requirements` when the pickup should be gated. A failed requirement does not grant the item.
+4. Gate downstream mechanics with `MissionRequirement.fact_type = &"inventory_has_item"`, `inventory_item_count`, or `inventory_has_category`.
+5. Use F10 during mission playtest to inspect the compact `mission_inv` line.
+
+Example: pickup grants `delivery_badge`; route requirement `inventory_has_item` with key `delivery_badge` then unlocks the badge route.
+
+**Limitations:** Mission-only item state is runtime-only and intentionally not saved yet. Use mission flags or future persistent item schema only when a production mission proves persistence is needed.
+
 ## RouteUnlockNode
 
 Use for shortcuts, hidden paths, route gates, and local traversal mutations (show path, hide blocker, enable/disable collisions).
@@ -231,6 +246,7 @@ Example: route-gated side objective completes `dev_side_objective`, sets `dev_si
 You can place many nodes of the same mechanic class in one scene. Each instance must use **unique** persistent identifiers so state and flags do not cross-contaminate:
 
 - **RewardNode:** unique `reward_id`, `mechanic_id`, `collected_flag`, and success-effect keys
+- **InventoryPickupNode:** unique `item_id`, `reward_id`, `mechanic_id`, and `collected_flag`
 - **SearchZone:** unique `mechanic_id`, `searched_flag`
 - **RouteUnlockNode:** unique `route_id`, `route_flag`, `mechanic_id`
 - **SideObjectiveNode:** unique `objective_id`, `objective_flag`, `mechanic_id`
@@ -244,7 +260,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - `TriggerZone` defaults to `AUTOMATIC_ON_ENTER` in `_init()`; dev room overrides to `INTERACT_REQUIRED` in the controller
 - `SchemeCardTriggerNode` is validated for reusable card-driven setup, route facts, ready-time hooks, and one Taco production slice using `louis_delivery_route`
 - Namespaced `mission_flag:<mission_id>:` values are attempt-local for mission starts; `GameState.start_mission()` clears flags for the launching mission so card/setup route flags do not leak between runs
-- No inventory/heist kit, Bentley commands, noise, or social stealth in this foundation
+- Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, Bentley commands, noise, or social stealth yet
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -252,6 +268,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 
 1. `MissionModifierSet` — mission-wide modifier bundles  
 2. `SchemeCardTriggerNode` — card-triggered mission effects  
+3. `InventoryPickupNode` — mission-only item pickups through the reward/effect pipeline
 
 ## Related future editor tooling
 

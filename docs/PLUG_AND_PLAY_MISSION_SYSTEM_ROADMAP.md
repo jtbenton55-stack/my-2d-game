@@ -1429,6 +1429,13 @@ Create a lightweight shared item vocabulary for mission mechanics.
 - Kept item state out of `GameState.to_dict()` / `from_dict()` and clears mission-only entries on new game, mission start, mission completion, and mission failure.
 - Deferred `InventoryPickupNode`, debug inventory UI, production Taco item placement, and persistent item save schema to later Phase 5 slices.
 
+### Phase 5D-5F-lite Status - 2026-06-20
+
+- Added `InventoryPickupNode` as a `RewardNode`-based reusable pickup that grants mission items through generated `MissionEffect.GRANT_ITEM` and `MissionEffectApplier`, preserving the shared requirement/effect architecture.
+- Added `InventoryPickupNodeTemplate.tscn`, Mission Dock placement defaults/audit checks, and a dev-room proof where picking up `delivery_badge` unlocks a route requiring `inventory_has_item`.
+- Added a compact F10 debug line from `IsoMissionDebugPanel` that renders mission inventory snapshots as `mission_inv ...` without adding a full inventory grid UI.
+- Kept the Phase 5F-lite policy mission-local: mission-only cleanup remains in mission lifecycle hooks, with persistent item save schema and production Taco item placement still deferred until a real mission proves the need.
+
 ## Phase 6: Scheme Card Mission Modifiers
 
 ### Goal
