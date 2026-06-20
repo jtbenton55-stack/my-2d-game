@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="1_noise_emitter"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_noise_emitter"]
+size = Vector2(128, 128)
+
+[node name="NoiseEmitterNodeTemplate" type="Area2D"]
+script = ExtResource("1_noise_emitter")
+noise_id = &"CHANGE_ME_NOISE_ID"
+noise_kind = "generic"
+noise_team = "player"
+noise_radius = 192.0
+noise_strength = 1.0
+mechanic_id = &"CHANGE_ME_NOISE_EMITTER_ID"
+display_name = "Noise Emitter Node"
+prompt_text = "Press E: Emit noise"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_noise_emitter")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Noise Emitter"
+horizontal_alignment = 1

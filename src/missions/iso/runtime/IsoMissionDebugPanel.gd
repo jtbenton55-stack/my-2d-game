@@ -175,6 +175,15 @@ func _refresh_status() -> void:
 		int(pbi.get("used_this_mission", 0)),
 	]
 	var inventory_line := "\n" + _format_mission_inventory_line()
+	var noise_line := "\nnoise_events=0 last_noise=-"
+	if controller != null and controller.has_method("get_noise_debug_summary"):
+		var noise_summary: Dictionary = controller.call("get_noise_debug_summary")
+		var last_noise: Dictionary = noise_summary.get("last_noise_event", {})
+		noise_line = "\nnoise_events=%d last_noise=%s:%s" % [
+			int(noise_summary.get("total_noise_events", 0)),
+			String(last_noise.get("kind", "-")),
+			String(last_noise.get("source_id", "-")),
+		]
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
 	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
@@ -182,7 +191,7 @@ func _refresh_status() -> void:
 	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
 		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
 		sec_lines = _build_authoring_security_f10_lines(rsum, heat, alert, mid, garage_code, controller)
-	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s" % [
+	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s%s" % [
 		mid,
 		heat,
 		int(GameState.failed_attempts.get(mid, 0)),
@@ -200,6 +209,7 @@ func _refresh_status() -> void:
 		p0j_counts,
 		poop_line,
 		inventory_line,
+		noise_line,
 		sec_lines,
 		obj_line,
 	]

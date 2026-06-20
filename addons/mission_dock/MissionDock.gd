@@ -8,6 +8,8 @@ const MECHANIC_TYPES: Array[String] = [
 	"CompanionCommandPoint",
 	"BentleyCrawlspaceConnector",
 	"BentleyWaitMarker",
+	"NoiseEmitterNode",
+	"DistractionObject",
 	"LockedInteractionNode",
 	"RouteUnlockNode",
 	"InteractiveContainer",
@@ -23,6 +25,8 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"CompanionCommandPoint": "res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd",
 	"BentleyCrawlspaceConnector": "res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd",
 	"BentleyWaitMarker": "res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd",
+	"NoiseEmitterNode": "res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd",
+	"DistractionObject": "res://src/missions/iso/authoring/mechanics/DistractionObject.gd",
 	"LockedInteractionNode": "res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
@@ -403,6 +407,10 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Send Bentley through"
 		"BentleyWaitMarker":
 			_prompt_text.text = "Press E: Ask Bentley to wait"
+		"NoiseEmitterNode":
+			_prompt_text.text = "Press E: Emit noise"
+		"DistractionObject":
+			_prompt_text.text = "Press E: Create distraction"
 		"LockedInteractionNode":
 			_prompt_text.text = "Press E: Unlock"
 		"RouteUnlockNode":
@@ -777,6 +785,14 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 		"BentleyWaitMarker":
 			node.set("command_type", "wait")
 			node.set("command_label", "Bentley wait: %s" % base_id)
+		"NoiseEmitterNode":
+			node.set("noise_id", StringName(base_id))
+			node.set("noise_kind", "generic")
+			node.set("noise_team", "player")
+		"DistractionObject":
+			node.set("noise_id", StringName(base_id))
+			node.set("noise_kind", "decoy")
+			node.set("noise_team", "player")
 		"LockedInteractionNode":
 			node.set("unlocked_flag", StringName("%s_unlocked" % base_id))
 			node.set("locked_prompt_text", "Locked")
@@ -1129,6 +1145,8 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_item_id", "InventoryPickupNode missing item_id.", node))
 	if node is CompanionCommandPoint and String(node.get("command_type")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_companion_command", "CompanionCommandPoint missing command_type.", node))
+	if node is NoiseEmitterNode and String(node.get("noise_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_noise_id", "NoiseEmitterNode missing noise_id.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":

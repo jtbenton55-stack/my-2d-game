@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; GdUnit and headless scene smoke cover runtime contracts.",
+    "Phase 8A-8D-lite records and routes noise events, but full guard listener/pathing AI remains deferred.",
+    "Production Taco placement remains deferred pending manual mission-design placement."
+  ]
+}

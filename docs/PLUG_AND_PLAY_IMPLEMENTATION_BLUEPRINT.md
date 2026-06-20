@@ -1876,6 +1876,8 @@ Implement after guards/alert effects and Bentley bark command point.
 
 Bentley bark should create a noise event. Guards can initially react through existing security event routing or a simple debug response before full listener AI is implemented.
 
+2026-06-20 Phase 8A-8D-lite status: implemented `NoiseEvent`, `NoiseEmitterNode`, and `DistractionObject` as the first adapter-first noise/distraction packet. Noise events are dictionaries with `noise_id`, `source_id`, `position`, `radius`, `strength`, `kind`, `team`, and `timestamp`; placed emitters extend the same requirement/effect pipeline as other authoring mechanics. `DogCompanion.command_bark()` now emits a bark noise event, `EventBus` exposes `mission_noise_emitted`, and `MissionAlertController.register_noise_event()` records recent noise and can move normal missions to suspicious for player-team noise. `IsoMissionDebugPanel` exposes compact noise debug output. `NoiseListenerComponent` and production guard pathing remain future work.
+
 ## Phase 9: Puzzle And Side Job Kit
 
 ### Timing

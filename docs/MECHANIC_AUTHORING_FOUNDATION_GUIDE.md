@@ -31,6 +31,7 @@ This replaces ad-hoc per-mission scripts for simple triggers, flags, and dialogu
 - Includes a `SideObjectiveNode` sample (`Objectives/DevSideObjective`) that requires `dev_route_open`, completes `dev_side_objective`, and sets handled/effect flags
 - Includes a Phase 5D inventory proof (`InventoryPickupNode_phase5d_delivery_badge` -> `RouteUnlockNode_phase5d_badge_route`) where a picked-up item unlocks a route through `inventory_has_item`
 - Includes Phase 7 Bentley command proofs (`CompanionCommandPoint_phase7_bark`, `_sniff`, `_fetch`, `BentleyCrawlspaceConnector_phase7e`, `BentleyWaitMarker_phase7f`) where Bentley commands apply normal success effects and fetch targets a nearby inventory token
+- Includes Phase 8A-8D-lite noise/distraction proofs (`NoiseEmitterNode_phase8a_bark_lure`, `DistractionObject_phase8d_decoy`) where placed noise applies normal success effects and routes to `MissionAlertController`
 
 **Not** the main scene and **not** wired into production missions. Use only for authoring validation.
 
@@ -232,6 +233,20 @@ Example: a bark command point sets `phase7_bark_command_used`; a fetch command p
 
 **Limitations:** Phase 7-lite proves bark/sniff/fetch/crawlspace/wait command points. Production mission placement and full noise/listener AI are deferred.
 
+## NoiseEmitterNode / DistractionObject
+
+Phase 8A-8D-lite adds the first reusable noise/distraction authoring nodes.
+
+Use `NoiseEmitterNode` when a placed object, marker, or command point should emit a structured noise event after normal requirement/effect success. Use `DistractionObject` for a player-team decoy/distraction default.
+
+1. Set `mechanic_id` and `noise_id` to stable mission-local IDs.
+2. Choose `noise_kind` such as `bark`, `decoy`, or `object`.
+3. Set `noise_radius` and `noise_strength` for debug/listener tuning.
+4. Add `success_effects` for mission flags/objectives when the noise action should advance authoring state.
+5. Leave `route_to_alert_controller` enabled when the mission has a `MissionAlertController` receiver.
+
+`DogCompanion.command_bark()` also emits a `bentley_bark` noise event through the same schema. `MissionAlertController` records recent noise events and can move normal missions to suspicious for player-team noise. Full guard listener/pathing AI remains future Phase 8+ work.
+
 ## RouteUnlockNode
 
 Use for shortcuts, hidden paths, route gates, and local traversal mutations (show path, hide blocker, enable/disable collisions).
@@ -279,6 +294,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Namespaced `mission_flag:<mission_id>:` values are attempt-local for mission starts; `GameState.start_mission()` clears flags for the launching mission so card/setup route flags do not leak between runs
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
+- Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof; full guard listener/pathing AI and production placement are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -290,6 +306,8 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 4. `CompanionCommandPoint` — placed Bentley commands through the requirement/effect pipeline
 5. `BentleyCrawlspaceConnector` — thin crawlspace command-point subclass
 6. `BentleyWaitMarker` — thin wait-marker command-point subclass
+7. `NoiseEmitterNode` — placed structured noise event emitter
+8. `DistractionObject` — player-team decoy/distraction emitter subclass
 
 ## Related future editor tooling
 

@@ -3,12 +3,14 @@ extends Node
 
 signal alert_state_changed(state: String)
 signal alert_event(kind: String, source_id: String)
+signal noise_event_registered(noise_event: Dictionary)
 
 const VALID_STATES := ["normal", "suspicious", "alerted", "resolved"]
 const COVER_TILE := Vector2i(2, 0)
 
 @export var mission_id: String = ""
 @export var suspicious_decay_seconds: float = 6.0
+@export var noise_suspicious_threshold: float = 0.5
 
 var alert_state: String = "normal"
 var alert_score: float = 0.0
@@ -17,13 +19,18 @@ var _zone_detection_modifier: float = 1.0
 var _cover_detection_modifier: float = 1.0
 var _sneak_detection_modifier: float = 1.0
 var last_detection_source: String = ""
+var last_noise_event: Dictionary = {}
+var total_noise_events: int = 0
 var _suspicious_timer: float = 0.0
 ## Per-source throttle for alarm-driven guard spawns (prevents multi-camera stampede).
 var _last_spawn_msec_by_source: Dictionary = {}
 var _security_adapter: MissionSecurityEventAdapter = null
+var _recent_noise_events: Array[Dictionary] = []
+const MAX_RECENT_NOISE_EVENTS := 8
 
 
 func _ready() -> void:
+	add_to_group("iso_alert_controller")
 	_ensure_security_adapter()
 	call_deferred("_sync_security_adapter_context")
 	set_process(true)
@@ -124,6 +131,39 @@ func record_alarm_event(kind: String = "alarm", source_id: String = "") -> void:
 	_route_alarm_to_security_adapter(kind, source_id)
 
 
+func register_noise_event(noise_event: Dictionary) -> Dictionary:
+	last_noise_event = noise_event.duplicate(true)
+	total_noise_events += 1
+	_recent_noise_events.append(last_noise_event.duplicate(true))
+	while _recent_noise_events.size() > MAX_RECENT_NOISE_EVENTS:
+		_recent_noise_events.pop_front()
+	var kind := String(noise_event.get("kind", "generic"))
+	var source_id := String(noise_event.get("source_id", ""))
+	var strength := float(noise_event.get("strength", 0.0))
+	var team := String(noise_event.get("team", "neutral"))
+	if team == "player" and strength >= noise_suspicious_threshold and alert_state == "normal":
+		set_alert_state("suspicious")
+	alert_event.emit("noise:%s" % kind, source_id)
+	noise_event_registered.emit(last_noise_event)
+	EventBus.debug("Noise registered kind=%s source=%s strength=%.2f" % [kind, source_id, strength])
+	return {
+		"ok": true,
+		"code": "noise_registered",
+		"source_id": source_id,
+		"kind": kind,
+		"alert_state": alert_state,
+		"total_noise_events": total_noise_events,
+	}
+
+
+func get_noise_debug_summary() -> Dictionary:
+	return {
+		"total_noise_events": total_noise_events,
+		"last_noise_event": last_noise_event.duplicate(true),
+		"recent_noise_events": _recent_noise_events.duplicate(true),
+	}
+
+
 func get_security_event_adapter() -> MissionSecurityEventAdapter:
 	_ensure_security_adapter()
 	return _security_adapter
@@ -222,6 +262,9 @@ func reset_attempt_state() -> void:
 	alert_state = "normal"
 	alert_score = 0.0
 	last_detection_source = ""
+	last_noise_event.clear()
+	total_noise_events = 0
+	_recent_noise_events.clear()
 	_suspicious_timer = 0.0
 	_last_spawn_msec_by_source.clear()
 	if _security_adapter != null:

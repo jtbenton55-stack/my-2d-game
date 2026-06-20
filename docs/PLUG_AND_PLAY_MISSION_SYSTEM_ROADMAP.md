@@ -624,6 +624,8 @@ First version:
 - `DistractionObject`
 - Bentley bark integration
 
+2026-06-20 Phase 8A-8D-lite status: implemented the first reusable noise/distraction slice without adding a global noise manager. `NoiseEvent` provides the shared event dictionary schema, `NoiseEmitterNode` emits placed noise through normal `MechanicAreaBase` requirements/effects, `DistractionObject` provides a player-team decoy authoring subclass/template, `DogCompanion` now emits a bark noise event through the same path, and `MissionAlertController` records recent noise events with a lightweight suspicious-state response. Mission Dock can place/audit the new nodes, the dev room proves noise/distraction flags and alert-controller routing, and `NoiseDistractionTest.gd` plus the Phase 8 static validator cover the contracts. Full guard listener/pathing AI and production mission placement remain deferred.
+
 ### Priority
 
 Medium-high.

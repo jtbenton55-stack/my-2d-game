@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const NoiseEventHelper := preload("res://src/missions/iso/runtime/noise/NoiseEvent.gd")
+
 @export var max_speed := 400.0
 @export var acceleration := 20.0
 @export var follow_distance := 48.0
@@ -20,6 +22,7 @@ var target: Node2D = null
 var _sniff_cd := 0.0
 var _fetch_cd := 0.0
 var _stay_mode := false
+var last_noise_result: Dictionary = {}
 
 func _ready() -> void:
 	add_to_group("bentley")
@@ -79,6 +82,7 @@ func bark_stun() -> bool:
 		if enemy is Node2D and global_position.distance_to(enemy.global_position) <= effective_radius:
 			if enemy.has_method("stun"):
 				enemy.stun(bark_stun_time)
+	last_noise_result = _emit_noise_event("bentley_bark", "bark", effective_radius, 1.0, {"ability": "bark_stun"})
 	EventBus.bentley_ability_used.emit("bark_stun")
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
 	return true
@@ -90,7 +94,7 @@ func command_bark(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
 		ok,
 		"bark_executed" if ok else "bark_not_ready",
 		"Bentley barked." if ok else "Bentley needs a breather.",
-		{"ability_meter": ability_meter, "bark_radius": bark_radius}
+		{"ability_meter": ability_meter, "bark_radius": bark_radius, "noise_result": last_noise_result}
 	)
 
 func sniff() -> void:
@@ -136,7 +140,22 @@ func get_command_state() -> Dictionary:
 		"fetch_cooldown": _fetch_cd,
 		"fetch_range": fetch_range,
 		"effective_fetch_range": _effective_fetch_range(),
+		"last_noise_result": last_noise_result,
 	}
+
+
+func _emit_noise_event(noise_id: String, kind: String, radius: float, strength: float, details: Dictionary = {}) -> Dictionary:
+	var event := NoiseEventHelper.make_event(noise_id, "bentley", global_position, radius, strength, kind, "player", details)
+	if EventBus.has_signal("mission_noise_emitted"):
+		EventBus.mission_noise_emitted.emit(event)
+	EventBus.debug("Bentley noise emitted %s radius=%.1f" % [kind, radius])
+	var alert_result := {}
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller == null and get_tree().current_scene != null:
+		controller = get_tree().current_scene.find_child("MissionAlertController", true, false)
+	if controller != null and controller.has_method("register_noise_event"):
+		alert_result = controller.call("register_noise_event", event)
+	return {"ok": true, "code": "noise_emitted", "noise_event": event, "alert_result": alert_result}
 
 func _ability_pressed() -> bool:
 	if InputMap.has_action("bentley_ability") and Input.is_action_just_pressed("bentley_ability"):

@@ -20,8 +20,11 @@
 [ext_resource type="Script" uid="uid://cqkwr5y3ohg0n" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="16_inventory_pickup"]
 [ext_resource type="Script" uid="uid://dem4ldjcod7ge" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="17_companion_command"]
 [ext_resource type="Script" uid="uid://d2y7iefmbo3av" path="res://src/player/DogCompanion.gd" id="18_dog_companion"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd" id="19_crawlspace"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="20_wait_marker"]
+[ext_resource type="Script" uid="uid://cxb7yqv3sf7et" path="res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd" id="19_crawlspace"]
+[ext_resource type="Script" uid="uid://dcxquh7mpf3xn" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="20_wait_marker"]
+[ext_resource type="Script" uid="uid://d33xsfket2k1u" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="21_noise_emitter"]
+[ext_resource type="Script" uid="uid://b5j3utw5f0tf6" path="res://src/missions/iso/authoring/mechanics/DistractionObject.gd" id="22_distraction"]
+[ext_resource type="Script" uid="uid://15wvg8jm20cc" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="23_alert_controller"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -169,6 +172,26 @@ script = ExtResource("6_bwj2c")
 set_id = &"effectset_phase7_wait_marker_used"
 effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_wait_effect")])
 
+[sub_resource type="Resource" id="Resource_phase8_noise_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase8_noise_emitted"
+key = "phase8_noise_emitted"
+
+[sub_resource type="Resource" id="Resource_phase8_noise_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase8_noise_emitted"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase8_noise_effect")])
+
+[sub_resource type="Resource" id="Resource_phase8_distraction_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase8_distraction_used"
+key = "phase8_distraction_used"
+
+[sub_resource type="Resource" id="Resource_phase8_distraction_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase8_distraction_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase8_distraction_effect")])
+
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
 
@@ -223,6 +246,10 @@ metadata/_edit_use_anchors_ = true
 [node name="MissionInteractionBridge" type="Node" parent="." unique_id=808217570]
 script = ExtResource("2_bridge")
 interaction_radius = 220.0
+
+[node name="MissionAlertController" type="Node" parent="." unique_id=913653336]
+script = ExtResource("23_alert_controller")
+mission_id = "mechanic_authoring_test"
 
 [node name="Triggers" type="Node2D" parent="." unique_id=432216231]
 
@@ -1145,22 +1172,27 @@ text = "READY"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BentleyCrawlspaceConnector_phase7e" type="Area2D" parent="MissionMechanics"]
+[node name="BentleyCrawlspaceConnector_phase7e" type="Area2D" parent="MissionMechanics" unique_id=1689719630]
 position = Vector2(-272, -288)
 collision_layer = 8
 script = ExtResource("19_crawlspace")
+command_type = "crawlspace"
 companion_path = NodePath("../../Bentley")
+command_label = "Bentley crawlspace"
 mechanic_id = &"phase7e_crawlspace_connector"
 display_name = "Phase 7E Crawlspace Connector"
 one_shot = false
 interaction_priority = 395
+prompt_text = "Press E: Send Bentley through"
 success_effects = SubResource("Resource_phase7_crawlspace_effect_set")
+shape_size = Vector2(112, 112)
 debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.25, 0.85, 0.9, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e" unique_id=1183392327]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e" unique_id=1463326521]
 offset_left = -130.0
 offset_top = -74.0
 offset_right = 130.0
@@ -1169,7 +1201,7 @@ theme_override_font_sizes/font_size = 9
 text = "7E: Send Bentley through crawlspace"
 horizontal_alignment = 1
 
-[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e" unique_id=1523525405]
 offset_left = -130.0
 offset_top = -56.0
 offset_right = 130.0
@@ -1178,22 +1210,26 @@ theme_override_font_sizes/font_size = 9
 text = "READY"
 horizontal_alignment = 1
 
-[node name="BentleyWaitMarker_phase7f" type="Area2D" parent="MissionMechanics"]
+[node name="BentleyWaitMarker_phase7f" type="Area2D" parent="MissionMechanics" unique_id=1180303668]
 position = Vector2(-272, 304)
 collision_layer = 8
 script = ExtResource("20_wait_marker")
+command_type = "wait"
 companion_path = NodePath("../../Bentley")
+command_label = "Bentley wait"
 mechanic_id = &"phase7f_wait_marker"
 display_name = "Phase 7F Wait Marker"
 one_shot = false
 interaction_priority = 390
+prompt_text = "Press E: Ask Bentley to wait"
 success_effects = SubResource("Resource_phase7_wait_effect_set")
 debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.35, 0.65, 1, 0.35)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyWaitMarker_phase7f" unique_id=1822576649]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f" unique_id=805323504]
 offset_left = -130.0
 offset_top = -74.0
 offset_right = 130.0
@@ -1202,7 +1238,82 @@ theme_override_font_sizes/font_size = 9
 text = "7F: Ask Bentley to wait"
 horizontal_alignment = 1
 
-[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f" unique_id=779246184]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+
+[node name="NoiseEmitterNode_phase8a_bark_lure" type="Area2D" parent="MissionMechanics" unique_id=329384750]
+position = Vector2(32, -288)
+collision_layer = 8
+script = ExtResource("21_noise_emitter")
+noise_id = &"phase8_bark_lure_noise"
+noise_kind = "bark"
+noise_team = "player"
+mechanic_id = &"phase8a_noise_emitter"
+display_name = "Phase 8A Noise Emitter"
+one_shot = false
+interaction_priority = 385
+prompt_text = "Press E: Emit bark lure noise"
+success_effects = SubResource("Resource_phase8_noise_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/NoiseEmitterNode_phase8a_bark_lure" unique_id=1134137654]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/NoiseEmitterNode_phase8a_bark_lure" unique_id=350752797]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "8A: Emit reusable noise"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/NoiseEmitterNode_phase8a_bark_lure" unique_id=1345752073]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+
+[node name="DistractionObject_phase8d_decoy" type="Area2D" parent="MissionMechanics" unique_id=1639268953]
+position = Vector2(200, 272)
+collision_layer = 8
+script = ExtResource("22_distraction")
+noise_id = &"phase8_decoy_noise"
+noise_kind = "decoy"
+noise_team = "player"
+noise_radius = 220.0
+noise_strength = 0.75
+mechanic_id = &"phase8d_distraction_object"
+display_name = "Phase 8D Distraction Object"
+one_shot = false
+interaction_priority = 380
+prompt_text = "Press E: Create distraction"
+success_effects = SubResource("Resource_phase8_distraction_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.2, 0.9, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/DistractionObject_phase8d_decoy" unique_id=1373592217]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/DistractionObject_phase8d_decoy" unique_id=1544330171]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "8D: Distraction object"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/DistractionObject_phase8d_decoy" unique_id=1375602918]
 offset_left = -130.0
 offset_top = -56.0
 offset_right = 130.0
