@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="1_companion_command"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_companion_command"]
+size = Vector2(112, 112)
+
+[node name="CompanionCommandPointTemplate" type="Area2D"]
+script = ExtResource("1_companion_command")
+command_type = "bark"
+command_label = "Bentley command"
+mechanic_id = &"CHANGE_ME_COMPANION_COMMAND_ID"
+display_name = "Companion Command Point"
+prompt_text = "Press E: Ask Bentley"
+shape_size = Vector2(112, 112)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_companion_command")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -64.0
+offset_right = 120.0
+offset_bottom = -44.0
+theme_override_font_sizes/font_size = 11
+text = "Bentley Command"
+horizontal_alignment = 1

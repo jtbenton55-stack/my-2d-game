@@ -30,6 +30,7 @@ This replaces ad-hoc per-mission scripts for simple triggers, flags, and dialogu
 - Includes a `RouteUnlockNode` sample shortcut (`Routes/DevRouteUnlock`) that requires `dev_reward_collected`, then sets `dev_route_open` and toggles route visuals/collisions
 - Includes a `SideObjectiveNode` sample (`Objectives/DevSideObjective`) that requires `dev_route_open`, completes `dev_side_objective`, and sets handled/effect flags
 - Includes a Phase 5D inventory proof (`InventoryPickupNode_phase5d_delivery_badge` -> `RouteUnlockNode_phase5d_badge_route`) where a picked-up item unlocks a route through `inventory_has_item`
+- Includes Phase 7A-7D-lite Bentley command proofs (`CompanionCommandPoint_phase7_bark`, `_sniff`, `_fetch`) where bark/sniff/fetch commands apply normal success effects and fetch targets a nearby inventory token
 
 **Not** the main scene and **not** wired into production missions. Use only for authoring validation.
 
@@ -215,6 +216,20 @@ Example: pickup grants `delivery_badge`; route requirement `inventory_has_item` 
 
 **Limitations:** Mission-only item state is runtime-only and intentionally not saved yet. Use mission flags or future persistent item schema only when a production mission proves persistence is needed.
 
+## CompanionCommandPoint
+
+Use for placed Bentley command prompts that should run through normal requirements/effects instead of custom mission scripts.
+
+1. Add an `Area2D` and attach `res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd`, or instance `res://scenes/missions/iso/authoring/CompanionCommandPointTemplate.tscn`.
+2. Set `command_type` to `bark`, `sniff`, or `fetch`.
+3. Set `companion_path` when the scene has a known Bentley node, or leave it empty to find the first node in group `bentley`.
+4. Set `requirements`, `success_effects`, and `failure_effects` like any other `MechanicAreaBase` mechanic.
+5. Use Mission Dock for safe placement defaults; it audits missing `command_type` values.
+
+Example: a bark command point sets `phase7_bark_command_used`; a fetch command point asks Bentley to fetch a nearby `InventoryPickupNode` and then sets `phase7_fetch_command_used`.
+
+**Limitations:** Phase 7A-7D-lite only proves bark/sniff/fetch command points. Crawlspace connectors, wait markers, production mission placement, and full noise/listener AI are deferred.
+
 ## RouteUnlockNode
 
 Use for shortcuts, hidden paths, route gates, and local traversal mutations (show path, hide blocker, enable/disable collisions).
@@ -260,7 +275,8 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - `TriggerZone` defaults to `AUTOMATIC_ON_ENTER` in `_init()`; dev room overrides to `INTERACT_REQUIRED` in the controller
 - `SchemeCardTriggerNode` is validated for reusable card-driven setup, route facts, ready-time hooks, and one Taco production slice using `louis_delivery_route`
 - Namespaced `mission_flag:<mission_id>:` values are attempt-local for mission starts; `GameState.start_mission()` clears flags for the launching mission so card/setup route flags do not leak between runs
-- Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, Bentley commands, noise, or social stealth yet
+- Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
+- Bentley commands have a Phase 7A-7D-lite bark/sniff/fetch command-point proof; crawlspace/wait and production placement are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -269,6 +285,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 1. `MissionModifierSet` — mission-wide modifier bundles  
 2. `SchemeCardTriggerNode` — card-triggered mission effects  
 3. `InventoryPickupNode` — mission-only item pickups through the reward/effect pipeline
+4. `CompanionCommandPoint` — placed Bentley bark/sniff/fetch commands through the requirement/effect pipeline
 
 ## Related future editor tooling
 

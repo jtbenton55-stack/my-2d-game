@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://c27tmd6xl35ad" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="14_scheme_trigger"]
 [ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="15_modifier"]
 [ext_resource type="Script" uid="uid://cqkwr5y3ohg0n" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="16_inventory_pickup"]
+[ext_resource type="Script" uid="uid://dem4ldjcod7ge" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="17_companion_command"]
+[ext_resource type="Script" uid="uid://d2y7iefmbo3av" path="res://src/player/DogCompanion.gd" id="18_dog_companion"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -115,6 +117,36 @@ script = ExtResource("13_mq6f0")
 requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_phase5d_item_req")])
 locked_message = "Pick up delivery badge first."
 
+[sub_resource type="Resource" id="Resource_phase7_bark_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase7_bark_command_used"
+key = "phase7_bark_command_used"
+
+[sub_resource type="Resource" id="Resource_phase7_bark_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase7_bark_command_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_bark_effect")])
+
+[sub_resource type="Resource" id="Resource_phase7_sniff_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase7_sniff_command_used"
+key = "phase7_sniff_command_used"
+
+[sub_resource type="Resource" id="Resource_phase7_sniff_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase7_sniff_command_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_sniff_effect")])
+
+[sub_resource type="Resource" id="Resource_phase7_fetch_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase7_fetch_command_used"
+key = "phase7_fetch_command_used"
+
+[sub_resource type="Resource" id="Resource_phase7_fetch_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase7_fetch_command_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_fetch_effect")])
+
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
 
@@ -128,6 +160,7 @@ offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
 color = Color(0.2, 0.85, 0.4, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Player" unique_id=1511894088]
 offset_left = -28.0
@@ -137,6 +170,33 @@ offset_bottom = 32.0
 theme_override_font_sizes/font_size = 10
 text = "Player"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Bentley" type="CharacterBody2D" parent="." unique_id=1857606256]
+position = Vector2(48, 32)
+script = ExtResource("18_dog_companion")
+follow_distance = 36.0
+ability_max = 1000.0
+bark_cost = 1.0
+fetch_range = 800.0
+
+[node name="Body" type="ColorRect" parent="Bentley" unique_id=2097637026]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.95, 0.72, 0.22, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Bentley" unique_id=1975517663]
+offset_left = -36.0
+offset_top = 14.0
+offset_right = 36.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 10
+text = "Bentley"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="MissionInteractionBridge" type="Node" parent="." unique_id=808217570]
 script = ExtResource("2_bridge")
@@ -145,7 +205,7 @@ interaction_radius = 220.0
 [node name="Triggers" type="Node2D" parent="." unique_id=432216231]
 
 [node name="AlwaysTrigger" type="Area2D" parent="Triggers" unique_id=843432752]
-position = Vector2(-200, -80)
+position = Vector2(576, -104)
 collision_layer = 8
 script = ExtResource("3_trigger")
 interaction_mode = 0
@@ -162,9 +222,10 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "A: Always available"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="UnlockTrigger" type="Area2D" parent="Triggers" unique_id=2132225554]
-position = Vector2(-40, -120)
+position = Vector2(736, -144)
 collision_layer = 8
 script = ExtResource("3_trigger")
 interaction_mode = 0
@@ -180,9 +241,10 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "C: Sets dev_unlock_flag (opens gate)"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="LockedTrigger" type="Area2D" parent="Triggers" unique_id=394799567]
-position = Vector2(120, -80)
+position = Vector2(896, -104)
 collision_layer = 8
 script = ExtResource("3_trigger")
 interaction_mode = 0
@@ -199,9 +261,10 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "B: Locked until unlock"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="FailureTrigger" type="Area2D" parent="Triggers" unique_id=927797703]
-position = Vector2(200, 40)
+position = Vector2(1608, 236)
 collision_layer = 8
 script = ExtResource("3_trigger")
 interaction_mode = 0
@@ -218,9 +281,10 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "D: Failure effect only"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="DialogueTrigger" type="Area2D" parent="Triggers" unique_id=978170780]
-position = Vector2(-120, 100)
+position = Vector2(1262, 304)
 collision_layer = 8
 script = ExtResource("3_trigger")
 interaction_mode = 0
@@ -237,11 +301,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "E: Simple dialogue"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Locks" type="Node2D" parent="." unique_id=202733637]
 
 [node name="DevLockedGate" type="Area2D" parent="Locks" unique_id=889567624]
-position = Vector2(0, 140)
+position = Vector2(1382, 344)
 collision_layer = 8
 script = ExtResource("4_locked")
 lock_kind = "gate"
@@ -256,6 +321,7 @@ offset_top = -8.0
 offset_right = 40.0
 offset_bottom = 8.0
 color = Color(0.85, 0.35, 0.15, 0.9)
+metadata/_edit_use_anchors_ = true
 
 [node name="GateBlocker" type="CollisionShape2D" parent="Locks/DevLockedGate" unique_id=1905637280]
 shape = SubResource("RectangleShape2D_trigger")
@@ -268,11 +334,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "F: Locked gate (needs C first)"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Searches" type="Node2D" parent="." unique_id=1676384561]
 
 [node name="DevSearchDrawer" type="Area2D" parent="Searches" unique_id=1172388537]
-position = Vector2(-200, 140)
+position = Vector2(1182, 344)
 collision_layer = 8
 script = ExtResource("5_search")
 search_kind = "drawer"
@@ -287,6 +354,7 @@ offset_top = -10.0
 offset_right = 28.0
 offset_bottom = 10.0
 color = Color(0.35, 0.45, 0.75, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="DrawerFoundVisual" type="ColorRect" parent="Searches/DevSearchDrawer" unique_id=1926224140]
 visible = false
@@ -304,11 +372,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "G: Search dev drawer"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Containers" type="Node2D" parent="." unique_id=1056894401]
 
 [node name="DevLocker" type="Area2D" parent="Containers" unique_id=2082785695]
-position = Vector2(0, -200)
+position = Vector2(776, -224)
 collision_layer = 8
 script = ExtResource("7_container")
 container_kind = "locker"
@@ -323,6 +392,7 @@ offset_top = -12.0
 offset_right = 32.0
 offset_bottom = 12.0
 color = Color(0.55, 0.4, 0.75, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="LockerOpenVisual" type="ColorRect" parent="Containers/DevLocker" unique_id=2017741246]
 visible = false
@@ -340,11 +410,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "I: Open dev locker"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Rewards" type="Node2D" parent="." unique_id=923995061]
 
 [node name="DevRewardPickup" type="Area2D" parent="Rewards" unique_id=390720118]
-position = Vector2(120, -200)
+position = Vector2(896, -224)
 collision_layer = 8
 script = ExtResource("8_reward")
 reward_kind = "clue"
@@ -359,6 +430,7 @@ offset_top = -12.0
 offset_right = 24.0
 offset_bottom = 12.0
 color = Color(0.95, 0.8, 0.2, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="RewardCollectedVisual" type="ColorRect" parent="Rewards/DevRewardPickup" unique_id=1195826669]
 visible = false
@@ -376,11 +448,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "J: Collect dev reward"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Routes" type="Node2D" parent="." unique_id=148873116]
 
 [node name="DevRouteUnlock" type="Area2D" parent="Routes" unique_id=1350094818]
-position = Vector2(-120, -200)
+position = Vector2(656, -224)
 collision_layer = 8
 script = ExtResource("9_route")
 preview_color = Color(0.35, 0.75, 0.95, 0.35)
@@ -394,6 +467,7 @@ offset_top = -10.0
 offset_right = 36.0
 offset_bottom = 10.0
 color = Color(0.75, 0.25, 0.25, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="RouteOpenVisual" type="ColorRect" parent="Routes/DevRouteUnlock" unique_id=883469956]
 visible = false
@@ -418,11 +492,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "K: Unlock route (needs reward)"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Objectives" type="Node2D" parent="." unique_id=550429973]
 
 [node name="DevSideObjective" type="Area2D" parent="Objectives" unique_id=1560091702]
-position = Vector2(0, -280)
+position = Vector2(776, -304)
 collision_layer = 8
 script = ExtResource("10_side_objective")
 preview_color = Color(0.55, 0.9, 0.55, 0.35)
@@ -438,11 +513,12 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "L: Complete side objective (needs route)"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="MultiInstance" type="Node2D" parent="." unique_id=1531236665]
 
 [node name="RewardA" type="Area2D" parent="MultiInstance" unique_id=356035053]
-position = Vector2(280, -60)
+position = Vector2(1688, 136)
 collision_layer = 8
 script = ExtResource("8_reward")
 reward_kind = "token"
@@ -457,18 +533,20 @@ offset_top = -10.0
 offset_right = 20.0
 offset_bottom = 10.0
 color = Color(0.9, 0.55, 0.2, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="HintLabel" type="Label" parent="MultiInstance/RewardA" unique_id=150179279]
-offset_left = -90.0
-offset_top = -48.0
-offset_right = 90.0
-offset_bottom = -34.0
+offset_left = 686.0
+offset_top = -72.0
+offset_right = 866.0
+offset_bottom = -58.0
 theme_override_font_sizes/font_size = 8
 text = "M1: Reward A"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="RewardB" type="Area2D" parent="MultiInstance" unique_id=1316168013]
-position = Vector2(400, -60)
+position = Vector2(1808, 136)
 collision_layer = 8
 script = ExtResource("8_reward")
 reward_kind = "token"
@@ -483,18 +561,20 @@ offset_top = -10.0
 offset_right = 20.0
 offset_bottom = 10.0
 color = Color(0.65, 0.35, 0.9, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="HintLabel" type="Label" parent="MultiInstance/RewardB" unique_id=2077167070]
-offset_left = -90.0
-offset_top = -48.0
-offset_right = 90.0
-offset_bottom = -34.0
+offset_left = 686.0
+offset_top = -72.0
+offset_right = 866.0
+offset_bottom = -58.0
 theme_override_font_sizes/font_size = 8
 text = "M2: Reward B"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="SearchA" type="Area2D" parent="MultiInstance" unique_id=1380764158]
-position = Vector2(280, 60)
+position = Vector2(1688, 256)
 collision_layer = 8
 script = ExtResource("5_search")
 search_kind = "crate"
@@ -509,6 +589,7 @@ offset_top = -10.0
 offset_right = 22.0
 offset_bottom = 10.0
 color = Color(0.35, 0.65, 0.45, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="HintLabel" type="Label" parent="MultiInstance/SearchA" unique_id=1330167299]
 offset_left = -90.0
@@ -518,9 +599,10 @@ offset_bottom = -34.0
 theme_override_font_sizes/font_size = 8
 text = "M3: Search A"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="SearchB" type="Area2D" parent="MultiInstance" unique_id=1346175925]
-position = Vector2(400, 60)
+position = Vector2(1808, 256)
 collision_layer = 8
 script = ExtResource("5_search")
 search_kind = "crate"
@@ -535,6 +617,7 @@ offset_top = -10.0
 offset_right = 22.0
 offset_bottom = 10.0
 color = Color(0.4, 0.4, 0.75, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="HintLabel" type="Label" parent="MultiInstance/SearchB" unique_id=1463734157]
 offset_left = -90.0
@@ -544,9 +627,10 @@ offset_bottom = -34.0
 theme_override_font_sizes/font_size = 8
 text = "M4: Search B"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="RouteA" type="Area2D" parent="MultiInstance" unique_id=1962947315]
-position = Vector2(280, 180)
+position = Vector2(1662, 384)
 collision_layer = 8
 script = ExtResource("9_route")
 preview_color = Color(0.35, 0.85, 0.75, 0.35)
@@ -562,9 +646,10 @@ offset_bottom = -34.0
 theme_override_font_sizes/font_size = 8
 text = "M5: Route A"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="RouteB" type="Area2D" parent="MultiInstance" unique_id=349387609]
-position = Vector2(400, 180)
+position = Vector2(1782, 384)
 collision_layer = 8
 script = ExtResource("9_route")
 preview_color = Color(0.85, 0.55, 0.35, 0.35)
@@ -580,11 +665,12 @@ offset_bottom = -34.0
 theme_override_font_sizes/font_size = 8
 text = "M6: Route B"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Exits" type="Node2D" parent="." unique_id=1884365966]
 
 [node name="DevExtractionZone" type="Area2D" parent="Exits" unique_id=1766905267]
-position = Vector2(200, 140)
+position = Vector2(1582, 344)
 collision_layer = 8
 script = ExtResource("6_extraction")
 preview_color = Color(0.2, 0.9, 0.75, 0.35)
@@ -600,6 +686,7 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "H: Extract (needs drawer clue)"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2062563218]
 
@@ -610,6 +697,7 @@ offset_right = 520.0
 offset_bottom = 140.0
 theme_override_font_sizes/font_size = 12
 text = "Loading..."
+metadata/_edit_use_anchors_ = true
 
 [node name="Phase6ACardTestHarness" type="PanelContainer" parent="UI" unique_id=1840479650]
 offset_left = 540.0
@@ -621,7 +709,7 @@ script = ExtResource("11_phase6a_harness")
 [node name="MissionMechanics" type="Node2D" parent="." unique_id=916833401]
 
 [node name="RewardNode_qa_reward_node_01" type="Area2D" parent="MissionMechanics" unique_id=227181046]
-position = Vector2(394.31537, -284.38095)
+position = Vector2(1170.3154, -308.38095)
 collision_layer = 8
 script = ExtResource("8_reward")
 reward_id = &"qa_reward_node_01"
@@ -634,7 +722,7 @@ prompt_text = "Press E: Collect QA"
 shape = SubResource("RectangleShape2D_fhsj6")
 
 [node name="RewardNode_qa_reward_node_02" type="Area2D" parent="MissionMechanics" unique_id=224622818]
-position = Vector2(-432, 176)
+position = Vector2(950, 380)
 collision_layer = 8
 script = ExtResource("8_reward")
 reward_id = &"qa_reward_node_02"
@@ -657,6 +745,7 @@ offset_top = -8.0
 offset_right = 40.0
 offset_bottom = 8.0
 color = Color(0.85, 0.35, 0.15, 0.9)
+metadata/_edit_use_anchors_ = true
 
 [node name="HintLabel" type="Label" parent="MissionMechanics/RewardNode_qa_reward_node_02" unique_id=474003999]
 offset_left = -110.0
@@ -666,9 +755,10 @@ offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "READY"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TriggerZone_qa_trigger_effect_01" type="Area2D" parent="MissionMechanics" unique_id=772068810]
-position = Vector2(-304, 312)
+position = Vector2(1078, 516)
 collision_layer = 8
 script = ExtResource("3_trigger")
 trigger_on_enter = false
@@ -681,7 +771,7 @@ success_effects = SubResource("Resource_6upad")
 shape = SubResource("RectangleShape2D_2gkjd")
 
 [node name="TriggerZone_qa_trigger_effect_02" type="Area2D" parent="MissionMechanics" unique_id=2019499074]
-position = Vector2(-614, 135)
+position = Vector2(768, 339)
 collision_layer = 8
 script = ExtResource("3_trigger")
 trigger_on_enter = false
@@ -695,7 +785,7 @@ collision_shape_path = NodePath("../TriggerZone_qa_trigger_effect_01/CollisionSh
 shape = SubResource("RectangleShape2D_6vm7b")
 
 [node name="SchemeCardTrigger_phase6c_louis_route" type="Area2D" parent="MissionMechanics" unique_id=293570009]
-position = Vector2(520, -260)
+position = Vector2(1304, -264)
 collision_layer = 8
 script = ExtResource("14_scheme_trigger")
 modifier_sets = Array[Resource]([SubResource("Resource_phase6c_modifier")])
@@ -719,17 +809,17 @@ theme_override_font_sizes/font_size = 9
 text = "6C: Apply Louis card setup"
 horizontal_alignment = 1
 
-[node name="StateLabel" type="Label" parent="MissionMechanics/SchemeCardTrigger_phase6c_louis_route"]
+[node name="StateLabel" type="Label" parent="MissionMechanics/SchemeCardTrigger_phase6c_louis_route" unique_id=820640880]
 offset_left = -130.0
 offset_top = -56.0
 offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
-text = "CARD LOCKED"
+text = "CARD READY"
 horizontal_alignment = 1
 
 [node name="RouteUnlockNode_phase6d_card_route" type="Area2D" parent="MissionMechanics" unique_id=1537818184]
-position = Vector2(520, -140)
+position = Vector2(1176, -192)
 collision_layer = 8
 script = ExtResource("9_route")
 route_id = &"phase6d_card_route"
@@ -749,12 +839,13 @@ debug_label_path = NodePath("StateLabel")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=181149908]
 shape = SubResource("RectangleShape2D_trigger")
 
-[node name="RouteLockedVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route"]
+[node name="RouteLockedVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=1690860457]
 offset_left = -36.0
 offset_top = -10.0
 offset_right = 36.0
 offset_bottom = 10.0
 color = Color(0.75, 0.25, 0.25, 0.95)
+metadata/_edit_use_anchors_ = true
 
 [node name="RouteVisual" type="ColorRect" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=798705462]
 visible = false
@@ -772,18 +863,20 @@ offset_bottom = -58.0
 theme_override_font_sizes/font_size = 9
 text = "6D-lite: Unlock card route"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route"]
+[node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase6d_card_route" unique_id=111092395]
 offset_left = -130.0
 offset_top = -56.0
 offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
-text = "LOCKED"
+text = "READY"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="InventoryPickupNode_phase5d_delivery_badge" type="Area2D" parent="MissionMechanics" unique_id=1868895068]
-position = Vector2(264, -296)
+position = Vector2(1040, -320)
 collision_layer = 8
 script = ExtResource("16_inventory_pickup")
 item_id = &"delivery_badge"
@@ -810,6 +903,7 @@ offset_bottom = -58.0
 theme_override_font_sizes/font_size = 9
 text = "5D: Pick up delivery badge"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StateLabel" type="Label" parent="MissionMechanics/InventoryPickupNode_phase5d_delivery_badge" unique_id=29594770]
 offset_left = -130.0
@@ -817,11 +911,12 @@ offset_top = -56.0
 offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
-text = "ITEM READY"
+text = "READY"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="RouteUnlockNode_phase5d_badge_route" type="Area2D" parent="MissionMechanics" unique_id=217598773]
-position = Vector2(264, -176)
+position = Vector2(1040, -200)
 collision_layer = 8
 script = ExtResource("9_route")
 route_id = &"phase5d_badge_route"
@@ -865,6 +960,7 @@ offset_bottom = -58.0
 theme_override_font_sizes/font_size = 9
 text = "5D: Badge-gated route"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StateLabel" type="Label" parent="MissionMechanics/RouteUnlockNode_phase5d_badge_route" unique_id=560756521]
 offset_left = -130.0
@@ -872,5 +968,157 @@ offset_top = -56.0
 offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
-text = "LOCKED"
+text = "READY"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CompanionCommandPoint_phase7_bark" type="Area2D" parent="MissionMechanics" unique_id=1158580253]
+position = Vector2(-544, -288)
+collision_layer = 8
+script = ExtResource("17_companion_command")
+companion_path = NodePath("../../Bentley")
+command_label = "Bentley bark"
+mechanic_id = &"phase7_bark_command"
+display_name = "Phase 7 Bark Command"
+one_shot = false
+interaction_priority = 410
+prompt_text = "Press E: Bentley bark"
+success_effects = SubResource("Resource_phase7_bark_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/CompanionCommandPoint_phase7_bark" unique_id=439192004]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_bark" unique_id=1698602844]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7B: Ask Bentley to bark"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_bark" unique_id=60912631]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+
+[node name="CompanionCommandPoint_phase7_sniff" type="Area2D" parent="MissionMechanics" unique_id=904914975]
+position = Vector2(-272, 8)
+collision_layer = 8
+script = ExtResource("17_companion_command")
+command_type = "sniff"
+companion_path = NodePath("../../Bentley")
+command_label = "Bentley sniff"
+mechanic_id = &"phase7_sniff_command"
+display_name = "Phase 7 Sniff Command"
+one_shot = false
+interaction_priority = 405
+prompt_text = "Press E: Bentley sniff"
+success_effects = SubResource("Resource_phase7_sniff_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/CompanionCommandPoint_phase7_sniff" unique_id=359634190]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_sniff" unique_id=456094257]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7C: Ask Bentley to sniff"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_sniff" unique_id=39949073]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CompanionCommandPoint_phase7_fetch" type="Area2D" parent="MissionMechanics" unique_id=1650649845]
+position = Vector2(-544, 304)
+collision_layer = 8
+script = ExtResource("17_companion_command")
+command_type = "fetch"
+companion_path = NodePath("../../Bentley")
+command_label = "Bentley fetch"
+mechanic_id = &"phase7_fetch_command"
+display_name = "Phase 7 Fetch Command"
+one_shot = false
+interaction_priority = 400
+prompt_text = "Press E: Bentley fetch"
+success_effects = SubResource("Resource_phase7_fetch_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/CompanionCommandPoint_phase7_fetch" unique_id=105269090]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_fetch" unique_id=211684689]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7D: Ask Bentley to fetch"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/CompanionCommandPoint_phase7_fetch" unique_id=204136461]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryPickupNode_phase7_fetch_token" type="Area2D" parent="MissionMechanics" unique_id=1293182600]
+position = Vector2(-64, 280)
+collision_layer = 8
+script = ExtResource("16_inventory_pickup")
+item_id = &"phase7_fetch_token"
+item_category = "tool"
+item_max_stack = 1
+reward_kind = "item"
+reward_id = &"phase7_fetch_token"
+collected_flag = &"phase7_fetch_token_collected"
+mechanic_id = &"phase7_fetch_token_pickup"
+display_name = "Phase 7 Fetch Token"
+one_shot = false
+interaction_priority = 390
+prompt_text = "Press E: Pick up fetch token"
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InventoryPickupNode_phase7_fetch_token" unique_id=976356488]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/InventoryPickupNode_phase7_fetch_token" unique_id=706052062]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7D: Fetch token target"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/InventoryPickupNode_phase7_fetch_token" unique_id=1330309248]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

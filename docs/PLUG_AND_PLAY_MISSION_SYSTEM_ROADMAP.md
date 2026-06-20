@@ -1498,6 +1498,13 @@ Make Bentley a systemic partner.
 - The action can apply effects.
 - Card modifiers can influence at least one Bentley verb.
 
+### Phase 7A-7D-lite Status - 2026-06-20
+
+- Added `CompanionCommandPoint` as a reusable `MechanicAreaBase` command point for `bark`, `sniff`, and `fetch`, keeping Bentley verbs behind placed mission mechanics instead of global mission scripts.
+- Added narrow public command APIs to `DogCompanion.gd` so command points and existing input actions share bark/sniff/fetch behavior; bark continues through the existing CardEffects bark-radius path.
+- Added `CompanionCommandPointTemplate.tscn`, Mission Dock placement/audit support, focused GdUnit coverage, and a dev-room proof with bark/sniff/fetch command points plus a fetchable inventory token.
+- Kept Phase 7E-7G deferred: crawlspace connectors, wait markers, card-specific Bentley command tuning, production mission placement, and full noise/listener AI are not part of this lite packet.
+
 ## Phase 8: Puzzle And Side Job Kit
 
 ### Goal

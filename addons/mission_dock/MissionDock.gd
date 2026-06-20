@@ -5,6 +5,7 @@ const MECHANIC_TYPES: Array[String] = [
 	"SearchZone",
 	"RewardNode",
 	"InventoryPickupNode",
+	"CompanionCommandPoint",
 	"LockedInteractionNode",
 	"RouteUnlockNode",
 	"InteractiveContainer",
@@ -17,6 +18,7 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"SearchZone": "res://src/missions/iso/authoring/mechanics/SearchZone.gd",
 	"RewardNode": "res://src/missions/iso/authoring/mechanics/RewardNode.gd",
 	"InventoryPickupNode": "res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd",
+	"CompanionCommandPoint": "res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd",
 	"LockedInteractionNode": "res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
@@ -391,6 +393,8 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Collect"
 		"InventoryPickupNode":
 			_prompt_text.text = "Press E: Pick up item"
+		"CompanionCommandPoint":
+			_prompt_text.text = "Press E: Ask Bentley"
 		"LockedInteractionNode":
 			_prompt_text.text = "Press E: Unlock"
 		"RouteUnlockNode":
@@ -756,6 +760,9 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 			node.set("item_id", StringName(base_id))
 			node.set("reward_id", StringName(base_id))
 			node.set("collected_flag", StringName("%s_collected" % base_id))
+		"CompanionCommandPoint":
+			node.set("command_type", "bark")
+			node.set("command_label", "Bentley command: %s" % base_id)
 		"LockedInteractionNode":
 			node.set("unlocked_flag", StringName("%s_unlocked" % base_id))
 			node.set("locked_prompt_text", "Locked")
@@ -1106,6 +1113,8 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_reward_id", "RewardNode missing reward_id.", node))
 	if node is InventoryPickupNode and String(node.get("item_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_item_id", "InventoryPickupNode missing item_id.", node))
+	if node is CompanionCommandPoint and String(node.get("command_type")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_companion_command", "CompanionCommandPoint missing command_type.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":

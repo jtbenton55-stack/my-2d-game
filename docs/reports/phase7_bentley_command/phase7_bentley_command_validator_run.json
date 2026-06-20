@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; focused/full GdUnit and headless scene smoke cover runtime contracts.",
+    "Phase 7E-7G crawlspace, wait marker, and card-specific command tuning remain deferred.",
+    "Bark currently proves the command/effect hook; full noise/listener AI is deferred to the noise/distraction phase."
+  ]
+}

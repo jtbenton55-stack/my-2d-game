@@ -83,9 +83,34 @@ func bark_stun() -> bool:
 	EventBus.bentley_meter_changed.emit(ability_meter, ability_max)
 	return true
 
+
+func command_bark(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
+	var ok := bark_stun()
+	return _command_result(
+		ok,
+		"bark_executed" if ok else "bark_not_ready",
+		"Bentley barked." if ok else "Bentley needs a breather.",
+		{"ability_meter": ability_meter, "bark_radius": bark_radius}
+	)
+
 func sniff() -> void:
 	EventBus.objective_updated.emit("Bentley sniffs out the next clue.")
 	AudioManager.play_sfx("bentley_sniff", global_position)
+
+
+func command_sniff(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
+	if _sniff_cd > 0.0:
+		EventBus.objective_updated.emit("Bentley is still sniffing.")
+		return _command_result(false, "sniff_cooldown", "Bentley is still sniffing.", {"cooldown": _sniff_cd})
+	_sniff_cd = sniff_cooldown
+	EventBus.objective_updated.emit("Bentley sniffs the trail.")
+	sniff()
+	EventBus.bentley_ability_used.emit("sniff")
+	return _command_result(true, "sniff_executed", "Bentley sniffed the trail.", {"cooldown": _sniff_cd})
+
+
+func command_fetch(actor: Node = null, _context: Dictionary = {}) -> Dictionary:
+	return _try_fetch(actor)
 
 func _ability_pressed() -> bool:
 	if InputMap.has_action("bentley_ability") and Input.is_action_just_pressed("bentley_ability"):
@@ -122,17 +147,12 @@ func _clamp_to_scene_bounds() -> void:
 
 func _handle_commands() -> void:
 	if _command_pressed("bentley_bark") or _ability_pressed():
-		if not bark_stun():
+		if not bool(command_bark().get("ok", false)):
 			EventBus.objective_updated.emit("Bentley needs a breather.")
 	if _command_pressed("bentley_sniff"):
-		if _sniff_cd > 0.0:
-			EventBus.objective_updated.emit("Bentley is still sniffing.")
-		else:
-			_sniff_cd = sniff_cooldown
-			EventBus.objective_updated.emit("Bentley sniffs the trail.")
-			sniff()
+		command_sniff()
 	if _command_pressed("bentley_fetch"):
-		_try_fetch()
+		command_fetch()
 	if _command_pressed("bentley_toggle_stay"):
 		_stay_mode = not _stay_mode
 		if _stay_mode:
@@ -141,12 +161,12 @@ func _handle_commands() -> void:
 			EventBus.objective_updated.emit("Bentley returns.")
 
 
-func _try_fetch() -> void:
+func _try_fetch(actor: Node = null) -> Dictionary:
 	if _fetch_cd > 0.0:
 		EventBus.objective_updated.emit("Bentley needs a second.")
-		return
+		return _command_result(false, "fetch_cooldown", "Bentley needs a second.", {"cooldown": _fetch_cd})
 	_fetch_cd = fetch_cooldown
-	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var player := actor if actor != null else get_tree().get_first_node_in_group("player")
 	var nearest: Node2D = null
 	var nearest_dist := INF
 	for node in get_tree().get_nodes_in_group("interactable"):
@@ -161,22 +181,35 @@ func _try_fetch() -> void:
 		nearest_dist = dist
 	if nearest == null:
 		EventBus.objective_updated.emit("Nothing nearby to fetch.")
-		return
+		return _command_result(false, "nothing_fetchable", "Nothing nearby to fetch.", {"fetch_range": fetch_range})
 	global_position = nearest.global_position + Vector2(-8, -8)
+	var interacted := false
 	if nearest.has_method("interact"):
-		nearest.interact(player if player != null else self)
+		var result: Variant = nearest.interact(player if player != null else self)
+		interacted = bool(result) if result is bool else true
 	EventBus.objective_updated.emit("Bentley fetches it!")
+	EventBus.bentley_ability_used.emit("fetch")
+	return _command_result(
+		interacted,
+		"fetch_executed" if interacted else "fetch_interaction_failed",
+		"Bentley fetches it!" if interacted else "Bentley reached the target, but could not fetch it.",
+		{"target_path": str(nearest.get_path()), "target_name": nearest.name, "cooldown": _fetch_cd}
+	)
 
 
 func _is_fetchable_node(node: Node) -> bool:
 	if node == null:
 		return false
 	var placeholder_id := _string_property_or_meta(node, "placeholder_id")
+	var item_id := _string_property_or_meta(node, "item_id")
+	var reward_kind := _string_property_or_meta(node, "reward_kind")
 	var clue_id := _string_property_or_meta(node, "clue_id")
 	var collectible_id := _string_property_or_meta(node, "collectible_id")
 	var ctype := _string_property_or_meta(node, "collectible_type")
 	if ctype == "":
 		ctype = _string_property_or_meta(node, "category").to_lower()
+	if item_id != "" or reward_kind == "item":
+		return true
 	if clue_id != "" or collectible_id != "":
 		return true
 	if ctype == "poop_bag" or ctype == "tiny_icon" or ctype == "glow_guy":
@@ -196,3 +229,13 @@ func _string_property_or_meta(node: Node, key: String) -> String:
 
 func _command_pressed(action: String) -> bool:
 	return InputMap.has_action(action) and Input.is_action_just_pressed(action)
+
+
+func _command_result(ok: bool, code: String, message: String, details: Dictionary = {}) -> Dictionary:
+	return {
+		"ok": ok,
+		"code": code,
+		"message": message,
+		"source_id": "bentley",
+		"details": details,
+	}
