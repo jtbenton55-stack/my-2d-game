@@ -6,6 +6,8 @@ const MECHANIC_TYPES: Array[String] = [
 	"RewardNode",
 	"InventoryPickupNode",
 	"CompanionCommandPoint",
+	"BentleyCrawlspaceConnector",
+	"BentleyWaitMarker",
 	"LockedInteractionNode",
 	"RouteUnlockNode",
 	"InteractiveContainer",
@@ -19,6 +21,8 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"RewardNode": "res://src/missions/iso/authoring/mechanics/RewardNode.gd",
 	"InventoryPickupNode": "res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd",
 	"CompanionCommandPoint": "res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd",
+	"BentleyCrawlspaceConnector": "res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd",
+	"BentleyWaitMarker": "res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd",
 	"LockedInteractionNode": "res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
@@ -395,6 +399,10 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Pick up item"
 		"CompanionCommandPoint":
 			_prompt_text.text = "Press E: Ask Bentley"
+		"BentleyCrawlspaceConnector":
+			_prompt_text.text = "Press E: Send Bentley through"
+		"BentleyWaitMarker":
+			_prompt_text.text = "Press E: Ask Bentley to wait"
 		"LockedInteractionNode":
 			_prompt_text.text = "Press E: Unlock"
 		"RouteUnlockNode":
@@ -763,6 +771,12 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 		"CompanionCommandPoint":
 			node.set("command_type", "bark")
 			node.set("command_label", "Bentley command: %s" % base_id)
+		"BentleyCrawlspaceConnector":
+			node.set("command_type", "crawlspace")
+			node.set("command_label", "Bentley crawlspace: %s" % base_id)
+		"BentleyWaitMarker":
+			node.set("command_type", "wait")
+			node.set("command_label", "Bentley wait: %s" % base_id)
 		"LockedInteractionNode":
 			node.set("unlocked_flag", StringName("%s_unlocked" % base_id))
 			node.set("locked_prompt_text", "Locked")

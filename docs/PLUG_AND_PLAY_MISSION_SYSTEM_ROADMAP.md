@@ -1505,6 +1505,13 @@ Make Bentley a systemic partner.
 - Added `CompanionCommandPointTemplate.tscn`, Mission Dock placement/audit support, focused GdUnit coverage, and a dev-room proof with bark/sniff/fetch command points plus a fetchable inventory token.
 - Kept Phase 7E-7G deferred: crawlspace connectors, wait markers, card-specific Bentley command tuning, production mission placement, and full noise/listener AI are not part of this lite packet.
 
+### Phase 7E-7G-lite Status - 2026-06-20
+
+- Added `BentleyCrawlspaceConnector` and `BentleyWaitMarker` as thin `CompanionCommandPoint` subclasses for authored crawlspace and wait-marker placement.
+- Extended `DogCompanion.gd` with `command_crawlspace`, `command_wait`, and a small command-state debug snapshot so placed markers can move Bentley to the marker and hold him there.
+- Added centralized CardEffects helpers for Bentley sniff cooldown, fetch cooldown, and fetch range, with `fish_treat_focus` proving card-specific command tuning without adding a new companion manager.
+- Added crawlspace/wait templates, Mission Dock placement defaults, dev-room proof nodes, focused GdUnit coverage, and static validation coverage. Production mission placement remains deferred.
+
 ## Phase 8: Puzzle And Side Job Kit
 
 ### Goal

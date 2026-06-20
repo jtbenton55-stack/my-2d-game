@@ -3,7 +3,7 @@ class_name CompanionCommandPoint
 extends MechanicAreaBase
 
 @export_group("Companion Command")
-@export_enum("bark", "sniff", "fetch") var command_type: String = "bark"
+@export_enum("bark", "sniff", "fetch", "crawlspace", "wait") var command_type: String = "bark"
 @export var companion_group: StringName = &"bentley"
 @export var companion_path: NodePath
 @export var command_label: String = "Bentley command"

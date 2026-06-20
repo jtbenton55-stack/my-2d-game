@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="1_wait"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wait"]
+size = Vector2(96, 96)
+
+[node name="BentleyWaitMarkerTemplate" type="Area2D"]
+script = ExtResource("1_wait")
+mechanic_id = &"CHANGE_ME_BENTLEY_WAIT_ID"
+display_name = "Bentley Wait Marker"
+prompt_text = "Press E: Ask Bentley to wait"
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wait")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -64.0
+offset_right = 120.0
+offset_bottom = -44.0
+theme_override_font_sizes/font_size = 11
+text = "Bentley Wait"
+horizontal_alignment = 1

@@ -102,7 +102,7 @@ func command_sniff(_actor: Node = null, _context: Dictionary = {}) -> Dictionary
 	if _sniff_cd > 0.0:
 		EventBus.objective_updated.emit("Bentley is still sniffing.")
 		return _command_result(false, "sniff_cooldown", "Bentley is still sniffing.", {"cooldown": _sniff_cd})
-	_sniff_cd = sniff_cooldown
+	_sniff_cd = _effective_sniff_cooldown()
 	EventBus.objective_updated.emit("Bentley sniffs the trail.")
 	sniff()
 	EventBus.bentley_ability_used.emit("sniff")
@@ -111,6 +111,32 @@ func command_sniff(_actor: Node = null, _context: Dictionary = {}) -> Dictionary
 
 func command_fetch(actor: Node = null, _context: Dictionary = {}) -> Dictionary:
 	return _try_fetch(actor)
+
+
+func command_crawlspace(_actor: Node = null, context: Dictionary = {}) -> Dictionary:
+	global_position = _context_position(context, global_position)
+	_stay_mode = true
+	EventBus.objective_updated.emit("Bentley slips through the crawlspace.")
+	EventBus.bentley_ability_used.emit("crawlspace")
+	return _command_result(true, "crawlspace_executed", "Bentley used the crawlspace.", {"position": global_position, "staying": _stay_mode})
+
+
+func command_wait(_actor: Node = null, context: Dictionary = {}) -> Dictionary:
+	global_position = _context_position(context, global_position)
+	_stay_mode = true
+	EventBus.objective_updated.emit("Bentley waits.")
+	EventBus.bentley_ability_used.emit("wait")
+	return _command_result(true, "wait_executed", "Bentley waits at the marker.", {"position": global_position, "staying": _stay_mode})
+
+
+func get_command_state() -> Dictionary:
+	return {
+		"staying": _stay_mode,
+		"sniff_cooldown": _sniff_cd,
+		"fetch_cooldown": _fetch_cd,
+		"fetch_range": fetch_range,
+		"effective_fetch_range": _effective_fetch_range(),
+	}
 
 func _ability_pressed() -> bool:
 	if InputMap.has_action("bentley_ability") and Input.is_action_just_pressed("bentley_ability"):
@@ -165,15 +191,16 @@ func _try_fetch(actor: Node = null) -> Dictionary:
 	if _fetch_cd > 0.0:
 		EventBus.objective_updated.emit("Bentley needs a second.")
 		return _command_result(false, "fetch_cooldown", "Bentley needs a second.", {"cooldown": _fetch_cd})
-	_fetch_cd = fetch_cooldown
+	_fetch_cd = _effective_fetch_cooldown()
 	var player := actor if actor != null else get_tree().get_first_node_in_group("player")
 	var nearest: Node2D = null
 	var nearest_dist := INF
+	var effective_range := _effective_fetch_range()
 	for node in get_tree().get_nodes_in_group("interactable"):
 		if not (node is Node2D):
 			continue
 		var dist := global_position.distance_to((node as Node2D).global_position)
-		if dist > fetch_range or dist >= nearest_dist:
+		if dist > effective_range or dist >= nearest_dist:
 			continue
 		if not _is_fetchable_node(node):
 			continue
@@ -181,7 +208,7 @@ func _try_fetch(actor: Node = null) -> Dictionary:
 		nearest_dist = dist
 	if nearest == null:
 		EventBus.objective_updated.emit("Nothing nearby to fetch.")
-		return _command_result(false, "nothing_fetchable", "Nothing nearby to fetch.", {"fetch_range": fetch_range})
+		return _command_result(false, "nothing_fetchable", "Nothing nearby to fetch.", {"fetch_range": effective_range})
 	global_position = nearest.global_position + Vector2(-8, -8)
 	var interacted := false
 	if nearest.has_method("interact"):
@@ -193,7 +220,7 @@ func _try_fetch(actor: Node = null) -> Dictionary:
 		interacted,
 		"fetch_executed" if interacted else "fetch_interaction_failed",
 		"Bentley fetches it!" if interacted else "Bentley reached the target, but could not fetch it.",
-		{"target_path": str(nearest.get_path()), "target_name": nearest.name, "cooldown": _fetch_cd}
+		{"target_path": str(nearest.get_path()), "target_name": nearest.name, "cooldown": _fetch_cd, "fetch_range": effective_range}
 	)
 
 
@@ -225,6 +252,25 @@ func _string_property_or_meta(node: Node, key: String) -> String:
 			var value = node.get(key)
 			return "" if value == null else String(value)
 	return ""
+
+
+func _effective_sniff_cooldown() -> float:
+	return maxf(0.0, sniff_cooldown * _card_float("get_bentley_sniff_cooldown_multiplier", 1.0))
+
+
+func _effective_fetch_cooldown() -> float:
+	return maxf(0.0, fetch_cooldown * _card_float("get_bentley_fetch_cooldown_multiplier", 1.0))
+
+
+func _effective_fetch_range() -> float:
+	return fetch_range * _card_float("get_bentley_fetch_range_multiplier", 1.0)
+
+
+func _context_position(context: Dictionary, fallback: Vector2) -> Vector2:
+	var value: Variant = context.get("target_position", context.get("position", fallback))
+	if value is Vector2:
+		return value
+	return fallback
 
 
 func _command_pressed(action: String) -> bool:

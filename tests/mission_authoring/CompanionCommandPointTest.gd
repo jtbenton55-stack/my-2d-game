@@ -2,6 +2,8 @@
 extends GdUnitTestSuite
 
 const CompanionCommandPointScript := preload("res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd")
+const BentleyCrawlspaceConnectorScript := preload("res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd")
+const BentleyWaitMarkerScript := preload("res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd")
 const MechanicAreaBaseScript := preload("res://src/missions/iso/authoring/mechanics/MechanicAreaBase.gd")
 const DogCompanionScript := preload("res://src/player/DogCompanion.gd")
 const MissionRequirementScript := preload("res://src/missions/iso/authoring/core/MissionRequirement.gd")
@@ -86,6 +88,56 @@ func test_fetch_command_calls_companion_fetch_method() -> void:
 	_free_node(companion)
 
 
+func test_crawlspace_connector_calls_companion_and_applies_effects() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.dialogue_flags.clear()
+	var companion := _MockCompanion.new()
+	companion.add_to_group("bentley")
+	add_child(companion)
+	var point := BentleyCrawlspaceConnectorScript.new()
+	point.name = "TestBentleyCrawlspaceConnector"
+	point.mission_id_override = "test_mission"
+	point.one_shot = false
+	point.mechanic_id = &"test_crawlspace_command"
+	point.success_effects = _set_mission_flag_effect_set("phase7_crawlspace_used")
+	add_child(point)
+
+	var result: Dictionary = point.run_command(null, "script")
+	assert_bool(result.get("ok", false)).is_true()
+	assert_str(String(point.get("command_type"))).is_equal("crawlspace")
+	assert_array(companion.calls).contains("crawlspace")
+	assert_bool(GameState.dialogue_flags.get("mission_flag:test_mission:phase7_crawlspace_used", false)).is_true()
+
+	_restore_game_state(snapshot)
+	_free_node(point)
+	_free_node(companion)
+
+
+func test_wait_marker_calls_companion_and_applies_effects() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.dialogue_flags.clear()
+	var companion := _MockCompanion.new()
+	companion.add_to_group("bentley")
+	add_child(companion)
+	var point := BentleyWaitMarkerScript.new()
+	point.name = "TestBentleyWaitMarker"
+	point.mission_id_override = "test_mission"
+	point.one_shot = false
+	point.mechanic_id = &"test_wait_command"
+	point.success_effects = _set_mission_flag_effect_set("phase7_wait_marker_used")
+	add_child(point)
+
+	var result: Dictionary = point.run_command(null, "script")
+	assert_bool(result.get("ok", false)).is_true()
+	assert_str(String(point.get("command_type"))).is_equal("wait")
+	assert_array(companion.calls).contains("wait")
+	assert_bool(GameState.dialogue_flags.get("mission_flag:test_mission:phase7_wait_marker_used", false)).is_true()
+
+	_restore_game_state(snapshot)
+	_free_node(point)
+	_free_node(companion)
+
+
 func test_dog_companion_public_command_api() -> void:
 	var dog := DogCompanionScript.new()
 	dog.name = "BentleyUnderTest"
@@ -101,6 +153,27 @@ func test_dog_companion_public_command_api() -> void:
 	var sniff_cooldown: Dictionary = dog.command_sniff()
 	assert_bool(sniff_cooldown.get("ok", true)).is_false()
 	assert_str(String(sniff_cooldown.get("code", ""))).is_equal("sniff_cooldown")
+
+	_free_node(dog)
+
+
+func test_dog_companion_wait_and_crawlspace_commands_hold_position() -> void:
+	var dog := DogCompanionScript.new()
+	dog.name = "BentleyWaitUnderTest"
+	dog.global_position = Vector2.ZERO
+	add_child(dog)
+
+	var wait_result: Dictionary = dog.command_wait(null, {"position": Vector2(32, 16)})
+	assert_bool(wait_result.get("ok", false)).is_true()
+	assert_str(String(wait_result.get("code", ""))).is_equal("wait_executed")
+	assert_bool(bool(dog.get_command_state().get("staying", false))).is_true()
+	assert_vector(dog.global_position).is_equal(Vector2(32, 16))
+
+	var crawl_result: Dictionary = dog.command_crawlspace(null, {"position": Vector2(96, -24)})
+	assert_bool(crawl_result.get("ok", false)).is_true()
+	assert_str(String(crawl_result.get("code", ""))).is_equal("crawlspace_executed")
+	assert_bool(bool(dog.get_command_state().get("staying", false))).is_true()
+	assert_vector(dog.global_position).is_equal(Vector2(96, -24))
 
 	_free_node(dog)
 
@@ -131,6 +204,37 @@ func test_dog_companion_fetch_interacts_with_fetchable_node() -> void:
 	_free_node(dog)
 
 
+func test_card_modifiers_tune_bentley_fetch_range_and_cooldowns() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.selected_cards.clear()
+	GameState.selected_cards.append("fish_treat_focus")
+	var dog := DogCompanionScript.new()
+	dog.name = "BentleyCardUnderTest"
+	dog.fetch_range = 50.0
+	dog.fetch_cooldown = 10.0
+	dog.sniff_cooldown = 10.0
+	dog.global_position = Vector2.ZERO
+	add_child(dog)
+	var fetchable := _MockFetchable.new()
+	fetchable.name = "CardRangeFetchable"
+	fetchable.placeholder_id = "keycard"
+	fetchable.global_position = Vector2(70, 0)
+	fetchable.add_to_group("interactable")
+	add_child(fetchable)
+
+	var fetch_result: Dictionary = dog.command_fetch()
+	assert_bool(fetch_result.get("ok", false)).is_true()
+	assert_float(float((fetch_result.get("details", {}) as Dictionary).get("fetch_range", 0.0))).is_equal(75.0)
+	assert_float(float((fetch_result.get("details", {}) as Dictionary).get("cooldown", 0.0))).is_equal(7.5)
+	var sniff_result: Dictionary = dog.command_sniff()
+	assert_bool(sniff_result.get("ok", false)).is_true()
+	assert_float(float((sniff_result.get("details", {}) as Dictionary).get("cooldown", 0.0))).is_equal(6.5)
+
+	_restore_game_state(snapshot)
+	_free_node(fetchable)
+	_free_node(dog)
+
+
 func test_dev_scene_contains_phase7_command_points() -> void:
 	var scene := load("res://scenes/dev/mission_authoring/MechanicAuthoringTestRoom.tscn") as PackedScene
 	assert_object(scene).is_not_null()
@@ -140,12 +244,18 @@ func test_dev_scene_contains_phase7_command_points() -> void:
 	var bark := root.get_node_or_null("MissionMechanics/CompanionCommandPoint_phase7_bark")
 	var sniff := root.get_node_or_null("MissionMechanics/CompanionCommandPoint_phase7_sniff")
 	var fetch := root.get_node_or_null("MissionMechanics/CompanionCommandPoint_phase7_fetch")
+	var crawlspace := root.get_node_or_null("MissionMechanics/BentleyCrawlspaceConnector_phase7e")
+	var wait_marker := root.get_node_or_null("MissionMechanics/BentleyWaitMarker_phase7f")
 	assert_object(bark).is_not_null()
 	assert_object(sniff).is_not_null()
 	assert_object(fetch).is_not_null()
+	assert_object(crawlspace).is_not_null()
+	assert_object(wait_marker).is_not_null()
 	assert_str(String(bark.get("command_type"))).is_equal("bark")
 	assert_str(String(sniff.get("command_type"))).is_equal("sniff")
 	assert_str(String(fetch.get("command_type"))).is_equal("fetch")
+	assert_str(String(crawlspace.get("command_type"))).is_equal("crawlspace")
+	assert_str(String(wait_marker.get("command_type"))).is_equal("wait")
 
 	root.queue_free()
 
@@ -216,6 +326,14 @@ class _MockCompanion extends Node2D:
 	func command_fetch(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
 		calls.append("fetch")
 		return {"ok": true, "code": "fetch_executed", "message": "Mock fetch.", "details": {}}
+
+	func command_crawlspace(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
+		calls.append("crawlspace")
+		return {"ok": true, "code": "crawlspace_executed", "message": "Mock crawlspace.", "details": {}}
+
+	func command_wait(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
+		calls.append("wait")
+		return {"ok": true, "code": "wait_executed", "message": "Mock wait.", "details": {}}
 
 
 class _MockFetchable extends Node2D:

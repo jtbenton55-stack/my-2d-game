@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://cqkwr5y3ohg0n" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="16_inventory_pickup"]
 [ext_resource type="Script" uid="uid://dem4ldjcod7ge" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="17_companion_command"]
 [ext_resource type="Script" uid="uid://d2y7iefmbo3av" path="res://src/player/DogCompanion.gd" id="18_dog_companion"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd" id="19_crawlspace"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="20_wait_marker"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -146,6 +148,26 @@ key = "phase7_fetch_command_used"
 script = ExtResource("6_bwj2c")
 set_id = &"effectset_phase7_fetch_command_used"
 effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_fetch_effect")])
+
+[sub_resource type="Resource" id="Resource_phase7_crawlspace_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase7_crawlspace_used"
+key = "phase7_crawlspace_used"
+
+[sub_resource type="Resource" id="Resource_phase7_crawlspace_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase7_crawlspace_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_crawlspace_effect")])
+
+[sub_resource type="Resource" id="Resource_phase7_wait_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase7_wait_marker_used"
+key = "phase7_wait_marker_used"
+
+[sub_resource type="Resource" id="Resource_phase7_wait_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"effectset_phase7_wait_marker_used"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase7_wait_effect")])
 
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
@@ -1122,3 +1144,69 @@ theme_override_font_sizes/font_size = 9
 text = "READY"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="BentleyCrawlspaceConnector_phase7e" type="Area2D" parent="MissionMechanics"]
+position = Vector2(-272, -288)
+collision_layer = 8
+script = ExtResource("19_crawlspace")
+companion_path = NodePath("../../Bentley")
+mechanic_id = &"phase7e_crawlspace_connector"
+display_name = "Phase 7E Crawlspace Connector"
+one_shot = false
+interaction_priority = 395
+success_effects = SubResource("Resource_phase7_crawlspace_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7E: Send Bentley through crawlspace"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyCrawlspaceConnector_phase7e"]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+
+[node name="BentleyWaitMarker_phase7f" type="Area2D" parent="MissionMechanics"]
+position = Vector2(-272, 304)
+collision_layer = 8
+script = ExtResource("20_wait_marker")
+companion_path = NodePath("../../Bentley")
+mechanic_id = &"phase7f_wait_marker"
+display_name = "Phase 7F Wait Marker"
+one_shot = false
+interaction_priority = 390
+success_effects = SubResource("Resource_phase7_wait_effect_set")
+debug_label_path = NodePath("StateLabel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "7F: Ask Bentley to wait"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/BentleyWaitMarker_phase7f"]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1

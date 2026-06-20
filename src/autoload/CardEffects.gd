@@ -37,6 +37,28 @@ func get_bentley_bark_radius_multiplier() -> float:
 		mult += 0.25
 	return mult
 
+func get_bentley_sniff_cooldown_multiplier() -> float:
+	var mult := 1.0
+	if GameState.has_selected_card("fish_treat_focus"):
+		mult -= 0.35
+	if GameState.has_selected_card("two_letters_away"):
+		mult -= 0.15
+	return maxf(0.1, mult)
+
+func get_bentley_fetch_cooldown_multiplier() -> float:
+	var mult := 1.0
+	if GameState.has_selected_card("fish_treat_focus"):
+		mult -= 0.25
+	return maxf(0.1, mult)
+
+func get_bentley_fetch_range_multiplier() -> float:
+	var mult := 1.0
+	if GameState.has_selected_card("fish_treat_focus"):
+		mult += 0.50
+	if GameState.has_selected_card("two_letters_away"):
+		mult += 0.25
+	return mult
+
 func has_med_kit() -> bool:
 	return GameState.has_selected_card("jakes_resident_orders")
 

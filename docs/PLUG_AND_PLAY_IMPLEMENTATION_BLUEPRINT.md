@@ -1840,6 +1840,8 @@ Bentley command points should be placed in scenes. Do not make every command glo
 
 2026-06-20 Phase 7A-7D-lite status: implemented `CompanionCommandPoint` for `bark`, `sniff`, and `fetch` as placed `MechanicAreaBase` mechanics. `DogCompanion.gd` exposes public `command_bark`, `command_sniff`, and `command_fetch` methods so command points reuse existing Bentley behavior and card-influenced bark/recharge paths. Mission Dock can place/audit the command point, the dev room proves bark/sniff/fetch with normal `EffectSet` success flags, and `CompanionCommandPointTest.gd` covers requirements, effects, missing companions, command calls, DogCompanion command APIs, and the dev-scene nodes. Phase 7E-7G crawlspace, wait marker, and card-specific command tuning remain deferred.
 
+2026-06-20 Phase 7E-7G-lite status: implemented `BentleyCrawlspaceConnector` and `BentleyWaitMarker` as thin `CompanionCommandPoint` subclasses, added `DogCompanion.command_crawlspace()` and `command_wait()`, added templates and Mission Dock placement defaults, and expanded the dev room with crawlspace/wait proof nodes that apply normal `EffectSet` flags. `CardEffects.gd` now centralizes Bentley sniff cooldown, fetch cooldown, and fetch range modifiers; `DogCompanion.gd` consumes those helpers, with focused tests proving `fish_treat_focus` changes fetch/sniff behavior. Production mission placement and full noise/listener AI remain deferred.
+
 ## Phase 8: Noise And Distraction
 
 ### Timing
@@ -2086,9 +2088,9 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Phase 7B | Sniff | Lite proof implemented 2026-06-20 through `CompanionCommandPoint.command_type = "sniff"` and `DogCompanion.command_sniff()`. | Sniff can apply normal `EffectSet` outputs from a placed command point. |
 | Phase 7C | Fetch | Lite proof implemented 2026-06-20 through `CompanionCommandPoint.command_type = "fetch"`, `DogCompanion.command_fetch()`, and a dev-room fetchable inventory token. | Fetch can trigger an authored pickup/reward target and apply command-point effects. |
 | Phase 7D | Bark distraction | Lite proof implemented 2026-06-20 through `CompanionCommandPoint.command_type = "bark"` and existing bark radius/card modifier behavior. | Bark command points produce effect output without a noise/listener AI rewrite. |
-| Phase 7E | Crawlspace | `BentleyCrawlspaceConnector`. | Bentley can unlock/toggle a route in a controlled slice. |
-| Phase 7F | Wait marker | `BentleyWaitMarker`. | Bentley position/timing can support puzzles. |
-| Phase 7G | Card modifiers | Scheme cards adjust Bentley cooldown/range/effects through existing card systems. | Bentley card behavior is centralized and testable. |
+| Phase 7E | Crawlspace | Lite proof implemented 2026-06-20 with `BentleyCrawlspaceConnector`, template, dev-room node, and `DogCompanion.command_crawlspace()`. | Bentley can move to a placed crawlspace marker and apply normal effects in a controlled slice. |
+| Phase 7F | Wait marker | Lite proof implemented 2026-06-20 with `BentleyWaitMarker`, template, dev-room node, and `DogCompanion.command_wait()`. | Bentley position/timing can support puzzles through placed command markers. |
+| Phase 7G | Card modifiers | Lite proof implemented 2026-06-20 with CardEffects sniff/fetch cooldown/range helpers consumed by `DogCompanion.gd`. | Bentley card behavior is centralized and testable. |
 
 ### Phase 8: Puzzle And Side Job Kit
 
