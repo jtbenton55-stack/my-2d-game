@@ -31,10 +31,10 @@
 [ext_resource type="Script" uid="uid://cj1h0m0itfac4" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="27_power_circuit"]
 [ext_resource type="Script" uid="uid://c0wmuyp30r4df" path="res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd" id="28_timed_switch"]
 [ext_resource type="Script" uid="uid://c3s353xuq5isg" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="29_pressure_plate"]
-[ext_resource type="Script" uid="uid://du0c0skbragih" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="30_dead_drop"]
-[ext_resource type="Script" uid="uid://j2p22r6ddr6k" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="31_object_swap"]
-[ext_resource type="Script" uid="uid://cp3b1k5t042o3" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="32_bug_plant"]
-[ext_resource type="Script" uid="uid://dtgygi27nc2ns" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="33_eavesdrop"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="30_dead_drop"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="31_object_swap"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="32_bug_plant"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="33_eavesdrop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 24)

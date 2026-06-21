@@ -1546,6 +1546,8 @@ Create repeatable mission variety from a compact set of puzzle verbs.
 
 2026-06-21 Phase 9C-9F status: implemented `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and a small `CustomSequenceResource` / `CustomSequenceStep` / `CustomSequenceRunner` stack. The placed nodes use mission inventory, mission flags, requirements, and ordinary `EffectSet` outputs; the sequence runner enforces explicit step dependencies without owning camera/player/audio or adding a global puzzle manager. Mission Dock placement/audit support, template scenes, a dev-room retrieve -> swap -> bug plant -> eavesdrop chain, focused GdUnit coverage, static validation, and an AI report were added. No production Taco placement, save-schema changes, full side-job scenario, tail target, carry-object controller, or presentation/cutscene system was added.
 
+2026-06-21 Phase 9G-9I status: completed the remaining Phase 9 side-job proof packet. Added `Phase9SideJobProofRoom` with two small side jobs: Poop Bag Calibration Course using timed switch + pressure plate + power circuit + ordered sequence, and Bentley's Snack Trail using dead drop + object swap + bug plant + eavesdrop + ordered sequence. Added focused GdUnit coverage, static validator coverage, and a tiny Taco production adoption gate with `PpTacoSouthSideJobSignoff`, a route-gated `SideObjectiveNode` under the existing `PlugAndPlayPilot`. No global puzzle manager, save-schema change, tail target, carry-object controller, or Phase 12 presentation ownership was added.
+
 ### Custom Sequence Direction
 
 Prefer small data-driven custom sequences over a giant global orchestrator. A `CustomSequenceResource` should define ordered steps with `step_id`, `order_index`, requirements, completion conditions, and effects. Chronographic relationships should be explicit through `depends_on_step_ids` and readable editor gizmos.
@@ -1563,6 +1565,7 @@ Prefer small data-driven custom sequences over a giant global orchestrator. A `C
 - At least two side jobs can be assembled mostly from reusable nodes.
 - Puzzle nodes share the same requirement/effect/debug conventions as the core mission kit.
 - Sequence puzzles can enforce authored order without mission-specific GDScript or a large orchestrator.
+- Phase 9G-9I completion proof includes `Phase9SideJobProofRoom`, focused tests, static validation, and a route-gated Taco signoff node that does not alter Phase0J/Phase0K authority.
 
 ## Phase 10: Hideout Rewards / Cozy Meta Hooks
 

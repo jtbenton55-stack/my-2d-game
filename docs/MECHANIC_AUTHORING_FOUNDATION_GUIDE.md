@@ -267,7 +267,7 @@ Use `TerminalHackNode` when a terminal, keypad, console, or hack panel should re
 
 Example: a terminal requires a code fact, sets `phase9a_terminal_hacked`, and applies an effect that unlocks a route or completes an objective.
 
-**Limitations:** Phase 9A proves terminal/hack authoring only. Phase 9B adds linked power puzzle nodes, and Phase 9C-9F adds the first dead drop, object swap, bug/eavesdrop, and sequence runner pieces. Full side-job scenarios, production Taco placement, save-schema changes, tailing, and carry-object controllers are still deferred.
+**Limitations:** Phase 9A proves terminal/hack authoring only. Phase 9B adds linked power puzzle nodes, Phase 9C-9F adds the first dead drop, object swap, bug/eavesdrop, and sequence runner pieces, and Phase 9G-9I adds two side-job proofs plus a tiny Taco production signoff gate. Save-schema changes, tailing, carry-object controllers, and Phase 12 presentation ownership are still deferred.
 
 ## Phase 9B Power Puzzle Nodes
 
@@ -328,7 +328,19 @@ Use `CustomSequenceResource`, `CustomSequenceStep`, and `CustomSequenceRunner` w
 
 Example: a dead drop retrieves `phase9c_package`, an object swap turns it into `phase9d_replacement_bug`, a bug plant sets `phase9e_bug_planted`, and an eavesdrop zone requires that flag before completing `phase9f_eavesdrop_complete`.
 
-**Limitations:** This is a reusable mechanics/data proof, not a finished side job. No production Taco placement, save schema, tail target, carry-object controller, or full mission-result integration is included.
+**Limitations:** This is the reusable mechanics/data layer used by Phase 9G-9I side-job proofs. Save schema, tail target, carry-object controller, and full mission-result integration remain future work.
+
+## Phase 9G-9I Side-Job Proofs
+
+Phase 9G-9I proves that complete side jobs can be assembled mostly from existing reusable nodes without a global puzzle manager.
+
+Use `res://scenes/dev/mission_authoring/Phase9SideJobProofRoom.tscn` as the canonical Phase 9 side-job proof scene.
+
+1. Poop Bag Calibration Course uses `TimedSwitchNode`, `PressurePlateNode`, `PowerCircuitNode`, and `CustomSequenceRunner` to prove a linked power side job.
+2. Bentley's Snack Trail uses `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and `CustomSequenceRunner` to prove an inventory/surveillance side job.
+3. Taco production adoption is intentionally tiny: `PpTacoSouthSideJobSignoff` is a `SideObjectiveNode` under `GameplayRoot/PlugAndPlayPilot`, gated by `pp_taco_south_route_open`, and does not replace Phase0J/Phase0K systems.
+
+**Limitations:** The Taco signoff is a production adoption gate and manual-QA target, not a full production side-job chain. Keep future production side jobs route-gated, isolated under plug-and-play pilot roots, and backed by focused tests plus headless scene smoke.
 
 ## RouteUnlockNode
 
@@ -378,7 +390,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
 - Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof, a Phase 8E-8G-lite listener/poop-decoy bridge proof, and a Phase 8H-lite guard response proof; full guard pathing AI and production placement are still deferred
-- Puzzle kit has Phase 9A terminal/hack proof, Phase 9B linked power proof, and Phase 9C-9F side-job pieces through `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and `CustomSequenceRunner`; full side jobs, production placement, tailing, carry-object controllers, and save-schema work are still deferred
+- Puzzle kit Phase 9 is complete through Phase 9G-9I: `Phase9SideJobProofRoom` proves two assembled side jobs, and Taco has a route-gated `PpTacoSouthSideJobSignoff` production adoption gate; tailing, carry-object controllers, save-schema work, and full mission-result integration are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - `CustomSequenceRunner` now covers small ordered side-job steps; presentation/cutscene sequencing remains deferred to canonical Phase 12 narrative/presentation bridges
 

@@ -1,0 +1,193 @@
+# GdUnit4 tests for Phase 9G-9I side-job completion proofs.
+extends GdUnitTestSuite
+
+const TimedSwitchNodeScript := preload("res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd")
+const PressurePlateNodeScript := preload("res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd")
+const PowerCircuitNodeScript := preload("res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd")
+const DeadDropNodeScript := preload("res://src/missions/iso/authoring/mechanics/DeadDropNode.gd")
+const ObjectSwapNodeScript := preload("res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd")
+const BugPlantNodeScript := preload("res://src/missions/iso/authoring/mechanics/BugPlantNode.gd")
+const EavesdropZoneScript := preload("res://src/missions/iso/authoring/mechanics/EavesdropZone.gd")
+const SideObjectiveNodeScript := preload("res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd")
+const CustomSequenceStepScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceStep.gd")
+const CustomSequenceResourceScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceResource.gd")
+const CustomSequenceRunnerScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceRunner.gd")
+const MissionEffectScript := preload("res://src/missions/iso/authoring/core/MissionEffect.gd")
+const EffectSetScript := preload("res://src/missions/iso/authoring/core/EffectSet.gd")
+const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+
+
+func test_phase9_side_job_proof_room_contains_two_distinct_side_jobs() -> void:
+	var scene := load("res://scenes/dev/mission_authoring/Phase9SideJobProofRoom.tscn") as PackedScene
+	assert_object(scene).is_not_null()
+	var root := scene.instantiate()
+	add_child(root)
+	assert_object(root.get_node_or_null("Phase9G_PoopBagCalibrationCourse/TimedSwitch_phase9g_start")).is_instanceof(TimedSwitchNodeScript)
+	assert_object(root.get_node_or_null("Phase9G_PoopBagCalibrationCourse/PressurePlate_phase9g_hold")).is_instanceof(PressurePlateNodeScript)
+	assert_object(root.get_node_or_null("Phase9G_PoopBagCalibrationCourse/PowerCircuit_phase9g_finish")).is_instanceof(PowerCircuitNodeScript)
+	assert_object(root.get_node_or_null("Phase9G_PoopBagCalibrationCourse/Phase9GSequenceRunner")).is_instanceof(CustomSequenceRunnerScript)
+	assert_object(root.get_node_or_null("Phase9H_BentleySnackTrail/DeadDrop_phase9h_retrieve")).is_instanceof(DeadDropNodeScript)
+	assert_object(root.get_node_or_null("Phase9H_BentleySnackTrail/ObjectSwap_phase9h_swap")).is_instanceof(ObjectSwapNodeScript)
+	assert_object(root.get_node_or_null("Phase9H_BentleySnackTrail/BugPlant_phase9h_bug")).is_instanceof(BugPlantNodeScript)
+	assert_object(root.get_node_or_null("Phase9H_BentleySnackTrail/Eavesdrop_phase9h_listen")).is_instanceof(EavesdropZoneScript)
+	assert_object(root.get_node_or_null("Phase9H_BentleySnackTrail/Phase9HSequenceRunner")).is_instanceof(CustomSequenceRunnerScript)
+	root.queue_free()
+
+
+func test_phase9g_poop_bag_calibration_course_flow_uses_reusable_nodes() -> void:
+	var snapshot := _snapshot_game_state()
+	_reset_runtime_state()
+	var switch := TimedSwitchNodeScript.new()
+	var plate := PressurePlateNodeScript.new()
+	var circuit := PowerCircuitNodeScript.new()
+	add_child(switch)
+	add_child(plate)
+	add_child(circuit)
+	switch.mission_id_override = "phase9_side_job_test"
+	switch.switch_flag = &"phase9g_timer_active"
+	switch.clear_flag_on_expire = false
+	plate.mission_id_override = "phase9_side_job_test"
+	plate.pressed_flag = &"phase9g_plate_held"
+	plate.clear_flag_on_exit = false
+	circuit.mission_id_override = "phase9_side_job_test"
+	circuit.circuit_flag = &"phase9g_course_complete"
+	var required_power_flags: Array[StringName] = [&"phase9g_timer_active", &"phase9g_plate_held"]
+	circuit.required_power_flags = required_power_flags
+	circuit.success_effects = _set_mission_flag_effect_set("phase9g_course_effect")
+	var runner: Node = _build_sequence_runner("phase9g_sequence", [&"start_course", &"hold_plate", &"power_circuit"])
+
+	assert_bool(switch.trigger_switch(null, "test").get("ok", false)).is_true()
+	assert_bool(runner.complete_step("start_course", "test").get("ok", false)).is_true()
+	assert_bool(plate.press(null, "test").get("ok", false)).is_true()
+	assert_bool(runner.complete_step("hold_plate", "test").get("ok", false)).is_true()
+	assert_bool(circuit.check_circuit(null, "test").get("ok", false)).is_true()
+	assert_bool(runner.complete_step("power_circuit", "test").get("ok", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:phase9_side_job_test:phase9g_course_complete", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:phase9_side_job_test:phase9g_course_effect", false)).is_true()
+	assert_bool(runner.get_sequence_summary().get("all_steps_complete", false)).is_true()
+
+	_restore_game_state(snapshot)
+	_free_node(switch)
+	_free_node(plate)
+	_free_node(circuit)
+	_free_node(runner)
+
+
+func test_phase9h_bentley_snack_trail_flow_uses_different_node_combination() -> void:
+	var snapshot := _snapshot_game_state()
+	_reset_runtime_state()
+	var drop := DeadDropNodeScript.new()
+	var swap := ObjectSwapNodeScript.new()
+	var bug := BugPlantNodeScript.new()
+	var eavesdrop := EavesdropZoneScript.new()
+	add_child(drop)
+	add_child(swap)
+	add_child(bug)
+	add_child(eavesdrop)
+	drop.mission_id_override = "phase9_side_job_test"
+	drop.drop_mode = "retrieve"
+	drop.item_id = &"phase9h_snack_bait"
+	drop.completed_flag = &"phase9h_snack_retrieved"
+	swap.mission_id_override = "phase9_side_job_test"
+	swap.required_item_id = &"phase9h_snack_bait"
+	swap.replacement_item_id = &"phase9h_listening_bug"
+	swap.swapped_flag = &"phase9h_snack_swapped"
+	bug.mission_id_override = "phase9_side_job_test"
+	bug.bug_item_id = &"phase9h_listening_bug"
+	bug.planted_flag = &"phase9h_bug_planted"
+	eavesdrop.mission_id_override = "phase9_side_job_test"
+	eavesdrop.completed_flag = &"phase9h_eavesdrop_complete"
+	eavesdrop.listen_seconds = 0.0
+	eavesdrop.success_effects = _set_mission_flag_effect_set("phase9h_snack_trail_effect")
+	var runner: Node = _build_sequence_runner("phase9h_sequence", [&"retrieve_snack", &"swap_snack", &"listen_route"])
+
+	assert_bool(drop.use_dead_drop(null, "test").get("ok", false)).is_true()
+	assert_int(MissionInventoryScript.get_item_count("phase9h_snack_bait")).is_equal(1)
+	assert_bool(runner.complete_step("retrieve_snack", "test").get("ok", false)).is_true()
+	assert_bool(swap.swap_object(null, "test").get("ok", false)).is_true()
+	assert_int(MissionInventoryScript.get_item_count("phase9h_listening_bug")).is_equal(1)
+	assert_bool(runner.complete_step("swap_snack", "test").get("ok", false)).is_true()
+	assert_bool(bug.plant_bug(null, "test").get("ok", false)).is_true()
+	assert_bool(eavesdrop.start_eavesdrop(null, "test").get("ok", false)).is_true()
+	assert_bool(runner.complete_step("listen_route", "test").get("ok", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:phase9_side_job_test:phase9h_eavesdrop_complete", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:phase9_side_job_test:phase9h_snack_trail_effect", false)).is_true()
+	assert_bool(runner.get_sequence_summary().get("all_steps_complete", false)).is_true()
+
+	_restore_game_state(snapshot)
+	MissionInventoryScript.clear_all()
+	_free_node(drop)
+	_free_node(swap)
+	_free_node(bug)
+	_free_node(eavesdrop)
+	_free_node(runner)
+
+
+func test_phase9i_taco_production_gate_is_isolated_and_route_gated() -> void:
+	var text := FileAccess.get_file_as_string("res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn")
+	assert_str(text).contains("PpTacoSouthSideJobSignoff")
+	assert_str(text).contains("SideObjectiveNode.gd")
+	assert_str(text).contains("key = \"pp_taco_south_route_open\"")
+	assert_str(text).contains("objective_id = &\"pp_taco_south_side_job_signoff\"")
+	assert_str(text).contains("objective_flag = &\"pp_taco_south_side_job_complete\"")
+	assert_str(text).contains("include_legacy_candidates = false")
+
+
+func _build_sequence_runner(sequence_id: String, step_ids: Array[StringName]) -> Node:
+	var runner: Node = CustomSequenceRunnerScript.new()
+	add_child(runner)
+	var sequence: Resource = CustomSequenceResourceScript.new()
+	sequence.sequence_id = StringName(sequence_id)
+	sequence.mission_id_override = "phase9_side_job_test"
+	var steps: Array[Resource] = []
+	var previous := &""
+	for index in step_ids.size():
+		var step: Resource = CustomSequenceStepScript.new()
+		step.step_id = step_ids[index]
+		step.order_index = index + 1
+		step.completion_flag = StringName("%s_%s_complete" % [sequence_id, String(step_ids[index])])
+		if previous != &"":
+			var dependencies: Array[StringName] = [previous]
+			step.depends_on_step_ids = dependencies
+		steps.append(step)
+		previous = step_ids[index]
+	sequence.steps = steps
+	runner.sequence = sequence
+	return runner
+
+
+func _set_mission_flag_effect_set(flag_key: String) -> EffectSet:
+	var effect := MissionEffectScript.new()
+	effect.effect_type = MissionEffectScript.EffectType.SET_MISSION_FLAG
+	effect.key = flag_key
+	effect.value_type = "bool"
+	effect.value_bool = true
+	var effect_set := EffectSetScript.new()
+	effect_set.effects = [effect]
+	return effect_set
+
+
+func _reset_runtime_state() -> void:
+	GameState.dialogue_flags.clear()
+	GameState.current_mission_id = "phase9_side_job_test"
+	GameState.pending_mission_id = ""
+	MissionInventoryScript.clear_all()
+
+
+func _snapshot_game_state() -> Dictionary:
+	return {
+		"dialogue_flags": GameState.dialogue_flags.duplicate(true),
+		"current_mission_id": GameState.current_mission_id,
+		"pending_mission_id": GameState.pending_mission_id,
+	}
+
+
+func _restore_game_state(snapshot: Dictionary) -> void:
+	GameState.dialogue_flags = (snapshot.get("dialogue_flags", {}) as Dictionary).duplicate(true)
+	GameState.current_mission_id = String(snapshot.get("current_mission_id", ""))
+	GameState.pending_mission_id = String(snapshot.get("pending_mission_id", ""))
+
+
+func _free_node(node: Node) -> void:
+	if is_instance_valid(node):
+		node.queue_free()

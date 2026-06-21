@@ -4,6 +4,6 @@
   "warnings": [],
   "limitations": [
     "Static validator cannot execute GDScript; focused GdUnit and headless scene smoke cover runtime contracts.",
-    "Phase 9C-9F adds reusable side-job pieces and a small sequence runner, but no production Taco placement, global puzzle manager, save schema, or full side-job scenario."
+    "Phase 9G-9I completes Phase 9 with two small side-job proofs and a tiny route-gated Taco signoff; no global puzzle manager, save schema, tail target, or carry-object controller is added."
   ]
 }

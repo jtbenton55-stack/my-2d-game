@@ -48,15 +48,19 @@ def main() -> int:
     eavesdrop_template = root / "scenes/missions/iso/authoring/EavesdropZoneTemplate.tscn"
     dock = root / "addons/mission_dock/MissionDock.gd"
     dev_scene = root / "scenes/dev/mission_authoring/MechanicAuthoringTestRoom.tscn"
+    side_job_scene = root / "scenes/dev/mission_authoring/Phase9SideJobProofRoom.tscn"
+    taco_scene = root / "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
     tests = root / "tests/mission_authoring/TerminalHackNodeTest.gd"
     phase9b_tests = root / "tests/mission_authoring/Phase9BPowerPuzzleNodeTest.gd"
     phase9c_to_9f_tests = root / "tests/mission_authoring/Phase9CTo9FPuzzleSideJobNodeTest.gd"
+    phase9g_to_9i_tests = root / "tests/mission_authoring/Phase9GTo9ISideJobCompletionTest.gd"
     roadmap = root / "docs/PLUG_AND_PLAY_MISSION_SYSTEM_ROADMAP.md"
     blueprint = root / "docs/PLUG_AND_PLAY_IMPLEMENTATION_BLUEPRINT.md"
     guide = root / "docs/MECHANIC_AUTHORING_FOUNDATION_GUIDE.md"
     report = root / "reports/ai/2026-06-20_phase9a_terminal_hack_node_report.md"
     phase9b_report = root / "reports/ai/2026-06-20_phase9b_power_puzzle_nodes_report.md"
     phase9c_to_9f_report = root / "reports/ai/2026-06-21_phase9c_9f_puzzle_side_job_nodes_report.md"
+    phase9g_to_9i_report = root / "reports/ai/2026-06-21_phase9g_9i_side_job_completion_report.md"
 
     for path in (
         terminal,
@@ -80,15 +84,19 @@ def main() -> int:
         eavesdrop_template,
         dock,
         dev_scene,
+        side_job_scene,
+        taco_scene,
         tests,
         phase9b_tests,
         phase9c_to_9f_tests,
+        phase9g_to_9i_tests,
         roadmap,
         blueprint,
         guide,
         report,
         phase9b_report,
         phase9c_to_9f_report,
+        phase9g_to_9i_report,
     ):
         if not path.is_file():
             errors.append(f"missing required file: {path.relative_to(root)}")
@@ -281,6 +289,36 @@ def main() -> int:
     ):
         require_contains(errors, scene_text, needle, "MechanicAuthoringTestRoom")
 
+    side_job_scene_text = read_text(side_job_scene)
+    for needle in (
+        "Phase9G_PoopBagCalibrationCourse",
+        "TimedSwitch_phase9g_start",
+        "PressurePlate_phase9g_hold",
+        "PowerCircuit_phase9g_finish",
+        "Phase9GSequenceRunner",
+        "phase9g_poop_bag_calibration_course",
+        "Phase9H_BentleySnackTrail",
+        "DeadDrop_phase9h_retrieve",
+        "ObjectSwap_phase9h_swap",
+        "BugPlant_phase9h_bug",
+        "Eavesdrop_phase9h_listen",
+        "Phase9HSequenceRunner",
+        "phase9h_bentley_snack_trail",
+    ):
+        require_contains(errors, side_job_scene_text, needle, "Phase9SideJobProofRoom")
+
+    taco_scene_text = read_text(taco_scene)
+    for needle in (
+        "PpTacoSouthSideJobSignoff",
+        "SideObjectiveNode.gd",
+        "pp_taco_south_route_open",
+        "pp_taco_south_side_job_signoff",
+        "pp_taco_south_side_job_complete",
+        "include_legacy_candidates = false",
+        "Phase9I-SideJobProductionGate",
+    ):
+        require_contains(errors, taco_scene_text, needle, "Taco Phase 9I production gate")
+
     test_text = read_text(tests)
     for needle in (
         "test_phase9b_nodes_extend_mechanic_area_base",
@@ -300,6 +338,14 @@ def main() -> int:
         "test_templates_and_dev_scene_contain_phase9c_to_9f_nodes",
     ):
         require_contains(errors, read_text(phase9c_to_9f_tests), needle, "Phase9CTo9FPuzzleSideJobNodeTest")
+
+    for needle in (
+        "test_phase9_side_job_proof_room_contains_two_distinct_side_jobs",
+        "test_phase9g_poop_bag_calibration_course_flow_uses_reusable_nodes",
+        "test_phase9h_bentley_snack_trail_flow_uses_different_node_combination",
+        "test_phase9i_taco_production_gate_is_isolated_and_route_gated",
+    ):
+        require_contains(errors, read_text(phase9g_to_9i_tests), needle, "Phase9GTo9ISideJobCompletionTest")
 
     for needle in (
         "test_terminal_hack_node_extends_locked_interaction_node",
@@ -327,6 +373,13 @@ def main() -> int:
         require_contains(errors, doc_text, "BugPlantNode", label)
         require_contains(errors, doc_text, "EavesdropZone", label)
         require_contains(errors, doc_text, "CustomSequenceRunner", label)
+    for doc_path, label in ((roadmap, "Roadmap"), (blueprint, "Blueprint"), (guide, "Guide"), (phase9g_to_9i_report, "Phase 9G-9I AI report")):
+        doc_text = read_text(doc_path)
+        require_contains(errors, doc_text, "Phase 9G-9I", label)
+        require_contains(errors, doc_text, "Phase9SideJobProofRoom", label)
+        require_contains(errors, doc_text, "Poop Bag Calibration Course", label)
+        require_contains(errors, doc_text, "Bentley's Snack Trail", label)
+        require_contains(errors, doc_text, "PpTacoSouthSideJobSignoff", label)
 
     result = {
         "pass": len(errors) == 0,
@@ -334,7 +387,7 @@ def main() -> int:
         "warnings": warnings,
         "limitations": [
             "Static validator cannot execute GDScript; focused GdUnit and headless scene smoke cover runtime contracts.",
-            "Phase 9C-9F adds reusable side-job pieces and a small sequence runner, but no production Taco placement, global puzzle manager, save schema, or full side-job scenario.",
+            "Phase 9G-9I completes Phase 9 with two small side-job proofs and a tiny route-gated Taco signoff; no global puzzle manager, save schema, tail target, or carry-object controller is added.",
         ],
     }
     out_dir = root / "docs/reports" / REPORT_DIR

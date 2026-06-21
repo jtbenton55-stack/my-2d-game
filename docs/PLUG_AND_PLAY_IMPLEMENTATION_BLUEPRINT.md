@@ -1911,6 +1911,8 @@ All puzzle nodes should extend `MechanicAreaBase` unless they are pure data cont
 
 2026-06-21 Phase 9C-9F status: implemented the next puzzle/side-job slice with `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, `CustomSequenceStep`, `CustomSequenceResource`, and `CustomSequenceRunner`. Dead drops can deposit or retrieve mission inventory items, object swaps consume one item and optionally grant a replacement, bug plants consume a bug item and set planted facts, eavesdrop zones complete after a short listen window, and sequence resources enforce ordered step dependencies through explicit `depends_on_step_ids`. Mission Dock supports placement/audit for the four placed node types, templates and a dev-room proof chain were added, and focused tests/static validation cover the contracts. No production Taco placement, global puzzle manager, save-schema changes, full side-job scenario, tail target, carry-object controller, or presentation/cutscene ownership was added.
 
+2026-06-21 Phase 9G-9I status: completed the remaining side-job proof and adoption gate. `Phase9SideJobProofRoom` now proves two authored side jobs mostly assembled from reusable nodes: Poop Bag Calibration Course combines `TimedSwitchNode`, `PressurePlateNode`, `PowerCircuitNode`, and `CustomSequenceRunner`; Bentley's Snack Trail combines `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and `CustomSequenceRunner`. Taco production adoption is limited to `PpTacoSouthSideJobSignoff`, a route-gated `SideObjectiveNode` under `GameplayRoot/PlugAndPlayPilot` that requires `pp_taco_south_route_open` and preserves `MissionInteractionBridge.include_legacy_candidates = false`. No global puzzle manager, save-schema change, tail target, carry-object controller, or Phase 12 presentation ownership was added.
+
 ## Phase 10: Hideout Rewards / Cozy Meta Hooks
 
 ### Timing
@@ -2150,9 +2152,9 @@ Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. E
 | Phase 9D | Object swap/carry | Implemented: `ObjectSwapNode` and item-swap requirements. | Swap actions use mission inventory/facts. |
 | Phase 9E | Bug/eavesdrop | Implemented: `BugPlantNode`, `EavesdropZone`. | Timed stealth objectives are effect-driven. |
 | Phase 9F | Custom chronographic sequences | Implemented: `CustomSequenceResource`, `CustomSequenceStep`, `CustomSequenceRunner`. | Ordered steps enforce first-before-second logic without a giant orchestrator. |
-| Phase 9G | First side job | One small side job assembled mostly from reusable nodes. | Side job has validation scene/report and no mission-specific script dependency. |
-| Phase 9H | Second side job | Second side job using a different node combination. | Reuse is proven across more than one scenario. |
-| Phase 9I | Production adoption gate | Optional tiny production placement after dev proofs. | Production placement does not regress Taco/Phase0J/Phase0K. |
+| Phase 9G | First side job | Implemented: Poop Bag Calibration Course in `Phase9SideJobProofRoom`. | Side job has validation scene/report and no mission-specific script dependency. |
+| Phase 9H | Second side job | Implemented: Bentley's Snack Trail in `Phase9SideJobProofRoom`. | Reuse is proven across more than one scenario. |
+| Phase 9I | Production adoption gate | Implemented: route-gated `PpTacoSouthSideJobSignoff` under Taco `PlugAndPlayPilot`. | Production placement does not regress Taco/Phase0J/Phase0K authority. |
 
 ### Phase 10: Hideout Rewards / Cozy Meta Hooks
 

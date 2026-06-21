@@ -68,6 +68,7 @@
 [ext_resource type="Script" uid="uid://c27tmd6xl35ad" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="71_pp_scheme_trigger"]
 [ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="72_pp_modifier"]
 [ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="73_phase4g_security_effectset"]
+[ext_resource type="Script" uid="uid://bu88u3f2yiheq" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="74_phase9_side_objective"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d605b_door"]
 size = Vector2(140, 32)
@@ -917,6 +918,29 @@ key = "pp_taco_south_route_effect"
 [sub_resource type="Resource" id="EffectSet_pp_route_success"]
 script = ExtResource("70_pp_effectset")
 effects = Array[ExtResource("69_pp_effect")]([SubResource("MissionEffect_pp_route_effect")])
+
+[sub_resource type="Resource" id="MissionRequirement_pp_side_job_route_open_req"]
+script = ExtResource("67_pp_req")
+requirement_id = &"pp_taco_south_route_open_req"
+fact_type = &"mission_flag"
+key = "pp_taco_south_route_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Open the pilot route peek first."
+
+[sub_resource type="Resource" id="RequirementSet_pp_side_job_req"]
+script = ExtResource("68_pp_reqset")
+requirements = Array[ExtResource("67_pp_req")]([SubResource("MissionRequirement_pp_side_job_route_open_req")])
+locked_message = "Open the pilot route peek first."
+
+[sub_resource type="Resource" id="MissionEffect_pp_side_job_signoff_effect"]
+script = ExtResource("69_pp_effect")
+effect_id = &"pp_taco_south_side_job_signoff_effect"
+key = "pp_taco_south_side_job_signoff_effect"
+
+[sub_resource type="Resource" id="EffectSet_pp_side_job_signoff_success"]
+script = ExtResource("70_pp_effectset")
+effects = Array[ExtResource("69_pp_effect")]([SubResource("MissionEffect_pp_side_job_signoff_effect")])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0jc_interact"]
 radius = 44.0
@@ -27358,6 +27382,59 @@ theme_override_colors/font_outline_color = Color(0.98, 0.96, 0.88, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "Open Route Peek"
+horizontal_alignment = 1
+
+[node name="PpTacoSouthSideJobSignoff" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot"]
+position = Vector2(860, 120)
+collision_layer = 8
+script = ExtResource("74_phase9_side_objective")
+objective_id = &"pp_taco_south_side_job_signoff"
+objective_text = "Sign off the south pilot side job."
+objective_flag = &"pp_taco_south_side_job_complete"
+completed_message = "South pilot side job signed off."
+handled_prompt_text = "Pilot side job already signed off"
+missing_objective_message = "Pilot side job signoff is not available."
+mechanic_id = &"pp_taco_south_side_job_signoff"
+display_name = "Pilot Side Job Signoff"
+mission_id_override = "taco_bell_drop"
+interaction_priority = 250
+prompt_text = "Sign off pilot side job"
+locked_prompt_text = "Open the pilot route peek first"
+requirements = SubResource("RequirementSet_pp_side_job_req")
+success_effects = SubResource("EffectSet_pp_side_job_signoff_success")
+show_debug_label = false
+metadata/generated_by = "Phase9I-SideJobProductionGate"
+metadata/scene_local_only = true
+
+[node name="HighlightRing" type="Line2D" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
+points = PackedVector2Array(-44, -30, 44, -30, 44, 30, -44, 30, -44, -30)
+closed = true
+width = 4.0
+default_color = Color(0.35, 0.95, 0.85, 0.92)
+metadata/generated_by = "Phase9I-SideJobProductionGate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
+shape = SubResource("RectangleShape2D_pp_pilot")
+
+[node name="SignoffVisual" type="ColorRect" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
+offset_left = -32.0
+offset_top = -20.0
+offset_right = 32.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.75, 0.95)
+metadata/generated_by = "Phase9I-SideJobProductionGate"
+
+[node name="HintLabel" type="Label" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
+z_index = 2
+offset_left = -72.0
+offset_top = -64.0
+offset_right = 72.0
+offset_bottom = -44.0
+theme_override_colors/font_color = Color(0.08, 0.08, 0.12, 1)
+theme_override_colors/font_outline_color = Color(0.98, 0.96, 0.88, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "Side Job Signoff"
 horizontal_alignment = 1
 
 [node name="EditorOnlyRoomLabels" type="Node2D" parent="GameplayRoot" unique_id=125332970]
