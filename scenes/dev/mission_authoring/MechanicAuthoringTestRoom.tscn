@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://15wvg8jm20cc" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="23_alert_controller"]
 [ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd" id="24_noise_listener"]
 [ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseReactiveGuard.gd" id="25_noise_guard"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TerminalHackNode.gd" id="26_terminal_hack"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -193,6 +194,16 @@ key = "phase8_distraction_used"
 script = ExtResource("6_bwj2c")
 set_id = &"effectset_phase8_distraction_used"
 effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase8_distraction_effect")])
+
+[sub_resource type="Resource" id="Resource_phase9a_terminal_hack_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase9a_terminal_hacked"
+key = "phase9a_terminal_hacked"
+
+[sub_resource type="Resource" id="Resource_phase9a_terminal_hack_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"phase9a_terminal_hack_effect_set"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9a_terminal_hack_effect")])
 
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
@@ -1343,4 +1354,40 @@ offset_right = 130.0
 offset_bottom = -58.0
 theme_override_font_sizes/font_size = 9
 text = "8E/8H: Noise-reactive guard"
+horizontal_alignment = 1
+
+[node name="TerminalHackNode_phase9a_terminal" type="Area2D" parent="MissionMechanics" unique_id=1947398841]
+position = Vector2(520, -288)
+collision_layer = 8
+script = ExtResource("26_terminal_hack")
+terminal_id = &"phase9a_terminal"
+hack_completed_flag = &"phase9a_terminal_hacked"
+unlocked_flag = &"phase9a_terminal_hacked"
+mechanic_id = &"phase9a_terminal_hack"
+display_name = "Phase 9A Terminal Hack"
+interaction_priority = 375
+prompt_text = "Press E: Hack terminal"
+success_effects = SubResource("Resource_phase9a_terminal_hack_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.55, 0.35, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/TerminalHackNode_phase9a_terminal" unique_id=651173248]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/TerminalHackNode_phase9a_terminal" unique_id=1217450881]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "9A: Terminal hack"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/TerminalHackNode_phase9a_terminal" unique_id=926105517]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "READY"
 horizontal_alignment = 1

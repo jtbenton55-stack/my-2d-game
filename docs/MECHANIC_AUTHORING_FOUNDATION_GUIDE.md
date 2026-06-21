@@ -253,6 +253,22 @@ Use `NoiseReactiveGuard` as a lightweight parent receiver for `NoiseListenerComp
 
 `DogCompanion.command_bark()` also emits a `bentley_bark` noise event through the same schema. `MissionPoopBagDecoyPoint` emits a `poop_decoy` noise event after a poop bag is successfully consumed. `MissionAlertController` records recent noise events and can move normal missions to suspicious for player-team noise. Full guard pathing AI remains future Phase 8+ work.
 
+## TerminalHackNode
+
+Phase 9A starts the Puzzle And Side Job Kit with a terminal/hack mechanic built as a thin `LockedInteractionNode` subclass.
+
+Use `TerminalHackNode` when a terminal, keypad, console, or hack panel should require ordinary `RequirementSet` facts and apply ordinary `EffectSet` outputs.
+
+1. Set `terminal_id` and `mechanic_id` to stable mission-local IDs.
+2. Set `hack_completed_flag` or `unlocked_flag` so completion is inspectable through mission facts.
+3. Add requirements for code/card/tool/item facts instead of custom terminal scripts.
+4. Add success effects for objective, route, evidence, item, or debug flags.
+5. Use Mission Dock for safe placement defaults; it audits missing terminal IDs and completion flags.
+
+Example: a terminal requires a code fact, sets `phase9a_terminal_hacked`, and applies an effect that unlocks a route or completes an objective.
+
+**Limitations:** Phase 9A proves terminal/hack authoring only. No side jobs, power circuits, dead drops, object swaps, bug/eavesdrop zones, or custom sequence runner yet.
+
 ## RouteUnlockNode
 
 Use for shortcuts, hidden paths, route gates, and local traversal mutations (show path, hide blocker, enable/disable collisions).
@@ -301,6 +317,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
 - Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof, a Phase 8E-8G-lite listener/poop-decoy bridge proof, and a Phase 8H-lite guard response proof; full guard pathing AI and production placement are still deferred
+- Puzzle kit has a Phase 9A terminal/hack proof through `TerminalHackNode`; broader puzzle nodes and side jobs are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -316,6 +333,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 8. `DistractionObject` — player-team decoy/distraction emitter subclass
 9. `NoiseListenerComponent` — mission-local guard/NPC/debug receiver for structured noise events
 10. `NoiseReactiveGuard` — lightweight listener parent that records an investigating-noise response
+11. `TerminalHackNode` — requirement/effect-driven terminal hack built on `LockedInteractionNode`
 
 ## Related future editor tooling
 

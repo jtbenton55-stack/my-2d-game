@@ -1538,6 +1538,8 @@ Create repeatable mission variety from a compact set of puzzle verbs.
 10. Tail target later.
 11. Custom chronographic sequence Resources for authored order-of-operations puzzles, such as first dead drop before second dead drop.
 
+2026-06-20 Phase 9A status: implemented `TerminalHackNode` as the first Puzzle And Side Job Kit slice. It extends the locked-interaction pattern with terminal-specific IDs, a hack completion flag, Mission Dock placement/audit support, a template scene, dev-room proof, focused GdUnit coverage, and static validation. It remains requirement/effect-driven and does not add side jobs, a puzzle manager, production Taco placement, or save-schema changes.
+
 ### Custom Sequence Direction
 
 Prefer small data-driven custom sequences over a giant global orchestrator. A `CustomSequenceResource` should define ordered steps with `step_id`, `order_index`, requirements, completion conditions, and effects. Chronographic relationships should be explicit through `depends_on_step_ids` and readable editor gizmos.

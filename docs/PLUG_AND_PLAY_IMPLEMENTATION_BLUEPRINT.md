@@ -1905,6 +1905,8 @@ All puzzle nodes should extend `MechanicAreaBase` unless they are pure data cont
 | `BugPlantNode` | `MechanicAreaBase` | Requires bug item, starts eavesdrop objective. |
 | `EavesdropZone` | `TriggerZone` | Requires remaining hidden, completes when duration passes. |
 
+2026-06-20 Phase 9A status: implemented `TerminalHackNode` as a thin `LockedInteractionNode` subclass. It keeps hacking requirement/effect-driven, exposes `terminal_id` and `hack_completed_flag`, routes completion through mission facts, and adds Mission Dock placement/audit support, a template scene, dev-room proof, focused tests, static validation, and report. No production Taco placement, side jobs, puzzle manager, or save-schema changes were added.
+
 ## Phase 10: Social Stealth
 
 ### Timing

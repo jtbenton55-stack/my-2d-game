@@ -11,6 +11,7 @@ const MECHANIC_TYPES: Array[String] = [
 	"NoiseEmitterNode",
 	"DistractionObject",
 	"LockedInteractionNode",
+	"TerminalHackNode",
 	"RouteUnlockNode",
 	"InteractiveContainer",
 	"ExtractionZone",
@@ -28,6 +29,7 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"NoiseEmitterNode": "res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd",
 	"DistractionObject": "res://src/missions/iso/authoring/mechanics/DistractionObject.gd",
 	"LockedInteractionNode": "res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd",
+	"TerminalHackNode": "res://src/missions/iso/authoring/mechanics/TerminalHackNode.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
 	"ExtractionZone": "res://src/missions/iso/authoring/mechanics/ExtractionZone.gd",
@@ -413,6 +415,8 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Create distraction"
 		"LockedInteractionNode":
 			_prompt_text.text = "Press E: Unlock"
+		"TerminalHackNode":
+			_prompt_text.text = "Press E: Hack terminal"
 		"RouteUnlockNode":
 			_prompt_text.text = "Press E: Open Route"
 		"InteractiveContainer":
@@ -796,6 +800,11 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 		"LockedInteractionNode":
 			node.set("unlocked_flag", StringName("%s_unlocked" % base_id))
 			node.set("locked_prompt_text", "Locked")
+		"TerminalHackNode":
+			node.set("terminal_id", StringName(base_id))
+			node.set("hack_completed_flag", StringName("%s_hacked" % base_id))
+			node.set("unlocked_flag", StringName("%s_hacked" % base_id))
+			node.set("locked_prompt_text", "Terminal locked")
 		"RouteUnlockNode":
 			node.set("route_id", StringName(base_id))
 			node.set("route_flag", StringName("%s_open" % base_id))
@@ -1147,6 +1156,10 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_companion_command", "CompanionCommandPoint missing command_type.", node))
 	if node is NoiseEmitterNode and String(node.get("noise_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_noise_id", "NoiseEmitterNode missing noise_id.", node))
+	if node is TerminalHackNode and String(node.get("terminal_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_terminal_id", "TerminalHackNode missing terminal_id.", node))
+	if node is TerminalHackNode and String(node.get("hack_completed_flag")).strip_edges() == "" and String(node.get("unlocked_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_hack_completed_flag", "TerminalHackNode missing hack_completed_flag/unlocked_flag.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":

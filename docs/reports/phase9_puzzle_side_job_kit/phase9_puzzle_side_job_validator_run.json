@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; focused GdUnit and headless scene smoke cover runtime contracts.",
+    "Phase 9A adds terminal/hack authoring only; side jobs and broader puzzle nodes remain later Phase 9 packets."
+  ]
+}
