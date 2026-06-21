@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="1_power_circuit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_power_circuit"]
+size = Vector2(96, 96)
+
+[node name="PowerCircuitNodeTemplate" type="Area2D"]
+script = ExtResource("1_power_circuit")
+circuit_id = &"CHANGE_ME_CIRCUIT_ID"
+circuit_flag = &"CHANGE_ME_CIRCUIT_POWERED"
+mechanic_id = &"CHANGE_ME_POWER_CIRCUIT_ID"
+display_name = "Power Circuit"
+prompt_text = "Press E: Check circuit"
+one_shot = false
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_power_circuit")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Power Circuit"
+horizontal_alignment = 1

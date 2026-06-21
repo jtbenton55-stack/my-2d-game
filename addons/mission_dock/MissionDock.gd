@@ -12,6 +12,9 @@ const MECHANIC_TYPES: Array[String] = [
 	"DistractionObject",
 	"LockedInteractionNode",
 	"TerminalHackNode",
+	"PowerCircuitNode",
+	"TimedSwitchNode",
+	"PressurePlateNode",
 	"RouteUnlockNode",
 	"InteractiveContainer",
 	"ExtractionZone",
@@ -30,6 +33,9 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"DistractionObject": "res://src/missions/iso/authoring/mechanics/DistractionObject.gd",
 	"LockedInteractionNode": "res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd",
 	"TerminalHackNode": "res://src/missions/iso/authoring/mechanics/TerminalHackNode.gd",
+	"PowerCircuitNode": "res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd",
+	"TimedSwitchNode": "res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd",
+	"PressurePlateNode": "res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
 	"ExtractionZone": "res://src/missions/iso/authoring/mechanics/ExtractionZone.gd",
@@ -417,6 +423,12 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Unlock"
 		"TerminalHackNode":
 			_prompt_text.text = "Press E: Hack terminal"
+		"PowerCircuitNode":
+			_prompt_text.text = "Press E: Check circuit"
+		"TimedSwitchNode":
+			_prompt_text.text = "Press E: Trigger switch"
+		"PressurePlateNode":
+			_prompt_text.text = "Step onto pressure plate"
 		"RouteUnlockNode":
 			_prompt_text.text = "Press E: Open Route"
 		"InteractiveContainer":
@@ -805,6 +817,19 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 			node.set("hack_completed_flag", StringName("%s_hacked" % base_id))
 			node.set("unlocked_flag", StringName("%s_hacked" % base_id))
 			node.set("locked_prompt_text", "Terminal locked")
+		"PowerCircuitNode":
+			node.set("circuit_id", StringName(base_id))
+			node.set("circuit_flag", StringName("%s_powered" % base_id))
+			node.set("one_shot", false)
+		"TimedSwitchNode":
+			node.set("switch_id", StringName(base_id))
+			node.set("switch_flag", StringName("%s_active" % base_id))
+			node.set("one_shot", false)
+		"PressurePlateNode":
+			node.set("plate_id", StringName(base_id))
+			node.set("pressed_flag", StringName("%s_pressed" % base_id))
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.SCRIPT_ONLY)
+			node.set("one_shot", false)
 		"RouteUnlockNode":
 			node.set("route_id", StringName(base_id))
 			node.set("route_flag", StringName("%s_open" % base_id))
@@ -1114,8 +1139,8 @@ func _audit_duplicate_ids(mechanics: Array[Node]) -> void:
 
 func _audit_duplicate_flags(mechanics: Array[Node]) -> void:
 	var flag_properties := [
-		"searched_flag", "collected_flag", "route_flag", "unlocked_flag",
-		"opened_flag", "extraction_flag", "objective_flag",
+		"searched_flag", "collected_flag", "route_flag", "unlocked_flag", "hack_completed_flag",
+		"circuit_flag", "switch_flag", "pressed_flag", "opened_flag", "extraction_flag", "objective_flag",
 	]
 	for property in flag_properties:
 		var buckets: Dictionary = {}
@@ -1160,6 +1185,20 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_terminal_id", "TerminalHackNode missing terminal_id.", node))
 	if node is TerminalHackNode and String(node.get("hack_completed_flag")).strip_edges() == "" and String(node.get("unlocked_flag")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_hack_completed_flag", "TerminalHackNode missing hack_completed_flag/unlocked_flag.", node))
+	if node is PowerCircuitNode and String(node.get("circuit_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_circuit_id", "PowerCircuitNode missing circuit_id.", node))
+	if node is PowerCircuitNode and String(node.get("circuit_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_circuit_flag", "PowerCircuitNode has no circuit_flag for downstream facts.", node))
+	if node is PowerCircuitNode and (node.get("required_power_flags") as Array).is_empty():
+		_audit_issues.append(_issue("Info", "empty_required_power_flags", "PowerCircuitNode has no required_power_flags; it will power immediately after requirements pass.", node))
+	if node is TimedSwitchNode and String(node.get("switch_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_switch_id", "TimedSwitchNode missing switch_id.", node))
+	if node is TimedSwitchNode and String(node.get("switch_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_switch_flag", "TimedSwitchNode has no switch_flag for circuits or requirements.", node))
+	if node is PressurePlateNode and String(node.get("plate_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_plate_id", "PressurePlateNode missing plate_id.", node))
+	if node is PressurePlateNode and String(node.get("pressed_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_pressed_flag", "PressurePlateNode has no pressed_flag for circuits or requirements.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="1_pressure_plate"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pressure_plate"]
+size = Vector2(96, 96)
+
+[node name="PressurePlateNodeTemplate" type="Area2D"]
+script = ExtResource("1_pressure_plate")
+plate_id = &"CHANGE_ME_PLATE_ID"
+pressed_flag = &"CHANGE_ME_PLATE_PRESSED"
+mechanic_id = &"CHANGE_ME_PRESSURE_PLATE_ID"
+display_name = "Pressure Plate"
+prompt_text = "Step onto pressure plate"
+one_shot = false
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pressure_plate")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Pressure Plate"
+horizontal_alignment = 1

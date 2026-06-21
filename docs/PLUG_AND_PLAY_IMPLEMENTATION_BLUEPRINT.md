@@ -1907,6 +1907,8 @@ All puzzle nodes should extend `MechanicAreaBase` unless they are pure data cont
 
 2026-06-20 Phase 9A status: implemented `TerminalHackNode` as a thin `LockedInteractionNode` subclass. It keeps hacking requirement/effect-driven, exposes `terminal_id` and `hack_completed_flag`, routes completion through mission facts, and adds Mission Dock placement/audit support, a template scene, dev-room proof, focused tests, static validation, and report. No production Taco placement, side jobs, puzzle manager, or save-schema changes were added.
 
+2026-06-20 Phase 9B status: implemented `PowerCircuitNode`, `TimedSwitchNode`, and `PressurePlateNode` as mission-local linked-power puzzle mechanics. `TimedSwitchNode` sets and expires a temporary mission flag, `PressurePlateNode` sets and clears a flag while pressed, and `PowerCircuitNode` checks configured mission flags before setting a circuit flag and applying normal effect sets. Mission Dock can place/audit all three, the authoring templates and dev-room proof demonstrate switch plus plate powering a circuit, and focused tests/static validation cover the contracts. No global puzzle manager, production Taco placement, side jobs, custom sequence resources, or save-schema changes were added.
+
 ## Phase 10: Social Stealth
 
 ### Timing

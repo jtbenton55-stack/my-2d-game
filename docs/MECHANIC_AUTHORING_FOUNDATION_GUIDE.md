@@ -267,7 +267,36 @@ Use `TerminalHackNode` when a terminal, keypad, console, or hack panel should re
 
 Example: a terminal requires a code fact, sets `phase9a_terminal_hacked`, and applies an effect that unlocks a route or completes an objective.
 
-**Limitations:** Phase 9A proves terminal/hack authoring only. No side jobs, power circuits, dead drops, object swaps, bug/eavesdrop zones, or custom sequence runner yet.
+**Limitations:** Phase 9A proves terminal/hack authoring only. Phase 9B adds linked power puzzle nodes, but side jobs, dead drops, object swaps, bug/eavesdrop zones, and a custom sequence runner are still deferred.
+
+## Phase 9B Power Puzzle Nodes
+
+Phase 9B adds three small mission-local puzzle nodes. They use mission flags as the contract between placed mechanics instead of a global puzzle manager.
+
+Use `TimedSwitchNode` when an interaction should set a temporary mission flag for circuits or requirements.
+
+1. Set `switch_id`, `switch_flag`, and `mechanic_id` to stable mission-local IDs.
+2. Set `active_seconds` to the desired timer window.
+3. Leave `clear_flag_on_expire` enabled when the switch should only power circuits temporarily.
+4. Add optional success effects for objective/debug state.
+
+Use `PressurePlateNode` when occupancy should set a mission flag while pressed.
+
+1. Set `plate_id`, `pressed_flag`, and `mechanic_id` to stable mission-local IDs.
+2. Keep `clear_flag_on_exit` enabled for ordinary pressure plates.
+3. Add requirements if only a specific actor/item/state can press the plate.
+4. Add optional success effects for objective/debug state.
+
+Use `PowerCircuitNode` when a mission-local puzzle should check linked flags and then power a route, lock, objective, or debug fact.
+
+1. Set `circuit_id`, `circuit_flag`, and `mechanic_id` to stable mission-local IDs.
+2. Add `required_power_flags` that match switch/plate flags.
+3. Keep `require_all_flags` enabled for AND-style circuits, or disable it for OR-style circuits.
+4. Add success effects for route/objective/evidence changes and optional failure effects for feedback.
+
+Example: a timed switch sets `phase9b_switch_active`, a plate sets `phase9b_plate_pressed`, and a circuit with both in `required_power_flags` sets `phase9b_circuit_powered` plus any route/objective effects.
+
+**Limitations:** Phase 9B proves linked power puzzles only. It does not add a puzzle manager, custom sequence runner, production Taco placement, save-schema changes, side jobs, or authored route mutations beyond ordinary effect sets.
 
 ## RouteUnlockNode
 
@@ -317,7 +346,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
 - Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof, a Phase 8E-8G-lite listener/poop-decoy bridge proof, and a Phase 8H-lite guard response proof; full guard pathing AI and production placement are still deferred
-- Puzzle kit has a Phase 9A terminal/hack proof through `TerminalHackNode`; broader puzzle nodes and side jobs are still deferred
+- Puzzle kit has Phase 9A terminal/hack proof through `TerminalHackNode` plus Phase 9B linked power puzzle proof through `PowerCircuitNode`, `TimedSwitchNode`, and `PressurePlateNode`; side jobs, dead drops, object swaps, bug/eavesdrop zones, and custom sequences are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -334,6 +363,9 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 9. `NoiseListenerComponent` — mission-local guard/NPC/debug receiver for structured noise events
 10. `NoiseReactiveGuard` — lightweight listener parent that records an investigating-noise response
 11. `TerminalHackNode` — requirement/effect-driven terminal hack built on `LockedInteractionNode`
+12. `TimedSwitchNode` — reusable switch that sets and expires a mission flag
+13. `PressurePlateNode` — occupancy-driven plate that sets/clears a mission flag
+14. `PowerCircuitNode` — linked-power checker that reads mission flags and applies normal effects when powered
 
 ## Related future editor tooling
 
