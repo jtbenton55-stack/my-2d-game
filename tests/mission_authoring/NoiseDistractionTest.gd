@@ -1,11 +1,13 @@
-# GdUnit4 tests for Phase 8A-8D-lite noise and distraction authoring.
+# GdUnit4 tests for Phase 8A-8G-lite noise and distraction authoring.
 extends GdUnitTestSuite
 
 const NoiseEventScript := preload("res://src/missions/iso/runtime/noise/NoiseEvent.gd")
 const NoiseEmitterNodeScript := preload("res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd")
+const NoiseListenerComponentScript := preload("res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd")
 const DistractionObjectScript := preload("res://src/missions/iso/authoring/mechanics/DistractionObject.gd")
 const MechanicAreaBaseScript := preload("res://src/missions/iso/authoring/mechanics/MechanicAreaBase.gd")
 const MissionAlertControllerScript := preload("res://src/missions/iso/runtime/MissionAlertController.gd")
+const MissionPoopBagDecoyPointScript := preload("res://src/missions/iso/runtime/MissionPoopBagDecoyPoint.gd")
 const DogCompanionScript := preload("res://src/player/DogCompanion.gd")
 const MissionEffectScript := preload("res://src/missions/iso/authoring/core/MissionEffect.gd")
 const EffectSetScript := preload("res://src/missions/iso/authoring/core/EffectSet.gd")
@@ -90,6 +92,57 @@ func test_distraction_object_defaults_to_player_decoy_noise() -> void:
 	distraction.free()
 
 
+func test_noise_listener_records_in_range_noise() -> void:
+	var parent := Node2D.new()
+	parent.name = "NoiseListenerParent"
+	parent.global_position = Vector2(20, 0)
+	add_child(parent)
+	var listener := NoiseListenerComponentScript.new()
+	listener.listener_id = &"phase8_listener_test"
+	parent.add_child(listener)
+	var event := NoiseEventScript.make_event("listener_noise", "source", Vector2.ZERO, 64.0, 0.5, "decoy", "player")
+
+	var result: Dictionary = listener.register_noise(event)
+	assert_bool(result.get("ok", false)).is_true()
+	assert_int(listener.heard_count).is_equal(1)
+	assert_str(String(listener.last_heard_noise.get("noise_id", ""))).is_equal("listener_noise")
+	assert_bool(parent.has_meta("last_noise_event")).is_true()
+
+	var ignored := NoiseEventScript.make_event("far_noise", "source", Vector2(1000, 0), 64.0, 0.5, "decoy", "player")
+	var ignored_result: Dictionary = listener.register_noise(ignored)
+	assert_bool(ignored_result.get("ok", true)).is_false()
+	assert_int(listener.heard_count).is_equal(1)
+	_free_node(parent)
+
+
+func test_poop_bag_decoy_point_emits_noise_after_consuming_bag() -> void:
+	var snapshot := _snapshot_game_state()
+	GameState.current_mission_id = "test_mission"
+	GameState.poop_bag_count = 1
+	GameState.poop_bag_inventory = {"count": 1, "collected_this_mission": 1, "used_this_mission": 0}
+	var alert := MissionAlertControllerScript.new()
+	alert.name = "MissionAlertController"
+	add_child(alert)
+	var decoy := MissionPoopBagDecoyPointScript.new()
+	decoy.name = "PoopBagDecoyNoiseUnderTest"
+	decoy.decoy_id = "poop_decoy_test"
+	decoy.placeholder_id = "poop_decoy_test"
+	decoy.mission_id = "test_mission"
+	decoy.global_position = Vector2(12, 16)
+	add_child(decoy)
+
+	decoy._complete(null)
+	assert_int(GameState.get_poop_bag_count()).is_equal(0)
+	assert_str(String(decoy.last_noise_result.get("code", ""))).is_equal("noise_emitted")
+	assert_int(alert.total_noise_events).is_equal(1)
+	assert_str(String(alert.last_noise_event.get("kind", ""))).is_equal("poop_decoy")
+	assert_vector(alert.last_noise_event.get("position", Vector2.ZERO)).is_equal(Vector2(12, 16))
+
+	_restore_game_state(snapshot)
+	_free_node(decoy)
+	_free_node(alert)
+
+
 func test_templates_and_dev_scene_contain_phase8_nodes() -> void:
 	assert_object(load("res://scenes/missions/iso/authoring/NoiseEmitterNodeTemplate.tscn")).is_not_null()
 	assert_object(load("res://scenes/missions/iso/authoring/DistractionObjectTemplate.tscn")).is_not_null()
@@ -100,10 +153,13 @@ func test_templates_and_dev_scene_contain_phase8_nodes() -> void:
 	assert_object(root.get_node_or_null("MissionAlertController")).is_not_null()
 	var noise := root.get_node_or_null("MissionMechanics/NoiseEmitterNode_phase8a_bark_lure")
 	var distraction := root.get_node_or_null("MissionMechanics/DistractionObject_phase8d_decoy")
+	var listener := root.get_node_or_null("MissionMechanics/Phase8E_NoiseListenerGuard/NoiseListenerComponent_phase8e")
 	assert_object(noise).is_not_null()
 	assert_object(distraction).is_not_null()
+	assert_object(listener).is_not_null()
 	assert_str(String(noise.get("noise_kind"))).is_equal("bark")
 	assert_str(String(distraction.get("noise_kind"))).is_equal("decoy")
+	assert_str(String(listener.get("listener_id"))).is_equal("phase8e_guard_listener")
 	root.queue_free()
 
 
@@ -123,6 +179,9 @@ func _snapshot_game_state() -> Dictionary:
 		"current_mission_id": GameState.current_mission_id,
 		"pending_mission_id": GameState.pending_mission_id,
 		"dialogue_flags": GameState.dialogue_flags.duplicate(true),
+		"poop_bag_count": GameState.poop_bag_count,
+		"poop_bag_inventory": GameState.poop_bag_inventory.duplicate(true),
+		"mission_performance": GameState.mission_performance.duplicate(true),
 	}
 
 
@@ -130,6 +189,9 @@ func _restore_game_state(snapshot: Dictionary) -> void:
 	GameState.current_mission_id = String(snapshot.get("current_mission_id", ""))
 	GameState.pending_mission_id = String(snapshot.get("pending_mission_id", ""))
 	GameState.dialogue_flags = (snapshot.get("dialogue_flags", {}) as Dictionary).duplicate(true)
+	GameState.poop_bag_count = int(snapshot.get("poop_bag_count", 0))
+	GameState.poop_bag_inventory = (snapshot.get("poop_bag_inventory", {}) as Dictionary).duplicate(true)
+	GameState.mission_performance = (snapshot.get("mission_performance", {}) as Dictionary).duplicate(true)
 
 
 func _free_node(node: Node) -> void:

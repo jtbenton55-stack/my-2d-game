@@ -1878,6 +1878,8 @@ Bentley bark should create a noise event. Guards can initially react through exi
 
 2026-06-20 Phase 8A-8D-lite status: implemented `NoiseEvent`, `NoiseEmitterNode`, and `DistractionObject` as the first adapter-first noise/distraction packet. Noise events are dictionaries with `noise_id`, `source_id`, `position`, `radius`, `strength`, `kind`, `team`, and `timestamp`; placed emitters extend the same requirement/effect pipeline as other authoring mechanics. `DogCompanion.command_bark()` now emits a bark noise event, `EventBus` exposes `mission_noise_emitted`, and `MissionAlertController.register_noise_event()` records recent noise and can move normal missions to suspicious for player-team noise. `IsoMissionDebugPanel` exposes compact noise debug output. `NoiseListenerComponent` and production guard pathing remain future work.
 
+2026-06-20 Phase 8E-8G-lite status: implemented `NoiseListenerComponent` as a mission-local listener that subscribes to `EventBus.mission_noise_emitted`, filters by radius/kind/team, records heard noise, sets debug metadata on its parent receiver, and optionally calls parent `on_noise_heard(noise_event, listener)`. Existing `MissionPoopBagDecoyPoint` now emits a `poop_decoy` `NoiseEvent` after successful poop-bag consumption, so the older poop-bag distraction path can feed `MissionAlertController` and any active listeners without a new global noise manager. The dev room includes a listener guard proof. Full guard pathing/investigation movement and production mission placement remain deferred.
+
 ## Phase 9: Puzzle And Side Job Kit
 
 ### Timing

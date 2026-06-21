@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://d33xsfket2k1u" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="21_noise_emitter"]
 [ext_resource type="Script" uid="uid://b5j3utw5f0tf6" path="res://src/missions/iso/authoring/mechanics/DistractionObject.gd" id="22_distraction"]
 [ext_resource type="Script" uid="uid://15wvg8jm20cc" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="23_alert_controller"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd" id="24_noise_listener"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -1320,4 +1321,22 @@ offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "READY"
+horizontal_alignment = 1
+
+[node name="Phase8E_NoiseListenerGuard" type="Node2D" parent="MissionMechanics" unique_id=1937356905]
+position = Vector2(360, 272)
+
+[node name="NoiseListenerComponent_phase8e" type="Node" parent="MissionMechanics/Phase8E_NoiseListenerGuard" unique_id=1375864330]
+script = ExtResource("24_noise_listener")
+listener_id = &"phase8e_guard_listener"
+accepted_kinds = PackedStringArray("decoy", "poop_decoy", "bark")
+reaction_seconds = 3.0
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/Phase8E_NoiseListenerGuard" unique_id=1122496509]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "8E: Noise listener guard"
 horizontal_alignment = 1

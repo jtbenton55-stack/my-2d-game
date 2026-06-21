@@ -626,6 +626,8 @@ First version:
 
 2026-06-20 Phase 8A-8D-lite status: implemented the first reusable noise/distraction slice without adding a global noise manager. `NoiseEvent` provides the shared event dictionary schema, `NoiseEmitterNode` emits placed noise through normal `MechanicAreaBase` requirements/effects, `DistractionObject` provides a player-team decoy authoring subclass/template, `DogCompanion` now emits a bark noise event through the same path, and `MissionAlertController` records recent noise events with a lightweight suspicious-state response. Mission Dock can place/audit the new nodes, the dev room proves noise/distraction flags and alert-controller routing, and `NoiseDistractionTest.gd` plus the Phase 8 static validator cover the contracts. Full guard listener/pathing AI and production mission placement remain deferred.
 
+2026-06-20 Phase 8E-8G-lite status: implemented `NoiseListenerComponent` as the first mission-local listener/receiver for structured noise. It subscribes to `EventBus.mission_noise_emitted`, filters noise by radius/kind/team, records last heard noise, writes debug metadata to the parent receiver, and can call parent `on_noise_heard()` when a guard/NPC script provides one. Existing `MissionPoopBagDecoyPoint` now emits a `poop_decoy` `NoiseEvent` after successful poop-bag consumption, reusing the same alert-controller and listener event path. The dev room includes a listener guard proof, and focused tests plus the static validator cover listener range behavior and poop-decoy noise bridging. Full guard pathing/investigation movement and production mission placement remain deferred.
+
 ### Priority
 
 Medium-high.
