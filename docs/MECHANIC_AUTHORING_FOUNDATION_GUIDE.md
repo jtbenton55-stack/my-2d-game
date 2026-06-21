@@ -267,7 +267,7 @@ Use `TerminalHackNode` when a terminal, keypad, console, or hack panel should re
 
 Example: a terminal requires a code fact, sets `phase9a_terminal_hacked`, and applies an effect that unlocks a route or completes an objective.
 
-**Limitations:** Phase 9A proves terminal/hack authoring only. Phase 9B adds linked power puzzle nodes, but side jobs, dead drops, object swaps, bug/eavesdrop zones, and a custom sequence runner are still deferred.
+**Limitations:** Phase 9A proves terminal/hack authoring only. Phase 9B adds linked power puzzle nodes, and Phase 9C-9F adds the first dead drop, object swap, bug/eavesdrop, and sequence runner pieces. Full side-job scenarios, production Taco placement, save-schema changes, tailing, and carry-object controllers are still deferred.
 
 ## Phase 9B Power Puzzle Nodes
 
@@ -296,7 +296,39 @@ Use `PowerCircuitNode` when a mission-local puzzle should check linked flags and
 
 Example: a timed switch sets `phase9b_switch_active`, a plate sets `phase9b_plate_pressed`, and a circuit with both in `required_power_flags` sets `phase9b_circuit_powered` plus any route/objective effects.
 
-**Limitations:** Phase 9B proves linked power puzzles only. It does not add a puzzle manager, custom sequence runner, production Taco placement, save-schema changes, side jobs, or authored route mutations beyond ordinary effect sets.
+**Limitations:** Phase 9B proves linked power puzzles only. Phase 9C-9F adds side-job pieces and a sequence runner, but does not add production Taco placement, save-schema changes, tailing, or authored route mutations beyond ordinary effect sets.
+
+## Phase 9C-9F Puzzle And Side-Job Nodes
+
+Phase 9C-9F adds reusable side-job verbs while keeping state in mission inventory, mission flags, requirements, and ordinary effects.
+
+Use `DeadDropNode` when a stash/drop point should deposit or retrieve mission inventory items.
+
+1. Set `drop_id`, `item_id`, `completed_flag`, and `mechanic_id` to stable mission-local IDs.
+2. Choose `drop_mode = deposit` when the player must give up an item, or `retrieve` when the drop grants one.
+3. Use requirements for access rules, and success effects for route/objective/dialogue/debug facts.
+
+Use `ObjectSwapNode` when a carried item should be swapped for another item or proof object.
+
+1. Set `swap_id`, `required_item_id`, optional `replacement_item_id`, `swapped_flag`, and `mechanic_id`.
+2. Let the node consume the required item through `MissionInventory` instead of custom mission-local storage.
+3. Add success effects for objective, clue, route, or debug state.
+
+Use `BugPlantNode` and `EavesdropZone` together for simple surveillance side jobs.
+
+1. `BugPlantNode` consumes `bug_item_id`, sets `planted_flag`, and applies normal success effects.
+2. `EavesdropZone` can require the planted flag, listen for `listen_seconds`, then set `completed_flag` and apply normal success effects.
+3. Keep eavesdrop durations short in dev proofs; production stealth timing needs manual QA.
+
+Use `CustomSequenceResource`, `CustomSequenceStep`, and `CustomSequenceRunner` when a side job needs explicit step order.
+
+1. Define each step with `step_id`, `order_index`, optional `depends_on_step_ids`, `completion_flag`, requirements, and success effects.
+2. Let `CustomSequenceRunner.complete_step(step_id)` enforce dependencies instead of writing mission-specific scripts.
+3. Do not use the runner for camera/player/audio presentation ownership; Phase 9 narrative bridges remain separate future work.
+
+Example: a dead drop retrieves `phase9c_package`, an object swap turns it into `phase9d_replacement_bug`, a bug plant sets `phase9e_bug_planted`, and an eavesdrop zone requires that flag before completing `phase9f_eavesdrop_complete`.
+
+**Limitations:** This is a reusable mechanics/data proof, not a finished side job. No production Taco placement, save schema, tail target, carry-object controller, or full mission-result integration is included.
 
 ## RouteUnlockNode
 
@@ -346,9 +378,9 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
 - Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof, a Phase 8E-8G-lite listener/poop-decoy bridge proof, and a Phase 8H-lite guard response proof; full guard pathing AI and production placement are still deferred
-- Puzzle kit has Phase 9A terminal/hack proof through `TerminalHackNode` plus Phase 9B linked power puzzle proof through `PowerCircuitNode`, `TimedSwitchNode`, and `PressurePlateNode`; side jobs, dead drops, object swaps, bug/eavesdrop zones, and custom sequences are still deferred
+- Puzzle kit has Phase 9A terminal/hack proof, Phase 9B linked power proof, and Phase 9C-9F side-job pieces through `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and `CustomSequenceRunner`; full side jobs, production placement, tailing, carry-object controllers, and save-schema work are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
-- No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
+- `CustomSequenceRunner` now covers small ordered side-job steps; presentation/cutscene sequencing remains deferred to canonical Phase 12 narrative/presentation bridges
 
 ## Recent mechanic nodes
 
@@ -366,6 +398,11 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 12. `TimedSwitchNode` — reusable switch that sets and expires a mission flag
 13. `PressurePlateNode` — occupancy-driven plate that sets/clears a mission flag
 14. `PowerCircuitNode` — linked-power checker that reads mission flags and applies normal effects when powered
+15. `DeadDropNode` — deposit/retrieve side-job stash using mission inventory and ordinary effects
+16. `ObjectSwapNode` — swaps a mission inventory item for an optional replacement and sets facts/effects
+17. `BugPlantNode` — consumes a bug item and marks a surveillance setup as planted
+18. `EavesdropZone` — timed listen zone that completes through mission facts/effects
+19. `CustomSequenceRunner` — small dependency-enforcing runner for authored side-job step order
 
 ## Related future editor tooling
 

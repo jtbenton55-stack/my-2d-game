@@ -1909,39 +1909,34 @@ All puzzle nodes should extend `MechanicAreaBase` unless they are pure data cont
 
 2026-06-20 Phase 9B status: implemented `PowerCircuitNode`, `TimedSwitchNode`, and `PressurePlateNode` as mission-local linked-power puzzle mechanics. `TimedSwitchNode` sets and expires a temporary mission flag, `PressurePlateNode` sets and clears a flag while pressed, and `PowerCircuitNode` checks configured mission flags before setting a circuit flag and applying normal effect sets. Mission Dock can place/audit all three, the authoring templates and dev-room proof demonstrate switch plus plate powering a circuit, and focused tests/static validation cover the contracts. No global puzzle manager, production Taco placement, side jobs, custom sequence resources, or save-schema changes were added.
 
-## Phase 10: Social Stealth
+2026-06-21 Phase 9C-9F status: implemented the next puzzle/side-job slice with `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, `CustomSequenceStep`, `CustomSequenceResource`, and `CustomSequenceRunner`. Dead drops can deposit or retrieve mission inventory items, object swaps consume one item and optionally grant a replacement, bug plants consume a bug item and set planted facts, eavesdrop zones complete after a short listen window, and sequence resources enforce ordered step dependencies through explicit `depends_on_step_ids`. Mission Dock supports placement/audit for the four placed node types, templates and a dev-room proof chain were added, and focused tests/static validation cover the contracts. No production Taco placement, global puzzle manager, save-schema changes, full side-job scenario, tail target, carry-object controller, or presentation/cutscene ownership was added.
+
+## Phase 10: Hideout Rewards / Cozy Meta Hooks
 
 ### Timing
 
-Implement after basic stealth/alert, inventory, and route/card systems.
+Implement after mission systems produce clear rewards.
 
-### Resource Files
+### Use Existing Controllers
 
-| Future File | Purpose |
-|---|---|
-| `src/missions/iso/social/CoverStoryData.gd` | What the player claims to be doing. |
-| `src/missions/iso/social/CredentialData.gd` | Badge, outfit, document, or social permission. |
-| `src/missions/iso/social/InspectionRuleSet.gd` | NPC/security acceptance rules. |
+Extend:
 
-### Mechanic Files
-
-| Future File | Extends | Purpose |
-|---|---|---|
-| `InspectionZone.gd` | `MechanicAreaBase` | Checks credential/cover story requirements. |
-| `BelievableTaskZone.gd` | `MechanicAreaBase` | Lets player perform a plausible task to reduce suspicion. |
-| `ProtocolZone.gd` | `MechanicAreaBase` | Requires procedure item/card/state. |
-| `ProfessionalismMeterNode.gd` | `Node` | Mission-local meter, not global at first. |
-| `CleanlinessGate.gd` | `LockedInteractionNode` | Requires cleanup/protocol state. |
+- `HideoutManager.gd`
+- `HideoutStoreController.gd`
+- `HideoutCareController.gd`
+- `HideoutCollectibleController.gd`
+- `HideoutDecorationController.gd`
+- `HideoutMissionBoardController.gd`
 
 ### Rule
 
-Social stealth state should start as mission facts and effects. Only add a dedicated manager after at least two missions need shared social state.
+Mission effects should not directly manipulate hideout UI nodes. They should grant data or flags. Hideout controllers should read and present that state.
 
 ## Phase 11: Paper Trail And Plausible Deniability
 
 ### Timing
 
-Implement after social stealth basics.
+Implement after puzzle/side-job and hideout reward contracts are stable enough to produce mission result context.
 
 ### Future Event Schema
 
@@ -1971,26 +1966,54 @@ Implement after social stealth basics.
 
 Trace should affect mission result summaries before it affects complex NPC behavior.
 
-## Phase 12: Hideout Meta Hooks
+## Phase 12: Narrative And Presentation / Cutscene Bridges
 
 ### Timing
 
-Implement after mission systems produce clear rewards.
+Implement after puzzle/side-job ordering, rewards, and paper-trail result context are stable enough to benefit from presentation polish.
 
-### Use Existing Controllers
+### Bridge Files
 
-Extend:
-
-- `HideoutManager.gd`
-- `HideoutStoreController.gd`
-- `HideoutCareController.gd`
-- `HideoutCollectibleController.gd`
-- `HideoutDecorationController.gd`
-- `HideoutMissionBoardController.gd`
+| Future File | Purpose |
+|---|---|
+| `src/missions/iso/presentation/DialogueTriggerZone.gd` | Placed dialogue trigger with cooldown/one-shot rules. |
+| `src/missions/iso/presentation/BarkTrigger.gd` | Placed bark/flavor trigger with spam prevention. |
+| `src/missions/iso/presentation/PresentationSequencePlayer.gd` | Coordinates short flavor beats through bridges. |
+| `src/missions/iso/presentation/CameraBridge.gd` | Camera focus/blend/shake/restore wrapper, optional PhantomCamera adapter. |
+| `src/missions/iso/presentation/PlayerControlBridge.gd` | Temporary input lock/guided movement with guaranteed restore. |
+| `src/missions/iso/presentation/AudioVisualBridge.gd` | Audio/visual cues with optional Resonant adapter. |
 
 ### Rule
 
-Mission effects should not directly manipulate hideout UI nodes. They should grant data or flags. Hideout controllers should read and present that state.
+Presentation bridges may call camera/player/audio systems, but mission mechanics should not call those systems directly. The Phase 9 `CustomSequenceRunner` remains gameplay-ordering infrastructure and should not become the cutscene owner.
+
+## Phase 13: Social Stealth
+
+### Timing
+
+Implement after basic stealth/alert, inventory, route/card systems, puzzle/side jobs, and paper-trail facts are stable.
+
+### Resource Files
+
+| Future File | Purpose |
+|---|---|
+| `src/missions/iso/social/CoverStoryData.gd` | What the player claims to be doing. |
+| `src/missions/iso/social/CredentialData.gd` | Badge, outfit, document, or social permission. |
+| `src/missions/iso/social/InspectionRuleSet.gd` | NPC/security acceptance rules. |
+
+### Mechanic Files
+
+| Future File | Extends | Purpose |
+|---|---|---|
+| `InspectionZone.gd` | `MechanicAreaBase` | Checks credential/cover story requirements. |
+| `BelievableTaskZone.gd` | `MechanicAreaBase` | Lets player perform a plausible task to reduce suspicion. |
+| `ProtocolZone.gd` | `MechanicAreaBase` | Requires procedure item/card/state. |
+| `ProfessionalismMeterNode.gd` | `Node` | Mission-local meter, not global at first. |
+| `CleanlinessGate.gd` | `LockedInteractionNode` | Requires cleanup/protocol state. |
+
+### Rule
+
+Social stealth state should start as mission facts and effects. Only add a dedicated manager after at least two missions need shared social state.
 
 ## Complete Phase Scope Index
 
@@ -2102,43 +2125,45 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Phase 7F | Wait marker | Lite proof implemented 2026-06-20 with `BentleyWaitMarker`, template, dev-room node, and `DogCompanion.command_wait()`. | Bentley position/timing can support puzzles through placed command markers. |
 | Phase 7G | Card modifiers | Lite proof implemented 2026-06-20 with CardEffects sniff/fetch cooldown/range helpers consumed by `DogCompanion.gd`. | Bentley card behavior is centralized and testable. |
 
-### Phase 8: Puzzle And Side Job Kit
+### Phase 8: Noise And Distraction
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 8A | Terminal/hack | `TerminalHackNode` built from locked interaction patterns. | Hacking is requirement/effect-driven. |
-| Phase 8B | Power/switches | `PowerCircuitNode`, `TimedSwitchNode`, `PressurePlateNode`. | Local puzzles toggle facts/routes without custom scripts. |
-| Phase 8C | Dead drops | `DeadDropNode` for deposit/retrieve flows. | Drop state is explicit and replay-safe. |
-| Phase 8D | Object swap/carry | `ObjectSwapNode` and carry-object requirements. | Carry/swap actions use inventory/facts. |
-| Phase 8E | Bug/eavesdrop | `BugPlantNode`, `EavesdropZone`. | Timed stealth objectives are effect-driven. |
-| Phase 8F | Custom chronographic sequences | `CustomSequenceResource`, `CustomSequenceStep`, `CustomSequenceRunner`. | Ordered steps enforce first-before-second logic without a giant orchestrator. |
-| Phase 8G | First side job | One small side job assembled mostly from reusable nodes. | Side job has validation scene/report and no mission-specific script dependency. |
-| Phase 8H | Second side job | Second side job using a different node combination. | Reuse is proven across more than one scenario. |
+| Phase 8A | Noise event schema | `NoiseEvent` dictionary/resource contract. | Noise is structured and inspectable. |
+| Phase 8B | Noise emitters | `NoiseEmitterNode` for placed authored noise. | Noise uses normal requirements/effects. |
+| Phase 8C | Distraction objects | `DistractionObject` and decoy defaults. | Distractions emit noise without a global manager. |
+| Phase 8D | Existing verb bridges | Bentley bark and poop-decoy noise output. | Existing mechanics feed the same noise path. |
+| Phase 8E | Listener component | `NoiseListenerComponent` for guard/NPC/debug receivers. | Listeners hear filtered noise events. |
+| Phase 8F | Alert/debug readability | Alert controller/debug panel noise summaries. | Designers can inspect noise consequences. |
+| Phase 8G | Scene/template proof | Dev-room/template validation. | Noise works in a reusable proof scene. |
+| Phase 8H | Guard response lite | `NoiseReactiveGuard` callback receiver. | Guard response is debuggable without pathfinding AI. |
 
-### Phase 9: Narrative And Presentation
+### Phase 9: Puzzle And Side Job Kit
 
-| Subphase | Scope | Primary Outputs | Validation Gate |
-|---|---|---|---|
-| Phase 9A | Dialogue key registry | Expand `MissionDialogueBridge` beyond fallback lines. | Mechanics trigger dialogue keys without knowing dialogue implementation. |
-| Phase 9B | Dialogue/bark triggers | `DialogueTriggerZone`, `BarkTrigger`, cooldown/one-shot rules. | Bark/dialogue spam is prevented. |
-| Phase 9C | Sequence runner presentation | Presentation-safe sequence steps for intro/outro/flavor beats. | Sequence runner does not own camera/player/audio directly. |
-| Phase 9D | Camera bridge | `CameraBridge` with optional PhantomCamera adapter. | Missing PhantomCamera fails safely or falls back. |
-| Phase 9E | Player control bridge | `PlayerControlBridge` for short locks/restores. | Player control always restores after interruption. |
-| Phase 9F | Audio-visual bridge | `AudioVisualBridge` with optional Resonant adapter. | Resonant remains presentation-only and not mission-state authority. |
-| Phase 9G | Mission intro/outro hooks | Data-driven start/end beats. | Intro/outro trigger from mission state without custom mission scripts. |
-| Phase 9H | Microcutscene decision gate | Add `MicroCutscenePlayer` only if sequence runner is too small. | No overlapping presentation systems are created prematurely. |
-
-### Phase 10: Social Stealth Identity
+Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. Earlier index rows that labeled this family as Phase 8 were superseded by Jake's approved grouped roadmap execution and Phase 9A-9F implementation.
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 10A | Social fact vocabulary | Cover story, credential, protocol, believable task, professionalism facts. | Social state starts as mission facts/effects. |
-| Phase 10B | Credential data | `CredentialData` and simple inspection requirements. | Inspection can check credentials without NPC rewrite. |
-| Phase 10C | Cover story data | `CoverStoryData` and requirement integration. | Plausible reason-to-be-there gates can be authored. |
-| Phase 10D | Inspection zones | `InspectionZone`. | NPC/security zone accepts/rejects player using data. |
-| Phase 10E | Believable tasks | `BelievableTaskZone`. | Performing tasks can reduce suspicion or unlock routes. |
-| Phase 10F | Protocol/cleanliness | `ProtocolZone`, `CleanlinessGate`, simple professionalism meter. | Social/protocol outcomes affect mission facts/results. |
-| Phase 10G | First social stealth slice | One mission area proves believable-action gameplay. | Player can pass through social logic without combat/AI overhaul. |
+| Phase 9A | Terminal/hack | Implemented: `TerminalHackNode` built from locked interaction patterns. | Hacking is requirement/effect-driven. |
+| Phase 9B | Power/switches | Implemented: `PowerCircuitNode`, `TimedSwitchNode`, `PressurePlateNode`. | Local puzzles toggle facts/routes without custom scripts. |
+| Phase 9C | Dead drops | Implemented: `DeadDropNode` for deposit/retrieve flows. | Drop state is explicit and replay-safe. |
+| Phase 9D | Object swap/carry | Implemented: `ObjectSwapNode` and item-swap requirements. | Swap actions use mission inventory/facts. |
+| Phase 9E | Bug/eavesdrop | Implemented: `BugPlantNode`, `EavesdropZone`. | Timed stealth objectives are effect-driven. |
+| Phase 9F | Custom chronographic sequences | Implemented: `CustomSequenceResource`, `CustomSequenceStep`, `CustomSequenceRunner`. | Ordered steps enforce first-before-second logic without a giant orchestrator. |
+| Phase 9G | First side job | One small side job assembled mostly from reusable nodes. | Side job has validation scene/report and no mission-specific script dependency. |
+| Phase 9H | Second side job | Second side job using a different node combination. | Reuse is proven across more than one scenario. |
+| Phase 9I | Production adoption gate | Optional tiny production placement after dev proofs. | Production placement does not regress Taco/Phase0J/Phase0K. |
+
+### Phase 10: Hideout Rewards / Cozy Meta Hooks
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 10A | Reward-to-hideout contract | Define which mission rewards become hideout-visible state. | Mission effects grant data, not direct UI mutations. |
+| Phase 10B | Hideout reward adapter | Bridge mission rewards into existing hideout controllers. | No duplicate hideout reward manager is added prematurely. |
+| Phase 10C | Store/care hooks | Extend existing store/care flows where needed. | Hideout controllers own UI and interactions. |
+| Phase 10D | Collectible/decoration hooks | Connect mission rewards to collectible/decoration state. | Rewards are visible without direct mission-to-UI calls. |
+| Phase 10E | Mission-return hooks | Reward triggers after mission completion. | Rewards apply after success, not failure/restart. |
+| Phase 10F | Save/load and regression | Validate current save-safe reward state. | Hideout reward state does not corrupt saves. |
 
 ### Phase 11: Paper Trail / Deniability
 
@@ -2151,42 +2176,56 @@ Status note as of 2026-05-22, updated 2026-06-13: Phase 3G PVGames Object Palett
 | Phase 11E | Door/action memory | `DoorStateMemoryNode` and suspicious-state facts. | Player actions can affect deniability. |
 | Phase 11F | Result summary integration | Mission result reflects clean/messy/explainable/seen states. | Trace affects results before complex NPC behavior. |
 
-### Phase 12: Hideout Cozy Meta
+### Phase 12: Narrative And Presentation
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 12A | Reward-to-hideout contract | Define which mission rewards become hideout-visible state. | Mission effects grant data, not direct UI mutations. |
-| Phase 12B | Plant data | Plant Resource and growth stage data. | Plant state is save/load-safe. |
-| Phase 12C | Care station improvements | Extend existing care/store/hideout controllers. | Hideout controllers own UI and interactions. |
-| Phase 12D | Mission-return hooks | Growth/reward triggers after mission completion. | Rewards apply after success, not failure/restart. |
-| Phase 12E | Dialogue/reward flavor | Plant/Bentley/hideout dialogue tied to rewards. | Flavor uses dialogue bridge/provider patterns. |
-| Phase 12F | Save/load and regression | Full save/load validation for cozy meta changes. | Hideout state persists cleanly. |
+| Phase 12A | Dialogue key registry | Expand `MissionDialogueBridge` beyond fallback lines. | Mechanics trigger dialogue keys without knowing dialogue implementation. |
+| Phase 12B | Dialogue/bark triggers | `DialogueTriggerZone`, `BarkTrigger`, cooldown/one-shot rules. | Bark/dialogue spam is prevented. |
+| Phase 12C | Presentation sequence player | Presentation-safe sequence player for intro/outro/flavor beats. | Presentation sequencing does not own mission gameplay state. |
+| Phase 12D | Camera bridge | `CameraBridge` with optional PhantomCamera adapter. | Missing PhantomCamera fails safely or falls back. |
+| Phase 12E | Player control bridge | `PlayerControlBridge` for short locks/restores. | Player control always restores after interruption. |
+| Phase 12F | Audio-visual bridge | `AudioVisualBridge` with optional Resonant adapter. | Resonant remains presentation-only and not mission-state authority. |
+| Phase 12G | Mission intro/outro hooks | Data-driven start/end beats. | Intro/outro trigger from mission state without custom mission scripts. |
+| Phase 12H | Microcutscene decision gate | Add `MicroCutscenePlayer` only if bridges are too small. | No overlapping presentation systems are created prematurely. |
 
-### Phase 13: Encounter / Boss Challenges
-
-| Subphase | Scope | Primary Outputs | Validation Gate |
-|---|---|---|---|
-| Phase 13A | Encounter design contract | Define non-HP challenge principles: stealth, social, route, evidence, Bentley, deniability. | Encounter work does not default to traditional combat. |
-| Phase 13B | Encounter data | `EncounterPhaseData` and challenge meter definitions. | Encounter phase logic is data-driven. |
-| Phase 13C | Encounter controller | `EncounterController` that reads facts/objectives/effects. | Controller does not duplicate objective or alert managers. |
-| Phase 13D | Challenge objective nodes | `ChallengeObjectiveNode` and phase-gated mechanic integration. | Challenge steps reuse mission-authoring mechanics. |
-| Phase 13E | Meter integration | Suspicion, security integrity, evidence strength, Bentley confidence, deniability meters. | Meters derive from existing facts/events. |
-| Phase 13F | First challenge prototype | One contained encounter validation scene. | Player can win through authored systems, not HP combat. |
-| Phase 13G | Production challenge gate | Only after side jobs/social/paper trail are stable. | No production boss challenge begins before required systems exist. |
-
-### Phase 14: Advanced Reactive NPC/Social Systems
+### Phase 13: Social Stealth Identity
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 14A | AI readiness audit | Identify what current guards/NPCs/social systems cannot express. | LimboAI is justified by concrete needs, not novelty. |
-| Phase 14B | LimboAI adapter spike | Optional behavior-tree/state-machine adapter behind project-owned interfaces. | Existing guards/security do not depend directly on plugin APIs. |
-| Phase 14C | Witness/courier prototype | A small witness courier or routine NPC scenario. | NPC behavior reacts to facts/events without global rewrite. |
-| Phase 14D | Gossip/authority chain | Gossip propagation and authority escalation as bounded experiments. | Social propagation remains debuggable and capped. |
-| Phase 14E | Routine tampering/emergency drill | Advanced reactive scenarios after simpler social stealth works. | Systems degrade safely when events are missing. |
-| Phase 14F | Attention budget/cascading failure | Bounded simulation rules to avoid runaway behavior. | Debug panels show why reactions happen. |
-| Phase 14G | Production adoption gate | Only after NPC, suspicion, social stealth, route, and fact systems are stable. | Plugin dependency and fallback policy are documented. |
+| Phase 13A | Social fact vocabulary | Cover story, credential, protocol, believable task, professionalism facts. | Social state starts as mission facts/effects. |
+| Phase 13B | Credential data | `CredentialData` and simple inspection requirements. | Inspection can check credentials without NPC rewrite. |
+| Phase 13C | Cover story data | `CoverStoryData` and requirement integration. | Plausible reason-to-be-there gates can be authored. |
+| Phase 13D | Inspection zones | `InspectionZone`. | NPC/security zone accepts/rejects player using data. |
+| Phase 13E | Believable tasks | `BelievableTaskZone`. | Performing tasks can reduce suspicion or unlock routes. |
+| Phase 13F | Protocol/cleanliness | `ProtocolZone`, `CleanlinessGate`, simple professionalism meter. | Social/protocol outcomes affect mission facts/results. |
+| Phase 13G | First social stealth slice | One mission area proves believable-action gameplay. | Player can pass through social logic without combat/AI overhaul. |
 
-## Phase 13: Encounter / Boss Challenge Layer
+### Phase 14: Encounter / Boss Challenges
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 14A | Encounter design contract | Define non-HP challenge principles: stealth, social, route, evidence, Bentley, deniability. | Encounter work does not default to traditional combat. |
+| Phase 14B | Encounter data | `EncounterPhaseData` and challenge meter definitions. | Encounter phase logic is data-driven. |
+| Phase 14C | Encounter controller | `EncounterController` that reads facts/objectives/effects. | Controller does not duplicate objective or alert managers. |
+| Phase 14D | Challenge objective nodes | `ChallengeObjectiveNode` and phase-gated mechanic integration. | Challenge steps reuse mission-authoring mechanics. |
+| Phase 14E | Meter integration | Suspicion, security integrity, evidence strength, Bentley confidence, deniability meters. | Meters derive from existing facts/events. |
+| Phase 14F | First challenge prototype | One contained encounter validation scene. | Player can win through authored systems, not HP combat. |
+| Phase 14G | Production challenge gate | Only after side jobs/social/paper trail are stable. | No production boss challenge begins before required systems exist. |
+
+### Phase 15: Advanced Reactive NPC/Social Systems
+
+| Subphase | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Phase 15A | AI readiness audit | Identify what current guards/NPCs/social systems cannot express. | LimboAI is justified by concrete needs, not novelty. |
+| Phase 15B | LimboAI adapter spike | Optional behavior-tree/state-machine adapter behind project-owned interfaces. | Existing guards/security do not depend directly on plugin APIs. |
+| Phase 15C | Witness/courier prototype | A small witness courier or routine NPC scenario. | NPC behavior reacts to facts/events without global rewrite. |
+| Phase 15D | Gossip/authority chain | Gossip propagation and authority escalation as bounded experiments. | Social propagation remains debuggable and capped. |
+| Phase 15E | Routine tampering/emergency drill | Advanced reactive scenarios after simpler social stealth works. | Systems degrade safely when events are missing. |
+| Phase 15F | Attention budget/cascading failure | Bounded simulation rules to avoid runaway behavior. | Debug panels show why reactions happen. |
+| Phase 15G | Production adoption gate | Only after NPC, suspicion, social stealth, route, fact, and deniability systems are stable. | Plugin dependency and fallback policy are documented. |
+
+## Phase 14: Encounter / Boss Challenge Layer
 
 ### Timing
 
@@ -2227,7 +2266,7 @@ Use these meters before inventing combat health:
 3. Encounter state is debuggable in a report or debug panel.
 4. No duplicate objective, alert, card, inventory, or completion manager is introduced.
 
-## Phase 14: Advanced Reactive NPC / Social Systems
+## Phase 15: Advanced Reactive NPC / Social Systems
 
 ### Timing
 

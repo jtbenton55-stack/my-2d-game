@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="1_eavesdrop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eavesdrop"]
+size = Vector2(128, 96)
+
+[node name="EavesdropZoneTemplate" type="Area2D"]
+script = ExtResource("1_eavesdrop")
+eavesdrop_id = &"CHANGE_ME_EAVESDROP_ID"
+completed_flag = &"CHANGE_ME_EAVESDROP_COMPLETE"
+mechanic_id = &"CHANGE_ME_EAVESDROP_ZONE_ID"
+display_name = "Eavesdrop Zone"
+prompt_text = "Stay hidden and listen"
+shape_size = Vector2(128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eavesdrop")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -60.0
+offset_right = 120.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Eavesdrop"
+horizontal_alignment = 1

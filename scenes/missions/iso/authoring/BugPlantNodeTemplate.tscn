@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="1_bug_plant"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bug_plant"]
+size = Vector2(96, 96)
+
+[node name="BugPlantNodeTemplate" type="Area2D"]
+script = ExtResource("1_bug_plant")
+bug_id = &"CHANGE_ME_BUG_ID"
+bug_item_id = &"CHANGE_ME_BUG_ITEM_ID"
+planted_flag = &"CHANGE_ME_BUG_PLANTED"
+mechanic_id = &"CHANGE_ME_BUG_PLANT_ID"
+display_name = "Bug Plant"
+prompt_text = "Press E: Plant bug"
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bug_plant")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Bug Plant"
+horizontal_alignment = 1

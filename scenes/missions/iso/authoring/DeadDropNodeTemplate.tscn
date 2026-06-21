@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="1_dead_drop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dead_drop"]
+size = Vector2(96, 96)
+
+[node name="DeadDropNodeTemplate" type="Area2D"]
+script = ExtResource("1_dead_drop")
+drop_id = &"CHANGE_ME_DROP_ID"
+item_id = &"CHANGE_ME_ITEM_ID"
+completed_flag = &"CHANGE_ME_DROP_COMPLETE"
+mechanic_id = &"CHANGE_ME_DEAD_DROP_ID"
+display_name = "Dead Drop"
+prompt_text = "Press E: Use dead drop"
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dead_drop")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Dead Drop"
+horizontal_alignment = 1

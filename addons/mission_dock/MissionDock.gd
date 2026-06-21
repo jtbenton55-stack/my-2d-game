@@ -15,6 +15,10 @@ const MECHANIC_TYPES: Array[String] = [
 	"PowerCircuitNode",
 	"TimedSwitchNode",
 	"PressurePlateNode",
+	"DeadDropNode",
+	"ObjectSwapNode",
+	"BugPlantNode",
+	"EavesdropZone",
 	"RouteUnlockNode",
 	"InteractiveContainer",
 	"ExtractionZone",
@@ -36,6 +40,10 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"PowerCircuitNode": "res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd",
 	"TimedSwitchNode": "res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd",
 	"PressurePlateNode": "res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd",
+	"DeadDropNode": "res://src/missions/iso/authoring/mechanics/DeadDropNode.gd",
+	"ObjectSwapNode": "res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd",
+	"BugPlantNode": "res://src/missions/iso/authoring/mechanics/BugPlantNode.gd",
+	"EavesdropZone": "res://src/missions/iso/authoring/mechanics/EavesdropZone.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
 	"ExtractionZone": "res://src/missions/iso/authoring/mechanics/ExtractionZone.gd",
@@ -429,6 +437,14 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Trigger switch"
 		"PressurePlateNode":
 			_prompt_text.text = "Step onto pressure plate"
+		"DeadDropNode":
+			_prompt_text.text = "Press E: Use dead drop"
+		"ObjectSwapNode":
+			_prompt_text.text = "Press E: Swap object"
+		"BugPlantNode":
+			_prompt_text.text = "Press E: Plant bug"
+		"EavesdropZone":
+			_prompt_text.text = "Stay hidden and listen"
 		"RouteUnlockNode":
 			_prompt_text.text = "Press E: Open Route"
 		"InteractiveContainer":
@@ -830,6 +846,26 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 			node.set("pressed_flag", StringName("%s_pressed" % base_id))
 			node.set("interaction_mode", MechanicAreaBase.InteractionMode.SCRIPT_ONLY)
 			node.set("one_shot", false)
+		"DeadDropNode":
+			node.set("drop_id", StringName(base_id))
+			node.set("item_id", StringName("%s_item" % base_id))
+			node.set("completed_flag", StringName("%s_completed" % base_id))
+			node.set("opened_flag", StringName("%s_opened" % base_id))
+			node.set("searched_flag", StringName("%s_searched" % base_id))
+		"ObjectSwapNode":
+			node.set("swap_id", StringName(base_id))
+			node.set("required_item_id", StringName("%s_required_item" % base_id))
+			node.set("replacement_item_id", StringName("%s_replacement_item" % base_id))
+			node.set("swapped_flag", StringName("%s_swapped" % base_id))
+		"BugPlantNode":
+			node.set("bug_id", StringName(base_id))
+			node.set("bug_item_id", StringName("%s_bug" % base_id))
+			node.set("planted_flag", StringName("%s_planted" % base_id))
+		"EavesdropZone":
+			node.set("eavesdrop_id", StringName(base_id))
+			node.set("completed_flag", StringName("%s_completed" % base_id))
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.SCRIPT_ONLY)
+			node.set("one_shot", true)
 		"RouteUnlockNode":
 			node.set("route_id", StringName(base_id))
 			node.set("route_flag", StringName("%s_open" % base_id))
@@ -1140,7 +1176,7 @@ func _audit_duplicate_ids(mechanics: Array[Node]) -> void:
 func _audit_duplicate_flags(mechanics: Array[Node]) -> void:
 	var flag_properties := [
 		"searched_flag", "collected_flag", "route_flag", "unlocked_flag", "hack_completed_flag",
-		"circuit_flag", "switch_flag", "pressed_flag", "opened_flag", "extraction_flag", "objective_flag",
+		"circuit_flag", "switch_flag", "pressed_flag", "completed_flag", "swapped_flag", "planted_flag", "opened_flag", "extraction_flag", "objective_flag",
 	]
 	for property in flag_properties:
 		var buckets: Dictionary = {}
@@ -1199,6 +1235,28 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_plate_id", "PressurePlateNode missing plate_id.", node))
 	if node is PressurePlateNode and String(node.get("pressed_flag")).strip_edges() == "":
 		_audit_issues.append(_issue("Warning", "missing_pressed_flag", "PressurePlateNode has no pressed_flag for circuits or requirements.", node))
+	if node is DeadDropNode and String(node.get("drop_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_drop_id", "DeadDropNode missing drop_id.", node))
+	if node is DeadDropNode and String(node.get("item_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_dead_drop_item_id", "DeadDropNode missing item_id.", node))
+	if node is DeadDropNode and String(node.get("completed_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_dead_drop_completed_flag", "DeadDropNode has no completed_flag for downstream facts.", node))
+	if node is ObjectSwapNode and String(node.get("swap_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_swap_id", "ObjectSwapNode missing swap_id.", node))
+	if node is ObjectSwapNode and String(node.get("required_item_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_swap_required_item_id", "ObjectSwapNode missing required_item_id.", node))
+	if node is ObjectSwapNode and String(node.get("swapped_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_swapped_flag", "ObjectSwapNode has no swapped_flag for downstream facts.", node))
+	if node is BugPlantNode and String(node.get("bug_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_bug_id", "BugPlantNode missing bug_id.", node))
+	if node is BugPlantNode and String(node.get("bug_item_id")).strip_edges() == "" and bool(node.get("consume_bug_item")):
+		_audit_issues.append(_issue("Error", "missing_bug_item_id", "BugPlantNode consumes an item but has no bug_item_id.", node))
+	if node is BugPlantNode and String(node.get("planted_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_planted_flag", "BugPlantNode has no planted_flag for downstream facts.", node))
+	if node is EavesdropZone and String(node.get("eavesdrop_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_eavesdrop_id", "EavesdropZone missing eavesdrop_id.", node))
+	if node is EavesdropZone and String(node.get("completed_flag")).strip_edges() == "":
+		_audit_issues.append(_issue("Warning", "missing_eavesdrop_completed_flag", "EavesdropZone has no completed_flag for downstream facts.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":

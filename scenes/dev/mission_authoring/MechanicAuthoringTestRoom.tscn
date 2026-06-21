@@ -31,12 +31,16 @@
 [ext_resource type="Script" uid="uid://cj1h0m0itfac4" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="27_power_circuit"]
 [ext_resource type="Script" uid="uid://c0wmuyp30r4df" path="res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd" id="28_timed_switch"]
 [ext_resource type="Script" uid="uid://c3s353xuq5isg" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="29_pressure_plate"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
-size = Vector2(96, 96)
+[ext_resource type="Script" uid="uid://du0c0skbragih" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="30_dead_drop"]
+[ext_resource type="Script" uid="uid://j2p22r6ddr6k" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="31_object_swap"]
+[ext_resource type="Script" uid="uid://cp3b1k5t042o3" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="32_bug_plant"]
+[ext_resource type="Script" uid="uid://dtgygi27nc2ns" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="33_eavesdrop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(96, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhsj6"]
 size = Vector2(96, 96)
@@ -240,6 +244,60 @@ key = "phase9b_circuit_powered_effect"
 script = ExtResource("6_bwj2c")
 set_id = &"phase9b_circuit_effect_set"
 effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9b_circuit_effect")])
+
+[sub_resource type="Resource" id="Resource_phase9c_dead_drop_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase9c_dead_drop_complete"
+key = "phase9c_dead_drop_complete_effect"
+
+[sub_resource type="Resource" id="Resource_phase9c_dead_drop_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"phase9c_dead_drop_effect_set"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9c_dead_drop_effect")])
+
+[sub_resource type="Resource" id="Resource_phase9d_object_swap_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase9d_object_swapped"
+key = "phase9d_object_swapped_effect"
+
+[sub_resource type="Resource" id="Resource_phase9d_object_swap_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"phase9d_object_swap_effect_set"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9d_object_swap_effect")])
+
+[sub_resource type="Resource" id="Resource_phase9e_bug_plant_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase9e_bug_planted"
+key = "phase9e_bug_planted_effect"
+
+[sub_resource type="Resource" id="Resource_phase9e_bug_plant_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"phase9e_bug_plant_effect_set"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9e_bug_plant_effect")])
+
+[sub_resource type="Resource" id="Resource_phase9f_eavesdrop_req"]
+script = ExtResource("12_bwj2c")
+requirement_id = &"phase9f_requires_bug_planted"
+fact_type = &"mission_flag"
+key = "phase9e_bug_planted"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Plant the bug before eavesdropping."
+
+[sub_resource type="Resource" id="Resource_phase9f_eavesdrop_req_set"]
+script = ExtResource("13_mq6f0")
+requirements = Array[ExtResource("12_bwj2c")]([SubResource("Resource_phase9f_eavesdrop_req")])
+locked_message = "Plant the bug first."
+
+[sub_resource type="Resource" id="Resource_phase9f_eavesdrop_effect"]
+script = ExtResource("5_gqhhr")
+effect_id = &"effect_phase9f_eavesdrop_complete"
+key = "phase9f_eavesdrop_complete_effect"
+
+[sub_resource type="Resource" id="Resource_phase9f_eavesdrop_effect_set"]
+script = ExtResource("6_bwj2c")
+set_id = &"phase9f_eavesdrop_effect_set"
+effects = Array[ExtResource("5_gqhhr")]([SubResource("Resource_phase9f_eavesdrop_effect")])
 
 [node name="MechanicAuthoringTestRoom" type="Node2D" unique_id=1506650967]
 script = ExtResource("1_controller")
@@ -1546,4 +1604,155 @@ offset_right = 130.0
 offset_bottom = -40.0
 theme_override_font_sizes/font_size = 9
 text = "CIRCUIT"
+horizontal_alignment = 1
+
+[node name="DeadDropNode_phase9c_retrieve" type="Area2D" parent="MissionMechanics" unique_id=2023013696]
+position = Vector2(136, -136)
+collision_layer = 8
+script = ExtResource("30_dead_drop")
+drop_id = &"phase9c_dead_drop"
+drop_mode = "retrieve"
+item_id = &"phase9c_package"
+completed_flag = &"phase9c_dead_drop_complete"
+container_kind = "stash"
+opened_flag = &"phase9c_dead_drop_opened"
+searched_flag = &"phase9c_dead_drop_searched"
+mechanic_id = &"phase9c_dead_drop"
+display_name = "Phase 9C Dead Drop"
+interaction_priority = 355
+prompt_text = "Press E: Retrieve dead drop"
+success_effects = SubResource("Resource_phase9c_dead_drop_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.75, 0.5, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/DeadDropNode_phase9c_retrieve" unique_id=1685298608]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/DeadDropNode_phase9c_retrieve" unique_id=384212359]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "9C: Dead drop retrieves item"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/DeadDropNode_phase9c_retrieve" unique_id=1670378098]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "DEAD DROP"
+horizontal_alignment = 1
+
+[node name="ObjectSwapNode_phase9d_swap" type="Area2D" parent="MissionMechanics" unique_id=818057853]
+position = Vector2(152, 88)
+collision_layer = 8
+script = ExtResource("31_object_swap")
+swap_id = &"phase9d_object_swap"
+required_item_id = &"phase9c_package"
+replacement_item_id = &"phase9d_replacement_bug"
+swapped_flag = &"phase9d_object_swapped"
+mechanic_id = &"phase9d_object_swap"
+display_name = "Phase 9D Object Swap"
+interaction_priority = 350
+prompt_text = "Press E: Swap package"
+success_effects = SubResource("Resource_phase9d_object_swap_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.85, 0.55, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/ObjectSwapNode_phase9d_swap" unique_id=1553457371]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/ObjectSwapNode_phase9d_swap" unique_id=1510673605]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "9D: Swap retrieved item"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/ObjectSwapNode_phase9d_swap" unique_id=2123789263]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "SWAP"
+horizontal_alignment = 1
+
+[node name="BugPlantNode_phase9e_plant" type="Area2D" parent="MissionMechanics" unique_id=598054101]
+position = Vector2(264, -304)
+collision_layer = 8
+script = ExtResource("32_bug_plant")
+bug_id = &"phase9e_bug_plant"
+bug_item_id = &"phase9d_replacement_bug"
+planted_flag = &"phase9e_bug_planted"
+mechanic_id = &"phase9e_bug_plant"
+display_name = "Phase 9E Bug Plant"
+interaction_priority = 345
+prompt_text = "Press E: Plant bug"
+success_effects = SubResource("Resource_phase9e_bug_plant_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.2, 0.9, 0.85, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BugPlantNode_phase9e_plant" unique_id=1795639077]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/BugPlantNode_phase9e_plant" unique_id=263673068]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "9E: Plant bug with swapped item"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/BugPlantNode_phase9e_plant" unique_id=607565360]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "BUG PLANT"
+horizontal_alignment = 1
+
+[node name="EavesdropZone_phase9f_listen" type="Area2D" parent="MissionMechanics" unique_id=821721132]
+position = Vector2(304, -144)
+collision_layer = 8
+script = ExtResource("33_eavesdrop")
+eavesdrop_id = &"phase9f_eavesdrop"
+completed_flag = &"phase9f_eavesdrop_complete"
+listen_seconds = 0.0
+mechanic_id = &"phase9f_eavesdrop"
+display_name = "Phase 9F Eavesdrop"
+interaction_mode = 2
+interaction_priority = 340
+prompt_text = "Stay hidden and listen"
+requirements = SubResource("Resource_phase9f_eavesdrop_req_set")
+success_effects = SubResource("Resource_phase9f_eavesdrop_effect_set")
+debug_label_path = NodePath("StateLabel")
+preview_color = Color(0.95, 0.35, 0.6, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/EavesdropZone_phase9f_listen" unique_id=964462574]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="HintLabel" type="Label" parent="MissionMechanics/EavesdropZone_phase9f_listen" unique_id=1855129958]
+offset_left = -130.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -58.0
+theme_override_font_sizes/font_size = 9
+text = "9F: Eavesdrop after bug planted"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MissionMechanics/EavesdropZone_phase9f_listen" unique_id=825583615]
+offset_left = -130.0
+offset_top = -56.0
+offset_right = 130.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 9
+text = "EAVESDROP"
 horizontal_alignment = 1

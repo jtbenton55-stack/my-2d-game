@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="1_object_swap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_object_swap"]
+size = Vector2(96, 96)
+
+[node name="ObjectSwapNodeTemplate" type="Area2D"]
+script = ExtResource("1_object_swap")
+swap_id = &"CHANGE_ME_SWAP_ID"
+required_item_id = &"CHANGE_ME_REQUIRED_ITEM_ID"
+replacement_item_id = &"CHANGE_ME_REPLACEMENT_ITEM_ID"
+swapped_flag = &"CHANGE_ME_SWAPPED"
+mechanic_id = &"CHANGE_ME_OBJECT_SWAP_ID"
+display_name = "Object Swap"
+prompt_text = "Press E: Swap object"
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_object_swap")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -110.0
+offset_top = -60.0
+offset_right = 110.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Object Swap"
+horizontal_alignment = 1

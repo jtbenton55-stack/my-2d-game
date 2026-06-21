@@ -1518,7 +1518,9 @@ Make Bentley a systemic partner.
 - Added centralized CardEffects helpers for Bentley sniff cooldown, fetch cooldown, and fetch range, with `fish_treat_focus` proving card-specific command tuning without adding a new companion manager.
 - Added crawlspace/wait templates, Mission Dock placement defaults, dev-room proof nodes, focused GdUnit coverage, and static validation coverage. Production mission placement remains deferred.
 
-## Phase 8: Puzzle And Side Job Kit
+## Phase 9: Puzzle And Side Job Kit
+
+Canonical numbering note as of 2026-06-21: the Puzzle And Side Job Kit is Phase 9. Earlier roadmap/index text that referred to this family as Phase 8 was superseded after Jake approved the faster grouped-milestone execution plan and Phase 9A-9F implementation.
 
 ### Goal
 
@@ -1542,6 +1544,8 @@ Create repeatable mission variety from a compact set of puzzle verbs.
 
 2026-06-20 Phase 9B status: implemented `PowerCircuitNode`, `TimedSwitchNode`, and `PressurePlateNode` as the first linked-power puzzle slice. Timed switches and pressure plates write mission-local flags, and power circuits read those flags to set a circuit flag and apply ordinary success/failure effects. Mission Dock placement/audit support, template scenes, dev-room proof nodes, focused GdUnit coverage, static validation, and an AI report were added. No production Taco placement, global puzzle manager, side-job scenario, custom sequence runner, or save-schema changes were added.
 
+2026-06-21 Phase 9C-9F status: implemented `DeadDropNode`, `ObjectSwapNode`, `BugPlantNode`, `EavesdropZone`, and a small `CustomSequenceResource` / `CustomSequenceStep` / `CustomSequenceRunner` stack. The placed nodes use mission inventory, mission flags, requirements, and ordinary `EffectSet` outputs; the sequence runner enforces explicit step dependencies without owning camera/player/audio or adding a global puzzle manager. Mission Dock placement/audit support, template scenes, a dev-room retrieve -> swap -> bug plant -> eavesdrop chain, focused GdUnit coverage, static validation, and an AI report were added. No production Taco placement, save-schema changes, full side-job scenario, tail target, carry-object controller, or presentation/cutscene system was added.
+
 ### Custom Sequence Direction
 
 Prefer small data-driven custom sequences over a giant global orchestrator. A `CustomSequenceResource` should define ordered steps with `step_id`, `order_index`, requirements, completion conditions, and effects. Chronographic relationships should be explicit through `depends_on_step_ids` and readable editor gizmos.
@@ -1560,7 +1564,64 @@ Prefer small data-driven custom sequences over a giant global orchestrator. A `C
 - Puzzle nodes share the same requirement/effect/debug conventions as the core mission kit.
 - Sequence puzzles can enforce authored order without mission-specific GDScript or a large orchestrator.
 
-## Phase 9: Narrative And Presentation
+## Phase 10: Hideout Rewards / Cozy Meta Hooks
+
+### Goal
+
+Strengthen the between-mission emotional loop after mission authoring is stable.
+
+### Extend
+
+- `HideoutCareController`
+- `HideoutStoreController`
+- `HideoutCollectibleController`
+- `HideoutDecorationController`
+- `HideoutMissionBoardController`
+
+### Build
+
+1. Reward-to-hideout contract.
+2. Hideout-visible reward state.
+3. Store/care/collectible/decoration hooks.
+4. Mission-return reward triggers.
+5. Cozy reward flavor without direct mission-to-UI mutation.
+
+### Done Criteria
+
+- Mission rewards visibly affect hideout state.
+- Hideout controllers own UI and presentation.
+- Reward data is safe for the current save/load model.
+
+## Phase 11: Paper Trail / Deniability
+
+### Goal
+
+Make evidence, cleanup, trace, and plausible denial into gameplay.
+
+### Build
+
+1. Runtime trace event schema.
+2. Trace recording adapter.
+3. Audit trail cleanup node.
+4. Heat sink / misdirection object.
+5. Door/action memory.
+6. Mission result summary integration.
+
+### Reuse
+
+- evidence board
+- `GameState` evidence records
+- mission performance events
+- mission result payloads
+
+### Done Criteria
+
+- The player can leave trace events.
+- The player can clean up or redirect some trace events.
+- Mission results can reflect whether the player was suspicious, seen, explainable, or deniable.
+- Early work stays mission-local/runtime-first without forcing a save-schema rewrite.
+
+## Phase 12: Narrative And Presentation
 
 ### Goal
 
@@ -1571,15 +1632,15 @@ Add story, jokes, mission flavor, and pacing without hardcoding dialogue into me
 1. `MissionDialogueBridge` expansion for real dialogue-key lookup while preserving simple fallback lines.
 2. `DialogueTriggerZone`.
 3. `BarkTrigger`.
-4. `CustomSequenceRunner` for short authored sequences and mission presentation beats.
+4. Presentation-safe sequence player for short flavor beats.
 5. `CameraBridge` for named camera focus, blends, shake, and restore behavior.
 6. PhantomCamera integration behind `CameraBridge` when camera presentation needs plugin-grade framing and blends.
 7. `PlayerControlBridge` for temporary input lock, guided movement, and restore behavior during short sequences.
 8. `AudioVisualBridge` for named presentation cues.
 9. Resonant visual audio manager integration behind `AudioVisualBridge` for audio-reactive mission, UI, dialogue, alarm, and ambience feedback.
-10. `MicroCutscenePlayer` only if the custom sequence runner proves too small for a recurring presentation need.
-11. Mission intro hooks.
-12. Mission outro hooks.
+10. Mission intro hooks.
+11. Mission outro hooks.
+12. `MicroCutscenePlayer` only if bridge-based presentation proves too small for recurring needs.
 
 ### Reuse
 
@@ -1596,9 +1657,10 @@ Add story, jokes, mission flavor, and pacing without hardcoding dialogue into me
 - A mission intro/outro can be triggered by mission state.
 - Bark spam is prevented by cooldowns or one-shot settings.
 - Camera, player-control, and visual-audio plugin calls are routed through bridges rather than scattered through mechanics.
-- If PhantomCamera or Resonant are absent, sequence steps fail safely or fall back to built-in behavior.
+- If PhantomCamera or Resonant are absent, presentation steps fail safely or fall back to built-in behavior.
+- The Phase 9 `CustomSequenceRunner` remains gameplay-ordering infrastructure and does not directly own camera, player control, or audio.
 
-## Phase 10: Social Stealth Identity
+## Phase 13: Social Stealth Identity
 
 ### Goal
 
@@ -1619,61 +1681,7 @@ Make the game about acting believable, not only hiding.
 - A believable task can reduce suspicion or prevent inspection.
 - Professionalism/cleanliness can act as mission facts.
 
-## Phase 11: Paper Trail / Deniability
-
-### Goal
-
-Make evidence, cleanup, trace, and plausible denial into gameplay.
-
-### Build
-
-1. Paper trail adapter/manager.
-2. Audit trail cleanup node.
-3. Plausible deniability meter.
-4. Door state memory.
-5. Suspicion provenance.
-6. Heat sink object.
-
-### Reuse
-
-- evidence board
-- `GameState` evidence records
-- mission performance events
-
-### Done Criteria
-
-- The player can leave trace events.
-- The player can clean up some trace events.
-- Mission results can reflect whether the player was suspicious, seen, explainable, or deniable.
-
-## Phase 12: Hideout Cozy Meta
-
-### Goal
-
-Strengthen the between-mission emotional loop after mission authoring is stable.
-
-### Extend
-
-- `HideoutCareController`
-- `HideoutStoreController`
-- `HideoutCollectibleController`
-- decoration/store systems
-
-### Build
-
-1. Plant data.
-2. Plant growth stage data.
-3. Care station improvements.
-4. Mission-return growth triggers.
-5. Plant rewards/dialogue.
-
-### Done Criteria
-
-- Mission rewards visibly affect hideout state.
-- Hideout care creates low-pressure reasons to return.
-- Systems save/load cleanly.
-
-## Phase 13: Encounter / Boss Challenges
+## Phase 14: Encounter / Boss Challenges
 
 ### Goal
 
@@ -1699,7 +1707,7 @@ Traditional HP combat as the default challenge model.
 - A challenge can progress through phases using objective/fact state.
 - The player wins through stealth, social, route, evidence, or Bentley play.
 
-## Phase 14: Advanced Reactive NPC/Social Systems
+## Phase 15: Advanced Reactive NPC/Social Systems
 
 ### Goal
 
@@ -1720,7 +1728,7 @@ Make mature levels feel alive and reactive after the core systems are stable.
 
 ### Done Criteria
 
-- Only start this phase after NPC, suspicion, social stealth, route, and fact systems are stable.
+- Only start this phase after NPC, suspicion, social stealth, route, fact, paper-trail, and encounter systems are stable.
 - LimboAI is used for mature NPC/guard/social behavior only after simpler authored command points and security authoring prove insufficient.
 
 ## Current Short-Term Dependency-Order Plan
@@ -1744,13 +1752,13 @@ This section records the current short-term execution order. It is intended to b
 | Eleventh | Phase 5 inventory / heist kit | Phase 5A-5F | Item data, mission inventory, and requirement/effect integration. |
 | Twelfth | Bentley command points | Phase 7A-7G | Companion command mechanics built on the reusable mechanic foundation. |
 | Thirteenth | Noise / distraction | Roadmap System Family 10; Blueprint Noise And Distraction section; related to Phase 7D | Sound/noise events, emitters, listeners, and distraction objects. |
-| Fourteenth | Side jobs | Phase 8G-8H | First and second small side jobs assembled mostly from reusable nodes. |
-| Fifteenth | Hideout rewards | Phase 12A-12F | Reward-to-hideout contract and cozy meta hooks. |
+| Fourteenth | Side jobs | Phase 9G-9I | First and second small side jobs assembled mostly from reusable nodes, then a production adoption gate if requested. |
+| Fifteenth | Hideout rewards | Phase 10A-10F | Reward-to-hideout contract and cozy meta hooks. |
 | Sixteenth | Paper trail | Phase 11A-11F | Trace events, cleanup, deniability, suspicious action memory, and result integration. |
-| Seventeenth | Social stealth | Phase 10A-10G | Cover stories, credentials, believable tasks, inspections, and protocol/cleanliness. |
-| Eighteenth | Encounters | Phase 13A-13G | Non-HP challenge/encounter layer. |
-| Nineteenth | Advanced NPC | Phase 14A-14G | Reactive NPC/social systems after simpler systems are stable. |
-| Twentieth | Narrative / presentation | Phase 9A-9H | Dialogue keys, barks, presentation sequences, camera/player/audio bridges. |
+| Seventeenth | Narrative / presentation | Phase 12A-12H | Dialogue keys, barks, presentation sequences, camera/player/audio bridges. |
+| Eighteenth | Social stealth | Phase 13A-13G | Cover stories, credentials, believable tasks, inspections, and protocol/cleanliness. |
+| Nineteenth | Encounters | Phase 14A-14G | Non-HP challenge/encounter layer. |
+| Twentieth | Advanced NPC | Phase 15A-15G | Reactive NPC/social systems after simpler systems are stable. |
 
 Update rule: revise this section after each completed gate or when validation changes the dependency order.
 
