@@ -1880,6 +1880,8 @@ Bentley bark should create a noise event. Guards can initially react through exi
 
 2026-06-20 Phase 8E-8G-lite status: implemented `NoiseListenerComponent` as a mission-local listener that subscribes to `EventBus.mission_noise_emitted`, filters by radius/kind/team, records heard noise, sets debug metadata on its parent receiver, and optionally calls parent `on_noise_heard(noise_event, listener)`. Existing `MissionPoopBagDecoyPoint` now emits a `poop_decoy` `NoiseEvent` after successful poop-bag consumption, so the older poop-bag distraction path can feed `MissionAlertController` and any active listeners without a new global noise manager. The dev room includes a listener guard proof. Full guard pathing/investigation movement and production mission placement remain deferred.
 
+2026-06-20 Phase 8H-lite status: implemented `NoiseReactiveGuard`, a lightweight parent receiver for `NoiseListenerComponent`. It handles `on_noise_heard(noise_event, listener)`, records `investigating_noise` state and an investigate target, writes readable debug metadata, optionally faces the source, and exposes `get_noise_reaction_summary()`. This proves the listener callback path without adding pathfinding, patrol interruption, or a global noise manager.
+
 ## Phase 9: Puzzle And Side Job Kit
 
 ### Timing

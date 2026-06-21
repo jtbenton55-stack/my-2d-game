@@ -233,10 +233,11 @@ Example: a bark command point sets `phase7_bark_command_used`; a fetch command p
 
 **Limitations:** Phase 7-lite proves bark/sniff/fetch/crawlspace/wait command points. Production mission placement and full noise/listener AI are deferred.
 
-## NoiseEmitterNode / DistractionObject / NoiseListenerComponent
+## NoiseEmitterNode / DistractionObject / NoiseListenerComponent / NoiseReactiveGuard
 
 Phase 8A-8D-lite adds the first reusable noise/distraction authoring nodes.
 Phase 8E-8G-lite adds the first reusable listener component and bridges existing poop-bag decoy points into the same noise event path.
+Phase 8H-lite adds a small guard/debug receiver for listener callbacks.
 
 Use `NoiseEmitterNode` when a placed object, marker, or command point should emit a structured noise event after normal requirement/effect success. Use `DistractionObject` for a player-team decoy/distraction default.
 
@@ -247,6 +248,8 @@ Use `NoiseEmitterNode` when a placed object, marker, or command point should emi
 5. Leave `route_to_alert_controller` enabled when the mission has a `MissionAlertController` receiver.
 
 Use `NoiseListenerComponent` as a child of a guard/NPC/debug receiver when it should record in-range noise events. It listens to `EventBus.mission_noise_emitted`, filters by radius/kind/team, stores the last heard event, sets lightweight debug metadata on its parent, and can call parent `on_noise_heard(noise_event, listener)` if a receiver script provides that method.
+
+Use `NoiseReactiveGuard` as a lightweight parent receiver for `NoiseListenerComponent` when a guard/debug node should enter an `investigating_noise` state, record an investigate target, and optionally face the noise source. It intentionally does not path or chase yet.
 
 `DogCompanion.command_bark()` also emits a `bentley_bark` noise event through the same schema. `MissionPoopBagDecoyPoint` emits a `poop_decoy` noise event after a poop bag is successfully consumed. `MissionAlertController` records recent noise events and can move normal missions to suspicious for player-team noise. Full guard pathing AI remains future Phase 8+ work.
 
@@ -297,7 +300,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Namespaced `mission_flag:<mission_id>:` values are attempt-local for mission starts; `GameState.start_mission()` clears flags for the launching mission so card/setup route flags do not leak between runs
 - Inventory/heist-kit has a mission-only Phase 5D-lite pickup/debug proof; no persistent item save schema, grid UI, noise, or social stealth yet
 - Bentley commands have a Phase 7-lite bark/sniff/fetch/crawlspace/wait command-point proof; production placement is still deferred
-- Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof plus a Phase 8E-8G-lite listener/poop-decoy bridge proof; full guard pathing AI and production placement are still deferred
+- Noise/distraction has a Phase 8A-8D-lite event/emitter/distraction proof, a Phase 8E-8G-lite listener/poop-decoy bridge proof, and a Phase 8H-lite guard response proof; full guard pathing AI and production placement are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - No custom chronographic sequence runner yet; use ordinary mechanics/effects until sequence data Resources are implemented
 
@@ -312,6 +315,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 7. `NoiseEmitterNode` — placed structured noise event emitter
 8. `DistractionObject` — player-team decoy/distraction emitter subclass
 9. `NoiseListenerComponent` — mission-local guard/NPC/debug receiver for structured noise events
+10. `NoiseReactiveGuard` — lightweight listener parent that records an investigating-noise response
 
 ## Related future editor tooling
 

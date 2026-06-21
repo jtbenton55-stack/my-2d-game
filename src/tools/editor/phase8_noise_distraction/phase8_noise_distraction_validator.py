@@ -30,6 +30,7 @@ def main() -> int:
     noise_event = root / "src/missions/iso/runtime/noise/NoiseEvent.gd"
     noise_emitter = root / "src/missions/iso/runtime/noise/NoiseEmitterNode.gd"
     noise_listener = root / "src/missions/iso/runtime/noise/NoiseListenerComponent.gd"
+    noise_guard = root / "src/missions/iso/runtime/noise/NoiseReactiveGuard.gd"
     distraction = root / "src/missions/iso/authoring/mechanics/DistractionObject.gd"
     poop_decoy = root / "src/missions/iso/runtime/MissionPoopBagDecoyPoint.gd"
     event_bus = root / "src/utils/EventBus.gd"
@@ -44,12 +45,13 @@ def main() -> int:
     roadmap = root / "docs/PLUG_AND_PLAY_MISSION_SYSTEM_ROADMAP.md"
     blueprint = root / "docs/PLUG_AND_PLAY_IMPLEMENTATION_BLUEPRINT.md"
     guide = root / "docs/MECHANIC_AUTHORING_FOUNDATION_GUIDE.md"
-    report = root / "reports/ai/2026-06-20_phase8e_8g_lite_noise_listener_report.md"
+    report = root / "reports/ai/2026-06-20_phase8h_lite_noise_guard_response_report.md"
 
     required_files = (
         noise_event,
         noise_emitter,
         noise_listener,
+        noise_guard,
         distraction,
         poop_decoy,
         event_bus,
@@ -107,6 +109,16 @@ def main() -> int:
     ):
         require_contains(errors, listener_text, needle, "NoiseListenerComponent")
 
+    guard_text = read_text(noise_guard)
+    for needle in (
+        "class_name NoiseReactiveGuard",
+        "func on_noise_heard",
+        "guard_investigating_noise",
+        "noise_investigate_position",
+        "func get_noise_reaction_summary",
+    ):
+        require_contains(errors, guard_text, needle, "NoiseReactiveGuard")
+
     distraction_text = read_text(distraction)
     for needle in (
         "class_name DistractionObject",
@@ -153,6 +165,8 @@ def main() -> int:
         "NoiseEmitterNode_phase8a_bark_lure",
         "DistractionObject_phase8d_decoy",
         "NoiseListenerComponent_phase8e",
+        "NoiseReactiveGuard.gd",
+        "phase8h_noise_guard",
         "phase8e_guard_listener",
         "phase8_noise_emitted",
         "phase8_distraction_used",
@@ -166,6 +180,7 @@ def main() -> int:
         "test_bentley_bark_emits_noise_event_to_alert_controller",
         "test_distraction_object_defaults_to_player_decoy_noise",
         "test_noise_listener_records_in_range_noise",
+        "test_noise_reactive_guard_records_investigation_callback",
         "test_poop_bag_decoy_point_emits_noise_after_consuming_bag",
         "test_templates_and_dev_scene_contain_phase8_nodes",
     ):
@@ -177,6 +192,8 @@ def main() -> int:
         require_contains(errors, doc_text, "Phase 8E-8G-lite", label)
         require_contains(errors, doc_text, "NoiseEmitterNode", label)
         require_contains(errors, doc_text, "NoiseListenerComponent", label)
+        require_contains(errors, doc_text, "Phase 8H-lite", label)
+        require_contains(errors, doc_text, "NoiseReactiveGuard", label)
         require_contains(errors, doc_text, "DistractionObject", label)
 
     result = {
@@ -185,7 +202,7 @@ def main() -> int:
         "warnings": warnings,
         "limitations": [
             "Static validator cannot execute GDScript; GdUnit and headless scene smoke cover runtime contracts.",
-            "Phase 8E-8G-lite records listener reactions and poop-decoy noise, but full guard pathing AI remains deferred.",
+            "Phase 8H-lite records guard investigation reactions, but full guard pathing AI remains deferred.",
             "Production Taco placement remains deferred pending manual mission-design placement.",
         ],
     }

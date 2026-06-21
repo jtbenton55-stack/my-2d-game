@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://b5j3utw5f0tf6" path="res://src/missions/iso/authoring/mechanics/DistractionObject.gd" id="22_distraction"]
 [ext_resource type="Script" uid="uid://15wvg8jm20cc" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="23_alert_controller"]
 [ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd" id="24_noise_listener"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseReactiveGuard.gd" id="25_noise_guard"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(96, 96)
@@ -1325,6 +1326,9 @@ horizontal_alignment = 1
 
 [node name="Phase8E_NoiseListenerGuard" type="Node2D" parent="MissionMechanics" unique_id=1937356905]
 position = Vector2(360, 272)
+script = ExtResource("25_noise_guard")
+guard_id = &"phase8h_noise_guard"
+reaction_seconds = 3.0
 
 [node name="NoiseListenerComponent_phase8e" type="Node" parent="MissionMechanics/Phase8E_NoiseListenerGuard" unique_id=1375864330]
 script = ExtResource("24_noise_listener")
@@ -1338,5 +1342,5 @@ offset_top = -74.0
 offset_right = 130.0
 offset_bottom = -58.0
 theme_override_font_sizes/font_size = 9
-text = "8E: Noise listener guard"
+text = "8E/8H: Noise-reactive guard"
 horizontal_alignment = 1

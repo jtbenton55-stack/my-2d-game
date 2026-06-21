@@ -628,6 +628,8 @@ First version:
 
 2026-06-20 Phase 8E-8G-lite status: implemented `NoiseListenerComponent` as the first mission-local listener/receiver for structured noise. It subscribes to `EventBus.mission_noise_emitted`, filters noise by radius/kind/team, records last heard noise, writes debug metadata to the parent receiver, and can call parent `on_noise_heard()` when a guard/NPC script provides one. Existing `MissionPoopBagDecoyPoint` now emits a `poop_decoy` `NoiseEvent` after successful poop-bag consumption, reusing the same alert-controller and listener event path. The dev room includes a listener guard proof, and focused tests plus the static validator cover listener range behavior and poop-decoy noise bridging. Full guard pathing/investigation movement and production mission placement remain deferred.
 
+2026-06-20 Phase 8H-lite status: implemented `NoiseReactiveGuard` as a thin listener parent/guard response proof. It receives `on_noise_heard(noise_event, listener)` callbacks from `NoiseListenerComponent`, records `investigating_noise` state, stores the investigate target, sets debug metadata, optionally faces the noise source, and exposes a debug summary. The dev room attaches it to the Phase 8 listener guard proof. Full pathfinding, patrol interruption, and production mission placement remain deferred.
+
 ### Priority
 
 Medium-high.

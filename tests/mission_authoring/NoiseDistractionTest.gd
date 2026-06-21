@@ -1,9 +1,10 @@
-# GdUnit4 tests for Phase 8A-8G-lite noise and distraction authoring.
+# GdUnit4 tests for Phase 8A-8H-lite noise and distraction authoring.
 extends GdUnitTestSuite
 
 const NoiseEventScript := preload("res://src/missions/iso/runtime/noise/NoiseEvent.gd")
 const NoiseEmitterNodeScript := preload("res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd")
 const NoiseListenerComponentScript := preload("res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd")
+const NoiseReactiveGuardScript := preload("res://src/missions/iso/runtime/noise/NoiseReactiveGuard.gd")
 const DistractionObjectScript := preload("res://src/missions/iso/authoring/mechanics/DistractionObject.gd")
 const MechanicAreaBaseScript := preload("res://src/missions/iso/authoring/mechanics/MechanicAreaBase.gd")
 const MissionAlertControllerScript := preload("res://src/missions/iso/runtime/MissionAlertController.gd")
@@ -115,6 +116,29 @@ func test_noise_listener_records_in_range_noise() -> void:
 	_free_node(parent)
 
 
+func test_noise_reactive_guard_records_investigation_callback() -> void:
+	var guard := NoiseReactiveGuardScript.new()
+	guard.name = "NoiseReactiveGuardUnderTest"
+	guard.guard_id = &"phase8h_guard_test"
+	guard.global_position = Vector2(48, 0)
+	add_child(guard)
+	var listener := NoiseListenerComponentScript.new()
+	listener.listener_id = &"phase8h_listener_test"
+	guard.add_child(listener)
+	var event := NoiseEventScript.make_event("guard_noise", "decoy", Vector2.ZERO, 96.0, 0.8, "decoy", "player")
+
+	var result: Dictionary = listener.register_noise(event)
+	assert_bool(result.get("ok", false)).is_true()
+	var parent_result: Dictionary = result.get("parent_result", {})
+	assert_str(String(parent_result.get("code", ""))).is_equal("guard_investigating_noise")
+	assert_str(guard.reaction_state).is_equal("investigating_noise")
+	assert_int(guard.reaction_count).is_equal(1)
+	assert_vector(guard.investigate_position).is_equal(Vector2.ZERO)
+	assert_bool(guard.has_meta("noise_investigate_position")).is_true()
+	assert_str(String(guard.get_noise_reaction_summary().get("guard_id", ""))).is_equal("phase8h_guard_test")
+	_free_node(guard)
+
+
 func test_poop_bag_decoy_point_emits_noise_after_consuming_bag() -> void:
 	var snapshot := _snapshot_game_state()
 	GameState.current_mission_id = "test_mission"
@@ -153,12 +177,15 @@ func test_templates_and_dev_scene_contain_phase8_nodes() -> void:
 	assert_object(root.get_node_or_null("MissionAlertController")).is_not_null()
 	var noise := root.get_node_or_null("MissionMechanics/NoiseEmitterNode_phase8a_bark_lure")
 	var distraction := root.get_node_or_null("MissionMechanics/DistractionObject_phase8d_decoy")
+	var guard := root.get_node_or_null("MissionMechanics/Phase8E_NoiseListenerGuard")
 	var listener := root.get_node_or_null("MissionMechanics/Phase8E_NoiseListenerGuard/NoiseListenerComponent_phase8e")
 	assert_object(noise).is_not_null()
 	assert_object(distraction).is_not_null()
+	assert_object(guard).is_instanceof(NoiseReactiveGuardScript)
 	assert_object(listener).is_not_null()
 	assert_str(String(noise.get("noise_kind"))).is_equal("bark")
 	assert_str(String(distraction.get("noise_kind"))).is_equal("decoy")
+	assert_str(String(guard.get("guard_id"))).is_equal("phase8h_noise_guard")
 	assert_str(String(listener.get("listener_id"))).is_equal("phase8e_guard_listener")
 	root.queue_free()
 
