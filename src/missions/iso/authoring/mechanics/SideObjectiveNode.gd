@@ -17,6 +17,10 @@ enum ObjectiveAction {
 @export var mark_handled_on_success: bool = true
 @export var stay_available_after_handled: bool = false
 
+@export_group("Objective Targets")
+@export var nodes_to_show_on_handle: Array[NodePath] = []
+@export var nodes_to_hide_on_handle: Array[NodePath] = []
+
 @export_group("Objective Feedback")
 @export var handled_prompt_text: String = "Objective already handled"
 @export var activated_message: String = "Objective activated."
@@ -89,7 +93,11 @@ func handle_objective(actor: Node = null, reason: String = "interact") -> Dictio
 	if mark_handled_on_success:
 		handled = true
 	var flag_result: Dictionary = set_objective_flag(context)
-	last_objective_result = _merge_objective_details(last_objective_result, {"objective_flag_result": flag_result})
+	var targets_result: Dictionary = apply_handled_targets()
+	last_objective_result = _merge_objective_details(last_objective_result, {
+		"objective_flag_result": flag_result,
+		"objective_targets_result": targets_result,
+	})
 
 	var message := _message_for_action()
 	last_objective_result["ok"] = true
@@ -182,6 +190,32 @@ func get_objective_status(context: Dictionary = {}) -> Dictionary:
 	}
 
 
+func apply_handled_targets() -> Dictionary:
+	if Engine.is_editor_hint():
+		return _result(true, "editor_preview", "Objective targets skipped in editor.")
+
+	var details: Dictionary = {
+		"shown": [],
+		"hidden": [],
+		"warnings": [],
+	}
+	for node_path: NodePath in nodes_to_show_on_handle:
+		_apply_visibility(node_path, true, details, "shown")
+	for node_path: NodePath in nodes_to_hide_on_handle:
+		_apply_visibility(node_path, false, details, "hidden")
+
+	var warning_count: int = (details.get("warnings", []) as Array).size()
+	var had_changes: bool = not (details.get("shown", []) as Array).is_empty() or not (details.get("hidden", []) as Array).is_empty()
+	var targets_ok: bool = warning_count == 0 or had_changes
+	return _result(
+		targets_ok,
+		"objective_targets_applied" if warning_count == 0 else "objective_targets_applied_with_warnings",
+		"Objective targets applied." if warning_count == 0 else "Objective targets applied with warnings.",
+		String(mechanic_id),
+		details
+	)
+
+
 func interact(actor: Node = null) -> bool:
 	return bool(handle_objective(actor, "interact").get("ok", false))
 
@@ -228,6 +262,17 @@ func get_interaction_text() -> String:
 		if locked != "":
 			return locked
 	return locked_prompt_text
+
+
+func _apply_visibility(node_path: NodePath, visible_value: bool, details: Dictionary, bucket: String) -> void:
+	if node_path == NodePath():
+		return
+	var node := get_node_or_null(node_path)
+	if node == null or not (node is CanvasItem):
+		(details.get("warnings", []) as Array).append("Missing CanvasItem target: %s" % [str(node_path)])
+		return
+	(node as CanvasItem).visible = visible_value
+	(details.get(bucket, []) as Array).append(str(node_path))
 
 
 func _mission_id_from_context(context: Dictionary) -> String:

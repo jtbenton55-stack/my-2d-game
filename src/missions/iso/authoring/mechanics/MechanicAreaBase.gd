@@ -140,7 +140,7 @@ func build_context(actor: Node = null) -> Dictionary:
 		"actor": actor,
 		"mechanic": self,
 		"source_id": String(mechanic_id),
-		"source_path": str(get_path()),
+		"source_path": str(get_path()) if is_inside_tree() else "",
 		"position": global_position,
 		"debug": debug_enabled,
 	}

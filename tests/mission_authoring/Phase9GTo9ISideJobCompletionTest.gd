@@ -8,7 +8,11 @@ const DeadDropNodeScript := preload("res://src/missions/iso/authoring/mechanics/
 const ObjectSwapNodeScript := preload("res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd")
 const BugPlantNodeScript := preload("res://src/missions/iso/authoring/mechanics/BugPlantNode.gd")
 const EavesdropZoneScript := preload("res://src/missions/iso/authoring/mechanics/EavesdropZone.gd")
+const SearchZoneScript := preload("res://src/missions/iso/authoring/mechanics/SearchZone.gd")
+const RewardNodeScript := preload("res://src/missions/iso/authoring/mechanics/RewardNode.gd")
+const RouteUnlockNodeScript := preload("res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd")
 const SideObjectiveNodeScript := preload("res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd")
+const MissionInteractionBridgeScript := preload("res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd")
 const CustomSequenceStepScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceStep.gd")
 const CustomSequenceResourceScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceResource.gd")
 const CustomSequenceRunnerScript := preload("res://src/missions/iso/authoring/sequences/CustomSequenceRunner.gd")
@@ -127,10 +131,123 @@ func test_phase9i_taco_production_gate_is_isolated_and_route_gated() -> void:
 	var text := FileAccess.get_file_as_string("res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn")
 	assert_str(text).contains("PpTacoSouthSideJobSignoff")
 	assert_str(text).contains("SideObjectiveNode.gd")
+	assert_str(text).contains("SearchFoundVisual")
+	assert_str(text).contains("target_visual_path = NodePath(\"SearchVisual\")")
 	assert_str(text).contains("key = \"pp_taco_south_route_open\"")
 	assert_str(text).contains("objective_id = &\"pp_taco_south_side_job_signoff\"")
 	assert_str(text).contains("objective_flag = &\"pp_taco_south_side_job_complete\"")
+	assert_str(text).contains("SignoffCompleteVisual")
+	assert_str(text).contains("nodes_to_show_on_handle = Array[NodePath]([NodePath(\"SignoffCompleteVisual\")])")
+	assert_str(text).contains("one_shot = false")
+	assert_str(text).contains("interaction_priority = 760")
+	assert_str(text).contains("interaction_priority = 730")
 	assert_str(text).contains("include_legacy_candidates = false")
+
+
+func test_phase9i_taco_production_chain_sets_flags_and_visuals() -> void:
+	var game_snapshot := _snapshot_game_state()
+	var quest_snapshot := _snapshot_quest_manager()
+	GameState.dialogue_flags.clear()
+	GameState.current_mission_id = "taco_bell_drop"
+	GameState.pending_mission_id = ""
+	var scene := load("res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn") as PackedScene
+	assert_object(scene).is_not_null()
+	var root := scene.instantiate()
+	var search := root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthSearchDrop")
+	var reward := root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthRewardScrap")
+	var route := root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthRoutePeek")
+	var signoff := root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff")
+	assert_object(search).is_instanceof(SearchZoneScript)
+	assert_object(reward).is_instanceof(RewardNodeScript)
+	assert_object(route).is_instanceof(RouteUnlockNodeScript)
+	assert_object(signoff).is_instanceof(SideObjectiveNodeScript)
+	assert_int(search.get("interaction_priority")).is_greater(620)
+	assert_int(reward.get("interaction_priority")).is_greater(620)
+	assert_int(route.get("interaction_priority")).is_greater(620)
+	assert_int(signoff.get("interaction_priority")).is_greater(620)
+
+	var search_visual := search.get_node_or_null("SearchVisual") as CanvasItem
+	var found_visual := search.get_node_or_null("SearchFoundVisual") as CanvasItem
+	var signoff_visual := signoff.get_node_or_null("SignoffVisual") as CanvasItem
+	var signoff_complete_visual := signoff.get_node_or_null("SignoffCompleteVisual") as CanvasItem
+	assert_object(search_visual).is_not_null()
+	assert_object(found_visual).is_not_null()
+	assert_object(signoff_visual).is_not_null()
+	assert_object(signoff_complete_visual).is_not_null()
+	assert_bool(search_visual.visible).is_true()
+	assert_bool(found_visual.visible).is_false()
+	assert_bool(signoff_visual.visible).is_true()
+	assert_bool(signoff_complete_visual.visible).is_false()
+
+	assert_bool(search.call("search", null, "test").get("ok", false)).is_true()
+	assert_bool(search_visual.visible).is_false()
+	assert_bool(found_visual.visible).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_found_scrap", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_searched", false)).is_true()
+
+	assert_bool(reward.call("collect", null, "test").get("ok", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_reward_collected", false)).is_true()
+	assert_bool(route.call("unlock_route", null, "test").get("ok", false)).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_route_open", false)).is_true()
+	assert_bool(signoff.call("handle_objective", null, "test").get("ok", false)).is_true()
+	assert_bool(signoff_visual.visible).is_false()
+	assert_bool(signoff_complete_visual.visible).is_true()
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_side_job_complete", false)).is_true()
+
+	root.free()
+	_restore_game_state(game_snapshot)
+	_restore_quest_manager(quest_snapshot)
+
+
+func test_phase9i_taco_bridge_selects_side_job_signoff_after_route_open() -> void:
+	var game_snapshot := _snapshot_game_state()
+	var quest_snapshot := _snapshot_quest_manager()
+	GameState.dialogue_flags.clear()
+	GameState.current_mission_id = "taco_bell_drop"
+	GameState.pending_mission_id = ""
+	var scene := load("res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn") as PackedScene
+	assert_object(scene).is_not_null()
+	var root := scene.instantiate()
+	var scene_signoff := root.get_node_or_null("GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff")
+	assert_object(scene_signoff).is_not_null()
+	var signoff := scene_signoff.duplicate() as Node2D
+	root.free()
+
+	var player := Node2D.new()
+	player.name = "Player"
+	player.add_to_group("player")
+	var bridge: Node = MissionInteractionBridgeScript.new()
+	bridge.name = "MissionInteractionBridge"
+	bridge.set("include_legacy_candidates", false)
+	bridge.set("debug_enabled", false)
+	add_child(player)
+	add_child(signoff)
+	add_child(bridge)
+	player.global_position = Vector2.ZERO
+	signoff.global_position = Vector2.ZERO
+	await get_tree().process_frame
+
+	assert_object(player).is_not_null()
+	assert_object(bridge).is_not_null()
+	assert_object(signoff).is_not_null()
+
+	GameState.dialogue_flags["mission_flag:taco_bell_drop:pp_taco_south_route_open"] = true
+	assert_bool(signoff.call("is_interaction_available", player)).is_true()
+
+	var signoff_visual := signoff.get_node_or_null("SignoffVisual") as CanvasItem
+	var signoff_complete_visual := signoff.get_node_or_null("SignoffCompleteVisual") as CanvasItem
+	assert_bool(bridge.call("try_interact_at_position", player.global_position)).is_true()
+	assert_object(bridge.get("last_candidate")).is_same(signoff)
+	assert_bool(GameState.dialogue_flags.get("mission_flag:taco_bell_drop:pp_taco_south_side_job_complete", false)).is_true()
+	assert_bool(signoff_visual.visible).is_false()
+	assert_bool(signoff_complete_visual.visible).is_true()
+
+	_free_node(bridge)
+	_free_node(signoff)
+	_free_node(player)
+	await get_tree().process_frame
+	_restore_game_state(game_snapshot)
+	_restore_quest_manager(quest_snapshot)
 
 
 func _build_sequence_runner(sequence_id: String, step_ids: Array[StringName]) -> Node:
@@ -186,6 +303,26 @@ func _restore_game_state(snapshot: Dictionary) -> void:
 	GameState.dialogue_flags = (snapshot.get("dialogue_flags", {}) as Dictionary).duplicate(true)
 	GameState.current_mission_id = String(snapshot.get("current_mission_id", ""))
 	GameState.pending_mission_id = String(snapshot.get("pending_mission_id", ""))
+
+
+func _snapshot_quest_manager() -> Dictionary:
+	return {
+		"active_quest_id": QuestManager.active_quest_id,
+		"active_objective": QuestManager.active_objective,
+		"objectives": QuestManager.objectives.duplicate(true),
+		"objective_records": QuestManager.objective_records.duplicate(true),
+		"active_objectives": QuestManager.active_objectives.duplicate(true),
+		"completed_objectives": QuestManager.completed_objectives.duplicate(true),
+	}
+
+
+func _restore_quest_manager(snapshot: Dictionary) -> void:
+	QuestManager.active_quest_id = String(snapshot.get("active_quest_id", ""))
+	QuestManager.active_objective = String(snapshot.get("active_objective", ""))
+	QuestManager.objectives = (snapshot.get("objectives", {}) as Dictionary).duplicate(true)
+	QuestManager.objective_records = (snapshot.get("objective_records", {}) as Dictionary).duplicate(true)
+	QuestManager.active_objectives = (snapshot.get("active_objectives", {}) as Dictionary).duplicate(true)
+	QuestManager.completed_objectives = (snapshot.get("completed_objectives", {}) as Dictionary).duplicate(true)
 
 
 func _free_node(node: Node) -> void:

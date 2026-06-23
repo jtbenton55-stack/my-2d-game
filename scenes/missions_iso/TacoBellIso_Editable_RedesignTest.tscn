@@ -27217,16 +27217,19 @@ metadata/generated_by = "Phase3B-PilotLaneReadability"
 metadata/scene_local_only = true
 
 [node name="PpTacoSouthSearchDrop" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot" unique_id=279255282]
-position = Vector2(318, 143)
+position = Vector2(598, 167)
 collision_layer = 8
 script = ExtResource("64_pp_search")
 search_kind = "stash"
 searched_flag = &"pp_taco_south_searched"
+target_visual_path = NodePath("SearchVisual")
+nodes_to_show_on_search = Array[NodePath]([NodePath("SearchFoundVisual")])
 searched_prompt_text = "Pilot scrap already searched"
 found_message = "Found a south corridor scrap."
 mechanic_id = &"pp_taco_south_search"
 mission_id_override = "taco_bell_drop"
 one_shot = false
+interaction_priority = 760
 prompt_text = "Search pilot scrap"
 locked_prompt_text = "Cannot search this yet"
 success_effects = SubResource("EffectSet_pp_search_success")
@@ -27247,6 +27250,15 @@ offset_bottom = 20.0
 color = Color(0.95, 0.85, 0.2, 0.95)
 metadata/generated_by = "Phase3B-PilotLaneReadability"
 
+[node name="SearchFoundVisual" type="ColorRect" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSearchDrop" unique_id=1734329937]
+visible = false
+offset_left = -32.0
+offset_top = -20.0
+offset_right = 32.0
+offset_bottom = 20.0
+color = Color(0.2, 0.85, 0.45, 0.95)
+metadata/generated_by = "Phase9I-SideJobManualQAFix"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSearchDrop" unique_id=1970082351]
 shape = SubResource("RectangleShape2D_pp_pilot")
 
@@ -27264,7 +27276,7 @@ text = "Search Scrap"
 horizontal_alignment = 1
 
 [node name="PpTacoSouthRewardScrap" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot" unique_id=433569121]
-position = Vector2(640, 120)
+position = Vector2(920, 183)
 collision_layer = 8
 script = ExtResource("65_pp_reward")
 reward_id = &"pp_taco_south_scrap"
@@ -27274,6 +27286,7 @@ nodes_to_show_on_collect = Array[NodePath]([NodePath("RewardCollectedVisual")])
 nodes_to_hide_on_collect = Array[NodePath]([NodePath("RewardVisual")])
 collected_prompt_text = "Pilot reward already collected"
 collected_message = "Collected pilot scrap reward."
+interaction_priority = 750
 mechanic_id = &"pp_taco_south_reward"
 mission_id_override = "taco_bell_drop"
 one_shot = false
@@ -27322,7 +27335,7 @@ text = "Collect Scrap"
 horizontal_alignment = 1
 
 [node name="PpTacoSouthRoutePeek" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot" unique_id=691053737]
-position = Vector2(760, 120)
+position = Vector2(1040, 183)
 collision_layer = 8
 script = ExtResource("66_pp_route")
 route_id = &"pp_taco_south_peek"
@@ -27334,6 +27347,7 @@ unlocked_prompt_text = "Pilot route already open"
 unlocked_message = "Pilot route opened."
 locked_route_message = "Collect the pilot reward first."
 mechanic_id = &"pp_taco_south_route"
+interaction_priority = 740
 mission_id_override = "taco_bell_drop"
 one_shot = false
 prompt_text = "Open pilot route peek"
@@ -27384,20 +27398,23 @@ theme_override_font_sizes/font_size = 12
 text = "Open Route Peek"
 horizontal_alignment = 1
 
-[node name="PpTacoSouthSideJobSignoff" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot"]
-position = Vector2(860, 120)
+[node name="PpTacoSouthSideJobSignoff" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot" unique_id=522626538]
+position = Vector2(1140, 183)
 collision_layer = 8
 script = ExtResource("74_phase9_side_objective")
 objective_id = &"pp_taco_south_side_job_signoff"
 objective_text = "Sign off the south pilot side job."
 objective_flag = &"pp_taco_south_side_job_complete"
+nodes_to_show_on_handle = Array[NodePath]([NodePath("SignoffCompleteVisual")])
+nodes_to_hide_on_handle = Array[NodePath]([NodePath("SignoffVisual")])
 completed_message = "South pilot side job signed off."
 handled_prompt_text = "Pilot side job already signed off"
 missing_objective_message = "Pilot side job signoff is not available."
 mechanic_id = &"pp_taco_south_side_job_signoff"
 display_name = "Pilot Side Job Signoff"
 mission_id_override = "taco_bell_drop"
-interaction_priority = 250
+interaction_priority = 730
+one_shot = false
 prompt_text = "Sign off pilot side job"
 locked_prompt_text = "Open the pilot route peek first"
 requirements = SubResource("RequirementSet_pp_side_job_req")
@@ -27423,6 +27440,15 @@ offset_right = 32.0
 offset_bottom = 20.0
 color = Color(0.2, 0.8, 0.75, 0.95)
 metadata/generated_by = "Phase9I-SideJobProductionGate"
+
+[node name="SignoffCompleteVisual" type="ColorRect" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
+visible = false
+offset_left = -32.0
+offset_top = -20.0
+offset_right = 32.0
+offset_bottom = 20.0
+color = Color(0.2, 0.85, 0.45, 0.95)
+metadata/generated_by = "Phase9I-SideJobManualQAFix"
 
 [node name="HintLabel" type="Label" parent="GameplayRoot/PlugAndPlayPilot/PpTacoSouthSideJobSignoff"]
 z_index = 2
