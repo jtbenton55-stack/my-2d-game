@@ -1,32 +1,20 @@
-[gd_scene load_steps=35 format=3]
+[gd_scene format=3 uid="uid://br0v02aednk1"]
 
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd" id="1_timed_switch"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="2_pressure_plate"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="3_power_circuit"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="4_dead_drop"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="5_object_swap"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="6_bug_plant"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="7_eavesdrop"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/sequences/CustomSequenceRunner.gd" id="8_sequence_runner"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/sequences/CustomSequenceResource.gd" id="9_sequence_resource"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/sequences/CustomSequenceStep.gd" id="10_sequence_step"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="11_requirement"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="12_requirement_set"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="13_effect"]
-[ext_resource type="Script" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="14_effect_set"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_job"]
-size = Vector2(96, 96)
-
-[sub_resource type="Resource" id="Effect_phase9g_course_complete"]
-script = ExtResource("13_effect")
-effect_id = &"effect_phase9g_course_complete"
-key = "phase9g_course_complete_effect"
-
-[sub_resource type="Resource" id="EffectSet_phase9g_course_complete"]
-script = ExtResource("14_effect_set")
-set_id = &"phase9g_course_complete_effect_set"
-effects = Array[ExtResource("13_effect")]([SubResource("Effect_phase9g_course_complete")])
+[ext_resource type="Script" uid="uid://c0wmuyp30r4df" path="res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd" id="1_timed_switch"]
+[ext_resource type="Script" uid="uid://c3s353xuq5isg" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="2_pressure_plate"]
+[ext_resource type="Script" uid="uid://cj1h0m0itfac4" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="3_power_circuit"]
+[ext_resource type="Script" uid="uid://du0c0skbragih" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="4_dead_drop"]
+[ext_resource type="Script" uid="uid://j2p22r6ddr6k" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="5_object_swap"]
+[ext_resource type="Script" uid="uid://cp3b1k5t042o3" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="6_bug_plant"]
+[ext_resource type="Script" uid="uid://dtgygi27nc2ns" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="7_eavesdrop"]
+[ext_resource type="Script" uid="uid://kwxlcs02tuet" path="res://src/missions/iso/authoring/sequences/CustomSequenceRunner.gd" id="8_sequence_runner"]
+[ext_resource type="Script" uid="uid://bsusmdopn6pjt" path="res://src/missions/iso/authoring/sequences/CustomSequenceResource.gd" id="9_sequence_resource"]
+[ext_resource type="Script" uid="uid://bpltsm7omgv7h" path="res://src/missions/iso/authoring/sequences/CustomSequenceStep.gd" id="10_sequence_step"]
+[ext_resource type="Script" uid="uid://c1lfayggsea3a" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="11_requirement"]
+[ext_resource type="Script" uid="uid://bb7g8ecmo8ul2" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="12_requirement_set"]
+[ext_resource type="Script" uid="uid://itonxd557d50" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="13_effect"]
+[ext_resource type="Script" uid="uid://bmh6akki64y22" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="14_effect_set"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/PhaseProofRoomButtonHarness.gd" id="15_harness"]
 
 [sub_resource type="Resource" id="Step_phase9g_start"]
 script = ExtResource("10_sequence_step")
@@ -42,6 +30,16 @@ display_name = "Hold calibration plate"
 order_index = 2
 depends_on_step_ids = Array[StringName]([&"start_course"])
 completion_flag = &"phase9g_sequence_plate_complete"
+
+[sub_resource type="Resource" id="Effect_phase9g_course_complete"]
+script = ExtResource("13_effect")
+effect_id = &"effect_phase9g_course_complete"
+key = "phase9g_course_complete_effect"
+
+[sub_resource type="Resource" id="EffectSet_phase9g_course_complete"]
+script = ExtResource("14_effect_set")
+set_id = &"phase9g_course_complete_effect_set"
+effects = Array[ExtResource("13_effect")]([SubResource("Effect_phase9g_course_complete")])
 
 [sub_resource type="Resource" id="Step_phase9g_power_circuit"]
 script = ExtResource("10_sequence_step")
@@ -60,29 +58,8 @@ mission_id_override = "phase9_side_job_proof"
 steps = Array[Resource]([SubResource("Step_phase9g_start"), SubResource("Step_phase9g_hold_plate"), SubResource("Step_phase9g_power_circuit")])
 debug_note = "Phase 9G side job assembled from timed switch, pressure plate, power circuit, and ordered sequence resources."
 
-[sub_resource type="Resource" id="Effect_phase9h_snack_complete"]
-script = ExtResource("13_effect")
-effect_id = &"effect_phase9h_snack_trail_complete"
-key = "phase9h_snack_trail_complete_effect"
-
-[sub_resource type="Resource" id="EffectSet_phase9h_snack_complete"]
-script = ExtResource("14_effect_set")
-set_id = &"phase9h_snack_trail_effect_set"
-effects = Array[ExtResource("13_effect")]([SubResource("Effect_phase9h_snack_complete")])
-
-[sub_resource type="Resource" id="Requirement_phase9h_bug_planted"]
-script = ExtResource("11_requirement")
-requirement_id = &"phase9h_requires_bug_planted"
-fact_type = &"mission_flag"
-key = "phase9h_bug_planted"
-operator = 2
-expected_value_type = "exists"
-fail_message = "Plant the snack-trail bug before listening."
-
-[sub_resource type="Resource" id="RequirementSet_phase9h_bug_planted"]
-script = ExtResource("12_requirement_set")
-requirements = Array[ExtResource("11_requirement")]([SubResource("Requirement_phase9h_bug_planted")])
-locked_message = "Plant the snack-trail bug first."
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_job"]
+size = Vector2(96, 96)
 
 [sub_resource type="Resource" id="Step_phase9h_retrieve_snack"]
 script = ExtResource("10_sequence_step")
@@ -98,6 +75,16 @@ display_name = "Swap snack for bug"
 order_index = 2
 depends_on_step_ids = Array[StringName]([&"retrieve_snack"])
 completion_flag = &"phase9h_sequence_swap_complete"
+
+[sub_resource type="Resource" id="Effect_phase9h_snack_complete"]
+script = ExtResource("13_effect")
+effect_id = &"effect_phase9h_snack_trail_complete"
+key = "phase9h_snack_trail_complete_effect"
+
+[sub_resource type="Resource" id="EffectSet_phase9h_snack_complete"]
+script = ExtResource("14_effect_set")
+set_id = &"phase9h_snack_trail_effect_set"
+effects = Array[ExtResource("13_effect")]([SubResource("Effect_phase9h_snack_complete")])
 
 [sub_resource type="Resource" id="Step_phase9h_listen"]
 script = ExtResource("10_sequence_step")
@@ -116,15 +103,30 @@ mission_id_override = "phase9_side_job_proof"
 steps = Array[Resource]([SubResource("Step_phase9h_retrieve_snack"), SubResource("Step_phase9h_swap_snack"), SubResource("Step_phase9h_listen")])
 debug_note = "Phase 9H side job assembled from dead drop, object swap, bug plant, eavesdrop, and ordered sequence resources."
 
-[node name="Phase9SideJobProofRoom" type="Node2D"]
+[sub_resource type="Resource" id="Requirement_phase9h_bug_planted"]
+script = ExtResource("11_requirement")
+requirement_id = &"phase9h_requires_bug_planted"
+fact_type = &"mission_flag"
+key = "phase9h_bug_planted"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Plant the snack-trail bug before listening."
 
-[node name="Phase9G_PoopBagCalibrationCourse" type="Node2D" parent="."]
+[sub_resource type="Resource" id="RequirementSet_phase9h_bug_planted"]
+script = ExtResource("12_requirement_set")
+requirements = Array[ExtResource("11_requirement")]([SubResource("Requirement_phase9h_bug_planted")])
+locked_message = "Plant the snack-trail bug first."
 
-[node name="Phase9GSequenceRunner" type="Node" parent="Phase9G_PoopBagCalibrationCourse"]
+[node name="Phase9SideJobProofRoom" type="Node2D" unique_id=1506773227]
+position = Vector2(344, 104)
+
+[node name="Phase9G_PoopBagCalibrationCourse" type="Node2D" parent="." unique_id=1154576643]
+
+[node name="Phase9GSequenceRunner" type="Node" parent="Phase9G_PoopBagCalibrationCourse" unique_id=1280665326]
 script = ExtResource("8_sequence_runner")
 sequence = SubResource("Sequence_phase9g_poop_bag_calibration")
 
-[node name="TimedSwitch_phase9g_start" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse"]
+[node name="TimedSwitch_phase9g_start" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse" unique_id=864296845]
 position = Vector2(-224, 0)
 collision_layer = 8
 script = ExtResource("1_timed_switch")
@@ -136,21 +138,21 @@ mechanic_id = &"phase9g_start_timer"
 display_name = "9G Start Timer"
 mission_id_override = "phase9_side_job_proof"
 prompt_text = "Start calibration timer"
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/TimedSwitch_phase9g_start"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/TimedSwitch_phase9g_start" unique_id=753861507]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/TimedSwitch_phase9g_start"]
+[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/TimedSwitch_phase9g_start" unique_id=31266381]
 offset_left = -100.0
 offset_top = -66.0
 offset_right = 100.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9G START"
+text = "SWITCH"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="PressurePlate_phase9g_hold" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse"]
+[node name="PressurePlate_phase9g_hold" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse" unique_id=700848227]
 position = Vector2(-96, 0)
 collision_layer = 8
 script = ExtResource("2_pressure_plate")
@@ -160,21 +162,21 @@ clear_flag_on_exit = false
 mechanic_id = &"phase9g_hold_plate"
 display_name = "9G Hold Plate"
 mission_id_override = "phase9_side_job_proof"
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/PressurePlate_phase9g_hold"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/PressurePlate_phase9g_hold" unique_id=1540839894]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/PressurePlate_phase9g_hold"]
+[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/PressurePlate_phase9g_hold" unique_id=1290270230]
 offset_left = -100.0
 offset_top = -66.0
 offset_right = 100.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9G PLATE"
+text = "PLATE"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="PowerCircuit_phase9g_finish" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse"]
+[node name="PowerCircuit_phase9g_finish" type="Area2D" parent="Phase9G_PoopBagCalibrationCourse" unique_id=1542302889]
 position = Vector2(32, 0)
 collision_layer = 8
 script = ExtResource("3_power_circuit")
@@ -186,28 +188,28 @@ display_name = "9G Finish Circuit"
 mission_id_override = "phase9_side_job_proof"
 prompt_text = "Complete calibration course"
 success_effects = SubResource("EffectSet_phase9g_course_complete")
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/PowerCircuit_phase9g_finish"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9G_PoopBagCalibrationCourse/PowerCircuit_phase9g_finish" unique_id=1838804075]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/PowerCircuit_phase9g_finish"]
+[node name="DebugLabel" type="Label" parent="Phase9G_PoopBagCalibrationCourse/PowerCircuit_phase9g_finish" unique_id=642618639]
 offset_left = -110.0
 offset_top = -66.0
 offset_right = 110.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9G CIRCUIT"
+text = "CIRCUIT"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Phase9H_BentleySnackTrail" type="Node2D" parent="."]
+[node name="Phase9H_BentleySnackTrail" type="Node2D" parent="." unique_id=2063569252]
 position = Vector2(0, 180)
 
-[node name="Phase9HSequenceRunner" type="Node" parent="Phase9H_BentleySnackTrail"]
+[node name="Phase9HSequenceRunner" type="Node" parent="Phase9H_BentleySnackTrail" unique_id=381838239]
 script = ExtResource("8_sequence_runner")
 sequence = SubResource("Sequence_phase9h_bentley_snack_trail")
 
-[node name="DeadDrop_phase9h_retrieve" type="Area2D" parent="Phase9H_BentleySnackTrail"]
+[node name="DeadDrop_phase9h_retrieve" type="Area2D" parent="Phase9H_BentleySnackTrail" unique_id=929151853]
 position = Vector2(-224, 0)
 collision_layer = 8
 script = ExtResource("4_dead_drop")
@@ -215,25 +217,26 @@ drop_id = &"phase9h_snack_drop"
 drop_mode = "retrieve"
 item_id = &"phase9h_snack_bait"
 completed_flag = &"phase9h_snack_retrieved"
+container_kind = "stash"
 mechanic_id = &"phase9h_snack_drop"
 display_name = "9H Snack Drop"
 mission_id_override = "phase9_side_job_proof"
 prompt_text = "Retrieve snack bait"
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/DeadDrop_phase9h_retrieve"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/DeadDrop_phase9h_retrieve" unique_id=1326293088]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/DeadDrop_phase9h_retrieve"]
+[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/DeadDrop_phase9h_retrieve" unique_id=2120610740]
 offset_left = -110.0
 offset_top = -66.0
 offset_right = 110.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9H DROP"
+text = "DEAD DROP"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="ObjectSwap_phase9h_swap" type="Area2D" parent="Phase9H_BentleySnackTrail"]
+[node name="ObjectSwap_phase9h_swap" type="Area2D" parent="Phase9H_BentleySnackTrail" unique_id=1289416567]
 position = Vector2(-96, 0)
 collision_layer = 8
 script = ExtResource("5_object_swap")
@@ -245,21 +248,21 @@ mechanic_id = &"phase9h_snack_swap"
 display_name = "9H Snack Swap"
 mission_id_override = "phase9_side_job_proof"
 prompt_text = "Swap snack bait"
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/ObjectSwap_phase9h_swap"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/ObjectSwap_phase9h_swap" unique_id=1580781949]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/ObjectSwap_phase9h_swap"]
+[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/ObjectSwap_phase9h_swap" unique_id=2100736393]
 offset_left = -110.0
 offset_top = -66.0
 offset_right = 110.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9H SWAP"
+text = "SWAP"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="BugPlant_phase9h_bug" type="Area2D" parent="Phase9H_BentleySnackTrail"]
+[node name="BugPlant_phase9h_bug" type="Area2D" parent="Phase9H_BentleySnackTrail" unique_id=62793738]
 position = Vector2(32, 0)
 collision_layer = 8
 script = ExtResource("6_bug_plant")
@@ -270,21 +273,21 @@ mechanic_id = &"phase9h_snack_bug"
 display_name = "9H Snack Bug"
 mission_id_override = "phase9_side_job_proof"
 prompt_text = "Plant snack bug"
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/BugPlant_phase9h_bug"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/BugPlant_phase9h_bug" unique_id=1534723224]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/BugPlant_phase9h_bug"]
+[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/BugPlant_phase9h_bug" unique_id=1327207957]
 offset_left = -110.0
 offset_top = -66.0
 offset_right = 110.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9H BUG"
+text = "BUG PLANT"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Eavesdrop_phase9h_listen" type="Area2D" parent="Phase9H_BentleySnackTrail"]
+[node name="Eavesdrop_phase9h_listen" type="Area2D" parent="Phase9H_BentleySnackTrail" unique_id=699289334]
 position = Vector2(160, 0)
 collision_layer = 8
 script = ExtResource("7_eavesdrop")
@@ -294,18 +297,52 @@ listen_seconds = 0.0
 mechanic_id = &"phase9h_snack_listen"
 display_name = "9H Snack Listen"
 mission_id_override = "phase9_side_job_proof"
+interaction_mode = 2
 requirements = SubResource("RequirementSet_phase9h_bug_planted")
 success_effects = SubResource("EffectSet_phase9h_snack_complete")
-debug_label_path = NodePath("DebugLabel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/Eavesdrop_phase9h_listen"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Phase9H_BentleySnackTrail/Eavesdrop_phase9h_listen" unique_id=1568208433]
 shape = SubResource("RectangleShape2D_side_job")
 
-[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/Eavesdrop_phase9h_listen"]
+[node name="DebugLabel" type="Label" parent="Phase9H_BentleySnackTrail/Eavesdrop_phase9h_listen" unique_id=1294585392]
 offset_left = -120.0
 offset_top = -66.0
 offset_right = 120.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 10
-text = "9H LISTEN"
+text = "EAVESDROP"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("15_harness")
+proof_id = "phase9"
+mission_id = "phase9_side_job_proof"
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 344.0
+offset_bottom = 160.0
+
+[node name="Run 9G Course" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run 9G Course"
+
+[node name="Run 9H Snack Trail" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run 9H Snack Trail"
+
+[node name="Reset Phase 9" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Reset Phase 9"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 176.0
+offset_right = 760.0
+offset_bottom = 340.0
+autowrap_mode = 3
+text = "Phase 9 proof ready."
