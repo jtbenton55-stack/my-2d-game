@@ -2,6 +2,8 @@ class_name MissionEffectApplier
 extends RefCounted
 
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
+const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
 
 
 static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictionary:
@@ -54,6 +56,36 @@ static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictiona
 			return _apply_remove_item(effect)
 		MissionEffect.EffectType.CLEAR_MISSION_ITEMS:
 			return MissionInventoryScript.clear_mission_items()
+		MissionEffect.EffectType.RECORD_PAPER_TRACE:
+			return _apply_record_paper_trace(effect, context)
+		MissionEffect.EffectType.CLEANUP_PAPER_TRACE:
+			return _apply_cleanup_paper_trace(effect, context)
+		MissionEffect.EffectType.REDIRECT_PAPER_TRACE:
+			return _apply_redirect_paper_trace(effect, context)
+		MissionEffect.EffectType.ACTIVATE_COVER_STORY:
+			return SocialStealthAdapterScript.set_cover_story(String(effect.get("key")), _payload(effect), context)
+		MissionEffect.EffectType.GRANT_CREDENTIAL:
+			return SocialStealthAdapterScript.grant_credential(String(effect.get("key")), _payload(effect), context)
+		MissionEffect.EffectType.COMPLETE_PROTOCOL:
+			return SocialStealthAdapterScript.complete_protocol(String(effect.get("key")), _payload(effect), context)
+		MissionEffect.EffectType.COMPLETE_BELIEVABLE_TASK:
+			return SocialStealthAdapterScript.complete_task(String(effect.get("key")), _payload(effect), context)
+		MissionEffect.EffectType.ADJUST_PROFESSIONALISM:
+			return SocialStealthAdapterScript.adjust_professionalism(int(effect.call("get_value")), context)
+		MissionEffect.EffectType.SET_PROFESSIONALISM:
+			return SocialStealthAdapterScript.set_professionalism(int(effect.call("get_value")), context)
+		MissionEffect.EffectType.ADJUST_CLEANLINESS:
+			return SocialStealthAdapterScript.adjust_cleanliness(int(effect.call("get_value")), context)
+		MissionEffect.EffectType.SET_CLEANLINESS:
+			return SocialStealthAdapterScript.set_cleanliness(int(effect.call("get_value")), context)
+		MissionEffect.EffectType.RECORD_ENCOUNTER_EVENT:
+			return _apply_encounter_event(effect, context)
+		MissionEffect.EffectType.SET_ENCOUNTER_PHASE:
+			return _apply_set_encounter_phase(effect, context)
+		MissionEffect.EffectType.ADJUST_ENCOUNTER_METER:
+			return _apply_adjust_encounter_meter(effect, context)
+		MissionEffect.EffectType.SET_ENCOUNTER_RESULT_TAG:
+			return _apply_set_encounter_result_tag(effect, context)
 		MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY:
 			return _apply_dialogue_key(effect, context)
 		MissionEffect.EffectType.TRIGGER_SIMPLE_DIALOGUE:
@@ -126,6 +158,38 @@ static func _apply_remove_item(effect: Resource) -> Dictionary:
 	return MissionInventoryScript.remove_item(item_id, _item_amount(effect))
 
 
+static func _apply_record_paper_trace(effect: Resource, context: Dictionary) -> Dictionary:
+	var data := _payload(effect)
+	var source_id := String(data.get("source_id", context.get("source_id", effect.get("effect_id"))))
+	var trace_type := String(data.get("trace_type", "generic"))
+	var severity := int(data.get("severity", effect.get("value_int") if String(effect.get("value_type")) == "int" else 1))
+	return PaperTrailAdapterScript.record_trace(
+		String(effect.get("key")),
+		source_id,
+		trace_type,
+		severity,
+		bool(data.get("can_cleanup", true)),
+		String(data.get("cleanup_requirement", "")),
+		context,
+		data
+	)
+
+
+static func _apply_cleanup_paper_trace(effect: Resource, context: Dictionary) -> Dictionary:
+	var data := _payload(effect)
+	data["trace_id"] = String(effect.get("key")) if String(effect.get("key")).strip_edges() != "" else String(data.get("trace_id", ""))
+	if not data.has("cleanup_strength") and String(effect.get("value_type")) == "int":
+		data["cleanup_strength"] = int(effect.get("value_int"))
+	return PaperTrailAdapterScript.cleanup_traces(data, context)
+
+
+static func _apply_redirect_paper_trace(effect: Resource, context: Dictionary) -> Dictionary:
+	var data := _payload(effect)
+	data["trace_id"] = String(effect.get("key")) if String(effect.get("key")).strip_edges() != "" else String(data.get("trace_id", ""))
+	var explanation := String(data.get("explanation_id", effect.get("value_string")))
+	return PaperTrailAdapterScript.redirect_traces(data, explanation, context)
+
+
 static func _apply_alert_state(effect: Resource, context: Dictionary) -> Dictionary:
 	var controller := _find_alert_controller()
 	var state := String(effect.call("get_value"))
@@ -177,6 +241,40 @@ static func _apply_mission_fail(effect: Resource, context: Dictionary) -> Dictio
 	if reason == "":
 		reason = "The job went sideways."
 	return MissionCompletionBridge.request_fail(mission_id, reason, context)
+
+
+static func _apply_encounter_event(effect: Resource, context: Dictionary) -> Dictionary:
+	var controller := _find_encounter_controller(context)
+	if controller == null or not controller.has_method("record_event"):
+		return _result(false, "encounter_controller_missing", "EncounterController is missing.", String(effect.get("effect_id")))
+	var event_id := String(effect.get("key")).strip_edges()
+	if event_id == "":
+		event_id = String(effect.get("effect_id"))
+	return controller.call("record_event", event_id, _payload(effect))
+
+
+static func _apply_set_encounter_phase(effect: Resource, context: Dictionary) -> Dictionary:
+	var controller := _find_encounter_controller(context)
+	if controller == null or not controller.has_method("set_phase"):
+		return _result(false, "encounter_controller_missing", "EncounterController is missing.", String(effect.get("effect_id")))
+	var phase_id := String(effect.get("key")).strip_edges()
+	if phase_id == "":
+		phase_id = String(effect.call("get_value")).strip_edges()
+	return controller.call("set_phase", phase_id, String(effect.get("effect_id")))
+
+
+static func _apply_adjust_encounter_meter(effect: Resource, context: Dictionary) -> Dictionary:
+	var controller := _find_encounter_controller(context)
+	if controller == null or not controller.has_method("adjust_meter"):
+		return _result(false, "encounter_controller_missing", "EncounterController is missing.", String(effect.get("effect_id")))
+	return controller.call("adjust_meter", String(effect.get("key")), int(effect.call("get_value")), _payload(effect))
+
+
+static func _apply_set_encounter_result_tag(effect: Resource, context: Dictionary) -> Dictionary:
+	var controller := _find_encounter_controller(context)
+	if controller == null or not controller.has_method("set_result_tag"):
+		return _result(false, "encounter_controller_missing", "EncounterController is missing.", String(effect.get("effect_id")))
+	return controller.call("set_result_tag", String(effect.get("key")), bool(effect.call("get_value")))
 
 
 static func _apply_toggle_node(effect: Resource, context: Dictionary) -> Dictionary:
@@ -232,6 +330,22 @@ static func _find_alert_controller() -> Node:
 		return grouped
 	if tree.current_scene != null:
 		return tree.current_scene.find_child("MissionAlertController", true, false)
+	return null
+
+
+static func _find_encounter_controller(context: Dictionary = {}) -> Node:
+	var contextual: Variant = context.get("encounter_controller", null)
+	if contextual is Node:
+		return contextual as Node
+	var main_loop := Engine.get_main_loop()
+	if not (main_loop is SceneTree):
+		return null
+	var tree := main_loop as SceneTree
+	var grouped := tree.get_first_node_in_group("mission_encounter_controller")
+	if grouped != null:
+		return grouped
+	if tree.current_scene != null:
+		return tree.current_scene.find_child("EncounterController", true, false)
 	return null
 
 

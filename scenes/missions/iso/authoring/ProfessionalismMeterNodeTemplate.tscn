@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ProfessionalismMeterNode.gd" id="1_meter"]
+
+[node name="ProfessionalismMeterNodeTemplate" type="Node"]
+script = ExtResource("1_meter")
+mechanic_id = &"CHANGE_ME_PROFESSIONALISM_METER"
+display_name = "Professionalism Meter"
+meter_id = &"CHANGE_ME_PROFESSIONALISM_METER"
+initial_professionalism = 1
+initial_cleanliness = 1

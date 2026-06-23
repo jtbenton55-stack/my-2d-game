@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/presentation/PresentationSequencePlayer.gd" id="1_sequence"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/CameraBridge.gd" id="2_camera"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/PlayerControlBridge.gd" id="3_player"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/AudioVisualBridge.gd" id="4_audio_visual"]
+
+[node name="PresentationSequencePlayerTemplate" type="Node2D"]
+
+[node name="CameraBridge" type="Node" parent="."]
+script = ExtResource("2_camera")
+
+[node name="PlayerControlBridge" type="Node" parent="."]
+script = ExtResource("3_player")
+
+[node name="AudioVisualBridge" type="Node" parent="."]
+script = ExtResource("4_audio_visual")
+
+[node name="PresentationSequencePlayer" type="Node" parent="."]
+script = ExtResource("1_sequence")
+sequence_steps = [{"type": "dialogue_key", "key": "CHANGE_ME_DIALOGUE_KEY", "fallback_speaker": "Mission", "fallback_text": "Replace this intro line."}, {"type": "audio_visual", "cue": "CHANGE_ME_CUE"}]

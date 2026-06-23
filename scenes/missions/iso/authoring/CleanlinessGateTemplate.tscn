@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/CleanlinessGate.gd" id="1_cleanliness_gate"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cleanliness"]
+size = Vector2(128, 128)
+
+[node name="CleanlinessGateTemplate" type="Area2D"]
+script = ExtResource("1_cleanliness_gate")
+min_cleanliness = 1
+required_protocol_id = &"CHANGE_ME_PROTOCOL_ID"
+unlocked_flag = &"CHANGE_ME_GATE_UNLOCKED"
+mechanic_id = &"CHANGE_ME_CLEANLINESS_GATE"
+display_name = "Cleanliness Gate"
+prompt_text = "Press E: Pass cleanliness gate"
+locked_prompt_text = "Too messy to pass"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cleanliness")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Cleanliness Gate"
+horizontal_alignment = 1

@@ -206,6 +206,10 @@ func _resolve_dialogue_provider() -> MissionDialogueProvider:
 	return _dialogue_provider
 
 
+func get_mission_dialogue_provider() -> MissionDialogueProvider:
+	return _resolve_dialogue_provider()
+
+
 func _mission_dialogue_line(dialogue_id: String, fallback_text: String, fallback_speaker: String = "Mission") -> Dictionary:
 	var provider := _resolve_dialogue_provider()
 	if provider == null:

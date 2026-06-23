@@ -1,6 +1,9 @@
 extends Node
 
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
+const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
+const EncounterResultAdapterScript := preload("res://src/missions/iso/encounters/EncounterResultAdapter.gd")
 
 const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
@@ -288,6 +291,8 @@ func reset_for_new_game(emit_change = true) -> void:
 	mission_heat_states.clear()
 	mission_performance.clear()
 	mission_alert_states.clear()
+	PaperTrailAdapterScript.clear_all()
+	SocialStealthAdapterScript.clear_all()
 	MissionInventoryScript.clear_all()
 	poop_bag_count = 0
 	poop_bags_this_mission_attempt = 0
@@ -300,6 +305,8 @@ func start_mission(mission_id: String) -> void:
 	current_mission_id = mission_id
 	is_in_mission = true
 	clear_mission_flags(mission_id)
+	PaperTrailAdapterScript.reset_mission(mission_id)
+	SocialStealthAdapterScript.reset_mission(mission_id)
 	MissionInventoryScript.clear_mission_items()
 	player_health = player_max_health
 	poop_bags_this_mission_attempt = 0
@@ -340,7 +347,7 @@ func complete_mission(mission_id = "") -> Dictionary:
 	_finalize_mission_performance(mission_id, true)
 	var rewards := _grant_success_rewards(mission_id)
 	clear_mission_mutations(mission_id)
-	last_mission_result = {"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}
+	last_mission_result = EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result({"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards})))
 	EventBus.mission_completed.emit(mission_id, rewards)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()
@@ -373,7 +380,7 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		player_max_health += 10
 		player_health = player_max_health
 		rewards.append("Jake upgrade: +10 max health")
-	last_mission_result = {"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards}
+	last_mission_result = EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result({"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards})))
 	EventBus.mission_failed.emit(mission_id, reason)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()

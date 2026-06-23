@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; GdUnit and headless scene smoke cover runtime contracts.",
+    "PhantomCamera and Resonant are not installed in this repo, so Phase 12 validates safe fallback adapter paths rather than plugin runtime behavior."
+  ]
+}

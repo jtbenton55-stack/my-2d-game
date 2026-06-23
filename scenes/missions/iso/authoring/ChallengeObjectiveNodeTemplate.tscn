@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd" id="1_challenge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_challenge"]
+size = Vector2(128, 128)
+
+[node name="ChallengeObjectiveNodeTemplate" type="Area2D"]
+script = ExtResource("1_challenge")
+required_phase_id = &"CHANGE_ME_PHASE"
+event_id = &"CHANGE_ME_CHALLENGE_EVENT"
+route_tag = &"CHANGE_ME_ROUTE"
+meter_deltas = {"evidence_strength": 1, "plausible_deniability": 1}
+mechanic_id = &"CHANGE_ME_CHALLENGE_ID"
+display_name = "Challenge Objective"
+prompt_text = "Press E: Complete challenge step"
+locked_prompt_text = "Challenge step unavailable"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_challenge")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Challenge"
+horizontal_alignment = 1

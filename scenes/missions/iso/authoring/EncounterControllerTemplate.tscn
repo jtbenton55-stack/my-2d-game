@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterController.gd" id="1_controller"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterPhaseData.gd" id="2_phase"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/ChallengeMeterData.gd" id="3_meter"]
+
+[sub_resource type="Resource" id="Resource_phase_opening"]
+script = ExtResource("2_phase")
+phase_id = &"opening"
+display_name = "Opening Challenge"
+next_phase_id = &"resolution"
+
+[sub_resource type="Resource" id="Resource_phase_resolution"]
+script = ExtResource("2_phase")
+phase_id = &"resolution"
+display_name = "Resolution"
+win_on_success = true
+result_tag_on_success = &"CHANGE_ME_ROUTE"
+
+[sub_resource type="Resource" id="Resource_meter_suspicion"]
+script = ExtResource("3_meter")
+meter_id = &"suspicion"
+display_name = "Suspicion Pressure"
+max_value = 10
+warning_value = 6
+danger_value = 9
+favorable_when_high = false
+
+[sub_resource type="Resource" id="Resource_meter_evidence"]
+script = ExtResource("3_meter")
+meter_id = &"evidence_strength"
+display_name = "Evidence Strength"
+max_value = 10
+
+[node name="EncounterControllerTemplate" type="Node"]
+script = ExtResource("1_controller")
+encounter_id = &"CHANGE_ME_ENCOUNTER_ID"
+display_name = "Encounter Challenge"
+phases = Array[Resource]([SubResource("Resource_phase_opening"), SubResource("Resource_phase_resolution")])
+meters = Array[Resource]([SubResource("Resource_meter_suspicion"), SubResource("Resource_meter_evidence")])

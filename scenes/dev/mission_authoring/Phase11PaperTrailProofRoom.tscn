@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://j88rl0a2gbkc"]
+
+[ext_resource type="Script" uid="uid://bicls6l1pt0gl" path="res://src/missions/iso/authoring/mechanics/DoorStateMemoryNode.gd" id="1_door_memory"]
+[ext_resource type="Script" uid="uid://j35h24oxv052" path="res://src/missions/iso/authoring/mechanics/AuditTrailCleanupNode.gd" id="2_cleanup"]
+[ext_resource type="Script" uid="uid://co26ms3ev81el" path="res://src/missions/iso/authoring/mechanics/HeatSinkObject.gd" id="3_heat_sink"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/PhaseProofRoomButtonHarness.gd" id="4_harness"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cleanup"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_heat_sink"]
+size = Vector2(96, 96)
+
+[node name="Phase11PaperTrailProofRoom" type="Node2D" unique_id=123192556]
+position = Vector2(384, 272)
+
+[node name="MissionMechanics" type="Node2D" parent="." unique_id=1111754956]
+
+[node name="DoorStateMemoryNode_phase11e_door_memory" type="Area2D" parent="MissionMechanics" unique_id=547609229]
+position = Vector2(-208, -104)
+collision_layer = 8
+script = ExtResource("1_door_memory")
+door_id = &"phase11_server_room_door"
+trace_id = &"phase11_door_left_open"
+opened_flag = &"phase11_door_left_open"
+mechanic_id = &"phase11e_door_memory"
+display_name = "Phase 11 Door Memory"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Use suspicious door"
+preview_color = Color(0.75, 0.55, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/DoorStateMemoryNode_phase11e_door_memory" unique_id=1300704890]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/DoorStateMemoryNode_phase11e_door_memory" unique_id=1980947466]
+offset_left = -168.0
+offset_top = -88.0
+offset_right = 171.0
+offset_bottom = -65.0
+text = "DOOR MEMORY phase11_server_room_door"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AuditTrailCleanupNode_phase11c_cleanup" type="Area2D" parent="MissionMechanics" unique_id=783103073]
+collision_layer = 8
+script = ExtResource("2_cleanup")
+cleanup_id = &"phase11_wipe_log"
+target_trace_id = &"phase11_door_left_open"
+cleanup_requirement = &"wipe_down"
+mechanic_id = &"phase11c_cleanup"
+display_name = "Phase 11 Cleanup"
+mission_id_override = "test_mission"
+one_shot = false
+prompt_text = "Press E: Wipe audit trail"
+preview_color = Color(0.35, 0.9, 0.55, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/AuditTrailCleanupNode_phase11c_cleanup" unique_id=1048851800]
+shape = SubResource("RectangleShape2D_cleanup")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/AuditTrailCleanupNode_phase11c_cleanup" unique_id=1669410298]
+offset_left = -32.0
+offset_top = -96.0
+offset_right = 208.0
+offset_bottom = -73.0
+text = "CLEANUP phase11_wipe_log"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HeatSinkObject_phase11d_misdirection" type="Area2D" parent="MissionMechanics" unique_id=1260770704]
+position = Vector2(416, -72)
+collision_layer = 8
+script = ExtResource("3_heat_sink")
+heat_sink_id = &"phase11_delivery_cover"
+explanation_id = &"delivery_door_check"
+target_trace_type = "door_memory"
+mechanic_id = &"phase11d_heat_sink"
+display_name = "Phase 11 Heat Sink"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Leave delivery note"
+preview_color = Color(0.95, 0.65, 0.2, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/HeatSinkObject_phase11d_misdirection" unique_id=1307961945]
+shape = SubResource("RectangleShape2D_heat_sink")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/HeatSinkObject_phase11d_misdirection" unique_id=1712669995]
+offset_left = -128.0
+offset_top = -88.0
+offset_right = 140.0
+offset_bottom = -65.0
+text = "HEAT SINK phase11_delivery_cover"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("4_harness")
+proof_id = "phase11"
+mission_id = "test_mission"
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 344.0
+offset_bottom = 200.0
+
+[node name="Record Door Trace" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Record Door Trace"
+
+[node name="Clean Door Trace" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Clean Door Trace"
+
+[node name="Redirect Door Trace" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Redirect Door Trace"
+
+[node name="Run Deniable Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Deniable Route"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 216.0
+offset_right = 760.0
+offset_bottom = 380.0
+autowrap_mode = 3
+text = "Phase 11 proof ready."

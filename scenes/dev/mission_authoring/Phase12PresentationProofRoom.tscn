@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://c33a06ilio1ri"]
+
+[ext_resource type="Script" uid="uid://bfx5nsdrl5uxb" path="res://src/missions/iso/presentation/DialogueTriggerZone.gd" id="1_dialogue_trigger"]
+[ext_resource type="Script" uid="uid://d24qd8s0vvp51" path="res://src/missions/iso/presentation/BarkTrigger.gd" id="2_bark_trigger"]
+[ext_resource type="Script" uid="uid://dfqhl2565xast" path="res://src/missions/iso/presentation/PresentationSequencePlayer.gd" id="3_sequence"]
+[ext_resource type="Script" uid="uid://bwh2xxmnc07yb" path="res://src/missions/iso/presentation/CameraBridge.gd" id="4_camera_bridge"]
+[ext_resource type="Script" uid="uid://dcr3ras81n4lp" path="res://src/missions/iso/presentation/PlayerControlBridge.gd" id="5_player_bridge"]
+[ext_resource type="Script" uid="uid://el58jyuphstk" path="res://src/missions/iso/presentation/AudioVisualBridge.gd" id="6_audio_visual"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/PhaseProofRoomButtonHarness.gd" id="7_harness"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dialogue"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bark"]
+size = Vector2(96, 96)
+
+[node name="Phase12PresentationProofRoom" type="Node2D" unique_id=653839261]
+position = Vector2(456, 240)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=175696064]
+position = Vector2(0, -64)
+
+[node name="PlayerProof" type="Node2D" parent="." unique_id=620095705]
+position = Vector2(-224, 96)
+
+[node name="FocusTargets" type="Node2D" parent="." unique_id=988324222]
+
+[node name="phase12_focus" type="Marker2D" parent="FocusTargets" unique_id=1681620103]
+position = Vector2(192, -64)
+
+[node name="PresentationHelpers" type="Node2D" parent="." unique_id=807155935]
+
+[node name="CameraBridge" type="Node" parent="PresentationHelpers" unique_id=895526291]
+script = ExtResource("4_camera_bridge")
+camera_path = NodePath("../../Camera2D")
+named_target_paths = {
+"phase12_focus": NodePath("../../FocusTargets/phase12_focus")
+}
+default_blend_seconds = 0.0
+
+[node name="PlayerControlBridge" type="Node" parent="PresentationHelpers" unique_id=1184045611]
+script = ExtResource("5_player_bridge")
+player_path = NodePath("../../PlayerProof")
+
+[node name="AudioVisualBridge" type="Node" parent="PresentationHelpers" unique_id=1065995072]
+script = ExtResource("6_audio_visual")
+named_cue_payloads = {
+"phase12_sting": {
+"sfx_id": "phase12_sting",
+"shake_duration": 0.05,
+"shake_intensity": 0.4
+}
+}
+
+[node name="PresentationSequencePlayer" type="Node" parent="PresentationHelpers" unique_id=822595126]
+script = ExtResource("3_sequence")
+sequence_library = {
+"intro": [{
+"fallback_speaker": "Louis",
+"fallback_text": "Keep it breezy. The cameras hate confidence.",
+"key": "phase12_intro",
+"type": "dialogue_key"
+}, {
+"blend_seconds": 0.0,
+"target": "phase12_focus",
+"type": "camera_focus"
+}, {
+"cue": "phase12_sting",
+"type": "audio_visual"
+}, {
+"blend_seconds": 0.0,
+"type": "camera_restore"
+}],
+"outro": [{
+"speaker": "Bentley",
+"text": "Arf. Translation: tasteful exit.",
+"type": "bark"
+}]
+}
+
+[node name="MissionMechanics" type="Node2D" parent="." unique_id=1304241790]
+
+[node name="DialogueTriggerZone_phase12a_intro_line" type="Area2D" parent="MissionMechanics" unique_id=1711429765]
+position = Vector2(-128, 0)
+collision_layer = 8
+script = ExtResource("1_dialogue_trigger")
+dialogue_key = &"phase12_intro"
+fallback_speaker = "Louis"
+fallback_text = "Keep it breezy. The cameras hate confidence."
+mechanic_id = &"phase12a_intro_line"
+display_name = "Phase 12 Intro Dialogue"
+mission_id_override = "test_mission"
+interaction_mode = 0
+prompt_text = "Press E: Play intro line"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/DialogueTriggerZone_phase12a_intro_line" unique_id=746930327]
+shape = SubResource("RectangleShape2D_dialogue")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/DialogueTriggerZone_phase12a_intro_line" unique_id=1638947950]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BarkTrigger_phase12b_bentley_bark" type="Area2D" parent="MissionMechanics" unique_id=1528229624]
+position = Vector2(128, 0)
+collision_layer = 8
+script = ExtResource("2_bark_trigger")
+bark_id = &"phase12_bentley_bark"
+bark_text = "Arf. Translation: do the cool version."
+mechanic_id = &"phase12b_bentley_bark"
+display_name = "Phase 12 Bark"
+mission_id_override = "test_mission"
+interaction_mode = 0
+prompt_text = "Press E: Trigger bark"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BarkTrigger_phase12b_bentley_bark" unique_id=1964461647]
+shape = SubResource("RectangleShape2D_bark")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/BarkTrigger_phase12b_bentley_bark" unique_id=343452020]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("7_harness")
+proof_id = "phase12"
+mission_id = "test_mission"
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 344.0
+offset_bottom = 200.0
+
+[node name="Play Intro Dialogue" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Play Intro Dialogue"
+
+[node name="Play Bentley Bark" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Play Bentley Bark"
+
+[node name="Run Intro Sequence" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Intro Sequence"
+
+[node name="Run Outro Sequence" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Outro Sequence"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 216.0
+offset_right = 760.0
+offset_bottom = 340.0
+autowrap_mode = 3
+text = "Phase 12 proof ready."

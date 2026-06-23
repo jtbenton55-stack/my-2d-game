@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd" id="1_disruption"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_disruption"]
+size = Vector2(128, 128)
+
+[node name="DisruptionActionNodeTemplate" type="Area2D"]
+script = ExtResource("1_disruption")
+required_phase_id = &"CHANGE_ME_PHASE"
+action_type = "route_control"
+event_id = &"CHANGE_ME_DISRUPTION_EVENT"
+route_tag = &"CHANGE_ME_ROUTE"
+meter_deltas = {"security_integrity": -1, "suspicion": 1}
+mechanic_id = &"CHANGE_ME_DISRUPTION_ID"
+display_name = "Disruption Action"
+prompt_text = "Press E: Disrupt"
+locked_prompt_text = "Disruption unavailable"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_disruption")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Disrupt"
+horizontal_alignment = 1

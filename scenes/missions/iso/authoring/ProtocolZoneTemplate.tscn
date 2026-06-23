@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ProtocolZone.gd" id="1_protocol_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_protocol"]
+size = Vector2(128, 128)
+
+[node name="ProtocolZoneTemplate" type="Area2D"]
+script = ExtResource("1_protocol_zone")
+protocol_id = &"CHANGE_ME_PROTOCOL_ID"
+required_cover_story_id = &"CHANGE_ME_COVER_STORY"
+required_credential_id = &"CHANGE_ME_CREDENTIAL"
+completed_flag = &"CHANGE_ME_PROTOCOL_COMPLETE"
+professionalism_delta = 1
+mechanic_id = &"CHANGE_ME_PROTOCOL_ID"
+display_name = "Protocol Zone"
+prompt_text = "Press E: Follow protocol"
+locked_prompt_text = "Protocol unavailable"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_protocol")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Protocol"
+horizontal_alignment = 1

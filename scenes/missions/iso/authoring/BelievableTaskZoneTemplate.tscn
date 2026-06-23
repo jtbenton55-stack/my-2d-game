@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BelievableTaskZone.gd" id="1_task_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_task"]
+size = Vector2(128, 128)
+
+[node name="BelievableTaskZoneTemplate" type="Area2D"]
+script = ExtResource("1_task_zone")
+task_id = &"CHANGE_ME_TASK_ID"
+cover_story_id = &"CHANGE_ME_COVER_STORY"
+completed_flag = &"CHANGE_ME_TASK_COMPLETE"
+professionalism_delta = 1
+mechanic_id = &"CHANGE_ME_TASK_ID"
+display_name = "Believable Task Zone"
+prompt_text = "Press E: Do believable task"
+locked_prompt_text = "Task would look suspicious"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_task")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Believable Task"
+horizontal_alignment = 1

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/presentation/BarkTrigger.gd" id="1_bark_trigger"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bark_trigger"]
+size = Vector2(128, 128)
+
+[node name="BarkTriggerTemplate" type="Area2D"]
+script = ExtResource("1_bark_trigger")
+bark_id = &"CHANGE_ME_BARK_ID"
+bark_speaker = "Bentley"
+bark_text = "Bark."
+mechanic_id = &"CHANGE_ME_BARK_TRIGGER_ID"
+display_name = "Bark Trigger"
+prompt_text = "Press E: Bark"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bark_trigger")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Bark Trigger"
+horizontal_alignment = 1

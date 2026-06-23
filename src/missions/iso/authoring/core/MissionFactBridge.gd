@@ -2,6 +2,8 @@ class_name MissionFactBridge
 extends RefCounted
 
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
+const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
 
 const FACT_ALWAYS := &"always"
 const FACT_MISSION_ID := &"mission_id"
@@ -22,6 +24,21 @@ const FACT_POOP_BAG_COUNT := &"poop_bag_count"
 const FACT_INVENTORY_HAS_ITEM := &"inventory_has_item"
 const FACT_INVENTORY_ITEM_COUNT := &"inventory_item_count"
 const FACT_INVENTORY_HAS_CATEGORY := &"inventory_has_category"
+const FACT_PAPER_TRACE_ACTIVE := &"paper_trace_active"
+const FACT_PAPER_TRACE_TYPE_COUNT := &"paper_trace_type_count"
+const FACT_PAPER_TRAIL_RESULT_STATE := &"paper_trail_result_state"
+const FACT_PAPER_TRAIL_SEVERITY_SCORE := &"paper_trail_severity_score"
+const FACT_SOCIAL_COVER_STORY_ACTIVE := &"social_cover_story_active"
+const FACT_SOCIAL_CREDENTIAL_ACTIVE := &"social_credential_active"
+const FACT_SOCIAL_PROTOCOL_COMPLETE := &"social_protocol_complete"
+const FACT_SOCIAL_TASK_COMPLETE := &"social_task_complete"
+const FACT_SOCIAL_PROFESSIONALISM_SCORE := &"professionalism_score"
+const FACT_SOCIAL_CLEANLINESS_SCORE := &"cleanliness_score"
+const FACT_SOCIAL_INSPECTION_PASSED := &"social_inspection_passed"
+const FACT_SOCIAL_INSPECTION_FAILED := &"social_inspection_failed"
+const FACT_ENCOUNTER_PHASE := &"encounter_phase"
+const FACT_ENCOUNTER_METER := &"encounter_meter"
+const FACT_ENCOUNTER_RESULT_TAG := &"encounter_result_tag"
 
 
 static func resolve_mission_id(context: Dictionary = {}) -> String:
@@ -98,11 +115,30 @@ static func get_fact_value(fact_type: StringName, key: String, context: Dictiona
 			return MissionInventoryScript.get_item_count(key)
 		FACT_INVENTORY_HAS_CATEGORY:
 			return MissionInventoryScript.has_category(key)
+		FACT_PAPER_TRACE_ACTIVE, FACT_PAPER_TRACE_TYPE_COUNT, FACT_PAPER_TRAIL_RESULT_STATE, FACT_PAPER_TRAIL_SEVERITY_SCORE:
+			return PaperTrailAdapterScript.get_fact_value(fact_type, key, context)
+		FACT_SOCIAL_COVER_STORY_ACTIVE, FACT_SOCIAL_CREDENTIAL_ACTIVE, FACT_SOCIAL_PROTOCOL_COMPLETE, FACT_SOCIAL_TASK_COMPLETE, FACT_SOCIAL_PROFESSIONALISM_SCORE, FACT_SOCIAL_CLEANLINESS_SCORE, FACT_SOCIAL_INSPECTION_PASSED, FACT_SOCIAL_INSPECTION_FAILED:
+			return SocialStealthAdapterScript.get_fact_value(fact_type, key, context)
+		FACT_ENCOUNTER_PHASE, FACT_ENCOUNTER_METER, FACT_ENCOUNTER_RESULT_TAG:
+			return _get_encounter_fact_value(fact_type, key, context)
 		_:
 			return null
 
 
 static func set_fact_value(fact_type: StringName, key: String, value: Variant, context: Dictionary = {}) -> Dictionary:
+	match fact_type:
+		FACT_SOCIAL_COVER_STORY_ACTIVE:
+			return SocialStealthAdapterScript.set_cover_story(key, _social_payload(value, context), context)
+		FACT_SOCIAL_CREDENTIAL_ACTIVE:
+			return SocialStealthAdapterScript.grant_credential(key, _social_payload(value, context), context)
+		FACT_SOCIAL_PROTOCOL_COMPLETE:
+			return SocialStealthAdapterScript.complete_protocol(key, _social_payload(value, context), context)
+		FACT_SOCIAL_TASK_COMPLETE:
+			return SocialStealthAdapterScript.complete_task(key, _social_payload(value, context), context)
+		FACT_SOCIAL_PROFESSIONALISM_SCORE:
+			return SocialStealthAdapterScript.set_professionalism(int(value), context)
+		FACT_SOCIAL_CLEANLINESS_SCORE:
+			return SocialStealthAdapterScript.set_cleanliness(int(value), context)
 	var game_state := _autoload("GameState")
 	if game_state == null:
 		return _result(false, "game_state_missing", "GameState autoload is missing.", key)
@@ -199,7 +235,60 @@ static func is_known_fact_type(fact_type: StringName) -> bool:
 		FACT_INVENTORY_HAS_ITEM,
 		FACT_INVENTORY_ITEM_COUNT,
 		FACT_INVENTORY_HAS_CATEGORY,
+		FACT_PAPER_TRACE_ACTIVE,
+		FACT_PAPER_TRACE_TYPE_COUNT,
+		FACT_PAPER_TRAIL_RESULT_STATE,
+		FACT_PAPER_TRAIL_SEVERITY_SCORE,
+		FACT_SOCIAL_COVER_STORY_ACTIVE,
+		FACT_SOCIAL_CREDENTIAL_ACTIVE,
+		FACT_SOCIAL_PROTOCOL_COMPLETE,
+		FACT_SOCIAL_TASK_COMPLETE,
+		FACT_SOCIAL_PROFESSIONALISM_SCORE,
+		FACT_SOCIAL_CLEANLINESS_SCORE,
+		FACT_SOCIAL_INSPECTION_PASSED,
+		FACT_SOCIAL_INSPECTION_FAILED,
+		FACT_ENCOUNTER_PHASE,
+		FACT_ENCOUNTER_METER,
+		FACT_ENCOUNTER_RESULT_TAG,
 	]
+
+
+static func _get_encounter_fact_value(fact_type: StringName, key: String, context: Dictionary = {}) -> Variant:
+	var controller: Variant = context.get("encounter_controller", null)
+	if controller != null and controller.has_method("get_fact_value"):
+		return controller.call("get_fact_value", fact_type, key, context)
+	var encounter: Variant = context.get("encounter", null)
+	if encounter is Dictionary:
+		var data := encounter as Dictionary
+		match fact_type:
+			FACT_ENCOUNTER_PHASE:
+				var phase_id := String(data.get("current_phase_id", ""))
+				return phase_id if key.strip_edges() == "" else phase_id == key
+			FACT_ENCOUNTER_METER:
+				var meters: Dictionary = data.get("meters", {})
+				var meter: Variant = meters.get(key, null)
+				if meter is Dictionary:
+					return int((meter as Dictionary).get("value", 0))
+				return 0
+			FACT_ENCOUNTER_RESULT_TAG:
+				return bool((data.get("result_tags", {}) as Dictionary).get(key, false))
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:
+		var grouped := tree.get_first_node_in_group("mission_encounter_controller")
+		if grouped != null and grouped.has_method("get_fact_value"):
+			return grouped.call("get_fact_value", fact_type, key, context)
+	return null
+
+
+static func _social_payload(value: Variant, context: Dictionary) -> Dictionary:
+	var payload: Dictionary = {}
+	if value is Dictionary:
+		payload = (value as Dictionary).duplicate(true)
+	elif context.get("payload", null) is Dictionary:
+		payload = (context.get("payload") as Dictionary).duplicate(true)
+	else:
+		payload["value"] = value
+	return payload
 
 
 static func _mission_flag_key(mission_id: String, flag_id: String) -> String:

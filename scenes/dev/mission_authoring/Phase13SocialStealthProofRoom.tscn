@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://dnnxqx46li08w"]
+
+[ext_resource type="Script" uid="uid://dvagqp4jend3m" path="res://src/missions/iso/authoring/mechanics/InspectionZone.gd" id="1_inspection_zone"]
+[ext_resource type="Script" uid="uid://ktw33mv471cq" path="res://src/missions/iso/authoring/mechanics/BelievableTaskZone.gd" id="2_task_zone"]
+[ext_resource type="Script" uid="uid://c100dsfwtviv8" path="res://src/missions/iso/authoring/mechanics/ProtocolZone.gd" id="3_protocol_zone"]
+[ext_resource type="Script" uid="uid://cb5km2nv4ch62" path="res://src/missions/iso/authoring/mechanics/ProfessionalismMeterNode.gd" id="4_meter"]
+[ext_resource type="Script" uid="uid://bfcn8yflmseee" path="res://src/missions/iso/authoring/mechanics/CleanlinessGate.gd" id="5_cleanliness_gate"]
+[ext_resource type="Script" uid="uid://d0ijiggccglid" path="res://src/missions/iso/social/InspectionRuleSet.gd" id="6_rule_set"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/PhaseProofRoomButtonHarness.gd" id="7_harness"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_social"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_staff_inspection"]
+script = ExtResource("6_rule_set")
+accepted_cover_story_ids = Array[StringName]([&"staff_cleaner"])
+required_credential_ids = Array[StringName]([&"staff_badge"])
+required_protocol_ids = Array[StringName]([&"wipe_protocol"])
+required_task_ids = Array[StringName]([&"restock_wipes"])
+min_professionalism = 2
+min_cleanliness = 1
+accepted_message = "You look like you belong here."
+rejected_message = "That story needs work."
+
+[node name="Phase13SocialStealthProofRoom" type="Node2D" unique_id=2047302114]
+position = Vector2(624, 288)
+
+[node name="MissionMechanics" type="Node2D" parent="." unique_id=1596684501]
+
+[node name="ProfessionalismMeterNode_phase13f_professionalism" type="Node" parent="MissionMechanics" unique_id=1350508943]
+script = ExtResource("4_meter")
+mechanic_id = &"phase13f_professionalism"
+display_name = "Phase 13 Professionalism Meter"
+mission_id_override = "test_mission"
+meter_id = &"phase13_professionalism"
+initial_professionalism = 1
+initial_cleanliness = 1
+
+[node name="BelievableTaskZone_phase13e_believable_task" type="Area2D" parent="MissionMechanics" unique_id=1191627654]
+position = Vector2(-192, 0)
+collision_layer = 8
+script = ExtResource("2_task_zone")
+task_id = &"restock_wipes"
+cover_story_id = &"staff_cleaner"
+completed_flag = &"restock_wipes_complete"
+mechanic_id = &"phase13e_believable_task"
+display_name = "Restock Wipes Task"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Restock wipes"
+locked_prompt_text = "Task would look suspicious"
+preview_color = Color(0.25, 0.65, 0.45, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/BelievableTaskZone_phase13e_believable_task" unique_id=488811447]
+shape = SubResource("RectangleShape2D_social")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/BelievableTaskZone_phase13e_believable_task" unique_id=690054509]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ProtocolZone_phase13f_protocol" type="Area2D" parent="MissionMechanics" unique_id=1028211592]
+collision_layer = 8
+script = ExtResource("3_protocol_zone")
+protocol_id = &"wipe_protocol"
+required_cover_story_id = &"staff_cleaner"
+required_credential_id = &"staff_badge"
+completed_flag = &"wipe_protocol_complete"
+mechanic_id = &"phase13f_protocol"
+display_name = "Wipe Protocol"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Follow wipe protocol"
+locked_prompt_text = "Protocol unavailable"
+preview_color = Color(0.75, 0.55, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/ProtocolZone_phase13f_protocol" unique_id=434156776]
+shape = SubResource("RectangleShape2D_social")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/ProtocolZone_phase13f_protocol" unique_id=875822111]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="InspectionZone_phase13d_inspection" type="Area2D" parent="MissionMechanics" unique_id=1311322696]
+position = Vector2(192, 0)
+collision_layer = 8
+script = ExtResource("1_inspection_zone")
+inspection_id = &"staff_hall_check"
+rule_set = SubResource("Resource_staff_inspection")
+accepted_flag = &"staff_hall_accepted"
+rejected_flag = &"staff_hall_rejected"
+mechanic_id = &"phase13d_inspection"
+display_name = "Staff Hall Inspection"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Present staff story"
+locked_prompt_text = "Cannot pass inspection"
+preview_color = Color(0.55, 0.45, 0.9, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InspectionZone_phase13d_inspection" unique_id=260392974]
+shape = SubResource("RectangleShape2D_social")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/InspectionZone_phase13d_inspection" unique_id=659380885]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CleanlinessGate_phase13f_cleanliness_gate" type="Area2D" parent="MissionMechanics" unique_id=537047626]
+position = Vector2(384, 0)
+collision_layer = 8
+script = ExtResource("5_cleanliness_gate")
+required_protocol_id = &"wipe_protocol"
+lock_kind = "scanner"
+unlocked_flag = &"clean_staff_gate_unlocked"
+mechanic_id = &"phase13f_cleanliness_gate"
+display_name = "Clean Staff Gate"
+mission_id_override = "test_mission"
+prompt_text = "Press E: Pass clean gate"
+locked_prompt_text = "Too messy to pass"
+preview_color = Color(0.3, 0.85, 0.85, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/CleanlinessGate_phase13f_cleanliness_gate" unique_id=1544491363]
+shape = SubResource("RectangleShape2D_social")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/CleanlinessGate_phase13f_cleanliness_gate" unique_id=1943513760]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("7_harness")
+proof_id = "phase13"
+mission_id = "test_mission"
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 344.0
+offset_bottom = 200.0
+
+[node name="Grant Staff Identity" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Grant Staff Identity"
+
+[node name="Run Clean Staff Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Clean Staff Route"
+
+[node name="Run Failed Inspection" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Failed Inspection"
+
+[node name="Reset Social State" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Reset Social State"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 216.0
+offset_right = 760.0
+offset_bottom = 380.0
+autowrap_mode = 3
+text = "Phase 13 proof ready."

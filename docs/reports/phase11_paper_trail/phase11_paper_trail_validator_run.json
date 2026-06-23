@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; GdUnit and headless scene smoke cover runtime contracts.",
+    "Phase 11 stores paper-trail state runtime-first and intentionally does not add save-schema fields."
+  ]
+}

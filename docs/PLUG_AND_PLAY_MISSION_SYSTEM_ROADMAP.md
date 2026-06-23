@@ -1624,6 +1624,13 @@ Make evidence, cleanup, trace, and plausible denial into gameplay.
 - Mission results can reflect whether the player was suspicious, seen, explainable, or deniable.
 - Early work stays mission-local/runtime-first without forcing a save-schema rewrite.
 
+### Phase 11A-11F Status - 2026-06-22
+
+- Implemented `PaperTrailTraceEvent` and runtime-first `PaperTrailAdapter` for mission-local trace recording, cleanup, redirection, summaries, and mission-result annotation without adding save-schema fields.
+- Added paper-trail facts/effects to the normal authoring vocabulary: `paper_trace_active`, `paper_trace_type_count`, `paper_trail_result_state`, `paper_trail_severity_score`, plus record/cleanup/redirect effects.
+- Added `AuditTrailCleanupNode`, `HeatSinkObject`, and `DoorStateMemoryNode` with templates, Mission Dock placement/audit support, a `Phase11PaperTrailProofRoom`, focused GdUnit coverage, and a static validator.
+- Mission results now include a paper-trail summary so traces affect clean/suspicious/seen/explainable/deniable feedback before complex NPC belief simulation exists.
+
 ## Phase 12: Narrative And Presentation
 
 ### Goal
@@ -1663,6 +1670,8 @@ Add story, jokes, mission flavor, and pacing without hardcoding dialogue into me
 - If PhantomCamera or Resonant are absent, presentation steps fail safely or fall back to built-in behavior.
 - The Phase 9 `CustomSequenceRunner` remains gameplay-ordering infrastructure and does not directly own camera, player control, or audio.
 
+2026-06-22 Phase 12A-12H status: implemented the first narrative/presentation bridge packet. `MissionDialogueBridge` now supports an in-memory dialogue key registry and mission-provider lookup via `MissionDialogueProvider` while preserving fallback lines. Added placed `DialogueTriggerZone` and `BarkTrigger` nodes with cooldown/one-shot spam prevention; `PresentationSequencePlayer` coordinates short intro/outro/flavor beats without owning mission gameplay state; `CameraBridge`, `PlayerControlBridge`, and `AudioVisualBridge` wrap camera focus/restore/shake, temporary player input lock/guided movement/restore, and named audio-visual cues. PhantomCamera and Resonant are absent in this repo, so the bridges expose optional adapter paths and safe built-in fallbacks. Mission Dock placement/audit support, templates, `Phase12PresentationProofRoom`, focused GdUnit coverage, static validation, and the AI report complete Phase 12A-12H without adding a separate `MicroCutscenePlayer`.
+
 ## Phase 13: Social Stealth Identity
 
 ### Goal
@@ -1684,7 +1693,11 @@ Make the game about acting believable, not only hiding.
 - A believable task can reduce suspicion or prevent inspection.
 - Professionalism/cleanliness can act as mission facts.
 
+2026-06-22 Phase 13A-13G status: implemented the first social stealth identity packet without adding a global social manager. `SocialStealthAdapter` stores mission-local cover story, credential, protocol, believable task, professionalism, cleanliness, and inspection state; `MissionFactBridge` and `MissionEffectApplier` expose that vocabulary through normal requirements/effects. Added `CoverStoryData`, `CredentialData`, `InspectionRuleSet`, `InspectionZone`, `BelievableTaskZone`, `ProtocolZone`, `ProfessionalismMeterNode`, and `CleanlinessGate`, plus Mission Dock placement/audit support, templates, `Phase13SocialStealthProofRoom`, focused GdUnit coverage, static validation, and the AI report. This proves a reusable path where believable tasks/protocol/cleanliness let an inspection accept the player without combat, NPC AI rewrite, or production Taco coupling.
+
 ## Phase 14: Encounter / Boss Challenges
+
+Status: Complete as of 2026-06-22 for the reusable encounter layer, proof scene, templates, Mission Dock placement/audit support, tests, and validator. Production mission adoption remains gated until Jake manually confirms Phases 9I-13 are stable in production QA.
 
 ### Goal
 
@@ -1695,20 +1708,28 @@ Create climactic challenge missions without defaulting to combat.
 1. `EncounterController`.
 2. `EncounterPhaseData`.
 3. `ChallengeObjectiveNode`.
-4. Suspicion challenge meter.
-5. Security integrity challenge meter.
-6. Evidence strength challenge meter.
-7. Bentley confidence challenge meter.
-8. Plausible deniability challenge meter.
+4. `ChallengeMeterData`.
+5. `DisruptionActionNode` for non-HP physical/social/security disruptions.
+6. Encounter facts and effects for phase, meter, event, and result-tag logic.
+7. Suspicion challenge meter.
+8. Security integrity challenge meter.
+9. Evidence strength challenge meter.
+10. Bentley confidence challenge meter.
+11. Plausible deniability challenge meter.
+12. Phase 14 proof room with route buttons for clean social, Bentley, evidence, and messy routes.
 
 ### Avoid
 
 Traditional HP combat as the default challenge model.
 
+Production placement in Taco or other story missions before manual QA passes for Phases 9I-13.
+
 ### Done Criteria
 
 - A challenge can progress through phases using objective/fact state.
-- The player wins through stealth, social, route, evidence, or Bentley play.
+- The player wins through stealth, social, route, evidence, Bentley, or deniability play.
+- Encounter state appears in mission results when a mission-local controller is present.
+- Authoring support includes Mission Dock entries, templates, a static validator, and a dev proof scene.
 
 ## Phase 15: Advanced Reactive NPC/Social Systems
 

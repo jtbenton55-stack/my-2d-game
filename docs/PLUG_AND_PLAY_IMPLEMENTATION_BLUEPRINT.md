@@ -2178,6 +2178,8 @@ Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. E
 | Phase 11E | Door/action memory | `DoorStateMemoryNode` and suspicious-state facts. | Player actions can affect deniability. |
 | Phase 11F | Result summary integration | Mission result reflects clean/messy/explainable/seen states. | Trace affects results before complex NPC behavior. |
 
+Status note as of 2026-06-22: Phase 11A-11F is implemented as a runtime-first paper-trail packet. `PaperTrailTraceEvent` defines the trace schema, `PaperTrailAdapter` records mission-local traces and annotates mission results, `AuditTrailCleanupNode` cleans or weakens eligible traces, `HeatSinkObject` redirects traces to plausible explanations, and `DoorStateMemoryNode` records suspicious door/action memory. `MissionFactBridge`, `MissionEffect`, and `MissionEffectApplier` expose paper-trail facts/effects through the existing authoring path. Mission Dock, templates, `Phase11PaperTrailProofRoom`, focused GdUnit tests, a static validator, and this report complete the first deniability slice without adding persistent save-schema fields or NPC belief simulation.
+
 ### Phase 12: Narrative And Presentation
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
@@ -2191,6 +2193,8 @@ Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. E
 | Phase 12G | Mission intro/outro hooks | Data-driven start/end beats. | Intro/outro trigger from mission state without custom mission scripts. |
 | Phase 12H | Microcutscene decision gate | Add `MicroCutscenePlayer` only if bridges are too small. | No overlapping presentation systems are created prematurely. |
 
+Status note as of 2026-06-22: Phase 12A-12H is implemented as a bridge-first narrative/presentation packet. `MissionDialogueBridge` now resolves registered dialogue keys and current-scene `MissionDialogueProvider` lines before falling back to simple authored text. `DialogueTriggerZone` and `BarkTrigger` are placed trigger nodes with cooldown/one-shot spam prevention and Mission Dock placement/audit support. `PresentationSequencePlayer` coordinates short flavor, intro, and outro steps through `CameraBridge`, `PlayerControlBridge`, `AudioVisualBridge`, and `MissionDialogueBridge`; it intentionally does not own mission gameplay state and does not replace Phase 9 `CustomSequenceRunner`. `CameraBridge` includes named focus, built-in blend/restore/shake behavior, and optional PhantomCamera adapter hooks; `PlayerControlBridge` locks/restores player control and can guide a player node; `AudioVisualBridge` plays named cues through optional Resonant hooks plus existing `AudioManager` / `EventBus` fallbacks. PhantomCamera and Resonant are not installed, so safe fallback behavior is the validated path. `MicroCutscenePlayer` was not added because the bridge-based player is sufficient for this first Phase 12 scope.
+
 ### Phase 13: Social Stealth Identity
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
@@ -2203,17 +2207,21 @@ Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. E
 | Phase 13F | Protocol/cleanliness | `ProtocolZone`, `CleanlinessGate`, simple professionalism meter. | Social/protocol outcomes affect mission facts/results. |
 | Phase 13G | First social stealth slice | One mission area proves believable-action gameplay. | Player can pass through social logic without combat/AI overhaul. |
 
+Status note as of 2026-06-22: Phase 13A-13G is implemented as an adapter-first social stealth packet. `SocialStealthAdapter` stores mission-local social state and annotates mission results; it is intentionally not a global manager. `CoverStoryData`, `CredentialData`, and `InspectionRuleSet` define authored social identity data. `MissionFactBridge`, `MissionEffect`, and `MissionEffectApplier` expose cover story, credential, protocol, task, professionalism, cleanliness, and inspection state through the existing requirement/effect path. `InspectionZone`, `BelievableTaskZone`, `ProtocolZone`, `ProfessionalismMeterNode`, and `CleanlinessGate` provide the first placed social stealth mechanics. Mission Dock placement/audit support, templates, `Phase13SocialStealthProofRoom`, focused tests, static validation, and the AI report complete the first believable-action slice without NPC AI overhaul or production Taco coupling.
+
 ### Phase 14: Encounter / Boss Challenges
+
+Status: Complete as of 2026-06-22 for reusable Phase 14A-14G systems. Production challenge placement is intentionally policy-gated until manual QA passes for Phases 9I-13.
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 14A | Encounter design contract | Define non-HP challenge principles: stealth, social, route, evidence, Bentley, deniability. | Encounter work does not default to traditional combat. |
-| Phase 14B | Encounter data | `EncounterPhaseData` and challenge meter definitions. | Encounter phase logic is data-driven. |
-| Phase 14C | Encounter controller | `EncounterController` that reads facts/objectives/effects. | Controller does not duplicate objective or alert managers. |
-| Phase 14D | Challenge objective nodes | `ChallengeObjectiveNode` and phase-gated mechanic integration. | Challenge steps reuse mission-authoring mechanics. |
-| Phase 14E | Meter integration | Suspicion, security integrity, evidence strength, Bentley confidence, deniability meters. | Meters derive from existing facts/events. |
-| Phase 14F | First challenge prototype | One contained encounter validation scene. | Player can win through authored systems, not HP combat. |
-| Phase 14G | Production challenge gate | Only after side jobs/social/paper trail are stable. | No production boss challenge begins before required systems exist. |
+| Phase 14A | Encounter design contract | Non-HP challenge principles implemented through phase, meter, fact/effect, route, evidence, Bentley, social, and deniability contracts. | Encounter runtime avoids default combat/HP terms and does not add combat managers. |
+| Phase 14B | Encounter data | `EncounterPhaseData` and `ChallengeMeterData`. | Encounter phase/meter logic is data-driven. |
+| Phase 14C | Encounter controller | Mission-local `EncounterController` plus `EncounterResultAdapter`. | Controller is scene-local and does not duplicate objective, alert, card, inventory, or completion managers. |
+| Phase 14D | Challenge objective nodes | `ChallengeObjectiveNode` and phase-gated mechanic integration. | Challenge steps reuse `MechanicAreaBase`, `RequirementSet`, and `EffectSet`. |
+| Phase 14E | Meter integration | Suspicion, security integrity, evidence strength, Bentley confidence, deniability meters plus encounter facts/effects. | Meters are exposed through `encounter_meter`; events/result tags are exposed through existing authoring bridges. |
+| Phase 14F | First challenge prototype | `Phase14EncounterProofRoom.tscn` with clean social, Bentley, evidence, and messy route buttons. | Player routes can resolve the encounter through authored systems, not HP combat. |
+| Phase 14G | Production challenge gate | Policy-only gate documented; no Taco production placement added. | Production adoption waits for Jake manual QA confirmation for Phases 9I-13. |
 
 ### Phase 15: Advanced Reactive NPC/Social Systems
 
@@ -2241,6 +2249,10 @@ Implement after mission construction, inventory, cards, suspicion/alert, Bentley
 | `src/missions/iso/encounters/EncounterController.gd` | `EncounterController` | `Node` | Mission-local controller that advances phases based on facts/objectives/effects. |
 | `src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd` | `ChallengeObjectiveNode` | `MechanicAreaBase` | Placed objective node for challenge-specific actions. |
 | `src/missions/iso/encounters/ChallengeMeterData.gd` | `ChallengeMeterData` | `Resource` | Defines meter id, display name, min/max, warning thresholds, and result mapping. |
+| `src/missions/iso/authoring/mechanics/DisruptionActionNode.gd` | `DisruptionActionNode` | `MechanicAreaBase` | Physical/social/security disruption action that changes encounter meters and optional paper/social/alert consequences without HP combat. |
+| `src/missions/iso/encounters/EncounterResultAdapter.gd` | `EncounterResultAdapter` | `RefCounted` | Adds active encounter summary to mission results when a mission-local controller exists. |
+| `scenes/dev/mission_authoring/Phase14EncounterProofRoom.tscn` | n/a | `Scene` | Dev proof room with four route buttons for clean social, Bentley, evidence, and messy routes. |
+| `src/tools/editor/phase14_encounter/phase14_encounter_validator.py` | n/a | `Python validator` | Static guard for required Phase 14 files, facts/effects, buttons, Mission Dock support, result integration, and no default HP/combat terms. |
 
 ### Initial Meter Vocabulary
 
@@ -2260,6 +2272,7 @@ Use these meters before inventing combat health:
 3. Challenge nodes should reuse `MechanicAreaBase`, `RequirementSet`, and `EffectSet` whenever possible.
 4. Traditional HP combat is not the default challenge model.
 5. A validation scene must prove phase advancement before production adoption.
+6. Production Taco placement remains gated until Jake manually approves Phases 9I-13 production QA.
 
 ### Done Criteria
 

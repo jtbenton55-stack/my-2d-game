@@ -1,0 +1,181 @@
+{
+  "ok": true,
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/encounters/ChallengeMeterData.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/encounters/EncounterPhaseData.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/encounters/EncounterController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/encounters/EncounterResultAdapter.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/authoring/mechanics/DisruptionActionNode.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/Phase14EncounterProofHarness.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/dev/mission_authoring/Phase14EncounterProofRoom.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions/iso/authoring/EncounterControllerTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions/iso/authoring/ChallengeObjectiveNodeTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions/iso/authoring/DisruptionActionNodeTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/Phase14EncounterTest.gd",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Clean Social Route",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Bentley Route",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Evidence Route",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Messy Route",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "encounter_phase",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "encounter_meter",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "encounter_result_tag",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "RECORD_ENCOUNTER_EVENT",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "SET_ENCOUNTER_PHASE",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "ADJUST_ENCOUNTER_METER",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "SET_ENCOUNTER_RESULT_TAG",
+      "ok": true
+    },
+    {
+      "check": "mission_dock",
+      "class": "EncounterController",
+      "ok": true
+    },
+    {
+      "check": "mission_dock",
+      "class": "ChallengeObjectiveNode",
+      "ok": true
+    },
+    {
+      "check": "mission_dock",
+      "class": "DisruptionActionNode",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "EncounterResultAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "encounter_state",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "Encounter Challenge",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "player_health",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "enemy_health",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "damage_amount",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "apply_damage",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "take_damage",
+      "ok": true
+    },
+    {
+      "check": "no_default_combat_term",
+      "term": "weapon_damage",
+      "ok": true
+    }
+  ]
+}

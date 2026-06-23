@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "errors": [],
+  "warnings": [],
+  "limitations": [
+    "Static validator cannot execute GDScript; GdUnit and headless scene smoke cover runtime contracts.",
+    "Phase 13 intentionally uses mission-local adapter state and facts/effects instead of adding a global social manager."
+  ]
+}

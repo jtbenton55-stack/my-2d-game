@@ -19,6 +19,19 @@ const MECHANIC_TYPES: Array[String] = [
 	"ObjectSwapNode",
 	"BugPlantNode",
 	"EavesdropZone",
+	"AuditTrailCleanupNode",
+	"HeatSinkObject",
+	"DoorStateMemoryNode",
+	"InspectionZone",
+	"BelievableTaskZone",
+	"ProtocolZone",
+	"ProfessionalismMeterNode",
+	"CleanlinessGate",
+	"EncounterController",
+	"ChallengeObjectiveNode",
+	"DisruptionActionNode",
+	"DialogueTriggerZone",
+	"BarkTrigger",
 	"RouteUnlockNode",
 	"InteractiveContainer",
 	"ExtractionZone",
@@ -44,6 +57,19 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"ObjectSwapNode": "res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd",
 	"BugPlantNode": "res://src/missions/iso/authoring/mechanics/BugPlantNode.gd",
 	"EavesdropZone": "res://src/missions/iso/authoring/mechanics/EavesdropZone.gd",
+	"AuditTrailCleanupNode": "res://src/missions/iso/authoring/mechanics/AuditTrailCleanupNode.gd",
+	"HeatSinkObject": "res://src/missions/iso/authoring/mechanics/HeatSinkObject.gd",
+	"DoorStateMemoryNode": "res://src/missions/iso/authoring/mechanics/DoorStateMemoryNode.gd",
+	"InspectionZone": "res://src/missions/iso/authoring/mechanics/InspectionZone.gd",
+	"BelievableTaskZone": "res://src/missions/iso/authoring/mechanics/BelievableTaskZone.gd",
+	"ProtocolZone": "res://src/missions/iso/authoring/mechanics/ProtocolZone.gd",
+	"ProfessionalismMeterNode": "res://src/missions/iso/authoring/mechanics/ProfessionalismMeterNode.gd",
+	"CleanlinessGate": "res://src/missions/iso/authoring/mechanics/CleanlinessGate.gd",
+	"EncounterController": "res://src/missions/iso/encounters/EncounterController.gd",
+	"ChallengeObjectiveNode": "res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd",
+	"DisruptionActionNode": "res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd",
+	"DialogueTriggerZone": "res://src/missions/iso/presentation/DialogueTriggerZone.gd",
+	"BarkTrigger": "res://src/missions/iso/presentation/BarkTrigger.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
 	"InteractiveContainer": "res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd",
 	"ExtractionZone": "res://src/missions/iso/authoring/mechanics/ExtractionZone.gd",
@@ -74,6 +100,15 @@ const EFFECT_TYPES_REQUIRING_KEY: Array[int] = [
 	MissionEffect.EffectType.GRANT_EVIDENCE_CLUE,
 	MissionEffect.EffectType.GRANT_ITEM,
 	MissionEffect.EffectType.REMOVE_ITEM,
+	MissionEffect.EffectType.RECORD_PAPER_TRACE,
+	MissionEffect.EffectType.ACTIVATE_COVER_STORY,
+	MissionEffect.EffectType.GRANT_CREDENTIAL,
+	MissionEffect.EffectType.COMPLETE_PROTOCOL,
+	MissionEffect.EffectType.COMPLETE_BELIEVABLE_TASK,
+	MissionEffect.EffectType.RECORD_ENCOUNTER_EVENT,
+	MissionEffect.EffectType.SET_ENCOUNTER_PHASE,
+	MissionEffect.EffectType.ADJUST_ENCOUNTER_METER,
+	MissionEffect.EffectType.SET_ENCOUNTER_RESULT_TAG,
 	MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY,
 ]
 
@@ -96,6 +131,21 @@ const FACT_TYPES: Array[String] = [
 	"inventory_has_item",
 	"inventory_item_count",
 	"inventory_has_category",
+	"paper_trace_active",
+	"paper_trace_type_count",
+	"paper_trail_result_state",
+	"paper_trail_severity_score",
+	"social_cover_story_active",
+	"social_credential_active",
+	"social_protocol_complete",
+	"social_task_complete",
+	"professionalism_score",
+	"cleanliness_score",
+	"social_inspection_passed",
+	"social_inspection_failed",
+	"encounter_phase",
+	"encounter_meter",
+	"encounter_result_tag",
 ]
 
 var _plugin: EditorPlugin
@@ -445,6 +495,16 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Plant bug"
 		"EavesdropZone":
 			_prompt_text.text = "Stay hidden and listen"
+		"AuditTrailCleanupNode":
+			_prompt_text.text = "Press E: Clean audit trail"
+		"HeatSinkObject":
+			_prompt_text.text = "Press E: Plant misdirection"
+		"DoorStateMemoryNode":
+			_prompt_text.text = "Press E: Use door"
+		"DialogueTriggerZone":
+			_prompt_text.text = "Press E: Talk"
+		"BarkTrigger":
+			_prompt_text.text = "Press E: Bark"
 		"RouteUnlockNode":
 			_prompt_text.text = "Press E: Open Route"
 		"InteractiveContainer":
@@ -744,7 +804,8 @@ func _commit_placement(local_or_canvas_pos: Vector2, from_mouse := false) -> voi
 			node_position = scene_root.to_local(local_or_canvas_pos)
 		else:
 			node_position = parent.to_local(local_or_canvas_pos)
-	node.position = node_position
+	if node is Node2D:
+		(node as Node2D).position = node_position
 	_pos_x.value = node_position.x
 	_pos_y.value = node_position.y
 	if _plugin == null:
@@ -771,33 +832,41 @@ func _commit_placement(local_or_canvas_pos: Vector2, from_mouse := false) -> voi
 	_update_template_details()
 
 
-func _build_mechanic_node(mechanic_type: String, base_id: String) -> Area2D:
+func _build_mechanic_node(mechanic_type: String, base_id: String) -> Node:
 	var script_path := String(MECHANIC_SCRIPTS.get(mechanic_type, ""))
 	var script := load(script_path) as Script
-	var node := Area2D.new()
+	var node: Node = Node.new() if mechanic_type in ["ProfessionalismMeterNode", "EncounterController"] else Area2D.new()
 	node.set_script(script)
-	var shape_node := CollisionShape2D.new()
-	shape_node.name = "CollisionShape2D"
-	var rect := RectangleShape2D.new()
-	rect.size = Vector2(_shape_x.value, _shape_y.value)
-	shape_node.shape = rect
-	node.add_child(shape_node)
-	node.set("shape_size", Vector2(_shape_x.value, _shape_y.value))
-	node.set("mechanic_id", StringName(base_id))
-	node.set("display_name", _display_name.text.strip_edges())
-	node.set("mission_id_override", _mission_id_override.text.strip_edges())
-	node.set("interaction_mode", _interaction_mode.selected)
-	node.set("prompt_text", _prompt_text.text)
-	node.set("one_shot", _one_shot.button_pressed)
+	if node is Area2D:
+		var shape_node := CollisionShape2D.new()
+		shape_node.name = "CollisionShape2D"
+		var rect := RectangleShape2D.new()
+		rect.size = Vector2(_shape_x.value, _shape_y.value)
+		shape_node.shape = rect
+		node.add_child(shape_node)
+	if "shape_size" in node:
+		node.set("shape_size", Vector2(_shape_x.value, _shape_y.value))
+	if "mechanic_id" in node:
+		node.set("mechanic_id", StringName(base_id))
+	if "display_name" in node:
+		node.set("display_name", _display_name.text.strip_edges())
+	if "mission_id_override" in node:
+		node.set("mission_id_override", _mission_id_override.text.strip_edges())
+	if "interaction_mode" in node:
+		node.set("interaction_mode", _interaction_mode.selected)
+	if "prompt_text" in node:
+		node.set("prompt_text", _prompt_text.text)
+	if "one_shot" in node:
+		node.set("one_shot", _one_shot.button_pressed)
 	_apply_type_defaults(node, mechanic_type, base_id)
-	if _req_enabled.button_pressed:
+	if _req_enabled.button_pressed and "requirements" in node:
 		node.set("requirements", _build_starter_requirement(base_id))
-	if _effect_enabled.button_pressed:
+	if _effect_enabled.button_pressed and "success_effects" in node:
 		node.set("success_effects", _build_starter_success_effect(base_id))
 	return node
 
 
-func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) -> void:
+func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) -> void:
 	match mechanic_type:
 		"SearchZone":
 			node.set("searched_flag", StringName("%s_searched" % base_id))
@@ -866,6 +935,99 @@ func _apply_type_defaults(node: Area2D, mechanic_type: String, base_id: String) 
 			node.set("completed_flag", StringName("%s_completed" % base_id))
 			node.set("interaction_mode", MechanicAreaBase.InteractionMode.SCRIPT_ONLY)
 			node.set("one_shot", true)
+		"AuditTrailCleanupNode":
+			node.set("cleanup_id", StringName(base_id))
+			node.set("cleanup_requirement", StringName("wipe_down"))
+			node.set("one_shot", false)
+		"HeatSinkObject":
+			node.set("heat_sink_id", StringName(base_id))
+			node.set("explanation_id", StringName("%s_explanation" % base_id))
+		"DoorStateMemoryNode":
+			node.set("door_id", StringName(base_id))
+			node.set("opened_flag", StringName("%s_opened" % base_id))
+			node.set("cleanup_requirement", StringName("wipe_down"))
+		"InspectionZone":
+			node.set("inspection_id", StringName(base_id))
+			var rule_set := InspectionRuleSet.new()
+			rule_set.accepted_cover_story_ids = [StringName("%s_cover" % base_id)]
+			rule_set.required_credential_ids = [StringName("%s_badge" % base_id)]
+			rule_set.min_professionalism = 1
+			node.set("rule_set", rule_set)
+			node.set("accepted_flag", StringName("%s_inspection_passed" % base_id))
+			node.set("rejected_flag", StringName("%s_inspection_rejected" % base_id))
+		"BelievableTaskZone":
+			node.set("task_id", StringName(base_id))
+			node.set("cover_story_id", StringName("%s_cover" % base_id))
+			node.set("completed_flag", StringName("%s_task_complete" % base_id))
+			node.set("professionalism_delta", 1)
+		"ProtocolZone":
+			node.set("protocol_id", StringName(base_id))
+			node.set("required_cover_story_id", StringName("%s_cover" % base_id))
+			node.set("required_credential_id", StringName("%s_badge" % base_id))
+			node.set("completed_flag", StringName("%s_protocol_complete" % base_id))
+		"ProfessionalismMeterNode":
+			node.set("meter_id", StringName(base_id))
+			node.set("initial_professionalism", 1)
+			node.set("initial_cleanliness", 1)
+		"CleanlinessGate":
+			node.set("unlocked_flag", StringName("%s_cleanliness_gate_unlocked" % base_id))
+			node.set("required_protocol_id", StringName("%s_protocol" % base_id))
+			node.set("min_cleanliness", 1)
+			node.set("locked_prompt_text", "Needs cleanup/protocol")
+		"EncounterController":
+			node.set("encounter_id", StringName(base_id))
+			node.set("display_name", "Encounter: %s" % base_id)
+			var phase := EncounterPhaseData.new()
+			phase.phase_id = &"opening"
+			phase.display_name = "Opening Challenge"
+			phase.next_phase_id = &"resolution"
+			var resolution := EncounterPhaseData.new()
+			resolution.phase_id = &"resolution"
+			resolution.display_name = "Resolution"
+			resolution.win_on_success = true
+			var phases: Array[Resource] = []
+			phases.append(phase)
+			phases.append(resolution)
+			node.set("phases", phases)
+			var suspicion := ChallengeMeterData.new()
+			suspicion.meter_id = &"suspicion"
+			suspicion.display_name = "Suspicion Pressure"
+			suspicion.max_value = 10
+			suspicion.initial_value = 0
+			suspicion.warning_value = 6
+			suspicion.danger_value = 9
+			suspicion.favorable_when_high = false
+			var evidence := ChallengeMeterData.new()
+			evidence.meter_id = &"evidence_strength"
+			evidence.display_name = "Evidence Strength"
+			evidence.max_value = 10
+			evidence.initial_value = 0
+			var meters: Array[Resource] = []
+			meters.append(suspicion)
+			meters.append(evidence)
+			node.set("meters", meters)
+		"ChallengeObjectiveNode":
+			node.set("required_phase_id", &"opening")
+			node.set("event_id", StringName("%s_completed" % base_id))
+			node.set("route_tag", StringName("%s_route" % base_id))
+			node.set("meter_deltas", {"evidence_strength": 2, "plausible_deniability": 1})
+		"DisruptionActionNode":
+			node.set("required_phase_id", &"opening")
+			node.set("event_id", StringName("%s_disrupted" % base_id))
+			node.set("action_type", "route_control")
+			node.set("meter_deltas", {"security_integrity": -2, "suspicion": 1})
+		"DialogueTriggerZone":
+			node.set("dialogue_key", StringName(base_id))
+			node.set("fallback_speaker", "Mission")
+			node.set("fallback_text", "Presentation line for %s." % base_id)
+			node.set("trigger_on_enter", false)
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.INTERACT_REQUIRED)
+		"BarkTrigger":
+			node.set("bark_id", StringName(base_id))
+			node.set("bark_speaker", "Bentley")
+			node.set("bark_text", "Bark.")
+			node.set("trigger_on_enter", false)
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.INTERACT_REQUIRED)
 		"RouteUnlockNode":
 			node.set("route_id", StringName(base_id))
 			node.set("route_flag", StringName("%s_open" % base_id))
@@ -1177,6 +1339,7 @@ func _audit_duplicate_flags(mechanics: Array[Node]) -> void:
 	var flag_properties := [
 		"searched_flag", "collected_flag", "route_flag", "unlocked_flag", "hack_completed_flag",
 		"circuit_flag", "switch_flag", "pressed_flag", "completed_flag", "swapped_flag", "planted_flag", "opened_flag", "extraction_flag", "objective_flag",
+		"accepted_flag", "rejected_flag",
 	]
 	for property in flag_properties:
 		var buckets: Dictionary = {}
@@ -1208,7 +1371,8 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 	var parent_path := str(node.get_path()).trim_prefix(str(scene_root.get_path()))
 	if not parent_path.contains("MissionMechanics"):
 		_audit_issues.append(_issue("Warning", "unexpected_parent_container", "Mechanic is not under MissionMechanics.", node))
-	_audit_collision_shape(node)
+	if node is MechanicAreaBase:
+		_audit_collision_shape(node)
 	if node is RewardNode and String(node.get("reward_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_reward_id", "RewardNode missing reward_id.", node))
 	if node is InventoryPickupNode and String(node.get("item_id")).strip_edges() == "":
@@ -1257,6 +1421,36 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_eavesdrop_id", "EavesdropZone missing eavesdrop_id.", node))
 	if node is EavesdropZone and String(node.get("completed_flag")).strip_edges() == "":
 		_audit_issues.append(_issue("Warning", "missing_eavesdrop_completed_flag", "EavesdropZone has no completed_flag for downstream facts.", node))
+	if node is AuditTrailCleanupNode and String(node.get("cleanup_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_cleanup_id", "AuditTrailCleanupNode missing cleanup_id.", node))
+	if node is HeatSinkObject and String(node.get("heat_sink_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_heat_sink_id", "HeatSinkObject missing heat_sink_id.", node))
+	if node is DoorStateMemoryNode and String(node.get("door_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_door_id", "DoorStateMemoryNode missing door_id.", node))
+	if node is InspectionZone and String(node.get("inspection_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_inspection_id", "InspectionZone missing inspection_id.", node))
+	if node is InspectionZone and node.get("rule_set") == null:
+		_audit_issues.append(_issue("Error", "missing_inspection_rule_set", "InspectionZone missing rule_set.", node))
+	if node is BelievableTaskZone and String(node.get("task_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_believable_task_id", "BelievableTaskZone missing task_id.", node))
+	if node is ProtocolZone and String(node.get("protocol_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_protocol_id", "ProtocolZone missing protocol_id.", node))
+	if node is ProfessionalismMeterNode and String(node.get("meter_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_professionalism_meter_id", "ProfessionalismMeterNode missing meter_id.", node))
+	if node is CleanlinessGate and int(node.get("min_cleanliness")) < 0:
+		_audit_issues.append(_issue("Error", "invalid_min_cleanliness", "CleanlinessGate min_cleanliness must be >= 0.", node))
+	if node is EncounterController and String(node.get("encounter_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_encounter_id", "EncounterController missing encounter_id.", node))
+	if node is EncounterController and (node.get("phases") as Array).is_empty():
+		_audit_issues.append(_issue("Error", "missing_encounter_phases", "EncounterController has no phases.", node))
+	if node is ChallengeObjectiveNode and String(node.get("event_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_challenge_event_id", "ChallengeObjectiveNode missing event_id.", node))
+	if node is DisruptionActionNode and String(node.get("action_type")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_disruption_action_type", "DisruptionActionNode missing action_type.", node))
+	if node is DialogueTriggerZone and String(node.get("dialogue_key")).strip_edges() == "" and String(node.get("fallback_text")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_dialogue_key", "DialogueTriggerZone missing dialogue_key and fallback_text.", node))
+	if node is BarkTrigger and String(node.get("bark_text")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_bark_text", "BarkTrigger missing bark_text.", node))
 	if node is RouteUnlockNode and String(node.get("route_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_route_id", "RouteUnlockNode missing route_id.", node))
 	if node is ExtractionZone and String(node.get("extraction_tag")).strip_edges() == "":
@@ -1284,9 +1478,12 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_node_path_array(scene_root, node, "nodes_to_hide")
 		_audit_node_path_array(scene_root, node, "collisions_to_enable")
 		_audit_node_path_array(scene_root, node, "collisions_to_disable")
-	_audit_requirement_set(node.get("requirements"))
-	_audit_effect_set(node.get("success_effects"), "success_effects")
-	_audit_effect_set(node.get("failure_effects"), "failure_effects")
+	if "requirements" in node:
+		_audit_requirement_set(node.get("requirements"))
+	if "success_effects" in node:
+		_audit_effect_set(node.get("success_effects"), "success_effects")
+	if "failure_effects" in node:
+		_audit_effect_set(node.get("failure_effects"), "failure_effects")
 
 
 func _audit_collision_shape(node: Node) -> void:

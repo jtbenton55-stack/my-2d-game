@@ -1,0 +1,185 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterController.gd" id="1_controller"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterPhaseData.gd" id="2_phase"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/ChallengeMeterData.gd" id="3_meter"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd" id="4_challenge"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd" id="5_disruption"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/Phase14EncounterProofHarness.gd" id="6_harness"]
+
+[sub_resource type="Resource" id="Resource_phase_opening"]
+script = ExtResource("2_phase")
+phase_id = &"opening"
+display_name = "Read the Room"
+next_phase_id = &"pressure"
+
+[sub_resource type="Resource" id="Resource_phase_pressure"]
+script = ExtResource("2_phase")
+phase_id = &"pressure"
+display_name = "Apply Pressure"
+next_phase_id = &"resolution"
+
+[sub_resource type="Resource" id="Resource_phase_resolution"]
+script = ExtResource("2_phase")
+phase_id = &"resolution"
+display_name = "Resolution"
+win_on_success = true
+result_tag_on_success = &"encounter_resolved"
+
+[sub_resource type="Resource" id="Resource_meter_suspicion"]
+script = ExtResource("3_meter")
+meter_id = &"suspicion"
+display_name = "Suspicion Pressure"
+max_value = 10
+warning_value = 6
+danger_value = 9
+favorable_when_high = false
+
+[sub_resource type="Resource" id="Resource_meter_security"]
+script = ExtResource("3_meter")
+meter_id = &"security_integrity"
+display_name = "Security Integrity"
+max_value = 10
+initial_value = 6
+warning_value = 3
+danger_value = 1
+
+[sub_resource type="Resource" id="Resource_meter_evidence"]
+script = ExtResource("3_meter")
+meter_id = &"evidence_strength"
+display_name = "Evidence Strength"
+max_value = 10
+
+[sub_resource type="Resource" id="Resource_meter_bentley"]
+script = ExtResource("3_meter")
+meter_id = &"bentley_confidence"
+display_name = "Bentley Confidence"
+max_value = 10
+
+[sub_resource type="Resource" id="Resource_meter_deniability"]
+script = ExtResource("3_meter")
+meter_id = &"plausible_deniability"
+display_name = "Plausible Deniability"
+max_value = 10
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phase14"]
+size = Vector2(128, 128)
+
+[node name="Phase14EncounterProofRoom" type="Node2D"]
+
+[node name="MissionMechanics" type="Node2D" parent="."]
+
+[node name="EncounterController_phase14_encounter" type="Node" parent="MissionMechanics"]
+script = ExtResource("1_controller")
+encounter_id = &"phase14_encounter"
+display_name = "Phase 14 Encounter Proof"
+mission_id_override = "test_mission"
+phases = Array[Resource]([SubResource("Resource_phase_opening"), SubResource("Resource_phase_pressure"), SubResource("Resource_phase_resolution")])
+meters = Array[Resource]([SubResource("Resource_meter_suspicion"), SubResource("Resource_meter_security"), SubResource("Resource_meter_evidence"), SubResource("Resource_meter_bentley"), SubResource("Resource_meter_deniability")])
+
+[node name="ChallengeObjectiveNode_phase14_clean_social" type="Area2D" parent="MissionMechanics"]
+position = Vector2(-192, 0)
+script = ExtResource("4_challenge")
+required_phase_id = &"opening"
+event_id = &"clean_social_step"
+route_tag = &"clean_social"
+meter_deltas = {"plausible_deniability": 2, "suspicion": -1}
+one_shot = false
+mechanic_id = &"phase14_clean_social"
+display_name = "Clean Social Step"
+mission_id_override = "test_mission"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/ChallengeObjectiveNode_phase14_clean_social"]
+shape = SubResource("RectangleShape2D_phase14")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/ChallengeObjectiveNode_phase14_clean_social"]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "Clean Social"
+horizontal_alignment = 1
+
+[node name="ChallengeObjectiveNode_phase14_evidence" type="Area2D" parent="MissionMechanics"]
+position = Vector2(0, 0)
+script = ExtResource("4_challenge")
+required_phase_id = &"pressure"
+event_id = &"evidence_step"
+route_tag = &"evidence"
+meter_deltas = {"evidence_strength": 2}
+one_shot = false
+mechanic_id = &"phase14_evidence"
+display_name = "Evidence Step"
+mission_id_override = "test_mission"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/ChallengeObjectiveNode_phase14_evidence"]
+shape = SubResource("RectangleShape2D_phase14")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/ChallengeObjectiveNode_phase14_evidence"]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "Evidence"
+horizontal_alignment = 1
+
+[node name="DisruptionActionNode_phase14_messy" type="Area2D" parent="MissionMechanics"]
+position = Vector2(192, 0)
+script = ExtResource("5_disruption")
+required_phase_id = &"opening"
+action_type = "paper_trace"
+event_id = &"messy_disruption"
+route_tag = &"messy"
+meter_deltas = {"suspicion": 2, "security_integrity": -2}
+paper_trace_id = &"phase14_messy_trace"
+paper_trace_type = &"witness"
+paper_trace_severity = 3
+one_shot = false
+mechanic_id = &"phase14_messy_disruption"
+display_name = "Messy Disruption"
+mission_id_override = "test_mission"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/DisruptionActionNode_phase14_messy"]
+shape = SubResource("RectangleShape2D_phase14")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/DisruptionActionNode_phase14_messy"]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "Messy"
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("6_harness")
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 220.0
+
+[node name="Run Clean Social Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Clean Social Route"
+
+[node name="Run Bentley Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Bentley Route"
+
+[node name="Run Evidence Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Evidence Route"
+
+[node name="Run Messy Route" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Messy Route"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 236.0
+offset_right = 720.0
+offset_bottom = 340.0
+autowrap_mode = 3
+text = "Phase 14 encounter proof ready."

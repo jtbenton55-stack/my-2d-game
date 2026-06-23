@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/HeatSinkObject.gd" id="1_heat_sink"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_heat_sink"]
+size = Vector2(96, 96)
+
+[node name="HeatSinkObjectTemplate" type="Area2D"]
+script = ExtResource("1_heat_sink")
+heat_sink_id = &"CHANGE_ME_HEAT_SINK_ID"
+mechanic_id = &"CHANGE_ME_HEAT_SINK_MECHANIC_ID"
+display_name = "Heat Sink Object"
+prompt_text = "Press E: Plant misdirection"
+shape_size = Vector2(96, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_heat_sink")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -60.0
+offset_right = 120.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Heat Sink"
+horizontal_alignment = 1
