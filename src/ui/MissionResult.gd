@@ -67,6 +67,17 @@ func _update_result_display() -> void:
 		for meter_id in meters.keys():
 			var meter: Dictionary = meters.get(meter_id, {})
 			text += "- %s: %d (%s)\n" % [String(meter.get("display_name", meter_id)), int(meter.get("value", 0)), String(meter.get("status", "stable"))]
+
+	var reactive_npc: Dictionary = result.get("reactive_npc", {})
+	if not reactive_npc.is_empty():
+		text += "\nReactive NPC Consequences:\n"
+		text += "- State: %s\n" % String(result.get("reactive_npc_state", "quiet")).capitalize()
+		text += "- Signals: %d  Reactions: %d  Authority reports: %d\n" % [
+			int(reactive_npc.get("signal_count", 0)),
+			int(reactive_npc.get("reaction_count", 0)),
+			int(reactive_npc.get("authority_reports", 0)),
+		]
+		text += "- LimboAI adapter used: %s\n" % ("yes" if bool(reactive_npc.get("limbo_adapter_used", false)) else "no")
 	
 	if not success:
 		text += "\nJake: As your doctor, I recommend fewer rooftop fistfights.\n"

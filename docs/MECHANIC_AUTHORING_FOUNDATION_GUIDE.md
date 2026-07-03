@@ -32,6 +32,7 @@ This replaces ad-hoc per-mission scripts for simple triggers, flags, and dialogu
 - Includes a Phase 5D inventory proof (`InventoryPickupNode_phase5d_delivery_badge` -> `RouteUnlockNode_phase5d_badge_route`) where a picked-up item unlocks a route through `inventory_has_item`
 - Includes Phase 7 Bentley command proofs (`CompanionCommandPoint_phase7_bark`, `_sniff`, `_fetch`, `BentleyCrawlspaceConnector_phase7e`, `BentleyWaitMarker_phase7f`) where Bentley commands apply normal success effects and fetch targets a nearby inventory token
 - Includes Phase 8A-8D-lite noise/distraction proofs (`NoiseEmitterNode_phase8a_bark_lure`, `DistractionObject_phase8d_decoy`) where placed noise applies normal success effects and routes to `MissionAlertController`
+- Phase 15 reactive NPC proof now lives in `res://scenes/dev/mission_authoring/Phase15ReactiveNpcProofRoom.tscn` rather than the older foundation room; it proves ignore, inspect, authority report, and routine override flows.
 
 **Not** the main scene and **not** wired into production missions. Use only for authoring validation.
 
@@ -393,6 +394,7 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 - Puzzle kit Phase 9 is complete through Phase 9G-9I: `Phase9SideJobProofRoom` proves two assembled side jobs, and Taco has a route-gated `PpTacoSouthSideJobSignoff` production adoption gate; tailing, carry-object controllers, save-schema work, and full mission-result integration are still deferred
 - No Mission Authoring Palette or Mission Assist Browser yet; build those after the reusable mechanics and first production adoption slice are stable
 - `CustomSequenceRunner` now covers small ordered side-job steps; presentation/cutscene sequencing remains deferred to canonical Phase 12 narrative/presentation bridges
+- Phase 15 reactive NPC/social consequences are bounded signal/reaction records only; LimboAI is absent-safe and adapter-gated, and production placement is deferred.
 
 ## Recent mechanic nodes
 
@@ -415,6 +417,8 @@ Dev room `MultiInstance/` demonstrates paired Reward A/B, Search A/B, and Route 
 17. `BugPlantNode` — consumes a bug item and marks a surveillance setup as planted
 18. `EavesdropZone` — timed listen zone that completes through mission facts/effects
 19. `CustomSequenceRunner` — small dependency-enforcing runner for authored side-job step order
+20. `InvestigationPointNode` — emits an explicit `SocialSignalEvent` and evaluates bounded `SocialReactionRuleSet` resources under `NpcAttentionBudget`
+21. `RoutineOverrideNode` — sets a routine override mission flag and emits a bounded route-tampered social signal
 
 ## Related future editor tooling
 

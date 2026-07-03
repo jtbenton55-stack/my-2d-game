@@ -146,16 +146,26 @@ func _controls_text() -> String:
 
 
 func _objectives_text() -> String:
-	var mission_id := String(GameState.current_mission_id)
+	var mission_node := _mission_node()
+	var payload := MissionPauseDataProvider.get_pause_payload("", mission_node)
+	var mission_id := String(payload.get("mission_id", ""))
 	var lines: Array[String] = []
-	var heat_line := MissionPauseDataProvider.get_heat_security_pause_line(mission_id, null)
+	lines.append(String(payload.get("mission_name", mission_id)))
+	if mission_id != "":
+		lines.append("Mission ID: %s" % mission_id)
+	lines.append("")
+	var heat_line := String(payload.get("heat_security_line", ""))
 	if heat_line != "":
 		lines.append(heat_line)
 		lines.append("")
+	lines.append("Attempt Context")
+	for row in payload.get("attempt_context", []):
+		if row is Dictionary:
+			lines.append("  - %s: %s" % [String(row.get("label", "")), String(row.get("text", ""))])
+	lines.append("")
 	lines.append("Active Objectives")
-	var snap := MissionPauseDataProvider.get_objective_snapshot(mission_id, null)
 	var saw_active := false
-	for row in snap.get("items", []):
+	for row in payload.get("objectives", []):
 		if row is Dictionary and String(row.get("kind", "")) == "active":
 			saw_active = true
 			lines.append("  - " + String(row.get("text", "")))
@@ -164,13 +174,13 @@ func _objectives_text() -> String:
 	lines.append("")
 	lines.append("Completed Objectives")
 	var saw_done := false
-	for row in snap.get("items", []):
+	for row in payload.get("objectives", []):
 		if row is Dictionary and String(row.get("kind", "")) == "completed":
 			saw_done = true
 			lines.append("  - " + String(row.get("text", "")))
 	if not saw_done:
 		lines.append("  No completed objectives yet.")
-	for w in snap.get("warnings", []):
+	for w in payload.get("warnings", []):
 		var ws := String(w).strip_edges()
 		if ws == "":
 			continue
@@ -182,14 +192,12 @@ func _objectives_text() -> String:
 func _scheme_cards_text() -> String:
 	if not MissionAutoloadResolver.has_game_state():
 		return "Scheme card data is not available right now."
-	var mission_id := String(GameState.current_mission_id)
-	var snap := MissionSchemeBridge.get_scheme_snapshot(mission_id)
+	var snap := MissionPauseDataProvider.get_scheme_card_snapshot("", _mission_node())
 	return MissionSchemeCardFormatter.format_player_pause_scheme_text(snap)
 
 
 func _clues_text() -> String:
-	var mission_id := String(GameState.current_mission_id)
-	var snap := MissionPauseDataProvider.get_clue_snapshot(mission_id, null)
+	var snap := MissionPauseDataProvider.get_clue_snapshot("", _mission_node())
 	var lines: Array[String] = ["Found Clues"]
 	if snap.get("items", []).is_empty():
 		lines.append("  none")
@@ -207,6 +215,15 @@ func _clues_text() -> String:
 		lines.append("")
 		lines.append("Note: " + ws)
 	return "\n".join(lines)
+
+
+func _mission_node() -> Node:
+	var node := get_parent()
+	while node != null:
+		if node.has_method("get_mission_id"):
+			return node
+		node = node.get_parent()
+	return null
 
 func _bindings(action_name: String, fallback: String) -> String:
 	if not InputMap.has_action(action_name):

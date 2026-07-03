@@ -1595,6 +1595,12 @@ Strengthen the between-mission emotional loop after mission authoring is stable.
 - Hideout controllers own UI and presentation.
 - Reward data is safe for the current save/load model.
 
+### Implementation Status
+
+- Phase 10A-10F-lite implemented 2026-06-22: `HideoutRewardAdapter` builds a reward-to-hideout contract from existing `GameState` completion/reward data and applies it through `HideoutStateController.apply_mission_reward_contract()` when the hideout loads.
+- The first production contract covers Taco completion: Louis visibility, Taco store/decor unlocks, reward card visibility in the planning state, collectible display flags, sauce-paw care unlock, and a case-cash floor without direct mission-to-UI mutation.
+- Full economy balancing, player-facing reward presentation polish, and additional mission-specific cozy rewards remain future Phase 10 extensions.
+
 ## Phase 11: Paper Trail / Deniability
 
 ### Goal
@@ -1731,29 +1737,37 @@ Production placement in Taco or other story missions before manual QA passes for
 - Encounter state appears in mission results when a mission-local controller is present.
 - Authoring support includes Mission Dock entries, templates, a static validator, and a dev proof scene.
 
-## Phase 15: Advanced Reactive NPC/Social Systems
+## Phase 15: Bounded Reactive NPC / Social Consequence Layer
+
+Status: Complete as of 2026-06-22 for the reusable bounded reaction layer, proof scene, templates, Mission Dock placement/audit support, tests, and validator. Production mission adoption remains intentionally gated until Jake manually confirms prior production QA and explicitly requests placement.
 
 ### Goal
 
-Make mature levels feel alive and reactive after the core systems are stable.
+Make mature levels react to authored social signals after the core systems are stable, without introducing a global simulation or direct optional-plugin dependency.
 
-### Defer Until Later
+### Built
 
-- LimboAI integration for behavior trees/state machines.
-- witness courier
-- routine tampering
-- emergency drill
-- gossip propagation
-- authority chain
-- attention budget
-- cascading failure
-- reputation misfire
-- retcon token
+1. `SocialSignalEvent` signal schema.
+2. `NpcAttentionBudget` caps, cooldowns, and debug snapshots.
+3. `SocialReactionRuleSet` reaction rules for ignore, inspect, report, route/routine, local suspicion, dialogue, encounter, and effect-set outcomes.
+4. `ReactiveNpcBrainAdapter` mission-local signal/reaction state and optional context-injected Limbo adapter gate.
+5. `ReactiveNpcFallbackDriver` absent-safe fallback reactions.
+6. `ReactiveNpcResultAdapter` mission result annotation.
+7. `InvestigationPointNode` and `RoutineOverrideNode` authoring mechanics.
+8. Reactive NPC facts/effects, Mission Dock support, templates, proof scene, focused tests, validator, and report.
+
+### Avoid
+
+- Direct LimboAI calls from mechanics, effects, mission scripts, or production scenes.
+- Full gossip propagation, faction reputation, NPC belief simulation, or combat AI rewrites.
+- Production Taco/story placement before manual QA and explicit adoption approval.
 
 ### Done Criteria
 
-- Only start this phase after NPC, suspicion, social stealth, route, fact, paper-trail, and encounter systems are stable.
-- LimboAI is used for mature NPC/guard/social behavior only after simpler authored command points and security authoring prove insufficient.
+- NPC/social reactions consume explicit authored signal records and can safely ignore missing or expired events.
+- Reaction caps/cooldowns prevent runaway cascades.
+- LimboAI remains optional and adapter-gated; fallback reactions work when it is absent.
+- Mission results show signal/reaction/report counts and Limbo adapter use.
 
 ## Current Short-Term Dependency-Order Plan
 
@@ -1782,7 +1796,7 @@ This section records the current short-term execution order. It is intended to b
 | Seventeenth | Narrative / presentation | Phase 12A-12H | Dialogue keys, barks, presentation sequences, camera/player/audio bridges. |
 | Eighteenth | Social stealth | Phase 13A-13G | Cover stories, credentials, believable tasks, inspections, and protocol/cleanliness. |
 | Nineteenth | Encounters | Phase 14A-14G | Non-HP challenge/encounter layer. |
-| Twentieth | Advanced NPC | Phase 15A-15G | Reactive NPC/social systems after simpler systems are stable. |
+| Twentieth | Bounded reactive NPC | Phase 15A-15I | Complete reusable social-signal/reaction layer; production adoption remains gated. |
 
 Update rule: revise this section after each completed gate or when validation changes the dependency order.
 

@@ -195,7 +195,7 @@ func _route_alarm_to_security_adapter(raw_kind: String, source_id: String) -> vo
 		"wrong_code_alarm":
 			nk = "wrong_code_alarm"
 		"alarm_zone":
-			if String(source_id).findn("garage_entry_beam") != -1:
+			if String(source_id).findn("garage_entry_beam") != -1 or String(source_id).findn("AMBUSH_security_beam") != -1:
 				nk = "beam_trip"
 			else:
 				nk = "alarm"

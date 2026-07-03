@@ -70,6 +70,26 @@ func has_collected(item_id: String) -> bool:
 	return collected_ids.has(item_id)
 
 
+func reset_attempt_state() -> Dictionary:
+	collected_ids.clear()
+	inspected_ids.clear()
+	for category in _canonical_categories():
+		_ensure_category(category)
+		collected_by_category[category].clear()
+	clues_collected.clear()
+	polaroids_collected.clear()
+	poop_bags_collected.clear()
+	bags_collected.clear()
+	tiny_collected.clear()
+	glow_collected.clear()
+	bag_items_collected.clear()
+	objective_flags.clear()
+	objective_records.clear()
+	gate_unlocked = false
+	_update_hud_counts()
+	return {"ok": true, "code": "phase0j_state_reset", "mission_id": mission_id}
+
+
 func get_count(category: String) -> int:
 	var normalized_category := normalize_category(category)
 	_ensure_category(normalized_category)

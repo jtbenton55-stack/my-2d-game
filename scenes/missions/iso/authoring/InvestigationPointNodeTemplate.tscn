@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd" id="1_investigation"]
+[ext_resource type="Script" path="res://src/missions/iso/ai/SocialReactionRuleSet.gd" id="2_rule"]
+[ext_resource type="Script" path="res://src/missions/iso/ai/NpcAttentionBudget.gd" id="3_budget"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_investigation"]
+size = Vector2(128, 128)
+
+[sub_resource type="Resource" id="Resource_investigation_rule"]
+script = ExtResource("2_rule")
+rule_id = &"CHANGE_ME_REACTION_RULE"
+accepted_signal_types = Array[StringName]([&"suspicious_action_seen"])
+reaction_id = &"inspect_point"
+target_investigation_point_id = &"CHANGE_ME_INVESTIGATION_POINT"
+debug_notes = "Fallback inspect-point reaction; no LimboAI dependency."
+
+[sub_resource type="Resource" id="Resource_attention_budget"]
+script = ExtResource("3_budget")
+budget_id = &"CHANGE_ME_ATTENTION_BUDGET"
+max_reactions_per_signal = 1
+max_reactions_per_zone = 2
+max_reactions_per_npc = 2
+cooldown_seconds = 2.0
+
+[node name="InvestigationPointNodeTemplate" type="Area2D"]
+script = ExtResource("1_investigation")
+investigation_point_id = &"CHANGE_ME_INVESTIGATION_POINT"
+signal_type = &"suspicious_action_seen"
+signal_severity = 1
+reaction_rule_sets = Array[Resource]([SubResource("Resource_investigation_rule")])
+attention_budget = SubResource("Resource_attention_budget")
+investigated_flag = &"CHANGE_ME_INVESTIGATED"
+mechanic_id = &"CHANGE_ME_INVESTIGATION_POINT"
+display_name = "Investigation Point"
+prompt_text = "Press E: Investigate"
+locked_prompt_text = "Investigation unavailable"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_investigation")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Investigation"
+horizontal_alignment = 1

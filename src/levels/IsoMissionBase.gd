@@ -253,7 +253,184 @@ func reset_tool_surface_runtime_state() -> void:
 
 ## Documented entry point for attempt-local runtime (see phase0md1b_attempt_reset_contract). Normal completion/failure uses SceneManager scene reload.
 func reset_mission_runtime_for_new_attempt() -> void:
+	var live_security_clear := _clear_d5_attempt_live_security_runtime()
 	_setup_runtime_systems()
+	var mid := get_mission_id()
+	var objective_reset := MissionObjectiveBridge.reset_runtime_objectives_for_mission(mid)
+	var security_beam_runtime := _ensure_d5_attempt_security_beam_runtime()
+	var security_reset := _reset_d5_attempt_security_runtime()
+	var interactable_reset := _reset_d5_attempt_interactables()
+	var phase0k_reset := _reset_phase0k_attempt_state()
+	set_meta("d5_01_attempt_reset", {
+		"mission_id": mid,
+		"live_security_clear": live_security_clear,
+		"objective_reset": objective_reset,
+		"security_beam_runtime": security_beam_runtime,
+		"security_reset": security_reset,
+		"interactable_reset": interactable_reset,
+		"phase0k_reset": phase0k_reset,
+	})
+
+
+func _clear_d5_attempt_live_security_runtime() -> Dictionary:
+	var removed_cameras: Array[String] = []
+	var removed_guards: Array[String] = []
+	_pending_security_guard_source_ids.clear()
+	_security_guard_spawn_flush_scheduled = false
+	var cameras := get_node_or_null("EntityRoot/Cameras") as Node
+	if cameras != null:
+		for child in cameras.get_children():
+			if not (child is Node):
+				continue
+			var node := child as Node
+			removed_cameras.append(str(node.get_path()))
+			cameras.remove_child(node)
+			node.queue_free()
+	var enemies := get_node_or_null("EntityRoot/Enemies") as Node
+	if enemies != null:
+		for child in enemies.get_children():
+			if not (child is Node):
+				continue
+			var node := child as Node
+			if not _is_d5_attempt_security_guard_node(node):
+				continue
+			removed_guards.append(str(node.get_path()))
+			enemies.remove_child(node)
+			node.queue_free()
+	return {
+		"ok": true,
+		"code": "d5_attempt_live_security_runtime_cleared",
+		"removed_cameras": removed_cameras,
+		"removed_guards": removed_guards,
+	}
+
+
+func _is_d5_attempt_security_guard_node(node: Node) -> bool:
+	if node == null:
+		return false
+	if node.get_meta("d5_attempt_runtime_guard", false) == true:
+		return true
+	if node.get_meta("security_response_spawn", false) == true:
+		return true
+	if node.get_meta("security_response_guard", false) == true:
+		return true
+	return node.has_meta("author_spawn_id")
+
+
+func _ensure_d5_attempt_security_beam_runtime() -> Dictionary:
+	if mission_definition != null and String(mission_definition.mission_id) == "taco_bell_drop":
+		var tree := get_tree()
+		if tree != null and tree.physics_frame.is_connected(_setup_fix7_ambush_beam_runtime):
+			tree.physics_frame.disconnect(_setup_fix7_ambush_beam_runtime)
+		_remove_fix7_stale_temp_beam_nodes()
+		_setup_fix7_ambush_beam_runtime()
+	var armed_nodes: Array[String] = []
+	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node
+	if alarm_zones != null:
+		var beam_alarm_ids: Array[String] = ["AMBUSH_security_beam", "garage_entry_beam"]
+		for alarm_id in beam_alarm_ids:
+			var area := alarm_zones.get_node_or_null("AlarmZone_%s" % alarm_id) as Area2D
+			if area == null or area.is_queued_for_deletion():
+				continue
+			_arm_d5_attempt_alarm_area(area, alarm_id)
+			armed_nodes.append(str(area.get_path()))
+	return {
+		"ok": true,
+		"code": "d5_attempt_security_beam_runtime_ready",
+		"armed_beam_nodes": armed_nodes,
+	}
+
+
+func _reset_d5_attempt_security_runtime() -> Dictionary:
+	var reset_nodes: Array[String] = []
+	var removed_guards: Array[String] = []
+	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node
+	if alarm_zones != null:
+		for child in alarm_zones.get_children():
+			var area := child as Area2D
+			if area == null:
+				continue
+			var alarm_id := String(area.name).replace("AlarmZone_", "")
+			if not _is_alarm_zone_one_shot(alarm_id):
+				continue
+			_arm_d5_attempt_alarm_area(area, alarm_id)
+			reset_nodes.append(str(area.get_path()))
+	var enemies := get_node_or_null("EntityRoot/Enemies") as Node
+	if enemies != null:
+		for child in enemies.get_children():
+			if not (child is Node):
+				continue
+			var node := child as Node
+			if node.get_meta("security_response_spawn", false) != true and node.get_meta("security_response_guard", false) != true:
+				continue
+			removed_guards.append(str(node.get_path()))
+			enemies.remove_child(node)
+			node.queue_free()
+	return {
+		"ok": true,
+		"code": "d5_attempt_security_runtime_reset",
+		"rearmed_alarm_zones": reset_nodes,
+		"removed_response_guards": removed_guards,
+	}
+
+
+func _arm_d5_attempt_alarm_area(area: Area2D, alarm_id: String) -> void:
+	if area == null:
+		return
+	var entered_callable := Callable(self, "_on_runtime_alarm_zone_entered").bind(alarm_id, area)
+	if not area.body_entered.is_connected(entered_callable):
+		area.body_entered.connect(entered_callable)
+	area.monitorable = true
+	area.collision_layer = 0
+	area.collision_mask = 1
+	for child in area.get_children():
+		var shape := child as CollisionShape2D
+		if shape != null:
+			shape.disabled = false
+	area.monitoring = true
+
+
+func _reset_d5_attempt_interactables() -> Dictionary:
+	var reset_nodes: Array[String] = []
+	var state_adapter := get_node_or_null("GameplayRoot/RuntimeHelpers/Phase0JMissionStateAdapter")
+	if state_adapter != null and state_adapter.has_method("reset_attempt_state"):
+		state_adapter.call("reset_attempt_state")
+		reset_nodes.append(str(state_adapter.get_path()))
+	for node in get_tree().get_nodes_in_group("phase0k_delivery_bag"):
+		if node != null and node.has_method("reset_attempt_state"):
+			node.call("reset_attempt_state")
+			reset_nodes.append(str(node.get_path()))
+	for node in get_tree().get_nodes_in_group("phase0j_interactable"):
+		if node == null or not node.has_method("reset_attempt_state"):
+			continue
+		if _node_string_property(node, "candidate_id") != "OBJ_bag_recovery":
+			continue
+		node.call("reset_attempt_state")
+		reset_nodes.append(str(node.get_path()))
+	return {"ok": true, "code": "d5_attempt_interactables_reset", "nodes": reset_nodes}
+
+
+func _node_string_property(node: Node, property_name: String) -> String:
+	for property in node.get_property_list():
+		if str(property.get("name", "")) != property_name:
+			continue
+		var value: Variant = node.get(property_name)
+		if value == null:
+			return ""
+		return str(value)
+	return ""
+
+
+func _reset_phase0k_attempt_state() -> Dictionary:
+	var controller := get_node_or_null("GameplayRoot/RuntimeHelpers/Phase0KMissionCompletionController")
+	if controller == null:
+		return {"ok": true, "code": "phase0k_controller_not_present"}
+	if not controller.has_method("reset_attempt_state"):
+		return {"ok": false, "code": "phase0k_reset_missing"}
+	var result: Variant = controller.call("reset_attempt_state")
+	if result is Dictionary:
+		return result as Dictionary
+	return {"ok": true, "code": "phase0k_reset_called"}
 
 
 func _ensure_iso_structure() -> void:
@@ -1264,14 +1441,14 @@ func _flush_deferred_security_guard_spawns() -> void:
 
 
 func _get_security_spawn_cap() -> int:
-	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var heat := GameState.get_mission_heat(_debug_mission_id())
 	return mini(6, 4 + heat)
 
 
 ## D6-01-FIX6A: heat-scaled reinforcement cooldown to prevent low-heat chain spawning.
 ## Heat 0–1: 6.0 sec, Heat 2–3: 4.5 sec, Heat 4: 3.0 sec, Heat 5: 2.0 sec
 func _get_security_reinforcement_cooldown_sec() -> float:
-	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var heat := GameState.get_mission_heat(_debug_mission_id())
 	if heat <= 1:
 		return 6.0
 	elif heat <= 3:
@@ -1280,6 +1457,10 @@ func _get_security_reinforcement_cooldown_sec() -> float:
 		return 3.0
 	else:
 		return 2.0
+
+
+func _debug_mission_id() -> String:
+	return String(mission_definition.mission_id) if mission_definition != null else get_mission_id()
 
 
 ## D6-01-FIX6A: check whether a reinforcement request is allowed given cooldown/cap/queue.
@@ -2219,6 +2400,7 @@ func _setup_runtime_systems() -> void:
 		var bucket := runtime.get_node_or_null(child_name)
 		if bucket != null:
 			_clear_children(bucket)
+	_security_event_router = null
 	for blocker_id in _code_gate_blockers.keys():
 		var blocker := _code_gate_blockers[blocker_id] as Node
 		if blocker != null and is_instance_valid(blocker):
@@ -2311,6 +2493,8 @@ func _spawn_guard_for_spawn(spawn_def: Resource) -> Node2D:
 	var guard := packed.instantiate() as Node2D
 	if guard == null:
 		return null
+	guard.set_meta("d5_attempt_runtime_guard", true)
+	guard.set_meta("security_spawn_source", "runtime_definition:" + spawn_id)
 	var enemies := get_node_or_null("EntityRoot/Enemies") as Node2D
 	if enemies == null:
 		return null
@@ -2391,6 +2575,8 @@ func _spawn_security_camera(cell: Vector2i, camera_id: String) -> void:
 		return
 	var camera := script.new() as Area2D
 	camera.name = _node_name("SecurityCamera", camera_id)
+	camera.set_meta("d5_attempt_runtime_camera", true)
+	camera.set_meta("security_camera_source", "runtime_definition:" + camera_id)
 	camera.global_position = _resolve_point_position(cell, "SECURITY_CAMERA", camera_id)
 	camera.set("camera_id", camera_id)
 	var rate_mult := float(_heat_profile.get("camera_rate_mult", 1.0))
@@ -2519,6 +2705,14 @@ func _ensure_d6_fix5_runtime_helpers() -> void:
 
 
 func get_security_event_router() -> Node:
+	if _security_event_router == null:
+		return null
+	if not is_instance_valid(_security_event_router):
+		_security_event_router = null
+		return null
+	if _security_event_router.is_queued_for_deletion() or not _security_event_router.is_inside_tree():
+		_security_event_router = null
+		return null
 	return _security_event_router
 
 
@@ -2537,6 +2731,28 @@ func _author_prop(author: Node, key: String, fallback: Variant = null) -> Varian
 
 func _is_beam_alarm_id(alarm_id: String) -> bool:
 	return alarm_id == "garage_entry_beam" or alarm_id == "AMBUSH_security_beam"
+
+
+func _is_louis_delivery_route_active() -> bool:
+	return GameState.has_selected_card("louis_delivery_route") or GameState.has_scheme_card("louis_delivery_route")
+
+
+func _try_bypass_louis_route_beam(alarm_id: String, area: Area2D, body: Node) -> bool:
+	if not _is_beam_alarm_id(alarm_id):
+		return false
+	if not _is_louis_delivery_route_active():
+		return false
+	if _is_runtime_flag_true("alarm_bypassed:" + alarm_id):
+		return true
+	_attempt_runtime_state["alarm_bypassed:" + alarm_id] = true
+	_attempt_runtime_state["louis_route_beam_bypass_used"] = true
+	_attempt_runtime_state["louis_route_beam_bypass_count"] = int(_attempt_runtime_state.get("louis_route_beam_bypass_count", 0)) + 1
+	_attempt_runtime_state["louis_route_beam_bypass_alarm_id"] = alarm_id
+	_attempt_runtime_state["louis_route_beam_bypass_player_position"] = (body as Node2D).global_position if body is Node2D else Vector2.ZERO
+	_attempt_runtime_state["d5_03_louis_route_beam_bypass"] = "used"
+	if area != null:
+		area.set_deferred("monitoring", false)
+	return true
 
 
 func _setup_d6_03_authoring_security_runtime() -> void:
@@ -2996,6 +3212,7 @@ func last_trigger_event_from_author(author: Node) -> String:
 
 
 func _emit_security_authoring_event(event_id: StringName, payload: Dictionary) -> Dictionary:
+	_mark_authoring_beam_trip_if_needed(event_id, payload)
 	if _security_event_router == null:
 		return {}
 	var full := payload.duplicate(true)
@@ -3008,6 +3225,27 @@ func _emit_security_authoring_event(event_id: StringName, payload: Dictionary) -
 	var dispatch: Dictionary = _security_event_router.call("emit_event", event_id, full)
 	_record_security_event_dispatch(dispatch)
 	return dispatch
+
+
+func _mark_authoring_beam_trip_if_needed(event_id: StringName, payload: Dictionary) -> void:
+	if not _is_authoring_beam_trip_event(event_id, payload):
+		return
+	var alarm_id := String(payload.get("source_id", "")).strip_edges()
+	if not _is_beam_alarm_id(alarm_id):
+		alarm_id = "AMBUSH_security_beam"
+	var key := "alarm_triggered:" + alarm_id
+	if _is_runtime_flag_true(key):
+		return
+	_attempt_runtime_state[key] = true
+	_attempt_runtime_state["beam_trip"] = int(_attempt_runtime_state.get("beam_trip", 0)) + 1
+	_attempt_runtime_state["ambush_triggered"] = int(_attempt_runtime_state.get("ambush_triggered", 0)) + 1
+	_attempt_runtime_state["d5_01_authoring_beam_trip_marked"] = true
+
+
+func _is_authoring_beam_trip_event(event_id: StringName, payload: Dictionary) -> bool:
+	if String(payload.get("source_type", "")).strip_edges() == "security_beam_author":
+		return true
+	return String(event_id).strip_edges() == "ambush_beam_tripped"
 
 
 func _record_security_event_dispatch(dispatch: Dictionary) -> void:
@@ -3131,6 +3369,12 @@ func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, pay
 	_attempt_runtime_state["d6_03_last_guard_spawn_author_id"] = spawn_id
 	if author == null or not is_instance_valid(author):
 		return {"result": "failed", "reason": "invalid_author", "spawned_count": 0, "spawned_guards": []}
+	var attempt_key := _authoring_guard_spawn_attempt_key(author, event_id)
+	if _should_authoring_guard_spawn_be_once_per_attempt(event_id, payload) and _is_runtime_flag_true(attempt_key):
+		_attempt_runtime_state["d6_03_last_guard_spawn_result"] = "rejected"
+		_attempt_runtime_state["d6_03_last_guard_spawn_reason"] = "one_shot_already_used"
+		_attempt_runtime_state["d5_01_authoring_guard_spawn_repeat_blocked"] = true
+		return {"handled": false, "result": "rejected", "reason": "one_shot_already_used", "spawned_count": 0, "spawned_guards": []}
 	if author.has_method("can_accept_event") and not author.call("can_accept_event", String(event_id), payload):
 		var reason := "rejected_cooldown_or_cap_or_heat"
 		if author is Node and author.get("last_spawn_reason"):
@@ -3170,6 +3414,8 @@ func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, pay
 		guard.set_meta("author_trigger_event", String(event_id))
 		guard.set_meta("guard_archetype", String(_author_prop(author, "guard_archetype", "grunt")))
 		guard.set_meta("security_response_guard", true)
+		guard.set_meta("security_response_spawn", true)
+		guard.set_meta("security_spawn_source", "author:" + spawn_id)
 		guard.set_meta("security_spawn_time_sec", int(Time.get_ticks_msec() / 1000))
 		if guard.has_method("apply_archetype_metadata"):
 			guard.call("apply_archetype_metadata", _author_prop(author, "guard_archetype", &"grunt"))
@@ -3187,6 +3433,8 @@ func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, pay
 	_attempt_runtime_state["d6_04_last_guard_initial_behavior"] = String(_author_prop(author, "initial_behavior", ""))
 	_attempt_runtime_state["d6_04_last_guard_fallback_behavior"] = String(_author_prop(author, "fallback_behavior", ""))
 	_attempt_runtime_state["attack_guard_spawned"] = _count_functional_security_response_guards()
+	if spawned.size() > 0 and _should_authoring_guard_spawn_be_once_per_attempt(event_id, payload):
+		_attempt_runtime_state[attempt_key] = true
 	return {
 		"handled": spawned.size() > 0,
 		"result": result,
@@ -3194,6 +3442,18 @@ func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, pay
 		"spawned_count": spawned.size(),
 		"spawned_guards": spawned,
 	}
+
+
+func _authoring_guard_spawn_attempt_key(author: Node, event_id: StringName) -> String:
+	var spawn_id := String(_author_prop(author, "spawn_id", "guard_spawn"))
+	return "author_guard_spawned:%s:%s" % [String(event_id).strip_edges(), spawn_id.strip_edges()]
+
+
+func _should_authoring_guard_spawn_be_once_per_attempt(event_id: StringName, payload: Dictionary) -> bool:
+	var source_type := String(payload.get("source_type", "")).strip_edges()
+	if source_type == "security_beam_author":
+		return true
+	return String(event_id).strip_edges() == "ambush_beam_tripped"
 
 
 func _build_authoring_behavior_payload(author: Node2D, payload: Dictionary) -> Dictionary:
@@ -4094,13 +4354,13 @@ func _setup_ambush_beam_from_security_beam_author(author: Node2D, root: Node2D) 
 		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5, {}, author.global_position, visual_w)
 		return
 	var beam_area := alarm_zones.get_node_or_null("AlarmZone_%s" % alarm_id) as Area2D
+	if beam_area != null and beam_area.is_queued_for_deletion():
+		beam_area = null
 	if beam_area == null:
 		beam_area = Area2D.new()
 		beam_area.name = "AlarmZone_%s" % alarm_id
-		beam_area.collision_layer = 0
-		beam_area.collision_mask = 1
-		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind(alarm_id, beam_area))
 		alarm_zones.add_child(beam_area)
+	_arm_d5_attempt_alarm_area(beam_area, alarm_id)
 	_apply_fix7d_ambush_beam_rectangle_shape(beam_area, trig_sz)
 	beam_area.global_position = beam_center
 	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5, {}, author.global_position, visual_w)
@@ -4198,13 +4458,13 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 		_attach_fix7_ambush_beam_visual(beam_center, null, visual_h * 0.5, geom, anchor_pos)
 		return
 	var beam_area := alarm_zones.get_node_or_null("AlarmZone_AMBUSH_security_beam") as Area2D
+	if beam_area != null and beam_area.is_queued_for_deletion():
+		beam_area = null
 	if beam_area == null:
 		beam_area = Area2D.new()
 		beam_area.name = "AlarmZone_AMBUSH_security_beam"
-		beam_area.collision_layer = 0
-		beam_area.collision_mask = 1
-		beam_area.body_entered.connect(_on_runtime_alarm_zone_entered.bind("AMBUSH_security_beam", beam_area))
 		alarm_zones.add_child(beam_area)
+	_arm_d5_attempt_alarm_area(beam_area, "AMBUSH_security_beam")
 	_apply_fix7f_ambush_beam_geometry(beam_area, geom)
 	beam_area.global_position = beam_center
 	_attach_fix7_ambush_beam_visual(beam_center, beam_area, visual_h * 0.5, geom, anchor_pos)
@@ -4686,6 +4946,8 @@ func _on_runtime_guard_spotted(spawn_id: String) -> void:
 func _on_runtime_alarm_zone_entered(body: Node, alarm_id: String, area: Area2D) -> void:
 	if not body.is_in_group("player"):
 		return
+	if _try_bypass_louis_route_beam(alarm_id, area, body):
+		return
 	if _is_alarm_zone_one_shot(alarm_id):
 		if _is_runtime_flag_true("alarm_triggered:" + alarm_id):
 			return
@@ -4771,7 +5033,9 @@ func _runtime_debug_summary() -> Dictionary:
 	## D6-01-FIX6B: get lifecycle stats for F10.
 	var lifecycle_stats := _get_security_guard_lifecycle_stats()
 	## D6-01-FIX6B: get heat and last spawn role for search net debug.
-	var heat := GameState.get_mission_heat(mission_definition.mission_id)
+	var heat := GameState.get_mission_heat(_debug_mission_id())
+	var garage_beam_triggered := _is_runtime_flag_true("alarm_triggered:garage_entry_beam") or _is_runtime_flag_true("alarm_triggered:AMBUSH_security_beam")
+	var garage_beam_bypassed := _is_runtime_flag_true("alarm_bypassed:garage_entry_beam") or _is_runtime_flag_true("alarm_bypassed:AMBUSH_security_beam")
 	var last_role := ""
 	var last_ordinal := -1
 	var last_heat_at_spawn := -1
@@ -4794,8 +5058,10 @@ func _runtime_debug_summary() -> Dictionary:
 		"extra_guard_active": runtime_guard_count > 1,
 		"extra_camera_active": camera_count > 1,
 		"attempt_runtime_state": _attempt_runtime_state.duplicate(true),
-		"garage_beam_armed": not _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
-		"garage_beam_triggered": _is_runtime_flag_true("alarm_triggered:garage_entry_beam"),
+		"garage_beam_armed": not garage_beam_triggered and not garage_beam_bypassed,
+		"garage_beam_triggered": garage_beam_triggered,
+		"garage_beam_bypassed": garage_beam_bypassed,
+		"louis_route_beam_bypass_active": _is_louis_delivery_route_active(),
 		"beam_alarm_id": "garage_entry_beam",
 		"beam_runtime_node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam",
 		"beam_f10_plain": "Beam: FIX7F doorway rectangle (grid search + overlap rejection, mask=7). Mid-run alarm only.",
@@ -6138,6 +6404,7 @@ func _sync_gameplay_layers_to_layout_root() -> void:
 
 func _clear_children(parent: Node) -> void:
 	for child in parent.get_children():
+		parent.remove_child(child)
 		child.queue_free()
 
 

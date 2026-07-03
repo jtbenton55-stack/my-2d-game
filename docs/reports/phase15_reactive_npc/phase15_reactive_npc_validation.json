@@ -1,0 +1,185 @@
+{
+  "ok": true,
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/SocialSignalEvent.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/NpcAttentionBudget.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/SocialReactionRuleSet.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/ReactiveNpcBrainAdapter.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/ReactiveNpcFallbackDriver.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/ai/ReactiveNpcResultAdapter.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/authoring/mechanics/InvestigationPointNode.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/Phase15ReactiveNpcProofHarness.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/dev/mission_authoring/Phase15ReactiveNpcProofRoom.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions/iso/authoring/InvestigationPointNodeTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions/iso/authoring/RoutineOverrideNodeTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/Phase15ReactiveNpcTest.gd",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Ignored Signal",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Investigation Reaction",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Authority Report",
+      "ok": true
+    },
+    {
+      "check": "proof_button",
+      "button": "Run Routine Override",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "reactive_signal_recorded",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "reactive_signal_type_count",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "reactive_reaction_recorded",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "reactive_authority_reported",
+      "ok": true
+    },
+    {
+      "check": "fact_bridge",
+      "fact": "reactive_result_tag",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "RECORD_SOCIAL_SIGNAL",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "EVALUATE_REACTIVE_NPC_SIGNAL",
+      "ok": true
+    },
+    {
+      "check": "effect_bridge",
+      "effect": "SET_REACTIVE_NPC_RESULT_TAG",
+      "ok": true
+    },
+    {
+      "check": "mission_dock",
+      "class": "InvestigationPointNode",
+      "ok": true
+    },
+    {
+      "check": "mission_dock",
+      "class": "RoutineOverrideNode",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "ReactiveNpcResultAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "reactive_npc_state",
+      "ok": true
+    },
+    {
+      "check": "result_integration",
+      "token": "Reactive NPC Consequences",
+      "ok": true
+    },
+    {
+      "check": "no_ai_overreach_term",
+      "term": "global npc manager",
+      "ok": true
+    },
+    {
+      "check": "no_ai_overreach_term",
+      "term": "gossip network",
+      "ok": true
+    },
+    {
+      "check": "no_ai_overreach_term",
+      "term": "faction reputation",
+      "ok": true
+    },
+    {
+      "check": "no_ai_overreach_term",
+      "term": "behavior tree",
+      "ok": true
+    },
+    {
+      "check": "no_ai_overreach_term",
+      "term": "combat ai",
+      "ok": true
+    },
+    {
+      "check": "no_direct_limbo_dependency",
+      "ok": true
+    }
+  ]
+}

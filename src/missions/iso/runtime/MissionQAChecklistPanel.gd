@@ -6,6 +6,9 @@ const MODE_PHASE4E := 1
 const MODE_PHASE4G := 2
 const MODE_PHASE4F := 3
 const MODE_TACO_SECURITY := 4
+const MODE_D5_01 := 5
+const MODE_D5_02 := 6
+const MODE_D5_03 := 7
 
 const PHASE4G_MISSION_ID := "taco_bell_drop"
 const PHASE4G_FLAG_ID := "phase4g_camera_alarm_seen"
@@ -18,8 +21,8 @@ const PHASE4G_CAMERA_TEST_POSITION := Vector2(8500.0, 135.0)
 var _mission: Node = null
 var _selector: OptionButton = null
 var _body: RichTextLabel = null
-var _teleport_button: Button = null
-var _reset_flag_button: Button = null
+var _actions_box: GridContainer = null
+var _action_buttons: Array[Button] = []
 var _last_action_label: Label = null
 var _mode := MODE_OVERVIEW
 
@@ -71,57 +74,143 @@ func _build_ui() -> void:
 	_selector.add_item("Phase 4G - Camera Alarm EffectSet", MODE_PHASE4G)
 	_selector.add_item("Phase 4F - Hide Spot", MODE_PHASE4F)
 	_selector.add_item("Taco Security Regression", MODE_TACO_SECURITY)
+	_selector.add_item("D5-01 - Attempt Reset", MODE_D5_01)
+	_selector.add_item("D5-02 - Pause Context", MODE_D5_02)
+	_selector.add_item("D5-03 - Louis Beam Bypass", MODE_D5_03)
 	_selector.item_selected.connect(_on_mode_selected)
 	add_child(_selector)
 
-	_teleport_button = Button.new()
-	_teleport_button.name = "TeleportCameraTestButton"
-	_teleport_button.position = Vector2(322.0, 38.0)
-	_teleport_button.size = Vector2(88.0, 30.0)
-	_teleport_button.text = "Teleport"
-	_teleport_button.pressed.connect(_on_teleport_pressed)
-	add_child(_teleport_button)
-
-	_reset_flag_button = Button.new()
-	_reset_flag_button.name = "ResetPhase4GFlagButton"
-	_reset_flag_button.position = Vector2(416.0, 38.0)
-	_reset_flag_button.size = Vector2(92.0, 30.0)
-	_reset_flag_button.text = "Reset Flag"
-	_reset_flag_button.pressed.connect(_on_reset_flag_pressed)
-	add_child(_reset_flag_button)
+	_actions_box = GridContainer.new()
+	_actions_box.name = "ActionButtons"
+	_actions_box.position = Vector2(12.0, 72.0)
+	_actions_box.size = Vector2(496.0, 66.0)
+	_actions_box.columns = 3
+	_actions_box.add_theme_constant_override("h_separation", 6)
+	_actions_box.add_theme_constant_override("v_separation", 4)
+	add_child(_actions_box)
 
 	_last_action_label = Label.new()
 	_last_action_label.name = "LastAction"
-	_last_action_label.position = Vector2(12.0, 72.0)
+	_last_action_label.position = Vector2(12.0, 142.0)
 	_last_action_label.size = Vector2(496.0, 22.0)
-	_last_action_label.text = "Select a QA checklist."
+	_last_action_label.text = "F12 dashboard: select a checklist, then use the nearby action buttons."
 	_last_action_label.add_theme_font_size_override("font_size", 11)
 	add_child(_last_action_label)
 
 	_body = RichTextLabel.new()
 	_body.name = "ChecklistBody"
-	_body.position = Vector2(12.0, 98.0)
-	_body.size = Vector2(496.0, 410.0)
-	_body.bbcode_enabled = false
+	_body.position = Vector2(12.0, 168.0)
+	_body.size = Vector2(496.0, 340.0)
+	_body.bbcode_enabled = true
 	_body.fit_content = false
 	_body.scroll_active = true
 	_body.add_theme_font_size_override("normal_font_size", 12)
 	add_child(_body)
-	_update_button_visibility()
+	_rebuild_action_buttons()
 
 
 func _on_mode_selected(index: int) -> void:
 	_mode = _selector.get_item_id(index)
-	_update_button_visibility()
+	_rebuild_action_buttons()
 	_refresh()
 
 
-func _update_button_visibility() -> void:
-	var is_phase4g := _mode == MODE_PHASE4G
-	if _teleport_button != null:
-		_teleport_button.visible = is_phase4g
-	if _reset_flag_button != null:
-		_reset_flag_button.visible = is_phase4g
+func _rebuild_action_buttons() -> void:
+	if _actions_box == null:
+		return
+	for button in _action_buttons:
+		if is_instance_valid(button):
+			button.queue_free()
+	_action_buttons.clear()
+	for action in _actions_for_mode():
+		var button := Button.new()
+		button.custom_minimum_size = Vector2(154.0, 28.0)
+		button.text = String(action.get("label", "Action"))
+		button.tooltip_text = String(action.get("hint", ""))
+		button.pressed.connect(_on_action_pressed.bind(action))
+		_actions_box.add_child(button)
+		_action_buttons.append(button)
+	_actions_box.visible = not _action_buttons.is_empty()
+
+
+func _actions_for_mode() -> Array[Dictionary]:
+	match _mode:
+		MODE_PHASE4G:
+			return [
+				{"label": "Go Camera", "kind": "teleport_position", "position": PHASE4G_CAMERA_TEST_POSITION, "hint": "Teleport to the authored camera alarm test."},
+				{"label": "Reset Flag", "kind": "reset_phase4g_flag", "hint": "Clear the Phase 4G camera alarm mission flag."},
+			]
+		MODE_D5_01:
+			return [
+				{"label": "Go Code Gate", "kind": "teleport_marker", "marker_id": "code_gate_garage_office", "hint": "Jump to the actual garage code gate scene marker."},
+				{"label": "Go Bag", "kind": "teleport_marker", "marker_id": "objective_retrieve_delivery_bag", "hint": "Jump to the actual delivery bag objective marker."},
+				{"label": "Go Exit", "kind": "teleport_marker", "marker_id": "objective_escape_and_return_to_louis", "hint": "Jump to the actual Louis return objective marker."},
+				{"label": "Reset Attempt", "kind": "reset_attempt", "hint": "Call the D5-01 attempt reset hook without reloading the scene."},
+				{"label": "Restart Scene", "kind": "restart_mission", "hint": "Restart Taco through the canonical mission start path."},
+			]
+		MODE_D5_02:
+			return [
+				{"label": "Go Start", "kind": "teleport_marker", "marker_id": "player_spawn_main", "hint": "Jump to the actual player start marker before checking pause context."},
+				{"label": "Go Code Gate", "kind": "teleport_marker", "marker_id": "code_gate_garage_office", "hint": "Jump to a real objective, then open pause."},
+				{"label": "Go Bag", "kind": "teleport_marker", "marker_id": "objective_retrieve_delivery_bag", "hint": "Jump to delivery bag recovery before checking pause."},
+			]
+		MODE_D5_03:
+			return [
+				{"label": "Go Main Beam", "kind": "teleport_node", "node_path": "GameplayRoot/RuntimeSystems/AlarmZones/AlarmZone_garage_entry_beam", "fallback_node_path": "GameplayRoot/SecurityAuthoringRoot/AMBUSH_security_beam", "offset": Vector2(-96.0, 0.0), "hint": "Jump just before the actual garage beam runtime node."},
+				{"label": "Go Louis Route", "kind": "teleport_marker", "marker_id": "spawn_route_louis_entry", "hint": "Jump to the actual Louis route entry marker."},
+				{"label": "Grant Louis Card", "kind": "grant_louis_route", "hint": "Unlock/select Louis Delivery Route for QA."},
+				{"label": "Remove Louis Card", "kind": "remove_louis_route", "hint": "Remove the Louis route card from active state."},
+				{"label": "Reset Attempt", "kind": "reset_attempt", "hint": "Reset the attempt before retesting beam behavior."},
+			]
+		MODE_TACO_SECURITY:
+			return [
+				{"label": "Go Camera", "kind": "teleport_position", "position": PHASE4G_CAMERA_TEST_POSITION, "hint": "Jump to authored camera test."},
+				{"label": "Trigger Alarm", "kind": "trigger_alarm", "hint": "Call the mission debug alarm hook."},
+				{"label": "Spawn Guard", "kind": "spawn_guard", "hint": "Call the mission debug guard spawn hook."},
+			]
+	return []
+
+
+func _on_action_pressed(action: Dictionary) -> void:
+	var kind := String(action.get("kind", ""))
+	match kind:
+		"teleport_spawn":
+			_teleport_to_spawn(String(action.get("spawn_id", "")))
+		"teleport_marker":
+			_teleport_to_marker(String(action.get("marker_id", "")), _action_offset(action))
+		"teleport_node":
+			_teleport_to_node_path(String(action.get("node_path", "")), String(action.get("fallback_node_path", "")), _action_offset(action))
+		"teleport_position":
+			_teleport_to_position(action.get("position", Vector2.ZERO))
+		"reset_phase4g_flag":
+			GameState.dialogue_flags.erase(PHASE4G_FLAG_KEY)
+			_set_last_action("Reset %s." % PHASE4G_FLAG_KEY)
+		"reset_attempt":
+			_reset_current_attempt_runtime()
+		"restart_mission":
+			_restart_current_mission()
+		"grant_louis_route":
+			GameState.unlock_scheme_card("louis_delivery_route", {"source": "qa_dashboard"})
+			_set_last_action("Granted Louis Delivery Route for QA.")
+		"remove_louis_route":
+			GameState.unlocked_scheme_cards.erase("louis_delivery_route")
+			GameState.unlocked_cards.erase("louis_delivery_route")
+			_set_last_action("Removed Louis Delivery Route from active QA state.")
+		"trigger_alarm":
+			if _mission != null and _mission.has_method("trigger_alarm_test"):
+				_mission.call("trigger_alarm_test")
+				_set_last_action("Triggered mission debug alarm.")
+			else:
+				_set_last_action("Alarm test unavailable on this mission.")
+		"spawn_guard":
+			if _mission != null and _mission.has_method("spawn_extra_guard_test"):
+				_mission.call("spawn_extra_guard_test")
+				_set_last_action("Spawned extra debug guard.")
+			else:
+				_set_last_action("Guard spawn test unavailable on this mission.")
+		_:
+			_set_last_action("Unknown QA action: %s" % kind)
+	_refresh()
 
 
 func _refresh() -> void:
@@ -138,6 +227,12 @@ func _refresh() -> void:
 			_body.text = _render_phase4f()
 		MODE_TACO_SECURITY:
 			_body.text = _render_taco_security(rsum)
+		MODE_D5_01:
+			_body.text = _render_d5_01(rsum)
+		MODE_D5_02:
+			_body.text = _render_d5_02(rsum)
+		MODE_D5_03:
+			_body.text = _render_d5_03(rsum)
 		_:
 			_body.text = _render_overview(rsum, flags)
 
@@ -152,6 +247,122 @@ func _get_runtime_summary() -> Dictionary:
 
 func _get_dialogue_flags() -> Dictionary:
 	return GameState.dialogue_flags.duplicate(true)
+
+
+func _current_mission_id() -> String:
+	if _mission != null and is_instance_valid(_mission) and _mission.has_method("get_mission_id"):
+		var mid := String(_mission.call("get_mission_id"))
+		if mid != "":
+			return mid
+	return String(GameState.current_mission_id)
+
+
+func _get_phase0k_controller() -> Node:
+	if _mission == null or not is_instance_valid(_mission):
+		return null
+	return _mission.get_node_or_null("GameplayRoot/RuntimeHelpers/Phase0KMissionCompletionController")
+
+
+func _controller_bool(controller: Node, property_name: String) -> bool:
+	if controller == null:
+		return false
+	var value = controller.get(property_name)
+	return bool(value) if value != null else false
+
+
+func _objective_exists(objective_id: String, mission_id: String) -> bool:
+	return QuestManager.has_objective(objective_id, mission_id)
+
+
+func _objective_completed(objective_id: String, mission_id: String) -> bool:
+	return QuestManager.is_objective_completed(objective_id, mission_id)
+
+
+func _render_d5_01(rsum: Dictionary) -> String:
+	var mid := _current_mission_id()
+	var phase0k := _get_phase0k_controller()
+	var bag_done := _controller_bool(phase0k, "delivery_bag_collected") or _objective_completed("recover_delivery_bag", mid)
+	var gate_open := _controller_bool(phase0k, "code_gate_unlocked") or _objective_completed("open_garage_code_gate", mid)
+	var exit_ready := _controller_bool(phase0k, "exit_unlocked")
+	var beam_armed := bool(rsum.get("garage_beam_armed", true))
+	var beam_triggered := bool(rsum.get("garage_beam_triggered", false))
+	var reset_meta := _mission != null and _mission.has_meta("d5_01_attempt_reset")
+	var seeded := _objective_exists("open_garage_code_gate", mid) and _objective_exists("recover_delivery_bag", mid) and _objective_exists("return_to_louis", mid)
+	var active := QuestManager.get_active_objectives(mid)
+	var completed := QuestManager.get_completed_objectives(mid)
+	var lines: Array[String] = []
+	lines.append(_title_bb("D5-01 Attempt Reset"))
+	lines.append("Goal: prove a restart/retry clears stale Taco objective + Phase0K state.")
+	lines.append("")
+	lines.append(_bb_status_line("Mission context", "PASS" if mid == PHASE4G_MISSION_ID else "FAIL", mid))
+	lines.append(_bb_status_line("Phase0K controller", "PASS" if phase0k != null else "FAIL", _node_path_or_dash(phase0k)))
+	lines.append(_bb_status_line("Initial objective rows", "PASS" if seeded else "WAIT", "open gate / recover bag / return to Louis"))
+	lines.append(_bb_status_line("Bag objective", "DONE" if bag_done else "WAIT", "recover_delivery_bag"))
+	lines.append(_bb_status_line("Code gate", "OPEN" if gate_open else "LOCKED", "open_garage_code_gate"))
+	lines.append(_bb_status_line("Louis exit", "READY" if exit_ready else "LOCKED", "return_to_louis"))
+	lines.append(_bb_status_line("Garage beam", "TRIPPED" if beam_triggered else ("READY" if beam_armed else "WAIT"), "should be READY after a fresh attempt"))
+	lines.append(_bb_status_line("D5 reset hook ran", "PASS" if reset_meta else "WAIT", "press Reset Attempt or Restart Scene"))
+	lines.append("")
+	lines.append(_section_bb("Live Objective Lists"))
+	lines.append("Active: %s" % _join_or_dash(active))
+	lines.append("Completed: %s" % _join_or_dash(completed))
+	lines.append("")
+	lines.append(_section_bb("Next Action"))
+	if not seeded:
+		lines.append("Press Reset Attempt or Restart Scene. The three Taco objective rows should appear.")
+	elif reset_meta and not bag_done and not gate_open and beam_armed:
+		lines.append("D5-01 looks reset-clean. Repeat once more or move on to D5-02/D5-03 testing.")
+	elif not bag_done and not gate_open:
+		lines.append("Use Go Code Gate or Go Bag, progress one objective, then restart and watch it return to WAIT/LOCKED.")
+	else:
+		lines.append("Press Reset Attempt or Restart Scene. Bag/Gate should clear and Beam should show READY.")
+	return "\n".join(lines)
+
+
+func _render_d5_02(_rsum: Dictionary) -> String:
+	var mid := _current_mission_id()
+	var payload := MissionPauseDataProvider.get_pause_payload(mid, _mission)
+	var payload_mid := String(payload.get("mission_id", ""))
+	var objectives := payload.get("objectives", []) as Array
+	var attempt_context := payload.get("attempt_context", []) as Array
+	var warnings := payload.get("warnings", []) as Array
+	var heat_line := String(payload.get("heat_security_line", ""))
+	var lines: Array[String] = []
+	lines.append(_title_bb("D5-02 Pause Context"))
+	lines.append("Goal: pause/objective tabs should describe this Taco attempt, not stale or empty mission state.")
+	lines.append("")
+	lines.append(_bb_status_line("Current mission id", "PASS" if mid == PHASE4G_MISSION_ID else "FAIL", mid))
+	lines.append(_bb_status_line("Pause payload id", "PASS" if payload_mid == PHASE4G_MISSION_ID else "FAIL", payload_mid))
+	lines.append(_bb_status_line("Pause objective rows", "PASS" if objectives.size() > 0 else "WAIT", "%d rows" % objectives.size()))
+	lines.append(_bb_status_line("Attempt context rows", "PASS" if attempt_context.size() > 0 else "WAIT", "%d rows" % attempt_context.size()))
+	lines.append(_bb_status_line("Pause warnings", "PASS" if warnings.is_empty() else "WARN", _join_or_dash(warnings)))
+	lines.append(_bb_status_line("Heat line", "PASS" if heat_line != "" else "WAIT", heat_line))
+	lines.append("")
+	lines.append(_section_bb("Next Action"))
+	lines.append("Press Esc and compare the pause Objectives tab to these rows. Use Go Code Gate or Go Bag to change state, then check pause again.")
+	return "\n".join(lines)
+
+
+func _render_d5_03(rsum: Dictionary) -> String:
+	var mid := _current_mission_id()
+	var route_active := bool(rsum.get("louis_route_beam_bypass_active", false)) or GameState.has_scheme_card("louis_delivery_route") or GameState.has_selected_card("louis_delivery_route")
+	var beam_armed := bool(rsum.get("garage_beam_armed", true))
+	var beam_triggered := bool(rsum.get("garage_beam_triggered", false))
+	var beam_bypassed := bool(rsum.get("garage_beam_bypassed", false))
+	var lines: Array[String] = []
+	lines.append(_title_bb("D5-03 Louis Beam Bypass"))
+	lines.append("Goal: main path trips the garage beam; Louis route bypasses or neutralizes it.")
+	lines.append("")
+	lines.append(_bb_status_line("Mission context", "PASS" if mid == PHASE4G_MISSION_ID else "FAIL", mid))
+	lines.append(_bb_status_line("Louis route card", "READY" if route_active else "WAIT", "Grant/Remove buttons are QA-only"))
+	lines.append(_bb_status_line("Garage beam", "USED" if beam_bypassed else ("TRIPPED" if beam_triggered else ("READY" if beam_armed else "WAIT")), "main path should still trip once without Louis route"))
+	lines.append(_bb_status_line("Bypass outcome", "PASS" if beam_bypassed else ("READY" if route_active else "WAIT"), "cross beam with Louis route active"))
+	lines.append("")
+	lines.append(_section_bb("How To Use"))
+	lines.append("1. Press Reset Attempt, then Go Main Beam and verify Beam changes READY -> TRIPPED.")
+	lines.append("2. Press Reset Attempt, Grant Louis Card, then Go Louis Route.")
+	lines.append("3. Cross the beam with Louis route active and confirm Bypass outcome shows PASS/USED with no new guard wave.")
+	return "\n".join(lines)
 
 
 static func build_phase4g_model(rsum: Dictionary, dialogue_flags: Dictionary) -> Dictionary:
@@ -250,8 +461,12 @@ func _render_overview(rsum: Dictionary, flags: Dictionary) -> String:
 		"- Phase 4G - Camera Alarm EffectSet",
 		"- Phase 4F - Hide Spot",
 		"- Taco Security Regression",
+		"- D5-01 - Attempt Reset",
+		"- D5-02 - Pause Context",
+		"- D5-03 - Louis Beam Bypass",
 		"",
 		"Phase 4G quick score: %d/%d checks passing." % [pass_count, total],
+		"D5 dashboards use colored status badges and teleport/action buttons above this text.",
 	])
 
 
@@ -329,23 +544,177 @@ func _render_taco_security(rsum: Dictionary) -> String:
 	return "\n".join(lines)
 
 
-func _on_teleport_pressed() -> void:
+func _teleport_to_spawn(spawn_id: String) -> void:
+	if spawn_id == "":
+		_set_last_action("Teleport failed: empty spawn id.")
+		return
+	if _mission != null and _mission.has_method("teleport_player_to_spawn_id"):
+		_mission.call("teleport_player_to_spawn_id", spawn_id)
+		_set_last_action("Teleported to %s." % spawn_id)
+		return
+	_set_last_action("Teleport failed: mission has no teleport_player_to_spawn_id().")
+
+
+func _teleport_to_marker(marker_id: String, offset: Vector2 = Vector2.ZERO) -> void:
+	if marker_id == "":
+		_set_last_action("Teleport failed: empty marker id.")
+		return
+	var marker := _find_marker_node(marker_id)
+	if marker == null:
+		_set_last_action("Teleport failed: marker not found: %s." % marker_id)
+		return
+	_teleport_to_node(marker, offset, "marker %s" % marker_id)
+
+
+func _teleport_to_node_path(node_path: String, fallback_node_path: String = "", offset: Vector2 = Vector2.ZERO) -> void:
+	var target := _get_mission_node_or_null(node_path)
+	var used_path := node_path
+	if target == null and fallback_node_path != "":
+		target = _get_mission_node_or_null(fallback_node_path)
+		used_path = fallback_node_path
+	if target == null:
+		_set_last_action("Teleport failed: node not found: %s." % node_path)
+		return
+	_teleport_to_node(target, offset, used_path)
+
+
+func _teleport_to_node(target: Node, offset: Vector2, label: String) -> void:
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var target_2d := target as Node2D
+	if player == null:
+		_set_last_action("Teleport failed: no player node in group 'player'.")
+		return
+	if target_2d == null:
+		_set_last_action("Teleport failed: target is not Node2D: %s." % label)
+		return
+	player.global_position = target_2d.global_position + offset
+	_set_last_action("Teleported to %s." % label)
+
+
+func _find_marker_node(marker_id: String) -> Node2D:
+	if _mission == null or not is_instance_valid(_mission):
+		return null
+	return _find_marker_node_recursive(_mission, marker_id)
+
+
+func _find_marker_node_recursive(node: Node, marker_id: String) -> Node2D:
+	if node == null:
+		return null
+	var direct_id := _node_string_property(node, "marker_id")
+	var group_id := _node_string_property(node, "group_id")
+	var linked_objective_id := _node_string_property(node, "linked_objective_id")
+	if direct_id == marker_id or group_id == marker_id or linked_objective_id == marker_id:
+		return node as Node2D
+	for child in node.get_children():
+		var found := _find_marker_node_recursive(child, marker_id)
+		if found != null:
+			return found
+	return null
+
+
+func _node_string_property(node: Node, property_name: String) -> String:
+	for property in node.get_property_list():
+		if str(property.get("name", "")) != property_name:
+			continue
+		var value: Variant = node.get(property_name)
+		if value == null:
+			return ""
+		return str(value)
+	return ""
+
+
+func _get_mission_node_or_null(path: String) -> Node:
+	if path == "" or _mission == null or not is_instance_valid(_mission):
+		return null
+	return _mission.get_node_or_null(path)
+
+
+func _action_offset(action: Dictionary) -> Vector2:
+	var offset_value: Variant = action.get("offset", Vector2.ZERO)
+	return offset_value if offset_value is Vector2 else Vector2.ZERO
+
+
+func _teleport_to_position(position_value: Variant) -> void:
 	var player := get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
 		_set_last_action("Teleport failed: no player node in group 'player'.")
 		return
-	player.global_position = PHASE4G_CAMERA_TEST_POSITION
-	_set_last_action("Teleported player to camera test position %s." % str(PHASE4G_CAMERA_TEST_POSITION))
+	var target := Vector2.ZERO
+	if position_value is Vector2:
+		target = position_value
+	else:
+		target = PHASE4G_CAMERA_TEST_POSITION
+	player.global_position = target
+	_set_last_action("Teleported player to %s." % str(target))
 
 
-func _on_reset_flag_pressed() -> void:
-	GameState.dialogue_flags.erase(PHASE4G_FLAG_KEY)
-	_set_last_action("Reset %s." % PHASE4G_FLAG_KEY)
+func _reset_current_attempt_runtime() -> void:
+	if _mission != null and _mission.has_method("reset_mission_runtime_for_new_attempt"):
+		_mission.call("reset_mission_runtime_for_new_attempt")
+		_set_last_action("Reset attempt runtime state.")
+		return
+	_set_last_action("Reset failed: mission has no reset_mission_runtime_for_new_attempt().")
+
+
+func _restart_current_mission() -> void:
+	var mid := _current_mission_id()
+	if mid == "":
+		mid = PHASE4G_MISSION_ID
+	GameState.start_mission(mid)
+	SceneManager.change_scene(MissionSceneResolver.resolve_playable_scene_path(mid))
+	_set_last_action("Restarting %s through canonical mission start." % mid)
 
 
 func _set_last_action(text: String) -> void:
 	if _last_action_label != null:
 		_last_action_label.text = text
+
+
+func _title_bb(text: String) -> String:
+	return "[b][color=#7fd7ff]%s[/color][/b]" % text
+
+
+func _section_bb(text: String) -> String:
+	return "[b][color=#d8e8ff]%s[/color][/b]" % text
+
+
+func _bb_status_line(label: String, status: String, detail: String = "") -> String:
+	var suffix := "" if detail.strip_edges() == "" else " - %s" % detail
+	return "%s %s%s" % [_status_badge(status), label, suffix]
+
+
+func _status_badge(status: String) -> String:
+	var normalized := status.strip_edges().to_upper()
+	return "[color=%s][%s][/color]" % [_status_color(normalized), normalized]
+
+
+func _status_color(status: String) -> String:
+	match status:
+		"PASS", "DONE", "OPEN", "READY":
+			return "#5af27a"
+		"WAIT", "LOCKED":
+			return "#ffd45a"
+		"TRIPPED", "USED", "WARN":
+			return "#ff9f43"
+		"FAIL":
+			return "#ff5d5d"
+		_:
+			return "#c8d0dc"
+
+
+func _join_or_dash(items: Array) -> String:
+	if items.is_empty():
+		return "-"
+	var out: Array[String] = []
+	for item in items:
+		out.append(String(item))
+	return ", ".join(out)
+
+
+func _node_path_or_dash(node: Node) -> String:
+	if node == null:
+		return "-"
+	return str(node.get_path())
 
 
 static func _check(label: String, passed: bool, waiting_status: String = "WAIT", detail: String = "") -> Dictionary:

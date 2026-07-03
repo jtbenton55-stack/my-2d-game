@@ -26,6 +26,14 @@ func mark_collected() -> void:
 				label.text += "\nCOLLECTED"
 
 
+func reset_collected() -> void:
+	modulate = Color(1, 1, 1, 1)
+	for child in get_children():
+		if child is Label:
+			var label := child as Label
+			label.text = label.text.replace("\nCOLLECTED", "")
+
+
 func _build_label() -> void:
 	var icon := Polygon2D.new()
 	icon.name = "RuntimeIcon"

@@ -30,6 +30,8 @@ const MECHANIC_TYPES: Array[String] = [
 	"EncounterController",
 	"ChallengeObjectiveNode",
 	"DisruptionActionNode",
+	"InvestigationPointNode",
+	"RoutineOverrideNode",
 	"DialogueTriggerZone",
 	"BarkTrigger",
 	"RouteUnlockNode",
@@ -68,6 +70,8 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"EncounterController": "res://src/missions/iso/encounters/EncounterController.gd",
 	"ChallengeObjectiveNode": "res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd",
 	"DisruptionActionNode": "res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd",
+	"InvestigationPointNode": "res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd",
+	"RoutineOverrideNode": "res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd",
 	"DialogueTriggerZone": "res://src/missions/iso/presentation/DialogueTriggerZone.gd",
 	"BarkTrigger": "res://src/missions/iso/presentation/BarkTrigger.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
@@ -109,6 +113,9 @@ const EFFECT_TYPES_REQUIRING_KEY: Array[int] = [
 	MissionEffect.EffectType.SET_ENCOUNTER_PHASE,
 	MissionEffect.EffectType.ADJUST_ENCOUNTER_METER,
 	MissionEffect.EffectType.SET_ENCOUNTER_RESULT_TAG,
+	MissionEffect.EffectType.RECORD_SOCIAL_SIGNAL,
+	MissionEffect.EffectType.EVALUATE_REACTIVE_NPC_SIGNAL,
+	MissionEffect.EffectType.SET_REACTIVE_NPC_RESULT_TAG,
 	MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY,
 ]
 
@@ -146,6 +153,11 @@ const FACT_TYPES: Array[String] = [
 	"encounter_phase",
 	"encounter_meter",
 	"encounter_result_tag",
+	"reactive_signal_recorded",
+	"reactive_signal_type_count",
+	"reactive_reaction_recorded",
+	"reactive_authority_reported",
+	"reactive_result_tag",
 ]
 
 var _plugin: EditorPlugin
@@ -501,6 +513,10 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Plant misdirection"
 		"DoorStateMemoryNode":
 			_prompt_text.text = "Press E: Use door"
+		"InvestigationPointNode":
+			_prompt_text.text = "Press E: Investigate"
+		"RoutineOverrideNode":
+			_prompt_text.text = "Press E: Override routine"
 		"DialogueTriggerZone":
 			_prompt_text.text = "Press E: Talk"
 		"BarkTrigger":
@@ -1016,6 +1032,21 @@ func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) ->
 			node.set("event_id", StringName("%s_disrupted" % base_id))
 			node.set("action_type", "route_control")
 			node.set("meter_deltas", {"security_integrity": -2, "suspicion": 1})
+		"InvestigationPointNode":
+			node.set("investigation_point_id", StringName(base_id))
+			node.set("signal_type", &"suspicious_action_seen")
+			node.set("investigated_flag", StringName("%s_investigated" % base_id))
+			var inspect_rule := SocialReactionRuleSet.new()
+			inspect_rule.rule_id = StringName("%s_inspect_rule" % base_id)
+			inspect_rule.accepted_signal_types = [&"suspicious_action_seen"]
+			inspect_rule.reaction_id = &"inspect_point"
+			inspect_rule.target_investigation_point_id = StringName(base_id)
+			node.set("reaction_rule_sets", [inspect_rule])
+		"RoutineOverrideNode":
+			node.set("routine_id", StringName(base_id))
+			node.set("override_id", StringName("%s_override" % base_id))
+			node.set("routine_override_flag", StringName("%s_override_active" % base_id))
+			node.set("signal_type", &"route_tampered")
 		"DialogueTriggerZone":
 			node.set("dialogue_key", StringName(base_id))
 			node.set("fallback_speaker", "Mission")
@@ -1447,6 +1478,10 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_challenge_event_id", "ChallengeObjectiveNode missing event_id.", node))
 	if node is DisruptionActionNode and String(node.get("action_type")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_disruption_action_type", "DisruptionActionNode missing action_type.", node))
+	if node is InvestigationPointNode and String(node.get("investigation_point_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_investigation_point_id", "InvestigationPointNode missing investigation_point_id.", node))
+	if node is RoutineOverrideNode and String(node.get("routine_id")).strip_edges() == "":
+		_audit_issues.append(_issue("Error", "missing_routine_id", "RoutineOverrideNode missing routine_id.", node))
 	if node is DialogueTriggerZone and String(node.get("dialogue_key")).strip_edges() == "" and String(node.get("fallback_text")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_dialogue_key", "DialogueTriggerZone missing dialogue_key and fallback_text.", node))
 	if node is BarkTrigger and String(node.get("bark_text")).strip_edges() == "":

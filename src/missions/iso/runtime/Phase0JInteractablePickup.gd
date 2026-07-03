@@ -67,6 +67,22 @@ func is_completed() -> bool:
 	return collected
 
 
+func reset_attempt_state() -> Dictionary:
+	collected = false
+	set_meta("collected", false)
+	monitoring = true
+	monitorable = true
+	collision_layer = 8
+	collision_mask = 1
+	for child in get_children():
+		if child is CanvasItem:
+			(child as CanvasItem).modulate = Color(1, 1, 1, 1)
+	var label := get_node_or_null(runtime_label_path)
+	if label != null and label.has_method("reset_collected"):
+		label.call("reset_collected")
+	return {"ok": true, "code": "interactable_pickup_reset", "candidate_id": candidate_id, "node": str(get_path())}
+
+
 func get_interaction_text() -> String:
 	return prompt_text
 

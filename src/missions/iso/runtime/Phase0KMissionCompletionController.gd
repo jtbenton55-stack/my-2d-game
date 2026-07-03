@@ -19,6 +19,16 @@ func _ready() -> void:
 	_seed_objectives()
 
 
+func reset_attempt_state() -> Dictionary:
+	delivery_bag_collected = false
+	code_gate_unlocked = false
+	required_objectives_complete = false
+	exit_unlocked = false
+	mission_completed = false
+	completed_objectives.clear()
+	return _seed_objectives()
+
+
 func set_delivery_bag_collected(value: bool) -> void:
 	delivery_bag_collected = value
 	if value:
@@ -89,12 +99,12 @@ func complete_mission_and_exit() -> Dictionary:
 	return {"success": false, "mission_id": mission_id, "via": "request_exit_completion_rejected"}
 
 
-func _seed_objectives() -> void:
-	var qm := get_node_or_null("/root/QuestManager")
-	if qm != null and qm.has_method("add_objective"):
-		qm.call("add_objective", "open_garage_code_gate", "Open the garage code gate.", "active", mission_id)
-		qm.call("add_objective", "recover_delivery_bag", "Recover the delivery bag.", "active", mission_id)
-		qm.call("add_objective", "return_to_louis", "Return to Louis at the exit.", "locked", mission_id)
+func _seed_objectives() -> Dictionary:
+	return MissionObjectiveBridge.seed_runtime_objectives_for_mission(mission_id, [
+		{"id": "open_garage_code_gate", "text": "Open the garage code gate.", "status": "active"},
+		{"id": "recover_delivery_bag", "text": "Recover the delivery bag.", "status": "active"},
+		{"id": "return_to_louis", "text": "Return to Louis at the exit.", "status": "locked"},
+	])
 
 
 func _show(text: String) -> void:

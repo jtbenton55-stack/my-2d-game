@@ -184,6 +184,57 @@ func get_character_state(character_id: String) -> Dictionary:
 			state = "louis_unlocked" if louis_unlocked else "fresh"
 	return {"character_id": character_id, "dialogue_state": state, "visible": character_id != "louis" or louis_unlocked}
 
+
+func apply_mission_reward_contract(contract: Dictionary) -> Dictionary:
+	var mission_id := String(contract.get("mission_id", ""))
+	var details: Dictionary = {
+		"mission_id": mission_id,
+		"scheme_cards_added": [],
+		"store_items_added": [],
+		"collectible_displays_marked": [],
+		"care_unlocks_applied": [],
+		"case_cash_added": 0,
+	}
+	if mission_id == "taco_bell_drop":
+		taco_bell_completed = true
+		louis_unlocked = true
+		if heat_state == HEAT_LOW:
+			taco_bell_heat = 1
+		taco_bell_lower_heat_available = true
+	for card_id in contract.get("scheme_cards", []):
+		var clean_card_id := String(card_id)
+		if clean_card_id != "" and not unlocked_scheme_cards.has(clean_card_id):
+			unlocked_scheme_cards.append(clean_card_id)
+			(details["scheme_cards_added"] as Array).append(clean_card_id)
+	for item_id in contract.get("store_unlocks", []):
+		var clean_item_id := String(item_id)
+		if clean_item_id != "" and not available_store_items.has(clean_item_id):
+			available_store_items.append(clean_item_id)
+			(details["store_items_added"] as Array).append(clean_item_id)
+	for display_id in contract.get("collectible_displays", []):
+		var clean_display_id := String(display_id)
+		if clean_display_id == "":
+			continue
+		mark_collectible_display_found(clean_display_id)
+		(details["collectible_displays_marked"] as Array).append(clean_display_id)
+	for care_id in contract.get("care_unlocks", []):
+		match String(care_id):
+			"sauce_paw_cleanup_available":
+				sauce_paw_cleanup_available = true
+				(details["care_unlocks_applied"] as Array).append("sauce_paw_cleanup_available")
+	var floor_cash := int(contract.get("case_cash_floor", 0))
+	if floor_cash > 0 and case_cash < floor_cash:
+		var add_amount := floor_cash - case_cash
+		add_case_cash(add_amount, "hideout_reward:%s" % mission_id)
+		details["case_cash_added"] = add_amount
+	return {
+		"ok": true,
+		"code": "mission_reward_contract_applied",
+		"message": "Mission reward contract applied to hideout state.",
+		"source_id": "HideoutStateController",
+		"details": details,
+	}
+
 func get_current_scheme_loadout() -> Dictionary:
 	return {
 		"plan": equipped_plan_card,

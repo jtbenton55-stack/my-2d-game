@@ -43,11 +43,14 @@ func get_panel_body(state_controller = null) -> String:
 func get_buttons(state_controller: Node = null) -> Array:
 	var status := _status_for("taco_bell_drop", state_controller)
 	if not status.get("completed", false):
-		return [
+		var buttons := [
 			{"id": "start_taco_bell", "label": "Start The Taco Bell Drop", "action": "launch_taco_bell"},
 			{"id": "known_info", "label": "View Known Info", "action": "show_known_info"},
 			{"id": "back", "label": "Back", "action": "close"},
 		]
+		if OS.is_debug_build():
+			buttons.insert(buttons.size() - 1, {"id": "dev_mark_taco_complete", "label": "DEV: Mark Taco Bell Complete", "action": "dev_mark_taco_bell_complete"})
+		return buttons
 	if int(status.get("missing_clues", 0)) > 0 or int(status.get("missing_collectibles", 0)) > 0:
 		return [
 			{"id": "search_missing", "label": "Search for Missing Items", "action": "search_missing_items"},

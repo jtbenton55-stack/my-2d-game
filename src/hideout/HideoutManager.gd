@@ -12,6 +12,7 @@ const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCh
 const DialogueBoxScene = preload("res://scenes/ui/DialogueBox.tscn")
 const StorefrontPanelScene = preload("res://scenes/ui/HideoutStorefrontPanel.tscn")
 const MissionCollectibleHideoutSync := preload("res://src/missions/iso/runtime/MissionCollectibleHideoutSync.gd")
+const HideoutRewardAdapter := preload("res://src/hideout/HideoutRewardAdapter.gd")
 
 # Phase 0M-C3 - speaker IDs that should bypass the panel and fire the
 # DialogueBox (with left-side portrait support) directly.
@@ -69,7 +70,6 @@ func _ready() -> void:
 	_build_snap_markers()
 	_build_required_markers()
 	_build_interaction_bridge()
-	_ensure_dialogue_box()
 	call_deferred("_ensure_dialogue_box")
 	_setup_debug_panel()
 	if _panel.has_signal("panel_action_pressed"):
@@ -134,7 +134,16 @@ func apply_debug_state(state_id: String) -> void:
 	if _state != null and _state.has_method("apply_debug_state"):
 		_state.apply_debug_state(state_id)
 	current_state = String(_state.get("current_debug_state")) if _state != null else state_id
-	var louis_visible := _is_louis_visible_in_state(current_state)
+	_refresh_hideout_visuals_from_state()
+	if _panel.has_method("is_open") and _panel.is_open() and current_station_id != "":
+		open_station(current_station_id)
+
+
+func _refresh_hideout_visuals_from_state() -> void:
+	var visual_state := current_state
+	if _state != null and bool(_state.get("taco_bell_completed")) and visual_state == "fresh":
+		visual_state = "taco_bell_completed"
+	var louis_visible := _is_louis_visible_in_state(visual_state) or (_state != null and bool(_state.get("louis_unlocked")))
 	var louis := _stations.get_node_or_null("Louis")
 	if louis:
 		louis.visible = louis_visible
@@ -143,11 +152,9 @@ func apply_debug_state(state_id: String) -> void:
 	var louis_visual := _world.get_node_or_null("PropLayer/Visual_Louis")
 	if louis_visual:
 		louis_visual.visible = louis_visible
-	_set_visual_tint("HeatScanner", Color(1, 0.12, 0.1, 1) if current_state == "high_heat" else Color(0.25, 0.8, 1, 1))
+	_set_visual_tint("HeatScanner", Color(1, 0.12, 0.1, 1) if visual_state == "high_heat" else Color(0.25, 0.8, 1, 1))
 	for id in ["PolaroidWall", "GlowGuyShelf", "TinyIconShelf", "PoopBagCareDisplay", "EvidenceBoard_TheBigCase", "MissionBoard", "StoreTerminal", "BentleyCareStation", "LootCrateDropZone"]:
-		_set_visual_tint(id, _state_color(current_state, id))
-	if _panel.has_method("is_open") and _panel.is_open() and current_station_id != "":
-		open_station(current_station_id)
+		_set_visual_tint(id, _state_color(visual_state, id))
 
 func _panel_data_for(station_id: String, interactable: Node = null) -> Dictionary:
 	var catalog_data := Catalog.get_panel_data(station_id)
@@ -243,6 +250,9 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"replay_mission":
 			_write_scheme_loadout_to_game_state()
 			_mission_board.launch_taco_bell()
+		"dev_mark_taco_bell_complete":
+			var dev_message := _dev_mark_taco_bell_complete()
+			_refresh_root_panel_with_feedback(_mission_board.get_panel_data(_state), dev_message)
 		"search_missing_items":
 			_show_feedback("Search Missing Items", "Replay placeholder: the next pass can route directly into missing clue/collectible hunts. For now, use Replay Mission or View Missing Items.")
 		"view_missing_items":
@@ -605,8 +615,23 @@ func _ensure_state_controller() -> void:
 func _apply_mission_collectible_flags_to_state() -> void:
 	_ensure_state_controller()
 	if _state != null:
+		HideoutRewardAdapter.apply_all_completed_rewards_to_state(_state)
 		MissionCollectibleHideoutSync.apply_banked_case_cash_to_hideout(_state)
 		MissionCollectibleHideoutSync.apply_persisted_flags_to_hideout_state(_state)
+		_refresh_hideout_visuals_from_state()
+
+
+func _dev_mark_taco_bell_complete() -> String:
+	if not OS.is_debug_build():
+		return "DEV Taco completion is unavailable in non-debug builds."
+	_ensure_state_controller()
+	if _state == null:
+		return "DEV Taco completion failed: hideout state is missing."
+	var mission_result := GameState.complete_mission("taco_bell_drop")
+	var reward_result := HideoutRewardAdapter.apply_completed_mission_rewards_to_state(_state, "taco_bell_drop")
+	current_state = "taco_bell_completed"
+	_refresh_hideout_visuals_from_state()
+	return "DEV: Marked Taco Bell complete and synced Phase 10 hideout rewards. Mission result=%s reward_sync=%s" % [String(mission_result.get("title", "complete")), String(reward_result.get("code", "unknown"))]
 
 func _ensure_decoration_controller() -> void:
 	if _decoration_controller != null and is_instance_valid(_decoration_controller):

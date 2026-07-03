@@ -38,6 +38,19 @@ func get_interaction_text() -> String:
 	return "Recover delivery bag"
 
 
+func reset_attempt_state() -> Dictionary:
+	collected = false
+	set_meta("collected", false)
+	monitoring = true
+	monitorable = true
+	collision_layer = 8
+	collision_mask = 1
+	if _label != null:
+		_label.text = "DELIVERY BAG\nObjective\nE/Q"
+	modulate = Color(1, 1, 1, 1)
+	return {"ok": true, "code": "delivery_bag_reset", "node": str(get_path())}
+
+
 func _collect(_player: Node = null) -> bool:
 	if collected:
 		_show("Delivery bag already recovered.")

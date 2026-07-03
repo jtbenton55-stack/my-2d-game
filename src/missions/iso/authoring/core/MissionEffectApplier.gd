@@ -4,6 +4,8 @@ extends RefCounted
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
 const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
 const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
+const ReactiveNpcBrainAdapterScript := preload("res://src/missions/iso/ai/ReactiveNpcBrainAdapter.gd")
+const SocialSignalEventScript := preload("res://src/missions/iso/ai/SocialSignalEvent.gd")
 
 
 static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictionary:
@@ -86,6 +88,12 @@ static func apply_effect(effect: Resource, context: Dictionary = {}) -> Dictiona
 			return _apply_adjust_encounter_meter(effect, context)
 		MissionEffect.EffectType.SET_ENCOUNTER_RESULT_TAG:
 			return _apply_set_encounter_result_tag(effect, context)
+		MissionEffect.EffectType.RECORD_SOCIAL_SIGNAL:
+			return _apply_record_social_signal(effect, context)
+		MissionEffect.EffectType.EVALUATE_REACTIVE_NPC_SIGNAL:
+			return _apply_evaluate_reactive_signal(effect, context)
+		MissionEffect.EffectType.SET_REACTIVE_NPC_RESULT_TAG:
+			return ReactiveNpcBrainAdapterScript.set_result_tag(String(effect.get("key")), bool(effect.call("get_value")), context)
 		MissionEffect.EffectType.TRIGGER_DIALOGUE_KEY:
 			return _apply_dialogue_key(effect, context)
 		MissionEffect.EffectType.TRIGGER_SIMPLE_DIALOGUE:
@@ -275,6 +283,36 @@ static func _apply_set_encounter_result_tag(effect: Resource, context: Dictionar
 	if controller == null or not controller.has_method("set_result_tag"):
 		return _result(false, "encounter_controller_missing", "EncounterController is missing.", String(effect.get("effect_id")))
 	return controller.call("set_result_tag", String(effect.get("key")), bool(effect.call("get_value")))
+
+
+static func _apply_record_social_signal(effect: Resource, context: Dictionary) -> Dictionary:
+	var event := _signal_from_effect(effect, context)
+	return ReactiveNpcBrainAdapterScript.record_signal(event, context)
+
+
+static func _apply_evaluate_reactive_signal(effect: Resource, context: Dictionary) -> Dictionary:
+	var event := _signal_from_effect(effect, context)
+	var rule_sets: Array = []
+	var raw_rules: Variant = context.get("reaction_rule_sets", [])
+	if raw_rules is Array:
+		rule_sets = raw_rules as Array
+	var budget: Resource = context.get("attention_budget", null) as Resource
+	return ReactiveNpcBrainAdapterScript.evaluate_signal(event, rule_sets, budget, context)
+
+
+static func _signal_from_effect(effect: Resource, context: Dictionary) -> Resource:
+	var data := _payload(effect)
+	if String(effect.get("key")).strip_edges() != "":
+		data["signal_id"] = String(effect.get("key"))
+	if not data.has("signal_type"):
+		data["signal_type"] = String(SocialSignalEventScript.SIGNAL_SUSPICIOUS_ACTION_SEEN)
+	if not data.has("source_id"):
+		data["source_id"] = String(context.get("source_id", effect.get("effect_id")))
+	if not data.has("mission_id"):
+		data["mission_id"] = MissionFactBridge.resolve_mission_id(context)
+	if not data.has("severity") and String(effect.get("value_type")) == "int":
+		data["severity"] = int(effect.get("value_int"))
+	return SocialSignalEventScript.from_dictionary(data)
 
 
 static func _apply_toggle_node(effect: Resource, context: Dictionary) -> Dictionary:

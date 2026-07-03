@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://dgchudxaytlix"]
+
+[ext_resource type="Script" uid="uid://bpoqbqcdrlw31" path="res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd" id="1_investigation"]
+[ext_resource type="Script" uid="uid://gphgaf71mtj7" path="res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd" id="2_routine"]
+[ext_resource type="Script" uid="uid://d3u6k635io0og" path="res://src/missions/iso/ai/SocialReactionRuleSet.gd" id="3_rule"]
+[ext_resource type="Script" uid="uid://b5hrs2n33500c" path="res://src/missions/iso/ai/NpcAttentionBudget.gd" id="4_budget"]
+[ext_resource type="Script" uid="uid://log6g21jj2kt" path="res://src/missions/iso/dev/Phase15ReactiveNpcProofHarness.gd" id="5_harness"]
+
+[sub_resource type="Resource" id="Resource_budget"]
+script = ExtResource("4_budget")
+budget_id = &"phase15_budget"
+max_reactions_per_npc = 2
+cooldown_seconds = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phase15"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_inspect_rule"]
+script = ExtResource("3_rule")
+rule_id = &"phase15_inspect_rule"
+accepted_signal_types = Array[StringName]([&"suspicious_action_seen"])
+reaction_id = &"inspect_point"
+target_investigation_point_id = &"phase15_inspect"
+debug_notes = "Inspect fallback path."
+
+[sub_resource type="Resource" id="Resource_report_rule"]
+script = ExtResource("3_rule")
+rule_id = &"phase15_report_rule"
+accepted_signal_types = Array[StringName]([&"evidence_spotted"])
+reaction_id = &"report_to_authority"
+target_authority_id = &"shift_lead"
+debug_notes = "Authority report fallback path."
+
+[sub_resource type="Resource" id="Resource_routine_rule"]
+script = ExtResource("3_rule")
+rule_id = &"phase15_routine_rule"
+accepted_signal_types = Array[StringName]([&"route_tampered"])
+reaction_id = &"change_patrol"
+debug_notes = "Routine override fallback path."
+
+[node name="Phase15ReactiveNpcProofRoom" type="Node2D" unique_id=2099062893]
+position = Vector2(728, 176)
+
+[node name="MissionMechanics" type="Node2D" parent="." unique_id=382504604]
+
+[node name="InvestigationPointNode_phase15_ignore" type="Area2D" parent="MissionMechanics" unique_id=993104768]
+position = Vector2(-288, 0)
+collision_layer = 8
+script = ExtResource("1_investigation")
+investigation_point_id = &"phase15_ignore"
+signal_type = &"noise_heard"
+attention_budget = SubResource("Resource_budget")
+mechanic_id = &"phase15_ignore"
+display_name = "Ignored Signal"
+mission_id_override = "test_mission"
+one_shot = false
+prompt_text = "Press E: Investigate"
+locked_prompt_text = "Investigation unavailable"
+preview_color = Color(0.95, 0.75, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InvestigationPointNode_phase15_ignore" unique_id=807850460]
+shape = SubResource("RectangleShape2D_phase15")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/InvestigationPointNode_phase15_ignore" unique_id=720732240]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+
+[node name="InvestigationPointNode_phase15_inspect" type="Area2D" parent="MissionMechanics" unique_id=636474617]
+position = Vector2(-96, 0)
+collision_layer = 8
+script = ExtResource("1_investigation")
+investigation_point_id = &"phase15_inspect"
+signal_severity = 2
+reaction_rule_sets = Array[Resource]([SubResource("Resource_inspect_rule")])
+attention_budget = SubResource("Resource_budget")
+investigated_flag = &"phase15_investigated"
+mechanic_id = &"phase15_inspect"
+display_name = "Inspect Signal"
+mission_id_override = "test_mission"
+one_shot = false
+prompt_text = "Press E: Investigate"
+locked_prompt_text = "Investigation unavailable"
+preview_color = Color(0.95, 0.75, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InvestigationPointNode_phase15_inspect" unique_id=261994432]
+shape = SubResource("RectangleShape2D_phase15")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/InvestigationPointNode_phase15_inspect" unique_id=929043353]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+
+[node name="InvestigationPointNode_phase15_report" type="Area2D" parent="MissionMechanics" unique_id=142590867]
+position = Vector2(96, 0)
+collision_layer = 8
+script = ExtResource("1_investigation")
+investigation_point_id = &"phase15_report"
+signal_type = &"evidence_spotted"
+signal_severity = 4
+reaction_rule_sets = Array[Resource]([SubResource("Resource_report_rule")])
+attention_budget = SubResource("Resource_budget")
+mechanic_id = &"phase15_report"
+display_name = "Authority Report Signal"
+mission_id_override = "test_mission"
+one_shot = false
+prompt_text = "Press E: Investigate"
+locked_prompt_text = "Investigation unavailable"
+preview_color = Color(0.95, 0.75, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/InvestigationPointNode_phase15_report" unique_id=355562787]
+shape = SubResource("RectangleShape2D_phase15")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/InvestigationPointNode_phase15_report" unique_id=687685384]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+
+[node name="RoutineOverrideNode_phase15_route" type="Area2D" parent="MissionMechanics" unique_id=806950990]
+position = Vector2(288, 0)
+collision_layer = 8
+script = ExtResource("2_routine")
+routine_id = &"guard_loop_a"
+override_id = &"phase15_route_override"
+routine_override_flag = &"phase15_route_override_active"
+reaction_rule_sets = Array[Resource]([SubResource("Resource_routine_rule")])
+attention_budget = SubResource("Resource_budget")
+mechanic_id = &"phase15_route"
+display_name = "Routine Override"
+mission_id_override = "test_mission"
+one_shot = false
+prompt_text = "Press E: Override routine"
+locked_prompt_text = "Routine override unavailable"
+preview_color = Color(0.2, 0.85, 0.65, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RoutineOverrideNode_phase15_route" unique_id=823982602]
+shape = SubResource("RectangleShape2D_phase15")
+
+[node name="DebugLabel" type="Label" parent="MissionMechanics/RoutineOverrideNode_phase15_route" unique_id=1277881271]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+text = "READY"
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1163888294]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer" unique_id=2001030590]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = 160.0
+offset_right = -64.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_harness")
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness" unique_id=905892646]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 192.0
+offset_right = 1088.0
+offset_bottom = 396.0
+
+[node name="Run Ignored Signal" type="Button" parent="CanvasLayer/ProofHarness/Buttons" unique_id=274521808]
+layout_mode = 2
+text = "Run Ignored Signal"
+
+[node name="Run Investigation Reaction" type="Button" parent="CanvasLayer/ProofHarness/Buttons" unique_id=1048161265]
+layout_mode = 2
+text = "Run Investigation Reaction"
+
+[node name="Run Authority Report" type="Button" parent="CanvasLayer/ProofHarness/Buttons" unique_id=2141849040]
+layout_mode = 2
+text = "Run Authority Report"
+
+[node name="Run Routine Override" type="Button" parent="CanvasLayer/ProofHarness/Buttons" unique_id=472268216]
+layout_mode = 2
+text = "Run Routine Override"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness" unique_id=773735504]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 328.0
+offset_right = 1184.0
+offset_bottom = 432.0
+text = "Phase 15 reactive NPC proof ready."
+autowrap_mode = 3

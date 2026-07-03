@@ -4,6 +4,7 @@ extends RefCounted
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
 const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
 const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
+const ReactiveNpcBrainAdapterScript := preload("res://src/missions/iso/ai/ReactiveNpcBrainAdapter.gd")
 
 const FACT_ALWAYS := &"always"
 const FACT_MISSION_ID := &"mission_id"
@@ -39,6 +40,11 @@ const FACT_SOCIAL_INSPECTION_FAILED := &"social_inspection_failed"
 const FACT_ENCOUNTER_PHASE := &"encounter_phase"
 const FACT_ENCOUNTER_METER := &"encounter_meter"
 const FACT_ENCOUNTER_RESULT_TAG := &"encounter_result_tag"
+const FACT_REACTIVE_SIGNAL_RECORDED := &"reactive_signal_recorded"
+const FACT_REACTIVE_SIGNAL_TYPE_COUNT := &"reactive_signal_type_count"
+const FACT_REACTIVE_REACTION_RECORDED := &"reactive_reaction_recorded"
+const FACT_REACTIVE_AUTHORITY_REPORTED := &"reactive_authority_reported"
+const FACT_REACTIVE_RESULT_TAG := &"reactive_result_tag"
 
 
 static func resolve_mission_id(context: Dictionary = {}) -> String:
@@ -121,6 +127,8 @@ static func get_fact_value(fact_type: StringName, key: String, context: Dictiona
 			return SocialStealthAdapterScript.get_fact_value(fact_type, key, context)
 		FACT_ENCOUNTER_PHASE, FACT_ENCOUNTER_METER, FACT_ENCOUNTER_RESULT_TAG:
 			return _get_encounter_fact_value(fact_type, key, context)
+		FACT_REACTIVE_SIGNAL_RECORDED, FACT_REACTIVE_SIGNAL_TYPE_COUNT, FACT_REACTIVE_REACTION_RECORDED, FACT_REACTIVE_AUTHORITY_REPORTED, FACT_REACTIVE_RESULT_TAG:
+			return ReactiveNpcBrainAdapterScript.get_fact_value(fact_type, key, context)
 		_:
 			return null
 
@@ -139,6 +147,8 @@ static func set_fact_value(fact_type: StringName, key: String, value: Variant, c
 			return SocialStealthAdapterScript.set_professionalism(int(value), context)
 		FACT_SOCIAL_CLEANLINESS_SCORE:
 			return SocialStealthAdapterScript.set_cleanliness(int(value), context)
+		FACT_REACTIVE_RESULT_TAG:
+			return ReactiveNpcBrainAdapterScript.set_result_tag(key, bool(value), context)
 	var game_state := _autoload("GameState")
 	if game_state == null:
 		return _result(false, "game_state_missing", "GameState autoload is missing.", key)
@@ -250,6 +260,11 @@ static func is_known_fact_type(fact_type: StringName) -> bool:
 		FACT_ENCOUNTER_PHASE,
 		FACT_ENCOUNTER_METER,
 		FACT_ENCOUNTER_RESULT_TAG,
+		FACT_REACTIVE_SIGNAL_RECORDED,
+		FACT_REACTIVE_SIGNAL_TYPE_COUNT,
+		FACT_REACTIVE_REACTION_RECORDED,
+		FACT_REACTIVE_AUTHORITY_REPORTED,
+		FACT_REACTIVE_RESULT_TAG,
 	]
 
 

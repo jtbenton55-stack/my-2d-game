@@ -1934,6 +1934,12 @@ Extend:
 
 Mission effects should not directly manipulate hideout UI nodes. They should grant data or flags. Hideout controllers should read and present that state.
 
+### Current Implementation
+
+Phase 10A-10F-lite is implemented through `src/hideout/HideoutRewardAdapter.gd` and `HideoutStateController.apply_mission_reward_contract()`. The adapter reads existing `GameState` completion/reward data and produces a hideout contract; `HideoutManager` syncs completed mission rewards into hideout state on load. This keeps UI ownership inside hideout controllers and avoids a duplicate hideout reward manager.
+
+The first production contract covers `taco_bell_drop`: reward scheme-card visibility, Taco decor/store unlocks, collectible display flags, Louis visibility, Bentley sauce-paw care unlock, and a save-safe case-cash floor. Additional missions can extend the adapter contract when their reward data and hideout displays are authored.
+
 ## Phase 11: Paper Trail And Plausible Deniability
 
 ### Timing
@@ -2160,12 +2166,12 @@ Canonical numbering note as of 2026-06-21: Puzzle And Side Job Kit is Phase 9. E
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 10A | Reward-to-hideout contract | Define which mission rewards become hideout-visible state. | Mission effects grant data, not direct UI mutations. |
-| Phase 10B | Hideout reward adapter | Bridge mission rewards into existing hideout controllers. | No duplicate hideout reward manager is added prematurely. |
-| Phase 10C | Store/care hooks | Extend existing store/care flows where needed. | Hideout controllers own UI and interactions. |
-| Phase 10D | Collectible/decoration hooks | Connect mission rewards to collectible/decoration state. | Rewards are visible without direct mission-to-UI calls. |
-| Phase 10E | Mission-return hooks | Reward triggers after mission completion. | Rewards apply after success, not failure/restart. |
-| Phase 10F | Save/load and regression | Validate current save-safe reward state. | Hideout reward state does not corrupt saves. |
+| Phase 10A | Reward-to-hideout contract | Implemented 2026-06-22 via `HideoutRewardAdapter.build_contract()`. | Mission effects grant data, not direct UI mutations. |
+| Phase 10B | Hideout reward adapter | Implemented 2026-06-22 via `HideoutRewardAdapter` plus `HideoutStateController.apply_mission_reward_contract()`. | No duplicate hideout reward manager is added prematurely. |
+| Phase 10C | Store/care hooks | Lite implemented for Taco store unlocks and Bentley sauce-paw cleanup. | Hideout controllers own UI and interactions. |
+| Phase 10D | Collectible/decoration hooks | Lite implemented for Taco polaroid/trophy/typed collectible display keys and store decor unlock availability. | Rewards are visible without direct mission-to-UI calls. |
+| Phase 10E | Mission-return hooks | Lite implemented by syncing completed mission rewards when `HideoutManager` loads. | Rewards apply after success, not failure/restart. |
+| Phase 10F | Save/load and regression | Focused tests cover completed-mission save/load contract path and idempotence. | Hideout reward state does not corrupt saves. |
 
 ### Phase 11: Paper Trail / Deniability
 
@@ -2223,17 +2229,21 @@ Status: Complete as of 2026-06-22 for reusable Phase 14A-14G systems. Production
 | Phase 14F | First challenge prototype | `Phase14EncounterProofRoom.tscn` with clean social, Bentley, evidence, and messy route buttons. | Player routes can resolve the encounter through authored systems, not HP combat. |
 | Phase 14G | Production challenge gate | Policy-only gate documented; no Taco production placement added. | Production adoption waits for Jake manual QA confirmation for Phases 9I-13. |
 
-### Phase 15: Advanced Reactive NPC/Social Systems
+### Phase 15: Bounded Reactive NPC / Social Consequence Layer
+
+Status: Complete as of 2026-06-22 for Phase 15A-15I reusable systems. Production adoption is intentionally gated; no Taco/story mission placement was added.
 
 | Subphase | Scope | Primary Outputs | Validation Gate |
 |---|---|---|---|
-| Phase 15A | AI readiness audit | Identify what current guards/NPCs/social systems cannot express. | LimboAI is justified by concrete needs, not novelty. |
-| Phase 15B | LimboAI adapter spike | Optional behavior-tree/state-machine adapter behind project-owned interfaces. | Existing guards/security do not depend directly on plugin APIs. |
-| Phase 15C | Witness/courier prototype | A small witness courier or routine NPC scenario. | NPC behavior reacts to facts/events without global rewrite. |
-| Phase 15D | Gossip/authority chain | Gossip propagation and authority escalation as bounded experiments. | Social propagation remains debuggable and capped. |
-| Phase 15E | Routine tampering/emergency drill | Advanced reactive scenarios after simpler social stealth works. | Systems degrade safely when events are missing. |
-| Phase 15F | Attention budget/cascading failure | Bounded simulation rules to avoid runaway behavior. | Debug panels show why reactions happen. |
-| Phase 15G | Production adoption gate | Only after NPC, suspicion, social stealth, route, fact, and deniability systems are stable. | Plugin dependency and fallback policy are documented. |
+| Phase 15A | AI readiness audit | Keep the scope to authored signals and bounded consequences. | No full NPC simulation, faction system, gossip network, or combat AI rewrite. |
+| Phase 15B | LimboAI adapter gate | Optional context-injected adapter only. | Existing guards/security/mechanics/effects have no direct LimboAI dependency. |
+| Phase 15C | Signal schema | `SocialSignalEvent`. | NPC reactions consume explicit records, not ambient magic state. |
+| Phase 15D | Attention budget | `NpcAttentionBudget`. | Caps, cooldowns, and debug snapshots prevent runaway cascades. |
+| Phase 15E | Reaction rules/fallback | `SocialReactionRuleSet`, `ReactiveNpcFallbackDriver`, `ReactiveNpcBrainAdapter`. | Missing rules or missing Limbo safely degrade to ignore/fallback reactions. |
+| Phase 15F | Authoring nodes | `InvestigationPointNode`, `RoutineOverrideNode`, templates, Mission Dock support. | Designers can author points/routine changes without mission scripts. |
+| Phase 15G | Facts/effects/results | Reactive signal/reaction facts, signal/evaluate/result-tag effects, result UI. | Consequences route through existing requirement/effect/result paths. |
+| Phase 15H | Proof/validation | `Phase15ReactiveNpcProofRoom`, GdUnit, static validator. | Ignore, inspect, authority report, and routine override flows are covered. |
+| Phase 15I | Production adoption gate | Policy-only; no production placement. | Adoption waits for Jake manual QA and explicit request. |
 
 ## Phase 14: Encounter / Boss Challenge Layer
 
@@ -2281,33 +2291,39 @@ Use these meters before inventing combat health:
 3. Encounter state is debuggable in a report or debug panel.
 4. No duplicate objective, alert, card, inventory, or completion manager is introduced.
 
-## Phase 15: Advanced Reactive NPC / Social Systems
+## Phase 15: Bounded Reactive NPC / Social Consequence Layer
 
 ### Timing
 
-Defer until NPC, suspicion, social stealth, route, fact, card, Bentley, and security authoring systems are stable. This phase is intentionally late because it can become a large behavior-system rewrite if started too early.
+The first implementation is intentionally bounded: authored mission mechanics create `SocialSignalEvent` records, mission-local adapters evaluate rule resources under `NpcAttentionBudget`, and fallback reactions record safe consequences. Do not expand this into full NPC belief simulation or broad production adoption without a separate request.
 
 ### LimboAI Policy
 
 LimboAI is appropriate only when concrete reactive NPC behavior exceeds the current authored security/Bentley/mission fact approach.
 
-Initial LimboAI work must be behind a project-owned adapter. Do not call LimboAI APIs directly from mission mechanics, effects, or production scene scripts.
+Current Phase 15 code does not depend on LimboAI. It can use a context-injected `limbo_reactive_npc_adapter` only when supplied by future project-owned glue. Do not call LimboAI APIs directly from mission mechanics, effects, or production scene scripts.
 
 ### Future Files
 
 | Future File | Class Name | Type | Purpose |
 |---|---|---|---|
-| `src/missions/iso/ai/ReactiveNpcBrainAdapter.gd` | `ReactiveNpcBrainAdapter` | `Node` | Thin wrapper around behavior-tree/state-machine implementation. |
-| `src/missions/iso/ai/NpcAttentionBudget.gd` | `NpcAttentionBudget` | `Resource` or helper | Caps how much reactive behavior can cascade at once. |
-| `src/missions/iso/ai/SocialSignalEvent.gd` | `SocialSignalEvent` | `Resource` or dictionary schema | Describes gossip, witness, suspicion, and authority-chain events. |
-| `src/missions/iso/authoring/mechanics/InvestigationPointNode.gd` | `InvestigationPointNode` | `MechanicAreaBase` | Places bounded points NPCs can inspect after events. |
+| `src/missions/iso/ai/SocialSignalEvent.gd` | `SocialSignalEvent` | `Resource` | Authored signal schema for explicit noise/social/trace/evidence/routine events. |
+| `src/missions/iso/ai/NpcAttentionBudget.gd` | `NpcAttentionBudget` | `Resource` | Caps how much reactive behavior can cascade at once. |
+| `src/missions/iso/ai/SocialReactionRuleSet.gd` | `SocialReactionRuleSet` | `Resource` | Maps accepted signals/facts to bounded reaction IDs and optional effects. |
+| `src/missions/iso/ai/ReactiveNpcBrainAdapter.gd` | `ReactiveNpcBrainAdapter` | `RefCounted` | Mission-local signal/reaction recorder and evaluator with optional adapter gate. |
+| `src/missions/iso/ai/ReactiveNpcFallbackDriver.gd` | `ReactiveNpcFallbackDriver` | `RefCounted` | Safe fallback implementation for ignore/look/inspect/report/routine/dialogue/encounter/effect reactions. |
+| `src/missions/iso/ai/ReactiveNpcResultAdapter.gd` | `ReactiveNpcResultAdapter` | `RefCounted` | Adds reactive NPC summary to mission results. |
+| `src/missions/iso/authoring/mechanics/InvestigationPointNode.gd` | `InvestigationPointNode` | `MechanicAreaBase` | Places bounded points NPCs can inspect after authored events. |
+| `src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd` | `RoutineOverrideNode` | `MechanicAreaBase` | Applies route/routine override flags and emits bounded social signals. |
+| `scenes/dev/mission_authoring/Phase15ReactiveNpcProofRoom.tscn` | n/a | `Scene` | Dev proof room with ignore, inspect, authority report, and routine override buttons. |
+| `src/tools/editor/phase15_reactive_npc/phase15_reactive_npc_validator.py` | n/a | `Python validator` | Static guard for files, facts/effects, proof buttons, Mission Dock support, result integration, and no direct LimboAI dependency. |
 
 ### First Prototype Candidates
 
-1. Witness courier walks to a manager/security point after seeing suspicious action.
-2. Routine tampering causes an NPC to investigate a specific authored point.
-3. Emergency drill temporarily changes routes and inspection rules.
-4. Gossip event raises suspicion only inside a bounded zone.
+1. Ignored signal proves safe no-op behavior when no rule matches.
+2. Investigation signal records an inspect-point fallback reaction.
+3. Evidence signal records an authority-report fallback reaction.
+4. Routine override sets an authored mission flag and records a change-patrol fallback reaction.
 
 ### Rules
 
@@ -2317,13 +2333,15 @@ Initial LimboAI work must be behind a project-owned adapter. Do not call LimboAI
 4. Use mission facts/events as the interface between AI and mission systems.
 5. Provide fallback behavior when LimboAI is absent or disabled.
 6. Do not create open-ended gossip/cascading systems without caps, cooldowns, and debug output.
+7. Mechanics/effects/production scene scripts must not call optional plugin APIs directly.
 
 ### Done Criteria
 
-1. One advanced NPC/social scenario reacts to authored mission facts/events.
-2. Behavior is inspectable in debug output.
-3. LimboAI dependency is optional or clearly gated.
+1. Signal/reaction scenarios react to authored mission facts/events.
+2. Behavior is inspectable in debug output and mission results.
+3. LimboAI dependency is optional, absent-safe, and adapter-gated.
 4. Existing guard/security/Bentley systems continue to work without behavior-tree dependency.
+5. Production adoption remains gated until Jake asks for a production placement pass.
 
 ## Resource Authoring Naming Conventions
 

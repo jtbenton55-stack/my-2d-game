@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd" id="1_routine"]
+[ext_resource type="Script" path="res://src/missions/iso/ai/SocialReactionRuleSet.gd" id="2_rule"]
+[ext_resource type="Script" path="res://src/missions/iso/ai/NpcAttentionBudget.gd" id="3_budget"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_routine"]
+size = Vector2(128, 128)
+
+[sub_resource type="Resource" id="Resource_routine_rule"]
+script = ExtResource("2_rule")
+rule_id = &"CHANGE_ME_ROUTINE_REACTION_RULE"
+accepted_signal_types = Array[StringName]([&"route_tampered"])
+reaction_id = &"change_patrol"
+debug_notes = "Fallback routine-change reaction; no LimboAI dependency."
+
+[sub_resource type="Resource" id="Resource_attention_budget"]
+script = ExtResource("3_budget")
+budget_id = &"CHANGE_ME_ROUTINE_BUDGET"
+max_reactions_per_signal = 1
+max_reactions_per_zone = 2
+max_reactions_per_npc = 2
+cooldown_seconds = 2.0
+
+[node name="RoutineOverrideNodeTemplate" type="Area2D"]
+script = ExtResource("1_routine")
+routine_id = &"CHANGE_ME_ROUTINE"
+override_id = &"CHANGE_ME_ROUTINE_OVERRIDE"
+routine_override_flag = &"CHANGE_ME_ROUTINE_OVERRIDE_ACTIVE"
+signal_type = &"route_tampered"
+signal_severity = 2
+reaction_rule_sets = Array[Resource]([SubResource("Resource_routine_rule")])
+attention_budget = SubResource("Resource_attention_budget")
+mechanic_id = &"CHANGE_ME_ROUTINE"
+display_name = "Routine Override"
+prompt_text = "Press E: Override routine"
+locked_prompt_text = "Routine override unavailable"
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_routine")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -72.0
+offset_right = 130.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 11
+text = "Routine Override"
+horizontal_alignment = 1
