@@ -4,6 +4,8 @@ Date: 2026-05-19
 
 Status: Planning document. This file describes how to implement the roadmap. It does not implement code.
 
+Implementation update 2026-07-03: the D6 Taco player-facing polish packet now uses existing adapters/providers instead of a new manager: `GameState` annotates mission results and posts the first Taco Sterling clue, `MissionPauseDataProvider` owns next-objective text, `MissionHudDataProvider` feeds HUD objective/poop-bag status, and `MissionResult` renders the richer payload. Validator: `src/tools/editor/taco_bell_redesign_d6_player_facing_polish/phase0md6_player_facing_polish_static_validator.py`.
+
 Companion roadmap: `docs/PLUG_AND_PLAY_MISSION_SYSTEM_ROADMAP.md`
 
 ## Intent

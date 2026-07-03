@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2026-07-03
+- **0M-D6 player-facing Taco polish:** Added next-objective selection/highlighting through `MissionPauseDataProvider`, HUD run poop-bag progress/status, Taco success Sterling clue posting to `sterling_clues`/`evidence_clues`, richer `MissionResult` text/return label, focused GdUnit contracts, and a D6 static validator. Report: `reports/ai/2026-07-03_taco_bell_d6_player_facing_polish_report.md`.
 - **D5 manual QA signoff:** Jake reported D5-01 attempt reset, D5-02 pause mission context, and D5-03 Louis route beam bypass all passed manual QA. `reports/ai/D5_PENDING_ITEMS.md` now has no open D5 items. Signoff report: `reports/ai/2026-07-03_taco_bell_d5_manual_qa_signoff_report.md`.
 
 ## 2026-06-30

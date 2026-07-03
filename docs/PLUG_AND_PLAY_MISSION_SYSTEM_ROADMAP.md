@@ -4,6 +4,8 @@ Date: 2026-05-19
 
 Status: Planning document. No implementation is implied by this file.
 
+Implementation update 2026-07-03: 0M-D6 player-facing Taco polish is implemented in grouped-milestone mode. Current proof covers pause next-objective highlighting, HUD objective/poop-bag status, Taco success Sterling clue posting to evidence data, and richer mission result/return-to-hideout copy. Static validator passed; GdUnit/runtime scene validation still needs a Godot executable or editor/MCP run.
+
 ## Purpose
 
 This roadmap consolidates the current mission-system brainstorm into a repo-aware implementation plan for a Godot 4.6.2 project. The goal is to make future missions behave like authored content instead of one-off scripting work.

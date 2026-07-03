@@ -127,7 +127,10 @@ func _refresh_mission_compact_hud() -> void:
 	if _poop_label != null:
 		if bool(payload.get("poop_bags_visible", false)):
 			_poop_label.visible = true
-			_poop_label.text = "Bags: %d" % int(payload.get("poop_bags_available", 0))
+			var collected := int(payload.get("poop_bags_collected_this_attempt", 0))
+			var target := int(payload.get("poop_bag_bonus_target", 3))
+			_poop_label.text = "Bags: %d | Run: %d/%d" % [int(payload.get("poop_bags_available", 0)), mini(collected, target), target]
+			_poop_label.tooltip_text = String(payload.get("poop_bag_status_text", ""))
 		else:
 			_poop_label.visible = false
 

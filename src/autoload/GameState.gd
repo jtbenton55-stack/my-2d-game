@@ -9,6 +9,7 @@ const ReactiveNpcBrainAdapterScript := preload("res://src/missions/iso/ai/Reacti
 
 const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
+const TACO_SUCCESS_STERLING_CLUE_ID := "taco_bell_sterling_route_invoice"
 
 var mission_catalog: Dictionary = {
 	"iso_vertical_slice": {"name": "Iso Vertical Slice (Dev)", "description": "Internal isometric TileMapLayer prototype. Not part of story progression.", "scene_path": "res://scenes/dev/IsoVerticalSlice.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
@@ -227,6 +228,30 @@ func get_poop_bag_count() -> int:
 	return poop_bag_count
 
 
+func get_poop_bag_bonus_status(mission_id: String = "") -> Dictionary:
+	var target := 3
+	var collected := poop_bags_this_mission_attempt
+	var used := int(poop_bag_inventory.get("used_this_mission", 0))
+	var status := "complete" if collected >= target else "pending"
+	var line := "Bentley poop-bag bonus: %d/%d found" % [mini(collected, target), target]
+	if used > 0:
+		line += " (%d used)" % used
+	if status == "complete":
+		line += " - bonus secured."
+	else:
+		line += " - find all three before leaving."
+	return {
+		"mission_id": mission_id,
+		"current_count": poop_bag_count,
+		"collected_this_attempt": collected,
+		"used_this_attempt": used,
+		"target": target,
+		"status": status,
+		"complete": collected >= target,
+		"line": line,
+	}
+
+
 func set_velvet_paw_resume_data(data: Dictionary) -> void:
 	velvet_paw_resume_data = data.duplicate(true)
 
@@ -351,7 +376,9 @@ func complete_mission(mission_id = "") -> Dictionary:
 	_finalize_mission_performance(mission_id, true)
 	var rewards := _grant_success_rewards(mission_id)
 	clear_mission_mutations(mission_id)
-	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result({"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}))))
+	var result_payload := {"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}
+	_annotate_player_facing_mission_result(result_payload, mission_id, true)
+	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload))))
 	EventBus.mission_completed.emit(mission_id, rewards)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()
@@ -384,7 +411,9 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		player_max_health += 10
 		player_health = player_max_health
 		rewards.append("Jake upgrade: +10 max health")
-	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result({"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards}))))
+	var result_payload := {"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards}
+	_annotate_player_facing_mission_result(result_payload, mission_id, false)
+	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload))))
 	EventBus.mission_failed.emit(mission_id, reason)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()
@@ -444,6 +473,47 @@ func _grant_success_rewards(mission_id: String) -> Array[String]:
 			"cooldown_or_once_per_mission": "once_per_mission",
 		})
 	return rewards
+
+
+func _annotate_player_facing_mission_result(result: Dictionary, mission_id: String, success: bool) -> void:
+	result["mission_name"] = _mission_name(mission_id)
+	result["return_destination"] = "Hideout"
+	result["continue_label"] = "Return to Hideout"
+	result["poop_bag_status"] = get_poop_bag_bonus_status(mission_id)
+	if mission_id != "taco_bell_drop":
+		return
+	var next_steps: Array[String] = []
+	if success:
+		var clue := _ensure_taco_success_sterling_clue()
+		result["evidence_clues"] = [clue]
+		next_steps.append("Check the Evidence Board in the hideout for Louis's Sterling lead.")
+		next_steps.append("The Clean Job and Velvet Paw routes are now available from the mission board.")
+		var rewards: Array = Array(result.get("rewards", []))
+		var clue_reward := "Evidence clue: " + String(clue.get("title", "Louis's Sterling lead"))
+		if not rewards.has(clue_reward):
+			rewards.append(clue_reward)
+		result["rewards"] = rewards
+	else:
+		next_steps.append("Regroup at the hideout, then retry the Taco Bell drop with the route intel intact.")
+	result["next_steps"] = next_steps
+
+
+func _ensure_taco_success_sterling_clue() -> Dictionary:
+	var was_discovered := sterling_clues.has(TACO_SUCCESS_STERLING_CLUE_ID) and _as_bool_data(sterling_clues[TACO_SUCCESS_STERLING_CLUE_ID].get("discovered", false))
+	var clue_data := {
+		"title": "Louis's Sterling Route Invoice",
+		"description": "The recovered delivery bag points from Louis's route to a Sterling-controlled luxury showroom.",
+		"category": "Sterling Clue",
+		"mission_id": "taco_bell_drop",
+		"connects_to": "Clean Job",
+		"unlocks_or_modifies": "Unlocks the showroom cleanup lead and starts the Sterling evidence chain.",
+		"final_tower_relevance": "First route-link tying Sterling to the crew's case.",
+	}
+	ensure_and_discover_sterling_clue(TACO_SUCCESS_STERLING_CLUE_ID, clue_data)
+	var record: Dictionary = sterling_clues.get(TACO_SUCCESS_STERLING_CLUE_ID, clue_data).duplicate(true)
+	record["clue_id"] = TACO_SUCCESS_STERLING_CLUE_ID
+	record["was_new"] = not was_discovered
+	return record
 
 func _unlock_next_missions(mission_id: String) -> void:
 	match mission_id:

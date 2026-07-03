@@ -20,19 +20,40 @@ func _update_result_display() -> void:
 	var rewards: Array = Array(result.get("rewards", []))
 	var success: bool = result.get("success", false) == true
 	var rank: String = String(result.get("rank", ""))
+	continue_button.text = String(result.get("continue_label", "Return to Hideout"))
 	
 	title_label.text = title
 	title_label.add_theme_color_override("font_color", Color(0.2, 0.9, 0.4, 1) if success else Color(1, 0.72, 0.35, 1))
 	AudioManager.play_music("victory" if success else "cozy_hideout")
 	
 	var text := subtitle + "\n\n"
+	var mission_name := String(result.get("mission_name", ""))
+	if mission_name != "":
+		text += "Mission: " + mission_name + "\n"
 	if success and rank != "":
-		text += "Mission Rank: " + rank + "\n\n"
+		text += "Mission Rank: " + rank + "\n"
+	var poop_status: Dictionary = result.get("poop_bag_status", {}) as Dictionary
+	if not poop_status.is_empty():
+		text += String(poop_status.get("line", "")) + "\n"
+	text += "\n"
 	
 	if rewards.size() > 0:
 		text += "Progress:\n"
 		for reward in rewards:
 			text += "- " + str(reward) + "\n"
+
+	var evidence_clues: Array = Array(result.get("evidence_clues", []))
+	if not evidence_clues.is_empty():
+		text += "\nEvidence Board:\n"
+		for clue in evidence_clues:
+			if clue is Dictionary:
+				text += "- %s: %s\n" % [String(clue.get("title", clue.get("clue_id", ""))), String(clue.get("description", ""))]
+
+	var next_steps: Array = Array(result.get("next_steps", []))
+	if not next_steps.is_empty():
+		text += "\nNext:\n"
+		for step in next_steps:
+			text += "- " + String(step) + "\n"
 
 	var paper_trail: Dictionary = result.get("paper_trail", {})
 	if not paper_trail.is_empty():

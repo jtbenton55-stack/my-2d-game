@@ -20,11 +20,13 @@ static func get_objective_snapshot(mission_id: String = "", mission_node: Node =
 		warnings.append("empty_mission_id")
 		return {"ok": true, "mission_id": "", "items": items, "warnings": warnings}
 	var snap := MissionObjectiveBridge.get_objective_snapshot(mid)
+	var next_text := get_next_objective_text(mid, mission_node)
 	for line in snap.get("quest_active_list", []):
-		items.append({"kind": "active", "text": String(line)})
+		var text := String(line)
+		items.append({"kind": "active", "text": text, "is_next": _same_objective_text(text, next_text)})
 	for line in snap.get("quest_completed_list", []):
-		items.append({"kind": "completed", "text": String(line)})
-	return {"ok": true, "mission_id": mid, "items": items, "warnings": warnings, "raw": snap}
+		items.append({"kind": "completed", "text": String(line), "is_next": false})
+	return {"ok": true, "mission_id": mid, "items": items, "warnings": warnings, "raw": snap, "next_objective_text": next_text}
 
 
 static func get_scheme_card_snapshot(mission_id: String = "", mission_node: Node = null) -> Dictionary:
@@ -93,6 +95,7 @@ static func get_pause_payload(mission_id: String = "", mission_node: Node = null
 		"attempt_facts": ctx.get("facts", {}),
 		"warnings": warnings,
 		"heat_security_line": get_heat_security_pause_line(mid, mission_node),
+		"next_objective_text": obj.get("next_objective_text", ""),
 	}
 
 
@@ -132,6 +135,25 @@ static func get_attempt_context_snapshot(mission_id: String = "", mission_node: 
 	return {"ok": true, "mission_id": mid, "items": items, "facts": facts, "warnings": warnings}
 
 
+static func get_next_objective_text(mission_id: String = "", mission_node: Node = null) -> String:
+	var mid := _effective_mission_id(mission_id, mission_node)
+	if mid == "":
+		return ""
+	if mid == "taco_bell_drop":
+		var ctx := get_attempt_context_snapshot(mid, mission_node)
+		var facts: Dictionary = ctx.get("facts", {}) as Dictionary
+		if not bool(facts.get("delivery_bag_collected", false)):
+			return "Recover the delivery bag."
+		if not bool(facts.get("code_gate_unlocked", false)):
+			return "Open the garage code gate."
+		return "Return to Louis at the exit."
+	if MissionAutoloadResolver.get_root_autoload("QuestManager") != null:
+		var active := QuestManager.get_active_objectives(mid)
+		if not active.is_empty():
+			return String(active[0])
+	return ""
+
+
 static func _effective_mission_id(mission_id: String, mission_node: Node) -> String:
 	if mission_id != "":
 		return mission_id
@@ -148,6 +170,19 @@ static func _mission_name(mission_id: String) -> String:
 	if MissionAutoloadResolver.has_game_state():
 		return String(GameState.get_mission_info(mission_id).get("name", mission_id))
 	return mission_id
+
+
+static func _same_objective_text(a: String, b: String) -> bool:
+	var aa := _objective_compare_text(a)
+	var bb := _objective_compare_text(b)
+	return aa != "" and aa == bb
+
+
+static func _objective_compare_text(value: String) -> String:
+	var text := value.strip_edges().to_lower()
+	while text.ends_with("."):
+		text = text.substr(0, text.length() - 1).strip_edges()
+	return text
 
 
 static func _phase0k_controller(mission_node: Node) -> Node:

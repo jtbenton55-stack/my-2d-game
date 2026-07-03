@@ -153,6 +153,9 @@ func _objectives_text() -> String:
 	lines.append(String(payload.get("mission_name", mission_id)))
 	if mission_id != "":
 		lines.append("Mission ID: %s" % mission_id)
+	var next_text := String(payload.get("next_objective_text", "")).strip_edges()
+	if next_text != "":
+		lines.append("Next: %s" % next_text)
 	lines.append("")
 	var heat_line := String(payload.get("heat_security_line", ""))
 	if heat_line != "":
@@ -168,7 +171,8 @@ func _objectives_text() -> String:
 	for row in payload.get("objectives", []):
 		if row is Dictionary and String(row.get("kind", "")) == "active":
 			saw_active = true
-			lines.append("  - " + String(row.get("text", "")))
+			var prefix := "NEXT - " if bool(row.get("is_next", false)) else ""
+			lines.append("  - " + prefix + String(row.get("text", "")))
 	if not saw_active:
 		lines.append("  No active objectives.")
 	lines.append("")

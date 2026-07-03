@@ -46,6 +46,9 @@ static func get_hud_payload(_context_node: Node = null) -> Dictionary:
 			"stamina_visible": false,
 			"stamina_fallback": false,
 			"poop_bags_available": 0,
+			"poop_bags_collected_this_attempt": 0,
+			"poop_bag_bonus_target": 3,
+			"poop_bag_status_text": "",
 			"poop_bags_visible": false,
 			"control_hint": "",
 			"warnings": ["GameState unavailable"],
@@ -53,7 +56,10 @@ static func get_hud_payload(_context_node: Node = null) -> Dictionary:
 	var mid := String(GameState.current_mission_id)
 	var in_mission := GameState.is_in_mission
 	var obj := ""
-	if MissionAutoloadResolver.get_root_autoload("QuestManager") != null:
+	var next_obj := MissionPauseDataProvider.get_next_objective_text(mid, _context_node)
+	if next_obj != "":
+		obj = next_obj
+	elif MissionAutoloadResolver.get_root_autoload("QuestManager") != null:
 		obj = String(QuestManager.get_current_objective(mid))
 	obj = sanitize_objective_line(obj)
 	var stamina_cur := 0.0
@@ -85,7 +91,10 @@ static func get_hud_payload(_context_node: Node = null) -> Dictionary:
 			stamina_max = 100.0
 			stamina_fallback = true
 			warnings.append("stamina_bar_placeholder_no_player_node")
+	var poop_status := GameState.get_poop_bag_bonus_status(mid) if GameState.has_method("get_poop_bag_bonus_status") else {}
 	var poop := int(GameState.get_poop_bag_count()) if GameState.has_method("get_poop_bag_count") else int(GameState.poop_bag_count)
+	var poop_collected := int(poop_status.get("collected_this_attempt", GameState.poop_bags_this_mission_attempt))
+	var poop_target := int(poop_status.get("target", 3))
 	var poop_vis := in_mission
 	var hint := "Ctrl sprint · Space dash · T bag · Esc pause"
 	return {
@@ -97,6 +106,9 @@ static func get_hud_payload(_context_node: Node = null) -> Dictionary:
 		"stamina_visible": stamina_vis,
 		"stamina_fallback": stamina_fallback,
 		"poop_bags_available": poop,
+		"poop_bags_collected_this_attempt": poop_collected,
+		"poop_bag_bonus_target": poop_target,
+		"poop_bag_status_text": String(poop_status.get("line", "")),
 		"poop_bags_visible": poop_vis,
 		"control_hint": hint,
 		"warnings": warnings,
