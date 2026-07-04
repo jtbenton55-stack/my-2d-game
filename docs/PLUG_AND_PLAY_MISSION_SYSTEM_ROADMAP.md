@@ -6,6 +6,10 @@ Status: Planning document. No implementation is implied by this file.
 
 Implementation update 2026-07-03: 0M-D6 player-facing Taco polish is implemented in grouped-milestone mode. Current proof covers pause next-objective highlighting, HUD objective/poop-bag status, Taco success Sterling clue posting to evidence data, and richer mission result/return-to-hideout copy. Static validator passed; GdUnit/runtime scene validation still needs a Godot executable or editor/MCP run.
 
+Implementation update 2026-07-04 Phase 16: Taco Bell now has a dormant mission-local `Phase16GarageManagerDeniabilityController` and dev-only callable `Phase16GarageDeniabilityDevTrigger` under `GameplayRoot/PlugAndPlayPilot`. It composes existing Phase 11 paper-trail, Phase 13 social-stealth, Phase 14 encounter, and Phase 15 reactive-NPC adapters for garage-manager clean social, Bentley distraction, evidence, messy authority-report, and cleanup/redirect routes without adding a global manager or altering Phase0J/Phase0K authority. Static validator passed, focused GdUnit passed 5/5, and Taco headless smoke loaded/started with known MCP port/shutdown leak noise.
+
+Implementation update 2026-07-04 Phase 17 + Level-Builder Readiness: F12 now exposes QA-only route buttons for the Phase 16 Taco routes and F10/MissionResult can show the selected route label. Mission Dock Assist Browser has read-only readiness audit awareness for Phase 16/17 route helpers, bridge scope, and key reusable mechanic mixes. Added `scenes/dev/mission_authoring/NewMissionStarterTemplate.tscn` and `scenes/dev/mission_authoring/Phase17LevelBuilderReadinessProofRoom.tscn`; the proof harness runs a non-Taco integrated path across social stealth, paper trail, reactive NPC, encounter, and noise systems. Jake manually QA-confirmed canonical Taco bag/code/Louis flow and route-label mapping after Phase 16/17, so normal player-facing Taco activation is cleared for the next packet.
+
 ## Purpose
 
 This roadmap consolidates the current mission-system brainstorm into a repo-aware implementation plan for a Godot 4.6.2 project. The goal is to make future missions behave like authored content instead of one-off scripting work.
@@ -1770,6 +1774,65 @@ Make mature levels react to authored social signals after the core systems are s
 - Reaction caps/cooldowns prevent runaway cascades.
 - LimboAI remains optional and adapter-gated; fallback reactions work when it is absent.
 - Mission results show signal/reaction/report counts and Limbo adapter use.
+
+## Phase 16: Taco Garage-Manager Deniability Production Adoption
+
+Status: Implemented 2026-07-04 as a guarded production-adoption packet. The Taco redesign scene has a dormant `Phase16GarageManagerDeniabilityController` plus a dev-only callable `Phase16GarageDeniabilityDevTrigger` under `GameplayRoot/PlugAndPlayPilot`; `MissionInteractionBridge.include_legacy_candidates` remains false, and Phase0J/Phase0K scripts remain authoritative for canonical Taco bag/code/Louis completion flow.
+
+### Goal
+
+Prove the reusable Phase 11-15 systems can be adopted in the real Taco mission as one bounded garage-manager deniability beat without adding a new global manager or rewriting the production mission flow.
+
+### Built
+
+1. Mission-local controller extending `EncounterController`.
+2. Clean social route using `SocialStealthAdapter` cover, credential, protocol, task, professionalism, and inspection records.
+3. Bentley distraction route using paper-trail redirection and a bounded reactive signal.
+4. Evidence route using an invoice/evidence paper trace and encounter evidence meter.
+5. Messy authority-report route using witness trace, reactive authority report, suspicion/security meter deltas, and a failed encounter outcome.
+6. Cleanup/redirect route that redirects and weakens garage-manager traces.
+7. Dev-only callable route trigger that is not an `Area2D`, does not read input, and does not expose the legacy interaction interface.
+8. Focused GdUnit coverage and static validator coverage for controller contracts, dev-trigger safety, and Taco scene placement.
+
+### Production Boundary
+
+- The controller is placed in Taco production but starts inactive (`start_on_ready = false`) so it does not steal existing Phase0J/Phase0K gameplay.
+- The dev trigger is a plain callable `Node`, not a player-facing interactable, and exists only to support editor/MCP/dev validation of the route methods.
+- No direct LimboAI dependency, no broad NPC simulation, and no duplicate suspicion/global encounter manager were added.
+
+### Validation Status
+
+- PASS: `python src/tools/editor/phase16_taco_garage_deniability/phase16_taco_garage_deniability_validator.py`.
+- PASS: focused GdUnit `res://tests/mission_authoring/Phase16TacoGarageDeniabilityTest.gd` (`5/5`).
+- PASS with known noise: Taco headless smoke loaded `TacoBellIso_Editable_RedesignTest.tscn`, started `taco_bell_drop`, and loaded the Phase 16 controller/dev trigger; it still emits the known MCP port-bind and forced-quit leak/orphan warnings.
+
+## Phase 17: Taco Route QA Activation + Level-Builder Readiness
+
+Status: Implemented 2026-07-04 as a grouped milestone. The packet activated Phase 16 Taco routes through F12 QA/debug controls, improved route readability, added Mission Dock readiness audit awareness, and created a reusable starter/proof path for building the next non-Taco mission from existing systems. Jake manually QA-confirmed canonical Taco bag/code/Louis flow and route-label mapping after this packet.
+
+### Built
+
+1. F12 `MissionQAChecklistPanel` mode `Phase 17 - Garage Routes` with QA-only route buttons for clean social, Bentley, evidence, messy authority, and cleanup/redirect routes.
+2. `Phase16GarageManagerDeniabilityController.get_summary()` now includes `last_route_id`, `last_route_label`, and `route_log` so F10/result screens can show the selected deniability route.
+3. `IsoMissionDebugPanel` shows `phase17_route` and call count in compact/detail debug output.
+4. `MissionResult` prints the encounter route label when present.
+5. Mission Dock Assist Browser adds read-only readiness audit awareness for Phase 16/17 route helpers, `MissionInteractionBridge.include_legacy_candidates`, and key reusable level-builder mechanics.
+6. `NewMissionStarterTemplate.tscn` provides a reusable root structure with `RuntimeHelpers`, scoped `MissionInteractionBridge`, `MissionMechanics`, sample search/reward/route mechanics, and a dormant encounter controller.
+7. `Phase17LevelBuilderReadinessProofRoom.tscn` plus `Phase17LevelBuilderProofHarness.gd` proves a non-Taco skeleton using social stealth, paper trail, reactive NPC, encounter, and noise systems together.
+
+### Boundary
+
+- Normal player-facing Taco route activation remains out of Phase 17 scope, but the manual Taco canonical bag/code/Louis QA gate is now confirmed for the next packet.
+- No new global manager, direct LimboAI dependency, or legacy Taco interaction scanning was added.
+- `MissionInteractionBridge.include_legacy_candidates = false` remains preserved for the Taco pilot bridge.
+
+### Validation Status
+
+- PASS: `python src/tools/editor/phase17_level_builder_readiness/phase17_level_builder_readiness_validator.py`.
+- PASS: focused GdUnit `res://tests/mission_authoring/Phase17LevelBuilderReadinessTest.gd` (`5/5`).
+- PASS: Phase 16 static validator and focused GdUnit regression after Phase 17 changes.
+- PASS with known noise: headless smokes loaded the Phase 17 proof scene and Taco redesign scene; Taco retained the known MCP port-bind and forced-quit leak/orphan warnings.
+- PASS with known noise: full GdUnit `res://tests/mission_authoring` (`300/300`).
 
 ## Current Short-Term Dependency-Order Plan
 

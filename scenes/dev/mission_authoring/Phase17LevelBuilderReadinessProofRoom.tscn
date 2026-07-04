@@ -1,0 +1,127 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd" id="1_bridge"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="2_alert"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SearchZone.gd" id="3_search"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="4_reward"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="5_route"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="6_companion"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="7_noise"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterController.gd" id="8_encounter"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/Phase17LevelBuilderProofHarness.gd" id="9_harness"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phase17"]
+size = Vector2(96, 96)
+
+[node name="Phase17LevelBuilderReadinessProofRoom" type="Node2D"]
+
+[node name="RuntimeHelpers" type="Node" parent="."]
+
+[node name="MissionInteractionBridge" type="Node" parent="RuntimeHelpers"]
+script = ExtResource("1_bridge")
+include_legacy_candidates = false
+
+[node name="MissionAlertController" type="Node" parent="RuntimeHelpers"]
+script = ExtResource("2_alert")
+mission_id = "level_builder_readiness_dev"
+
+[node name="MissionMechanics" type="Node2D" parent="."]
+
+[node name="EncounterController_level_builder_readiness" type="Node" parent="MissionMechanics"]
+script = ExtResource("8_encounter")
+encounter_id = &"level_builder_readiness_encounter"
+display_name = "Level Builder Readiness Encounter"
+mission_id_override = "level_builder_readiness_dev"
+start_on_ready = false
+
+[node name="SearchZone_level_builder_entry" type="Area2D" parent="MissionMechanics"]
+position = Vector2(-256, 0)
+script = ExtResource("3_search")
+mechanic_id = &"level_builder_entry_search"
+display_name = "Entry Search"
+mission_id_override = "level_builder_readiness_dev"
+searched_flag = &"level_builder_entry_searched"
+prompt_text = "Press E: Search entry shelf"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/SearchZone_level_builder_entry"]
+shape = SubResource("RectangleShape2D_phase17")
+
+[node name="RewardNode_level_builder_badge" type="Area2D" parent="MissionMechanics"]
+position = Vector2(-128, 0)
+script = ExtResource("4_reward")
+mechanic_id = &"level_builder_badge_reward"
+display_name = "Temporary Badge Reward"
+mission_id_override = "level_builder_readiness_dev"
+reward_kind = "item"
+reward_id = &"temporary_vendor_badge"
+collected_flag = &"level_builder_badge_collected"
+prompt_text = "Press E: Collect temporary badge"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RewardNode_level_builder_badge"]
+shape = SubResource("RectangleShape2D_phase17")
+
+[node name="RouteUnlockNode_level_builder_service_hall" type="Area2D" parent="MissionMechanics"]
+position = Vector2(0, 0)
+script = ExtResource("5_route")
+mechanic_id = &"level_builder_service_route"
+display_name = "Service Hall Route"
+mission_id_override = "level_builder_readiness_dev"
+route_id = &"service_hall_route"
+route_flag = &"service_hall_route_unlocked"
+prompt_text = "Press E: Open service hall route"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RouteUnlockNode_level_builder_service_hall"]
+shape = SubResource("RectangleShape2D_phase17")
+
+[node name="CompanionCommandPoint_level_builder_bentley" type="Area2D" parent="MissionMechanics"]
+position = Vector2(128, 0)
+script = ExtResource("6_companion")
+mechanic_id = &"level_builder_bentley_wait"
+display_name = "Bentley Wait Point"
+mission_id_override = "level_builder_readiness_dev"
+command_type = "wait"
+command_label = "Bentley holds the service hall"
+prompt_text = "Press E: Ask Bentley to wait"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/CompanionCommandPoint_level_builder_bentley"]
+shape = SubResource("RectangleShape2D_phase17")
+
+[node name="NoiseEmitterNode_level_builder_decoy" type="Area2D" parent="MissionMechanics"]
+position = Vector2(256, 0)
+script = ExtResource("7_noise")
+mechanic_id = &"level_builder_decoy_noise"
+display_name = "Decoy Noise"
+mission_id_override = "level_builder_readiness_dev"
+noise_id = &"level_builder_decoy_noise"
+noise_kind = "decoy"
+noise_team = "player"
+noise_strength = 0.5
+prompt_text = "Press E: Create decoy noise"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/NoiseEmitterNode_level_builder_decoy"]
+shape = SubResource("RectangleShape2D_phase17")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProofHarness" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("9_harness")
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 96.0
+
+[node name="Run Integrated Proof" type="Button" parent="CanvasLayer/ProofHarness/Buttons"]
+text = "Run Integrated Proof"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/ProofHarness"]
+offset_left = 16.0
+offset_top = 112.0
+offset_right = 760.0
+offset_bottom = 192.0
+autowrap_mode = 3
+text = "Phase 17 level-builder readiness proof ready."

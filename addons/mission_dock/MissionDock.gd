@@ -81,6 +81,13 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"TriggerZone": "res://src/missions/iso/authoring/mechanics/TriggerZone.gd",
 }
 
+const LEVEL_BUILDER_AUDIT_SCRIPTS: Dictionary = {
+	"MissionInteractionBridge": "res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd",
+	"Phase16GarageManagerDeniabilityController": "res://src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
+	"Phase16GarageDeniabilityDevTrigger": "res://src/missions/iso/dev/Phase16GarageDeniabilityDevTrigger.gd",
+	"Phase17LevelBuilderProofHarness": "res://src/missions/iso/dev/Phase17LevelBuilderProofHarness.gd",
+}
+
 const FORBIDDEN_PARENT_FRAGMENTS: Array[String] = [
 	"GeneratedRuntimeCollision",
 	"GameplayCollisionLayer",
@@ -1327,11 +1334,14 @@ func _refresh_scene_audit() -> void:
 		return
 	var mechanics: Array[Node] = []
 	_collect_mechanic_nodes(scene_root, mechanics)
+	var readiness_nodes: Array[Node] = []
+	_collect_nodes_by_script_paths(scene_root, LEVEL_BUILDER_AUDIT_SCRIPTS.values(), readiness_nodes)
 	_audit_duplicate_ids(mechanics)
 	_audit_duplicate_flags(mechanics)
 	for mechanic in mechanics:
 		_audit_mechanic_node(mechanic, scene_root)
-	_status_label.text = "Audit refreshed: %d issue(s) across %d mechanic node(s)." % [_audit_issues.size(), mechanics.size()]
+	_audit_level_builder_readiness(scene_root, mechanics, readiness_nodes)
+	_status_label.text = "Audit refreshed: %d issue(s) across %d mechanic node(s), %d readiness node(s)." % [_audit_issues.size(), mechanics.size(), readiness_nodes.size()]
 	_apply_audit_filters()
 
 
@@ -1342,11 +1352,21 @@ func _collect_mechanic_nodes(node: Node, out: Array[Node]) -> void:
 		_collect_mechanic_nodes(child, out)
 
 
+func _collect_nodes_by_script_paths(node: Node, script_paths: Array, out: Array[Node]) -> void:
+	if _node_script_path(node) in script_paths:
+		out.append(node)
+	for child in node.get_children():
+		_collect_nodes_by_script_paths(child, script_paths, out)
+
+
 func _node_is_supported_mechanic(node: Node) -> bool:
-	if node.get_script() == null:
-		return false
-	var path: String = String(node.get_script().resource_path)
-	return path in MECHANIC_SCRIPTS.values()
+	return _node_script_path(node) in MECHANIC_SCRIPTS.values()
+
+
+func _node_script_path(node: Node) -> String:
+	if node == null or node.get_script() == null:
+		return ""
+	return String(node.get_script().resource_path)
 
 
 func _audit_duplicate_ids(mechanics: Array[Node]) -> void:
@@ -1519,6 +1539,48 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_effect_set(node.get("success_effects"), "success_effects")
 	if "failure_effects" in node:
 		_audit_effect_set(node.get("failure_effects"), "failure_effects")
+
+
+func _audit_level_builder_readiness(scene_root: Node, mechanics: Array[Node], readiness_nodes: Array[Node]) -> void:
+	var mechanic_counts: Dictionary = {}
+	for mechanic in mechanics:
+		var script_path := _node_script_path(mechanic)
+		var type_name := String(MECHANIC_SCRIPTS.find_key(script_path))
+		if type_name == "":
+			type_name = mechanic.get_class()
+		mechanic_counts[type_name] = int(mechanic_counts.get(type_name, 0)) + 1
+	var important_types := [
+		"SearchZone", "RewardNode", "RouteUnlockNode", "CompanionCommandPoint", "NoiseEmitterNode",
+		"DistractionObject", "EncounterController", "InvestigationPointNode", "RoutineOverrideNode",
+		"InspectionZone", "BelievableTaskZone", "ProtocolZone", "AuditTrailCleanupNode",
+	]
+	var present: Array[String] = []
+	for type_name in important_types:
+		if int(mechanic_counts.get(type_name, 0)) > 0:
+			present.append("%s=%d" % [type_name, int(mechanic_counts.get(type_name, 0))])
+	if scene_root.get_node_or_null("MissionMechanics") == null:
+		_audit_issues.append(_issue("Warning", "missing_mission_mechanics_root", "Level-builder scenes should keep authored mechanics under a MissionMechanics root.", scene_root))
+	if present.is_empty():
+		_audit_issues.append(_issue("Info", "level_builder_no_key_mechanics", "No key reusable level-builder mechanics found in this scene.", scene_root))
+	else:
+		_audit_issues.append(_issue("Info", "level_builder_mechanic_mix", "Reusable mechanic mix: %s." % ", ".join(present), scene_root))
+	for node in readiness_nodes:
+		var script_path := _node_script_path(node)
+		if script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("MissionInteractionBridge", "")):
+			var legacy := bool(node.get("include_legacy_candidates")) if "include_legacy_candidates" in node else false
+			_audit_issues.append(_issue("Info", "mission_interaction_bridge_found", "MissionInteractionBridge found; include_legacy_candidates=%s." % str(legacy), node))
+			if str(scene_root.scene_file_path).findn("TacoBell") != -1 and legacy:
+				_audit_issues.append(_issue("Error", "taco_bridge_legacy_candidates_enabled", "Taco production bridge must keep include_legacy_candidates=false.", node))
+		elif script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("Phase16GarageManagerDeniabilityController", "")):
+			_audit_issues.append(_issue("Info", "phase16_controller_found", "Phase 16 garage-manager controller found for Phase 17 QA/debug activation.", node))
+			if "start_on_ready" in node and bool(node.get("start_on_ready")):
+				_audit_issues.append(_issue("Warning", "phase16_controller_starts_on_ready", "Phase 16 Taco controller should stay dormant until an explicit QA/player-facing route hook calls it.", node))
+		elif script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("Phase16GarageDeniabilityDevTrigger", "")):
+			_audit_issues.append(_issue("Info", "phase16_dev_trigger_found", "Phase 16 dev trigger found; F12 can call routes without adding an Area2D interaction scanner.", node))
+			if node.has_method("interact") or node.has_method("is_interaction_available"):
+				_audit_issues.append(_issue("Error", "phase16_dev_trigger_is_interactable", "Phase 16 dev trigger must remain callable-only, not a player interactable.", node))
+		elif script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("Phase17LevelBuilderProofHarness", "")):
+			_audit_issues.append(_issue("Info", "phase17_proof_harness_found", "Phase 17 level-builder proof harness found for non-Taco skeleton validation.", node))
 
 
 func _audit_collision_shape(node: Node) -> void:

@@ -184,6 +184,13 @@ func _refresh_status() -> void:
 			String(last_noise.get("kind", "-")),
 			String(last_noise.get("source_id", "-")),
 		]
+	var phase17_summary := _get_phase16_summary()
+	var phase17_line := "\nphase17_route=-"
+	if not phase17_summary.is_empty():
+		phase17_line = "\nphase17_route=%s calls=%d" % [
+			_dash_if_empty(String(phase17_summary.get("last_route_label", phase17_summary.get("last_route_id", "")))),
+			(phase17_summary.get("route_log", []) as Array).size(),
+		]
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
 	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
@@ -191,7 +198,7 @@ func _refresh_status() -> void:
 	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
 		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
 		sec_lines = _build_authoring_security_f10_lines(rsum, heat, alert, mid, garage_code, controller)
-	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s%s" % [
+	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s%s%s" % [
 		mid,
 		heat,
 		int(GameState.failed_attempts.get(mid, 0)),
@@ -210,11 +217,12 @@ func _refresh_status() -> void:
 		poop_line,
 		inventory_line,
 		noise_line,
+		phase17_line,
 		sec_lines,
 		obj_line,
 	]
 	_apply_red_text_style(_status)
-	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d\n(F9 toggle details, F10 toggle compact HUD)%s" % [
+	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d%s\n(F9 toggle details, F10 toggle compact HUD)%s" % [
 		def_mode,
 		String(get_tree().current_scene.scene_file_path),
 		str(muts),
@@ -228,6 +236,7 @@ func _refresh_status() -> void:
 		mod,
 		int(perf.get("wrong_scent_trails_followed", 0)),
 		int(perf.get("collectibles_found", 0)),
+		phase17_line,
 		scheme_for_details,
 	]
 	_apply_red_text_style(_details)
@@ -843,6 +852,23 @@ func _find_phase0j_adapter() -> Node:
 	if scene == null:
 		return null
 	return scene.find_child("Phase0JMissionStateAdapter", true, false)
+
+
+func _get_phase16_summary() -> Dictionary:
+	var tree := get_tree()
+	if tree == null:
+		return {}
+	var trigger := tree.get_first_node_in_group("phase16_garage_deniability_dev_trigger")
+	if trigger != null and trigger.has_method("get_phase16_summary"):
+		var trigger_summary: Variant = trigger.call("get_phase16_summary")
+		if trigger_summary is Dictionary:
+			return trigger_summary as Dictionary
+	var controller := tree.get_first_node_in_group("mission_encounter_controller")
+	if controller != null and controller.has_method("get_phase16_summary"):
+		var controller_summary: Variant = controller.call("get_phase16_summary")
+		if controller_summary is Dictionary:
+			return controller_summary as Dictionary
+	return {}
 
 
 func _fit_compact_status_height() -> void:

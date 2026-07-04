@@ -69,6 +69,8 @@
 [ext_resource type="Script" uid="uid://b3dhtlb6k78sv" path="res://src/missions/iso/authoring/core/MissionModifierSet.gd" id="72_pp_modifier"]
 [ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="73_phase4g_security_effectset"]
 [ext_resource type="Script" uid="uid://bu88u3f2yiheq" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="74_phase9_side_objective"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd" id="75_phase16_garage"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/Phase16GarageDeniabilityDevTrigger.gd" id="76_phase16_dev_trigger"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d605b_door"]
 size = Vector2(140, 32)
@@ -27191,6 +27193,22 @@ z_index = 30
 metadata/generated_by = "Packet6B-PlugAndPlayPilot"
 metadata/scene_local_only = true
 metadata/phase3b_visual_lane = true
+
+[node name="Phase16GarageManagerDeniabilityController" type="Node" parent="GameplayRoot/PlugAndPlayPilot"]
+script = ExtResource("75_phase16_garage")
+mission_id_override = "taco_bell_drop"
+start_on_ready = false
+debug_note = "Phase 16 Taco production adoption: garage manager deniability encounter uses existing paper trail, social stealth, encounter, and reactive NPC adapters."
+metadata/generated_by = "Phase16-TacoGarageDeniability"
+metadata/scene_local_only = true
+
+[node name="Phase16GarageDeniabilityDevTrigger" type="Node" parent="GameplayRoot/PlugAndPlayPilot"]
+script = ExtResource("76_phase16_dev_trigger")
+controller_path = NodePath("../Phase16GarageManagerDeniabilityController")
+debug_note = "Dev-only callable hook. Use explicit methods to trigger Phase 16 garage-manager routes; this node is not an interactable."
+metadata/generated_by = "Phase16-TacoGarageDeniability-DevTrigger"
+metadata/scene_local_only = true
+metadata/dev_only = true
 
 [node name="PpTacoSouthLouisRouteCardSetup" type="Area2D" parent="GameplayRoot/PlugAndPlayPilot" unique_id=1534571484]
 position = Vector2(760, 40)

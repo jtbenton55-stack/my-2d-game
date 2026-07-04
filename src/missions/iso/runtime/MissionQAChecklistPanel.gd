@@ -9,6 +9,7 @@ const MODE_TACO_SECURITY := 4
 const MODE_D5_01 := 5
 const MODE_D5_02 := 6
 const MODE_D5_03 := 7
+const MODE_PHASE17 := 8
 
 const PHASE4G_MISSION_ID := "taco_bell_drop"
 const PHASE4G_FLAG_ID := "phase4g_camera_alarm_seen"
@@ -77,6 +78,7 @@ func _build_ui() -> void:
 	_selector.add_item("D5-01 - Attempt Reset", MODE_D5_01)
 	_selector.add_item("D5-02 - Pause Context", MODE_D5_02)
 	_selector.add_item("D5-03 - Louis Beam Bypass", MODE_D5_03)
+	_selector.add_item("Phase 17 - Garage Routes", MODE_PHASE17)
 	_selector.item_selected.connect(_on_mode_selected)
 	add_child(_selector)
 
@@ -162,6 +164,14 @@ func _actions_for_mode() -> Array[Dictionary]:
 				{"label": "Remove Louis Card", "kind": "remove_louis_route", "hint": "Remove the Louis route card from active state."},
 				{"label": "Reset Attempt", "kind": "reset_attempt", "hint": "Reset the attempt before retesting beam behavior."},
 			]
+		MODE_PHASE17:
+			return [
+				{"label": "Clean Social", "kind": "phase16_route", "method": "run_clean_social_route", "hint": "QA-only: call the Phase 16 clean social route."},
+				{"label": "Bentley", "kind": "phase16_route", "method": "run_bentley_distraction_route", "hint": "QA-only: call the Phase 16 Bentley distraction route."},
+				{"label": "Evidence", "kind": "phase16_route", "method": "run_evidence_route", "hint": "QA-only: call the Phase 16 evidence route."},
+				{"label": "Messy", "kind": "phase16_route", "method": "run_messy_authority_route", "hint": "QA-only: call the Phase 16 messy authority route."},
+				{"label": "Cleanup", "kind": "phase16_route", "method": "run_cleanup_redirect_trace", "hint": "QA-only: call the Phase 16 cleanup/redirect route."},
+			]
 		MODE_TACO_SECURITY:
 			return [
 				{"label": "Go Camera", "kind": "teleport_position", "position": PHASE4G_CAMERA_TEST_POSITION, "hint": "Jump to authored camera test."},
@@ -208,6 +218,8 @@ func _on_action_pressed(action: Dictionary) -> void:
 				_set_last_action("Spawned extra debug guard.")
 			else:
 				_set_last_action("Guard spawn test unavailable on this mission.")
+		"phase16_route":
+			_run_phase16_route(String(action.get("method", "")))
 		_:
 			_set_last_action("Unknown QA action: %s" % kind)
 	_refresh()
@@ -233,6 +245,8 @@ func _refresh() -> void:
 			_body.text = _render_d5_02(rsum)
 		MODE_D5_03:
 			_body.text = _render_d5_03(rsum)
+		MODE_PHASE17:
+			_body.text = _render_phase17()
 		_:
 			_body.text = _render_overview(rsum, flags)
 
@@ -362,6 +376,37 @@ func _render_d5_03(rsum: Dictionary) -> String:
 	lines.append("1. Press Reset Attempt, then Go Main Beam and verify Beam changes READY -> TRIPPED.")
 	lines.append("2. Press Reset Attempt, Grant Louis Card, then Go Louis Route.")
 	lines.append("3. Cross the beam with Louis route active and confirm Bypass outcome shows PASS/USED with no new guard wave.")
+	return "\n".join(lines)
+
+
+func _render_phase17() -> String:
+	var trigger := _get_phase16_trigger()
+	var summary: Dictionary = {}
+	if trigger != null and trigger.has_method("get_phase16_summary"):
+		summary = trigger.call("get_phase16_summary") as Dictionary
+	var route_log: Array = summary.get("route_log", []) as Array
+	var last_route := String(summary.get("last_route_label", summary.get("last_route_id", "")))
+	var lines: Array[String] = []
+	lines.append(_title_bb("Phase 17 Garage Routes"))
+	lines.append("Goal: safely activate the Phase 16 Taco garage-manager routes through QA/debug controls only.")
+	lines.append("")
+	lines.append(_bb_status_line("Mission context", "PASS" if _current_mission_id() == PHASE4G_MISSION_ID else "FAIL", _current_mission_id()))
+	lines.append(_bb_status_line("Dev trigger", "PASS" if trigger != null else "FAIL", _node_path_or_dash(trigger)))
+	lines.append(_bb_status_line("Last route", "READY" if last_route.strip_edges() != "" and last_route != "-" else "WAIT", _dash(last_route)))
+	lines.append(_bb_status_line("Route log", "READY" if route_log.size() > 0 else "WAIT", "%d route call(s)" % route_log.size()))
+	lines.append("")
+	lines.append(_section_bb("Route Buttons"))
+	lines.append("Clean Social / Bentley / Evidence / Messy / Cleanup call the dev trigger directly. They do not add an Area2D, legacy candidate, or normal interaction scanner.")
+	if not route_log.is_empty():
+		lines.append("")
+		lines.append(_section_bb("Recent Route Calls"))
+		var start := maxi(0, route_log.size() - 5)
+		for i in range(start, route_log.size()):
+			var record: Dictionary = route_log[i]
+			lines.append("- %s -> %s (%s)" % [String(record.get("route_label", record.get("route_id", ""))), "OK" if bool(record.get("ok", false)) else "ESCALATED", String(record.get("paper_trail_state", "-"))])
+	lines.append("")
+	lines.append(_section_bb("Manual QA Gate"))
+	lines.append("Normal player-facing route activation remains deferred until Taco bag/code/Louis manual QA confirms the base mission flow is still clean.")
 	return "\n".join(lines)
 
 
@@ -610,6 +655,32 @@ func _find_marker_node_recursive(node: Node, marker_id: String) -> Node2D:
 		if found != null:
 			return found
 	return null
+
+
+func _get_phase16_trigger() -> Node:
+	if _mission != null and is_instance_valid(_mission):
+		var direct := _mission.get_node_or_null("GameplayRoot/PlugAndPlayPilot/Phase16GarageDeniabilityDevTrigger")
+		if direct != null:
+			return direct
+	var tree := get_tree()
+	if tree == null:
+		return null
+	return tree.get_first_node_in_group("phase16_garage_deniability_dev_trigger")
+
+
+func _run_phase16_route(method_name: String) -> void:
+	if method_name.strip_edges() == "":
+		_set_last_action("Phase 17 route failed: empty method.")
+		return
+	var trigger := _get_phase16_trigger()
+	if trigger == null:
+		_set_last_action("Phase 17 route failed: dev trigger missing.")
+		return
+	if not trigger.has_method(method_name):
+		_set_last_action("Phase 17 route failed: missing %s." % method_name)
+		return
+	var result: Dictionary = trigger.call(method_name, {"triggered_by": "phase17_qa_panel", "qa_panel": true}) as Dictionary
+	_set_last_action("Phase 17 %s -> %s (%s)." % [method_name, "OK" if bool(result.get("ok", false)) else "ESCALATED", String(result.get("code", ""))])
 
 
 func _node_string_property(node: Node, property_name: String) -> String:

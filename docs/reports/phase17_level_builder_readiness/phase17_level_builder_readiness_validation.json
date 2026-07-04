@@ -1,0 +1,269 @@
+{
+  "ok": true,
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/MissionQAChecklistPanel.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/IsoMissionDebugPanel.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/ui/MissionResult.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "addons/mission_dock/MissionDock.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/Phase17LevelBuilderProofHarness.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/dev/mission_authoring/NewMissionStarterTemplate.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/dev/mission_authoring/Phase17LevelBuilderReadinessProofRoom.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/Phase17LevelBuilderReadinessTest.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "check": "qa_panel_token",
+      "token": "MODE_PHASE17",
+      "ok": true
+    },
+    {
+      "check": "qa_panel_token",
+      "token": "Phase 17 - Garage Routes",
+      "ok": true
+    },
+    {
+      "check": "qa_panel_token",
+      "token": "phase16_route",
+      "ok": true
+    },
+    {
+      "check": "qa_panel_token",
+      "token": "_run_phase16_route",
+      "ok": true
+    },
+    {
+      "check": "qa_panel_token",
+      "token": "run_cleanup_redirect_trace",
+      "ok": true
+    },
+    {
+      "check": "debug_panel_token",
+      "token": "phase17_route",
+      "ok": true
+    },
+    {
+      "check": "debug_panel_token",
+      "token": "_get_phase16_summary",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "last_route_label",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "func get_summary()",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "_route_label",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "Clean Social",
+      "ok": true
+    },
+    {
+      "check": "result_ui_token",
+      "token": "last_route_label",
+      "ok": true
+    },
+    {
+      "check": "result_ui_token",
+      "token": "- Route: %s",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "LEVEL_BUILDER_AUDIT_SCRIPTS",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "phase16_dev_trigger_found",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "level_builder_mechanic_mix",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "taco_bridge_legacy_candidates_enabled",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "class_name Phase17LevelBuilderProofHarness",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "run_integrated_proof",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "PaperTrailAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "SocialStealthAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "ReactiveNpcBrainAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "harness_token",
+      "token": "emit_noise",
+      "ok": true
+    },
+    {
+      "check": "starter_scene_token",
+      "token": "NewMissionStarterTemplate",
+      "ok": true
+    },
+    {
+      "check": "starter_scene_token",
+      "token": "RuntimeHelpers",
+      "ok": true
+    },
+    {
+      "check": "starter_scene_token",
+      "token": "MissionInteractionBridge",
+      "ok": true
+    },
+    {
+      "check": "starter_scene_token",
+      "token": "MissionMechanics",
+      "ok": true
+    },
+    {
+      "check": "starter_scene_token",
+      "token": "include_legacy_candidates = false",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "Phase17LevelBuilderReadinessProofRoom",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "SearchZone_level_builder_entry",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "RewardNode_level_builder_badge",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "RouteUnlockNode_level_builder_service_hall",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "CompanionCommandPoint_level_builder_bentley",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "NoiseEmitterNode_level_builder_decoy",
+      "ok": true
+    },
+    {
+      "check": "proof_scene_token",
+      "token": "Run Integrated Proof",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_f12_phase17_routes_are_qa_only_actions",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_non_taco_level_builder_proof_runs_multiple_systems",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_mission_dock_and_static_validator_cover_phase17_readiness",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_stays_callable_only",
+      "token": "func interact",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_stays_callable_only",
+      "token": "extends Area2D",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_stays_callable_only",
+      "token": "Input.is_action",
+      "ok": true
+    },
+    {
+      "check": "taco_bridge_scope_preserved",
+      "ok": true
+    },
+    {
+      "check": "no_new_player_facing_hook",
+      "ok": true
+    }
+  ]
+}

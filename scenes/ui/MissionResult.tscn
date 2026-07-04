@@ -47,15 +47,20 @@ offset_top = -210.0
 offset_right = 300.0
 offset_bottom = 190.0
 
-[node name="ResultLabel" type="Label" parent="Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -250.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
 offset_top = 24.0
-offset_right = 250.0
-offset_bottom = 370.0
+offset_right = -24.0
+offset_bottom = -24.0
+horizontal_scroll_mode = 0
+
+[node name="ResultLabel" type="Label" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
 text = "You successfully completed the mission!"
 horizontal_alignment = 1

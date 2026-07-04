@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd" id="1_bridge"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SearchZone.gd" id="2_search"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="3_reward"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="4_route"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterController.gd" id="5_encounter"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_starter"]
+size = Vector2(96, 96)
+
+[node name="NewMissionStarterTemplate" type="Node2D"]
+
+[node name="RuntimeHelpers" type="Node" parent="."]
+
+[node name="MissionInteractionBridge" type="Node" parent="RuntimeHelpers"]
+script = ExtResource("1_bridge")
+include_legacy_candidates = false
+
+[node name="MissionMechanics" type="Node2D" parent="."]
+
+[node name="SearchZone_starter_clue" type="Area2D" parent="MissionMechanics"]
+script = ExtResource("2_search")
+mechanic_id = &"starter_clue_search"
+display_name = "Starter Clue Search"
+mission_id_override = "CHANGE_ME_MISSION_ID"
+searched_flag = &"starter_clue_searched"
+prompt_text = "Press E: Search starter clue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/SearchZone_starter_clue"]
+shape = SubResource("RectangleShape2D_starter")
+
+[node name="RewardNode_starter_evidence" type="Area2D" parent="MissionMechanics"]
+position = Vector2(128, 0)
+script = ExtResource("3_reward")
+mechanic_id = &"starter_evidence_reward"
+display_name = "Starter Evidence Reward"
+mission_id_override = "CHANGE_ME_MISSION_ID"
+reward_kind = "evidence"
+reward_id = &"starter_evidence"
+collected_flag = &"starter_evidence_collected"
+prompt_text = "Press E: Collect starter evidence"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RewardNode_starter_evidence"]
+shape = SubResource("RectangleShape2D_starter")
+
+[node name="RouteUnlockNode_starter_route" type="Area2D" parent="MissionMechanics"]
+position = Vector2(256, 0)
+script = ExtResource("4_route")
+mechanic_id = &"starter_route_unlock"
+display_name = "Starter Route Unlock"
+mission_id_override = "CHANGE_ME_MISSION_ID"
+route_id = &"starter_alt_route"
+route_flag = &"starter_alt_route_unlocked"
+prompt_text = "Press E: Open starter route"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/RouteUnlockNode_starter_route"]
+shape = SubResource("RectangleShape2D_starter")
+
+[node name="EncounterController_starter" type="Node" parent="MissionMechanics"]
+script = ExtResource("5_encounter")
+encounter_id = &"starter_encounter"
+display_name = "Starter Encounter"
+mission_id_override = "CHANGE_ME_MISSION_ID"
+start_on_ready = false

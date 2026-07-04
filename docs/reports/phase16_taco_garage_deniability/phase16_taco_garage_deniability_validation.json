@@ -1,0 +1,221 @@
+{
+  "ok": true,
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/Phase16GarageDeniabilityDevTrigger.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/Phase16TacoGarageDeniabilityTest.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "extends EncounterController",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "PaperTrailAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "SocialStealthAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "ReactiveNpcBrainAdapterScript",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "run_clean_social_route",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "run_bentley_distraction_route",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "run_evidence_route",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "run_messy_authority_route",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "run_cleanup_redirect_trace",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "get_phase16_summary",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "class_name Phase16GarageDeniabilityDevTrigger",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "controller_path",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "run_clean_social_route",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "run_bentley_distraction_route",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "run_evidence_route",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "run_messy_authority_route",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "run_cleanup_redirect_trace",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_token",
+      "token": "phase16_garage_deniability_dev_trigger",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_no_interaction_scan",
+      "token": "func interact",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_no_interaction_scan",
+      "token": "is_interaction_available",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_no_interaction_scan",
+      "token": "extends Area2D",
+      "ok": true
+    },
+    {
+      "check": "dev_trigger_no_interaction_scan",
+      "token": "Input.is_action",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase16GarageManagerDeniabilityController.gd",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase16GarageManagerDeniabilityController",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase16GarageDeniabilityDevTrigger.gd",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase16GarageDeniabilityDevTrigger",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "parent=\"GameplayRoot/PlugAndPlayPilot\"",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "mission_id_override = \"taco_bell_drop\"",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "start_on_ready = false",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "metadata/dev_only = true",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "include_legacy_candidates = false",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_clean_social_route_uses_social_and_encounter_adapters",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_bentley_and_evidence_routes_record_deniability_state",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_messy_route_reports_authority_without_global_manager",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_taco_scene_contains_phase16_controller_and_preserves_bridge_scope",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_dev_trigger_calls_controller_without_interaction_scanning",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "include_legacy_candidates = true",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "LimboAI",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "global suspicion manager",
+      "ok": true
+    }
+  ]
+}

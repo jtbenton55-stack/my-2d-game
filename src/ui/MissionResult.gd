@@ -1,6 +1,7 @@
 extends Control
 
-@onready var result_label: Label = $Panel/ResultLabel
+@onready var result_scroll: ScrollContainer = $Panel/ScrollContainer
+@onready var result_label: Label = $Panel/ScrollContainer/ResultLabel
 @onready var title_label: Label = $TitleLabel
 @onready var continue_button: Button = $ContinueButton
 
@@ -84,6 +85,9 @@ func _update_result_display() -> void:
 	if not encounter.is_empty():
 		text += "\nEncounter Challenge:\n"
 		text += "- State: %s  Phase: %s\n" % [String(result.get("encounter_state", "unstarted")).capitalize(), String(encounter.get("current_phase_id", ""))]
+		var route_label := String(encounter.get("last_route_label", encounter.get("last_route_id", "")))
+		if route_label.strip_edges() != "":
+			text += "- Route: %s\n" % route_label
 		var meters: Dictionary = encounter.get("meters", {})
 		for meter_id in meters.keys():
 			var meter: Dictionary = meters.get(meter_id, {})
@@ -110,6 +114,7 @@ func _update_result_display() -> void:
 		text += "\n\nCrew members: %d" % GameState.crew_members.size()
 	
 	result_label.text = text
+	result_scroll.scroll_vertical = 0
 
 func _on_continue_pressed() -> void:
 	GameState.last_mission_result = {}
