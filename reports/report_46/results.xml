@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-04" name="report_46" tests="5" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="Phase16TacoGarageDeniabilityTest" package="tests/mission_authoring" timestamp="2026-07-04T18:40:50" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.459">
+		<testcase name="test_clean_social_route_uses_social_and_encounter_adapters" classname="Phase16TacoGarageDeniabilityTest" time="0.044">
+		</testcase>
+		<testcase name="test_bentley_and_evidence_routes_record_deniability_state" classname="Phase16TacoGarageDeniabilityTest" time="0.042">
+		</testcase>
+		<testcase name="test_messy_route_reports_authority_without_global_manager" classname="Phase16TacoGarageDeniabilityTest" time="0.033">
+		</testcase>
+		<testcase name="test_taco_scene_contains_phase16_controller_and_preserves_bridge_scope" classname="Phase16TacoGarageDeniabilityTest" time="0.054">
+		</testcase>
+		<testcase name="test_dev_trigger_calls_controller_without_interaction_scanning" classname="Phase16TacoGarageDeniabilityTest" time="0.039">
+		</testcase>
+	</testsuite>
+</testsuites>

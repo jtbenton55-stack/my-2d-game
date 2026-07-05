@@ -2,7 +2,11 @@ extends Node
 class_name HideoutMissionBoardController
 
 const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+const CORNER_STORE_SCENE := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
+
+const CORNER_STORE_MISSION_ID := "corner_store_cashout"
+const TACO_BELL_MISSION_ID := "taco_bell_drop"
 
 func get_panel_data(state_controller: Node = null) -> Dictionary:
 	return {
@@ -23,17 +27,20 @@ func get_panel_body(state_controller = null) -> String:
 	for mission in Catalog.missions():
 		var slot := int(mission.get("slot", 0))
 		var name := String(mission.get("display_name", "Mission"))
-		var status := _mission_status_text(String(mission.get("mission_id", "")), state_controller)
+		var mid := String(mission.get("mission_id", ""))
+		var status := _mission_status_text(mid, state_controller)
 		lines.append("%02d. %s - %s" % [slot, name, status])
 	lines.append("")
-	var taco_status := _status_for("taco_bell_drop", state_controller)
-	lines.append("Selected Mission: The Taco Bell Drop")
-	lines.append("Mission ID: taco_bell_drop")
-	lines.append("State: %s" % String(taco_status.get("state", "available")).capitalize())
-	lines.append("Missing clues: %d" % int(taco_status.get("missing_clues", 0)))
-	lines.append("Missing collectibles: %d" % int(taco_status.get("missing_collectibles", 0)))
-	if taco_status.get("completed", false):
-		lines.append("Heat: %s" % String(taco_status.get("heat_state", "low")).capitalize())
+	var selected := _selected_mission_id(state_controller)
+	var selected_name := _mission_display_name(selected)
+	var selected_status := _status_for(selected, state_controller)
+	lines.append("Selected Mission: %s" % selected_name)
+	lines.append("Mission ID: %s" % selected)
+	lines.append("State: %s" % String(selected_status.get("state", "available")).capitalize())
+	lines.append("Missing clues: %d" % int(selected_status.get("missing_clues", 0)))
+	lines.append("Missing collectibles: %d" % int(selected_status.get("missing_collectibles", 0)))
+	if selected_status.get("completed", false):
+		lines.append("Heat: %s" % String(selected_status.get("heat_state", "low")).capitalize())
 	else:
 		lines.append("Heat: hidden until this mission is completed and replayable.")
 	lines.append("")
@@ -41,8 +48,8 @@ func get_panel_body(state_controller = null) -> String:
 	return "\n".join(lines)
 
 func get_buttons(state_controller: Node = null) -> Array:
-	var status := _status_for("taco_bell_drop", state_controller)
-	if not status.get("completed", false):
+	var taco_status := _status_for(TACO_BELL_MISSION_ID, state_controller)
+	if not taco_status.get("completed", false):
 		var buttons := [
 			{"id": "start_taco_bell", "label": "Start The Taco Bell Drop", "action": "launch_taco_bell"},
 			{"id": "known_info", "label": "View Known Info", "action": "show_known_info"},
@@ -50,44 +57,76 @@ func get_buttons(state_controller: Node = null) -> Array:
 		]
 		if OS.is_debug_build():
 			buttons.insert(buttons.size() - 1, {"id": "dev_mark_taco_complete", "label": "DEV: Mark Taco Bell Complete", "action": "dev_mark_taco_bell_complete"})
+			buttons.insert(buttons.size() - 1, {"id": "dev_start_corner_store", "label": "DEV: Start Corner Store Cashout", "action": "launch_corner_store_cashout"})
 		return buttons
-	if int(status.get("missing_clues", 0)) > 0 or int(status.get("missing_collectibles", 0)) > 0:
+	var corner_status := _status_for(CORNER_STORE_MISSION_ID, state_controller)
+	if not corner_status.get("completed", false):
 		return [
-			{"id": "search_missing", "label": "Search for Missing Items", "action": "search_missing_items"},
-			{"id": "replay_taco_bell", "label": "Replay Mission", "action": "replay_mission"},
-			{"id": "view_missing", "label": "View Missing Items", "action": "view_missing_items"},
+			{"id": "start_corner_store", "label": "Start Corner Store Cashout", "action": "launch_corner_store_cashout"},
+			{"id": "replay_taco_bell", "label": "Replay Taco Bell Drop", "action": "replay_mission"},
+			{"id": "known_info_corner_store", "label": "View Corner Store Info", "action": "show_corner_store_info"},
 			{"id": "back", "label": "Back", "action": "close"},
 		]
 	return [
-		{"id": "replay_taco_bell", "label": "Replay Mission", "action": "replay_mission"},
+		{"id": "replay_corner_store", "label": "Replay Corner Store Cashout", "action": "replay_corner_store_cashout"},
+		{"id": "replay_taco_bell", "label": "Replay Taco Bell Drop", "action": "replay_mission"},
 		{"id": "search_missing", "label": "Search for Missing Items", "action": "search_missing_items"},
-		{"id": "lower_heat", "label": "Lower Heat Run", "action": "lower_heat_run"},
-		{"id": "clean_getaway", "label": "Clean Getaway Attempt", "action": "clean_getaway_attempt"},
 		{"id": "view_results", "label": "View Results", "action": "view_results"},
 		{"id": "back", "label": "Back", "action": "close"},
 	]
 
 func launch_taco_bell() -> void:
-	GameState.start_mission("taco_bell_drop")
-	var scene_path := MissionSceneResolver.resolve_playable_scene_path("taco_bell_drop")
+	_launch_mission(TACO_BELL_MISSION_ID)
+
+func launch_corner_store_cashout() -> void:
+	_launch_mission(CORNER_STORE_MISSION_ID)
+
+func _launch_mission(mission_id: String) -> void:
+	GameState.start_mission(mission_id)
+	var scene_path := MissionSceneResolver.resolve_playable_scene_path(mission_id)
 	if is_inside_tree() and get_tree().root.get_node_or_null("SceneManager") != null:
 		SceneManager.change_scene(scene_path)
 	else:
 		get_tree().change_scene_to_file(scene_path)
 
 func _mission_status_text(mission_id: String, state_controller: Node = null) -> String:
-	if mission_id != "taco_bell_drop":
-		return "Locked. Future job scaffold."
-	var status := _status_for(mission_id, state_controller)
-	if status.get("completed", false):
-		var suffix := "Perfect" if status.get("perfect", false) else "Completed / replayable"
-		var missing := int(status.get("missing_clues", 0)) + int(status.get("missing_collectibles", 0))
-		if missing > 0:
-			suffix += " with %d missing item(s)" % missing
-		return suffix
-	return "Available. Ready for delivery."
+	if mission_id == TACO_BELL_MISSION_ID:
+		var status := _status_for(mission_id, state_controller)
+		if status.get("completed", false):
+			var suffix := "Perfect" if status.get("perfect", false) else "Completed / replayable"
+			var missing := int(status.get("missing_clues", 0)) + int(status.get("missing_collectibles", 0))
+			if missing > 0:
+				suffix += " with %d missing item(s)" % missing
+			return suffix
+		return "Available. Ready for delivery."
+	if mission_id == CORNER_STORE_MISSION_ID:
+		var taco_done := bool(_status_for(TACO_BELL_MISSION_ID, state_controller).get("completed", false))
+		if not taco_done and not OS.is_debug_build():
+			return "Locked until Taco Bell is complete."
+		var corner_status := _status_for(mission_id, state_controller)
+		if corner_status.get("completed", false):
+			return "Completed / replayable"
+		return "Available. Neon convenience-store micro-heist."
+	return "Locked. Future job scaffold."
+
+func _selected_mission_id(state_controller: Node = null) -> String:
+	var taco_status := _status_for(TACO_BELL_MISSION_ID, state_controller)
+	if not taco_status.get("completed", false):
+		return TACO_BELL_MISSION_ID
+	var corner_status := _status_for(CORNER_STORE_MISSION_ID, state_controller)
+	if not corner_status.get("completed", false):
+		return CORNER_STORE_MISSION_ID
+	return CORNER_STORE_MISSION_ID
+
+func _mission_display_name(mission_id: String) -> String:
+	for mission in Catalog.missions():
+		if String(mission.get("mission_id", "")) == mission_id:
+			return String(mission.get("display_name", mission_id))
+	return mission_id
 
 func _status_for(mission_id: String, state_controller: Node = null) -> Dictionary:
 	if state_controller != null and state_controller.has_method("get_mission_status"):
 		return state_controller.get_mission_status(mission_id)
+	if mission_id == CORNER_STORE_MISSION_ID and GameState.has_completed(TACO_BELL_MISSION_ID):
+		return {"state": "available", "completed": GameState.has_completed(mission_id), "missing_clues": 0, "missing_collectibles": 0, "heat_state": ""}
 	return {"state": "available", "completed": false, "missing_clues": 5, "missing_collectibles": 6, "heat_state": ""}

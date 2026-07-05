@@ -88,6 +88,9 @@ func _update_result_display() -> void:
 		var route_label := String(encounter.get("last_route_label", encounter.get("last_route_id", "")))
 		if route_label.strip_edges() != "":
 			text += "- Route: %s\n" % route_label
+		var route_style := String(encounter.get("last_route_style_label", ""))
+		if route_style.strip_edges() != "":
+			text += "- Style: %s\n" % route_style
 		var meters: Dictionary = encounter.get("meters", {})
 		for meter_id in meters.keys():
 			var meter: Dictionary = meters.get(meter_id, {})

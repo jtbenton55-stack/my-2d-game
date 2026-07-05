@@ -75,7 +75,17 @@ static func _find_controller_under(root: Node) -> Node:
 	var phase0k := root.find_child("Phase0KMissionCompletionController", true, false)
 	if phase0k != null:
 		return phase0k
-	return root.find_child("MissionCompletionController", true, false)
+	var named := root.find_child("MissionCompletionController", true, false)
+	if named != null:
+		return named
+	var runtime_helpers := root.find_child("RuntimeHelpers", true, false)
+	if runtime_helpers != null:
+		for child in runtime_helpers.get_children():
+			if child == null or not is_instance_valid(child):
+				continue
+			if child.has_method("complete_mission_and_exit"):
+				return child
+	return null
 
 
 static func _normalize_controller_result(controller_result: Variant, mission_id: String) -> Dictionary:

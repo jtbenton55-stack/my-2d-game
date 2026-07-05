@@ -29,6 +29,7 @@ const MECHANIC_TYPES: Array[String] = [
 	"CleanlinessGate",
 	"EncounterController",
 	"ChallengeObjectiveNode",
+	"EncounterRouteActionNode",
 	"DisruptionActionNode",
 	"InvestigationPointNode",
 	"RoutineOverrideNode",
@@ -69,6 +70,7 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"CleanlinessGate": "res://src/missions/iso/authoring/mechanics/CleanlinessGate.gd",
 	"EncounterController": "res://src/missions/iso/encounters/EncounterController.gd",
 	"ChallengeObjectiveNode": "res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd",
+	"EncounterRouteActionNode": "res://src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd",
 	"DisruptionActionNode": "res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd",
 	"InvestigationPointNode": "res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd",
 	"RoutineOverrideNode": "res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd",
@@ -85,6 +87,7 @@ const LEVEL_BUILDER_AUDIT_SCRIPTS: Dictionary = {
 	"MissionInteractionBridge": "res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd",
 	"Phase16GarageManagerDeniabilityController": "res://src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
 	"Phase16GarageDeniabilityDevTrigger": "res://src/missions/iso/dev/Phase16GarageDeniabilityDevTrigger.gd",
+	"EncounterRouteActionNode": "res://src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd",
 	"Phase17LevelBuilderProofHarness": "res://src/missions/iso/dev/Phase17LevelBuilderProofHarness.gd",
 }
 
@@ -1496,6 +1499,14 @@ func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
 		_audit_issues.append(_issue("Error", "missing_encounter_phases", "EncounterController has no phases.", node))
 	if node is ChallengeObjectiveNode and String(node.get("event_id")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_challenge_event_id", "ChallengeObjectiveNode missing event_id.", node))
+	if node is EncounterRouteActionNode:
+		if String(node.get("route_id")).strip_edges() == "":
+			_audit_issues.append(_issue("Error", "missing_encounter_route_id", "EncounterRouteActionNode missing route_id.", node))
+		if String(node.get("route_method")).strip_edges() == "":
+			_audit_issues.append(_issue("Error", "missing_encounter_route_method", "EncounterRouteActionNode missing route_method.", node))
+		var route_controller_path: NodePath = node.get("controller_path")
+		if route_controller_path == NodePath():
+			_audit_issues.append(_issue("Warning", "missing_encounter_route_controller_path", "EncounterRouteActionNode should point at its encounter controller for production scenes.", node))
 	if node is DisruptionActionNode and String(node.get("action_type")).strip_edges() == "":
 		_audit_issues.append(_issue("Error", "missing_disruption_action_type", "DisruptionActionNode missing action_type.", node))
 	if node is InvestigationPointNode and String(node.get("investigation_point_id")).strip_edges() == "":
@@ -1551,7 +1562,7 @@ func _audit_level_builder_readiness(scene_root: Node, mechanics: Array[Node], re
 		mechanic_counts[type_name] = int(mechanic_counts.get(type_name, 0)) + 1
 	var important_types := [
 		"SearchZone", "RewardNode", "RouteUnlockNode", "CompanionCommandPoint", "NoiseEmitterNode",
-		"DistractionObject", "EncounterController", "InvestigationPointNode", "RoutineOverrideNode",
+		"DistractionObject", "EncounterController", "EncounterRouteActionNode", "InvestigationPointNode", "RoutineOverrideNode",
 		"InspectionZone", "BelievableTaskZone", "ProtocolZone", "AuditTrailCleanupNode",
 	]
 	var present: Array[String] = []
@@ -1579,6 +1590,8 @@ func _audit_level_builder_readiness(scene_root: Node, mechanics: Array[Node], re
 			_audit_issues.append(_issue("Info", "phase16_dev_trigger_found", "Phase 16 dev trigger found; F12 can call routes without adding an Area2D interaction scanner.", node))
 			if node.has_method("interact") or node.has_method("is_interaction_available"):
 				_audit_issues.append(_issue("Error", "phase16_dev_trigger_is_interactable", "Phase 16 dev trigger must remain callable-only, not a player interactable.", node))
+		elif script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("EncounterRouteActionNode", "")):
+			_audit_issues.append(_issue("Info", "phase18_player_route_action_found", "Phase 18 player-facing encounter route action found; verify route locking/gating in playable QA.", node))
 		elif script_path == String(LEVEL_BUILDER_AUDIT_SCRIPTS.get("Phase17LevelBuilderProofHarness", "")):
 			_audit_issues.append(_issue("Info", "phase17_proof_harness_found", "Phase 17 level-builder proof harness found for non-Taco skeleton validation.", node))
 

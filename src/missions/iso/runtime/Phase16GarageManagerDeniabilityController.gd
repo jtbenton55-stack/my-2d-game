@@ -16,6 +16,7 @@ const SocialReactionRuleSetScript := preload("res://src/missions/iso/ai/SocialRe
 
 var route_log: Array[Dictionary] = []
 var last_route_id: String = ""
+var last_route_style_label: String = ""
 
 
 func _ready() -> void:
@@ -107,6 +108,7 @@ func get_phase16_summary() -> Dictionary:
 	summary["phase16"] = true
 	summary["last_route_id"] = last_route_id
 	summary["last_route_label"] = _route_label(last_route_id)
+	summary["last_route_style_label"] = _route_style_label(last_route_id)
 	summary["route_log"] = route_log.duplicate(true)
 	summary["paper_trail"] = PaperTrailAdapterScript.get_summary(mission_id)
 	summary["social_stealth"] = SocialStealthAdapterScript.get_summary(mission_id)
@@ -119,6 +121,7 @@ func get_summary() -> Dictionary:
 	summary["phase16"] = true
 	summary["last_route_id"] = last_route_id
 	summary["last_route_label"] = _route_label(last_route_id)
+	summary["last_route_style_label"] = _route_style_label(last_route_id)
 	summary["route_log"] = route_log.duplicate(true)
 	return summary
 
@@ -232,9 +235,11 @@ func _phase16_mission_id() -> String:
 
 func _route_result(route_id: String, resolution: Dictionary, results: Array[Dictionary]) -> Dictionary:
 	last_route_id = route_id
+	last_route_style_label = _route_style_label(route_id)
 	var record := {
 		"route_id": route_id,
 		"route_label": _route_label(route_id),
+		"route_style_label": last_route_style_label,
 		"ok": bool(resolution.get("ok", false)),
 		"code": String(resolution.get("code", "")),
 		"paper_trail_state": String(PaperTrailAdapterScript.get_summary(_phase16_mission_id()).get("result_state", "clean")),
@@ -258,3 +263,19 @@ func _route_label(route_id: String) -> String:
 			return "Cleanup / Redirect"
 		_:
 			return "-" if route_id.strip_edges() == "" else route_id.capitalize()
+
+
+func _route_style_label(route_id: String) -> String:
+	match route_id:
+		"clean_social_route":
+			return "Deniable"
+		"bentley_distraction_route":
+			return "Bentley-Led"
+		"evidence_route":
+			return "Evidence-Strong"
+		"messy_authority_route":
+			return "Messy / Escalated"
+		"cleanup_redirect_trace":
+			return "Cleaned Up"
+		_:
+			return ""

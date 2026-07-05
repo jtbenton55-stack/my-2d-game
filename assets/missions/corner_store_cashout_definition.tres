@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/missions/definitions/MissionDefinition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mission_id = "corner_store_cashout"
+display_name = "Corner Store Cashout"
+description = "Recover a misplaced cash envelope and petty insurance scam evidence from a neon corner store back office before the bored guard notices."
+authoring_mode = "scene_authored"
+layout_source_id = "corner_store_cashout_layout"
+marker_source_id = "scene_markers"
+genre_feel = "cozy_crime_convenience_heist"
+player_mindset = "quick_social_sneak"
+signature_mechanic = "compact_cleanup_routes"
+signature_emotion = "low_stakes_neon_awkwardness"
+implementation_status = "production_skeleton"
+art_notes = "Compact neon convenience store: bright storefront, cramped aisles, employee back office, security nook, alley extraction."
+unique_mechanics = PackedStringArray("corner_store_cleanup_routes", "bentley_chip_aisle_distraction", "security_log_paper_trail")

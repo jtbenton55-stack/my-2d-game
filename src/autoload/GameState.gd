@@ -15,6 +15,7 @@ var mission_catalog: Dictionary = {
 	"iso_vertical_slice": {"name": "Iso Vertical Slice (Dev)", "description": "Internal isometric TileMapLayer prototype. Not part of story progression.", "scene_path": "res://scenes/dev/IsoVerticalSlice.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
 	"test_mission": {"name": "Test Mission Room", "description": "A tiny safe room for proving the full heist loop works.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
 	"taco_bell_drop": {"name": "The Taco Bell Drop", "description": "Recover Louis's bag and the first Sterling clue.", "scene_path": "res://scenes/missions/TacoBellMission.tscn", "reward_cards": ["louis_delivery_route"], "reward_polaroids": ["taco_bell_polaroid"], "friend": "louis"},
+	"corner_store_cashout": {"name": "Corner Store Cashout", "description": "Recover a misplaced cash envelope and petty insurance scam evidence from a neon corner store back office.", "scene_path": "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "louis"},
 	"velvet_paw_jazz_club": {"name": "The Velvet Paw Jazz Club", "description": "Yordano's bass drops hide more than beats. His setlist contains blackmail names from Sterling's network.", "scene_path": "res://scenes/missions/JazzClubMission.tscn", "reward_cards": ["yordano_bass_drop", "two_letters_away"], "reward_polaroids": ["jazz_club_polaroid"], "friend": "yordano"},
 	"rewrite_room": {"name": "The Rewrite Room", "description": "The showroom fingerprints matched Mere's legal files. Sterling's lawyers stole creative works - time to rewrite the contracts.", "scene_path": "res://scenes/missions/RewriteRoomMission.tscn", "reward_cards": ["stationery_queen", "mere_legal_eyes"], "reward_polaroids": ["rewrite_room_polaroid"], "friend": "mere"},
 	"fast_family_getaway": {"name": "The Fast Family Getaway", "description": "Dom's family chased the evidence. Now Sterling's men chase Dom. The tea ceremony holds the final clue.", "scene_path": "res://scenes/missions/CarChaseMission.tscn", "reward_cards": ["doms_getaway_keys"], "reward_polaroids": ["car_chase_polaroid"], "friend": "dom"},
@@ -518,7 +519,7 @@ func _ensure_taco_success_sterling_clue() -> Dictionary:
 func _unlock_next_missions(mission_id: String) -> void:
 	match mission_id:
 		"taco_bell_drop":
-			# Starting mission - unlocks two parallel branches
+			unlock_mission("corner_store_cashout")
 			unlock_mission("clean_job")
 			unlock_mission("velvet_paw_jazz_club")
 		"clean_job":
@@ -666,6 +667,8 @@ func _failure_subtitle(mission_id: String, fallback: String) -> String:
 	match mission_id:
 		"taco_bell_drop":
 			return "Louis still has the route. Bentley still has the scent. The city gave up one more clue."
+		"corner_store_cashout":
+			return "The clerk is still confused. The cash envelope is gone. Bentley definitely did not help."
 		"velvet_paw_jazz_club":
 			return "The bass cut out, but Yordano heard enough to point toward the next door."
 		"rewrite_room":

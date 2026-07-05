@@ -1,0 +1,225 @@
+{
+  "ok": true,
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/ui/MissionResult.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "addons/mission_dock/MissionDock.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/Phase18TacoPlayerRouteActionTest.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "class_name EncounterRouteActionNode",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "ALLOWED_ROUTE_METHODS",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "phase18_player_route_action",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "route_choice_flag",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "required_completed_objective_id",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "required_controller_bool_property",
+      "ok": true
+    },
+    {
+      "check": "route_action_token",
+      "token": "route_already_selected",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "last_route_style_label",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "route_style_label",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "func _route_style_label",
+      "ok": true
+    },
+    {
+      "check": "controller_token",
+      "token": "Evidence-Strong",
+      "ok": true
+    },
+    {
+      "check": "result_ui_token",
+      "token": "last_route_style_label",
+      "ok": true
+    },
+    {
+      "check": "result_ui_token",
+      "token": "- Style: %s",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "EncounterRouteActionNode",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "phase18_player_route_action_found",
+      "ok": true
+    },
+    {
+      "check": "dock_token",
+      "token": "missing_encounter_route_controller_path",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_route_action_gates_until_code_gate_objective_is_complete",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_route_action_can_gate_on_phase0k_controller_bool",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_route_action_records_choice_and_locks_other_routes",
+      "ok": true
+    },
+    {
+      "check": "test_token",
+      "token": "test_taco_scene_contains_phase18_player_route_actions_and_preserves_bridge_scope",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "EncounterRouteActionNode.gd",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18GarageRouteActions",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18GarageRoutePrompt",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18CleanSocialRouteAction",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18BentleyDistractionRouteAction",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18EvidenceRouteAction",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "Phase18MessyAuthorityRouteAction",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "required_controller_bool_property = &\"code_gate_unlocked\"",
+      "ok": true
+    },
+    {
+      "check": "scene_token",
+      "token": "prompt_target_path = NodePath(\"../../PlugAndPlayPilot/Phase18GarageRoutePrompt\")",
+      "ok": true
+    },
+    {
+      "check": "route_method_wired",
+      "method": "run_clean_social_route",
+      "ok": true
+    },
+    {
+      "check": "route_method_wired",
+      "method": "run_bentley_distraction_route",
+      "ok": true
+    },
+    {
+      "check": "route_method_wired",
+      "method": "run_evidence_route",
+      "ok": true
+    },
+    {
+      "check": "route_method_wired",
+      "method": "run_messy_authority_route",
+      "ok": true
+    },
+    {
+      "check": "taco_bridge_scope_preserved",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "Phase18GarageRouteActions\nmetadata/dev_only = true",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "Input.is_action",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "global suspicion manager",
+      "ok": true
+    },
+    {
+      "check": "forbidden_scene_token_absent",
+      "token": "LimboAI",
+      "ok": true
+    }
+  ]
+}

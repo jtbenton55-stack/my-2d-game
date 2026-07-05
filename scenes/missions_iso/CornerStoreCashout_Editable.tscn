@@ -1,0 +1,663 @@
+[gd_scene load_steps=46 format=3]
+
+[ext_resource type="Script" path="res://src/levels/IsoMissionBase.gd" id="1"]
+[ext_resource type="Resource" path="res://assets/missions/corner_store_cashout_definition.tres" id="2"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/CornerStoreCashoutLayoutBootstrap.gd" id="3"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="req_script"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="reqset_script"]
+[ext_resource type="TileSet" path="res://assets/tilesets/iso_blockout_clean/IsoBlockoutTileset_Clean.tres" id="blockout_tileset"]
+[ext_resource type="TileSet" path="res://assets/tilesets/marker_authoring/MarkerAuthoringTileset.tres" id="marker_tileset"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_paintable/PVGamesFloorPaintVisualTileset.tres" id="pv_floor_tileset"]
+[ext_resource type="TileSet" path="res://assets/tilesets/pvgames_paintable/PVGamesWallPaintVisualTileset.tres" id="pv_wall_tileset"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd" id="4"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="5"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/CornerStoreCashoutMissionController.gd" id="6"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/CornerStoreCashoutEncounterController.gd" id="7"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SearchZone.gd" id="8"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="9"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="10"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd" id="11"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd" id="12"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="13"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TerminalHackNode.gd" id="14"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="15"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PressurePlateNode.gd" id="16"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TimedSwitchNode.gd" id="17"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/CompanionCommandPoint.gd" id="18"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="19"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd" id="20"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="21"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DistractionObject.gd" id="22"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="23"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="24"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="25"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd" id="26"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ExtractionZone.gd" id="27"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd" id="28"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd" id="29"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/AuditTrailCleanupNode.gd" id="30"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/HeatSinkObject.gd" id="31"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BelievableTaskZone.gd" id="32"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ProtocolZone.gd" id="33"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ObjectSwapNode.gd" id="34"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="35"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="36"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/sequences/CustomSequenceRunner.gd" id="37"]
+[ext_resource type="Script" path="res://src/missions/iso/dev/CornerStoreCashoutIntegratedProofHarness.gd" id="38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_96_96"]
+size = Vector2(96, 96)
+
+
+[sub_resource type="Resource" id="Requirement_csc_badge"]
+script = ExtResource("req_script")
+requirement_id = &"csc_requires_badge"
+fact_type = &"mission_flag"
+key = "csc_badge_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Need an employee credential first."
+
+[sub_resource type="Resource" id="RequirementSet_csc_office_door"]
+script = ExtResource("reqset_script")
+requirements = Array[ExtResource("req_script")]([SubResource("Requirement_csc_badge")])
+locked_message = "Need an employee credential first."
+
+[node name="CornerStoreCashout_Editable" type="Node2D"]
+script = ExtResource("1")
+mission_definition = ExtResource("2")
+auto_generate_from_definition = false
+
+[node name="CornerStoreCashoutLayoutBootstrap" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="GameplayRoot" type="Node2D" parent="."]
+
+[node name="LayoutRoot" type="Node2D" parent="GameplayRoot"]
+
+[node name="FloorLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot"]
+tile_set = ExtResource("blockout_tileset")
+y_sort_enabled = true
+
+[node name="WallLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot"]
+tile_set = ExtResource("blockout_tileset")
+y_sort_enabled = true
+
+[node name="CoverLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot"]
+tile_set = ExtResource("blockout_tileset")
+y_sort_enabled = true
+
+[node name="CollisionBarrierLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot"]
+tile_set = ExtResource("blockout_tileset")
+y_sort_enabled = true
+
+[node name="MarkerTileLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot"]
+tile_set = ExtResource("marker_tileset")
+y_sort_enabled = true
+
+[node name="GameplayFloorLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="GameplayCollisionLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="GameplayMarkersLayer" type="TileMapLayer" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="EntityRoot" type="Node2D" parent="GameplayRoot"]
+y_sort_enabled = true
+
+[node name="Enemies" type="Node2D" parent="GameplayRoot/EntityRoot"]
+
+[node name="Interactables" type="Node2D" parent="GameplayRoot/EntityRoot"]
+
+[node name="SpawnPoints" type="Node2D" parent="GameplayRoot"]
+
+[node name="default" type="Marker2D" parent="GameplayRoot/SpawnPoints"]
+position = Vector2(-480, 40)
+
+[node name="RuntimeHelpers" type="Node" parent="GameplayRoot"]
+
+[node name="CornerStoreCashoutMissionController" type="Node" parent="GameplayRoot/RuntimeHelpers"]
+script = ExtResource("6")
+mission_id = "corner_store_cashout"
+
+[node name="MissionInteractionBridge" type="Node" parent="GameplayRoot/RuntimeHelpers"]
+script = ExtResource("4")
+include_legacy_candidates = false
+player_path = NodePath("../../EntityRoot/Player")
+
+[node name="MissionAlertController" type="Node" parent="GameplayRoot/RuntimeHelpers"]
+script = ExtResource("5")
+mission_id = "corner_store_cashout"
+
+[node name="CornerStoreCashoutEncounterController" type="Node" parent="GameplayRoot/RuntimeHelpers"]
+script = ExtResource("7")
+mission_id_override = "corner_store_cashout"
+start_on_ready = false
+encounter_id = &"corner_store_cashout_cleanup"
+display_name = "Corner Store Cleanup"
+
+[node name="MissionMechanics" type="Node2D" parent="GameplayRoot"]
+
+[node name="SearchZone_csc_entry_clue" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-300, -20)
+script = ExtResource("8")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_entry_clue"
+display_name = "Scheduling Clipboard"
+search_kind = "counter"
+searched_flag = &"csc_entry_clue_found"
+prompt_text = "Press E: Check scheduling clipboard"
+found_message = "Back-office keypad code is taped under the clipboard."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SearchZone_csc_entry_clue"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="SearchZone_csc_back_hint" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(60, -150)
+script = ExtResource("8")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_back_hint"
+display_name = "Employee Calendar"
+search_kind = "desk"
+searched_flag = &"csc_back_room_hint_found"
+prompt_text = "Press E: Read employee calendar"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SearchZone_csc_back_hint"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="InventoryPickupNode_csc_fake_badge" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-80, -30)
+script = ExtResource("10")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_fake_badge"
+display_name = "Borrowed Name Tag"
+item_id = &"corner_store_vendor_badge"
+reward_id = &"corner_store_vendor_badge"
+collected_flag = &"csc_badge_collected"
+prompt_text = "Press E: Pocket the spare name tag"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InventoryPickupNode_csc_fake_badge"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="LockedInteractionNode_csc_office_door" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(220, -130)
+script = ExtResource("11")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_office_door"
+display_name = "Employee-Only Door"
+lock_kind = "door"
+unlocked_flag = &"csc_checkpoint_open"
+prompt_text = "Press E: Swipe employee badge"
+locked_prompt_text = "Need an employee credential first."
+requirements = SubResource("RequirementSet_csc_office_door")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/LockedInteractionNode_csc_office_door"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="InteractiveContainer_csc_cash_drawer" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(340, -160)
+script = ExtResource("12")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_cash_drawer"
+display_name = "Cash Drawer"
+prompt_text = "Press E: Pop the cash drawer"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InteractiveContainer_csc_cash_drawer"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="RewardNode_csc_cash_envelope" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(400, -190)
+script = ExtResource("9")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_cash_envelope"
+display_name = "Misplaced Cash Envelope"
+reward_kind = "evidence"
+reward_id = &"corner_store_cash_envelope"
+collected_flag = &"csc_cash_envelope_collected"
+prompt_text = "Press E: Grab the cash envelope"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RewardNode_csc_cash_envelope"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="RewardNode_csc_scam_folder" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(440, -130)
+script = ExtResource("9")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_scam_folder"
+display_name = "Insurance Scam Folder"
+reward_kind = "evidence"
+reward_id = &"corner_store_insurance_scam_folder"
+collected_flag = &"csc_evidence_collected"
+prompt_text = "Press E: Take the scam evidence folder"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RewardNode_csc_scam_folder"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="TerminalHackNode_csc_security_log" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(500, -50)
+script = ExtResource("14")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_security_log"
+display_name = "Security Log Terminal"
+hack_id = &"csc_security_log_hack"
+completed_flag = &"csc_terminal_hacked"
+prompt_text = "Press E: Hack security log"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TerminalHackNode_csc_security_log"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="PowerCircuitNode_csc_camera_power" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(520, 90)
+script = ExtResource("15")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_camera_power"
+display_name = "Camera Power Circuit"
+circuit_id = &"csc_camera_loop"
+prompt_text = "Press E: Rewire camera loop"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/PowerCircuitNode_csc_camera_power"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="PressurePlateNode_csc_stockroom_plate" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(460, 110)
+script = ExtResource("16")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_stockroom_plate"
+display_name = "Stockroom Pressure Plate"
+plate_id = &"csc_stockroom_plate"
+prompt_text = "Stand on stockroom plate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/PressurePlateNode_csc_stockroom_plate"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="TimedSwitchNode_csc_freezer_timer" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(480, 130)
+script = ExtResource("17")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_freezer_timer"
+display_name = "Freezer Timer Switch"
+switch_id = &"csc_freezer_timer"
+prompt_text = "Press E: Trip freezer timer"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TimedSwitchNode_csc_freezer_timer"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="RouteUnlockNode_csc_alley_route" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(540, 30)
+script = ExtResource("13")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_alley_route"
+display_name = "Alley Exit Route"
+route_id = &"csc_alley_extract"
+route_flag = &"csc_alley_route_unlocked"
+prompt_text = "Press E: Unlock alley exit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RouteUnlockNode_csc_alley_route"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="CompanionCommandPoint_csc_bentley_bark" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(120, 100)
+script = ExtResource("18")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_bentley_bark"
+display_name = "Bentley Bark Point"
+command_type = "bark"
+command_label = "Bentley barks at the guard"
+prompt_text = "Press E: Tell Bentley to bark"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/CompanionCommandPoint_csc_bentley_bark"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="BentleyWaitMarker_csc_bentley_wait" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(80, 140)
+script = ExtResource("19")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_bentley_wait"
+display_name = "Bentley Wait"
+prompt_text = "Press E: Bentley wait here"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BentleyWaitMarker_csc_bentley_wait"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="BentleyCrawlspaceConnector_csc_stock_crawl" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(200, 150)
+script = ExtResource("20")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_stock_crawl"
+display_name = "Stockroom Crawlspace"
+prompt_text = "Press E: Send Bentley through crawlspace"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BentleyCrawlspaceConnector_csc_stock_crawl"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="NoiseEmitterNode_csc_chip_aisle_noise" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(220, 60)
+script = ExtResource("21")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_chip_aisle_noise"
+display_name = "Chip Aisle Noise"
+noise_id = &"csc_chip_aisle_noise"
+noise_kind = "decoy"
+noise_strength = 0.55
+prompt_text = "Press E: Knock over chip display"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/NoiseEmitterNode_csc_chip_aisle_noise"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="DistractionObject_csc_spilled_drink" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(260, 80)
+script = ExtResource("22")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_spilled_drink"
+display_name = "Spilled Slushie"
+distraction_id = &"csc_spilled_drink"
+prompt_text = "Press E: Spill distraction slushie"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DistractionObject_csc_spilled_drink"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="EavesdropZone_csc_side_job_listen" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-140, 120)
+script = ExtResource("23")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_side_job_listen"
+display_name = "Stockroom Vent Listen"
+eavesdrop_id = &"csc_side_job_listen"
+prompt_text = "Press E: Eavesdrop on scam call"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EavesdropZone_csc_side_job_listen"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="DeadDropNode_csc_alley_drop" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(320, 200)
+script = ExtResource("24")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_alley_drop"
+display_name = "Alley Dead Drop"
+drop_id = &"csc_alley_drop"
+prompt_text = "Press E: Plant dead drop"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DeadDropNode_csc_alley_drop"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="SideObjectiveNode_csc_coupon_scam" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(300, 220)
+script = ExtResource("25")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_coupon_scam"
+display_name = "Bonus Coupon Scam"
+side_objective_id = &"csc_coupon_scam"
+prompt_text = "Press E: Photograph coupon scam board"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SideObjectiveNode_csc_coupon_scam"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="EncounterRouteActionNode_csc_clean_social" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(260, 40)
+script = ExtResource("26")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_route_clean_social"
+display_name = "Clean Social Route"
+route_method = "run_clean_social_route"
+route_id = &"clean_social_route"
+route_label = "Clean Social Helper"
+route_choice_flag = &"csc_route_selected"
+route_specific_flag = &"csc_route_clean_social"
+controller_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutEncounterController")
+required_controller_bool_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutMissionController")
+required_controller_bool_property = &"back_office_unlocked"
+progress_locked_message = "Recover back-office evidence before choosing a cleanup route."
+prompt_text = "Press E: Act like a delivery helper"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EncounterRouteActionNode_csc_clean_social"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="EncounterRouteActionNode_csc_bentley_route" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(260, 80)
+script = ExtResource("26")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_route_bentley"
+display_name = "Bentley Distraction Route"
+route_method = "run_bentley_distraction_route"
+route_id = &"bentley_distraction_route"
+route_label = "Bentley Distraction"
+route_choice_flag = &"csc_route_selected"
+route_specific_flag = &"csc_route_bentley"
+controller_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutEncounterController")
+required_controller_bool_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutMissionController")
+required_controller_bool_property = &"back_office_unlocked"
+prompt_text = "Press E: Let Bentley cause a scene"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EncounterRouteActionNode_csc_bentley_route"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="EncounterRouteActionNode_csc_evidence_route" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(260, 120)
+script = ExtResource("26")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_route_evidence"
+display_name = "Evidence Route"
+route_method = "run_evidence_route"
+route_id = &"evidence_route"
+route_label = "Evidence / Paper Trail"
+route_choice_flag = &"csc_route_selected"
+route_specific_flag = &"csc_route_evidence"
+controller_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutEncounterController")
+required_controller_bool_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutMissionController")
+required_controller_bool_property = &"back_office_unlocked"
+prompt_text = "Press E: Scrub the security log"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EncounterRouteActionNode_csc_evidence_route"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="EncounterRouteActionNode_csc_messy_route" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(260, 160)
+script = ExtResource("26")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_route_messy"
+display_name = "Messy Authority Route"
+route_method = "run_messy_authority_route"
+route_id = &"messy_authority_route"
+route_label = "Messy Authority Bluff"
+route_choice_flag = &"csc_route_selected"
+route_specific_flag = &"csc_route_messy"
+controller_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutEncounterController")
+required_controller_bool_path = NodePath("../../RuntimeHelpers/CornerStoreCashoutMissionController")
+required_controller_bool_property = &"back_office_unlocked"
+prompt_text = "Press E: Bluff the guard with fake authority"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EncounterRouteActionNode_csc_messy_route"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="ExtractionZone_csc_alley_extract" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(640, 40)
+script = ExtResource("27")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_alley_extract"
+display_name = "Alley Extraction"
+extraction_tag = &"csc_alley_extract"
+extraction_flag = &"csc_extracted"
+complete_mission_on_success = true
+required_objective_ids = Array[StringName]([&"recover_cashout_evidence", &"choose_cleanup_route"])
+prompt_text = "Press E: Slip out the alley"
+missing_objective_message = "Finish evidence and choose a cleanup route first."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ExtractionZone_csc_alley_extract"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="InvestigationPointNode_csc_guard_investigation" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(160, -80)
+script = ExtResource("28")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_guard_investigation"
+display_name = "Guard Investigation Point"
+investigation_id = &"csc_guard_investigation"
+prompt_text = "Press E: Inspect guard routine"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InvestigationPointNode_csc_guard_investigation"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="RoutineOverrideNode_csc_clerk_routine" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(140, -100)
+script = ExtResource("29")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_clerk_routine"
+display_name = "Clerk Routine Override"
+routine_id = &"csc_clerk_routine"
+prompt_text = "Press E: Nudge clerk routine"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RoutineOverrideNode_csc_clerk_routine"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="AuditTrailCleanupNode_csc_log_cleanup" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(400, -40)
+script = ExtResource("30")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_log_cleanup"
+display_name = "Audit Trail Cleanup"
+cleanup_id = &"csc_log_cleanup"
+prompt_text = "Press E: Weaken audit trail"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/AuditTrailCleanupNode_csc_log_cleanup"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="HeatSinkObject_csc_slushie_sink" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(360, -60)
+script = ExtResource("31")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_slushie_sink"
+display_name = "Slushie Heat Sink"
+heat_sink_id = &"csc_slushie_sink"
+prompt_text = "Press E: Blame the slushie machine"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/HeatSinkObject_csc_slushie_sink"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="BelievableTaskZone_csc_restock_task" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-220, -60)
+script = ExtResource("32")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_restock_task"
+display_name = "Believable Restock Task"
+task_id = &"restock_neon_aisle"
+prompt_text = "Press E: Pretend to restock neon aisle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_csc_restock_task"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="ProtocolZone_csc_clerk_protocol" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-240, -80)
+script = ExtResource("33")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_clerk_protocol"
+display_name = "Clerk Protocol Zone"
+protocol_id = &"clerk_small_talk"
+prompt_text = "Press E: Run clerk small-talk protocol"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ProtocolZone_csc_clerk_protocol"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="ObjectSwapNode_csc_price_tag_swap" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(280, 180)
+script = ExtResource("34")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_price_tag_swap"
+display_name = "Price Tag Swap"
+swap_id = &"csc_price_tag_swap"
+prompt_text = "Press E: Swap price tags"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ObjectSwapNode_csc_price_tag_swap"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="BugPlantNode_csc_stock_bug" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(350, 160)
+script = ExtResource("35")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_stock_bug"
+display_name = "Stockroom Bug Plant"
+bug_id = &"csc_stock_bug"
+prompt_text = "Press E: Plant listening bug"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BugPlantNode_csc_stock_bug"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="SchemeCardTriggerNode_csc_card_hook" type="Area2D" parent="GameplayRoot/MissionMechanics"]
+position = Vector2(-420, 0)
+script = ExtResource("36")
+mission_id_override = "corner_store_cashout"
+mechanic_id = &"csc_card_hook"
+display_name = "Scheme Card Hook"
+modifier_set_id = &"vendor_restock_helper"
+prompt_text = "Scheme card setup hook"
+apply_on_ready = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SchemeCardTriggerNode_csc_card_hook"]
+shape = SubResource("RectangleShape2D_96_96")
+
+[node name="CustomSequenceRunner_csc_side_job" type="Node" parent="GameplayRoot/MissionMechanics"]
+script = ExtResource("37")
+mission_id_override = "corner_store_cashout"
+sequence_id = &"csc_side_job_sequence"
+
+[node name="ArtRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="GroundArtLayer" type="TileMapLayer" parent="ArtRoot"]
+tile_set = ExtResource("pv_floor_tileset")
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="WallArtLayer" type="TileMapLayer" parent="ArtRoot"]
+tile_set = ExtResource("pv_wall_tileset")
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="PropArtLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+y_sort_enabled = true
+
+[node name="DecorBelowLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+
+[node name="DecorAboveLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+
+[node name="LightingLayer" type="TileMapLayer" parent="ArtRoot"]
+collision_enabled = false
+
+[node name="DebugProof" type="CanvasLayer" parent="GameplayRoot"]
+
+[node name="ProofPanel" type="PanelContainer" parent="GameplayRoot/DebugProof"]
+visible = false
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 420.0
+offset_bottom = 120.0
+
+[node name="VBox" type="VBoxContainer" parent="GameplayRoot/DebugProof/ProofPanel"]
+
+[node name="StatusLabel" type="Label" parent="GameplayRoot/DebugProof/ProofPanel/VBox"]
+text = "Corner Store proof harness (debug only)"
+autowrap_mode = 3
+
+[node name="Run Integrated Proof" type="Button" parent="GameplayRoot/DebugProof/ProofPanel/VBox"]
+text = "Run Integrated Proof"
+
+[node name="ProofHarness" type="Control" parent="GameplayRoot/DebugProof/ProofPanel/VBox"]
+script = ExtResource("38")
+layout_mode = 2
+mission_controller_path = NodePath("../../../../RuntimeHelpers/CornerStoreCashoutMissionController")
+encounter_controller_path = NodePath("../../../../RuntimeHelpers/CornerStoreCashoutEncounterController")
+status_label_path = NodePath("../StatusLabel")
+
+[node name="CameraBounds" type="Node2D" parent="GameplayRoot"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80, 0)
+limit_left = -900
+limit_top = -500
+limit_right = 900
+limit_bottom = 500
+

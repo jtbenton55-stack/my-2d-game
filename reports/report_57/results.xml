@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-05" name="report_57" tests="9" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="CornerStoreCashoutProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-05T04:11:58" hostname="localhost" tests="9" failures="0" errors="3" skipped="0" flaky="0" time="3.097">
+		<testcase name="test_scene_loads_with_expected_structure" classname="CornerStoreCashoutProductionSkeletonTest" time="1.977">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="CornerStoreCashoutProductionSkeletonTest" time="0.015">
+		</testcase>
+		<testcase name="test_bridge_scope_is_safe" classname="CornerStoreCashoutProductionSkeletonTest" time="0.014">
+		</testcase>
+		<testcase name="test_core_objective_flag_chain_updates_controller" classname="CornerStoreCashoutProductionSkeletonTest" time="0.015">
+		</testcase>
+		<testcase name="test_locked_office_door_blocks_before_badge_requirement" classname="CornerStoreCashoutProductionSkeletonTest" time="0.399">
+			<error message="ERROR: res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Parse Error: Cannot infer the type of "mission_id" variable because the value doesn't have a set type.'
+	at res://src/levels/IsoMissionBase.gd:5610
+	at res://src/levels/IsoMissionBase.gd:173
+	at res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66
+]]>
+			</error>
+			<error message="ERROR: res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Compile Error: Failed to compile depended scripts.'
+	at res://src/levels/IsoMissionBase.gd:5610
+	at res://src/levels/IsoMissionBase.gd:173
+	at res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66
+]]>
+			</error>
+			<error message="ERROR: res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Compile Error: Failed to compile depended scripts.'
+	at res://src/levels/IsoMissionBase.gd:5610
+	at res://src/levels/IsoMissionBase.gd:173
+	at res://tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd:66
+]]>
+			</error>
+		</testcase>
+		<testcase name="test_route_unlock_and_side_objective_nodes_exist" classname="CornerStoreCashoutProductionSkeletonTest" time="0.150">
+		</testcase>
+		<testcase name="test_route_choice_locks_competitors" classname="CornerStoreCashoutProductionSkeletonTest" time="0.095">
+		</testcase>
+		<testcase name="test_extraction_blocks_before_required_objectives" classname="CornerStoreCashoutProductionSkeletonTest" time="0.177">
+		</testcase>
+		<testcase name="test_encounter_route_summary_contains_route_labels" classname="CornerStoreCashoutProductionSkeletonTest" time="0.105">
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -3,7 +3,9 @@ extends RefCounted
 ## Single seam for playable vs legacy vs catalog mission paths (0M-D2). Not an autoload.
 
 const TACO_BELL_MISSION_ID := "taco_bell_drop"
+const CORNER_STORE_MISSION_ID := "corner_store_cashout"
 const PLAYABLE_EXPANDED_TACO_ISO := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+const PLAYABLE_CORNER_STORE_ISO := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
 const LEGACY_BAKE_TACO_ISO := "res://scenes/missions_iso/TacoBellIso_Editable.tscn"
 const CLASSIC_TACO_STORY_ROOM := "res://scenes/missions/TacoBellMission.tscn"
 
@@ -11,6 +13,8 @@ const CLASSIC_TACO_STORY_ROOM := "res://scenes/missions/TacoBellMission.tscn"
 static func resolve_playable_scene_path(mission_id: String, _context: Dictionary = {}) -> String:
 	if mission_id == TACO_BELL_MISSION_ID:
 		return PLAYABLE_EXPANDED_TACO_ISO
+	if mission_id == CORNER_STORE_MISSION_ID:
+		return PLAYABLE_CORNER_STORE_ISO
 	return GameState.get_mission_scene_path(mission_id)
 
 

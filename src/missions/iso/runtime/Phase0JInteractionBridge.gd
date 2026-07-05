@@ -44,6 +44,8 @@ func _input(event: InputEvent) -> void:
 	if _cooldown > 0.0:
 		return
 	if InputMap.has_action(action_interact) and event.is_action_pressed(action_interact):
+		if _has_nearby_phase18_route_action():
+			return
 		if _try_interact():
 			get_viewport().set_input_as_handled()
 		return
@@ -157,6 +159,18 @@ func _is_phase0j_candidate(node: Node) -> bool:
 
 func _has_interaction_method(node: Node) -> bool:
 	return node.has_method("interact") or node.has_method("on_interact") or node.has_method("use") or node.has_method("inspect_marker")
+
+
+func _has_nearby_phase18_route_action() -> bool:
+	var player := _find_player()
+	if not (player is Node2D):
+		return false
+	for node: Node in get_tree().get_nodes_in_group("phase18_garage_route_action"):
+		if not (node is Node2D):
+			continue
+		if (player as Node2D).global_position.distance_to((node as Node2D).global_position) <= interaction_radius:
+			return true
+	return false
 
 
 func _call_candidate(node: Node, player: Node) -> bool:

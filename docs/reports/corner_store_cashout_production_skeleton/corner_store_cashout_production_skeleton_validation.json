@@ -1,0 +1,396 @@
+{
+  "ok": true,
+  "mission_id": "corner_store_cashout",
+  "failures": [],
+  "checks": [
+    {
+      "check": "required_file",
+      "path": "scenes/missions_iso/CornerStoreCashout_Editable.tscn",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "assets/missions/corner_store_cashout_definition.tres",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/CornerStoreCashoutMissionController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/runtime/CornerStoreCashoutEncounterController.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/CornerStoreCashoutLayoutBootstrap.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "src/missions/iso/dev/CornerStoreCashoutIntegratedProofHarness.gd",
+      "ok": true
+    },
+    {
+      "check": "required_file",
+      "path": "tests/mission_authoring/CornerStoreCashoutProductionSkeletonTest.gd",
+      "ok": true
+    },
+    {
+      "check": "game_state_token",
+      "token": "\"corner_store_cashout\"",
+      "ok": true
+    },
+    {
+      "check": "game_state_token",
+      "token": "scenes/missions_iso/CornerStoreCashout_Editable.tscn",
+      "ok": true
+    },
+    {
+      "check": "game_state_token",
+      "token": "unlock_mission(\"corner_store_cashout\")",
+      "ok": true
+    },
+    {
+      "check": "resolver_token",
+      "token": "CORNER_STORE_MISSION_ID",
+      "ok": true
+    },
+    {
+      "check": "resolver_token",
+      "token": "scenes/missions_iso/CornerStoreCashout_Editable.tscn",
+      "ok": true
+    },
+    {
+      "check": "hideout_catalog_token",
+      "token": "corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "hideout_catalog_token",
+      "token": "launch_corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "hideout_board_token",
+      "token": "launch_corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "hideout_board_token",
+      "token": "corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "hideout_manager_token",
+      "token": "launch_corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "hideout_manager_token",
+      "token": "confirm_launch_corner_store_cashout",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "GameplayRoot",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "LayoutRoot",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "EntityRoot",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "RuntimeHelpers",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "MissionMechanics",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "ArtRoot",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CameraBounds",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "FloorLayer",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "WallLayer",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CoverLayer",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CollisionBarrierLayer",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "MarkerTileLayer",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CornerStoreCashoutMissionController",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "MissionInteractionBridge",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CornerStoreCashoutEncounterController",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "MissionAlertController",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "CornerStoreCashoutIntegratedProofHarness",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "DebugProof",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "name=\"default\" type=\"Marker2D\" parent=\"GameplayRoot/SpawnPoints\"",
+      "ok": true
+    },
+    {
+      "check": "scene_structure",
+      "token": "ExtractionZone_csc_alley_extract",
+      "ok": true
+    },
+    {
+      "check": "bridge_scope_safe",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "SearchZone_csc_entry_clue",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "InventoryPickupNode_csc_fake_badge",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "LockedInteractionNode_csc_office_door",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "RewardNode_csc_scam_folder",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "TerminalHackNode_csc_security_log",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "PowerCircuitNode_csc_camera_power",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "PressurePlateNode_csc_stockroom_plate",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "TimedSwitchNode_csc_freezer_timer",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "RouteUnlockNode_csc_alley_route",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "CompanionCommandPoint_csc_bentley_bark",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "NoiseEmitterNode_csc_chip_aisle_noise",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "DeadDropNode_csc_alley_drop",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "SideObjectiveNode_csc_coupon_scam",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "EncounterRouteActionNode_csc_clean_social",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "EncounterRouteActionNode_csc_bentley_route",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "EncounterRouteActionNode_csc_evidence_route",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "EncounterRouteActionNode_csc_messy_route",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "ExtractionZone_csc_alley_extract",
+      "ok": true
+    },
+    {
+      "check": "mechanic_present",
+      "token": "CustomSequenceRunner_csc_side_job",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_entry_clue_found",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_badge_collected",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_checkpoint_open",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_terminal_hacked",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_evidence_collected",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_route_selected",
+      "ok": true
+    },
+    {
+      "check": "flag_present",
+      "token": "csc_extracted",
+      "ok": true
+    },
+    {
+      "check": "route_method",
+      "token": "run_clean_social_route",
+      "ok": true
+    },
+    {
+      "check": "route_method",
+      "token": "run_bentley_distraction_route",
+      "ok": true
+    },
+    {
+      "check": "route_method",
+      "token": "run_evidence_route",
+      "ok": true
+    },
+    {
+      "check": "route_method",
+      "token": "run_messy_authority_route",
+      "ok": true
+    },
+    {
+      "check": "route_action_node_paths_resolve",
+      "ok": true
+    },
+    {
+      "check": "debug_proof_node_name_valid",
+      "ok": true
+    },
+    {
+      "check": "no_root_mission_controller",
+      "ok": true
+    },
+    {
+      "check": "entity_root_under_gameplay",
+      "ok": true
+    },
+    {
+      "check": "no_phase0j_phase0k_dependency",
+      "ok": true
+    },
+    {
+      "check": "unique_mechanic_ids",
+      "ok": true,
+      "duplicates": []
+    },
+    {
+      "check": "mission_controller_token",
+      "token": "complete_mission_and_exit",
+      "ok": true
+    },
+    {
+      "check": "mission_controller_token",
+      "token": "request_exit_completion",
+      "ok": true
+    },
+    {
+      "check": "mission_controller_token",
+      "token": "sync_from_mission_facts",
+      "ok": true
+    },
+    {
+      "check": "mission_controller_token",
+      "token": "are_exit_requirements_met",
+      "ok": true
+    }
+  ]
+}

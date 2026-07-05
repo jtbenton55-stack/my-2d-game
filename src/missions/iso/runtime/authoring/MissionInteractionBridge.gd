@@ -123,6 +123,14 @@ func try_interact_at_position(test_position: Vector2) -> bool:
 		return false
 	var entry := find_best_candidate(test_position, prefer_available)
 	if entry.is_empty():
+		var locked_entry := find_best_candidate(test_position, false)
+		if not locked_entry.is_empty():
+			var locked_candidate: Node = locked_entry.get("node")
+			last_candidate = locked_candidate
+			last_interaction_result = false
+			_update_prompt_label(get_candidate_prompt(locked_candidate))
+			_cooldown = cooldown_seconds
+			return true
 		last_candidate = null
 		last_interaction_result = false
 		_update_prompt_label("")

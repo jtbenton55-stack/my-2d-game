@@ -242,6 +242,16 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"confirm_launch_taco_bell":
 			_write_scheme_loadout_to_game_state()
 			_mission_board.launch_taco_bell()
+		"launch_corner_store_cashout":
+			_open_subpanel(_corner_store_start_confirmation_data())
+		"confirm_launch_corner_store_cashout":
+			_write_scheme_loadout_to_game_state()
+			_mission_board.launch_corner_store_cashout()
+		"replay_corner_store_cashout":
+			_write_scheme_loadout_to_game_state()
+			_mission_board.launch_corner_store_cashout()
+		"show_corner_store_info":
+			_show_feedback("Corner Store Info", "Recover a misplaced cash envelope and petty insurance scam evidence from a neon corner store back office. Choose a cleanup route before extracting through the alley.")
 		"go_to_planning_table":
 			current_station_id = "planning_table"
 			_open_controller_panel(_scheme_cards.get_panel_data(_state))
@@ -787,6 +797,32 @@ func _mission_start_confirmation_data() -> Dictionary:
 		"body": "\n".join(lines),
 		"buttons": [
 			{"id": "confirm_launch", "label": "Start Mission", "action": "confirm_launch_taco_bell"},
+			{"id": "go_planning", "label": "Go to Planning Table", "action": "go_to_planning_table"},
+			{"id": "back", "label": "Back", "action": "back"},
+			{"id": "close", "label": "Close", "action": "close"},
+		],
+	}
+
+func _corner_store_start_confirmation_data() -> Dictionary:
+	var loadout: Dictionary = _state.get_current_scheme_loadout() if _state != null and _state.has_method("get_current_scheme_loadout") else {}
+	var plan := String(loadout.get("plan", "Empty"))
+	var trick := String(loadout.get("trick", "Empty"))
+	var comfort := String(loadout.get("comfort_chaos", "Empty"))
+	var lines: Array[String] = [
+		"Ready for Corner Store Cashout?",
+		"",
+		"A compact neon convenience-store micro-heist after Taco Bell.",
+		"Find the back-office clue, grab a credential, recover the cash envelope and scam folder, choose a cleanup route, then extract through the alley.",
+		"",
+		"Current Plan Card: %s" % plan,
+		"Current Trick Card: %s" % trick,
+		"Current Comfort/Chaos Card: %s" % comfort,
+	]
+	return {
+		"title": "Ready for Corner Store Cashout?",
+		"body": "\n".join(lines),
+		"buttons": [
+			{"id": "confirm_launch_corner_store", "label": "Start Mission", "action": "confirm_launch_corner_store_cashout"},
 			{"id": "go_planning", "label": "Go to Planning Table", "action": "go_to_planning_table"},
 			{"id": "back", "label": "Back", "action": "back"},
 			{"id": "close", "label": "Close", "action": "close"},

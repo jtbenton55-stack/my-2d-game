@@ -2,6 +2,7 @@ extends RefCounted
 class_name HideoutStationCatalog
 
 const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
+const CORNER_STORE_SCENE := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
 
 const CLASS_FUNCTIONAL := "FUNCTIONAL"
 const CLASS_PANEL_ONLY := "PANEL_ONLY"
@@ -13,6 +14,10 @@ const ALLOWED_BUTTON_ACTIONS := [
 	"close",
 	"launch_taco_bell",
 	"confirm_launch_taco_bell",
+	"launch_corner_store_cashout",
+	"confirm_launch_corner_store_cashout",
+	"replay_corner_store_cashout",
+	"show_corner_store_info",
 	"go_to_planning_table",
 	"show_known_info",
 	"show_scheme_cards",
@@ -104,17 +109,31 @@ static func stations() -> Array[Dictionary]:
 	]
 
 static func missions() -> Array[Dictionary]:
-	var ids := ["taco_bell_drop", "velvet_paw_jazz_club", "rewrite_room", "fast_family_getaway", "clean_job", "diamond_a_year_job", "arm_wrestling_underground", "persian_tea_and_poison_ink", "elephant_in_the_room", "shadow_solo_contract", "final_job"]
-	var names := ["The Taco Bell Drop", "Velvet Paw Jazz Club", "Rewrite Room", "Fast Family Getaway", "Clean Job", "Diamond a Year Job", "Arm-Wrestling Underground", "Persian Tea and Poison Ink", "Elephant in the Room", "Shadow Solo Contract", "The Final Job"]
+	var ids := ["taco_bell_drop", "corner_store_cashout", "velvet_paw_jazz_club", "rewrite_room", "fast_family_getaway", "clean_job", "diamond_a_year_job", "arm_wrestling_underground", "persian_tea_and_poison_ink", "elephant_in_the_room", "shadow_solo_contract", "final_job"]
+	var names := ["The Taco Bell Drop", "Corner Store Cashout", "Velvet Paw Jazz Club", "Rewrite Room", "Fast Family Getaway", "Clean Job", "Diamond a Year Job", "Arm-Wrestling Underground", "Persian Tea and Poison Ink", "Elephant in the Room", "Shadow Solo Contract", "The Final Job"]
 	var out: Array[Dictionary] = []
 	for i in range(names.size()):
+		var mission_id: String = ids[i]
+		var scene_path := ""
+		if mission_id == "taco_bell_drop":
+			scene_path = MissionSceneResolver.resolve_playable_scene_path(mission_id)
+		elif mission_id == "corner_store_cashout":
+			scene_path = MissionSceneResolver.resolve_playable_scene_path(mission_id)
+		var state := "Fresh"
+		if i == 0:
+			state = "Fresh"
+		elif i == 1:
+			state = "After Taco"
+		else:
+			state = "Future"
+		var status_text := "Ready for delivery." if i == 0 else ("Unlocked after Taco Bell." if i == 1 else "Not on the cork board yet.")
 		out.append({
 			"slot": i + 1,
-			"mission_id": ids[i],
+			"mission_id": mission_id,
 			"display_name": names[i],
-			"state": "Fresh" if i == 0 else "Future",
-			"scene_path": MissionSceneResolver.resolve_playable_scene_path(ids[i]) if i == 0 else "",
-			"status_text": "Ready for delivery." if i == 0 else "Not on the cork board yet.",
+			"state": state,
+			"scene_path": scene_path,
+			"status_text": status_text,
 		})
 	return out
 
