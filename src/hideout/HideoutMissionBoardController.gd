@@ -1,8 +1,6 @@
 extends Node
 class_name HideoutMissionBoardController
 
-const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
-const CORNER_STORE_SCENE := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
 
 const CORNER_STORE_MISSION_ID := "corner_store_cashout"

@@ -11,10 +11,9 @@ const CLASSIC_TACO_STORY_ROOM := "res://scenes/missions/TacoBellMission.tscn"
 
 
 static func resolve_playable_scene_path(mission_id: String, _context: Dictionary = {}) -> String:
-	if mission_id == TACO_BELL_MISSION_ID:
-		return PLAYABLE_EXPANDED_TACO_ISO
-	if mission_id == CORNER_STORE_MISSION_ID:
-		return PLAYABLE_CORNER_STORE_ISO
+	var playable_iso_scene := _get_catalog_playable_iso_scene(mission_id)
+	if playable_iso_scene != "":
+		return playable_iso_scene
 	return GameState.get_mission_scene_path(mission_id)
 
 
@@ -23,20 +22,21 @@ static func get_default_scene_path(mission_id: String) -> String:
 
 
 static func get_debug_scene_path(mission_id: String) -> String:
-	if mission_id == TACO_BELL_MISSION_ID:
-		return PLAYABLE_EXPANDED_TACO_ISO
+	var playable_iso_scene := _get_catalog_playable_iso_scene(mission_id)
+	if playable_iso_scene != "":
+		return playable_iso_scene
 	return get_default_scene_path(mission_id)
 
 
 static func get_scene_roles(mission_id: String) -> Dictionary:
+	var playable_iso_scene := _get_catalog_playable_iso_scene(mission_id)
 	var roles: Dictionary = {
 		"mission_id": mission_id,
-		"playable_expanded_iso": "",
+		"playable_expanded_iso": playable_iso_scene,
 		"legacy_bake_output": "",
 		"classic_story_room": "",
 	}
 	if mission_id == TACO_BELL_MISSION_ID:
-		roles["playable_expanded_iso"] = PLAYABLE_EXPANDED_TACO_ISO
 		roles["legacy_bake_output"] = LEGACY_BAKE_TACO_ISO
 		roles["classic_story_room"] = CLASSIC_TACO_STORY_ROOM
 	return roles
@@ -55,6 +55,9 @@ static func get_resolution_report(mission_id: String) -> Dictionary:
 	var warnings: Array[String] = []
 	if mission_id == TACO_BELL_MISSION_ID and chosen != PLAYABLE_EXPANDED_TACO_ISO:
 		warnings.append("taco_bell_drop did not resolve to expanded RedesignTest scene")
+	var playable_iso_scene := _get_catalog_playable_iso_scene(mission_id)
+	if playable_iso_scene != "" and not ResourceLoader.exists(playable_iso_scene):
+		warnings.append("catalog playable_iso_scene does not exist: %s" % playable_iso_scene)
 	return {
 		"ok": chosen != "",
 		"mission_id": mission_id,
@@ -64,3 +67,15 @@ static func get_resolution_report(mission_id: String) -> Dictionary:
 		"debug_path": get_debug_scene_path(mission_id),
 		"warnings": warnings,
 	}
+
+
+static func _get_catalog_entry(mission_id: String) -> Dictionary:
+	if not GameState.mission_catalog.has(mission_id):
+		return {}
+	var entry: Variant = GameState.mission_catalog.get(mission_id, {})
+	return entry if entry is Dictionary else {}
+
+
+static func _get_catalog_playable_iso_scene(mission_id: String) -> String:
+	var entry := _get_catalog_entry(mission_id)
+	return String(entry.get("playable_iso_scene", "")).strip_edges()

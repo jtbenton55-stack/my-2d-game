@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://src/levels/IsoMissionBase.gd" id="1_iso"]
+[ext_resource type="Resource" path="res://assets/missions/milestone_a_security_smoke_definition.tres" id="2_def"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityAuthoringRoot.gd" id="3_root"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityBeamAuthor.gd" id="4_beam"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityCameraAuthor.gd" id="5_camera"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GuardSpawnAuthor.gd" id="6_spawn"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GuardPatrolRouteAuthor.gd" id="7_route"]
+
+[node name="MilestoneASecuritySmoke" type="Node2D"]
+script = ExtResource("1_iso")
+mission_definition = ExtResource("2_def")
+auto_generate_from_definition = false
+
+[node name="GameplayRoot" type="Node2D" parent="."]
+
+[node name="RuntimeSystems" type="Node2D" parent="GameplayRoot"]
+
+[node name="AlarmZones" type="Node2D" parent="GameplayRoot/RuntimeSystems"]
+
+[node name="SecurityAuthoringRoot" type="Node2D" parent="GameplayRoot"]
+script = ExtResource("3_root")
+runtime_enabled = true
+
+[node name="SmokeBeamAuthor" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(96, 0)
+script = ExtResource("4_beam")
+beam_id = &"AMBUSH_security_beam"
+alarm_id = &"AMBUSH_security_beam"
+
+[node name="SmokeCameraAuthor" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(-96, 0)
+script = ExtResource("5_camera")
+camera_id = &"milestone_a_camera"
+on_alarm_event = &"camera_alarm"
+
+[node name="SmokeGuardSpawnAuthor" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(0, 96)
+script = ExtResource("6_spawn")
+spawn_id = &"milestone_a_guard_spawn"
+trigger_events = Array[StringName]([&"ambush_beam_tripped", &"camera_alarm"])
+patrol_route_id = &"milestone_a_patrol"
+
+[node name="SmokeGuardPatrolRouteAuthor" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot"]
+position = Vector2(0, 128)
+script = ExtResource("7_route")
+route_id = &"milestone_a_patrol"
+
+[node name="PatrolA" type="Marker2D" parent="GameplayRoot/SecurityAuthoringRoot/SmokeGuardPatrolRouteAuthor"]
+position = Vector2(-64, 0)
+
+[node name="PatrolB" type="Marker2D" parent="GameplayRoot/SecurityAuthoringRoot/SmokeGuardPatrolRouteAuthor"]
+position = Vector2(64, 0)
+
+[node name="EntityRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Enemies" type="Node2D" parent="EntityRoot"]
+
+[node name="Interactables" type="Node2D" parent="EntityRoot"]
+
+[node name="Camera2D" type="Camera2D" parent="."]

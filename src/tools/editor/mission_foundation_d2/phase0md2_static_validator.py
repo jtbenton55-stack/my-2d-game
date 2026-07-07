@@ -54,8 +54,15 @@ def main() -> int:
 
     ok(
         "taco_resolves_redesign",
-        "mission_id == TACO_BELL_MISSION_ID" in rtxt and "return PLAYABLE_EXPANDED_TACO_ISO" in rtxt,
-        "resolve_playable_scene_path early return",
+        "_get_catalog_playable_iso_scene" in rtxt and "return playable_iso_scene" in rtxt,
+        "resolve_playable_scene_path uses catalog playable_iso_scene",
+    )
+
+    gst = _read(ROOT / "src/autoload/GameState.gd")
+    ok(
+        "taco_catalog_playable_iso_scene",
+        '"taco_bell_drop"' in gst and f'"playable_iso_scene": "{EXPANDED}"' in gst,
+        "GameState mission_catalog taco playable_iso_scene",
     )
 
     mb = _read(ROOT / "src/hideout/HideoutMissionBoardController.gd")

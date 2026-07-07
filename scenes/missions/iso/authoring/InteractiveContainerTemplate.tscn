@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd" id="1_container"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_container"]
+size = Vector2(96, 96)
+
+[node name="InteractiveContainerTemplate" type="Area2D"]
+script = ExtResource("1_container")
+mechanic_id = &"CHANGE_ME_CONTAINER_ID"
+display_name = "Interactive Container"
+shape_size = Vector2(96, 96)
+prompt_text = "Press E: Open"
+opened_flag = &"CHANGE_ME_CONTAINER_OPENED"
+searched_flag = &"CHANGE_ME_CONTAINER_SEARCHED"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_container")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -90.0
+offset_top = -60.0
+offset_right = 90.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Container"
+horizontal_alignment = 1

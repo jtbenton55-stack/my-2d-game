@@ -1,7 +1,5 @@
 {
   "pass": true,
   "errors": [],
-  "warnings": [
-    "protected file may have been touched recently: project.godot"
-  ]
+  "warnings": []
 }

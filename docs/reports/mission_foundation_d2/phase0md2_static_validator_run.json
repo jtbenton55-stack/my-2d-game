@@ -43,7 +43,11 @@
     },
     "taco_resolves_redesign": {
       "pass": true,
-      "detail": "resolve_playable_scene_path early return"
+      "detail": "resolve_playable_scene_path uses catalog playable_iso_scene"
+    },
+    "taco_catalog_playable_iso_scene": {
+      "pass": true,
+      "detail": "GameState mission_catalog taco playable_iso_scene"
     },
     "mission_board_no_tacoscene_const": {
       "pass": true,

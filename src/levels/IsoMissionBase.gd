@@ -318,11 +318,13 @@ func _is_d5_attempt_security_guard_node(node: Node) -> bool:
 
 
 func _ensure_d5_attempt_security_beam_runtime() -> Dictionary:
-	if mission_definition != null and String(mission_definition.mission_id) == "taco_bell_drop":
+	var is_taco_mission := mission_definition != null and String(mission_definition.mission_id) == "taco_bell_drop"
+	if is_taco_mission:
 		var tree := get_tree()
 		if tree != null and tree.physics_frame.is_connected(_setup_fix7_ambush_beam_runtime):
 			tree.physics_frame.disconnect(_setup_fix7_ambush_beam_runtime)
 		_remove_fix7_stale_temp_beam_nodes()
+	if is_taco_mission or _has_enabled_ambush_security_beam_author():
 		_setup_fix7_ambush_beam_runtime()
 	var armed_nodes: Array[String] = []
 	var alarm_zones := get_node_or_null("GameplayRoot/RuntimeSystems/AlarmZones") as Node
@@ -2756,7 +2758,7 @@ func _try_bypass_louis_route_beam(alarm_id: String, area: Area2D, body: Node) ->
 
 
 func _setup_d6_03_authoring_security_runtime() -> void:
-	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+	if mission_definition == null:
 		return
 	var sec_root := _find_security_authoring_root()
 	if sec_root == null or not bool(sec_root.get("runtime_enabled")):
@@ -2780,7 +2782,7 @@ func _setup_d6_03_authoring_security_runtime() -> void:
 
 
 func _setup_d6_06_collectible_authoring_runtime() -> void:
-	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+	if mission_definition == null:
 		_attempt_runtime_state["d6_06_authoring_root_found"] = false
 		return
 	var sec_root := _find_security_authoring_root()
@@ -4258,6 +4260,13 @@ func _find_security_authoring_root() -> Node2D:
 	return null
 
 
+func _has_enabled_ambush_security_beam_author() -> bool:
+	var sec_root := _find_security_authoring_root()
+	if sec_root == null or not bool(sec_root.get("runtime_enabled")):
+		return false
+	return sec_root.call("find_enabled_beam_author", &"AMBUSH_security_beam") is Node2D
+
+
 func _collect_security_authoring_counts(root: Node2D) -> Dictionary:
 	if root == null:
 		return {"beams": 0, "cameras": 0, "guards": 0, "patrols": 0}
@@ -4374,14 +4383,17 @@ func _setup_ambush_beam_from_security_beam_author(author: Node2D, root: Node2D) 
 
 ## D6-01-FIX7: canonical AMBUSH beam rebuild. D6-02: prefers hand-placed SecurityBeamAuthor when enabled.
 func _setup_fix7_ambush_beam_runtime() -> void:
-	if mission_definition == null or String(mission_definition.mission_id) != "taco_bell_drop":
+	if mission_definition == null:
 		return
+	var is_taco_mission := String(mission_definition.mission_id) == "taco_bell_drop"
 	var sec_root := _find_security_authoring_root()
 	var beam_author: Node2D = null
 	if sec_root != null and bool(sec_root.get("runtime_enabled")):
 		beam_author = sec_root.call("find_enabled_beam_author", &"AMBUSH_security_beam") as Node2D
 	if beam_author != null:
 		_setup_ambush_beam_from_security_beam_author(beam_author, sec_root)
+		return
+	if not is_taco_mission:
 		return
 	_store_d6_02_authoring_summary(
 		sec_root, "fix7f_fallback", "", false, Vector2.ZERO, 0.0, 0.0, Vector2.ZERO, 0.0, "fix7f_fallback", "fix7f_fallback",

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TriggerZone.gd" id="1_trigger"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(96, 96)
+
+[node name="TriggerZoneTemplate" type="Area2D"]
+script = ExtResource("1_trigger")
+mechanic_id = &"CHANGE_ME_TRIGGER_ID"
+display_name = "Trigger Zone"
+shape_size = Vector2(96, 96)
+prompt_text = "Press E: Trigger"
+trigger_on_enter = false
+trigger_on_exit = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -70.0
+offset_top = -60.0
+offset_right = 70.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Trigger"
+horizontal_alignment = 1

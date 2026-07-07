@@ -46,7 +46,12 @@ def main() -> int:
 
     if builder.is_file():
         bt = builder.read_text(encoding="utf-8")
-        for needle in ("collect_collectible_authors", "AuthoredCollectibles", "AuthoredCollectiblePickup"):
+        for needle in (
+            "collect_collectible_authors",
+            "AuthoredGeneratedInteractables",
+            "AuthoredPhase0JInteractablePickup",
+            "phase0j_interactable",
+        ):
             if needle not in bt:
                 errors.append(f"builder missing {needle}")
     else:
@@ -80,7 +85,7 @@ def main() -> int:
 
     if panel.is_file():
         pt = panel.read_text(encoding="utf-8")
-        if "--- Collectible Authoring ---" not in pt:
+        if "Collectible Authoring" not in pt:
             errors.append("F10 missing Collectible Authoring section")
     else:
         errors.append("missing IsoMissionDebugPanel.gd")

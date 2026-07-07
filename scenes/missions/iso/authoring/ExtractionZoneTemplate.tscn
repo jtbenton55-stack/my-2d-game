@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ExtractionZone.gd" id="1_extract"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_extract"]
+size = Vector2(128, 96)
+
+[node name="ExtractionZoneTemplate" type="Area2D"]
+script = ExtResource("1_extract")
+mechanic_id = &"CHANGE_ME_EXTRACTION_ID"
+display_name = "Extraction Zone"
+shape_size = Vector2(128, 96)
+prompt_text = "Press E: Extract"
+extraction_tag = &"CHANGE_ME_EXTRACTION_ID"
+complete_mission_on_success = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_extract")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -64.0
+offset_right = 80.0
+offset_bottom = -44.0
+theme_override_font_sizes/font_size = 11
+text = "Extraction"
+horizontal_alignment = 1

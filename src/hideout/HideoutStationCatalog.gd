@@ -1,9 +1,6 @@
 extends RefCounted
 class_name HideoutStationCatalog
 
-const TACO_BELL_SCENE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
-const CORNER_STORE_SCENE := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
-
 const CLASS_FUNCTIONAL := "FUNCTIONAL"
 const CLASS_PANEL_ONLY := "PANEL_ONLY"
 const CLASS_DEBUG_STATE_VISUAL := "DEBUG_STATE_VISUAL"

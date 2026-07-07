@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TeleportZone.gd" id="1_teleport"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teleport"]
+size = Vector2(96, 96)
+
+[node name="TeleportZoneTemplate" type="Area2D"]
+script = ExtResource("1_teleport")
+mechanic_id = &"CHANGE_ME_TELEPORT_ID"
+display_name = "Teleport Zone"
+shape_size = Vector2(96, 96)
+prompt_text = "Press E: Teleport"
+trigger_on_enter = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_teleport")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 11
+text = "Teleport"
+horizontal_alignment = 1

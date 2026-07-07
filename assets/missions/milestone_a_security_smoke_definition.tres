@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MissionDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/missions/definitions/MissionDefinition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+mission_id = "milestone_a_security_smoke"
+display_name = "Milestone A Security Smoke"
+description = "Non-Taco security authoring runtime smoke scene."
+authoring_mode = "scene_authored"
+layout_source_id = "scene_authored"
+marker_source_id = "scene_markers"
+implementation_status = "dev_smoke"

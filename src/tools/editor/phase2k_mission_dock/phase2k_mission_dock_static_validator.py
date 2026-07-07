@@ -110,8 +110,56 @@ def main() -> int:
         "ExtractionZone.gd",
         "SideObjectiveNode.gd",
         "TriggerZone.gd",
+        "SchemeCardTriggerNode.gd",
+        "HideSpotNode.gd",
+        "PresentationSequencePlayer.gd",
+        "PlayerStartMarker.gd",
+        "TeleportZone.gd",
+        "TeleportTargetMarker.gd",
+        "MusicTriggerZone.gd",
+        "SecurityBeamAuthor.gd",
+        "SecurityCameraAuthor.gd",
+        "GuardSpawnAuthor.gd",
+        "GuardPatrolRouteAuthor.gd",
+        "AreaTriggerAuthor.gd",
+        "SecurityEffectSetAuthor.gd",
+        "PoopBagAuthor.gd",
+        "CaseCashAuthor.gd",
+        "ClueAuthor.gd",
+        "GlowGuyAuthor.gd",
     ]:
         require(mechanic in dock_text, f"dock missing mechanic script reference: {mechanic}", failures)
+
+    for token in [
+        "SECURITY_AUTHORING_ROOT_PATH",
+        "Ensure SecurityAuthoringRoot Parent",
+        "Mission registration",
+        "playable_iso_scene",
+        "Sticky placement remains armed",
+        "_suggest_next_id",
+        "_apply_authoring_preset",
+        "search_done",
+        "reward_done",
+        "route_open",
+        "PLAYER_START_PARENT_PATH",
+        "_identity_property_for_node",
+    ]:
+        require(token in dock_text, f"dock missing Milestone A support token: {token}", failures)
+
+    template_paths = [
+        "scenes/missions/iso/authoring/SearchZoneTemplate.tscn",
+        "scenes/missions/iso/authoring/RewardNodeTemplate.tscn",
+        "scenes/missions/iso/authoring/ExtractionZoneTemplate.tscn",
+        "scenes/missions/iso/authoring/TriggerZoneTemplate.tscn",
+        "scenes/missions/iso/authoring/SideObjectiveNodeTemplate.tscn",
+        "scenes/missions/iso/authoring/InteractiveContainerTemplate.tscn",
+        "scenes/missions/iso/authoring/PlayerStartMarkerTemplate.tscn",
+        "scenes/missions/iso/authoring/TeleportZoneTemplate.tscn",
+        "scenes/missions/iso/authoring/TeleportTargetMarkerTemplate.tscn",
+        "scenes/missions/iso/authoring/MusicTriggerZoneTemplate.tscn",
+    ]
+    for path in template_paths:
+        require(rel(path).exists(), f"Missing Milestone A template: {path}", failures)
 
     for phrase in ["Combined Mission Dock", "Mission Authoring Palette", "Mission Assist Browser", "Completion criteria"]:
         require(phrase in plan_text, f"plan missing phrase: {phrase}", failures)

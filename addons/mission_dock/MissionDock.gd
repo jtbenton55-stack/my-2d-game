@@ -31,8 +31,25 @@ const MECHANIC_TYPES: Array[String] = [
 	"ChallengeObjectiveNode",
 	"EncounterRouteActionNode",
 	"DisruptionActionNode",
+	"SchemeCardTriggerNode",
+	"HideSpotNode",
 	"InvestigationPointNode",
 	"RoutineOverrideNode",
+	"PresentationSequencePlayer",
+	"PlayerStartMarker",
+	"TeleportZone",
+	"TeleportTargetMarker",
+	"MusicTriggerZone",
+	"SecurityBeamAuthor",
+	"SecurityCameraAuthor",
+	"GuardSpawnAuthor",
+	"GuardPatrolRouteAuthor",
+	"AreaTriggerAuthor",
+	"SecurityEffectSetAuthor",
+	"PoopBagAuthor",
+	"CaseCashAuthor",
+	"ClueAuthor",
+	"GlowGuyAuthor",
 	"DialogueTriggerZone",
 	"BarkTrigger",
 	"RouteUnlockNode",
@@ -72,8 +89,25 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"ChallengeObjectiveNode": "res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd",
 	"EncounterRouteActionNode": "res://src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd",
 	"DisruptionActionNode": "res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd",
+	"SchemeCardTriggerNode": "res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd",
+	"HideSpotNode": "res://src/missions/iso/authoring/mechanics/HideSpotNode.gd",
 	"InvestigationPointNode": "res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd",
 	"RoutineOverrideNode": "res://src/missions/iso/authoring/mechanics/RoutineOverrideNode.gd",
+	"PresentationSequencePlayer": "res://src/missions/iso/presentation/PresentationSequencePlayer.gd",
+	"PlayerStartMarker": "res://src/missions/iso/authoring/mechanics/PlayerStartMarker.gd",
+	"TeleportZone": "res://src/missions/iso/authoring/mechanics/TeleportZone.gd",
+	"TeleportTargetMarker": "res://src/missions/iso/authoring/mechanics/TeleportTargetMarker.gd",
+	"MusicTriggerZone": "res://src/missions/iso/authoring/mechanics/MusicTriggerZone.gd",
+	"SecurityBeamAuthor": "res://src/missions/iso/authoring/SecurityBeamAuthor.gd",
+	"SecurityCameraAuthor": "res://src/missions/iso/authoring/SecurityCameraAuthor.gd",
+	"GuardSpawnAuthor": "res://src/missions/iso/authoring/GuardSpawnAuthor.gd",
+	"GuardPatrolRouteAuthor": "res://src/missions/iso/authoring/GuardPatrolRouteAuthor.gd",
+	"AreaTriggerAuthor": "res://src/missions/iso/authoring/AreaTriggerAuthor.gd",
+	"SecurityEffectSetAuthor": "res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd",
+	"PoopBagAuthor": "res://src/missions/iso/authoring/PoopBagAuthor.gd",
+	"CaseCashAuthor": "res://src/missions/iso/authoring/CaseCashAuthor.gd",
+	"ClueAuthor": "res://src/missions/iso/authoring/ClueAuthor.gd",
+	"GlowGuyAuthor": "res://src/missions/iso/authoring/GlowGuyAuthor.gd",
 	"DialogueTriggerZone": "res://src/missions/iso/presentation/DialogueTriggerZone.gd",
 	"BarkTrigger": "res://src/missions/iso/presentation/BarkTrigger.gd",
 	"RouteUnlockNode": "res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd",
@@ -100,6 +134,43 @@ const FORBIDDEN_PARENT_FRAGMENTS: Array[String] = [
 	"Phase0J",
 	"Phase0K",
 ]
+
+const SECURITY_AUTHORING_ROOT_PATH := "GameplayRoot/SecurityAuthoringRoot"
+const PLAYER_START_PARENT_PATH := "GameplayRoot/MarkerRoot/Spawns"
+const SECURITY_AUTHOR_TYPES: Array[String] = ["SecurityBeamAuthor", "SecurityCameraAuthor", "GuardSpawnAuthor", "GuardPatrolRouteAuthor", "AreaTriggerAuthor", "SecurityEffectSetAuthor"]
+const COLLECTIBLE_AUTHOR_TYPES: Array[String] = ["PoopBagAuthor", "CaseCashAuthor", "ClueAuthor", "GlowGuyAuthor"]
+const MARKER_TYPES: Array[String] = ["PlayerStartMarker", "TeleportTargetMarker"]
+const NODE2D_MECHANIC_TYPES: Array[String] = [
+	"PresentationSequencePlayer",
+	"SecurityBeamAuthor",
+	"SecurityCameraAuthor",
+	"GuardSpawnAuthor",
+	"GuardPatrolRouteAuthor",
+	"AreaTriggerAuthor",
+	"SecurityEffectSetAuthor",
+	"PoopBagAuthor",
+	"CaseCashAuthor",
+	"ClueAuthor",
+	"GlowGuyAuthor",
+]
+const MARKER_MECHANIC_TYPES: Array[String] = [
+	"PlayerStartMarker",
+	"TeleportTargetMarker",
+]
+const ID_PROPERTY_BY_TYPE: Dictionary = {
+	"SecurityBeamAuthor": "beam_id",
+	"SecurityCameraAuthor": "camera_id",
+	"GuardSpawnAuthor": "spawn_id",
+	"GuardPatrolRouteAuthor": "route_id",
+	"AreaTriggerAuthor": "trigger_id",
+	"SecurityEffectSetAuthor": "effect_id",
+	"PoopBagAuthor": "collectible_id",
+	"CaseCashAuthor": "collectible_id",
+	"ClueAuthor": "collectible_id",
+	"GlowGuyAuthor": "collectible_id",
+	"PlayerStartMarker": "marker_id",
+	"TeleportTargetMarker": "target_id",
+}
 
 const EFFECT_TYPES_REQUIRING_KEY: Array[int] = [
 	MissionEffect.EffectType.SET_MISSION_FLAG,
@@ -310,6 +381,7 @@ func _build_authoring_palette_tab() -> void:
 	content.add_child(parent_buttons)
 	_button(parent_buttons, "Use Selected Node As Parent", _use_selected_node_as_parent)
 	_button(parent_buttons, "Ensure MissionMechanics Parent", _ensure_mission_mechanics_parent)
+	_button(parent_buttons, "Ensure SecurityAuthoringRoot Parent", _ensure_security_authoring_root_parent)
 	content.add_child(_heading("Interaction"))
 	var interact_grid := GridContainer.new()
 	interact_grid.columns = 2
@@ -397,6 +469,7 @@ func _build_authoring_palette_tab() -> void:
 	_placement_summary.custom_minimum_size = Vector2(380, 160)
 	_placement_summary.text = "No placement yet."
 	content.add_child(_placement_summary)
+	_on_mechanic_type_changed(0)
 
 
 func _build_assist_browser_tab() -> void:
@@ -482,11 +555,43 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 
 func _on_mechanic_type_changed(_idx: int) -> void:
 	var mechanic_type := _selected_mechanic_type()
+	_apply_authoring_preset(mechanic_type)
+	_update_template_details()
+
+
+func _apply_authoring_preset(mechanic_type: String) -> void:
+	_mechanic_id_base.text = _suggest_next_id(mechanic_type)
+	_display_name.text = _default_display_name_for_type(mechanic_type)
+	_parent_path.text = _default_parent_path_for_type(mechanic_type)
+	_objective_id.text = ""
+	_select_option_text(_interaction_mode, "INTERACT_REQUIRED")
+	_one_shot.button_pressed = true
+	_prompt_text.text = "Press E: Interact"
+	_req_enabled.button_pressed = false
+	_select_option_text(_req_fact_type, "mission_flag")
+	_select_option_text(_req_operator, "EXISTS")
+	_req_key.text = ""
+	_req_expected_bool.button_pressed = true
+	_effect_enabled.button_pressed = false
+	_effect_type.select(MissionEffect.EffectType.SET_MISSION_FLAG)
+	_effect_key.text = ""
+	_effect_value_bool.button_pressed = true
 	match mechanic_type:
+		"PlayerStartMarker":
+			_select_option_text(_interaction_mode, "SCRIPT_ONLY")
+			_prompt_text.text = ""
+			_one_shot.button_pressed = false
+		"TeleportTargetMarker":
+			_select_option_text(_interaction_mode, "SCRIPT_ONLY")
+			_prompt_text.text = ""
+			_one_shot.button_pressed = false
 		"SearchZone":
 			_prompt_text.text = "Press E: Search"
+			_enable_starter_success_effect("search_done")
 		"RewardNode":
 			_prompt_text.text = "Press E: Collect"
+			_enable_starter_requirement("search_done")
+			_enable_starter_success_effect("reward_done")
 		"InventoryPickupNode":
 			_prompt_text.text = "Press E: Pick up item"
 		"CompanionCommandPoint":
@@ -527,21 +632,137 @@ func _on_mechanic_type_changed(_idx: int) -> void:
 			_prompt_text.text = "Press E: Investigate"
 		"RoutineOverrideNode":
 			_prompt_text.text = "Press E: Override routine"
+		"SchemeCardTriggerNode":
+			_prompt_text.text = "Press E: Apply scheme"
+			_enable_starter_success_effect("scheme_done")
+		"HideSpotNode":
+			_prompt_text.text = "Hide"
+			_one_shot.button_pressed = false
+		"TeleportZone":
+			_prompt_text.text = "Press E: Teleport"
+			_enable_starter_requirement("route_open")
+			_enable_starter_success_effect("teleport_used")
+		"MusicTriggerZone":
+			_prompt_text.text = "Change music"
+			_select_option_text(_interaction_mode, "AUTOMATIC_ON_ENTER")
+			_one_shot.button_pressed = false
 		"DialogueTriggerZone":
 			_prompt_text.text = "Press E: Talk"
 		"BarkTrigger":
 			_prompt_text.text = "Press E: Bark"
 		"RouteUnlockNode":
 			_prompt_text.text = "Press E: Open Route"
+			_enable_starter_requirement("reward_done")
+			_enable_starter_success_effect("route_open")
 		"InteractiveContainer":
 			_prompt_text.text = "Press E: Open"
 		"ExtractionZone":
 			_prompt_text.text = "Press E: Extract"
+			_enable_starter_requirement("route_open")
 		"SideObjectiveNode":
 			_prompt_text.text = "Press E: Objective"
 		"TriggerZone":
 			_prompt_text.text = "Press E: Trigger"
-	_update_template_details()
+
+
+func _enable_starter_requirement(flag_key: String) -> void:
+	_req_enabled.button_pressed = true
+	_select_option_text(_req_fact_type, "mission_flag")
+	_select_option_text(_req_operator, "EXISTS")
+	_req_key.text = flag_key
+	_req_expected_bool.button_pressed = true
+
+
+func _enable_starter_success_effect(flag_key: String) -> void:
+	_effect_enabled.button_pressed = true
+	_effect_type.select(MissionEffect.EffectType.SET_MISSION_FLAG)
+	_effect_key.text = flag_key
+	_effect_value_bool.button_pressed = true
+
+
+func _select_option_text(option: OptionButton, text: String) -> void:
+	if option == null:
+		return
+	for i in range(option.item_count):
+		if option.get_item_text(i) == text:
+			option.select(i)
+			return
+
+
+func _default_display_name_for_type(mechanic_type: String) -> String:
+	match mechanic_type:
+		"PlayerStartMarker":
+			return "Player Start"
+		"TeleportTargetMarker":
+			return "Teleport Target"
+		"TeleportZone":
+			return "Teleport Zone"
+		"MusicTriggerZone":
+			return "Music Trigger"
+		"SearchZone":
+			return "Search Zone"
+		"RewardNode":
+			return "Reward"
+		"RouteUnlockNode":
+			return "Route Unlock"
+		"ExtractionZone":
+			return "Extraction"
+		"SchemeCardTriggerNode":
+			return "Scheme Card Trigger"
+		"HideSpotNode":
+			return "Hide Spot"
+		"SecurityBeamAuthor":
+			return "Security Beam"
+		"SecurityCameraAuthor":
+			return "Security Camera"
+		"GuardSpawnAuthor":
+			return "Guard Spawn"
+		"GuardPatrolRouteAuthor":
+			return "Guard Patrol Route"
+		"PoopBagAuthor":
+			return "Poop Bag"
+		"CaseCashAuthor":
+			return "Case Cash"
+		"ClueAuthor":
+			return "Evidence Clue"
+		"GlowGuyAuthor":
+			return "Glow Guy"
+	return _type_to_title(mechanic_type)
+
+
+func _type_to_title(value: String) -> String:
+	return _type_to_snake(value).replace("_", " ").capitalize()
+
+
+func _default_parent_path_for_type(mechanic_type: String) -> String:
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		return ""
+	if _uses_security_authoring_root(mechanic_type):
+		return SECURITY_AUTHORING_ROOT_PATH if scene_root.get_node_or_null(SECURITY_AUTHORING_ROOT_PATH) != null else ""
+	if mechanic_type == "PlayerStartMarker":
+		return PLAYER_START_PARENT_PATH if scene_root.get_node_or_null(PLAYER_START_PARENT_PATH) != null else ""
+	var mechanics := scene_root.get_node_or_null("MissionMechanics")
+	return "MissionMechanics" if mechanics != null else ""
+
+
+func _suggest_patrol_route_id() -> String:
+	var scene_root := _edited_scene_root()
+	if scene_root != null:
+		var route_ids: Array[String] = []
+		_collect_existing_ids_for_property(scene_root, "route_id", route_ids)
+		if not route_ids.is_empty():
+			return route_ids[0]
+	return _suggest_next_id("GuardPatrolRouteAuthor")
+
+
+func _collect_existing_ids_for_property(node: Node, property: String, out: Array[String]) -> void:
+	if property in node:
+		var id_text := String(node.get(property)).strip_edges()
+		if id_text != "":
+			out.append(id_text)
+	for child in node.get_children():
+		_collect_existing_ids_for_property(child, property, out)
 
 
 func _selected_mechanic_type() -> String:
@@ -550,21 +771,79 @@ func _selected_mechanic_type() -> String:
 
 func _normalized_mechanic_id_base() -> String:
 	var base := _mechanic_id_base.text.strip_edges()
-	if base == "":
-		base = "dev_mechanic"
+	if _is_placeholder_id(base):
+		base = _suggest_next_id(_selected_mechanic_type())
 	return base
+
+
+func _is_placeholder_id(value: String) -> bool:
+	var stripped := value.strip_edges()
+	return stripped == "" or stripped == "dev_mechanic" or stripped == "mechanic" or stripped.begins_with("CHANGE_ME")
+
+
+func _refresh_suggested_id_if_placeholder() -> void:
+	if _mechanic_id_base == null:
+		return
+	if _is_placeholder_id(_mechanic_id_base.text):
+		_mechanic_id_base.text = _suggest_next_id(_selected_mechanic_type())
+
+
+func _suggest_next_id(mechanic_type: String) -> String:
+	var scene_root := _edited_scene_root()
+	var mission_id := _detect_scene_mission_id(scene_root)
+	if mission_id == "":
+		mission_id = "mission"
+	var prefix := "%s.%s." % [mission_id, _type_to_snake(mechanic_type)]
+	var existing: Array[String] = []
+	if scene_root != null:
+		_collect_existing_author_ids(scene_root, existing)
+	var n := 1
+	while n < 1000:
+		var candidate := "%s%02d" % [prefix, n]
+		if not existing.has(candidate):
+			return candidate
+		n += 1
+	return "%s999" % prefix
+
+
+func _type_to_snake(value: String) -> String:
+	var out := ""
+	for i in value.length():
+		var ch := value.substr(i, 1)
+		if i > 0 and ch == ch.to_upper() and ch != ch.to_lower():
+			out += "_"
+		out += ch.to_lower()
+	return out
+
+
+func _collect_existing_author_ids(node: Node, out: Array[String]) -> void:
+	for property in ["mechanic_id", "beam_id", "camera_id", "spawn_id", "route_id", "trigger_id", "effect_id", "collectible_id", "clue_id", "glow_guy_id", "marker_id", "target_id"]:
+		if property in node:
+			var id_text := String(node.get(property)).strip_edges()
+			if id_text != "":
+				out.append(id_text)
+	for child in node.get_children():
+		_collect_existing_author_ids(child, out)
 
 
 func _update_template_details() -> void:
 	var mechanic_type := _selected_mechanic_type()
 	var base_id := _normalized_mechanic_id_base()
 	var script_path := String(MECHANIC_SCRIPTS.get(mechanic_type, ""))
-	_template_details.text = "[b]%s[/b]\nScript: %s\nPlanned mechanic_id: %s\nStarter requirement: %s\nStarter success effect: %s" % [
+	var req_text := "no"
+	if _req_enabled.button_pressed:
+		req_text = "%s %s %s" % [_req_fact_type.get_item_text(_req_fact_type.selected), _req_key.text.strip_edges(), _req_operator.get_item_text(_req_operator.selected)]
+	var effect_text := "no"
+	if _effect_enabled.button_pressed:
+		effect_text = "%s %s -> %s" % [_effect_type.get_item_text(_effect_type.selected), _effect_key.text.strip_edges(), str(_effect_value_bool.button_pressed)]
+	_template_details.text = "[b]%s[/b]\nScript: %s\nPlanned mechanic_id: %s\nParent: %s\nPrompt: %s\nStarter requirement: %s\nStarter success effect: %s" % [
 		mechanic_type,
 		script_path,
 		base_id,
-		"yes" if _req_enabled.button_pressed else "no",
-		"yes" if _effect_enabled.button_pressed else "no",
+		_parent_path.text.strip_edges() if _parent_path.text.strip_edges() != "" else "auto",
+		_prompt_text.text,
+		req_text,
+		effect_text,
 	]
 
 
@@ -583,6 +862,7 @@ func _resolve_parent() -> Dictionary:
 	var scene_root := _edited_scene_root()
 	if scene_root == null:
 		return {"ok": false, "message": "Error: no open edited scene."}
+	var mechanic_type := _selected_mechanic_type()
 	var path_text := _parent_path.text.strip_edges()
 	var parent: Node2D = null
 	if path_text != "":
@@ -592,21 +872,42 @@ func _resolve_parent() -> Dictionary:
 		if parent == null:
 			return {"ok": false, "message": "Error: parent target not found: %s" % path_text}
 	var needs_mission_mechanics := false
+	var needs_security_authoring_root := false
+	var needs_player_start_parent := false
 	if parent == null:
-		parent = scene_root.get_node_or_null("MissionMechanics") as Node2D
+		if _uses_security_authoring_root(mechanic_type):
+			parent = scene_root.get_node_or_null(SECURITY_AUTHORING_ROOT_PATH) as Node2D
+			if parent == null:
+				needs_security_authoring_root = true
+		elif mechanic_type == "PlayerStartMarker":
+			parent = scene_root.get_node_or_null(PLAYER_START_PARENT_PATH) as Node2D
+			if parent == null:
+				needs_player_start_parent = true
+		else:
+			parent = scene_root.get_node_or_null("MissionMechanics") as Node2D
 		if parent == null:
-			needs_mission_mechanics = true
+			needs_mission_mechanics = not needs_security_authoring_root and not needs_player_start_parent
 	if parent != null and _path_is_unsafe(str(parent.get_path())):
 		return {"ok": false, "message": "Refused: parent is under protected/generated runtime content."}
 	var reported_path := str(parent.get_path()) if parent != null else "MissionMechanics"
 	if needs_mission_mechanics:
 		reported_path = "MissionMechanics (will be created)"
+	elif needs_security_authoring_root:
+		reported_path = "%s (will be created)" % SECURITY_AUTHORING_ROOT_PATH
+	elif needs_player_start_parent:
+		reported_path = "%s (will be created)" % PLAYER_START_PARENT_PATH
 	return {
 		"ok": true,
 		"parent": parent,
 		"path": reported_path,
 		"needs_mission_mechanics": needs_mission_mechanics,
+		"needs_security_authoring_root": needs_security_authoring_root,
+		"needs_player_start_parent": needs_player_start_parent,
 	}
+
+
+func _uses_security_authoring_root(mechanic_type: String) -> bool:
+	return mechanic_type in SECURITY_AUTHOR_TYPES or mechanic_type in COLLECTIBLE_AUTHOR_TYPES
 
 
 func _use_selected_node_as_parent() -> void:
@@ -649,6 +950,39 @@ func _ensure_mission_mechanics_parent() -> void:
 	_status_label.text = "Created MissionMechanics parent: %s" % _parent_path.text
 
 
+func _ensure_security_authoring_root_parent() -> void:
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		_status_label.text = "Error: no open edited scene."
+		return
+	var existing := scene_root.get_node_or_null(SECURITY_AUTHORING_ROOT_PATH) as Node2D
+	if existing != null:
+		_parent_path.text = SECURITY_AUTHORING_ROOT_PATH
+		_status_label.text = "SecurityAuthoringRoot already exists: %s" % _parent_path.text
+		return
+	var gameplay_root := scene_root.get_node_or_null("GameplayRoot") as Node2D
+	if gameplay_root == null:
+		_status_label.text = "Error: scene has no GameplayRoot for SecurityAuthoringRoot."
+		return
+	if _plugin == null:
+		_status_label.text = "Error: editor plugin unavailable."
+		return
+	var root := Node2D.new()
+	root.name = "SecurityAuthoringRoot"
+	root.set_script(load("res://src/missions/iso/authoring/SecurityAuthoringRoot.gd"))
+	root.set("runtime_enabled", true)
+	root.set("show_previews", true)
+	root.set("debug_authoring", false)
+	var ur := _plugin.get_undo_redo()
+	ur.create_action("Ensure SecurityAuthoringRoot Parent")
+	ur.add_do_method(gameplay_root, "add_child", root)
+	ur.add_do_method(self, "_set_owner_recursive", root, scene_root)
+	ur.add_undo_method(gameplay_root, "remove_child", root)
+	ur.commit_action()
+	_parent_path.text = SECURITY_AUTHORING_ROOT_PATH
+	_status_label.text = "Created SecurityAuthoringRoot parent: %s" % _parent_path.text
+
+
 func _preview_placement() -> Dictionary:
 	var mechanic_type := _selected_mechanic_type()
 	var base_id := _normalized_mechanic_id_base()
@@ -666,6 +1000,10 @@ func _preview_placement() -> Dictionary:
 		refuse_reason = String(parent_result.get("message", "Parent unresolved."))
 	elif bool(parent_result.get("needs_mission_mechanics", false)):
 		warnings.append("MissionMechanics parent will be created as part of placement UndoRedo.")
+	if bool(parent_result.get("needs_security_authoring_root", false)):
+		warnings.append("SecurityAuthoringRoot parent will be created as part of placement UndoRedo.")
+	if bool(parent_result.get("needs_player_start_parent", false)):
+		warnings.append("MarkerRoot/Spawns parent will be created as part of placement UndoRedo.")
 	return {
 		"ok": not refused,
 		"refused": refused,
@@ -676,6 +1014,8 @@ func _preview_placement() -> Dictionary:
 		"parent": parent_result.get("parent"),
 		"parent_path": String(parent_result.get("path", "")),
 		"needs_mission_mechanics": bool(parent_result.get("needs_mission_mechanics", false)),
+		"needs_security_authoring_root": bool(parent_result.get("needs_security_authoring_root", false)),
+		"needs_player_start_parent": bool(parent_result.get("needs_player_start_parent", false)),
 		"position": Vector2(_pos_x.value, _pos_y.value),
 		"shape_size": Vector2(_shape_x.value, _shape_y.value),
 		"starter_requirement": _req_enabled.button_pressed,
@@ -685,7 +1025,7 @@ func _preview_placement() -> Dictionary:
 
 
 func _planned_node_name(mechanic_type: String, base_id: String) -> String:
-	return "%s_%s" % [mechanic_type, base_id]
+	return "%s_%s" % [mechanic_type, base_id.replace(".", "_")]
 
 
 func _dry_run_placement() -> void:
@@ -775,8 +1115,11 @@ func _handle_place_with_mouse_canvas_input(event: InputEvent) -> bool:
 			return true
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			_consume_next_left_release = true
-			_clear_mouse_placement_pending()
-			_commit_placement(_canvas_position_from_mouse_event(mouse_event), true)
+			var placed := _commit_placement(_canvas_position_from_mouse_event(mouse_event), true)
+			if placed:
+				_status_label.text += " Sticky placement remains armed; Esc/right-click to cancel."
+			else:
+				_clear_mouse_placement_pending()
 			call_deferred("_notify_input_forwarding_changed")
 			return true
 		return false
@@ -799,27 +1142,58 @@ func _editor_viewport_2d() -> SubViewport:
 	return viewport if viewport is SubViewport else null
 
 
-func _commit_placement(local_or_canvas_pos: Vector2, from_mouse := false) -> void:
+func _commit_placement(local_or_canvas_pos: Vector2, from_mouse := false) -> bool:
 	var preview := _preview_placement()
 	if bool(preview.get("refused", false)):
 		_status_label.text = String(preview.get("message", "Error: placement refused."))
-		return
+		return false
 	var scene_root := _edited_scene_root()
 	if scene_root == null:
 		_status_label.text = "Error: no open edited scene."
-		return
-	var created_parent := bool(preview.get("needs_mission_mechanics", false))
+		return false
+	var created_parent := bool(preview.get("needs_mission_mechanics", false)) or bool(preview.get("needs_security_authoring_root", false)) or bool(preview.get("needs_player_start_parent", false))
 	var parent: Node2D = null
-	var mission_mechanics_parent: Node2D = null
-	if created_parent:
-		mission_mechanics_parent = Node2D.new()
-		mission_mechanics_parent.name = "MissionMechanics"
-		parent = mission_mechanics_parent
+	var created_parent_node: Node2D = null
+	var created_parent_container: Node = scene_root
+	if bool(preview.get("needs_mission_mechanics", false)):
+		created_parent_node = Node2D.new()
+		created_parent_node.name = "MissionMechanics"
+		parent = created_parent_node
+	elif bool(preview.get("needs_security_authoring_root", false)):
+		created_parent_container = scene_root.get_node_or_null("GameplayRoot")
+		if created_parent_container == null:
+			_status_label.text = "Error: scene has no GameplayRoot for SecurityAuthoringRoot."
+			return false
+		created_parent_node = Node2D.new()
+		created_parent_node.name = "SecurityAuthoringRoot"
+		created_parent_node.set_script(load("res://src/missions/iso/authoring/SecurityAuthoringRoot.gd"))
+		created_parent_node.set("runtime_enabled", true)
+		created_parent_node.set("show_previews", true)
+		created_parent_node.set("debug_authoring", false)
+		parent = created_parent_node
+	elif bool(preview.get("needs_player_start_parent", false)):
+		var gameplay_root := scene_root.get_node_or_null("GameplayRoot") as Node2D
+		if gameplay_root == null:
+			_status_label.text = "Error: scene has no GameplayRoot for MarkerRoot/Spawns."
+			return false
+		var marker_root := scene_root.get_node_or_null("GameplayRoot/MarkerRoot") as Node2D
+		if marker_root == null:
+			created_parent_container = gameplay_root
+			created_parent_node = Node2D.new()
+			created_parent_node.name = "MarkerRoot"
+			parent = Node2D.new()
+			parent.name = "Spawns"
+			created_parent_node.add_child(parent)
+		else:
+			created_parent_container = marker_root
+			created_parent_node = Node2D.new()
+			created_parent_node.name = "Spawns"
+			parent = created_parent_node
 	else:
 		parent = preview.get("parent") as Node2D
 	if parent == null:
 		_status_label.text = "Error: placement parent unresolved."
-		return
+		return false
 	var mechanic_type := String(preview.get("mechanic_type", ""))
 	var base_id := String(preview.get("mechanic_id", ""))
 	var node := _build_mechanic_node(mechanic_type, base_id)
@@ -837,31 +1211,33 @@ func _commit_placement(local_or_canvas_pos: Vector2, from_mouse := false) -> voi
 	if _plugin == null:
 		_status_label.text = "Error: editor plugin unavailable."
 		node.free()
-		if created_parent:
-			mission_mechanics_parent.free()
-		return
+		if created_parent_node != null:
+			created_parent_node.free()
+		return false
 	var ur := _plugin.get_undo_redo()
 	ur.create_action("Place Mission Mechanic")
 	if created_parent:
-		ur.add_do_method(scene_root, "add_child", mission_mechanics_parent)
-		ur.add_do_method(self, "_set_owner_recursive", mission_mechanics_parent, scene_root)
+		ur.add_do_method(created_parent_container, "add_child", created_parent_node)
+		ur.add_do_method(self, "_set_owner_recursive", created_parent_node, scene_root)
 	ur.add_do_method(parent, "add_child", node)
 	ur.add_do_method(self, "_set_owner_recursive", node, scene_root)
 	ur.add_do_method(self, "_select_placed_node", node)
 	if created_parent:
-		ur.add_undo_method(self, "_undo_remove_placed_mechanic_with_parent", scene_root, mission_mechanics_parent, node)
+		ur.add_undo_method(self, "_undo_remove_placed_mechanic_with_created_parent", created_parent_container, created_parent_node, node)
 	else:
 		ur.add_undo_method(self, "_undo_remove_placed_mechanic", parent, node, parent)
 	ur.commit_action()
 	_status_label.text = "Placed %s '%s' at %s under %s" % [mechanic_type, base_id, str(node_position), str(parent.get_path())]
 	_update_placement_summary_from_node(mechanic_type, base_id, node.name, str(parent.get_path()), node_position, node)
+	_mechanic_id_base.text = _suggest_next_id(mechanic_type)
 	_update_template_details()
+	return true
 
 
 func _build_mechanic_node(mechanic_type: String, base_id: String) -> Node:
 	var script_path := String(MECHANIC_SCRIPTS.get(mechanic_type, ""))
 	var script := load(script_path) as Script
-	var node: Node = Node.new() if mechanic_type in ["ProfessionalismMeterNode", "EncounterController"] else Area2D.new()
+	var node: Node = _new_node_for_mechanic_type(mechanic_type)
 	node.set_script(script)
 	if node is Area2D:
 		var shape_node := CollisionShape2D.new()
@@ -890,6 +1266,16 @@ func _build_mechanic_node(mechanic_type: String, base_id: String) -> Node:
 	if _effect_enabled.button_pressed and "success_effects" in node:
 		node.set("success_effects", _build_starter_success_effect(base_id))
 	return node
+
+
+func _new_node_for_mechanic_type(mechanic_type: String) -> Node:
+	if mechanic_type in ["ProfessionalismMeterNode", "EncounterController"]:
+		return Node.new()
+	if mechanic_type in MARKER_MECHANIC_TYPES:
+		return Marker2D.new()
+	if mechanic_type in NODE2D_MECHANIC_TYPES:
+		return Node2D.new()
+	return Area2D.new()
 
 
 func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) -> void:
@@ -1042,6 +1428,55 @@ func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) ->
 			node.set("event_id", StringName("%s_disrupted" % base_id))
 			node.set("action_type", "route_control")
 			node.set("meter_deltas", {"security_integrity": -2, "suspicion": 1})
+		"SchemeCardTriggerNode":
+			node.set("mechanic_id", StringName(base_id))
+			node.set("require_matching_modifier", false)
+		"HideSpotNode":
+			node.set("mechanic_id", StringName(base_id))
+		"PresentationSequencePlayer":
+			node.set("intro_sequence_id", base_id)
+			node.set("outro_sequence_id", "%s_outro" % base_id)
+		"PlayerStartMarker":
+			node.set("marker_id", StringName("start_main" if String(base_id).ends_with(".01") else base_id))
+			node.set("marker_type", &"PLAYER_SPAWN")
+			node.set("group_id", &"spawns")
+		"TeleportZone":
+			node.set("mechanic_id", StringName(base_id))
+			node.set("trigger_on_enter", false)
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.INTERACT_REQUIRED)
+		"TeleportTargetMarker":
+			node.set("target_id", StringName(base_id))
+		"MusicTriggerZone":
+			node.set("mechanic_id", StringName(base_id))
+			node.set("music_key", StringName(base_id))
+			node.set("trigger_on_enter", true)
+			node.set("interaction_mode", MechanicAreaBase.InteractionMode.AUTOMATIC_ON_ENTER)
+			node.set("one_shot", false)
+		"SecurityBeamAuthor":
+			var beam_id := "AMBUSH_security_beam" if String(base_id).ends_with(".01") else base_id
+			node.set("beam_id", StringName(beam_id))
+			node.set("alarm_id", StringName(beam_id))
+			node.set("on_trip_event", &"ambush_beam_tripped")
+		"SecurityCameraAuthor":
+			node.set("camera_id", StringName(base_id))
+			node.set("on_alarm_event", &"camera_alarm")
+		"GuardSpawnAuthor":
+			node.set("spawn_id", StringName(base_id))
+			node.set("trigger_events", [&"ambush_beam_tripped", &"camera_alarm"])
+			node.set("patrol_route_id", StringName(_suggest_patrol_route_id()))
+		"GuardPatrolRouteAuthor":
+			node.set("route_id", StringName(base_id))
+		"AreaTriggerAuthor":
+			node.set("trigger_id", StringName(base_id))
+			node.set("on_enter_event", StringName("%s_entered" % base_id))
+		"SecurityEffectSetAuthor":
+			node.set("effect_id", StringName(base_id))
+		"PoopBagAuthor", "CaseCashAuthor", "ClueAuthor", "GlowGuyAuthor":
+			node.set("collectible_id", StringName(base_id))
+			if "clue_id" in node:
+				node.set("clue_id", StringName(base_id))
+			if "glow_guy_id" in node:
+				node.set("glow_guy_id", StringName(base_id))
 		"InvestigationPointNode":
 			node.set("investigation_point_id", StringName(base_id))
 			node.set("signal_type", &"suspicious_action_seen")
@@ -1079,7 +1514,7 @@ func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) ->
 		"ExtractionZone":
 			node.set("extraction_tag", StringName(base_id))
 			node.set("extraction_flag", StringName("%s_extracted" % base_id))
-			node.set("complete_mission_on_success", false)
+			node.set("complete_mission_on_success", true)
 		"SideObjectiveNode":
 			node.set("objective_id", StringName(_objective_id.text.strip_edges()))
 			node.set("objective_flag", StringName("%s_handled" % base_id))
@@ -1321,6 +1756,21 @@ func _undo_remove_placed_mechanic_with_parent(scene_root: Node, mission_mechanic
 	call_deferred("_notify_input_forwarding_changed")
 
 
+func _undo_remove_placed_mechanic_with_created_parent(parent_container: Node, created_parent: Node, node: Node) -> void:
+	_consume_next_left_release = false
+	_place_with_mouse_pending = false
+	if _editor_interface != null:
+		var selection := _editor_interface.get_selection()
+		if selection != null:
+			selection.clear()
+	if node != null and is_instance_valid(node) and node.get_parent() != null:
+		node.get_parent().remove_child(node)
+	if parent_container != null and created_parent != null and is_instance_valid(created_parent) and created_parent.get_parent() == parent_container:
+		parent_container.remove_child(created_parent)
+	_notify_input_forwarding_changed()
+	call_deferred("_notify_input_forwarding_changed")
+
+
 func _notify_input_forwarding_changed() -> void:
 	if _plugin != null and _plugin.has_method("notify_input_forwarding_changed"):
 		_plugin.call("notify_input_forwarding_changed")
@@ -1343,6 +1793,7 @@ func _refresh_scene_audit() -> void:
 	_audit_duplicate_flags(mechanics)
 	for mechanic in mechanics:
 		_audit_mechanic_node(mechanic, scene_root)
+	_audit_mission_registration(scene_root)
 	_audit_level_builder_readiness(scene_root, mechanics, readiness_nodes)
 	_status_label.text = "Audit refreshed: %d issue(s) across %d mechanic node(s), %d readiness node(s)." % [_audit_issues.size(), mechanics.size(), readiness_nodes.size()]
 	_apply_audit_filters()
@@ -1372,10 +1823,72 @@ func _node_script_path(node: Node) -> String:
 	return String(node.get_script().resource_path)
 
 
+func _detect_scene_mission_id(scene_root: Node) -> String:
+	if scene_root == null:
+		return ""
+	var definition: Variant = scene_root.get("mission_definition")
+	if definition != null:
+		var def_id := String(definition.get("mission_id")).strip_edges()
+		if def_id != "":
+			return def_id
+	if "mission_id" in scene_root:
+		return String(scene_root.get("mission_id")).strip_edges()
+	return ""
+
+
+func _mission_catalog_snapshot() -> Dictionary:
+	var tree := get_tree()
+	var root := tree.root if tree != null else null
+	var game_state := root.get_node_or_null("GameState") if root != null else null
+	if game_state != null and "mission_catalog" in game_state:
+		var live_catalog: Variant = game_state.get("mission_catalog")
+		if live_catalog is Dictionary:
+			return live_catalog
+	var script := load("res://src/autoload/GameState.gd") as Script
+	if script == null:
+		return {}
+	var instance: Object = script.new()
+	var catalog: Dictionary = {}
+	if instance != null and "mission_catalog" in instance:
+		var loaded_catalog: Variant = instance.get("mission_catalog")
+		if loaded_catalog is Dictionary:
+			catalog = loaded_catalog
+	if instance is Node:
+		(instance as Node).free()
+	return catalog
+
+
+func _audit_mission_registration(scene_root: Node) -> void:
+	var mission_id := _detect_scene_mission_id(scene_root)
+	if mission_id == "":
+		_audit_issues.append(_issue("Warning", "mission_registration", "Mission registration: no mission_id detected on scene root or mission_definition.", scene_root))
+		return
+	var mission_catalog := _mission_catalog_snapshot()
+	if mission_catalog.is_empty():
+		_audit_issues.append(_issue("Warning", "mission_registration", "Mission registration: mission catalog unavailable to Mission Dock.", scene_root))
+		return
+	if not mission_catalog.has(mission_id):
+		_audit_issues.append(_issue("Error", "mission_registration", "Mission registration: mission_id '%s' has no catalog entry." % mission_id, scene_root))
+		return
+	var entry: Dictionary = mission_catalog.get(mission_id, {})
+	var playable := String(entry.get("playable_iso_scene", "")).strip_edges()
+	var scene_path := String(scene_root.scene_file_path).strip_edges()
+	if playable == "":
+		_audit_issues.append(_issue("Error", "mission_registration", "Mission registration: catalog entry '%s' has no playable_iso_scene." % mission_id, scene_root))
+		return
+	if playable != scene_path:
+		_audit_issues.append(_issue("Error", "mission_registration", "Mission registration: catalog playable_iso_scene points at '%s', not current scene '%s'." % [playable, scene_path], scene_root))
+		return
+	_audit_issues.append(_issue("Info", "mission_registration", "Mission registration: '%s' playable_iso_scene matches the open scene." % mission_id, scene_root))
+
+
 func _audit_duplicate_ids(mechanics: Array[Node]) -> void:
 	var buckets: Dictionary = {}
 	for mechanic in mechanics:
-		var id_text := String(mechanic.get("mechanic_id"))
+		var id_property := _identity_property_for_node(mechanic)
+		if id_property == "" or not id_property in mechanic:
+			continue
+		var id_text := String(mechanic.get(id_property))
 		if id_text == "":
 			continue
 		if not buckets.has(id_text):
@@ -1386,7 +1899,18 @@ func _audit_duplicate_ids(mechanics: Array[Node]) -> void:
 		if nodes.size() < 2:
 			continue
 		for mechanic in nodes:
-			_audit_issues.append(_issue("Error", "duplicate_mechanic_id", "Duplicate mechanic_id '%s'." % id_text, mechanic))
+			_audit_issues.append(_issue("Error", "duplicate_mechanic_id", "Duplicate author id '%s'." % id_text, mechanic))
+
+
+func _mechanic_type_for_node(node: Node) -> String:
+	return String(MECHANIC_SCRIPTS.find_key(_node_script_path(node)))
+
+
+func _identity_property_for_node(node: Node) -> String:
+	var type_name := _mechanic_type_for_node(node)
+	if ID_PROPERTY_BY_TYPE.has(type_name):
+		return String(ID_PROPERTY_BY_TYPE.get(type_name, ""))
+	return "mechanic_id" if "mechanic_id" in node else ""
 
 
 func _audit_duplicate_flags(mechanics: Array[Node]) -> void:
@@ -1415,15 +1939,23 @@ func _audit_duplicate_flags(mechanics: Array[Node]) -> void:
 
 
 func _audit_mechanic_node(node: Node, scene_root: Node) -> void:
-	var mechanic_id := String(node.get("mechanic_id"))
+	var type_name := _mechanic_type_for_node(node)
+	var id_property := _identity_property_for_node(node)
+	var mechanic_id := String(node.get(id_property)) if id_property != "" and id_property in node else ""
 	if mechanic_id.strip_edges() == "":
-		_audit_issues.append(_issue("Error", "empty_mechanic_id", "mechanic_id is empty.", node))
+		_audit_issues.append(_issue("Error", "empty_mechanic_id", "%s is empty." % (id_property if id_property != "" else "author id"), node))
 	elif mechanic_id == "mechanic":
 		_audit_issues.append(_issue("Warning", "default_mechanic_id", "mechanic_id is still the generic default 'mechanic'.", node))
-	if String(node.get("mission_id_override")).strip_edges() == "":
+	if "mission_id_override" in node and String(node.get("mission_id_override")).strip_edges() == "":
 		_audit_issues.append(_issue("Info", "empty_mission_id_override", "mission_id_override is empty; runtime will resolve mission id from scene context.", node))
 	var parent_path := str(node.get_path()).trim_prefix(str(scene_root.get_path()))
-	if not parent_path.contains("MissionMechanics"):
+	if _uses_security_authoring_root(type_name):
+		if not parent_path.contains("SecurityAuthoringRoot"):
+			_audit_issues.append(_issue("Error", "unexpected_parent_container", "Security/collectible author must be under GameplayRoot/SecurityAuthoringRoot.", node))
+	elif type_name == "PlayerStartMarker":
+		if not parent_path.contains("MarkerRoot/Spawns"):
+			_audit_issues.append(_issue("Error", "unexpected_parent_container", "PlayerStartMarker must be under GameplayRoot/MarkerRoot/Spawns.", node))
+	elif not parent_path.contains("MissionMechanics"):
 		_audit_issues.append(_issue("Warning", "unexpected_parent_container", "Mechanic is not under MissionMechanics.", node))
 	if node is MechanicAreaBase:
 		_audit_collision_shape(node)

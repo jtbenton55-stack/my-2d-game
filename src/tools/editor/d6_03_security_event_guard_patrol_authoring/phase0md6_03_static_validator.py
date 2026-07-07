@@ -93,8 +93,9 @@ def main() -> int:
         errors.append("IsoMissionBase missing")
 
     if panel.is_file():
-        if "Security Events / Authoring" not in panel.read_text(encoding="utf-8"):
-            errors.append("F10 missing Security Events section")
+        panel_text = panel.read_text(encoding="utf-8")
+        if "Security Authoring" not in panel_text or "Event Router" not in panel_text:
+            errors.append("F10 missing Security Authoring/Event Router sections")
     else:
         errors.append("IsoMissionDebugPanel missing")
 
