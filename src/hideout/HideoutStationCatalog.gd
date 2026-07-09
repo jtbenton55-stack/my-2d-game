@@ -56,6 +56,7 @@ const ALLOWED_BUTTON_ACTIONS := [
 	"arrange_later",
 	"show_placement_zones",
 	"view_heat",
+	"cool_down_shift",
 	"talk",
 	"unknown_placeholder",
 ]
@@ -303,8 +304,8 @@ static func _panel_content() -> Dictionary:
 		},
 		"heat_scanner": {
 			"title": "Heat Scanner",
-			"body": "Heat is the room's bad feeling made visible. Completed missions can be replayed later to cool things down.\n\nFresh missions do not have heat controls. Heat controls only appear for completed missions.",
-			"buttons": [_button("view_heat", "View Heat", "view_heat"), _button("back", "Back", "close")],
+			"body": "A police-band radio tuned to chatter about your crimes. Each worked venue gets a 0-5 heat dial fed by the post-mission Investigation Report.\n\nListen to the radio for per-venue chatter, or run a cool-down shift (believable tasks only, no funny business) at a hot venue to lower its heat.",
+			"buttons": [_button("view_heat", "Listen to the Radio", "view_heat"), _button("cool_down_shift", "Run Cool-Down Shift", "cool_down_shift"), _button("back", "Back", "close")],
 			"classification": CLASS_DEBUG_STATE_VISUAL,
 		},
 		"louis": {

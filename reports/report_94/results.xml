@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_94" tests="7" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ReplanPacket5WitnessTest" package="tests/mission_authoring" timestamp="2026-07-09T18:47:04" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.079">
+		<testcase name="test_witness_scan_notices_nearby_mess" classname="ReplanPacket5WitnessTest" time="0.016">
+		</testcase>
+		<testcase name="test_report_files_signal_trace_and_exposure" classname="ReplanPacket5WitnessTest" time="0.006">
+		</testcase>
+		<testcase name="test_cleaning_mess_makes_witness_stand_down" classname="ReplanPacket5WitnessTest" time="0.006">
+		</testcase>
+		<testcase name="test_player_decoy_noise_distracts_witness" classname="ReplanPacket5WitnessTest" time="0.006">
+		</testcase>
+		<testcase name="test_sabotaged_phone_blocks_report" classname="ReplanPacket5WitnessTest" time="0.007">
+		</testcase>
+		<testcase name="test_gossip_reaches_exactly_one_nearby_witness" classname="ReplanPacket5WitnessTest" time="0.006">
+		</testcase>
+		<testcase name="test_gossip_shortens_notice_delay" classname="ReplanPacket5WitnessTest" time="0.005">
+		</testcase>
+	</testsuite>
+</testsuites>

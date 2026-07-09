@@ -77,6 +77,23 @@ static func get_category_count(category_id: String) -> int:
 	return total
 
 
+## Replan Packet 2: total incriminating weight the player is carrying right now.
+static func get_incriminating_total() -> int:
+	var total := 0
+	for entry in _entries.values():
+		if entry is Resource and entry.get("incriminating") != null:
+			total += int(entry.get("incriminating")) * maxi(1, int(entry.get("count")))
+	return total
+
+
+## Replan Packet 2: true when any carried item is bulky (slows movement, louder steps).
+static func has_bulky_item() -> bool:
+	for entry in _entries.values():
+		if entry is Resource and bool(entry.get("bulky")) and int(entry.get("count")) > 0:
+			return true
+	return false
+
+
 static func get_snapshot() -> Dictionary:
 	var items: Dictionary = {}
 	for key in _entries.keys():

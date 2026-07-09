@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_95" tests="7" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ReplanPacket6HeatMetaTest" package="tests/mission_authoring" timestamp="2026-07-09T18:52:08" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.071">
+		<testcase name="test_scanner_readout_lists_venues_by_heat" classname="ReplanPacket6HeatMetaTest" time="0.006">
+		</testcase>
+		<testcase name="test_scanner_chatter_scales_with_heat" classname="ReplanPacket6HeatMetaTest" time="0.006">
+		</testcase>
+		<testcase name="test_cooldown_shift_requires_completed_venue" classname="ReplanPacket6HeatMetaTest" time="0.005">
+		</testcase>
+		<testcase name="test_cooldown_shift_cools_worked_venue" classname="ReplanPacket6HeatMetaTest" time="0.006">
+		</testcase>
+		<testcase name="test_cooldown_shift_cannot_cool_below_attempt_floor" classname="ReplanPacket6HeatMetaTest" time="0.007">
+		</testcase>
+		<testcase name="test_briefing_line_reflects_heat_level" classname="ReplanPacket6HeatMetaTest" time="0.008">
+		</testcase>
+		<testcase name="test_mission_heat_uses_max_of_report_and_attempts" classname="ReplanPacket6HeatMetaTest" time="0.008">
+		</testcase>
+	</testsuite>
+</testsuites>

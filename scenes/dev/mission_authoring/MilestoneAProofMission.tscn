@@ -1606,13 +1606,13 @@ collision_layer = 8
 script = ExtResource("34_extract")
 extraction_tag = &"core_chain_exit"
 extraction_flag = &"core_extracted"
+show_result_screen_on_success = true
 required_objective_ids = Array[StringName]([&"milestone_a_proof.core_side_objective"])
+missing_objective_message = "Requires 1E Side Obj first."
+emit_eventbus_debug = true
 mechanic_id = &"milestone_a_proof.core.extract.01"
 display_name = "1 Core Extraction"
 prompt_text = "Press E: Extract core chain"
-show_result_screen_on_success = true
-missing_objective_message = "Requires 1E Side Obj first."
-emit_eventbus_debug = true
 requirements = SubResource("Resource_reqset_core_extract")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MissionMechanics/ExtractionZone_milestone_a_proof_core_extract_01" unique_id=1827961449]
@@ -2379,6 +2379,7 @@ script = ExtResource("63_music")
 fade_time = 0.25
 on_exit_restore = true
 restore_music_key = &"previous_track"
+audio_player_path = NodePath("MusicPreviewPlayer")
 audio_stream = ExtResource("63_8yndc")
 mechanic_id = &"milestone_a_proof.music.trigger.01"
 display_name = "8 Music Trigger Zone"

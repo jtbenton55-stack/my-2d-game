@@ -56,6 +56,19 @@ func _update_result_display() -> void:
 		for step in next_steps:
 			text += "- " + String(step) + "\n"
 
+	var investigation: Dictionary = result.get("investigation_report", {})
+	if not investigation.is_empty():
+		text += "\n=== INVESTIGATION REPORT ===\n"
+		text += "%s\n" % String(investigation.get("headline", ""))
+		text += "Prime suspect: %s\n" % String(investigation.get("prime_suspect", "unknown"))
+		for line in Array(investigation.get("lines", [])):
+			text += "- %s\n" % String(line)
+		var heat_delta := int(investigation.get("heat_delta", 0))
+		if heat_delta > 0:
+			text += "Venue heat: +%d\n" % heat_delta
+		else:
+			text += "Venue heat: unchanged\n"
+
 	var paper_trail: Dictionary = result.get("paper_trail", {})
 	if not paper_trail.is_empty():
 		text += "\nPaper Trail:\n"

@@ -1844,6 +1844,32 @@ Status: Implemented 2026-07-04 as a grouped milestone. The packet activated Phas
 - PASS with known noise: headless smokes loaded the Phase 17 proof scene and Taco redesign scene; Taco retained the known MCP port-bind and forced-quit leak/orphan warnings.
 - PASS with known noise: full GdUnit `res://tests/mission_authoring` (`300/300`).
 
+## Phase 19: Seven Systems Player-Facing Replan (Pressure Economy)
+
+Status: Implemented 2026-07-09 as a grouped milestone (six packets). Converted the seven adapter-backed dev-menu systems (inventory, social/professional, noise/stealth, paper trail, cleanliness, reactive NPC, heat scanner) into one player-facing pressure economy across NOW (noise/stealth), SOON (witnesses/cover), LATER (traces/mess -> Investigation Report), and META (venue heat) horizons. Plan: `.cursor/plans/seven_systems_player-facing_replan_9ee29f3c.plan.md`.
+
+### Built
+
+1. Packet 1 readability: hold-interact channel on `MechanicAreaBase` (radial progress, movement interrupt, optional interrupt exposure), `MissionReadabilityLayer` auto-mounted by `IsoMissionBase` composing noise pulse rings, NPC ?/! pips, and the hold-Tab Casing Mode overlay (traces, mess, noise memory, cover summary).
+2. Packet 2 heist kit: `incriminating`/`bulky` fields on `ItemData`/`InventoryEntry`, `MissionInventory` aggregation helpers, `InspectionRuleSet` pocket check, `HeistKitHud` 8-slot bar, footstep noise tiers (sneak/walk/run, bulky amplification), G-key decoy throw, all via auto-mounted `MissionPlayerKitLayer`.
+3. Packet 3 cover runtime: `CoverMeterRuntime` drains professionalism for out-of-role acts and tracks alibi windows; `BelievableTaskZone` grants alibi windows with repeat cooldowns; `RoamingInspectorNpc` does telegraphed rounds with alibi bypass, confiscation, and the `CoverChallengePrompt` Bluff/Excuse/Deflect choice UI; all via auto-mounted `MissionCoverLayer`.
+4. Packet 4 trace/mess loop: physical `MessSpotNode` props (cleanup = cleanliness + professionalism + alibi + optional Clorox trace-wipe radius), paper trace hardening in `PaperTrailAdapter`, and the `InvestigationReportBuilder` post-mission report card (verdict, prime suspect, narrative, heat delta) rendered by `MissionResult`.
+5. Packet 5 witness counterplay: `WitnessNpc` notice -> walk-to-report travel time -> filed report (signal + trace + exposure), decoy distraction, stand-down when evidence is cleaned, one-hop gossip; `PhoneSabotageNode` disables report points at the cost of an audit trace.
+6. Packet 6 heat meta loop: Investigation Report heat stored per venue in `GameState.venue_heat`; `get_mission_heat()` = max(report heat, failed attempts) feeding the existing security spawn cap/reinforcement systems; venue heat seeds a lower noise threshold in missions; briefing heat line on the Mission Board; `HeatScannerRadio` police-band readout + cool-down shift action wired into the Heat Scanner hideout station.
+
+### Boundary
+
+- No new global managers; everything extends `MechanicAreaBase`, mission-scoped adapters, `MissionAlertController` inputs, and existing `GameState` heat storage.
+- New input actions (`case_the_joint`, `kit_throw_decoy`) are registered at runtime, not written to `project.godot`.
+- Trace hardening ships disabled by default; missions opt in via `PaperTrailAdapter.set_hardening_seconds()`.
+- The cool-down shift is an instant hideout action; the playable cool-down mission variant remains future content.
+
+### Validation Status
+
+- PASS: GdUnit `ReplanPacket1ReadabilityTest` through `ReplanPacket6HeatMetaTest` (47/47 headless).
+- PASS: Godot MCP Pro live smoke in `HideoutHub.tscn` - scanner radio readout, cool-down shift through the real `HideoutManager` action path (heat 3 -> 1, screenshot), and briefing heat line.
+- Pending: Jake's manual production QA before any milestone commit, per accelerated-milestone guardrails.
+
 ## Current Short-Term Dependency-Order Plan
 
 Date: 2026-06-09

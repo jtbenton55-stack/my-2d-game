@@ -25,3 +25,5 @@
 - [ ] Replan paper trail system.
 - [ ] Replan cleanliness system.
 - [ ] Replan reactive NPC system.
+- [ ] Replan heat scanner system.
+- [ ] Create dialogue and edit overarching storyline.

@@ -37,10 +37,7 @@ func get_panel_body(state_controller = null) -> String:
 	lines.append("State: %s" % String(selected_status.get("state", "available")).capitalize())
 	lines.append("Missing clues: %d" % int(selected_status.get("missing_clues", 0)))
 	lines.append("Missing collectibles: %d" % int(selected_status.get("missing_collectibles", 0)))
-	if selected_status.get("completed", false):
-		lines.append("Heat: %s" % String(selected_status.get("heat_state", "low")).capitalize())
-	else:
-		lines.append("Heat: hidden until this mission is completed and replayable.")
+	lines.append(_heat_briefing_line(selected))
 	lines.append("")
 	lines.append("No route selection, assist selection, difficulty selection, or fresh-mission heat controls are active in this scaffold.")
 	return "\n".join(lines)
@@ -121,6 +118,21 @@ func _mission_display_name(mission_id: String) -> String:
 		if String(mission.get("mission_id", "")) == mission_id:
 			return String(mission.get("display_name", mission_id))
 	return mission_id
+
+## Replan Packet 6: heat briefing line driven by Investigation Report venue heat.
+func _heat_briefing_line(mission_id: String) -> String:
+	var heat := GameState.get_mission_heat(mission_id)
+	if heat <= 0:
+		return "Heat: 0/5 - quiet venue. Standard security."
+	var warnings: Array[String] = []
+	if heat >= 1:
+		warnings.append("jumpy staff")
+	if heat >= 2:
+		warnings.append("extra patrol pressure")
+	if heat >= 4:
+		warnings.append("detective on site")
+	return "Heat: %d/5 - %s. Consider a cool-down shift at the Heat Scanner." % [heat, ", ".join(warnings)]
+
 
 func _status_for(mission_id: String, state_controller: Node = null) -> Dictionary:
 	if state_controller != null and state_controller.has_method("get_mission_status"):

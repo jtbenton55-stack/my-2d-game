@@ -175,6 +175,61 @@ func _ready() -> void:
 	_ensure_dev_harness()
 	super._ready()
 	call_deferred("_ensure_d6_fix5_runtime_helpers")
+	call_deferred("_ensure_readability_layer")
+
+
+## Replan Packet 1: every iso mission gets noise pulses, NPC pips, and Casing Mode.
+func _ensure_readability_layer() -> void:
+	if get_tree() == null:
+		return
+	if get_tree().get_first_node_in_group("mission_readability_layer") == null:
+		var layer_script: Script = load("res://src/missions/iso/runtime/readability/MissionReadabilityLayer.gd") as Script
+		if layer_script != null:
+			var layer := layer_script.new() as Node2D
+			layer.name = "MissionReadabilityLayer"
+			add_child(layer)
+	_ensure_player_kit_layer()
+
+
+## Replan Packet 2: every iso mission gets the heist kit HUD, footstep noise, and decoy throw.
+func _ensure_player_kit_layer() -> void:
+	if get_tree() == null:
+		return
+	if get_tree().get_first_node_in_group("mission_player_kit_layer") == null:
+		var kit_script: Script = load("res://src/missions/iso/runtime/kit/MissionPlayerKitLayer.gd") as Script
+		if kit_script != null:
+			var kit := kit_script.new() as Node
+			kit.name = "MissionPlayerKitLayer"
+			add_child(kit)
+	_ensure_cover_layer()
+
+
+## Replan Packet 3: every iso mission gets the live cover meter and challenge prompt.
+func _ensure_cover_layer() -> void:
+	if get_tree() == null:
+		return
+	if get_tree().get_first_node_in_group("mission_cover_layer") == null:
+		var cover_script: Script = load("res://src/missions/iso/runtime/cover/MissionCoverLayer.gd") as Script
+		if cover_script != null:
+			var cover := cover_script.new() as Node
+			cover.name = "MissionCoverLayer"
+			add_child(cover)
+	_apply_venue_heat_seed()
+
+
+## Replan Packet 6: venue heat makes staff jumpier -- lower noise threshold at hot venues.
+func _apply_venue_heat_seed() -> void:
+	if get_tree() == null:
+		return
+	var controller := get_tree().get_first_node_in_group("iso_alert_controller")
+	if controller == null:
+		return
+	var heat := GameState.get_mission_heat(_debug_mission_id())
+	if heat <= 0:
+		return
+	var threshold := maxf(0.25, 0.5 - float(heat) * 0.05)
+	controller.set("noise_suspicious_threshold", threshold)
+	EventBus.debug("Venue heat %d seeded: noise threshold %.2f" % [heat, threshold])
 
 
 ## D6-01-FIX6B: override _process to update guard lifecycle management.

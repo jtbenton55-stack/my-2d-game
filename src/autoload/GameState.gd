@@ -6,6 +6,7 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 const EncounterResultAdapterScript := preload("res://src/missions/iso/encounters/EncounterResultAdapter.gd")
 const ReactiveNpcResultAdapterScript := preload("res://src/missions/iso/ai/ReactiveNpcResultAdapter.gd")
 const ReactiveNpcBrainAdapterScript := preload("res://src/missions/iso/ai/ReactiveNpcBrainAdapter.gd")
+const InvestigationReportBuilderScript := preload("res://src/missions/iso/runtime/report/InvestigationReportBuilder.gd")
 
 const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
@@ -82,6 +83,8 @@ var crew_assists: Dictionary = {}
 
 ## Mission heat snapshots for deterministic restart mutations.
 var mission_heat_states: Dictionary = {}
+## Replan Packet 6: per-venue heat (0-5) computed from Investigation Reports.
+var venue_heat: Dictionary = {}
 
 ## Mission runtime performance snapshots for mastery/replay hooks.
 var mission_performance: Dictionary = {}
@@ -142,8 +145,32 @@ func _migrate_polaroid_ids_inplace() -> void:
 	collected_polaroids = out
 
 
+## Replan Packet 6: venue heat is driven by the Investigation Report (what the
+## investigators actually found), with failed attempts kept as a floor so old
+## behavior never gets easier than before.
 func get_mission_heat(mission_id: String) -> int:
-	return mini(5, int(failed_attempts.get(mission_id, 0)))
+	var report_heat := int(venue_heat.get(mission_id, 0))
+	var attempt_heat := mini(5, int(failed_attempts.get(mission_id, 0)))
+	return mini(5, maxi(report_heat, attempt_heat))
+
+
+## Replan Packet 4/6: fold the post-mission Investigation Report into venue heat.
+func _apply_investigation_heat(mission_id: String, result: Dictionary) -> void:
+	var report: Dictionary = result.get("investigation_report", {})
+	if report.is_empty():
+		return
+	var delta := int(report.get("heat_delta", 0))
+	if delta <= 0:
+		return
+	venue_heat[mission_id] = mini(5, int(venue_heat.get(mission_id, 0)) + delta)
+
+
+## Replan Packet 6: cooling loops (time passing, cool-down shifts, bribes).
+func cool_venue_heat(mission_id: String, amount: int = 1) -> int:
+	var next := maxi(0, int(venue_heat.get(mission_id, 0)) - maxi(0, amount))
+	venue_heat[mission_id] = next
+	EventBus.game_state_changed.emit()
+	return next
 
 
 ## Read-only summary for pause/F10; does not mutate save data.
@@ -152,6 +179,7 @@ func get_mission_heat_summary(mission_id: String) -> Dictionary:
 		"mission_id": mission_id,
 		"heat": get_mission_heat(mission_id),
 		"failed_attempts": int(failed_attempts.get(mission_id, 0)),
+		"report_heat": int(venue_heat.get(mission_id, 0)),
 		"max_heat": 5,
 	}
 
@@ -380,7 +408,8 @@ func complete_mission(mission_id = "") -> Dictionary:
 	clear_mission_mutations(mission_id)
 	var result_payload := {"success": true, "mission_id": mission_id, "title": "Clean Getaway", "subtitle": _mission_name(mission_id) + " complete.", "rank": _mission_rank(mission_id), "rewards": rewards}
 	_annotate_player_facing_mission_result(result_payload, mission_id, true)
-	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload))))
+	last_mission_result = InvestigationReportBuilderScript.annotate_mission_result(ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload)))))
+	_apply_investigation_heat(mission_id, last_mission_result)
 	EventBus.mission_completed.emit(mission_id, rewards)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()
@@ -415,7 +444,8 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		rewards.append("Jake upgrade: +10 max health")
 	var result_payload := {"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards}
 	_annotate_player_facing_mission_result(result_payload, mission_id, false)
-	last_mission_result = ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload))))
+	last_mission_result = InvestigationReportBuilderScript.annotate_mission_result(ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload)))))
+	_apply_investigation_heat(mission_id, last_mission_result)
 	EventBus.mission_failed.emit(mission_id, reason)
 	EventBus.mission_result_ready.emit(last_mission_result)
 	EventBus.game_state_changed.emit()

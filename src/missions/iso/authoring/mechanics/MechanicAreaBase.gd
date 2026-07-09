@@ -7,6 +7,9 @@ signal activation_started(mechanic_id: String, actor: Node)
 signal activation_succeeded(mechanic_id: String, result: Dictionary)
 signal activation_failed(mechanic_id: String, result: Dictionary)
 signal effects_applied(mechanic_id: String, result: Dictionary)
+signal hold_started(mechanic_id: String, duration: float)
+signal hold_progress(mechanic_id: String, ratio: float)
+signal hold_interrupted(mechanic_id: String, reason: String)
 
 enum InteractionMode {
 	AUTOMATIC_ON_ENTER,
@@ -29,6 +32,12 @@ enum InteractionMode {
 @export var locked_prompt_text: String = "Unavailable"
 @export var available_actor_group: StringName = &"player"
 @export var action_interact: StringName = &"interact"
+## Seconds the actor must channel before the mechanic activates. 0 keeps the legacy instant interact.
+@export_range(0.0, 10.0, 0.1) var interact_duration: float = 0.0
+## Max distance the actor may drift from their start position before the channel breaks.
+@export var hold_move_tolerance: float = 24.0
+## Alert exposure added when a channel is interrupted (getting caught mid-act is suspicious).
+@export var interrupt_alert_exposure: float = 0.0
 
 @export_group("Logic")
 @export var requirements: RequirementSet
@@ -52,6 +61,10 @@ var last_activation_result: Dictionary = {}
 var last_effect_result: Dictionary = {}
 
 var _body_enter_connected: bool = false
+var _holding: bool = false
+var _hold_actor: Node = null
+var _hold_elapsed: float = 0.0
+var _hold_actor_start_pos: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -76,11 +89,24 @@ func _notification(what: int) -> void:
 
 
 func _draw() -> void:
-	if not Engine.is_editor_hint():
+	if Engine.is_editor_hint():
+		var rect := Rect2(-shape_size * 0.5, shape_size)
+		draw_rect(rect, preview_color, true)
+		draw_rect(rect, Color(preview_color.r, preview_color.g, preview_color.b, minf(preview_color.a + 0.35, 1.0)), false, 2.0)
 		return
-	var rect := Rect2(-shape_size * 0.5, shape_size)
-	draw_rect(rect, preview_color, true)
-	draw_rect(rect, Color(preview_color.r, preview_color.g, preview_color.b, minf(preview_color.a + 0.35, 1.0)), false, 2.0)
+	if _holding and interact_duration > 0.0:
+		var ratio := clampf(_hold_elapsed / interact_duration, 0.0, 1.0)
+		var radius := 18.0
+		var center := Vector2(0.0, -shape_size.y * 0.5 - 14.0)
+		draw_arc(center, radius, 0.0, TAU, 32, Color(0.1, 0.1, 0.1, 0.55), 6.0)
+		draw_arc(center, radius, -PI * 0.5, -PI * 0.5 + TAU * ratio, 32, Color(1.0, 0.9, 0.35, 0.95), 4.0)
+
+
+func _process(delta: float) -> void:
+	if not _holding:
+		set_process(false)
+		return
+	_advance_hold(delta)
 
 
 func interact(actor: Node = null) -> bool:
@@ -293,8 +319,77 @@ func designer_name() -> String:
 
 
 func _route_activation(actor: Node = null) -> bool:
-	var result: Dictionary = activate(actor, "interact")
-	return bool(result.get("ok", false))
+	if interact_duration > 0.0 and not Engine.is_editor_hint():
+		if _holding:
+			return true
+		if not is_interaction_available(actor):
+			var result: Dictionary = activate(actor, "interact")
+			return bool(result.get("ok", false))
+		_begin_hold(actor)
+		return true
+	var direct_result: Dictionary = activate(actor, "interact")
+	return bool(direct_result.get("ok", false))
+
+
+func is_hold_in_progress() -> bool:
+	return _holding
+
+
+func get_hold_ratio() -> float:
+	if not _holding or interact_duration <= 0.0:
+		return 0.0
+	return clampf(_hold_elapsed / interact_duration, 0.0, 1.0)
+
+
+func cancel_hold(reason: String = "cancelled") -> void:
+	if not _holding:
+		return
+	_holding = false
+	_hold_actor = null
+	_hold_elapsed = 0.0
+	hold_interrupted.emit(String(mechanic_id), reason)
+	if interrupt_alert_exposure > 0.0:
+		var controller := _find_alert_controller()
+		if controller != null and controller.has_method("accumulate_exposure"):
+			controller.call("accumulate_exposure", String(mechanic_id), interrupt_alert_exposure, "interrupted_action")
+	queue_redraw()
+
+
+func _begin_hold(actor: Node) -> void:
+	_holding = true
+	_hold_actor = actor
+	_hold_elapsed = 0.0
+	_hold_actor_start_pos = (actor as Node2D).global_position if actor is Node2D else global_position
+	hold_started.emit(String(mechanic_id), interact_duration)
+	set_process(true)
+	queue_redraw()
+
+
+func _advance_hold(delta: float) -> void:
+	if _hold_actor == null or not is_instance_valid(_hold_actor):
+		cancel_hold("actor_lost")
+		return
+	if _hold_actor is Node2D:
+		var actor_pos := (_hold_actor as Node2D).global_position
+		if actor_pos.distance_to(_hold_actor_start_pos) > hold_move_tolerance:
+			cancel_hold("actor_moved")
+			return
+	_hold_elapsed += delta
+	hold_progress.emit(String(mechanic_id), get_hold_ratio())
+	queue_redraw()
+	if _hold_elapsed >= interact_duration:
+		var actor := _hold_actor
+		_holding = false
+		_hold_actor = null
+		_hold_elapsed = 0.0
+		queue_redraw()
+		activate(actor, "hold_interact")
+
+
+func _find_alert_controller() -> Node:
+	if not is_inside_tree():
+		return null
+	return get_tree().get_first_node_in_group("iso_alert_controller")
 
 
 func _requirements_pass(actor: Node = null) -> bool:

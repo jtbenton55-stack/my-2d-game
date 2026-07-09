@@ -9,10 +9,29 @@ const FACT_TRAIL_RESULT_STATE := &"paper_trail_result_state"
 const FACT_TRAIL_SEVERITY_SCORE := &"paper_trail_severity_score"
 
 static var _trace_events_by_mission: Dictionary = {}
+## Replan Packet 4: traces harden after this many seconds and can no longer be
+## wiped -- only redirected. 0 disables hardening.
+static var default_hardening_seconds: float = 0.0
 
 
 static func clear_all() -> void:
 	_trace_events_by_mission.clear()
+	default_hardening_seconds = 0.0
+
+
+static func set_hardening_seconds(seconds: float) -> void:
+	default_hardening_seconds = maxf(0.0, seconds)
+
+
+static func is_trace_hardened(event: Dictionary) -> bool:
+	if default_hardening_seconds <= 0.0:
+		return false
+	if String(event.get("status", TraceEvent.STATUS_ACTIVE)) == TraceEvent.STATUS_CLEANED:
+		return false
+	var created_at := float(event.get("created_at", 0))
+	if created_at <= 0.0:
+		return false
+	return Time.get_unix_time_from_system() - created_at >= default_hardening_seconds
 
 
 static func reset_mission(mission_id: String) -> void:
@@ -66,9 +85,13 @@ static func cleanup_traces(criteria: Dictionary = {}, context: Dictionary = {}) 
 	var strength := maxi(1, int(criteria.get("cleanup_strength", 5)))
 	var cleaned: Array[String] = []
 	var weakened: Array[String] = []
+	var hardened: Array[String] = []
 	var events := _events_for_mission(mid)
 	for trace_id in matches:
 		var event: Dictionary = (events.get(trace_id, {}) as Dictionary).duplicate(true)
+		if is_trace_hardened(event):
+			hardened.append(String(trace_id))
+			continue
 		if mode == "weaken":
 			event["severity"] = maxi(0, int(event.get("severity", 0)) - strength)
 			if int(event.get("severity", 0)) <= 0:
@@ -84,7 +107,9 @@ static func cleanup_traces(criteria: Dictionary = {}, context: Dictionary = {}) 
 			cleaned.append(String(trace_id))
 		events[trace_id] = event
 	_record_performance(mid, "paper_traces_cleaned", cleaned.size())
-	return _result(true, "paper_trace_cleanup_applied", "Paper trace cleanup applied.", String(criteria.get("trace_id", "")), {"mission_id": mid, "cleaned": cleaned, "weakened": weakened})
+	if cleaned.is_empty() and weakened.is_empty() and not hardened.is_empty():
+		return _result(false, "paper_trace_hardened", "Those traces have set in. Only misdirection works now.", String(criteria.get("trace_id", "")), {"mission_id": mid, "hardened": hardened})
+	return _result(true, "paper_trace_cleanup_applied", "Paper trace cleanup applied.", String(criteria.get("trace_id", "")), {"mission_id": mid, "cleaned": cleaned, "weakened": weakened, "hardened": hardened})
 
 
 static func redirect_traces(criteria: Dictionary = {}, explanation_id: String = "", context: Dictionary = {}) -> Dictionary:

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_96" tests="31" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ReplanPacket1ReadabilityTest" package="tests/mission_authoring" timestamp="2026-07-09T18:52:39" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.154">
+		<testcase name="test_instant_interact_still_activates_immediately" classname="ReplanPacket1ReadabilityTest" time="0.019">
+		</testcase>
+		<testcase name="test_hold_interact_channels_then_activates" classname="ReplanPacket1ReadabilityTest" time="0.012">
+		</testcase>
+		<testcase name="test_hold_interrupts_when_actor_moves" classname="ReplanPacket1ReadabilityTest" time="0.014">
+		</testcase>
+		<testcase name="test_hold_interrupt_adds_alert_exposure_when_configured" classname="ReplanPacket1ReadabilityTest" time="0.013">
+		</testcase>
+		<testcase name="test_noise_pulse_visualizer_records_emitted_noise" classname="ReplanPacket1ReadabilityTest" time="0.013">
+		</testcase>
+		<testcase name="test_npc_pip_visualizer_marks_enemies_when_suspicious" classname="ReplanPacket1ReadabilityTest" time="0.012">
+		</testcase>
+		<testcase name="test_readability_layer_composes_all_visualizers" classname="ReplanPacket1ReadabilityTest" time="0.013">
+		</testcase>
+		<testcase name="test_casing_overlay_reads_mission_state_without_crash" classname="ReplanPacket1ReadabilityTest" time="0.012">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="ReplanPacket4TraceMessTest" package="tests/mission_authoring" timestamp="2026-07-09T18:52:39" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.203">
+		<testcase name="test_mess_spawn_charges_debt_and_cleanup_restores" classname="ReplanPacket4TraceMessTest" time="0.016">
+		</testcase>
+		<testcase name="test_mess_cleanup_with_trace_radius_wipes_nearby_traces" classname="ReplanPacket4TraceMessTest" time="0.013">
+		</testcase>
+		<testcase name="test_hardened_traces_resist_cleanup_but_allow_redirect" classname="ReplanPacket4TraceMessTest" time="0.034">
+		</testcase>
+		<testcase name="test_hardening_disabled_by_default_keeps_cleanup_working" classname="ReplanPacket4TraceMessTest" time="0.010">
+		</testcase>
+		<testcase name="test_investigation_report_clean_run_is_cold_case" classname="ReplanPacket4TraceMessTest" time="0.012">
+		</testcase>
+		<testcase name="test_investigation_report_active_traces_open_investigation" classname="ReplanPacket4TraceMessTest" time="0.013">
+		</testcase>
+		<testcase name="test_investigation_report_redirected_names_the_raccoon" classname="ReplanPacket4TraceMessTest" time="0.012">
+		</testcase>
+		<testcase name="test_annotate_mission_result_adds_report_payload" classname="ReplanPacket4TraceMessTest" time="0.013">
+		</testcase>
+		<testcase name="test_venue_heat_accumulates_from_report_and_cools" classname="ReplanPacket4TraceMessTest" time="0.014">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="ReplanPacket5WitnessTest" package="tests/mission_authoring" timestamp="2026-07-09T18:52:39" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.141">
+		<testcase name="test_witness_scan_notices_nearby_mess" classname="ReplanPacket5WitnessTest" time="0.019">
+		</testcase>
+		<testcase name="test_report_files_signal_trace_and_exposure" classname="ReplanPacket5WitnessTest" time="0.012">
+		</testcase>
+		<testcase name="test_cleaning_mess_makes_witness_stand_down" classname="ReplanPacket5WitnessTest" time="0.011">
+		</testcase>
+		<testcase name="test_player_decoy_noise_distracts_witness" classname="ReplanPacket5WitnessTest" time="0.012">
+		</testcase>
+		<testcase name="test_sabotaged_phone_blocks_report" classname="ReplanPacket5WitnessTest" time="0.013">
+		</testcase>
+		<testcase name="test_gossip_reaches_exactly_one_nearby_witness" classname="ReplanPacket5WitnessTest" time="0.011">
+		</testcase>
+		<testcase name="test_gossip_shortens_notice_delay" classname="ReplanPacket5WitnessTest" time="0.012">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="ReplanPacket6HeatMetaTest" package="tests/mission_authoring" timestamp="2026-07-09T18:52:39" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.136">
+		<testcase name="test_scanner_readout_lists_venues_by_heat" classname="ReplanPacket6HeatMetaTest" time="0.013">
+		</testcase>
+		<testcase name="test_scanner_chatter_scales_with_heat" classname="ReplanPacket6HeatMetaTest" time="0.012">
+		</testcase>
+		<testcase name="test_cooldown_shift_requires_completed_venue" classname="ReplanPacket6HeatMetaTest" time="0.011">
+		</testcase>
+		<testcase name="test_cooldown_shift_cools_worked_venue" classname="ReplanPacket6HeatMetaTest" time="0.011">
+		</testcase>
+		<testcase name="test_cooldown_shift_cannot_cool_below_attempt_floor" classname="ReplanPacket6HeatMetaTest" time="0.016">
+		</testcase>
+		<testcase name="test_briefing_line_reflects_heat_level" classname="ReplanPacket6HeatMetaTest" time="0.013">
+		</testcase>
+		<testcase name="test_mission_heat_uses_max_of_report_and_attempts" classname="ReplanPacket6HeatMetaTest" time="0.014">
+		</testcase>
+	</testsuite>
+</testsuites>

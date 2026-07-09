@@ -27,6 +27,10 @@ const CATEGORIES: Array[String] = [
 @export var mission_only: bool = true
 @export var suspicious: bool = false
 @export var heat_value: int = 0
+## Replan Packet 2: how bad this looks in a frisk/inspection (0 = innocent).
+@export_range(0, 5) var incriminating: int = 0
+## Replan Packet 2: bulky items slow the player and raise footstep noise.
+@export var bulky: bool = false
 @export var icon: Texture2D
 @export_multiline var description: String = ""
 

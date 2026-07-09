@@ -10,6 +10,8 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 @export var required_task_ids: Array[StringName] = []
 @export var min_professionalism: int = 0
 @export var min_cleanliness: int = 0
+## Replan Packet 2: fail the frisk when carried incriminating weight exceeds this. -1 disables the pocket check.
+@export var max_incriminating: int = -1
 @export var allow_any_cover_story_if_empty: bool = true
 @export var allow_any_credential_if_empty: bool = true
 @export var accepted_message: String = "Story checks out."
@@ -44,6 +46,9 @@ func evaluate(context: Dictionary = {}) -> Dictionary:
 	var cleanliness := int(SocialStealthAdapterScript.get_fact_value(SocialStealthAdapterScript.FACT_CLEANLINESS_SCORE, "", {"mission_id": mission_id}))
 	if cleanliness < min_cleanliness:
 		reasons.append("Cleanliness %d is below required %d." % [cleanliness, min_cleanliness])
+	var carried_incriminating := MissionInventory.get_incriminating_total()
+	if max_incriminating >= 0 and carried_incriminating > max_incriminating:
+		reasons.append("Carrying incriminating gear (weight %d over limit %d)." % [carried_incriminating, max_incriminating])
 	var ok := reasons.is_empty()
 	return {
 		"ok": ok,
@@ -55,6 +60,7 @@ func evaluate(context: Dictionary = {}) -> Dictionary:
 			"active_cover_story_id": active_cover,
 			"professionalism": professionalism,
 			"cleanliness": cleanliness,
+			"carried_incriminating": carried_incriminating,
 			"reasons": reasons,
 		},
 	}

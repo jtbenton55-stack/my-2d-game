@@ -12,8 +12,14 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 @export var professionalism_delta: int = 1
 @export var cleanliness_delta: int = 0
 @export var exposure_decay: float = 0.0
+## Replan Packet 3: seconds of alibi granted on completion (witnesses who saw
+## you mid-task will not report; roaming inspections auto-pass).
+@export var alibi_window_seconds: float = 0.0
+## Replan Packet 3: minimum seconds between repeats when one_shot is false.
+@export var repeat_cooldown_seconds: float = 0.0
 
 var last_task_result: Dictionary = {}
+var _last_success_msec: int = -1_000_000
 
 
 func _init() -> void:
@@ -31,10 +37,20 @@ func build_context(actor: Node = null) -> Dictionary:
 	return context
 
 
+func is_interaction_available(actor: Node = null) -> bool:
+	if _is_repeat_cooling():
+		return false
+	return super.is_interaction_available(actor)
+
+
 func activate(actor: Node = null, reason: String = "interact") -> Dictionary:
+	if _is_repeat_cooling():
+		return _result(false, "task_cooling_down", "Doing that again so soon would look staged.", String(mechanic_id))
 	var result: Dictionary = super.activate(actor, reason)
 	if not bool(result.get("ok", false)) or String(result.get("code", "")) != "activation_succeeded":
 		return result
+	_last_success_msec = Time.get_ticks_msec()
+	_register_alibi_window()
 	var context := build_context(actor)
 	var data := {"cover_story_id": String(cover_story_id), "protocol_id": String(protocol_id), "source_id": String(mechanic_id)}
 	last_task_result = SocialStealthAdapterScript.complete_task(String(_resolved_task_id()), data, context)
@@ -55,6 +71,20 @@ func activate(actor: Node = null, reason: String = "interact") -> Dictionary:
 
 func complete_task(actor: Node = null, reason: String = "script") -> Dictionary:
 	return activate(actor, reason)
+
+
+func _is_repeat_cooling() -> bool:
+	if one_shot or repeat_cooldown_seconds <= 0.0 or Engine.is_editor_hint():
+		return false
+	return Time.get_ticks_msec() - _last_success_msec < int(repeat_cooldown_seconds * 1000.0)
+
+
+func _register_alibi_window() -> void:
+	if alibi_window_seconds <= 0.0 or Engine.is_editor_hint() or get_tree() == null:
+		return
+	var runtime := get_tree().get_first_node_in_group("cover_meter_runtime")
+	if runtime != null and runtime.has_method("register_alibi_window"):
+		runtime.call("register_alibi_window", alibi_window_seconds)
 
 
 func _apply_alert_decay() -> void:

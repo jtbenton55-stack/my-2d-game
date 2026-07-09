@@ -2306,6 +2306,27 @@ Rules:
 4. Use existing adapters and mission-local controllers; do not add a new route, suspicion, NPC, or level-builder manager.
 5. Treat the non-Taco proof scene as a small repeatability skeleton, not a full story mission.
 
+### Phase 19: Seven Systems Player-Facing Replan (Pressure Economy)
+
+Status: Implemented 2026-07-09 as a six-packet grouped milestone from `.cursor/plans/seven_systems_player-facing_replan_9ee29f3c.plan.md`. The seven dev-menu systems now share one player-facing pressure economy: NOW (noise/stealth), SOON (witnesses/cover), LATER (traces/mess feeding the post-mission Investigation Report), META (venue heat feeding next-mission difficulty and the hideout Heat Scanner radio).
+
+| Packet | Scope | Primary Outputs | Validation Gate |
+|---|---|---|---|
+| Packet 1 | Interaction/readability | Hold-interact on `MechanicAreaBase`; `MissionReadabilityLayer` (noise pulse rings, NPC pips, Casing Mode overlay) auto-mounted by `IsoMissionBase`. | `ReplanPacket1ReadabilityTest` 8/8. |
+| Packet 2 | Heist kit | `incriminating`/`bulky` item fields, `InspectionRuleSet` pocket check, `HeistKitHud`, footstep noise tiers, decoy throw via `MissionPlayerKitLayer`. | `ReplanPacket2HeistKitTest` 9/9. |
+| Packet 3 | Cover runtime | `CoverMeterRuntime` drains + alibi windows, repeatable `BelievableTaskZone` stations, `RoamingInspectorNpc`, `CoverChallengePrompt` via `MissionCoverLayer`. | `ReplanPacket3CoverRuntimeTest` 9/9. |
+| Packet 4 | Trace/mess loop | `MessSpotNode` props with cleanup crossover, `PaperTrailAdapter` hardening, `InvestigationReportBuilder` + `MissionResult` report card, report heat into `GameState.venue_heat`. | `ReplanPacket4TraceMessTest` 7/7. |
+| Packet 5 | Witness counterplay | `WitnessNpc` notice/report travel/distraction/gossip-lite, `PhoneSabotageNode` report-point sabotage. | `ReplanPacket5WitnessTest` 7/7. |
+| Packet 6 | Heat meta loop | `HeatScannerRadio` readout + cool-down shift wired into the Heat Scanner station and `HideoutManager`, briefing heat line, `IsoMissionBase` venue-heat noise seeding, `get_mission_heat()` = max(report heat, failed attempts). | `ReplanPacket6HeatMetaTest` 7/7 plus live HideoutHub smoke. |
+
+Rules:
+
+1. Extend `MechanicAreaBase`, mission-scoped adapters, and `MissionAlertController` inputs; no new global managers.
+2. Register replan input actions at runtime; do not write them into `project.godot`.
+3. Trace hardening stays opt-in per mission via `PaperTrailAdapter.set_hardening_seconds()`.
+4. Keep the cool-down shift as an instant hideout action until a playable mission variant is scoped.
+5. Production Taco adoption of the new layers still requires Jake's manual QA before a milestone commit.
+
 ## Phase 14: Encounter / Boss Challenge Layer
 
 ### Timing

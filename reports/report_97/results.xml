@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_97" tests="18" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ReplanPacket2HeistKitTest" package="tests/mission_authoring" timestamp="2026-07-09T18:53:45" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.126">
+		<testcase name="test_item_data_incriminating_and_bulky_flow_into_inventory" classname="ReplanPacket2HeistKitTest" time="0.007">
+		</testcase>
+		<testcase name="test_incriminating_total_scales_with_count" classname="ReplanPacket2HeistKitTest" time="0.006">
+		</testcase>
+		<testcase name="test_inspection_frisk_fails_on_incriminating_gear" classname="ReplanPacket2HeistKitTest" time="0.007">
+		</testcase>
+		<testcase name="test_inspection_frisk_disabled_by_default" classname="ReplanPacket2HeistKitTest" time="0.007">
+		</testcase>
+		<testcase name="test_footstep_emitter_tiers_and_bulky_radius" classname="ReplanPacket2HeistKitTest" time="0.008">
+		</testcase>
+		<testcase name="test_decoy_throw_consumes_item_and_emits_decoy_noise" classname="ReplanPacket2HeistKitTest" time="0.008">
+		</testcase>
+		<testcase name="test_decoy_throw_clamps_to_range" classname="ReplanPacket2HeistKitTest" time="0.007">
+		</testcase>
+		<testcase name="test_heist_kit_hud_splits_loadout_and_mission_slots" classname="ReplanPacket2HeistKitTest" time="0.029">
+		</testcase>
+		<testcase name="test_kit_layer_composes_all_pieces" classname="ReplanPacket2HeistKitTest" time="0.008">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="ReplanPacket3CoverRuntimeTest" package="tests/mission_authoring" timestamp="2026-07-09T18:53:45" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.102">
+		<testcase name="test_cover_meter_drains_on_sustained_running" classname="ReplanPacket3CoverRuntimeTest" time="0.005">
+		</testcase>
+		<testcase name="test_cover_meter_drain_floor_stops_passive_drain" classname="ReplanPacket3CoverRuntimeTest" time="0.005">
+		</testcase>
+		<testcase name="test_alibi_window_registration_and_expiry_query" classname="ReplanPacket3CoverRuntimeTest" time="0.006">
+		</testcase>
+		<testcase name="test_believable_task_grants_alibi_window" classname="ReplanPacket3CoverRuntimeTest" time="0.008">
+		</testcase>
+		<testcase name="test_believable_task_repeat_cooldown_blocks_spam" classname="ReplanPacket3CoverRuntimeTest" time="0.008">
+		</testcase>
+		<testcase name="test_roaming_inspector_auto_passes_during_alibi" classname="ReplanPacket3CoverRuntimeTest" time="0.006">
+		</testcase>
+		<testcase name="test_roaming_inspector_fail_confiscates_and_bumps_exposure" classname="ReplanPacket3CoverRuntimeTest" time="0.005">
+		</testcase>
+		<testcase name="test_challenge_prompt_choices_respect_facts" classname="ReplanPacket3CoverRuntimeTest" time="0.010">
+		</testcase>
+		<testcase name="test_cover_layer_composes_meter_and_prompt" classname="ReplanPacket3CoverRuntimeTest" time="0.011">
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -2,6 +2,7 @@ extends Node
 class_name HideoutManager
 
 const Catalog = preload("res://src/hideout/HideoutStationCatalog.gd")
+const HeatScannerRadioScript = preload("res://src/hideout/HeatScannerRadio.gd")
 const StateControllerScript = preload("res://src/hideout/HideoutStateController.gd")
 const InteractableScript = preload("res://src/hideout/HideoutInteractable.gd")
 const PlacementZoneScript = preload("res://src/hideout/HideoutPlacementZone.gd")
@@ -388,7 +389,20 @@ func _on_panel_action_pressed(action_id: String, payload: Dictionary) -> void:
 		"show_placement_zones":
 			_show_feedback("Placement Zones", "Placement zones are scaffolded, but drag/drop is not implemented yet.")
 		"view_heat":
-			_show_feedback("Heat Scanner", "Current heat state: %s.\nCompleted missions can expose lower-heat replay actions. Fresh missions do not show heat controls." % String(_state.get("heat_state")).capitalize())
+			var readout: Dictionary = HeatScannerRadioScript.build_scanner_readout()
+			_show_feedback("Heat Scanner", String(readout.get("text", "Static.")))
+		"cool_down_shift":
+			var scanner: Dictionary = HeatScannerRadioScript.build_scanner_readout()
+			var target_mission := ""
+			for venue in Array(scanner.get("venues", [])):
+				if bool((venue as Dictionary).get("can_cool_down", false)):
+					target_mission = String((venue as Dictionary).get("mission_id", ""))
+					break
+			if target_mission == "":
+				_show_feedback("Heat Scanner", "No worked venue needs cooling right now. Enjoy the quiet.")
+			else:
+				var shift: Dictionary = HeatScannerRadioScript.run_cooldown_shift(target_mission)
+				_show_feedback("Heat Scanner", String(shift.get("message", "Shift handled.")))
 		"talk":
 			var character_id := String(payload.get("character_id", current_station_id))
 			var line: String = _characters_controller.next_dialogue(character_id, _state) if _characters_controller.has_method("next_dialogue") else "Conversation handled safely."
