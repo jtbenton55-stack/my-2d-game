@@ -52,16 +52,27 @@ static func get_clue_snapshot(mission_id: String = "", mission_node: Node = null
 	var mid := _effective_mission_id(mission_id, mission_node)
 	var raw := MissionClueBridge.get_clue_snapshot(mid)
 	var items: Array[Dictionary] = []
+	var seen: Dictionary = {}
 	for clue in raw.get("items", []):
 		if clue is Dictionary and clue.get("discovered", false) == true:
-			items.append(
-				{
-					"id": String(clue.get("clue_id", "")),
-					"title": String(clue.get("title", "")),
-					"description": String(clue.get("description", "")),
-				}
-			)
+			_append_clue_item(items, seen, clue)
+	for clue in _attempt_clues(mission_node):
+		if clue is Dictionary:
+			_append_clue_item(items, seen, clue)
 	return {"ok": raw.get("ok", false), "mission_id": mid, "items": items, "warnings": raw.get("warnings", [])}
+
+
+static func get_inventory_snapshot() -> Dictionary:
+	var snapshot: Dictionary = MissionInventory.get_snapshot()
+	var items: Array[Dictionary] = []
+	var raw_items: Dictionary = snapshot.get("items", {}) as Dictionary
+	for item_id in raw_items.keys():
+		var entry: Dictionary = raw_items[item_id] as Dictionary
+		var row := entry.duplicate(true)
+		row["item_id"] = String(item_id)
+		items.append(row)
+	items.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return String(a.get("item_id", "")) < String(b.get("item_id", "")))
+	return {"ok": true, "items": items, "count": items.size()}
 
 
 ## Plain-English heat line for pause (D6-01). No raw API identifiers in the string.
@@ -176,6 +187,27 @@ static func _same_objective_text(a: String, b: String) -> bool:
 	var aa := _objective_compare_text(a)
 	var bb := _objective_compare_text(b)
 	return aa != "" and aa == bb
+
+
+static func _append_clue_item(items: Array[Dictionary], seen: Dictionary, clue: Dictionary) -> void:
+	var id := String(clue.get("id", clue.get("clue_id", ""))).strip_edges()
+	if id == "" or seen.has(id):
+		return
+	items.append(
+		{
+			"id": id,
+			"title": String(clue.get("title", clue.get("display_name", id))),
+			"description": String(clue.get("description", clue.get("clue_text", ""))),
+		}
+	)
+	seen[id] = true
+
+
+static func _attempt_clues(mission_node: Node) -> Array:
+	if mission_node == null or not mission_node.has_method("get_authored_collectible_attempt_snapshot"):
+		return []
+	var snapshot: Dictionary = mission_node.call("get_authored_collectible_attempt_snapshot") as Dictionary
+	return snapshot.get("clues", []) as Array
 
 
 static func _objective_compare_text(value: String) -> String:

@@ -640,7 +640,6 @@ func _apply_authoring_preset(mechanic_type: String) -> void:
 			_one_shot.button_pressed = false
 		"TeleportZone":
 			_prompt_text.text = "Press E: Teleport"
-			_enable_starter_requirement("route_open")
 			_enable_starter_success_effect("teleport_used")
 		"MusicTriggerZone":
 			_prompt_text.text = "Change music"

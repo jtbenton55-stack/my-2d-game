@@ -271,7 +271,7 @@ func take_damage(amount: int, _source: Node = null) -> void:
 	var now_msec := Time.get_ticks_msec()
 	if now_msec < _dental_save_grace_until_msec:
 		return
-	if invulnerable or is_in_group("invulnerable") or current_health <= 0:
+	if invulnerable or is_in_group("invulnerable") or is_in_group("mission_hidden") or current_health <= 0:
 		return
 	if GameState.has_selected_card("bentley_dental_boy") and not GameState.dialogue_flags.get("dental_boy_used", false):
 		GameState.dialogue_flags["dental_boy_used"] = true

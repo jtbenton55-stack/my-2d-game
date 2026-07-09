@@ -6,6 +6,7 @@ extends CanvasLayer
 var objectives_button: Button = null
 var scheme_cards_button: Button = null
 var clues_button: Button = null
+var inventory_button: Button = null
 var controls_button: Button = null
 var info_panel: Panel = null
 var _info_scroll: ScrollContainer = null
@@ -46,10 +47,12 @@ func _setup_controls_menu() -> void:
 	objectives_button = _add_menu_button(menu, "Objectives", exit_button.get_index())
 	scheme_cards_button = _add_menu_button(menu, "Scheme Cards", exit_button.get_index() + 1)
 	clues_button = _add_menu_button(menu, "Clues", exit_button.get_index() + 2)
-	controls_button = _add_menu_button(menu, "Controls", exit_button.get_index() + 3)
+	inventory_button = _add_menu_button(menu, "Inventory", exit_button.get_index() + 3)
+	controls_button = _add_menu_button(menu, "Controls", exit_button.get_index() + 4)
 	objectives_button.pressed.connect(func(): _toggle_info_panel("objectives"))
 	scheme_cards_button.pressed.connect(func(): _toggle_info_panel("scheme_cards"))
 	clues_button.pressed.connect(func(): _toggle_info_panel("clues"))
+	inventory_button.pressed.connect(func(): _toggle_info_panel("inventory"))
 	controls_button.pressed.connect(func(): _toggle_info_panel("controls"))
 
 	info_panel = Panel.new()
@@ -106,6 +109,8 @@ func _toggle_info_panel(kind: String) -> void:
 			_info_rich.text = _scheme_cards_text()
 		"clues":
 			_info_rich.text = _clues_text()
+		"inventory":
+			_info_rich.text = _inventory_text()
 		_:
 			_info_rich.text = _controls_text()
 	info_panel.show()
@@ -218,6 +223,25 @@ func _clues_text() -> String:
 			continue
 		lines.append("")
 		lines.append("Note: " + ws)
+	return "\n".join(lines)
+
+
+func _inventory_text() -> String:
+	var snap := MissionPauseDataProvider.get_inventory_snapshot()
+	var lines: Array[String] = ["Mission Inventory"]
+	if snap.get("items", []).is_empty():
+		lines.append("  empty")
+	else:
+		for row in snap.get("items", []):
+			if row is Dictionary:
+				var item_id := String(row.get("item_id", ""))
+				var display := String(row.get("display_name", item_id)).strip_edges()
+				if display == "":
+					display = item_id
+				lines.append(
+					"  - %s x%d [%s]"
+					% [display, int(row.get("count", 0)), String(row.get("category", ""))]
+				)
 	return "\n".join(lines)
 
 

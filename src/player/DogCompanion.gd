@@ -90,6 +90,7 @@ func bark_stun() -> bool:
 
 func command_bark(_actor: Node = null, _context: Dictionary = {}) -> Dictionary:
 	var ok := bark_stun()
+	EventBus.objective_updated.emit("Bentley barked." if ok else "Bentley needs a breather.")
 	return _command_result(
 		ok,
 		"bark_executed" if ok else "bark_not_ready",
@@ -192,8 +193,7 @@ func _clamp_to_scene_bounds() -> void:
 
 func _handle_commands() -> void:
 	if _command_pressed("bentley_bark") or _ability_pressed():
-		if not bool(command_bark().get("ok", false)):
-			EventBus.objective_updated.emit("Bentley needs a breather.")
+		command_bark()
 	if _command_pressed("bentley_sniff"):
 		command_sniff()
 	if _command_pressed("bentley_fetch"):

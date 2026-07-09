@@ -76,6 +76,10 @@ func _update_ai(delta: float) -> void:
 			return
 		if target == null or not is_instance_valid(target):
 			target = get_tree().get_first_node_in_group("player") as Node2D
+		if _target_is_hidden():
+			_enter_authoring_fallback()
+			super._update_ai(delta)
+			return
 		if target != null:
 			var distance := global_position.distance_to(target.global_position)
 			if distance <= attack_range:

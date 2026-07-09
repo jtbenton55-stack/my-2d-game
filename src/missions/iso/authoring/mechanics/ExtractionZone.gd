@@ -7,6 +7,7 @@ extends MechanicAreaBase
 @export var extraction_flag: StringName = &""
 @export var starts_extracted: bool = false
 @export var complete_mission_on_success: bool = true
+@export var show_result_screen_on_success: bool = false
 @export var stay_available_after_extract: bool = false
 
 @export_group("Objectives")
@@ -152,6 +153,7 @@ func extract(actor: Node = null, reason: String = "interact") -> Dictionary:
 		}
 	)
 	_emit_extraction_debug(last_extraction_result)
+	_show_result_screen_if_requested(completion_result)
 	_notify_availability()
 	refresh_debug_label()
 	return last_extraction_result
@@ -395,6 +397,19 @@ func _emit_extraction_debug(result: Dictionary) -> void:
 		"debug",
 		"ExtractionZone %s (%s) %s: %s" % [String(mechanic_id), String(extraction_tag), status, String(result.get("code", ""))]
 	)
+
+
+func _show_result_screen_if_requested(completion_result: Dictionary) -> void:
+	if Engine.is_editor_hint() or not show_result_screen_on_success:
+		return
+	if not complete_mission_on_success or not bool(completion_result.get("ok", false)):
+		return
+	var scene_manager := get_node_or_null("/root/SceneManager")
+	if scene_manager == null or not scene_manager.has_method("show_mission_result"):
+		return
+	var game_state := get_node_or_null("/root/GameState")
+	var result_payload: Dictionary = (game_state.get("last_mission_result") as Dictionary) if game_state != null else {}
+	scene_manager.call_deferred("show_mission_result", result_payload)
 
 
 func _debug_label_text() -> String:

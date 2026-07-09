@@ -144,7 +144,7 @@ func try_interact_at_position(test_position: Vector2) -> bool:
 	_update_prompt_label(last_prompt_text)
 	_cooldown = cooldown_seconds
 	if debug_enabled:
-		print("[MissionInteractionBridge] Interacted with %s -> %s" % [candidate.name, str(result)])
+		print("[MissionInteractionBridge] Interacted with %s -> %s" % [candidate.name, _candidate_debug_result(candidate, result)])
 	return result
 
 
@@ -212,6 +212,19 @@ func _call_candidate(node: Node, actor: Node) -> bool:
 			return bool(result)
 		return true
 	return false
+
+
+func _candidate_debug_result(node: Node, fallback: bool) -> String:
+	for property_name in ["last_extraction_result", "last_teleport_result", "last_activation_result"]:
+		var value: Variant = node.get(property_name) if node != null else null
+		if value is Dictionary and not (value as Dictionary).is_empty():
+			var result: Dictionary = value as Dictionary
+			return "%s ok=%s message=%s" % [
+				String(result.get("code", "result")),
+				str(bool(result.get("ok", fallback))),
+				String(result.get("message", "")),
+			]
+	return str(fallback)
 
 
 func _refresh_nearest_prompt() -> void:

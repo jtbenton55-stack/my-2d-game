@@ -121,6 +121,7 @@ games/my-2d-game/
 2. **Missing audio** - AudioManager exists but no sound files
 3. **Dialogue content** - System works but needs JSON files
 4. **Balance tuning** - Difficulty/rewards need playtesting
+5. **Ask Jake about Godot parse-error popups** - On 2026-07-08, Godot reported parse errors loading `HideoutPhase0MD3Fix2Validator.gd`, `HideoutPhase0MD3Fix3Validator.gd`, `HideoutPhase0MD3FixValidator.gd`, `HideoutPhase0MD3Validator.gd`, and `TacoBellPhase0JCInteractables.gd`. Investigate in a separate follow-up.
 
 ## 🚀 **Next Steps for Polish**
 

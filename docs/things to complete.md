@@ -9,8 +9,19 @@
 - [ ] clorox protocol
 - [ ] teleportation pads
 - [ ] blender models
+- [ ] Bentley Blender model.
+- [ ] Ask Jake about Godot parse-error popups.
+- [ ] Ask OpenCode to create a dev-only 2D level-design layer on level maps: use an AI-created 2D image/layout of the level with spaces for dragging and dropping walls, floors, collision barriers, and all supported mission mechanics. This layer is for authoring only and should never be visible to players.
 - [ ] inventory
 - [ ] combat
 - [ ] animations
 - [ ] boss fights
 - [ ] stealth system
+- [ ] Link all collectibles, clues, poop bags, polaroids, glow guys, case cash, and similar pickups to inventory across missions, the main menu, and the hideout hub.
+- [ ] Remove Corner Store level.
+- [ ] Replan inventory system.
+- [ ] Replan social/professional system.
+- [ ] Replan noise/stealth/sneak system.
+- [ ] Replan paper trail system.
+- [ ] Replan cleanliness system.
+- [ ] Replan reactive NPC system.

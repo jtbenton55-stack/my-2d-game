@@ -86,13 +86,13 @@ func get_enabled_patrol_route_authors() -> Array[Node2D]:
 
 
 func find_enabled_beam_author(beam_id: StringName) -> Node2D:
-	var want := String(beam_id).strip_edges()
+	var want := str(beam_id).strip_edges()
 	if want == "":
 		return null
 	for author in collect_beam_authors():
 		if not bool(author.get("enabled")):
 			continue
-		if String(author.get("beam_id")).strip_edges() == want:
+		if str(author.get("beam_id")).strip_edges() == want:
 			return author
 	return null
 
@@ -136,19 +136,19 @@ func collect_effect_set_authors() -> Array[Node2D]:
 func _collect_effect_authors_by_type(effect_type: String) -> Array[Node2D]:
 	var out: Array[Node2D] = []
 	for author in collect_effect_authors():
-		if author.has_method("get_effect_type") and String(author.call("get_effect_type")) == effect_type:
+		if author.has_method("get_effect_type") and str(author.call("get_effect_type")) == effect_type:
 			out.append(author)
 	return out
 
 
 func find_patrol_route(route_id: StringName) -> Node2D:
-	var want := String(route_id).strip_edges()
+	var want := str(route_id).strip_edges()
 	if want == "":
 		return null
 	for author in collect_patrol_route_authors():
 		if not bool(author.get("enabled")):
 			continue
-		if String(author.get("route_id")).strip_edges() == want:
+		if str(author.get("route_id")).strip_edges() == want:
 			return author
 	return null
 
@@ -182,6 +182,6 @@ func count_collectible_authors_by_kind(kind: String) -> int:
 	for author in collect_collectible_authors():
 		if not bool(author.get("enabled")):
 			continue
-		if author.has_method("get_author_kind") and String(author.call("get_author_kind")) == want:
+		if author.has_method("get_author_kind") and str(author.call("get_author_kind")) == want:
 			n += 1
 	return n

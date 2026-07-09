@@ -11,6 +11,7 @@ mechanic_id = &"CHANGE_ME_TELEPORT_ID"
 display_name = "Teleport Zone"
 shape_size = Vector2(96, 96)
 prompt_text = "Press E: Teleport"
+require_prior_interaction = false
 trigger_on_enter = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -170,6 +170,8 @@ func _ready() -> void:
 		objective_text = _initial_objective_text()
 		if auto_generate_from_definition:
 			_generate_from_definition()
+		else:
+			_setup_scene_authored_runtime()
 	_ensure_dev_harness()
 	super._ready()
 	call_deferred("_ensure_d6_fix5_runtime_helpers")
@@ -775,10 +777,15 @@ func _create_spawn_points() -> void:
 	if player_marker == null:
 		player_marker = _find_authoring_marker("PLAYER_SPAWN", "")
 	if player_marker != null:
+		var default_marker := Marker2D.new()
+		default_marker.name = "default"
+		default_marker.global_position = player_marker.global_position
+		spawns.add_child(default_marker)
 		var start := Marker2D.new()
 		start.name = "start_main"
 		start.global_position = player_marker.global_position
 		spawns.add_child(start)
+		_spawn_points_by_id["default"] = default_marker.global_position
 		_spawn_points_by_id["start_main"] = start.global_position
 		for sub in _collect_authoring_markers("SUBAREA_SPAWN"):
 			var sub_id := String(sub.marker_id if sub.has_method("get") else "")
@@ -1118,11 +1125,18 @@ func _apply_camera_bounds() -> void:
 	var camera := get_node_or_null("Camera2D") as Camera2D
 	if camera == null:
 		return
-	var rect := _mission_rect()
+	var rect := _camera_bounds_rect()
 	camera.limit_left = int(rect.position.x - 256)
 	camera.limit_top = int(rect.position.y - 256)
 	camera.limit_right = int(rect.end.x + 256)
 	camera.limit_bottom = int(rect.end.y + 256)
+
+
+func _setup_scene_authored_runtime() -> void:
+	_sync_layout_root_to_gameplay_layers()
+	_setup_runtime_systems()
+	_ensure_d5_attempt_security_beam_runtime()
+	_apply_camera_bounds()
 
 
 func _new_placeholder(script_path: String) -> Area2D:
@@ -2934,6 +2948,8 @@ func record_authored_collectible_attempt(
 		entry["glow_guy_id"] = String(payload.get("glow_guy_id", id_s))
 	if entry["collectible_type"] == "poop_bag":
 		entry["poop_count"] = maxi(int(payload.get("poop_count", 1)), 1)
+		_apply_authored_poop_bag_inventory(int(entry["poop_count"]))
+		entry["real_system_applied"] = true
 	_d6_06_pending_collectibles.append(entry)
 	_attempt_runtime_state["d6_06_pending_collectible_count"] = _d6_06_pending_collectibles.size()
 	_update_d6_06_pending_type_counts()
@@ -2950,9 +2966,46 @@ func record_authored_collectible_attempt(
 		"success": true,
 		"already_done": false,
 		"message": "Recorded for mission attempt: %s" % id_s,
-		"real_system_updated": false,
+		"real_system_updated": bool(entry.get("real_system_applied", false)),
 		"menu_updated": false,
 	}
+
+
+func get_authored_collectible_attempt_snapshot() -> Dictionary:
+	var items: Array[Dictionary] = []
+	var clues: Array[Dictionary] = []
+	for entry in _d6_06_pending_collectibles:
+		var item := {
+			"collectible_id": String(entry.get("collectible_id", "")),
+			"category": String(entry.get("category", "")),
+			"collectible_type": String(entry.get("collectible_type", "")),
+			"display_name": String(entry.get("display_name", "")),
+			"committed": bool(entry.get("committed", false)),
+			"node_path": String(entry.get("node_path", "")),
+		}
+		items.append(item)
+		if String(entry.get("collectible_type", "")) in ["evidence_clue", "clue"]:
+			clues.append({
+				"id": String(entry.get("clue_id", entry.get("collectible_id", ""))),
+				"title": String(entry.get("clue_title", entry.get("display_name", ""))),
+				"description": String(entry.get("clue_text", "")),
+				"discovered": true,
+				"committed": bool(entry.get("committed", false)),
+			})
+	return {
+		"items": items,
+		"clues": clues,
+		"count": items.size(),
+		"clue_count": clues.size(),
+	}
+
+
+func _apply_authored_poop_bag_inventory(poop_count: int) -> void:
+	var count := maxi(poop_count, 1)
+	for _i in range(count):
+		GameState.add_poop_bag()
+	increment_attempt_counter("poop_bags_collected", count)
+	EventBus.objective_updated.emit("+%d Bentley poop bag%s." % [count, "" if count == 1 else "s"])
 
 
 func _authored_type_from_category(category: String, payload: Dictionary) -> String:
@@ -3041,7 +3094,7 @@ func _commit_pending_authored_collectibles() -> Dictionary:
 		if adapter != null and adapter.has_method("sync_to_real_systems"):
 			var sync_result: Dictionary = adapter.call("sync_to_real_systems", id_s, cat_s, payload)
 			entry["sync_result"] = sync_result
-			if ctype == "poop_bag":
+			if ctype == "poop_bag" and not bool(entry.get("real_system_applied", false)):
 				var extra: int = maxi(int(entry.get("poop_count", 1)), 1) - 1
 				for _i in range(extra):
 					GameState.add_poop_bag()
@@ -6197,7 +6250,7 @@ func _unique_bake_marker_id(marker_type: String, base_id: String, extra: Diction
 
 func _map_to_global(cell: Vector2i) -> Vector2:
 	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
-	if floor_layer:
+	if floor_layer != null and floor_layer.tile_set != null:
 		return floor_layer.to_global(floor_layer.map_to_local(cell))
 	return Vector2(cell.x * 64, cell.y * 32)
 
@@ -6320,25 +6373,87 @@ func _floor_cell_bounds() -> Rect2i:
 
 
 func _floor_world_bounds() -> Rect2:
-	var floor_layer := get_node_or_null("GameplayRoot/GameplayFloorLayer") as TileMapLayer
-	if floor_layer == null:
+	return _tile_layer_world_bounds("GameplayRoot/GameplayFloorLayer")
+
+
+func _camera_bounds_rect() -> Rect2:
+	var rect := _mission_rect()
+	for layer_path in [
+		"GameplayRoot/GameplayFloorLayer",
+		"GameplayRoot/GameplayCollisionLayer",
+		"GameplayRoot/LayoutRoot/FloorLayer",
+		"GameplayRoot/LayoutRoot/WallLayer",
+		"GameplayRoot/LayoutRoot/CoverLayer",
+		"GameplayRoot/LayoutRoot/CollisionBarrierLayer",
+	]:
+		rect = _merge_rect_if_valid(rect, _tile_layer_world_bounds(layer_path))
+	for node_path in [
+		"GameplayRoot/MarkerRoot",
+		"GameplayRoot/SecurityAuthoringRoot",
+		"MissionMechanics",
+		"EntityRoot",
+	]:
+		rect = _merge_rect_if_valid(rect, _node2d_descendant_bounds(node_path))
+	return rect
+
+
+func _tile_layer_world_bounds(layer_path: String) -> Rect2:
+	var layer := get_node_or_null(layer_path) as TileMapLayer
+	if layer == null or layer.tile_set == null:
 		return Rect2()
-	var cells := floor_layer.get_used_cells()
+	var cells := layer.get_used_cells()
 	if cells.is_empty():
 		return Rect2()
 	var half_tile := Vector2(32, 16)
-	var first_pos := floor_layer.to_global(floor_layer.map_to_local(cells[0]))
+	var first_pos := layer.to_global(layer.map_to_local(cells[0]))
 	var min_x := first_pos.x - half_tile.x
 	var max_x := first_pos.x + half_tile.x
 	var min_y := first_pos.y - half_tile.y
 	var max_y := first_pos.y + half_tile.y
 	for cell in cells:
-		var pos := floor_layer.to_global(floor_layer.map_to_local(cell))
+		var pos := layer.to_global(layer.map_to_local(cell))
 		min_x = minf(min_x, pos.x - half_tile.x)
 		max_x = maxf(max_x, pos.x + half_tile.x)
 		min_y = minf(min_y, pos.y - half_tile.y)
 		max_y = maxf(max_y, pos.y + half_tile.y)
 	return Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
+
+
+func _node2d_descendant_bounds(root_path: String) -> Rect2:
+	var root := get_node_or_null(root_path)
+	if root == null:
+		return Rect2()
+	var has_point := false
+	var min_pos := Vector2.ZERO
+	var max_pos := Vector2.ZERO
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var node := stack.pop_back() as Node
+		if node is Node2D:
+			var pos := (node as Node2D).global_position
+			if not has_point:
+				min_pos = pos
+				max_pos = pos
+				has_point = true
+			else:
+				min_pos.x = minf(min_pos.x, pos.x)
+				min_pos.y = minf(min_pos.y, pos.y)
+				max_pos.x = maxf(max_pos.x, pos.x)
+				max_pos.y = maxf(max_pos.y, pos.y)
+		for child in node.get_children():
+			if child is Node:
+				stack.append(child as Node)
+	if not has_point:
+		return Rect2()
+	return Rect2(min_pos, max_pos - min_pos).abs().grow(96.0)
+
+
+func _merge_rect_if_valid(base: Rect2, addition: Rect2) -> Rect2:
+	if addition.size.x <= 0.0 or addition.size.y <= 0.0:
+		return base
+	if base.size.x <= 0.0 or base.size.y <= 0.0:
+		return addition
+	return base.merge(addition)
 
 
 func _sync_layout_root_to_gameplay_layers() -> void:

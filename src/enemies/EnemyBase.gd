@@ -73,6 +73,11 @@ func _update_ai(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
+	if _target_is_hidden():
+		_spotted_emitted = false
+		_aware = false
+		_patrol_or_idle(_delta)
+		return
 	var distance := global_position.distance_to(target.global_position)
 	var effective_aggro_range := aggro_range
 	if target.has_method("is_stealth_active") and target.is_stealth_active():
@@ -103,6 +108,8 @@ func _update_ai(_delta: float) -> void:
 func _can_see_player() -> bool:
 	if target == null or not is_instance_valid(target):
 		return false
+	if _target_is_hidden():
+		return false
 	var space := get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(global_position, target.global_position)
 	query.exclude = [get_rid()]
@@ -111,6 +118,10 @@ func _can_see_player() -> bool:
 	if result.is_empty():
 		return true
 	return result.get("collider") == target
+
+
+func _target_is_hidden() -> bool:
+	return target != null and is_instance_valid(target) and target.is_in_group("mission_hidden")
 
 func _try_attack() -> void:
 	if attack_timer > 0.0:

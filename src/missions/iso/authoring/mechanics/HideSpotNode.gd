@@ -48,6 +48,7 @@ func exit_hide(actor: Node = null) -> Dictionary:
 	var controller := _find_alert_controller()
 	if reset_modifier_on_exit and controller != null and controller.has_method("set_detection_modifier"):
 		controller.call("set_detection_modifier", 1.0)
+	_clear_actor_hidden_state(hidden_actor)
 	hidden_actor = null
 	last_hide_result = _result(true, "hide_exited", "Hide spot exited.", String(mechanic_id))
 	refresh_debug_label()
@@ -89,7 +90,10 @@ func _apply_hide(actor: Node) -> Dictionary:
 	var controller := _find_alert_controller()
 	if controller == null:
 		return _result(false, "alert_controller_missing", "MissionAlertController is missing.", String(mechanic_id))
+	if hidden_actor != null and hidden_actor != actor:
+		_clear_actor_hidden_state(hidden_actor)
 	hidden_actor = actor
+	_apply_actor_hidden_state(actor)
 	if controller.has_method("set_detection_modifier"):
 		controller.call("set_detection_modifier", hidden_detection_modifier)
 	if exposure_decay_on_enter > 0.0 and controller.has_method("decay_exposure"):
@@ -98,6 +102,22 @@ func _apply_hide(actor: Node) -> Dictionary:
 		"hidden_detection_modifier": hidden_detection_modifier,
 		"exposure_decay_on_enter": exposure_decay_on_enter,
 	})
+
+
+func _apply_actor_hidden_state(actor: Node) -> void:
+	if actor == null:
+		return
+	actor.add_to_group("mission_hidden")
+	actor.set_meta("mission_hide_spot_path", str(get_path()) if is_inside_tree() else str(mechanic_id))
+
+
+func _clear_actor_hidden_state(actor: Node) -> void:
+	if actor == null or not is_instance_valid(actor):
+		return
+	if actor.is_in_group("mission_hidden"):
+		actor.remove_from_group("mission_hidden")
+	if actor.has_meta("mission_hide_spot_path"):
+		actor.remove_meta("mission_hide_spot_path")
 
 
 func _find_alert_controller() -> Node:

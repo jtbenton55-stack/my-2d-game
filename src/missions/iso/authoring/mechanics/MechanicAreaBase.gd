@@ -62,6 +62,7 @@ func _ready() -> void:
 	collision_mask = 1
 	monitoring = true
 	monitorable = true
+	_ensure_runtime_debug_visual()
 	_ensure_body_enter_connection()
 	_apply_shape_size_if_possible()
 	refresh_debug_label()
@@ -258,6 +259,30 @@ func refresh_debug_label() -> void:
 	if label == null or not label.has_method("set_text"):
 		return
 	label.call("set_text", _debug_label_text())
+
+
+func _ensure_runtime_debug_visual() -> void:
+	if Engine.is_editor_hint() or not OS.is_debug_build():
+		return
+	if show_debug_label and get_node_or_null(debug_label_path) == null:
+		var label := Label.new()
+		label.name = str(debug_label_path)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.add_theme_font_size_override("font_size", 10)
+		label.modulate = Color(1.0, 1.0, 1.0, 0.95)
+		label.position = Vector2(-64.0, -shape_size.y * 0.5 - 24.0)
+		label.size = Vector2(128.0, 20.0)
+		add_child(label)
+	if get_node_or_null("RuntimeDebugFill") != null:
+		return
+	var fill := ColorRect.new()
+	fill.name = "RuntimeDebugFill"
+	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fill.color = preview_color
+	fill.position = -shape_size * 0.5
+	fill.size = shape_size
+	fill.z_index = -1
+	add_child(fill)
 
 
 func designer_name() -> String:

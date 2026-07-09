@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-08" name="report_73" tests="9" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="MilestoneAThinAuthorablesTest" package="tests/mission_authoring" timestamp="2026-07-09T01:01:20" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.978">
+		<testcase name="test_player_start_marker_matches_existing_spawn_authoring_convention" classname="MilestoneAThinAuthorablesTest" time="0.036">
+		</testcase>
+		<testcase name="test_player_start_marker_creates_default_and_start_main_spawn_points" classname="MilestoneAThinAuthorablesTest" time="0.039">
+		</testcase>
+		<testcase name="test_milestone_a_proof_scene_has_bridge_and_valid_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.730">
+		</testcase>
+		<testcase name="test_milestone_a_proof_camera_bounds_cover_authored_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.172">
+		</testcase>
+		<testcase name="test_milestone_a_proof_inventory_chain_is_self_contained" classname="MilestoneAThinAuthorablesTest" time="0.139">
+		</testcase>
+		<testcase name="test_teleport_zone_moves_player_and_applies_effect_after_requirements" classname="MilestoneAThinAuthorablesTest" time="0.079">
+		</testcase>
+		<testcase name="test_teleport_zone_blocks_when_requirements_fail" classname="MilestoneAThinAuthorablesTest" time="0.031">
+		</testcase>
+		<testcase name="test_teleport_zone_missing_target_is_safe" classname="MilestoneAThinAuthorablesTest" time="0.036">
+		</testcase>
+		<testcase name="test_music_trigger_zone_requests_audio_manager_and_restores_on_exit" classname="MilestoneAThinAuthorablesTest" time="0.071">
+		</testcase>
+	</testsuite>
+</testsuites>

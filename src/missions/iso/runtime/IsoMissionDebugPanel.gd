@@ -9,6 +9,9 @@ const SHOW_COLLAPSED_DEBUG_SECTIONS := true
 const QA_PANEL_TOGGLE_KEY := KEY_F12
 const QA_PANEL_SCRIPT := preload("res://src/missions/iso/runtime/MissionQAChecklistPanel.gd")
 const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd")
+const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
+const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
+const ReactiveNpcBrainAdapterScript := preload("res://src/missions/iso/ai/ReactiveNpcBrainAdapter.gd")
 
 @export var mission_id: String = ""
 @export var debug_text_color := Color(1.0, 0.0, 0.0, 1.0)
@@ -18,6 +21,7 @@ const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd
 var _mission: Node = null
 var _compact_panel: Panel = null
 var _details_panel: Panel = null
+var _status_scroll: ScrollContainer = null
 var _status: Label = null
 var _details: RichTextLabel = null
 var _qa_panel: Control = null
@@ -84,6 +88,7 @@ func _build_ui() -> void:
 	status_scroll.position = Vector2(6, 6)
 	status_scroll.size = Vector2(284, 228)
 	status_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_status_scroll = status_scroll
 	_compact_panel.add_child(status_scroll)
 	var compact := Label.new()
 	compact.name = "Status"
@@ -175,6 +180,9 @@ func _refresh_status() -> void:
 		int(pbi.get("used_this_mission", 0)),
 	]
 	var inventory_line := "\n" + _format_mission_inventory_line()
+	var clue_line := "\n" + _format_clue_line(mid)
+	var mission_flags_line := "\n" + _format_mission_flags_line(mid)
+	var social_line := "\n" + _format_social_line(mid)
 	var noise_line := "\nnoise_events=0 last_noise=-"
 	if controller != null and controller.has_method("get_noise_debug_summary"):
 		var noise_summary: Dictionary = controller.call("get_noise_debug_summary")
@@ -191,6 +199,10 @@ func _refresh_status() -> void:
 			_dash_if_empty(String(phase17_summary.get("last_route_label", phase17_summary.get("last_route_id", "")))),
 			(phase17_summary.get("route_log", []) as Array).size(),
 		]
+	var encounter_line := "\n" + _format_encounter_line(phase17_summary)
+	var paper_line := "\n" + _format_paper_trail_line(mid)
+	var reactive_line := "\n" + _format_reactive_npc_line(mid)
+	var music_line := "\n" + _format_music_line()
 	var sch_snap := MissionSchemeBridge.get_scheme_snapshot(mid)
 	var scheme_for_details := "\n" + MissionSchemeCardFormatter.format_scheme_snapshot_debug_block(sch_snap)
 	var obj_line := "\nquest_line=%s" % String(QuestManager.get_current_objective(mid))
@@ -198,7 +210,8 @@ func _refresh_status() -> void:
 	if _mission != null and _mission.has_method("get_runtime_debug_summary"):
 		var rsum: Dictionary = _mission.call("get_runtime_debug_summary")
 		sec_lines = _build_authoring_security_f10_lines(rsum, heat, alert, mid, garage_code, controller)
-	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d%s%s%s%s%s%s%s" % [
+	var scroll_value := _status_scroll.scroll_vertical if _status_scroll != null else 0
+	_status.text = "mission=%s\nheat=%d attempts=%d\ncode=%s\ntiny=%d glow=%d polaroids=%d clues=%d poop_used=%d\nalert=%s alarms=%d wrong_code=%d guards=%d cameras=%d" % [
 		mid,
 		heat,
 		int(GameState.failed_attempts.get(mid, 0)),
@@ -213,14 +226,9 @@ func _refresh_status() -> void:
 		int(attempt.get("wrong_code", perf.get("wrong_code_attempts", 0))),
 		int(attempt.get("guards_alerted", perf.get("guards_alerted", 0))),
 		int(attempt.get("cameras_triggered", perf.get("cameras_triggered", 0))),
-		p0j_counts,
-		poop_line,
-		inventory_line,
-		noise_line,
-		phase17_line,
-		sec_lines,
-		obj_line,
-	]
+	] + p0j_counts + poop_line + inventory_line + clue_line + mission_flags_line + noise_line + music_line + social_line + phase17_line + encounter_line + paper_line + reactive_line + sec_lines + obj_line
+	if _status_scroll != null:
+		_status_scroll.set_deferred("scroll_vertical", scroll_value)
 	_apply_red_text_style(_status)
 	_details.text = "authoring_mode=%s\nscene=%s\nactive_mutations=%s\nreal_scent_route=%s\nlouis_delivery_route=%s\nextra_guard=%s extra_camera=%s\ngarage_beam_armed=%s garage_beam_triggered=%s\ndetection=%.2f modifier=%.2f\nwrong_scent=%d collectibles=%d%s\n(F9 toggle details, F10 toggle compact HUD)%s" % [
 		def_mode,
@@ -892,6 +900,110 @@ func _format_mission_inventory_line() -> String:
 		parts.append("%s x%d [%s]" % [String(item_id), int(entry.get("count", 0)), String(entry.get("category", ""))])
 	parts.sort()
 	return "mission_inv %s" % "; ".join(parts)
+
+
+func _format_clue_line(mid: String) -> String:
+	var snap := MissionPauseDataProvider.get_clue_snapshot(mid, _mission)
+	var items: Array = snap.get("items", []) as Array
+	if items.is_empty():
+		return "clues found=0"
+	var parts: Array[String] = []
+	for row in items:
+		if row is Dictionary:
+			parts.append(String((row as Dictionary).get("id", "")))
+	parts.sort()
+	return "clues found=%d [%s]" % [items.size(), ", ".join(parts)]
+
+
+func _format_mission_flags_line(mid: String) -> String:
+	var prefix := "mission_flag:%s:" % mid
+	var parts: Array[String] = []
+	for key in GameState.dialogue_flags.keys():
+		var text := String(key)
+		if not text.begins_with(prefix):
+			continue
+		var value: Variant = GameState.dialogue_flags.get(key)
+		parts.append("%s=%s" % [text.substr(prefix.length()), str(value)])
+	parts.sort()
+	if parts.is_empty():
+		return "flags none"
+	var shown := parts.slice(0, mini(parts.size(), 10))
+	var suffix := " +%d" % (parts.size() - shown.size()) if parts.size() > shown.size() else ""
+	return "flags %d [%s%s]" % [parts.size(), ", ".join(shown), suffix]
+
+
+func _format_social_line(mid: String) -> String:
+	var summary := SocialStealthAdapterScript.get_summary(mid)
+	return "social pro=%d clean=%d cover=%s creds=%d protocols=%d tasks=%d pass=%d fail=%d" % [
+		int(summary.get("professionalism", 0)),
+		int(summary.get("cleanliness", 0)),
+		_dash_if_empty(String(summary.get("active_cover_story_id", ""))),
+		int(summary.get("credential_count", 0)),
+		int(summary.get("protocol_count", 0)),
+		int(summary.get("task_count", 0)),
+		int(summary.get("inspections_passed", 0)),
+		int(summary.get("inspections_failed", 0)),
+	]
+
+
+func _format_encounter_line(phase17_summary: Dictionary) -> String:
+	var summary := phase17_summary
+	if summary.is_empty():
+		var controller := get_tree().get_first_node_in_group("mission_encounter_controller")
+		if controller != null and controller.has_method("get_summary"):
+			summary = controller.call("get_summary") as Dictionary
+	if summary.is_empty():
+		return "encounter none"
+	var meters: Dictionary = summary.get("meters", {}) as Dictionary
+	var meter_parts: Array[String] = []
+	for meter_id in meters.keys():
+		var meter: Dictionary = meters[meter_id] as Dictionary
+		meter_parts.append("%s=%d" % [String(meter_id), int(meter.get("value", 0))])
+	meter_parts.sort()
+	return "encounter phase=%s active=%s resolved=%s win=%s route=%s tags=%s meters=[%s]" % [
+		_dash_if_empty(String(summary.get("current_phase_id", ""))),
+		str(bool(summary.get("active", false))),
+		str(bool(summary.get("resolved", false))),
+		str(bool(summary.get("success", false))),
+		_dash_if_empty(String(summary.get("last_route_label", summary.get("last_route_id", "")))),
+		str(summary.get("result_tags", {})),
+		", ".join(meter_parts),
+	]
+
+
+func _format_paper_trail_line(mid: String) -> String:
+	var summary := PaperTrailAdapterScript.get_summary(mid)
+	return "paper state=%s active=%d cleaned=%d redirected=%d severity=%d" % [
+		String(summary.get("result_state", "clean")),
+		int(summary.get("active_events", 0)),
+		int(summary.get("cleaned_events", 0)),
+		int(summary.get("redirected_events", 0)),
+		int(summary.get("severity_score", 0)),
+	]
+
+
+func _format_reactive_npc_line(mid: String) -> String:
+	var summary := ReactiveNpcBrainAdapterScript.get_summary(mid)
+	return "reactive signals=%d reactions=%d authority=%d last=%s" % [
+		int(summary.get("signal_count", 0)),
+		int(summary.get("reaction_count", 0)),
+		int(summary.get("authority_reports", 0)),
+		_dash_if_empty(String((summary.get("last_reaction", {}) as Dictionary).get("reaction_id", ""))),
+	]
+
+
+func _format_music_line() -> String:
+	var audio_key := String(AudioManager.current_music) if get_node_or_null("/root/AudioManager") != null else ""
+	var trigger := get_tree().get_first_node_in_group("music_trigger_zone")
+	if trigger != null and trigger.has_method("get_runtime_debug_summary"):
+		var summary: Dictionary = trigger.call("get_runtime_debug_summary") as Dictionary
+		return "music current=%s trigger=%s result=%s restore=%s" % [
+			_dash_if_empty(audio_key),
+			_dash_if_empty(String(summary.get("music_key", ""))),
+			_dash_if_empty(String((summary.get("last_music_result", {}) as Dictionary).get("code", ""))),
+			_dash_if_empty(String((summary.get("last_restore_result", {}) as Dictionary).get("code", ""))),
+		]
+	return "music current=%s" % _dash_if_empty(audio_key)
 
 
 func _typed_collectible_summary() -> Dictionary:

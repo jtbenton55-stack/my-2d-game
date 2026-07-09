@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_83" tests="14" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ExtractionZoneTest" package="tests/mission_authoring" timestamp="2026-07-09T16:16:16" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="1.451">
+		<testcase name="test_extraction_zone_extends_mechanic_area_base" classname="ExtractionZoneTest" time="0.024">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_extracted" classname="ExtractionZoneTest" time="0.062">
+		</testcase>
+		<testcase name="test_successful_clean_extraction_without_mission_completion" classname="ExtractionZoneTest" time="0.063">
+		</testcase>
+		<testcase name="test_base_requirement_gating_blocks_extraction" classname="ExtractionZoneTest" time="0.070">
+		</testcase>
+		<testcase name="test_required_objective_gating" classname="ExtractionZoneTest" time="0.029">
+		</testcase>
+		<testcase name="test_optional_objective_reporting" classname="ExtractionZoneTest" time="0.048">
+		</testcase>
+		<testcase name="test_extraction_flag_sets_namespaced_mission_flag" classname="ExtractionZoneTest" time="0.063">
+		</testcase>
+		<testcase name="test_clean_exit_effects_apply_only_for_clean_outcome" classname="ExtractionZoneTest" time="0.037">
+		</testcase>
+		<testcase name="test_messy_exit_effects_when_alerted" classname="ExtractionZoneTest" time="0.033">
+		</testcase>
+		<testcase name="test_alert_failure_blocks_extraction_and_completion" classname="ExtractionZoneTest" time="0.036">
+		</testcase>
+		<testcase name="test_mission_completion_request_when_enabled" classname="ExtractionZoneTest" time="0.028">
+		</testcase>
+		<testcase name="test_already_extracted_does_not_reapply_effects" classname="ExtractionZoneTest" time="0.038">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="ExtractionZoneTest" time="0.036">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_extract" classname="ExtractionZoneTest" time="0.029">
+		</testcase>
+	</testsuite>
+</testsuites>
