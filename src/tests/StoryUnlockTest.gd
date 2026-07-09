@@ -55,8 +55,9 @@ func run_all_tests() -> Dictionary:
 func _test_initial_state() -> void:
     _reset_game_state()
     
-    var assert_result = _assert_array_equals(GameState.available_missions, ["taco_bell_drop"], 
-        "Only Taco Bell should be available initially")
+    # Mission Bible v2: Corner Store Cashout is the Night Job on-ramp, available from the start.
+    var assert_result = _assert_array_equals(GameState.available_missions, ["taco_bell_drop", "corner_store_cashout"], 
+        "Taco Bell and Corner Store Cashout should be available initially")
     
     _record_result("Initial State", assert_result)
 
@@ -440,8 +441,8 @@ func smoke_test() -> bool:
     
     _reset_game_state()
     
-    # Quick smoke: Initial state
-    if not _assert_array_equals(GameState.available_missions, ["taco_bell_drop"], ""):
+    # Quick smoke: Initial state (Mission Bible v2 - Corner Store Night Job available from start)
+    if not _assert_array_equals(GameState.available_missions, ["taco_bell_drop", "corner_store_cashout"], ""):
         print("✗ Initial state failed")
         return false
     print("✓ Initial state correct")

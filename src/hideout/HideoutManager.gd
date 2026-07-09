@@ -10,6 +10,7 @@ const InteractionBridgeScript = preload("res://src/hideout/HideoutInteractionBri
 const DecorationControllerScript = preload("res://src/hideout/HideoutDecorationController.gd")
 const DialogueBank = preload("res://src/hideout/HideoutDialogueBank.gd")
 const HideoutCharacterDialogueBankScript = preload("res://src/dialogue/HideoutCharacterDialogueBank.gd")
+const SterlingStoryBeatsScript = preload("res://src/dialogue/SterlingStoryBeats.gd")
 const DialogueBoxScene = preload("res://scenes/ui/DialogueBox.tscn")
 const StorefrontPanelScene = preload("res://scenes/ui/HideoutStorefrontPanel.tscn")
 const MissionCollectibleHideoutSync := preload("res://src/missions/iso/runtime/MissionCollectibleHideoutSync.gd")
@@ -80,6 +81,21 @@ func _ready() -> void:
 	_apply_world_z_order()
 	apply_debug_state("fresh")
 	call_deferred("_apply_mission_collectible_flags_to_state")
+	call_deferred("_maybe_play_story_beat")
+
+## Mission Bible v2 - plays the oldest pending Sterling/Ellie story beat once
+## on the first hideout visit after its trigger mission completes.
+func _maybe_play_story_beat() -> void:
+	var beat: Dictionary = SterlingStoryBeatsScript.get_pending_beat(GameState)
+	if beat.is_empty():
+		return
+	var lines: Array = beat.get("lines", [])
+	if lines.is_empty():
+		return
+	SterlingStoryBeatsScript.mark_beat_seen(GameState, beat)
+	_ensure_dialogue_box()
+	if DialogueManager.has_method("start_simple_dialogue"):
+		DialogueManager.call_deferred("start_simple_dialogue", lines)
 
 func _process(_delta: float) -> void:
 	_update_prompt()

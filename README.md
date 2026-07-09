@@ -1,7 +1,9 @@
 # Untitled Heist RPG - Birthday Gift Game
 
 ## 🎮 **Game Overview**
-A top-down 2D action RPG/heist roguelite created as a birthday gift. Features 5 unique missions, friend progression system (Hades-inspired), and Scheme Cards (Balatro-inspired).
+A top-down 2D action RPG/heist roguelite created as a birthday gift. Parmida and her Shiba Inu Bentley chase "crime lord" status and accidentally build a found family instead, taking down Victor Sterling along the way. Features a 9-mission story arc plus Night Jobs side content, friend progression system (Hades-inspired), and Scheme Cards (Balatro-inspired).
+
+**Current status:** Taco Bell Drop is the playable vertical slice (isometric framework); Jazz Club is partial on the legacy framework; the remaining story missions exist as catalog entries and placeholder scenes. See `docs/MISSION_BIBLE.md` (v2) for the canonical story arc and `docs/MISSION_IMPLEMENTATION_STATUS.md` for implementation truth.
 
 ## 🎭 **Genre & Tone**
 Top-down action RPG with Hades-style meta-loop structure. Each heist is a compact run with stealth, combat, light puzzles, and an objective.
@@ -32,7 +34,6 @@ Top-down action RPG with Hades-style meta-loop structure. Each heist is a compac
 ## 🎯 **Game Features**
 
 ### **✅ COMPLETE SYSTEMS:**
-- **5 Unique Missions** with different gameplay styles
 - **16 Scheme Cards** (8 MVP + 8 stretch) with effects
 - **Friend Progression System** - Help friends, they help you back
 - **Save/Load System** with 3 slots
@@ -42,12 +43,12 @@ Top-down action RPG with Hades-style meta-loop structure. Each heist is a compac
 - **2 Puzzle Types** - Music sequence, Screenwriting multiple choice
 - **Car Chase Mission** - Different gameplay style
 
-### **🎮 Mission List:**
-1. **Taco Bell Drop** - Help Louis recover his delivery bag (goons, sniff trail)
-2. **Velvet Paw Jazz Club** - Steal blackmail ledger (music puzzle, Bruiser enemy)
-3. **The Rewrite Room** - Recover screenplay documents (screenwriting puzzle)
-4. **Fast Family Getaway** - Help Dom escape (car chase sequence)
-5. **Sterling Tower Heist** - Final boss, friend-favor system
+### **🎮 Story Arc (9 missions + finale, see `docs/MISSION_BIBLE.md`):**
+- **Act 1 — Small Favors:** Taco Bell Drop (Louis, playable), Velvet Paw Jazz Club (Yordano, partial), Rewrite Room (Mere)
+- **Act 2 — The Squeeze:** Clean Job (Jinx), Diamond a Year Job (Bryce), Fast Family Getaway (Dom)
+- **Act 3 — What He Can't Buy:** Persian Tea and Poison Ink (JC), Elephant in the Room (Bentley), Shadow Solo Contract (Kiro/Jin)
+- **Finale:** Sterling Tower Heist — every favor pays off
+- **Night Jobs (side track):** Corner Store Cashout, Arm-Wrestling Underground, plus planned Laundromat Heist, Bentley's Walk, and hideout rehearsal puzzles
 
 ### **🃏 Scheme Cards (16 total):**
 - **MVP Cards (8):** Bentley's Dental Boy, Fish Treat Focus, Jake's Resident Orders, Louis Delivery Route, Mere's Legal Eyes, Yordano Bass Drop, Stationery Queen, Dom's Getaway Keys

@@ -1,0 +1,589 @@
+{
+  "blueprint_id": "velvet_paw_jazz_club_v1",
+  "mission_id": "velvet_paw_jazz_club",
+  "description": "Act 1 Mission 2 - Velvet Paw Jazz Club (Yordano, ~30 min). Full story build: alley entry past the front queue, social stealth on the club floor, staff badge + two setlist clues feeding the stage setlist hack, basement server vault for the Black Ledger Shard with Yordano's help, hostile-club return, owner suite fight for the blackmail briefcase, and a bass-drop basement escape. Pacing target: exterior 3 min, floor stealth 6 min, badge/clues/setlist 7 min, basement 6 min, hostile return 4 min, suite fight 3 min, escape 2 min.",
+  "grid_size": 64,
+  "canvas": {"width": 4480, "height": 3200},
+  "regions": [
+    {"kind": "floor", "shape": "rect", "rect": [64, 2560, 3328, 576], "label": "Street, Front Queue & Alley"},
+    {"kind": "floor", "shape": "rect", "rect": [64, 1088, 3008, 1408], "label": "Club Main Floor (bar west, dance floor center, VIP east)"},
+    {"kind": "floor", "shape": "rect", "rect": [640, 448, 1408, 576], "label": "Stage & Stage Wing"},
+    {"kind": "floor", "shape": "rect", "rect": [2112, 448, 1088, 576], "label": "Backstage / Green Room"},
+    {"kind": "floor", "shape": "rect", "rect": [64, 448, 512, 576], "label": "Bathroom"},
+    {"kind": "floor", "shape": "rect", "rect": [3520, 192, 896, 1216], "label": "Owner Suite - Floor 2 (reached via rig stairs teleport)"},
+    {"kind": "floor", "shape": "rect", "rect": [3520, 1728, 896, 1408], "label": "Basement - Service Level (reached via stage hatch teleport)"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 448], [3200, 448], [3200, 2496], [64, 2496], [64, 448]], "label": "Club Outer Walls (front door gap center-south, staff side door gap east-south)"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 1024], [3200, 1024]], "label": "Stage Row Wall (wing gaps: hatch near piano at x1024, staff gate at x2048)"},
+    {"kind": "wall", "shape": "polyline", "points": [[576, 448], [576, 1024]], "label": "Bathroom Wall (door gap at south)"},
+    {"kind": "wall", "shape": "polyline", "points": [[2048, 448], [2048, 1024]], "label": "Stage Wing Divider (staff gate gap at south end)"},
+    {"kind": "wall", "shape": "polyline", "points": [[2624, 1600], [2624, 2496]], "label": "VIP Rope Rail (rope gap at north end)"},
+    {"kind": "wall", "shape": "polyline", "points": [[3520, 192], [4416, 192], [4416, 1408], [3520, 1408], [3520, 192]], "label": "Owner Suite Walls (stairs arrival gap at south-west)"},
+    {"kind": "wall", "shape": "polyline", "points": [[3520, 1728], [4416, 1728], [4416, 3136], [3520, 3136], [3520, 1728]], "label": "Basement Walls (hatch arrival gap at south-west, escape hatch gap at east)"},
+    {"kind": "wall", "shape": "polyline", "points": [[3584, 1792], [4352, 1792], [4352, 2112], [3584, 2112], [3584, 1792]], "label": "Server Vault Cage (vault door gap at south center)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [192, 1216, 768, 128], "label": "Bar Counter"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [1664, 512, 256, 128], "label": "DJ Rig / Speaker Stack (owner stairs run behind this on floor plan east)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [768, 768, 192, 128], "label": "Grand Piano (service hatch just east of it)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2240, 640, 384, 96], "label": "Green Room Couch"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 1728, 320, 128], "label": "VIP Booth North"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 2112, 320, 128], "label": "VIP Booth South"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3712, 448, 512, 128], "label": "Owner Desk"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 1856, 448, 96], "label": "Server Rack Row (inside vault cage)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 2304, 640, 96], "label": "Basement Storage Shelves"},
+    {"kind": "cover", "shape": "rect", "rect": [1024, 1408, 128, 128], "label": "Bar Corner (setlist-alarm safe spot)"},
+    {"kind": "cover", "shape": "rect", "rect": [1600, 1856, 192, 192], "label": "Dance Floor Silhouette (setlist-alarm safe spot)"},
+    {"kind": "cover", "shape": "rect", "rect": [1280, 2048, 192, 192], "label": "Subwoofer Stack Cover"},
+    {"kind": "cover", "shape": "rect", "rect": [2816, 640, 128, 192], "label": "Costume Rack Cover (green room)"},
+    {"kind": "cover", "shape": "rect", "rect": [2880, 2688, 192, 192], "label": "Alley Dumpster"},
+    {"kind": "cover", "shape": "rect", "rect": [3968, 2624, 192, 192], "label": "Basement Crates"},
+    {"kind": "marker", "shape": "circle", "center": [256, 2880], "radius": 64, "label": "Spawn Area (street west)"},
+    {"kind": "marker", "shape": "circle", "center": [1440, 2496], "radius": 48, "label": "Front Door (too crowded - queue blocks it)"},
+    {"kind": "marker", "shape": "circle", "center": [2976, 2496], "radius": 48, "label": "Staff Side Door (the real way in)"},
+    {"kind": "marker", "shape": "circle", "center": [1152, 704], "radius": 96, "label": "Stage Center (setlist puzzle)"},
+    {"kind": "marker", "shape": "circle", "center": [4192, 320], "radius": 96, "label": "Owner Suite Balcony (briefcase)"},
+    {"kind": "marker", "shape": "circle", "center": [4288, 3008], "radius": 64, "label": "Extraction Hatch (bass-drop escape)"}
+  ],
+  "mechanic_slots": [
+    {
+      "slot_id": "player_start",
+      "mechanic_type": "PlayerStartMarker",
+      "position": [256, 2880],
+      "suggested_id": "start_main",
+      "note": "Parmida and Bentley arrive on the street, west of the front queue."
+    },
+    {
+      "slot_id": "queue_inspection",
+      "mechanic_type": "InspectionZone",
+      "position": [1312, 2624],
+      "size": [256, 192],
+      "suggested_id": "velvet_paw_jazz_club.inspection_zone.01",
+      "note": "Front-door bouncer works the velvet rope. Entering the queue without a wristband bounces the player back - this sells 'the front is too crowded' and pushes them toward the alley."
+    },
+    {
+      "slot_id": "queue_eavesdrop",
+      "mechanic_type": "EavesdropZone",
+      "position": [960, 2816],
+      "size": [192, 128],
+      "suggested_id": "velvet_paw_jazz_club.eavesdrop_zone.01",
+      "note": "Two patrons in line gripe that the horn section props the staff side door open between sets. Teaches the alley route without a map marker."
+    },
+    {
+      "slot_id": "alley_dialogue",
+      "mechanic_type": "DialogueTriggerZone",
+      "position": [2688, 2816],
+      "size": [192, 192],
+      "suggested_id": "velvet_paw_jazz_club.dialogue_trigger_zone.01",
+      "note": "Micro-cutscene intro beat: Bentley sniffs the alley ('Too many colognes. The bass line is honest, though.'). One-shot."
+    },
+    {
+      "slot_id": "dead_drop",
+      "mechanic_type": "DeadDropNode",
+      "position": [3136, 2944],
+      "suggested_id": "velvet_paw_jazz_club.dead_drop_node.01",
+      "note": "Optional: loose brick behind the alley. Leaving a copy of the VIP voicemail here foreshadows Rewrite Room (Mere picks it up between missions)."
+    },
+    {
+      "slot_id": "poop_bag_alley",
+      "mechanic_type": "PoopBagAuthor",
+      "position": [3264, 2752],
+      "suggested_id": "velvet_paw_jazz_club.poop_bag_author.01",
+      "note": "Poop bag 1 of 3, by the alley dumpster. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "side_door_entry",
+      "mechanic_type": "TriggerZone",
+      "position": [2944, 2496],
+      "size": [128, 96],
+      "suggested_id": "velvet_paw_jazz_club.trigger_zone.01",
+      "note": "Staff side door in the alley - the actual entrance. Crossing it advances the mission to the social-stealth step. The eavesdrop zone hints at it."
+    },
+    {
+      "slot_id": "floor_music",
+      "mechanic_type": "MusicTriggerZone",
+      "position": [2688, 2368],
+      "size": [384, 128],
+      "suggested_id": "velvet_paw_jazz_club.music_trigger_zone.01",
+      "note": "House jazz set kicks in when the player steps onto the club floor from the side door."
+    },
+    {
+      "slot_id": "bouncer_route_a",
+      "mechanic_type": "GuardPatrolRouteAuthor",
+      "position": [896, 1600],
+      "suggested_id": "velvet_paw_jazz_club.guard_patrol_route_author.01",
+      "note": "Bouncer loop A: bar front, along the dance floor west edge, back past the bathroom door. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "bouncer_spawn_a",
+      "mechanic_type": "GuardSpawnAuthor",
+      "position": [896, 1728],
+      "suggested_id": "velvet_paw_jazz_club.guard_spawn_author.01",
+      "note": "Bouncer on route A. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["bouncer_route_a"]
+    },
+    {
+      "slot_id": "bouncer_route_b",
+      "mechanic_type": "GuardPatrolRouteAuthor",
+      "position": [2240, 2112],
+      "suggested_id": "velvet_paw_jazz_club.guard_patrol_route_author.02",
+      "note": "Bouncer loop B: dance floor south edge and the VIP rope gap. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": []
+    },
+    {
+      "slot_id": "bouncer_spawn_b",
+      "mechanic_type": "GuardSpawnAuthor",
+      "position": [2240, 2240],
+      "suggested_id": "velvet_paw_jazz_club.guard_spawn_author.02",
+      "note": "Bouncer on route B. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["bouncer_route_b"]
+    },
+    {
+      "slot_id": "professionalism_meter",
+      "mechanic_type": "ProfessionalismMeterNode",
+      "position": [1600, 1280],
+      "suggested_id": "velvet_paw_jazz_club.professionalism_meter_node.01",
+      "note": "Mission-wide social meter for the club floor. Bar task, VIP protocol, and inspection zones feed this; keep professionalism up or bouncers escalate faster."
+    },
+    {
+      "slot_id": "floor_inspection",
+      "mechanic_type": "InspectionZone",
+      "position": [1600, 1600],
+      "size": [320, 256],
+      "suggested_id": "velvet_paw_jazz_club.inspection_zone.02",
+      "note": "Head bouncer scans the dance floor center. Player needs an active cover story (bar_task) or a hide/cover option to pass. Stealth angle 1."
+    },
+    {
+      "slot_id": "bar_task",
+      "mechanic_type": "BelievableTaskZone",
+      "position": [512, 1408],
+      "size": [128, 128],
+      "suggested_id": "velvet_paw_jazz_club.believable_task_zone.01",
+      "note": "Clearing glasses at the bar sells the 'new staff' cover story used against floor_inspection."
+    },
+    {
+      "slot_id": "barback_distraction",
+      "mechanic_type": "DistractionObject",
+      "position": [704, 1856],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.distraction_object.01",
+      "note": "Glass rack: knocking it pulls the nearest bouncer to the bar for a few seconds."
+    },
+    {
+      "slot_id": "investigation_point",
+      "mechanic_type": "InvestigationPointNode",
+      "position": [1024, 1728],
+      "suggested_id": "velvet_paw_jazz_club.investigation_point_node.01",
+      "note": "Spilled drink on the floor. Bouncers who hear noise investigate here first, buying the player a route around them."
+    },
+    {
+      "slot_id": "noise_emitter",
+      "mechanic_type": "NoiseEmitterNode",
+      "position": [1472, 1984],
+      "suggested_id": "velvet_paw_jazz_club.noise_emitter_node.01",
+      "note": "Subwoofer throb on the dance floor masks player footsteps inside its radius. Stealth angle 2."
+    },
+    {
+      "slot_id": "bentley_wait",
+      "mechanic_type": "BentleyWaitMarker",
+      "position": [1216, 2240],
+      "suggested_id": "velvet_paw_jazz_club.bentley_wait_marker.01",
+      "note": "Park Bentley by the dance floor edge before working the VIP lounge - a dog in VIP breaks the protocol zone instantly."
+    },
+    {
+      "slot_id": "hide_booth",
+      "mechanic_type": "HideSpotNode",
+      "position": [2848, 1952],
+      "suggested_id": "velvet_paw_jazz_club.hide_spot_node.01",
+      "note": "Slip between the two VIP booths to drop out of a bouncer's sightline."
+    },
+    {
+      "slot_id": "vip_protocol",
+      "mechanic_type": "ProtocolZone",
+      "position": [2688, 1664],
+      "size": [320, 512],
+      "suggested_id": "velvet_paw_jazz_club.protocol_zone.01",
+      "note": "VIP lounge etiquette: walk, no interact-spam, no dog. Ties into the vip_alt_route mutation roll - on strict rolls, require the bar_task cover first."
+    },
+    {
+      "slot_id": "vip_phone_search",
+      "mechanic_type": "SearchZone",
+      "position": [2816, 2304],
+      "size": [128, 96],
+      "suggested_id": "velvet_paw_jazz_club.search_zone.01",
+      "note": "VIP booth phone: voicemail from Sterling's assistant ('Shred before midnight'). Reveals where the staff badge hangs in the green room and sets the flag staff_badge_pickup requires."
+    },
+    {
+      "slot_id": "camera_vip",
+      "mechanic_type": "SecurityCameraAuthor",
+      "position": [2624, 1600],
+      "suggested_id": "velvet_paw_jazz_club.security_camera_author.01",
+      "note": "Camera over the VIP rope gap, sweeping the lounge. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "bathroom_glow_guy",
+      "mechanic_type": "GlowGuyAuthor",
+      "position": [192, 576],
+      "suggested_id": "velvet_paw_jazz_club.glow_guy_author.01",
+      "note": "velvet_bathroom_glow_guy - hidden Glow Guy behind the bathroom sink. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "bathroom_bark",
+      "mechanic_type": "BarkTrigger",
+      "position": [320, 832],
+      "suggested_id": "velvet_paw_jazz_club.bark_trigger.01",
+      "note": "Bentley bark line in the bathroom doorway: '(Bentley respects the grout lines.)' Points sharp-eared players at the Glow Guy."
+    },
+    {
+      "slot_id": "bentley_crawl",
+      "mechanic_type": "BentleyCrawlspaceConnector",
+      "position": [2496, 1024],
+      "suggested_id": "velvet_paw_jazz_club.bentley_crawlspace_connector.01",
+      "note": "Optional route: vent in the stage row wall. Bentley crawls from the club floor into the green room and can fetch the staff badge without the VIP voicemail lead."
+    },
+    {
+      "slot_id": "staff_badge_pickup",
+      "mechanic_type": "InventoryPickupNode",
+      "position": [2432, 832],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.inventory_pickup_node.01",
+      "note": "Staff badge on the green room dressing rail. Main lead comes from vip_phone_search; bentley_crawl is the alternate way to reach it.",
+      "depends_on": ["vip_phone_search"]
+    },
+    {
+      "slot_id": "staff_gate",
+      "mechanic_type": "LockedInteractionNode",
+      "position": [2048, 960],
+      "size": [96, 128],
+      "suggested_id": "velvet_paw_jazz_club.locked_interaction_node.01",
+      "note": "Staff gate at the south end of the stage wing divider. Unlocks with the staff badge and opens the whole stage/backstage row.",
+      "depends_on": ["staff_badge_pickup"]
+    },
+    {
+      "slot_id": "green_room_lockers",
+      "mechanic_type": "InteractiveContainer",
+      "position": [2720, 512],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.interactive_container.01",
+      "note": "Band lockers: tip-jar cash plus a rumor note about the owner's balcony habit (soft hint at where the briefcase ends up)."
+    },
+    {
+      "slot_id": "clue_manager_notes",
+      "mechanic_type": "ClueAuthor",
+      "position": [2304, 512],
+      "suggested_id": "velvet_paw_jazz_club.clue_author.01",
+      "note": "Stage Manager's Notes on the green room couch table - setlist clue 2 of 2 (five songs, release-timeline order). Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["staff_gate"]
+    },
+    {
+      "slot_id": "soundcheck_task",
+      "mechanic_type": "SideObjectiveNode",
+      "position": [1920, 704],
+      "suggested_id": "velvet_paw_jazz_club.side_objective_node.01",
+      "note": "Optional micro-objective: run the sound check at the wing mixing board. Completing it adds a crowd-cue hint line to the setlist puzzle.",
+      "depends_on": ["staff_gate"]
+    },
+    {
+      "slot_id": "clue_setlist",
+      "mechanic_type": "ClueAuthor",
+      "position": [832, 704],
+      "suggested_id": "velvet_paw_jazz_club.clue_author.02",
+      "note": "Crumpled Setlist Fragment taped to the piano lid - setlist clue 1 of 2 (album arc order). Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["staff_gate"]
+    },
+    {
+      "slot_id": "backstage_crate_search",
+      "mechanic_type": "SearchZone",
+      "position": [1568, 896],
+      "size": [128, 96],
+      "suggested_id": "velvet_paw_jazz_club.search_zone.02",
+      "note": "Mid-mission twist: prop crates hold a DECOY ledger with blank pages. Searching it after both clues fires the 'Sterling's crew planted a prop' beat and points at the basement.",
+      "depends_on": ["clue_setlist", "clue_manager_notes"]
+    },
+    {
+      "slot_id": "setlist_terminal",
+      "mechanic_type": "TerminalHackNode",
+      "position": [1152, 640],
+      "suggested_id": "velvet_paw_jazz_club.terminal_hack_node.01",
+      "note": "The stage setlist puzzle: reorder five songs using both clues (album arc + release timeline). Success opens the service hatch, grants the Sterling evidence clue jazz_club_encoded_setlist (connects_to: Rewrite Room), and triggers stage_presentation. Failure triggers wrong_note_alarm.",
+      "depends_on": ["clue_setlist", "clue_manager_notes"]
+    },
+    {
+      "slot_id": "stage_presentation",
+      "mechanic_type": "PresentationSequencePlayer",
+      "position": [1152, 512],
+      "suggested_id": "velvet_paw_jazz_club.presentation_sequence_player.01",
+      "note": "Spotlight sweep + Yordano line ('House lights love you. Don't waste the downbeat.') when the setlist is solved.",
+      "depends_on": ["setlist_terminal"]
+    },
+    {
+      "slot_id": "wrong_note_alarm",
+      "mechanic_type": "SecurityEffectSetAuthor",
+      "position": [1344, 640],
+      "suggested_id": "velvet_paw_jazz_club.security_effect_set_author.01",
+      "note": "Setlist-alarm effect set: on terminal failure, red wash overlay + temporary reinforcements for ~8s. Bar Corner and Dance Floor Silhouette cover regions are the safe spots. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["setlist_terminal"]
+    },
+    {
+      "slot_id": "alarm_spawn",
+      "mechanic_type": "GuardSpawnAuthor",
+      "position": [1664, 1088],
+      "suggested_id": "velvet_paw_jazz_club.guard_spawn_author.03",
+      "note": "Reinforcement bouncer spawn used only by the setlist alarm. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["wrong_note_alarm"]
+    },
+    {
+      "slot_id": "backstage_hatch",
+      "mechanic_type": "RouteUnlockNode",
+      "position": [1024, 832],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.route_unlock_node.01",
+      "note": "Service basement hatch east of the piano. Opens when the setlist terminal is solved.",
+      "depends_on": ["setlist_terminal"]
+    },
+    {
+      "slot_id": "basement_teleport",
+      "mechanic_type": "TeleportZone",
+      "position": [1024, 928],
+      "size": [96, 64],
+      "suggested_id": "velvet_paw_jazz_club.teleport_zone.01",
+      "note": "Drop through the open hatch into the basement (targets basement_arrival).",
+      "depends_on": ["backstage_hatch"]
+    },
+    {
+      "slot_id": "basement_arrival",
+      "mechanic_type": "TeleportTargetMarker",
+      "position": [3616, 2944],
+      "suggested_id": "velvet_paw_jazz_club.teleport_target_marker.01",
+      "note": "Basement arrival point at the bottom of the service ladder.",
+      "depends_on": ["basement_teleport"]
+    },
+    {
+      "slot_id": "yordano_dialogue",
+      "mechanic_type": "DialogueTriggerZone",
+      "position": [3776, 2816],
+      "size": [192, 192],
+      "suggested_id": "velvet_paw_jazz_club.dialogue_trigger_zone.02",
+      "note": "Friend beat: Yordano over the house PA explains the vault handshake hum and green-lights the shard pull. One-shot.",
+      "depends_on": ["basement_arrival"]
+    },
+    {
+      "slot_id": "camera_basement",
+      "mechanic_type": "SecurityCameraAuthor",
+      "position": [3872, 1760],
+      "suggested_id": "velvet_paw_jazz_club.security_camera_author.02",
+      "note": "Camera watching the vault cage door from the north wall. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "vault_power",
+      "mechanic_type": "PowerCircuitNode",
+      "position": [4160, 2464],
+      "suggested_id": "velvet_paw_jazz_club.power_circuit_node.01",
+      "note": "Breaker panel: reroute club power so the vault maglock drops on the next bass swell. The mission's puzzle beat for the basement.",
+      "depends_on": ["yordano_dialogue"]
+    },
+    {
+      "slot_id": "server_vault",
+      "mechanic_type": "LockedInteractionNode",
+      "position": [3936, 2112],
+      "size": [128, 96],
+      "suggested_id": "velvet_paw_jazz_club.locked_interaction_node.02",
+      "note": "Vault cage door (gap in the cage's south wall). Opens once vault_power has rerouted the maglock.",
+      "depends_on": ["vault_power"]
+    },
+    {
+      "slot_id": "ledger_shard",
+      "mechanic_type": "InventoryPickupNode",
+      "position": [4224, 1920],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.inventory_pickup_node.02",
+      "note": "Black Ledger Shard on the server rack. Sets GameState.velvet_paw_basement_shard_collected; taking it upstairs later flips velvet_paw_club_hostile. Physical pickup beat separate from the encoded-setlist Sterling clue.",
+      "depends_on": ["server_vault"]
+    },
+    {
+      "slot_id": "audit_cleanup",
+      "mechanic_type": "AuditTrailCleanupNode",
+      "position": [3712, 2464],
+      "suggested_id": "velvet_paw_jazz_club.audit_trail_cleanup_node.01",
+      "note": "Optional paper-trail beat: wipe the access log terminal so the shard pull never traces back to Yordano. Lowers post-mission heat.",
+      "depends_on": ["ledger_shard"]
+    },
+    {
+      "slot_id": "basement_keycard",
+      "mechanic_type": "InventoryPickupNode",
+      "position": [3584, 2336],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.inventory_pickup_node.03",
+      "note": "Optional Black Ledger Keycard behind basement storage shelves. Sets velvet_paw_basement_keycard_collected so the player can reach owner_stairs during the hostile phase without thinning every bouncer.",
+      "depends_on": ["ledger_shard"]
+    },
+    {
+      "slot_id": "heat_sink",
+      "mechanic_type": "HeatSinkObject",
+      "position": [4096, 2560],
+      "suggested_id": "velvet_paw_jazz_club.heat_sink_object.01",
+      "note": "Optional paper-trail beat: plant a misdirection explanation on the basement breaker panel so the shard pull traces to 'equipment maintenance' instead of Yordano.",
+      "depends_on": ["vault_power"]
+    },
+    {
+      "slot_id": "poop_bag_basement",
+      "mechanic_type": "PoopBagAuthor",
+      "position": [3648, 2688],
+      "suggested_id": "velvet_paw_jazz_club.poop_bag_author.02",
+      "note": "Poop bag 2 of 3, by the basement crates. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "return_teleport",
+      "mechanic_type": "TeleportZone",
+      "position": [3616, 3040],
+      "size": [96, 64],
+      "suggested_id": "velvet_paw_jazz_club.teleport_zone.02",
+      "note": "Ladder back up to the stage row (targets return_marker). Taking the shard upstairs flips the club HOSTILE - bouncers hunt instead of patrol.",
+      "depends_on": ["ledger_shard"]
+    },
+    {
+      "slot_id": "return_marker",
+      "mechanic_type": "TeleportTargetMarker",
+      "position": [1024, 1120],
+      "suggested_id": "velvet_paw_jazz_club.teleport_target_marker.02",
+      "note": "Floor 1 return point just south of the piano hatch.",
+      "depends_on": ["return_teleport"]
+    },
+    {
+      "slot_id": "encounter_controller",
+      "mechanic_type": "EncounterController",
+      "position": [1600, 1344],
+      "suggested_id": "velvet_paw_jazz_club.encounter_controller.01",
+      "note": "Hostile-club phase: escalates bouncer aggression after the shard return. Extend/wrap MissionAlertController behavior; combat-or-sneak beat.",
+      "depends_on": ["return_teleport"]
+    },
+    {
+      "slot_id": "lights_disruption",
+      "mechanic_type": "DisruptionActionNode",
+      "position": [2176, 1408],
+      "suggested_id": "velvet_paw_jazz_club.disruption_action_node.01",
+      "note": "Optional: cut the strobes at the lighting panel - hostile bouncers lose the player for ~4 seconds.",
+      "depends_on": ["encounter_controller"]
+    },
+    {
+      "slot_id": "scheme_card_bassdrop",
+      "mechanic_type": "SchemeCardTriggerNode",
+      "position": [1856, 1216],
+      "suggested_id": "velvet_paw_jazz_club.scheme_card_trigger_node.01",
+      "note": "yordano_bass_drop scheme card hook: if the card is equipped, trigger a bass drop here that stuns every bouncer for 5 seconds."
+    },
+    {
+      "slot_id": "owner_stairs",
+      "mechanic_type": "LockedInteractionNode",
+      "position": [3008, 1216],
+      "size": [96, 128],
+      "suggested_id": "velvet_paw_jazz_club.locked_interaction_node.03",
+      "note": "Rig stairs behind the DJ stack, east edge of the floor. Opens during the hostile phase after thinning bouncers — or silently if basement_keycard was collected.",
+      "depends_on": ["return_teleport"]
+    },
+    {
+      "slot_id": "suite_teleport",
+      "mechanic_type": "TeleportZone",
+      "position": [3008, 1120],
+      "size": [96, 64],
+      "suggested_id": "velvet_paw_jazz_club.teleport_zone.03",
+      "note": "Climb to the owner suite (targets suite_arrival).",
+      "depends_on": ["owner_stairs"]
+    },
+    {
+      "slot_id": "suite_arrival",
+      "mechanic_type": "TeleportTargetMarker",
+      "position": [3616, 1216],
+      "suggested_id": "velvet_paw_jazz_club.teleport_target_marker.03",
+      "note": "Owner suite arrival at the top of the rig stairs (south-west gap).",
+      "depends_on": ["suite_teleport"]
+    },
+    {
+      "slot_id": "beam_suite",
+      "mechanic_type": "SecurityBeamAuthor",
+      "position": [3616, 832],
+      "suggested_id": "velvet_paw_jazz_club.security_beam_author.01",
+      "note": "Laser beam across the suite corridor between the stairs and the office. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "owner_encounter",
+      "mechanic_type": "ChallengeObjectiveNode",
+      "position": [3904, 704],
+      "suggested_id": "velvet_paw_jazz_club.challenge_objective_node.01",
+      "note": "Boss beat: the club owner defends the suite (existing JazzClubOwnerArena fight). Clearing it is required for the briefcase.",
+      "depends_on": ["suite_arrival"]
+    },
+    {
+      "slot_id": "bug_plant",
+      "mechanic_type": "BugPlantNode",
+      "position": [3840, 640],
+      "suggested_id": "velvet_paw_jazz_club.bug_plant_node.01",
+      "note": "Optional: plant a bug in the owner's desk phone after the fight - extra intel line for the Sterling Tower finale.",
+      "depends_on": ["owner_encounter"]
+    },
+    {
+      "slot_id": "briefcase_reward",
+      "mechanic_type": "RewardNode",
+      "position": [4096, 320],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.reward_node.01",
+      "note": "The blackmail briefcase on the balcony - the mission target. 'Grab it and don't admire the view.'",
+      "depends_on": ["owner_encounter"]
+    },
+    {
+      "slot_id": "suite_stash",
+      "mechanic_type": "CaseCashAuthor",
+      "position": [4288, 320],
+      "suggested_id": "velvet_paw_jazz_club.case_cash_author.01",
+      "note": "Optional shelf-goblin stash at the balcony's east end (+1 intel bonus, velvet_shelf_goblins flavor). Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "hidden_polaroid",
+      "mechanic_type": "SideObjectiveNode",
+      "position": [1344, 448],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.side_objective_node.02",
+      "note": "Hidden perfect-moment polaroid (jazz_club_polaroid): Bentley on stage wings during the spotlight sweep after setlist_terminal. Optional; wires to hideout gallery reward.",
+      "depends_on": ["stage_presentation"]
+    },
+    {
+      "slot_id": "shelf_goblin_secret",
+      "mechanic_type": "SearchZone",
+      "position": [4160, 448],
+      "size": [96, 96],
+      "suggested_id": "velvet_paw_jazz_club.search_zone.03",
+      "note": "Secret velvet_shelf_goblins collectible on the owner-suite balcony shelf. Searching after briefcase_reward sets secret_velvet_collectible for bonus intel.",
+      "depends_on": ["briefcase_reward"]
+    },
+    {
+      "slot_id": "poop_bag_floor",
+      "mechanic_type": "PoopBagAuthor",
+      "position": [448, 2240],
+      "suggested_id": "velvet_paw_jazz_club.poop_bag_author.03",
+      "note": "Poop bag 3 of 3, near the club floor south wall. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "escape_route",
+      "mechanic_type": "RouteUnlockNode",
+      "position": [4224, 2688],
+      "size": [96, 128],
+      "suggested_id": "velvet_paw_jazz_club.route_unlock_node.02",
+      "note": "Basement escape hatch (east wall gap) unlocks once the briefcase is taken - Yordano cues the bass drop to cover the exit.",
+      "depends_on": ["briefcase_reward"]
+    },
+    {
+      "slot_id": "escape_music",
+      "mechanic_type": "MusicTriggerZone",
+      "position": [4032, 2880],
+      "size": [384, 128],
+      "suggested_id": "velvet_paw_jazz_club.music_trigger_zone.02",
+      "note": "Bass-drop escape theme when the player re-enters the basement south end with the briefcase."
+    },
+    {
+      "slot_id": "extraction",
+      "mechanic_type": "ExtractionZone",
+      "position": [4224, 2944],
+      "size": [128, 128],
+      "suggested_id": "velvet_paw_jazz_club.extraction_zone.01",
+      "note": "Escape through the basement hatch before the bouncers regroup. Requires escape_route's open flag and the briefcase.",
+      "depends_on": ["escape_route"]
+    }
+  ]
+}

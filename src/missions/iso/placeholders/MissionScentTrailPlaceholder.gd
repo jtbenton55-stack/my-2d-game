@@ -31,7 +31,13 @@ func _complete(_player: Node = null) -> void:
 		text += " Good boy protocol confirms this direction."
 	elif scent_tracking and not is_real:
 		text += " Bentley flags this as a decoy trail."
-	DialogueManager.start_simple_dialogue([{ "speaker": speaker, "text": text }])
+	var lines: Array = [{ "speaker": speaker, "text": text }]
+	# Act 1 Ellie plant (Mission Bible v2): one-shot beat on the first real-scent success.
+	if is_real and not GameState.dialogue_flags.get("taco_ellie_moment_seen", false):
+		GameState.dialogue_flags["taco_ellie_moment_seen"] = true
+		var ellie_line := TacoBellDialogue.line("bentley_ellie_setup_001", "Bentley pauses at a storage grate, somewhere else for a second. Then he shakes it off.", "Bentley")
+		lines.append({ "speaker": String(ellie_line.get("speaker")), "text": String(ellie_line.get("text")) })
+	DialogueManager.start_simple_dialogue(lines)
 	if mission_id != "":
 		if not is_real:
 			var penalty := 1

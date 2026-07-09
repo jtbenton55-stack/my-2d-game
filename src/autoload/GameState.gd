@@ -12,22 +12,96 @@ const SAVE_VERSION := "0.4.0-bible"
 const MAX_SELECTED_CARDS := 3
 const TACO_SUCCESS_STERLING_CLUE_ID := "taco_bell_sterling_route_invoice"
 
+## Mission Bible v2: one Sterling clue per story mission, discovered on first success,
+## chained via connects_to so the conspiracy is player-visible on the evidence board.
+## Taco Bell keeps its dedicated path (_ensure_taco_success_sterling_clue).
+const STORY_MISSION_STERLING_CLUES: Dictionary = {
+	"velvet_paw_jazz_club": {
+		"clue_id": "jazz_club_encoded_setlist",
+		"title": "Yordano's Encoded Setlist",
+		"description": "The blackmail ledger decodes against Yordano's setlist. One of the names is a partner at the law firm that handled Mere's contracts.",
+		"connects_to": "Rewrite Room",
+		"unlocks_or_modifies": "Points the crew at Sterling's law firm and the stolen creative works.",
+		"final_tower_relevance": "First proof Sterling's blackmail network reaches into legitimate firms.",
+	},
+	"rewrite_room": {
+		"clue_id": "rewrite_room_ownership_transfers",
+		"title": "The Ownership Transfer Files",
+		"description": "Every stolen work funnels through the same shell: Sterling Holdings. The transfers are signed, notarized, and completely legal-looking.",
+		"connects_to": "Diamond a Year Job, Fast Family Getaway",
+		"unlocks_or_modifies": "Names Sterling directly and opens the vault-tribute and transport leads.",
+		"final_tower_relevance": "The paper spine of Sterling's empire - authorship stolen by contract.",
+	},
+	"clean_job": {
+		"clue_id": "clean_job_showroom_ledger",
+		"title": "The Showroom Cleaning Ledger",
+		"description": "The showroom's 'cleaning' schedule matches cash-movement dates. Sterling launders through luxury - and erases the traces on a timetable.",
+		"connects_to": "Diamond a Year Job",
+		"unlocks_or_modifies": "Reveals the laundering cadence used to schedule the vault job.",
+		"final_tower_relevance": "Shows how Sterling erases evidence - and when he can't.",
+	},
+	"diamond_a_year_job": {
+		"clue_id": "diamond_vault_tribute_manifest",
+		"title": "The Vault Tribute Manifest",
+		"description": "Fifteen diamonds, one per year of stolen work, catalogued like trophies. The manifest references correspondence kept 'with the tea'.",
+		"connects_to": "Persian Tea and Poison Ink",
+		"unlocks_or_modifies": "Points to JC's conservatory and the poison ink correspondence.",
+		"final_tower_relevance": "Sterling keeps trophies of what he takes. The tower vault holds the rest.",
+	},
+	"fast_family_getaway": {
+		"clue_id": "getaway_modified_manifest",
+		"title": "The Modified Transport Manifest",
+		"description": "Dom's evidence: Sterling's fleet moves more than cargo. One recurring line item - climate-controlled storage, 'personal collection'.",
+		"connects_to": "Elephant in the Room",
+		"unlocks_or_modifies": "Surfaces the storage facility where Sterling keeps his 'collection'.",
+		"final_tower_relevance": "The route map between Sterling's rackets - and where he hides what he holds.",
+	},
+	"persian_tea_poison_ink": {
+		"clue_id": "persian_tea_poison_ink_letters",
+		"title": "The Poison Ink Correspondence",
+		"description": "Letters written in poison ink link Sterling to a shadow arena - private enforcement bought and sold behind community walls.",
+		"connects_to": "Shadow Solo Contract",
+		"unlocks_or_modifies": "Exposes the shadow arena guarding Sterling Tower's back entrance.",
+		"final_tower_relevance": "Connects Sterling's community takeovers to his private muscle.",
+	},
+	"elephant_in_the_room": {
+		"clue_id": "elephant_storage_contract",
+		"title": "The Collector's Storage Contract",
+		"description": "Unit 42's contract is held by a personal trust - Sterling's own name, no shells. He keeps what he takes from people close.",
+		"connects_to": "Sterling Tower Heist",
+		"unlocks_or_modifies": "Ties Sterling personally to the intimidation campaign.",
+		"final_tower_relevance": "The first document with Sterling's own signature. Personal, and provable.",
+	},
+	"shadow_solo_contract": {
+		"clue_id": "shadow_solo_enforcement_ledger",
+		"title": "The Enforcement Ledger Shard",
+		"description": "Arena payouts trace to tower accounts. The hit network is payroll - and payroll leaves records.",
+		"connects_to": "Sterling Tower Heist",
+		"unlocks_or_modifies": "Completes the evidence chain and maps the tower's back entrance.",
+		"final_tower_relevance": "The last link: Sterling's enforcement, paid from the tower itself.",
+	},
+}
+
+## mission_kind: "story" (9-mission Sterling arc + finale), "night_job" (optional side track), "dev" (internal).
+## See docs/MISSION_BIBLE.md v2 for the canonical arc and Night Jobs catalog.
 var mission_catalog: Dictionary = {
-	"iso_vertical_slice": {"name": "Iso Vertical Slice (Dev)", "description": "Internal isometric TileMapLayer prototype. Not part of story progression.", "scene_path": "res://scenes/dev/IsoVerticalSlice.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
-	"test_mission": {"name": "Test Mission Room", "description": "A tiny safe room for proving the full heist loop works.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
-	"taco_bell_drop": {"name": "The Taco Bell Drop", "description": "Recover Louis's bag and the first Sterling clue.", "scene_path": "res://scenes/missions/TacoBellMission.tscn", "playable_iso_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn", "reward_cards": ["louis_delivery_route"], "reward_polaroids": ["taco_bell_polaroid"], "friend": "louis"},
-	"corner_store_cashout": {"name": "Corner Store Cashout", "description": "Recover a misplaced cash envelope and petty insurance scam evidence from a neon corner store back office.", "scene_path": "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn", "playable_iso_scene": "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "louis"},
-	"milestone_a_proof": {"name": "Milestone A Proof Mission (Dev)", "description": "Sparse dev-only mission shell for level-builder parity manual proof.", "scene_path": "res://scenes/dev/mission_authoring/MilestoneAProofMission.tscn", "playable_iso_scene": "res://scenes/dev/mission_authoring/MilestoneAProofMission.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""},
-	"velvet_paw_jazz_club": {"name": "The Velvet Paw Jazz Club", "description": "Yordano's bass drops hide more than beats. His setlist contains blackmail names from Sterling's network.", "scene_path": "res://scenes/missions/JazzClubMission.tscn", "reward_cards": ["yordano_bass_drop", "two_letters_away"], "reward_polaroids": ["jazz_club_polaroid"], "friend": "yordano"},
-	"rewrite_room": {"name": "The Rewrite Room", "description": "The showroom fingerprints matched Mere's legal files. Sterling's lawyers stole creative works - time to rewrite the contracts.", "scene_path": "res://scenes/missions/RewriteRoomMission.tscn", "reward_cards": ["stationery_queen", "mere_legal_eyes"], "reward_polaroids": ["rewrite_room_polaroid"], "friend": "mere"},
-	"fast_family_getaway": {"name": "The Fast Family Getaway", "description": "Dom's family chased the evidence. Now Sterling's men chase Dom. The tea ceremony holds the final clue.", "scene_path": "res://scenes/missions/CarChaseMission.tscn", "reward_cards": ["doms_getaway_keys"], "reward_polaroids": ["car_chase_polaroid"], "friend": "dom"},
-	"sterling_tower_heist": {"name": "The Sterling Tower Heist", "description": "Every clue gathered. Every friend helped. The tower awaits - and Victor Sterling with it.", "scene_path": "res://scenes/missions/SterlingTowerMission.tscn", "reward_cards": [], "reward_polaroids": ["final_crew_polaroid"], "friend": "crew"},
-	"clean_job": {"name": "The Clean Job", "description": "Louis's bag contained a cleaning invoice from Sterling's luxury showroom. The code is hidden in the fingerprints.", "scene_path": "res://scenes/missions/CleanJobMission.tscn", "reward_cards": ["clorox_wipe_protocol"], "reward_polaroids": ["clean_job_polaroid"], "friend": "jinx"},
-	"diamond_a_year_job": {"name": "The Diamond a Year Job", "description": "The legal documents revealed Sterling's vault tribute - fifteen diamonds, one for each year of stolen work.", "scene_path": "res://scenes/missions/DiamondVaultMission.tscn", "reward_cards": ["diamond_a_year", "bryce_swiss_timing"], "reward_polaroids": ["diamond_vault_polaroid"], "friend": "bryce"},
-	"arm_wrestling_underground": {"name": "The Arm-Wrestling Underground", "description": "Win Violet's strength-club challenge and earn a counterpunch.", "scene_path": "res://scenes/missions/ArmWrestlingMission.tscn", "reward_cards": ["violet_counterpunch"], "reward_polaroids": ["arm_wrestling_polaroid"], "friend": "violet"},
-	"persian_tea_poison_ink": {"name": "Persian Tea and Poison Ink", "description": "JC's conservatory hides poison ink - the correspondence that links Sterling to the shadow arena.", "scene_path": "res://scenes/missions/PersianTeaMission.tscn", "reward_cards": ["persian_tea_focus"], "reward_polaroids": ["persian_tea_polaroid"], "friend": "jc"},
-	"elephant_in_the_room": {"name": "The Elephant in the Room", "description": "Bentley lost Ellie years ago. The shadow arena contract mentions a pink elephant in storage.", "scene_path": "res://scenes/missions/ElephantRoomMission.tscn", "reward_cards": ["polaroid_proof"], "reward_polaroids": ["ellie_polaroid"], "friend": "bentley"},
-	"shadow_solo_contract": {"name": "The Shadow Solo Contract", "description": "Kiro and Jin's arena guards Sterling Tower's back entrance. Clear the contract, reach the tower.", "scene_path": "res://scenes/missions/ShadowSoloMission.tscn", "reward_cards": ["jc_london_contact"], "reward_polaroids": ["shadow_solo_polaroid"], "friend": "jin"}
+	"iso_vertical_slice": {"name": "Iso Vertical Slice (Dev)", "description": "Internal isometric TileMapLayer prototype. Not part of story progression.", "scene_path": "res://scenes/dev/IsoVerticalSlice.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "", "mission_kind": "dev"},
+	"test_mission": {"name": "Test Mission Room", "description": "A tiny safe room for proving the full heist loop works.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "", "mission_kind": "dev"},
+	"taco_bell_drop": {"name": "The Taco Bell Drop", "description": "Recover Louis's bag and the first Sterling clue.", "scene_path": "res://scenes/missions/TacoBellMission.tscn", "playable_iso_scene": "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn", "reward_cards": ["louis_delivery_route"], "reward_polaroids": ["taco_bell_polaroid"], "friend": "louis", "mission_kind": "story", "act": 1},
+	"corner_store_cashout": {"name": "Corner Store Cashout", "description": "A neon corner store, a misplaced cash envelope, and a petty insurance scam. Parmida's first favor - the kind of crime that leaves a place better than she found it.", "scene_path": "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn", "playable_iso_scene": "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "louis", "mission_kind": "night_job"},
+	"milestone_a_proof": {"name": "Milestone A Proof Mission (Dev)", "description": "Sparse dev-only mission shell for level-builder parity manual proof.", "scene_path": "res://scenes/dev/mission_authoring/MilestoneAProofMission.tscn", "playable_iso_scene": "res://scenes/dev/mission_authoring/MilestoneAProofMission.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "", "mission_kind": "dev"},
+	"velvet_paw_jazz_club": {"name": "The Velvet Paw Jazz Club", "description": "Yordano's bass drops hide more than beats. His setlist contains blackmail names from Sterling's network.", "scene_path": "res://scenes/missions/JazzClubMission.tscn", "reward_cards": ["yordano_bass_drop", "two_letters_away"], "reward_polaroids": ["jazz_club_polaroid"], "friend": "yordano", "mission_kind": "story", "act": 1},
+	"rewrite_room": {"name": "The Rewrite Room", "description": "The showroom fingerprints matched Mere's legal files. Sterling's lawyers stole creative works - time to rewrite the contracts.", "scene_path": "res://scenes/missions/RewriteRoomMission.tscn", "reward_cards": ["stationery_queen", "mere_legal_eyes"], "reward_polaroids": ["rewrite_room_polaroid"], "friend": "mere", "mission_kind": "story", "act": 1},
+	"fast_family_getaway": {"name": "The Fast Family Getaway", "description": "Sterling's men are watching Dom's garage. Get in quiet, get the evidence, and get out before the net closes - Dom keeps the engine running.", "scene_path": "res://scenes/missions/CarChaseMission.tscn", "reward_cards": ["doms_getaway_keys"], "reward_polaroids": ["car_chase_polaroid"], "friend": "dom", "mission_kind": "story", "act": 2},
+	"sterling_tower_heist": {"name": "The Sterling Tower Heist", "description": "Every clue gathered. Every friend helped. The tower awaits - and Victor Sterling with it.", "scene_path": "res://scenes/missions/SterlingTowerMission.tscn", "reward_cards": [], "reward_polaroids": ["final_crew_polaroid"], "friend": "crew", "mission_kind": "story", "act": 3},
+	"clean_job": {"name": "The Clean Job", "description": "Louis's bag contained a cleaning invoice from Sterling's luxury showroom. The code is hidden in the fingerprints.", "scene_path": "res://scenes/missions/CleanJobMission.tscn", "reward_cards": ["clorox_wipe_protocol"], "reward_polaroids": ["clean_job_polaroid"], "friend": "jinx", "mission_kind": "story", "act": 2},
+	"diamond_a_year_job": {"name": "The Diamond a Year Job", "description": "The legal documents revealed Sterling's vault tribute - fifteen diamonds, one for each year of stolen work.", "scene_path": "res://scenes/missions/DiamondVaultMission.tscn", "reward_cards": ["diamond_a_year", "bryce_swiss_timing"], "reward_polaroids": ["diamond_vault_polaroid"], "friend": "bryce", "mission_kind": "story", "act": 2},
+	"arm_wrestling_underground": {"name": "The Arm-Wrestling Underground", "description": "Violet's strength club, open late. Win the challenge, earn a counterpunch, come back any night to defend the title.", "scene_path": "res://scenes/missions/ArmWrestlingMission.tscn", "reward_cards": ["violet_counterpunch"], "reward_polaroids": ["arm_wrestling_polaroid"], "friend": "violet", "mission_kind": "night_job", "repeatable": true},
+	"persian_tea_poison_ink": {"name": "Persian Tea and Poison Ink", "description": "JC's conservatory hides poison ink - the correspondence that links Sterling to the shadow arena.", "scene_path": "res://scenes/missions/PersianTeaMission.tscn", "reward_cards": ["persian_tea_focus"], "reward_polaroids": ["persian_tea_polaroid"], "friend": "jc", "mission_kind": "story", "act": 3},
+	"elephant_in_the_room": {"name": "The Elephant in the Room", "description": "Bentley lost Ellie years ago. Sterling has her - and he made sure Parmida knows it.", "scene_path": "res://scenes/missions/ElephantRoomMission.tscn", "reward_cards": ["polaroid_proof"], "reward_polaroids": ["ellie_polaroid"], "friend": "bentley", "mission_kind": "story", "act": 3},
+	"shadow_solo_contract": {"name": "The Shadow Solo Contract", "description": "Kiro and Jin's arena guards Sterling Tower's back entrance. Clear the contract, reach the tower.", "scene_path": "res://scenes/missions/ShadowSoloMission.tscn", "reward_cards": ["jc_london_contact"], "reward_polaroids": ["shadow_solo_polaroid"], "friend": "jin", "mission_kind": "story", "act": 3},
+	"laundromat_heist": {"name": "The Laundromat Heist", "description": "Rosa's washing machines run all night - and someone else's money runs through them. Find Sterling's cash-wash node before she takes the blame.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": ["spin_cycle_alibi"], "reward_polaroids": [], "friend": "louis", "mission_kind": "night_job", "planned": true},
+	"bentleys_walk": {"name": "Bentley's Walk", "description": "Walk Bentley through the neighborhood. His nose finds what people lost - and hears what the city whispers.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "bentley", "mission_kind": "night_job", "planned": true, "repeatable": true}
 }
 
 var settings: Dictionary = {"audio": {"master_volume": 1.0, "music_volume": 0.8, "sfx_volume": 0.9}, "accessibility": {"screenshake": true, "typewriter": true}}
@@ -310,7 +384,8 @@ func _ready() -> void:
 	EventBus.debug("GameState ready")
 
 func reset_for_new_game(emit_change = true) -> void:
-	available_missions = ["taco_bell_drop"]
+	# Corner Store Cashout is the Night Job on-ramp and is available from the start (Mission Bible v2).
+	available_missions = ["taco_bell_drop", "corner_store_cashout"]
 	completed_missions = []
 	failed_attempts = {}
 	unlocked_cards = ["bentley_dental_boy", "fish_treat_focus", "jakes_resident_orders"]
@@ -444,6 +519,11 @@ func fail_mission(mission_id = "", reason = "The job went sideways.") -> Diction
 		rewards.append("Jake upgrade: +10 max health")
 	var result_payload := {"success": false, "mission_id": mission_id, "title": _failure_title(attempt_count), "subtitle": _failure_subtitle(mission_id, reason), "rewards": rewards}
 	_annotate_player_facing_mission_result(result_payload, mission_id, false)
+	var crew_hint := _failure_crew_hint(String(reason))
+	if crew_hint != "":
+		var hint_steps: Array = Array(result_payload.get("next_steps", []))
+		hint_steps.append(crew_hint)
+		result_payload["next_steps"] = hint_steps
 	last_mission_result = InvestigationReportBuilderScript.annotate_mission_result(ReactiveNpcResultAdapterScript.annotate_mission_result(EncounterResultAdapterScript.annotate_mission_result(SocialStealthAdapterScript.annotate_mission_result(PaperTrailAdapterScript.annotate_mission_result(result_payload)))))
 	_apply_investigation_heat(mission_id, last_mission_result)
 	EventBus.mission_failed.emit(mission_id, reason)
@@ -512,22 +592,57 @@ func _annotate_player_facing_mission_result(result: Dictionary, mission_id: Stri
 	result["return_destination"] = "Hideout"
 	result["continue_label"] = "Return to Hideout"
 	result["poop_bag_status"] = get_poop_bag_bonus_status(mission_id)
-	if mission_id != "taco_bell_drop":
+	if mission_id == "taco_bell_drop":
+		var next_steps: Array[String] = []
+		if success:
+			var clue := _ensure_taco_success_sterling_clue()
+			result["evidence_clues"] = [clue]
+			next_steps.append("Check the Evidence Board in the hideout for Louis's Sterling lead.")
+			next_steps.append("The Clean Job and Velvet Paw routes are now available from the mission board.")
+			var rewards: Array = Array(result.get("rewards", []))
+			var clue_reward := "Evidence clue: " + String(clue.get("title", "Louis's Sterling lead"))
+			if not rewards.has(clue_reward):
+				rewards.append(clue_reward)
+			result["rewards"] = rewards
+		else:
+			next_steps.append("Regroup at the hideout, then retry the Taco Bell drop with the route intel intact.")
+		result["next_steps"] = next_steps
 		return
-	var next_steps: Array[String] = []
-	if success:
-		var clue := _ensure_taco_success_sterling_clue()
-		result["evidence_clues"] = [clue]
-		next_steps.append("Check the Evidence Board in the hideout for Louis's Sterling lead.")
-		next_steps.append("The Clean Job and Velvet Paw routes are now available from the mission board.")
-		var rewards: Array = Array(result.get("rewards", []))
-		var clue_reward := "Evidence clue: " + String(clue.get("title", "Louis's Sterling lead"))
-		if not rewards.has(clue_reward):
-			rewards.append(clue_reward)
-		result["rewards"] = rewards
-	else:
-		next_steps.append("Regroup at the hideout, then retry the Taco Bell drop with the route intel intact.")
-	result["next_steps"] = next_steps
+	if success and STORY_MISSION_STERLING_CLUES.has(mission_id):
+		var mission_clue := _ensure_story_mission_sterling_clue(mission_id)
+		result["evidence_clues"] = [mission_clue]
+		var mission_rewards: Array = Array(result.get("rewards", []))
+		var mission_clue_reward := "Evidence clue: " + String(mission_clue.get("title", "Sterling lead"))
+		if not mission_rewards.has(mission_clue_reward):
+			mission_rewards.append(mission_clue_reward)
+		result["rewards"] = mission_rewards
+		var connects_to := String(mission_clue.get("connects_to", ""))
+		var steps: Array[String] = ["Check the Evidence Board in the hideout - the Sterling chain grew tonight."]
+		if connects_to != "":
+			steps.append("This clue connects to: %s." % connects_to)
+		result["next_steps"] = steps
+
+
+func _ensure_story_mission_sterling_clue(mission_id: String) -> Dictionary:
+	var definition: Dictionary = STORY_MISSION_STERLING_CLUES.get(mission_id, {})
+	if definition.is_empty():
+		return {}
+	var clue_id := String(definition.get("clue_id", ""))
+	var was_discovered := sterling_clues.has(clue_id) and _as_bool_data(sterling_clues[clue_id].get("discovered", false))
+	var clue_data := {
+		"title": definition.get("title", _pretty_id(clue_id)),
+		"description": definition.get("description", ""),
+		"category": "Sterling Clue",
+		"mission_id": mission_id,
+		"connects_to": definition.get("connects_to", ""),
+		"unlocks_or_modifies": definition.get("unlocks_or_modifies", ""),
+		"final_tower_relevance": definition.get("final_tower_relevance", ""),
+	}
+	ensure_and_discover_sterling_clue(clue_id, clue_data)
+	var record: Dictionary = sterling_clues.get(clue_id, clue_data).duplicate(true)
+	record["clue_id"] = clue_id
+	record["was_new"] = not was_discovered
+	return record
 
 
 func _ensure_taco_success_sterling_clue() -> Dictionary:
@@ -551,6 +666,7 @@ func _unlock_next_missions(mission_id: String) -> void:
 	match mission_id:
 		"taco_bell_drop":
 			unlock_mission("corner_store_cashout")
+			unlock_mission("laundromat_heist")
 			unlock_mission("clean_job")
 			unlock_mission("velvet_paw_jazz_club")
 		"clean_job":
@@ -575,14 +691,12 @@ func _unlock_next_missions(mission_id: String) -> void:
 		"persian_tea_poison_ink":
 			# JC's tea house opens path to shadow arena
 			unlock_mission("shadow_solo_contract")
-		"elephant_in_the_room":
-			# Bentley's emotional mission - check if Sterling Tower unlocks
-			_try_unlock_sterling_tower()
-		"shadow_solo_contract":
-			# Final preparation - check if Sterling Tower unlocks
-			_try_unlock_sterling_tower()
 		_:
 			pass
+	# Always re-check the finale gate: it is idempotent and requires all 9 story
+	# missions, so unlock works regardless of completion order (fixes the case
+	# where elephant/shadow finish before the other story missions).
+	_try_unlock_sterling_tower()
 
 # Check if all story prerequisites are met for Sterling Tower
 func _can_unlock_sterling_tower() -> bool:
@@ -611,10 +725,25 @@ func _try_unlock_sterling_tower() -> void:
 func unlock_mission(mission_id: String) -> bool:
 	if not mission_catalog.has(mission_id):
 		return false
+	# Planned Night Job stubs stay hidden until built (remove "planned" from the catalog entry to activate).
+	if _as_bool_data(Dictionary(mission_catalog[mission_id]).get("planned", false)):
+		return false
 	if available_missions.has(mission_id):
 		return false
 	available_missions.append(mission_id)
 	return true
+
+
+func get_mission_kind(mission_id: String) -> String:
+	return String(get_mission_info(mission_id).get("mission_kind", "story"))
+
+
+func is_night_job(mission_id: String) -> bool:
+	return get_mission_kind(mission_id) == "night_job"
+
+
+func is_mission_repeatable(mission_id: String) -> bool:
+	return _as_bool_data(get_mission_info(mission_id).get("repeatable", false))
 
 func unlock_card(card_id: String) -> bool:
 	if unlocked_cards.has(card_id):
@@ -664,7 +793,7 @@ func has_completed(mission_id: String) -> bool:
 	return completed_missions.has(mission_id)
 
 func get_mission_info(mission_id: String) -> Dictionary:
-	return mission_catalog.get(mission_id, {"name": _pretty_id(mission_id), "description": "Mission data missing.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": ""})
+	return mission_catalog.get(mission_id, {"name": _pretty_id(mission_id), "description": "Mission data missing.", "scene_path": "res://scenes/missions/TestMissionRoom.tscn", "reward_cards": [], "reward_polaroids": [], "friend": "", "mission_kind": "story"})
 
 func get_available_mission_ids() -> Array[String]:
 	var ids: Array[String] = []
@@ -689,6 +818,24 @@ func heal_player(amount: int) -> void:
 
 func _mission_name(mission_id: String) -> String:
 	return String(get_mission_info(mission_id).get("name", _pretty_id(mission_id)))
+
+## Mission Bible v2: failure is progress - a crew voice reacts to *how* the run
+## ended so retries feel guided instead of punished. Keyed off the failure reason text.
+func _failure_crew_hint(reason: String) -> String:
+	var lowered := reason.to_lower()
+	if lowered.contains("camera"):
+		return "Yordano: \"Cameras got you? I know the guy who installed half of them. Sloppy work. Exploitable.\""
+	if lowered.contains("alarm"):
+		return "Louis: \"Alarms are just doorbells with anxiety. Next run, we find the panel before it finds us.\""
+	if lowered.contains("witness") or lowered.contains("report"):
+		return "Mere: \"Someone talked. Fine. Next time we give them a better story to tell - or nothing to see.\""
+	if lowered.contains("guard") or lowered.contains("detect") or lowered.contains("spotted") or lowered.contains("seen") or lowered.contains("caught"):
+		return "Bentley (bark translation): \"The guards walk loops. Loops have gaps. I have watched them. Trust the dog.\""
+	if lowered.contains("died") or lowered.contains("health") or lowered.contains("down") or lowered.contains("hurt"):
+		return "Jake: \"You're patched up. You scare me. Take the dodge next time - and the snacks. Snacks are tactical.\""
+	if lowered.contains("time") or lowered.contains("late"):
+		return "Dom: \"Clock beat you, not them. We shave the route. I already know where.\""
+	return ""
 
 func _failure_title(attempt_count: int) -> String:
 	var titles: Array[String] = ["The Job Went Sideways", "Not the Cleanest Getaway", "Bentley Refuses to Discuss It", "Back to the Hideout"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/tools/authoring/AuthoringBlueprintLayer.gd" id="1_blueprint_layer"]
+
+[node name="VelvetPawBlueprintProofRoom" type="Node2D"]
+
+[node name="AuthoringBlueprintLayer" type="Node2D" parent="."]
+script = ExtResource("1_blueprint_layer")
+blueprint_path = "res://docs/blueprints/velvet_paw_jazz_club.blueprint.json"
+opacity = 0.35

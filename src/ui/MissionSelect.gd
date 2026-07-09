@@ -1,18 +1,25 @@
 extends Control
 
 const MISSION_BUTTON_SCENE_PATH := "res://scenes/ui/MissionButton.tscn"
+## Story missions in Mission Bible v2 act order (Act 1 / Act 2 / Act 3 / finale).
 const STORY_MISSION_ORDER: Array[String] = [
 	"taco_bell_drop",
-	"clean_job",
 	"velvet_paw_jazz_club",
 	"rewrite_room",
-	"arm_wrestling_underground",
+	"clean_job",
 	"diamond_a_year_job",
 	"fast_family_getaway",
 	"persian_tea_poison_ink",
 	"elephant_in_the_room",
 	"shadow_solo_contract",
 	"sterling_tower_heist"
+]
+## Optional Night Jobs side track (Mission Bible v2). "planned" catalog stubs are skipped at runtime.
+const NIGHT_JOB_ORDER: Array[String] = [
+	"corner_store_cashout",
+	"arm_wrestling_underground",
+	"laundromat_heist",
+	"bentleys_walk"
 ]
 
 @onready var missions_container: VBoxContainer = $Panel/ScrollContainer/MissionsContainer
@@ -42,7 +49,7 @@ var mission_dossiers: Dictionary = {
 		"required": "Sneak backstage during the midnight set, recover the ledger from the bass case, and vanish before the final note.",
 		"optional": ["Don't interrupt the performance", "Collect all three setlist variants", "Sign the guestbook as 'The Crew'"],
 		"cards": ["yordano_bass_drop", "two_letters_away"],
-		"rewards": ["Card: yordano_bass_drop", "Card: two_letters_away", "Polaroid: Midnight Jazz", "Crew favor: Yordano", "Unlock: Fast Family Getaway"]
+		"rewards": ["Card: yordano_bass_drop", "Card: two_letters_away", "Polaroid: Midnight Jazz", "Crew favor: Yordano", "Unlock: The Arm-Wrestling Underground (Night Job)"]
 	},
 	"rewrite_room": {
 		"background": "The showroom fingerprints matched Mere's legal files. Sterling's lawyers systematically stole creative works - and the documents proving it are in the archives.",
@@ -56,7 +63,7 @@ var mission_dossiers: Dictionary = {
 		"required": "Navigate the rainy city streets, evade pursuit vehicles, and reach the safe house with evidence intact.",
 		"optional": ["No damage to the car", "Lose all tails within 2 minutes", "Collect the hidden checkpoint bonuses"],
 		"cards": ["doms_getaway_keys"],
-		"rewards": ["Card: doms_getaway_keys", "Polaroid: Rainy Getaway", "Crew favor: Dom", "Unlock: Persian Tea and Poison Ink"]
+		"rewards": ["Card: doms_getaway_keys", "Polaroid: Rainy Getaway", "Crew favor: Dom", "Unlock: The Elephant in the Room"]
 	},
 	"sterling_tower_heist": {
 		"background": "Every clue gathered. Every friend helped. The tower awaits - and Victor Sterling with it. The crew is complete. The favor chain ends here.",
@@ -70,7 +77,7 @@ var mission_dossiers: Dictionary = {
 		"required": "Use the Clorox Wipe Protocol to reveal hidden fingerprints, decode the vault combination, and extract the client list.",
 		"optional": ["Leave the showroom spotless", "Find all three fingerprints", "Don't trigger the motion sensors"],
 		"cards": ["clorox_wipe_protocol"],
-		"rewards": ["Card: clorox_wipe_protocol", "Polaroid: The Clean Job", "Unlock: Diamond a Year Job"]
+		"rewards": ["Card: clorox_wipe_protocol", "Polaroid: The Clean Job", "Crew favor: Jinx", "Unlock: The Rewrite Room"]
 	},
 	"diamond_a_year_job": {
 		"background": "The legal documents revealed Sterling's vault tribute - fifteen diamonds, one for each year of stolen work. But the vault also holds something else: correspondence linking Sterling to a shadow arena.",
@@ -79,12 +86,19 @@ var mission_dossiers: Dictionary = {
 		"cards": ["diamond_a_year", "bryce_swiss_timing"],
 		"rewards": ["Card: diamond_a_year", "Card: bryce_swiss_timing", "Polaroid: Diamond a Year", "Crew favor: Bryce", "Unlock: Persian Tea and Poison Ink"]
 	},
+	"corner_store_cashout": {
+		"background": "A neon corner store, a misplaced cash envelope, and a petty insurance scam. Parmida's first favor - the kind of crime that leaves a place better than she found it.",
+		"required": "Slip into the back office, recover the cash envelope and the scam evidence, and get out before the clerk finishes his rounds.",
+		"optional": ["Never seen by the clerk", "Read the store's rumor board", "Leave the office tidier than you found it"],
+		"cards": [],
+		"rewards": ["Rumor lines around the neighborhood", "Intel points", "Parmida's legend grows"]
+	},
 	"arm_wrestling_underground": {
 		"background": "Violet's underground club tests strength and loyalty. She knows about the shadow arena - win her challenge, and she'll share the arena's location.",
 		"required": "Defeat three opponents in arm-wrestling matches, prove your strength to Violet, and earn the counterpunch technique.",
 		"optional": ["Win all matches in under 30 seconds", "Don't use rest periods", "Perfect form bonus"],
 		"cards": ["violet_counterpunch"],
-		"rewards": ["Card: violet_counterpunch", "Polaroid: Arm-Wrestling Underground", "Crew favor: Violet", "Unlock: Persian Tea and Poison Ink"]
+		"rewards": ["Card: violet_counterpunch", "Polaroid: Arm-Wrestling Underground", "Crew favor: Violet", "Repeatable Night Job venue"]
 	},
 	"persian_tea_poison_ink": {
 		"background": "JC's conservatory hides poison ink - the correspondence that links Sterling to the shadow arena. The letters mention something curious: a pink elephant in cold storage.",
@@ -121,22 +135,39 @@ func _populate_missions() -> void:
 	for child in missions_container.get_children():
 		child.queue_free()
 	
-	var first_button: Button = null
 	var button_scene := load(MISSION_BUTTON_SCENE_PATH) as PackedScene
-	for mission_id in STORY_MISSION_ORDER:
-		var mission_data = GameState.mission_catalog.get(mission_id)
-		if mission_data and button_scene:
-			var button = button_scene.instantiate()
-			var is_unlocked := GameState.available_missions.has(mission_id)
-			button.set_mission(mission_id, mission_data, is_unlocked)
-			button.pressed.connect(_on_mission_selected.bind(mission_id))
-			missions_container.add_child(button)
-			if first_button == null:
-				first_button = button
+	var first_button := _add_mission_section("STORY", STORY_MISSION_ORDER, button_scene, null)
+	first_button = _add_mission_section("NIGHT JOBS", NIGHT_JOB_ORDER, button_scene, first_button)
 	if first_button:
 		first_button.grab_focus()
 	else:
 		back_button.grab_focus()
+
+func _add_mission_section(section_title: String, mission_ids: Array[String], button_scene: PackedScene, first_button: Button) -> Button:
+	var section_buttons: Array[Button] = []
+	for mission_id in mission_ids:
+		var mission_data = GameState.mission_catalog.get(mission_id)
+		if mission_data == null or button_scene == null:
+			continue
+		if bool(mission_data.get("planned", false)):
+			continue
+		var button = button_scene.instantiate()
+		var is_unlocked := GameState.available_missions.has(mission_id)
+		button.set_mission(mission_id, mission_data, is_unlocked)
+		button.pressed.connect(_on_mission_selected.bind(mission_id))
+		section_buttons.append(button)
+	if section_buttons.is_empty():
+		return first_button
+	var header := Label.new()
+	header.text = section_title
+	header.add_theme_font_size_override("font_size", 13)
+	header.modulate = Color(1.0, 1.0, 1.0, 0.6)
+	missions_container.add_child(header)
+	for button in section_buttons:
+		missions_container.add_child(button)
+		if first_button == null:
+			first_button = button
+	return first_button
 
 func _on_mission_selected(mission_id: String) -> void:
 	selected_mission_id = mission_id
@@ -222,6 +253,10 @@ func _get_unlock_hint(mission_id: String) -> String:
 			return "finish The Clean Job."
 		"arm_wrestling_underground":
 			return "follow Yordano's lead at the jazz club."
+		"laundromat_heist":
+			return "help Louis with the Taco Bell drop first."
+		"bentleys_walk":
+			return "Bentley will let you know when he's ready."
 		"diamond_a_year_job":
 			return "complete The Rewrite Room."
 		"fast_family_getaway":

@@ -27,3 +27,17 @@
 - [ ] Replan reactive NPC system.
 - [ ] Replan heat scanner system.
 - [ ] Create dialogue and edit overarching storyline.
+- [ ] Full belief simulation (is this needed anymore?).
+- [ ] Full guard patrol.
+- [ ] UI polish.
+- [ ] Update scheme cards.
+- [ ] Update The Big Case board.
+- [ ] Update Bentley care station.
+- [ ] Update case cash system.
+- [ ] Save and load system.
+- [ ] Make sure everything runs well together after changing missions, hideout, and related systems.
+- [ ] Come up with more puzzle-like activities to solve.
+- [ ] Combat system with big consequences since this is not the point of the game.
+- [ ] Replan scent mechanic system.
+- [ ] Cutscene system.
+- [ ] Add music files and finish music system.

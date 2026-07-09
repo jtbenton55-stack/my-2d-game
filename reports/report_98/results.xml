@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_98" tests="16" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ReplanPacket4TraceMessTest" package="tests/mission_authoring" timestamp="2026-07-09T20:31:18" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.109">
+		<testcase name="test_mess_spawn_charges_debt_and_cleanup_restores" classname="ReplanPacket4TraceMessTest" time="0.012">
+		</testcase>
+		<testcase name="test_mess_cleanup_with_trace_radius_wipes_nearby_traces" classname="ReplanPacket4TraceMessTest" time="0.006">
+		</testcase>
+		<testcase name="test_hardened_traces_resist_cleanup_but_allow_redirect" classname="ReplanPacket4TraceMessTest" time="0.025">
+		</testcase>
+		<testcase name="test_hardening_disabled_by_default_keeps_cleanup_working" classname="ReplanPacket4TraceMessTest" time="0.006">
+		</testcase>
+		<testcase name="test_investigation_report_clean_run_is_cold_case" classname="ReplanPacket4TraceMessTest" time="0.005">
+		</testcase>
+		<testcase name="test_investigation_report_active_traces_open_investigation" classname="ReplanPacket4TraceMessTest" time="0.004">
+		</testcase>
+		<testcase name="test_investigation_report_redirected_names_the_raccoon" classname="ReplanPacket4TraceMessTest" time="0.005">
+		</testcase>
+		<testcase name="test_annotate_mission_result_adds_report_payload" classname="ReplanPacket4TraceMessTest" time="0.006">
+		</testcase>
+		<testcase name="test_venue_heat_accumulates_from_report_and_cools" classname="ReplanPacket4TraceMessTest" time="0.005">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="ReplanPacket6HeatMetaTest" package="tests/mission_authoring" timestamp="2026-07-09T20:31:18" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.060">
+		<testcase name="test_scanner_readout_lists_venues_by_heat" classname="ReplanPacket6HeatMetaTest" time="0.006">
+		</testcase>
+		<testcase name="test_scanner_chatter_scales_with_heat" classname="ReplanPacket6HeatMetaTest" time="0.004">
+		</testcase>
+		<testcase name="test_cooldown_shift_requires_completed_venue" classname="ReplanPacket6HeatMetaTest" time="0.005">
+		</testcase>
+		<testcase name="test_cooldown_shift_cools_worked_venue" classname="ReplanPacket6HeatMetaTest" time="0.005">
+		</testcase>
+		<testcase name="test_cooldown_shift_cannot_cool_below_attempt_floor" classname="ReplanPacket6HeatMetaTest" time="0.004">
+		</testcase>
+		<testcase name="test_briefing_line_reflects_heat_level" classname="ReplanPacket6HeatMetaTest" time="0.005">
+		</testcase>
+		<testcase name="test_mission_heat_uses_max_of_report_and_attempts" classname="ReplanPacket6HeatMetaTest" time="0.005">
+		</testcase>
+	</testsuite>
+</testsuites>

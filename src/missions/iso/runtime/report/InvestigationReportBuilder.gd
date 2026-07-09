@@ -23,12 +23,14 @@ static func build_report(mission_id: String) -> Dictionary:
 	var authority_reports := int(reactive.get("authority_reports", 0))
 	var open_mess := _count_open_mess()
 	var verdict := _verdict(paper, alarms, authority_reports)
+	var narrative := _narrative_lines(mid, paper, alarms, authority_reports, open_mess, social)
+	narrative.append(_sterling_signoff(verdict))
 	var report := {
 		"mission_id": mid,
 		"verdict": verdict,
 		"headline": _headline(verdict),
 		"prime_suspect": _prime_suspect(verdict, mid),
-		"lines": _narrative_lines(mid, paper, alarms, authority_reports, open_mess, social),
+		"lines": narrative,
 		"heat_delta": _heat_delta(verdict, paper, alarms, authority_reports, open_mess),
 		"alarms_triggered": alarms,
 		"authority_reports": authority_reports,
@@ -124,6 +126,20 @@ static func _trace_line(trace_type: String, status: String) -> String:
 			return "A witness gave a description to investigators."
 		_:
 			return "Unexplained traces were recovered at the scene."
+
+
+## Mission Bible v2: reports read like Sterling's fixers wrote them, so the
+## villain has a voice in the failure loop.
+static func _sterling_signoff(verdict: String) -> String:
+	match verdict:
+		"cold_case":
+			return "Copy forwarded to Sterling Holdings Risk Division. Annotation in the margin: \"Nothing. Again. Find them.\""
+		"misdirected":
+			return "Copy forwarded to Sterling Holdings Risk Division. Annotation: \"A raccoon. You are billing me for a raccoon.\""
+		"hot_pursuit":
+			return "Copy forwarded to Sterling Holdings Risk Division. Annotation: \"Now we have a description. Mr. Sterling sends his regards.\""
+		_:
+			return "Copy forwarded to Sterling Holdings Risk Division. Annotation: \"Keep the file open. Everything surfaces eventually.\""
 
 
 static func _heat_delta(verdict: String, paper: Dictionary, alarms: int, authority_reports: int, open_mess: int) -> int:

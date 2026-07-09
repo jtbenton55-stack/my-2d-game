@@ -98,6 +98,15 @@
       "mission_step": "complete",
       "tags": ["taco_bell", "completion"],
       "notes": "Completion beat."
+    },
+    {
+      "dialogue_id": "bentley_ellie_setup_001",
+      "speaker": "Bentley",
+      "text": "Bentley pauses at a storage grate, nose down, tail still. For a second he is somewhere else - somewhere with a pink elephant in it. Then he shakes it off and returns to work.",
+      "trigger": "real_scent_first",
+      "mission_step": "scent",
+      "tags": ["taco_bell", "bentley", "ellie", "story_setup"],
+      "notes": "Act 1 Ellie plant (Mission Bible v2). Fires once, on first real-scent success, so Elephant in the Room lands as a payoff."
     }
   ]
 }
