@@ -1,0 +1,10 @@
+{
+  "pass_fail_partial": "PASS",
+  "specs_checked": [
+    "laundromat_heist.blueprint.json",
+    "starter_room.blueprint.json"
+  ],
+  "mechanic_type_count": 55,
+  "failures": [],
+  "warnings": []
+}

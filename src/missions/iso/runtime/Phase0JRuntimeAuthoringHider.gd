@@ -15,6 +15,10 @@ extends Node
 @export var generated_runtime_marker_labels_path: NodePath = NodePath("../../GeneratedRuntimeMarkerLabels")
 @export var security_authoring_root_path: NodePath = NodePath("../../SecurityAuthoringRoot")
 
+@export_group("Authoring Blueprint Overlay")
+## Redundant guard: AuthoringBlueprintLayer already frees itself at runtime.
+@export var hide_authoring_blueprint_layers: bool = true
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -39,6 +43,18 @@ func _apply_runtime_hide() -> void:
 		_hide_security_debug_labels(root)
 	if hide_security_proof_and_door_labels:
 		_hide_security_proof_and_door_labels(root)
+	if hide_authoring_blueprint_layers:
+		_hide_authoring_blueprint_layers(root)
+
+
+func _hide_authoring_blueprint_layers(root: Node) -> void:
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		for child: Node in node.get_children():
+			stack.append(child)
+			if String(child.name) == "AuthoringBlueprintLayer":
+				_hide_visual_subtree(child)
 
 
 func _hide_security_debug_labels(root: Node) -> void:

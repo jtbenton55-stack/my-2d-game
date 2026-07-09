@@ -117,6 +117,9 @@ const MECHANIC_SCRIPTS: Dictionary = {
 	"TriggerZone": "res://src/missions/iso/authoring/mechanics/TriggerZone.gd",
 }
 
+const LevelBlueprintSpecHelper := preload("res://src/tools/authoring/LevelBlueprintSpec.gd")
+const BLUEPRINT_LAYER_SCRIPT_PATH := "res://src/tools/authoring/AuthoringBlueprintLayer.gd"
+
 const LEVEL_BUILDER_AUDIT_SCRIPTS: Dictionary = {
 	"MissionInteractionBridge": "res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd",
 	"Phase16GarageManagerDeniabilityController": "res://src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd",
@@ -272,6 +275,11 @@ var _effect_key: LineEdit
 var _effect_value_bool: CheckBox
 var _template_details: RichTextLabel
 var _placement_summary: Label
+
+# Place From Blueprint
+var _blueprint_slot_picker: OptionButton
+var _blueprint_status: Label
+var _blueprint_slot_entries: Array[Dictionary] = []
 
 # Assist Browser
 var _audit_severity: OptionButton
@@ -455,6 +463,24 @@ func _build_authoring_palette_tab() -> void:
 	_template_details.fit_content = false
 	_template_details.bbcode_enabled = true
 	content.add_child(_template_details)
+	content.add_child(_heading("Place From Blueprint"))
+	var blueprint_help := Label.new()
+	blueprint_help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	blueprint_help.text = "Reads the AuthoringBlueprintLayer in the open scene. Prefill copies a slot's type, suggested id, and position into the palette; placement still uses the normal buttons below."
+	content.add_child(blueprint_help)
+	_blueprint_slot_picker = OptionButton.new()
+	_blueprint_slot_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.add_child(_blueprint_slot_picker)
+	var blueprint_buttons := GridContainer.new()
+	blueprint_buttons.columns = 1
+	content.add_child(blueprint_buttons)
+	_button(blueprint_buttons, "Refresh Blueprint Slots", _refresh_blueprint_slots)
+	_button(blueprint_buttons, "Prefill From Selected Slot", _prefill_from_blueprint_slot)
+	_blueprint_status = Label.new()
+	_blueprint_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_blueprint_status.custom_minimum_size = Vector2(380, 48)
+	_blueprint_status.text = "No blueprint loaded. Refresh with an AuthoringBlueprintLayer in the scene."
+	content.add_child(_blueprint_status)
 	content.add_child(_heading("Placement Actions"))
 	var actions := GridContainer.new()
 	actions.columns = 1
@@ -1775,6 +1801,135 @@ func _notify_input_forwarding_changed() -> void:
 		_plugin.call("notify_input_forwarding_changed")
 
 
+# --- Place From Blueprint (read-only prefill; placement still uses normal actions) ---
+
+func _find_blueprint_layer(scene_root: Node) -> Node:
+	if scene_root == null:
+		return null
+	var matches: Array[Node] = []
+	_collect_nodes_by_script_paths(scene_root, [BLUEPRINT_LAYER_SCRIPT_PATH], matches)
+	return matches[0] if not matches.is_empty() else null
+
+
+func _scene_blueprint_state() -> Dictionary:
+	var scene_root := _edited_scene_root()
+	if scene_root == null:
+		return {"ok": false, "message": "No open edited scene."}
+	var layer := _find_blueprint_layer(scene_root)
+	if layer == null:
+		return {"ok": false, "message": "No AuthoringBlueprintLayer node in this scene."}
+	var path := String(layer.get("blueprint_path")).strip_edges()
+	if path == "":
+		return {"ok": false, "message": "AuthoringBlueprintLayer has no blueprint_path set."}
+	var result: Dictionary = LevelBlueprintSpecHelper.load_spec(path)
+	return {
+		"ok": bool(result.get("ok", false)),
+		"message": ", ".join(result.get("errors", [])) if not bool(result.get("ok", false)) else "",
+		"spec": result.get("spec", {}),
+		"path": path,
+		"layer": layer,
+		"scene_root": scene_root,
+	}
+
+
+func _refresh_blueprint_slots() -> void:
+	_blueprint_slot_entries.clear()
+	_blueprint_slot_picker.clear()
+	var state := _scene_blueprint_state()
+	if not bool(state.get("ok", false)):
+		_blueprint_status.text = "Blueprint unavailable: %s" % String(state.get("message", ""))
+		return
+	var spec: Dictionary = state.get("spec", {})
+	var scene_root: Node = state.get("scene_root")
+	var coverage: Dictionary = LevelBlueprintSpecHelper.coverage(spec, scene_root)
+	var placed: Array = coverage.get("placed", [])
+	var mismatched: Array = coverage.get("mismatched", [])
+	var ordered: Array[Dictionary] = []
+	for entry: Variant in LevelBlueprintSpecHelper.mechanic_slots(spec):
+		if entry is Dictionary:
+			ordered.append(entry as Dictionary)
+	ordered.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		var a_missing: bool = not placed.has(String(a.get("slot_id", "")))
+		var b_missing: bool = not placed.has(String(b.get("slot_id", "")))
+		if a_missing != b_missing:
+			return a_missing
+		return String(a.get("slot_id", "")) < String(b.get("slot_id", "")))
+	for slot in ordered:
+		var slot_id := String(slot.get("slot_id", ""))
+		var marker := "MISSING"
+		if placed.has(slot_id):
+			marker = "PLACED"
+		elif mismatched.has(slot_id):
+			marker = "MISMATCH"
+		_blueprint_slot_picker.add_item("[%s] %s - %s" % [marker, slot_id, String(slot.get("mechanic_type", ""))])
+		_blueprint_slot_entries.append(slot)
+	_blueprint_status.text = "Blueprint '%s': %d/%d slots placed, %d missing, %d mismatched." % [
+		String(spec.get("blueprint_id", "")),
+		placed.size(),
+		int(coverage.get("total", 0)),
+		(coverage.get("missing", []) as Array).size(),
+		mismatched.size(),
+	]
+
+
+func _prefill_from_blueprint_slot() -> void:
+	if _blueprint_slot_entries.is_empty():
+		_blueprint_status.text = "No blueprint slots loaded. Refresh Blueprint Slots first."
+		return
+	var index := _blueprint_slot_picker.selected
+	if index < 0 or index >= _blueprint_slot_entries.size():
+		_blueprint_status.text = "Select a blueprint slot to prefill."
+		return
+	var slot: Dictionary = _blueprint_slot_entries[index]
+	var mechanic_type := String(slot.get("mechanic_type", ""))
+	var type_index := MECHANIC_TYPES.find(mechanic_type)
+	if type_index < 0:
+		_blueprint_status.text = "Slot mechanic_type '%s' is not a supported palette type." % mechanic_type
+		return
+	_mechanic_type.select(type_index)
+	_on_mechanic_type_changed(type_index)
+	var suggested_id := String(slot.get("suggested_id", "")).strip_edges()
+	if suggested_id != "":
+		_mechanic_id_base.text = suggested_id
+	var slot_position: Vector2 = LevelBlueprintSpecHelper.slot_position(slot)
+	_pos_x.value = slot_position.x
+	_pos_y.value = slot_position.y
+	var slot_size: Vector2 = LevelBlueprintSpecHelper.slot_size(slot)
+	if slot_size != Vector2.ZERO:
+		_shape_x.value = slot_size.x
+		_shape_y.value = slot_size.y
+	_parent_path.text = ""
+	_update_template_details()
+	var note := String(slot.get("note", ""))
+	var status := "Prefilled %s '%s' at %s from blueprint slot '%s'." % [mechanic_type, suggested_id, str(slot_position), String(slot.get("slot_id", ""))]
+	if note != "":
+		status += " Note: %s" % note
+	_blueprint_status.text = status
+	_status_label.text = status
+
+
+func _audit_blueprint_coverage(scene_root: Node) -> void:
+	var layer := _find_blueprint_layer(scene_root)
+	if layer == null:
+		return
+	var state := _scene_blueprint_state()
+	if not bool(state.get("ok", false)):
+		_audit_issues.append(_issue("Error", "blueprint_spec_error", "Blueprint spec problem: %s" % String(state.get("message", "")), layer))
+		return
+	var spec: Dictionary = state.get("spec", {})
+	var coverage: Dictionary = LevelBlueprintSpecHelper.coverage(spec, scene_root)
+	var placed: Array = coverage.get("placed", [])
+	var missing: Array = coverage.get("missing", [])
+	var mismatched: Array = coverage.get("mismatched", [])
+	_audit_issues.append(_issue("Info", "blueprint_coverage", "Blueprint coverage '%s': %d/%d slots placed." % [String(spec.get("blueprint_id", "")), placed.size(), int(coverage.get("total", 0))], layer))
+	for slot_id: Variant in missing:
+		var slot: Dictionary = LevelBlueprintSpecHelper.find_slot(spec, String(slot_id))
+		_audit_issues.append(_issue("Warning", "blueprint_slot_missing", "Blueprint slot '%s' (%s) is not placed yet; suggested id '%s'." % [String(slot_id), String(slot.get("mechanic_type", "")), String(slot.get("suggested_id", ""))], layer))
+	for slot_id: Variant in mismatched:
+		var slot: Dictionary = LevelBlueprintSpecHelper.find_slot(spec, String(slot_id))
+		_audit_issues.append(_issue("Warning", "blueprint_slot_type_mismatch", "Blueprint slot '%s': a node uses suggested id '%s' but is not a %s." % [String(slot_id), String(slot.get("suggested_id", "")), String(slot.get("mechanic_type", ""))], layer))
+
+
 # --- Assist Browser (read-only) ---
 
 func _refresh_scene_audit() -> void:
@@ -1794,6 +1949,7 @@ func _refresh_scene_audit() -> void:
 		_audit_mechanic_node(mechanic, scene_root)
 	_audit_mission_registration(scene_root)
 	_audit_level_builder_readiness(scene_root, mechanics, readiness_nodes)
+	_audit_blueprint_coverage(scene_root)
 	_status_label.text = "Audit refreshed: %d issue(s) across %d mechanic node(s), %d readiness node(s)." % [_audit_issues.size(), mechanics.size(), readiness_nodes.size()]
 	_apply_audit_filters()
 

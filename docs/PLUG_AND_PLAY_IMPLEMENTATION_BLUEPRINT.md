@@ -20,6 +20,8 @@ Implementation update 2026-07-04 second-level readiness self-test: repo-local to
 
 Implementation update 2026-07-04 Corner Store Cashout production skeleton: second playable iso mission uses the Phase 17/18 non-Taco pattern — mission-local controllers, authored `EncounterRouteActionNode` cleanup routes, `ExtractionZone` objective gating, `RequirementSet` on locked doors, and hideout resolver launch. Scene generator + static validator under `src/tools/editor/corner_store_cashout_production_skeleton/`. Validation JSON: `docs/reports/corner_store_cashout_production_skeleton/corner_store_cashout_production_skeleton_validation.json`. Report: `reports/ai/2026-07-04_corner_store_cashout_production_skeleton_report.md`.
 
+Implementation update 2026-07-09 Level Blueprint System (dev-only design overlay): the visual/authoring pipeline gains a blueprint tracing layer that fits the Phase 3 debug/authoring-overlay vocabulary without touching production art roots. Deterministic spec files under `docs/blueprints/` are rendered by `AuthoringBlueprintLayer` (draw-only `@tool` Node2D, self-frees at runtime, stripped again by `Phase0JRuntimeAuthoringHider`); `LevelBlueprintSpec.gd` owns schema/coverage logic and keeps CATEGORY_BY_TYPE in enforced parity with Mission Dock `MECHANIC_TYPES` (validator + GdUnit). Mission Dock adds read-only "Place From Blueprint" prefill and blueprint-coverage audit issues (`blueprint_coverage`, `blueprint_slot_missing`, `blueprint_slot_type_mismatch`). No new runtime manager, no parallel mission format, no scene mutation from the overlay. Guide: `docs/How to Use/Level Blueprints.md`. Report: `reports/ai/2026-07-09_level_blueprint_system_report.md`.
+
 Companion roadmap: `docs/PLUG_AND_PLAY_MISSION_SYSTEM_ROADMAP.md`
 
 ## Intent

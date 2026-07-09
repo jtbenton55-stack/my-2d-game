@@ -1,0 +1,162 @@
+{
+  "blueprint_id": "laundromat_heist_v1",
+  "mission_id": "laundromat_heist",
+  "description": "Fuller reference blueprint: three-room laundromat heist with security, social stealth, Bentley support, and a lock-and-key chain. Demonstrates every major slot feature (size, depends_on, notes, security parents).",
+  "grid_size": 64,
+  "canvas": {"width": 2560, "height": 1600},
+  "regions": [
+    {"kind": "floor", "shape": "rect", "rect": [64, 64, 1408, 1472], "label": "Front Room (Washers)"},
+    {"kind": "floor", "shape": "rect", "rect": [1472, 64, 1024, 768], "label": "Back Office"},
+    {"kind": "floor", "shape": "rect", "rect": [1472, 832, 1024, 704], "label": "Alley / Loading"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 64], [2496, 64], [2496, 1536], [64, 1536], [64, 64]], "label": "Outer Walls"},
+    {"kind": "wall", "shape": "polyline", "points": [[1472, 64], [1472, 640]], "label": "Office Wall (door gap at south)"},
+    {"kind": "wall", "shape": "polyline", "points": [[1472, 832], [2496, 832]], "label": "Alley Wall (door gap at east)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [320, 320, 768, 128], "label": "Washer Row A"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [320, 704, 768, 128], "label": "Washer Row B"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [1728, 320, 512, 96], "label": "Office Desk"},
+    {"kind": "cover", "shape": "rect", "rect": [1088, 1216, 192, 192], "label": "Laundry Cart Cover"},
+    {"kind": "cover", "shape": "rect", "rect": [1600, 1216, 192, 192], "label": "Alley Dumpster"},
+    {"kind": "marker", "shape": "circle", "center": [192, 1408], "radius": 48, "label": "Spawn Area"},
+    {"kind": "marker", "shape": "circle", "center": [2368, 1408], "radius": 64, "label": "Extraction Area"}
+  ],
+  "mechanic_slots": [
+    {
+      "slot_id": "player_start",
+      "mechanic_type": "PlayerStartMarker",
+      "position": [192, 1408],
+      "suggested_id": "start_main",
+      "note": "Player enters through the front door, bottom-left."
+    },
+    {
+      "slot_id": "front_counter_search",
+      "mechanic_type": "SearchZone",
+      "position": [704, 192],
+      "size": [128, 96],
+      "suggested_id": "laundromat_heist.search_zone.01",
+      "note": "Front counter: searching reveals the office keycard location and sets the flag the keycard pickup requires."
+    },
+    {
+      "slot_id": "keycard_pickup",
+      "mechanic_type": "InventoryPickupNode",
+      "position": [1216, 576],
+      "size": [96, 96],
+      "suggested_id": "laundromat_heist.inventory_pickup_node.01",
+      "note": "Office keycard hidden between washer rows. Requires front_counter_search.",
+      "depends_on": ["front_counter_search"]
+    },
+    {
+      "slot_id": "office_door",
+      "mechanic_type": "LockedInteractionNode",
+      "position": [1472, 704],
+      "size": [96, 128],
+      "suggested_id": "laundromat_heist.locked_interaction_node.01",
+      "note": "Office door in the wall gap. Unlocks with the keycard item from keycard_pickup.",
+      "depends_on": ["keycard_pickup"]
+    },
+    {
+      "slot_id": "office_safe_search",
+      "mechanic_type": "SearchZone",
+      "position": [2112, 512],
+      "size": [128, 96],
+      "suggested_id": "laundromat_heist.search_zone.02",
+      "note": "Safe behind the office desk. Only reachable after office_door opens.",
+      "depends_on": ["office_door"]
+    },
+    {
+      "slot_id": "cash_reward",
+      "mechanic_type": "RewardNode",
+      "position": [2240, 512],
+      "size": [96, 96],
+      "suggested_id": "laundromat_heist.reward_node.01",
+      "note": "The heist target. Requires office_safe_search's flag.",
+      "depends_on": ["office_safe_search"]
+    },
+    {
+      "slot_id": "manager_inspection",
+      "mechanic_type": "InspectionZone",
+      "position": [1280, 960],
+      "size": [256, 256],
+      "suggested_id": "laundromat_heist.inspection_zone.01",
+      "note": "Manager patrols the front room south aisle; player needs a believable cover story to pass."
+    },
+    {
+      "slot_id": "folding_task",
+      "mechanic_type": "BelievableTaskZone",
+      "position": [704, 1216],
+      "size": [128, 128],
+      "suggested_id": "laundromat_heist.believable_task_zone.01",
+      "note": "Folding laundry sells the cover story used by manager_inspection."
+    },
+    {
+      "slot_id": "bentley_vent",
+      "mechanic_type": "BentleyCrawlspaceConnector",
+      "position": [1408, 128],
+      "size": [96, 96],
+      "suggested_id": "laundromat_heist.bentley_crawlspace_connector.01",
+      "note": "Optional route: Bentley can crawl into the office through the vent to open the door from inside."
+    },
+    {
+      "slot_id": "dryer_distraction",
+      "mechanic_type": "DistractionObject",
+      "position": [960, 832],
+      "size": [96, 96],
+      "suggested_id": "laundromat_heist.distraction_object.01",
+      "note": "Overloading the dryer pulls the manager away from the inspection aisle."
+    },
+    {
+      "slot_id": "office_camera",
+      "mechanic_type": "SecurityCameraAuthor",
+      "position": [1536, 128],
+      "suggested_id": "laundromat_heist.security_camera_author.01",
+      "note": "Camera watching the office door. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "alley_guard_route",
+      "mechanic_type": "GuardPatrolRouteAuthor",
+      "position": [1984, 1184],
+      "suggested_id": "laundromat_heist.guard_patrol_route_author.01",
+      "note": "Alley patrol loop between the dumpster and the loading door. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "alley_guard_spawn",
+      "mechanic_type": "GuardSpawnAuthor",
+      "position": [2240, 1056],
+      "suggested_id": "laundromat_heist.guard_spawn_author.01",
+      "note": "Guard spawn tied to alley_guard_route. Parent under GameplayRoot/SecurityAuthoringRoot.",
+      "depends_on": ["alley_guard_route"]
+    },
+    {
+      "slot_id": "poop_bag_bonus",
+      "mechanic_type": "PoopBagAuthor",
+      "position": [1728, 1408],
+      "suggested_id": "laundromat_heist.poop_bag_author.01",
+      "note": "Bonus collectible behind the dumpster. Parent under GameplayRoot/SecurityAuthoringRoot."
+    },
+    {
+      "slot_id": "alley_route_unlock",
+      "mechanic_type": "RouteUnlockNode",
+      "position": [2368, 832],
+      "size": [96, 128],
+      "suggested_id": "laundromat_heist.route_unlock_node.01",
+      "note": "Loading door to the alley opens once the cash is taken.",
+      "depends_on": ["cash_reward"]
+    },
+    {
+      "slot_id": "extraction",
+      "mechanic_type": "ExtractionZone",
+      "position": [2368, 1408],
+      "size": [128, 128],
+      "suggested_id": "laundromat_heist.extraction_zone.01",
+      "note": "Escape through the alley. Requires alley_route_unlock's route_open flag.",
+      "depends_on": ["alley_route_unlock"]
+    },
+    {
+      "slot_id": "getaway_music",
+      "mechanic_type": "MusicTriggerZone",
+      "position": [1984, 1472],
+      "size": [512, 128],
+      "suggested_id": "laundromat_heist.music_trigger_zone.01",
+      "note": "Music swap to the getaway theme when entering the alley end."
+    }
+  ]
+}

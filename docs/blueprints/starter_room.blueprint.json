@@ -1,0 +1,59 @@
+{
+  "blueprint_id": "starter_room_v1",
+  "mission_id": "starter_room",
+  "description": "Minimal canonical blueprint example: one room with the core search -> reward -> route unlock -> extraction chain. Copy this file as the starting point for new blueprints.",
+  "grid_size": 64,
+  "canvas": {"width": 1280, "height": 960},
+  "regions": [
+    {"kind": "floor", "shape": "rect", "rect": [64, 64, 1152, 832], "label": "Main Room"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 64], [1216, 64], [1216, 896], [64, 896], [64, 64]], "label": "Outer Walls"},
+    {"kind": "wall", "shape": "polyline", "points": [[768, 64], [768, 512]], "label": "Divider Wall"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [320, 448, 192, 64], "label": "Center Counter"},
+    {"kind": "cover", "shape": "rect", "rect": [960, 640, 128, 128], "label": "Crate Cover"},
+    {"kind": "marker", "shape": "circle", "center": [192, 768], "radius": 48, "label": "Spawn Area"}
+  ],
+  "mechanic_slots": [
+    {
+      "slot_id": "player_start",
+      "mechanic_type": "PlayerStartMarker",
+      "position": [192, 768],
+      "suggested_id": "start_main",
+      "note": "Main player spawn. Mission Dock parents this under GameplayRoot/MarkerRoot/Spawns automatically."
+    },
+    {
+      "slot_id": "entry_search",
+      "mechanic_type": "SearchZone",
+      "position": [384, 256],
+      "size": [96, 96],
+      "suggested_id": "starter_room.search_zone.01",
+      "note": "First interaction: searching here sets the search_done flag the reward requires."
+    },
+    {
+      "slot_id": "reward_pickup",
+      "mechanic_type": "RewardNode",
+      "position": [960, 256],
+      "size": [96, 96],
+      "suggested_id": "starter_room.reward_node.01",
+      "note": "Requires entry_search's flag. Grants the reward that opens the exit route.",
+      "depends_on": ["entry_search"]
+    },
+    {
+      "slot_id": "exit_route_unlock",
+      "mechanic_type": "RouteUnlockNode",
+      "position": [960, 512],
+      "size": [96, 96],
+      "suggested_id": "starter_room.route_unlock_node.01",
+      "note": "Requires reward_pickup's flag. Sets route_open for the extraction zone.",
+      "depends_on": ["reward_pickup"]
+    },
+    {
+      "slot_id": "extraction",
+      "mechanic_type": "ExtractionZone",
+      "position": [1120, 768],
+      "size": [128, 128],
+      "suggested_id": "starter_room.extraction_zone.01",
+      "note": "Mission exit. Requires route_open from exit_route_unlock.",
+      "depends_on": ["exit_route_unlock"]
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 - [ ] blender models
 - [ ] Bentley Blender model.
 - [ ] Ask Jake about Godot parse-error popups.
-- [ ] Ask OpenCode to create a dev-only 2D level-design layer on level maps: use an AI-created 2D image/layout of the level with spaces for dragging and dropping walls, floors, collision barriers, and all supported mission mechanics. This layer is for authoring only and should never be visible to players.
+- [x] Dev-only 2D level-design layer (Level Blueprint System, 2026-07-09): deterministic spec-driven authoring overlay with labeled regions/mechanic slots, Mission Dock prefill + coverage audit, build-guide generator, and runtime self-destruct. See `docs/How to Use/Level Blueprints.md`.
 - [ ] inventory
 - [ ] combat
 - [ ] animations
