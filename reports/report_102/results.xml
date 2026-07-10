@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_102" tests="7" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-09T23:29:32" hostname="localhost" tests="7" failures="1" errors="0" skipped="0" flaky="0" time="2.194">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.759">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.081">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.081">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.069">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:63" type="FAILURE">
+<![CDATA[
+Expecting: 'false' but is 'true'
+	at 'test_staff_gate_requirement_blocks_then_passes' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:63
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

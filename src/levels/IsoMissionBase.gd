@@ -4498,10 +4498,15 @@ func _setup_fix7_ambush_beam_runtime() -> void:
 	var beam_author: Node2D = null
 	if sec_root != null and bool(sec_root.get("runtime_enabled")):
 		beam_author = sec_root.call("find_enabled_beam_author", &"AMBUSH_security_beam") as Node2D
+		if beam_author == null and not is_taco_mission:
+			var enabled_beams: Array[Node2D] = sec_root.call("get_enabled_beam_authors")
+			if not enabled_beams.is_empty():
+				beam_author = enabled_beams[0]
 	if beam_author != null:
 		_setup_ambush_beam_from_security_beam_author(beam_author, sec_root)
 		return
 	if not is_taco_mission:
+		_setup_d6_03_authoring_security_runtime()
 		return
 	_store_d6_02_authoring_summary(
 		sec_root, "fix7f_fallback", "", false, Vector2.ZERO, 0.0, 0.0, Vector2.ZERO, 0.0, "fix7f_fallback", "fix7f_fallback",

@@ -9,7 +9,7 @@ extends Node2D
 func collect_beam_authors() -> Array[Node2D]:
 	var out: Array[Node2D] = []
 	for child in get_children():
-		if child is Node2D and child.has_method("build_runtime_config"):
+		if child is Node2D and child.has_method("build_runtime_config") and child.get("beam_id") != null:
 			out.append(child as Node2D)
 	return out
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/missions/definitions/MissionDefinition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mission_id = "velvet_paw_jazz_club"
+display_name = "The Velvet Paw Jazz Club"
+description = "An Act 1 nightlife social-stealth heist: decode Sterling's setlist, breach the basement vault, survive the hostile return, and recover the owner's blackmail briefcase."
+authoring_mode = "scene_authored"
+layout_source_id = "velvet_paw_jazz_club_blueprint"
+marker_source_id = "scene_markers"
+genre_feel = "noir_jazz_social_stealth_heist"
+player_mindset = "blend_in_decode_and_escape"
+signature_mechanic = "dual_clue_music_puzzle"
+signature_emotion = "stylish_improvisation_under_pressure"
+implementation_status = "production_skeleton"
+art_notes = "Unpainted 4480 x 3200 authoring canvas spanning the street, club floor, stage, basement vault, and owner suite."
+unique_mechanics = PackedStringArray("setlist_terminal_chain", "hostile_shard_return", "owner_suite_escape")

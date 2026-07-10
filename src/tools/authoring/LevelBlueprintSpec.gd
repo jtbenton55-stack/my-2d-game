@@ -111,6 +111,7 @@ const SECURITY_PARENT_TYPES: Array[String] = [
 const ID_PROPERTIES: Array[String] = [
 	"mechanic_id", "beam_id", "camera_id", "spawn_id", "route_id", "trigger_id",
 	"effect_id", "collectible_id", "clue_id", "glow_guy_id", "marker_id", "target_id",
+	"encounter_id", "intro_sequence_id",
 ]
 
 

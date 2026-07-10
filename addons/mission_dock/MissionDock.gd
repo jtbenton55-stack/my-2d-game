@@ -161,6 +161,8 @@ const MARKER_MECHANIC_TYPES: Array[String] = [
 	"TeleportTargetMarker",
 ]
 const ID_PROPERTY_BY_TYPE: Dictionary = {
+	"EncounterController": "encounter_id",
+	"PresentationSequencePlayer": "intro_sequence_id",
 	"SecurityBeamAuthor": "beam_id",
 	"SecurityCameraAuthor": "camera_id",
 	"GuardSpawnAuthor": "spawn_id",
@@ -1478,9 +1480,8 @@ func _apply_type_defaults(node: Node, mechanic_type: String, base_id: String) ->
 			node.set("interaction_mode", MechanicAreaBase.InteractionMode.AUTOMATIC_ON_ENTER)
 			node.set("one_shot", false)
 		"SecurityBeamAuthor":
-			var beam_id := "AMBUSH_security_beam" if String(base_id).ends_with(".01") else base_id
-			node.set("beam_id", StringName(beam_id))
-			node.set("alarm_id", StringName(beam_id))
+			node.set("beam_id", StringName(base_id))
+			node.set("alarm_id", StringName(base_id))
 			node.set("on_trip_event", &"ambush_beam_tripped")
 		"SecurityCameraAuthor":
 			node.set("camera_id", StringName(base_id))

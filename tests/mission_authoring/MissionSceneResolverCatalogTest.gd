@@ -2,6 +2,7 @@ extends GdUnitTestSuite
 
 const TACO_PLAYABLE := "res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn"
 const CORNER_PLAYABLE := "res://scenes/missions_iso/CornerStoreCashout_Editable.tscn"
+const VELVET_PAW_PLAYABLE := "res://scenes/missions_iso/VelvetPawJazzClub_Editable.tscn"
 
 var _catalog_snapshot: Dictionary = {}
 
@@ -19,6 +20,8 @@ func test_existing_playable_iso_catalog_entries_resolve() -> void:
 	assert_str(MissionSceneResolver.get_debug_scene_path("taco_bell_drop")).is_equal(TACO_PLAYABLE)
 	assert_str(MissionSceneResolver.resolve_playable_scene_path("corner_store_cashout")).is_equal(CORNER_PLAYABLE)
 	assert_str(MissionSceneResolver.get_debug_scene_path("corner_store_cashout")).is_equal(CORNER_PLAYABLE)
+	assert_str(MissionSceneResolver.resolve_playable_scene_path("velvet_paw_jazz_club")).is_equal(VELVET_PAW_PLAYABLE)
+	assert_str(MissionSceneResolver.get_debug_scene_path("velvet_paw_jazz_club")).is_equal(VELVET_PAW_PLAYABLE)
 
 
 func test_unknown_mission_falls_back_to_game_state_default() -> void:

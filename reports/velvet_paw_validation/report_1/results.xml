@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-09" name="report_1" tests="7" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-10T00:56:23" hostname="localhost" tests="7" failures="2" errors="0" skipped="0" flaky="0" time="1.970">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.738">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.085">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:37" type="FAILURE">
+<![CDATA[
+Expecting:
+ '68'
+ but was
+ '67'
+	at 'test_blueprint_coverage_is_complete' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:37
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:38" type="FAILURE">
+<![CDATA[
+Expecting:
+ must be empty but was
+ '["stage_presentation"]'
+	at 'test_blueprint_coverage_is_complete' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:38
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -1,0 +1,1906 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/levels/IsoMissionBase.gd" id="1"]
+[ext_resource type="Resource" path="res://assets/missions/velvet_paw_jazz_club_definition.tres" id="2"]
+[ext_resource type="TileSet" path="res://assets/tilesets/iso_blockout_clean/IsoBlockoutTileset_Clean.tres" id="3"]
+[ext_resource type="TileSet" path="res://assets/tilesets/marker_authoring/MarkerAuthoringTileset.tres" id="4"]
+[ext_resource type="Script" path="res://src/tools/authoring/AuthoringBlueprintLayer.gd" id="5"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityAuthoringRoot.gd" id="6"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PlayerStartMarker.gd" id="6_uj5m4"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd" id="7"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/MissionAlertController.gd" id="8"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/PoopBagAuthor.gd" id="8_w28it"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GuardPatrolRouteAuthor.gd" id="9_i5ap6"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GuardSpawnAuthor.gd" id="10_4bqo4"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityCameraAuthor.gd" id="11_a3c8o"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/GlowGuyAuthor.gd" id="12_o2w7y"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/ClueAuthor.gd" id="13_7tevw"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd" id="14_cv021"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionEffect.gd" id="15_a3c8o"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/SecurityBeamAuthor.gd" id="15_v477s"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/CaseCashAuthor.gd" id="16_c6qk1"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/EffectSet.gd" id="16_o2w7y"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InspectionZone.gd" id="19_8ey6f"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/EavesdropZone.gd" id="20_bvgan"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/VelvetPawJazzClubMissionController.gd" id="21_o2w7y"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/DialogueTriggerZone.gd" id="21_wjn08"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DeadDropNode.gd" id="22_00pr0"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TriggerZone.gd" id="23_thsld"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/MusicTriggerZone.gd" id="24_sx518"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ProfessionalismMeterNode.gd" id="25_0cb35"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/MissionRequirement.gd" id="25_7tevw"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/core/RequirementSet.gd" id="26_cv021"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BelievableTaskZone.gd" id="26_pimlv"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DistractionObject.gd" id="27_w6o47"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InvestigationPointNode.gd" id="28_2fcth"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseEmitterNode.gd" id="29_5jkg3"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyWaitMarker.gd" id="30_14mip"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/HideSpotNode.gd" id="31_am28a"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ProtocolZone.gd" id="32_uja73"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SearchZone.gd" id="33_ntanu"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/BarkTrigger.gd" id="34_k0lda"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BentleyCrawlspaceConnector.gd" id="35_a6534"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InventoryPickupNode.gd" id="36_aqcij"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/LockedInteractionNode.gd" id="37_rs1l8"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/InteractiveContainer.gd" id="38_sy4a7"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd" id="39_b23tu"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TerminalHackNode.gd" id="40_i4rnn"]
+[ext_resource type="Script" path="res://src/missions/iso/presentation/PresentationSequencePlayer.gd" id="41_js70k"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd" id="42_x442b"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TeleportZone.gd" id="43_tifu2"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/TeleportTargetMarker.gd" id="44_rxnqn"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/PowerCircuitNode.gd" id="45_b386c"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/AuditTrailCleanupNode.gd" id="46_m2jh2"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/HeatSinkObject.gd" id="47_13wgs"]
+[ext_resource type="Script" path="res://src/missions/iso/encounters/EncounterController.gd" id="48_jlmtb"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/DisruptionActionNode.gd" id="49_ueac7"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd" id="50_4xa6p"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ChallengeObjectiveNode.gd" id="51_f0e30"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/BugPlantNode.gd" id="52_lcx64"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/RewardNode.gd" id="53_82tvf"]
+[ext_resource type="Script" path="res://src/missions/iso/authoring/mechanics/ExtractionZone.gd" id="54_qs31d"]
+
+[sub_resource type="Resource" id="Resource_o2w7y"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_alerted"
+effect_type = 12
+key = "velvet_paw_jazz_club"
+value_string = "alerted"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_7tevw"]
+script = ExtResource("16_o2w7y")
+set_id = &"wrong_note_alarm_effects"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_o2w7y")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jx4eb"]
+size = Vector2(256, 192)
+
+[sub_resource type="Resource" id="Resource_cv021"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_eavesdrop_done"
+key = "vpj_eavesdrop_done"
+
+[sub_resource type="Resource" id="Resource_v477s"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_queue_eavesdrop"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_cv021")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rs5q5"]
+size = Vector2(192, 128)
+
+[sub_resource type="Resource" id="Resource_c6qk1"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_alley_intro_done"
+key = "vpj_alley_intro_done"
+
+[sub_resource type="Resource" id="Resource_8ey6f"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_alley_dialogue"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_c6qk1")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_un8xb"]
+size = Vector2(192, 192)
+
+[sub_resource type="Resource" id="Resource_bvgan"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_vip_voicemail_found"
+fact_type = &"mission_flag"
+key = "vpj_vip_voicemail_found"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_wjn08"]
+script = ExtResource("26_cv021")
+set_id = &"req_dead_drop"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_bvgan")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqwqr"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_00pr0"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_entered_club"
+key = "vpj_entered_club"
+
+[sub_resource type="Resource" id="Resource_thsld"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_side_door_entry"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_00pr0")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5khj"]
+size = Vector2(128, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4fid"]
+size = Vector2(384, 128)
+
+[sub_resource type="Resource" id="Resource_sx518"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_bar_task_done"
+fact_type = &"mission_flag"
+key = "vpj_bar_task_done"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Look professional first: clear glasses at the bar."
+
+[sub_resource type="Resource" id="Resource_0cb35"]
+script = ExtResource("26_cv021")
+set_id = &"req_floor_inspection"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_sx518")])
+locked_message = "Look professional first: clear glasses at the bar."
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bypr4"]
+size = Vector2(320, 256)
+
+[sub_resource type="Resource" id="Resource_pimlv"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_bar_task_done"
+key = "vpj_bar_task_done"
+
+[sub_resource type="Resource" id="Resource_w6o47"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_bar_task"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_pimlv")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lem6e"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hf6w"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiakg"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e70s"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jj5r"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5n1i3"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p2kr"]
+size = Vector2(320, 512)
+
+[sub_resource type="Resource" id="Resource_2fcth"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_vip_voicemail_found"
+key = "vpj_vip_voicemail_found"
+
+[sub_resource type="Resource" id="Resource_5jkg3"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_vip_phone_search"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_2fcth")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8s80"]
+size = Vector2(128, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4si7"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nwf1"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_14mip"]
+script = ExtResource("25_7tevw")
+requirement_id = &"soft_requires_vpj_vip_voicemail_found"
+enabled = false
+fact_type = &"mission_flag"
+key = "vpj_vip_voicemail_found"
+operator = 2
+expected_value_type = "exists"
+debug_note = "The voicemail points to the badge in the green room."
+
+[sub_resource type="Resource" id="Resource_am28a"]
+script = ExtResource("26_cv021")
+set_id = &"req_staff_badge_voicemail_soft"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_14mip")])
+debug_note = "Soft narrative dependency; it documents the intended route without blocking pickup."
+
+[sub_resource type="Resource" id="Resource_uja73"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_staff_badge_collected"
+key = "vpj_staff_badge_collected"
+
+[sub_resource type="Resource" id="Resource_ntanu"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_staff_badge_pickup"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_uja73")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urvnl"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_k0lda"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_staff_badge_collected"
+fact_type = &"mission_flag"
+key = "vpj_staff_badge_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "The stage wing requires a staff badge."
+
+[sub_resource type="Resource" id="Resource_a6534"]
+script = ExtResource("26_cv021")
+set_id = &"req_staff_gate"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_k0lda")])
+locked_message = "The stage wing requires a staff badge."
+
+[sub_resource type="Resource" id="Resource_aqcij"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_staff_gate_open"
+key = "vpj_staff_gate_open"
+
+[sub_resource type="Resource" id="Resource_rs1l8"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_staff_gate"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_aqcij")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_og3se"]
+size = Vector2(96, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcmxm"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_sy4a7"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_staff_gate_open"
+fact_type = &"mission_flag"
+key = "vpj_staff_gate_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_b23tu"]
+script = ExtResource("26_cv021")
+set_id = &"req_soundcheck_task"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_sy4a7")])
+locked_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_i4rnn"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_soundcheck_done"
+key = "vpj_soundcheck_done"
+
+[sub_resource type="Resource" id="Resource_js70k"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_soundcheck_task"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_i4rnn")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyy1p"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_x442b"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_clue_setlist_read"
+fact_type = &"mission_flag"
+key = "vpj_clue_setlist_read"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Read both setlist clues first."
+
+[sub_resource type="Resource" id="Resource_tifu2"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_clue_manager_read"
+fact_type = &"mission_flag"
+key = "vpj_clue_manager_read"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Read both setlist clues first."
+
+[sub_resource type="Resource" id="Resource_rxnqn"]
+script = ExtResource("26_cv021")
+set_id = &"req_backstage_crate_search"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_x442b"), SubResource("Resource_tifu2")])
+locked_message = "Read both setlist clues first."
+
+[sub_resource type="Resource" id="Resource_b386c"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_decoy_ledger_found"
+key = "vpj_decoy_ledger_found"
+
+[sub_resource type="Resource" id="Resource_m2jh2"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_backstage_crate_search"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_b386c")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dih"]
+size = Vector2(128, 96)
+
+[sub_resource type="Resource" id="Resource_13wgs"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_clue_setlist_read"
+fact_type = &"mission_flag"
+key = "vpj_clue_setlist_read"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Two setlist clues are still missing."
+
+[sub_resource type="Resource" id="Resource_jlmtb"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_clue_manager_read"
+fact_type = &"mission_flag"
+key = "vpj_clue_manager_read"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Two setlist clues are still missing."
+
+[sub_resource type="Resource" id="Resource_ueac7"]
+script = ExtResource("26_cv021")
+set_id = &"req_setlist_terminal"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_13wgs"), SubResource("Resource_jlmtb")])
+locked_message = "Two setlist clues are still missing."
+
+[sub_resource type="Resource" id="Resource_4xa6p"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_setlist_solved"
+key = "vpj_setlist_solved"
+
+[sub_resource type="Resource" id="Resource_f0e30"]
+script = ExtResource("15_a3c8o")
+effect_id = &"complete_solve_setlist"
+effect_type = 4
+key = "solve_setlist"
+value_string = "Solve Setlist"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_lcx64"]
+script = ExtResource("15_a3c8o")
+effect_id = &"grant_jazz_club_encoded_setlist"
+effect_type = 9
+key = "jazz_club_encoded_setlist"
+value_type = "dictionary"
+payload = {
+"connects_to": "Rewrite Room",
+"description": "The five-song order decodes Sterling's blackmail routing.",
+"mission_id": "velvet_paw_jazz_club",
+"title": "Yordano's Encoded Setlist"
+}
+
+[sub_resource type="Resource" id="Resource_82tvf"]
+script = ExtResource("15_a3c8o")
+effect_id = &"stage_downbeat_dialogue"
+effect_type = 15
+value_type = "dictionary"
+payload = {
+"fallback_speaker": "Yordano",
+"fallback_text": "House lights love you. Don't waste the downbeat.",
+"speaker": "Yordano",
+"text": "House lights love you. Don't waste the downbeat."
+}
+
+[sub_resource type="Resource" id="Resource_qs31d"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_setlist_terminal"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_4xa6p"), SubResource("Resource_f0e30"), SubResource("Resource_lcx64"), SubResource("Resource_82tvf")])
+
+[sub_resource type="Resource" id="Resource_jx4eb"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_alerted"
+effect_type = 12
+key = "velvet_paw_jazz_club"
+value_string = "alerted"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_rs5q5"]
+script = ExtResource("15_a3c8o")
+effect_id = &"wrong_note_coaching"
+effect_type = 15
+value_type = "dictionary"
+payload = {
+"fallback_speaker": "Yordano",
+"fallback_text": "Tuck behind the bar - the rails swallow the bass spikes. Or melt into the dance floor silhouette until the strobes lie for you.",
+"speaker": "Yordano",
+"text": "Tuck behind the bar - the rails swallow the bass spikes. Or melt into the dance floor silhouette until the strobes lie for you."
+}
+
+[sub_resource type="Resource" id="Resource_un8xb"]
+script = ExtResource("15_a3c8o")
+effect_id = &"emit_wrong_note_alarm"
+effect_type = 20
+payload = {
+"event_id": "wrong_note_alarm"
+}
+target_path = NodePath("../../RuntimeHelpers/VelvetPawJazzClubMissionController")
+method_name = &"trigger_wrong_note_alarm"
+
+[sub_resource type="Resource" id="Resource_pqwqr"]
+script = ExtResource("16_o2w7y")
+set_id = &"vpj_wrong_note_failure"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_jx4eb"), SubResource("Resource_rs5q5"), SubResource("Resource_un8xb")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo3xr"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_n5khj"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_setlist_solved"
+fact_type = &"mission_flag"
+key = "vpj_setlist_solved"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_a4fid"]
+script = ExtResource("26_cv021")
+set_id = &"req_backstage_hatch"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_n5khj")])
+locked_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_bypr4"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_backstage_hatch_open"
+key = "vpj_backstage_hatch_open"
+
+[sub_resource type="Resource" id="Resource_lem6e"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_backstage_hatch"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_bypr4")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hlm7"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_1hf6w"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_backstage_hatch_open"
+fact_type = &"mission_flag"
+key = "vpj_backstage_hatch_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_eiakg"]
+script = ExtResource("26_cv021")
+set_id = &"req_basement_teleport"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_1hf6w")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj6ej"]
+size = Vector2(96, 64)
+
+[sub_resource type="Resource" id="Resource_1e70s"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_backstage_hatch_open"
+fact_type = &"mission_flag"
+key = "vpj_backstage_hatch_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_2jj5r"]
+script = ExtResource("26_cv021")
+set_id = &"req_yordano_dialogue"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_1e70s")])
+locked_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_5n1i3"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_yordano_briefed"
+key = "vpj_yordano_briefed"
+
+[sub_resource type="Resource" id="Resource_4p2kr"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_yordano_dialogue"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_5n1i3")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcfro"]
+size = Vector2(192, 192)
+
+[sub_resource type="Resource" id="Resource_v8s80"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_yordano_briefed"
+fact_type = &"mission_flag"
+key = "vpj_yordano_briefed"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_b4si7"]
+script = ExtResource("26_cv021")
+set_id = &"req_vault_power"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_v8s80")])
+locked_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_6nwf1"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_vault_power_rerouted"
+key = "vpj_vault_power_rerouted"
+
+[sub_resource type="Resource" id="Resource_urvnl"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_vault_power"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_6nwf1")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vycf5"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_og3se"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_vault_power_rerouted"
+fact_type = &"mission_flag"
+key = "vpj_vault_power_rerouted"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Reroute vault power first."
+
+[sub_resource type="Resource" id="Resource_lcmxm"]
+script = ExtResource("26_cv021")
+set_id = &"req_server_vault"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_og3se")])
+locked_message = "Reroute vault power first."
+
+[sub_resource type="Resource" id="Resource_vyy1p"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_server_vault_open"
+key = "vpj_server_vault_open"
+
+[sub_resource type="Resource" id="Resource_h1dih"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_server_vault"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_vyy1p")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmhrd"]
+size = Vector2(128, 96)
+
+[sub_resource type="Resource" id="Resource_jo3xr"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_server_vault_open"
+fact_type = &"mission_flag"
+key = "vpj_server_vault_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Open the server vault first."
+
+[sub_resource type="Resource" id="Resource_2hlm7"]
+script = ExtResource("26_cv021")
+set_id = &"req_ledger_shard"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_jo3xr")])
+locked_message = "Open the server vault first."
+
+[sub_resource type="Resource" id="Resource_mj6ej"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_shard_collected"
+key = "vpj_shard_collected"
+
+[sub_resource type="Resource" id="Resource_qcfro"]
+script = ExtResource("15_a3c8o")
+effect_id = &"complete_recover_shard"
+effect_type = 4
+key = "recover_shard"
+value_string = "Recover Shard"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_vycf5"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_ledger_shard"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_mj6ej"), SubResource("Resource_qcfro")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k13iy"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g0p1"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_bmhrd"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_server_vault_open"
+fact_type = &"mission_flag"
+key = "vpj_server_vault_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_k13iy"]
+script = ExtResource("26_cv021")
+set_id = &"req_basement_keycard"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_bmhrd")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55mnq"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bi0wb"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_3g0p1"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_shard_collected"
+fact_type = &"mission_flag"
+key = "vpj_shard_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Take the ledger shard before returning."
+
+[sub_resource type="Resource" id="Resource_55mnq"]
+script = ExtResource("26_cv021")
+set_id = &"req_return_teleport"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_3g0p1")])
+locked_message = "Take the ledger shard before returning."
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w63kg"]
+size = Vector2(96, 64)
+
+[sub_resource type="Resource" id="Resource_bi0wb"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_shard_collected"
+fact_type = &"mission_flag"
+key = "vpj_shard_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_w63kg"]
+script = ExtResource("26_cv021")
+set_id = &"req_lights_disruption"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_bi0wb")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qigcd"]
+size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yoxq0"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_qigcd"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_hostile_shard_return"
+fact_type = &"mission_flag"
+key = "vpj_shard_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Return upstairs with the ledger shard first."
+
+[sub_resource type="Resource" id="Resource_yoxq0"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_basement_keycard"
+fact_type = &"inventory_has_item"
+key = "velvet_paw_basement_keycard"
+fail_message = "The hostile club route needs the basement keycard."
+
+[sub_resource type="Resource" id="Resource_mvyug"]
+script = ExtResource("26_cv021")
+set_id = &"req_owner_stairs_hostile_keycard"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_qigcd"), SubResource("Resource_yoxq0")])
+locked_message = "Return with the shard and basement keycard."
+
+[sub_resource type="Resource" id="Resource_snqoq"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_owner_stairs_open"
+key = "vpj_owner_stairs_open"
+
+[sub_resource type="Resource" id="Resource_rs34o"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_owner_stairs"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_snqoq")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvyug"]
+size = Vector2(96, 128)
+
+[sub_resource type="Resource" id="Resource_t6ax8"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_owner_stairs_open"
+fact_type = &"mission_flag"
+key = "vpj_owner_stairs_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_cwa7k"]
+script = ExtResource("26_cv021")
+set_id = &"req_suite_teleport"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_t6ax8")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snqoq"]
+size = Vector2(96, 64)
+
+[sub_resource type="Resource" id="Resource_h8s7c"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_owner_stairs_open"
+fact_type = &"mission_flag"
+key = "vpj_owner_stairs_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Reach the suite first."
+
+[sub_resource type="Resource" id="Resource_eyx1f"]
+script = ExtResource("26_cv021")
+set_id = &"req_owner_encounter"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_h8s7c")])
+locked_message = "Reach the suite first."
+
+[sub_resource type="Resource" id="Resource_gwcd6"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_owner_defeated"
+key = "vpj_owner_defeated"
+
+[sub_resource type="Resource" id="Resource_hrms2"]
+script = ExtResource("15_a3c8o")
+effect_id = &"complete_defeat_owner"
+effect_type = 4
+key = "defeat_owner"
+value_string = "Defeat Owner"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_f483x"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_owner_encounter"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_gwcd6"), SubResource("Resource_hrms2")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rs34o"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_0hyk2"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_owner_defeated"
+fact_type = &"mission_flag"
+key = "vpj_owner_defeated"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_my2qi"]
+script = ExtResource("26_cv021")
+set_id = &"req_bug_plant"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_0hyk2")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6ax8"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_k7blm"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_owner_defeated"
+fact_type = &"mission_flag"
+key = "vpj_owner_defeated"
+operator = 2
+expected_value_type = "exists"
+fail_message = "The owner still controls the suite."
+
+[sub_resource type="Resource" id="Resource_bl4y1"]
+script = ExtResource("26_cv021")
+set_id = &"req_briefcase_reward"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_k7blm")])
+locked_message = "The owner still controls the suite."
+
+[sub_resource type="Resource" id="Resource_60guv"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_briefcase_collected"
+key = "vpj_briefcase_collected"
+
+[sub_resource type="Resource" id="Resource_jo7lb"]
+script = ExtResource("15_a3c8o")
+effect_id = &"complete_recover_briefcase"
+effect_type = 4
+key = "recover_briefcase"
+value_string = "Recover Briefcase"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_ru7sa"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_briefcase_reward"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_60guv"), SubResource("Resource_jo7lb")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwa7k"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_nu7gx"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_setlist_solved"
+fact_type = &"mission_flag"
+key = "vpj_setlist_solved"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_o08np"]
+script = ExtResource("26_cv021")
+set_id = &"req_hidden_polaroid"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_nu7gx")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8s7c"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_ugqgk"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_briefcase_collected"
+fact_type = &"mission_flag"
+key = "vpj_briefcase_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_2i6me"]
+script = ExtResource("26_cv021")
+set_id = &"req_shelf_goblin_secret"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_ugqgk")])
+locked_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_osypd"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_secret_velvet_collectible"
+key = "secret_velvet_collectible"
+
+[sub_resource type="Resource" id="Resource_y1kp8"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_shelf_goblin_secret"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_osypd")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyx1f"]
+size = Vector2(96, 96)
+
+[sub_resource type="Resource" id="Resource_jpres"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_briefcase_collected"
+fact_type = &"mission_flag"
+key = "vpj_briefcase_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Take the blackmail briefcase first."
+
+[sub_resource type="Resource" id="Resource_rpvd6"]
+script = ExtResource("26_cv021")
+set_id = &"req_escape_route"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_jpres")])
+locked_message = "Take the blackmail briefcase first."
+
+[sub_resource type="Resource" id="Resource_ot8rt"]
+script = ExtResource("15_a3c8o")
+effect_id = &"set_vpj_escape_hatch_open"
+key = "vpj_escape_hatch_open"
+
+[sub_resource type="Resource" id="Resource_u6t44"]
+script = ExtResource("15_a3c8o")
+effect_id = &"complete_open_escape"
+effect_type = 4
+key = "open_escape"
+value_string = "Open Escape"
+value_type = "string"
+
+[sub_resource type="Resource" id="Resource_122hm"]
+script = ExtResource("16_o2w7y")
+set_id = &"effects_escape_route"
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_ot8rt"), SubResource("Resource_u6t44")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwcd6"]
+size = Vector2(96, 128)
+
+[sub_resource type="Resource" id="Resource_h7s0q"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_briefcase_collected"
+fact_type = &"mission_flag"
+key = "vpj_briefcase_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Unavailable"
+
+[sub_resource type="Resource" id="Resource_27bmy"]
+script = ExtResource("26_cv021")
+set_id = &"req_escape_music"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_h7s0q")])
+locked_message = "Unavailable"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrms2"]
+size = Vector2(384, 128)
+
+[sub_resource type="Resource" id="Resource_ihf87"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_escape_hatch_open"
+fact_type = &"mission_flag"
+key = "vpj_escape_hatch_open"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Open the escape hatch and recover the briefcase."
+
+[sub_resource type="Resource" id="Resource_r0igg"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_briefcase_collected"
+fact_type = &"mission_flag"
+key = "vpj_briefcase_collected"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Open the escape hatch and recover the briefcase."
+
+[sub_resource type="Resource" id="Resource_5r6k0"]
+script = ExtResource("26_cv021")
+set_id = &"req_extraction"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_ihf87"), SubResource("Resource_r0igg")])
+locked_message = "Open the escape hatch and recover the briefcase."
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f483x"]
+size = Vector2(128, 128)
+
+[node name="VelvetPawJazzClub_Editable" type="Node2D" unique_id=1031123560]
+script = ExtResource("1")
+mission_definition = ExtResource("2")
+auto_generate_from_definition = false
+
+[node name="GameplayRoot" type="Node2D" parent="." unique_id=1140360537]
+
+[node name="LayoutRoot" type="Node2D" parent="GameplayRoot" unique_id=1889375968]
+
+[node name="FloorLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot" unique_id=2053303541]
+y_sort_enabled = true
+tile_set = ExtResource("3")
+
+[node name="WallLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot" unique_id=1291381707]
+y_sort_enabled = true
+tile_set = ExtResource("3")
+
+[node name="CoverLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot" unique_id=680121401]
+y_sort_enabled = true
+tile_set = ExtResource("3")
+
+[node name="CollisionBarrierLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot" unique_id=898422279]
+y_sort_enabled = true
+tile_set = ExtResource("3")
+
+[node name="MarkerTileLayer" type="TileMapLayer" parent="GameplayRoot/LayoutRoot" unique_id=773819837]
+y_sort_enabled = true
+tile_set = ExtResource("4")
+
+[node name="AuthoringBlueprintLayer" type="Node2D" parent="GameplayRoot/LayoutRoot" unique_id=221472607]
+script = ExtResource("5")
+blueprint_path = "res://docs/blueprints/velvet_paw_jazz_club.blueprint.json"
+opacity = 0.35
+
+[node name="GameplayFloorLayer" type="TileMapLayer" parent="GameplayRoot" unique_id=597718183]
+y_sort_enabled = true
+
+[node name="GameplayCollisionLayer" type="TileMapLayer" parent="GameplayRoot" unique_id=1029113688]
+y_sort_enabled = true
+
+[node name="GameplayMarkersLayer" type="TileMapLayer" parent="GameplayRoot" unique_id=1925864323]
+y_sort_enabled = true
+
+[node name="EntityRoot" type="Node2D" parent="GameplayRoot" unique_id=66747581]
+y_sort_enabled = true
+
+[node name="Enemies" type="Node2D" parent="GameplayRoot/EntityRoot" unique_id=1885289806]
+
+[node name="Interactables" type="Node2D" parent="GameplayRoot/EntityRoot" unique_id=694088012]
+
+[node name="SpawnPoints" type="Node2D" parent="GameplayRoot" unique_id=432718713]
+
+[node name="default" type="Marker2D" parent="GameplayRoot/SpawnPoints" unique_id=786025828]
+position = Vector2(256, 2880)
+
+[node name="MarkerRoot" type="Node2D" parent="GameplayRoot" unique_id=1300362071]
+
+[node name="Spawns" type="Node2D" parent="GameplayRoot/MarkerRoot" unique_id=577761610]
+
+[node name="PlayerStartMarker_start_main" type="Marker2D" parent="GameplayRoot/MarkerRoot/Spawns" unique_id=1593513091]
+position = Vector2(256, 2880)
+script = ExtResource("6_uj5m4")
+
+[node name="SecurityAuthoringRoot" type="Node2D" parent="GameplayRoot" unique_id=1634777084]
+script = ExtResource("6")
+
+[node name="PoopBagAuthor_velvet_paw_jazz_club_poop_bag_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1963271702]
+position = Vector2(3264, 2752)
+script = ExtResource("8_w28it")
+collectible_id = &"velvet_paw_jazz_club.poop_bag_author.01"
+display_name = "Bentley Poop Bag"
+hideout_collection_key = &"poop_bag_alley"
+preview_color = Color(0.55, 0.85, 0.45, 0.9)
+
+[node name="GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=585757923]
+position = Vector2(896, 1600)
+script = ExtResource("9_i5ap6")
+route_id = &"velvet_paw_jazz_club.guard_patrol_route_author.01"
+
+[node name="Waypoint0" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_01" unique_id=49332933]
+position = Vector2(-256, -128)
+
+[node name="Waypoint1" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_01" unique_id=1733126610]
+position = Vector2(192, 64)
+
+[node name="Waypoint2" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_01" unique_id=445970734]
+position = Vector2(-128, 192)
+
+[node name="GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=761182353]
+position = Vector2(896, 1728)
+script = ExtResource("10_4bqo4")
+spawn_id = &"velvet_paw_jazz_club.guard_spawn_author.01"
+initial_behavior = &"patrol"
+fallback_behavior = &"patrol"
+patrol_route_id = &"velvet_paw_jazz_club.guard_patrol_route_author.01"
+one_shot = true
+
+[node name="GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=653831648]
+position = Vector2(2240, 2112)
+script = ExtResource("9_i5ap6")
+route_id = &"velvet_paw_jazz_club.guard_patrol_route_author.02"
+
+[node name="Waypoint0" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_02" unique_id=957631434]
+position = Vector2(-256, 0)
+
+[node name="Waypoint1" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_02" unique_id=818484010]
+position = Vector2(192, -192)
+
+[node name="Waypoint2" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot/GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_02" unique_id=907965203]
+position = Vector2(256, 128)
+
+[node name="GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1231521547]
+position = Vector2(2240, 2240)
+script = ExtResource("10_4bqo4")
+spawn_id = &"velvet_paw_jazz_club.guard_spawn_author.02"
+initial_behavior = &"patrol"
+fallback_behavior = &"patrol"
+patrol_route_id = &"velvet_paw_jazz_club.guard_patrol_route_author.02"
+one_shot = true
+
+[node name="SecurityCameraAuthor_velvet_paw_jazz_club_security_camera_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=617329210]
+position = Vector2(2624, 1600)
+script = ExtResource("11_a3c8o")
+camera_id = &"velvet_paw_jazz_club.security_camera_author.01"
+range_px = 360.0
+fov_degrees = 52.0
+direction_degrees = 90.0
+sweep_enabled = true
+sweep_arc_degrees = 65.0
+sweep_speed_degrees = 28.0
+
+[node name="GlowGuyAuthor_velvet_paw_jazz_club_glow_guy_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1071205357]
+position = Vector2(192, 576)
+script = ExtResource("12_o2w7y")
+glow_guy_id = &"velvet_bathroom_glow_guy"
+collectible_id = &"velvet_paw_jazz_club.glow_guy_author.01"
+display_name = "Bathroom Glow Guy"
+hideout_collection_key = &"velvet_bathroom_glow_guy"
+preview_color = Color(0.35, 0.95, 0.75, 0.92)
+
+[node name="ClueAuthor_velvet_paw_jazz_club_clue_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=252052825]
+position = Vector2(2304, 512)
+script = ExtResource("13_7tevw")
+clue_id = &"velvet_paw_jazz_club.clue_author.01"
+clue_title = "Stage Manager's Notes"
+clue_text = "Setlist policy: five songs only - follow the release timeline, not the merch table. If an extra title sneaks in, it's wrong even when it rhymes."
+collectible_id = &"velvet_paw_jazz_club.clue_author.01"
+display_name = "Clue Manager Notes"
+objective_id = &"read_manager_clue"
+pickup_event_id = &"vpj_clue_manager_collected"
+hideout_collection_key = &"velvet_paw_manager_notes"
+preview_color = Color(0.75, 0.55, 0.95, 0.92)
+
+[node name="ClueAuthor_velvet_paw_jazz_club_clue_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=939383119]
+position = Vector2(832, 704)
+script = ExtResource("13_7tevw")
+clue_id = &"velvet_paw_jazz_club.clue_author.02"
+clue_title = "Crumpled Setlist Fragment"
+clue_text = "Album arc tonight - start where we started hungry, ballad in the middle breath, end where the jury listens."
+collectible_id = &"velvet_paw_jazz_club.clue_author.02"
+display_name = "Clue Setlist"
+objective_id = &"read_setlist_clue"
+pickup_event_id = &"vpj_clue_setlist_collected"
+hideout_collection_key = &"velvet_paw_setlist_fragment"
+preview_color = Color(0.75, 0.55, 0.95, 0.92)
+
+[node name="SecurityEffectSetAuthor_velvet_paw_jazz_club_security_effect_set_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1393868392]
+position = Vector2(1344, 640)
+script = ExtResource("14_cv021")
+effects = SubResource("Resource_7tevw")
+mission_id_override = "velvet_paw_jazz_club"
+debug_chain_label = "wrong_note_alarm -> alerted + reinforcement"
+effect_id = &"velvet_paw_jazz_club.security_effect_set_author.01"
+cooldown_seconds = 8.0
+
+[node name="GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_03" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1058848737]
+position = Vector2(1664, 1088)
+script = ExtResource("10_4bqo4")
+spawn_id = &"velvet_paw_jazz_club.guard_spawn_author.03"
+max_alive_from_this_spawn = 1
+cooldown_seconds = 8.0
+
+[node name="SecurityCameraAuthor_velvet_paw_jazz_club_security_camera_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=819304278]
+position = Vector2(3872, 1760)
+script = ExtResource("11_a3c8o")
+camera_id = &"velvet_paw_jazz_club.security_camera_author.02"
+range_px = 300.0
+fov_degrees = 48.0
+direction_degrees = 90.0
+sweep_enabled = true
+sweep_arc_degrees = 45.0
+sweep_speed_degrees = 22.0
+
+[node name="PoopBagAuthor_velvet_paw_jazz_club_poop_bag_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1949041592]
+position = Vector2(3648, 2688)
+script = ExtResource("8_w28it")
+collectible_id = &"velvet_paw_jazz_club.poop_bag_author.02"
+display_name = "Bentley Poop Bag"
+hideout_collection_key = &"poop_bag_basement"
+preview_color = Color(0.55, 0.85, 0.45, 0.9)
+
+[node name="SecurityBeamAuthor_velvet_paw_jazz_club_security_beam_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=478249096]
+position = Vector2(3616, 832)
+script = ExtResource("15_v477s")
+beam_id = &"velvet_paw_jazz_club.security_beam_author.01"
+alarm_id = &"velvet_paw_suite_beam"
+on_trip_event = &"suite_beam_tripped"
+visual_height = 192.0
+visual_width = 24.0
+trigger_width = 56.0
+
+[node name="CaseCashAuthor_velvet_paw_jazz_club_case_cash_author_01" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1595877579]
+position = Vector2(4288, 320)
+script = ExtResource("16_c6qk1")
+collectible_id = &"velvet_paw_jazz_club.case_cash_author.01"
+display_name = "Owner Suite Stash"
+hideout_collection_key = &"velvet_suite_stash"
+preview_color = Color(0.95, 0.72, 0.2, 0.95)
+
+[node name="PoopBagAuthor_velvet_paw_jazz_club_poop_bag_author_03" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=1828762190]
+position = Vector2(448, 2240)
+script = ExtResource("8_w28it")
+collectible_id = &"velvet_paw_jazz_club.poop_bag_author.03"
+display_name = "Bentley Poop Bag"
+hideout_collection_key = &"poop_bag_floor"
+preview_color = Color(0.55, 0.85, 0.45, 0.9)
+
+[node name="RuntimeHelpers" type="Node" parent="GameplayRoot" unique_id=212036117]
+
+[node name="MissionInteractionBridge" type="Node" parent="GameplayRoot/RuntimeHelpers" unique_id=1849780995]
+script = ExtResource("7")
+player_path = NodePath("../../EntityRoot/Player")
+include_legacy_candidates = false
+
+[node name="MissionAlertController" type="Node" parent="GameplayRoot/RuntimeHelpers" unique_id=1043695113]
+script = ExtResource("8")
+mission_id = "velvet_paw_jazz_club"
+
+[node name="VelvetPawJazzClubMissionController" type="Node" parent="GameplayRoot/RuntimeHelpers" unique_id=2038646961]
+script = ExtResource("21_o2w7y")
+
+[node name="MissionMechanics" type="Node2D" parent="GameplayRoot" unique_id=720823673]
+
+[node name="InspectionZone_velvet_paw_jazz_club_inspection_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1089528174]
+position = Vector2(1312, 2624)
+script = ExtResource("19_8ey6f")
+mechanic_id = &"velvet_paw_jazz_club.inspection_zone.01"
+display_name = "Queue Inspection"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Present story"
+locked_prompt_text = "Cannot pass inspection"
+shape_size = Vector2(256, 192)
+preview_color = Color(0.55, 0.45, 0.9, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InspectionZone_velvet_paw_jazz_club_inspection_zone_01" unique_id=1161072824]
+shape = SubResource("RectangleShape2D_jx4eb")
+
+[node name="EavesdropZone_velvet_paw_jazz_club_eavesdrop_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=689742405]
+position = Vector2(960, 2816)
+script = ExtResource("20_bvgan")
+completed_flag = &"vpj_eavesdrop_done"
+mechanic_id = &"velvet_paw_jazz_club.eavesdrop_zone.01"
+display_name = "Queue Eavesdrop"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Listen: the staff side door stays propped open between sets."
+success_effects = SubResource("Resource_v477s")
+shape_size = Vector2(192, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/EavesdropZone_velvet_paw_jazz_club_eavesdrop_zone_01" unique_id=360126139]
+shape = SubResource("RectangleShape2D_rs5q5")
+
+[node name="DialogueTriggerZone_velvet_paw_jazz_club_dialogue_trigger_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=423768952]
+position = Vector2(2688, 2816)
+script = ExtResource("21_wjn08")
+fallback_speaker = "Bentley"
+fallback_text = "(Too many colognes. The bass line is honest, though.)"
+mechanic_id = &"velvet_paw_jazz_club.dialogue_trigger_zone.01"
+display_name = "Alley Dialogue"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+prompt_text = "Check the alley with Bentley."
+success_effects = SubResource("Resource_8ey6f")
+shape_size = Vector2(192, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DialogueTriggerZone_velvet_paw_jazz_club_dialogue_trigger_zone_01" unique_id=1827697641]
+shape = SubResource("RectangleShape2D_un8xb")
+
+[node name="DeadDropNode_velvet_paw_jazz_club_dead_drop_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=117879169]
+position = Vector2(3136, 2944)
+script = ExtResource("22_00pr0")
+mechanic_id = &"velvet_paw_jazz_club.dead_drop_node.01"
+display_name = "Dead Drop"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Leave a copy of the voicemail for Mere."
+requirements = SubResource("Resource_wjn08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DeadDropNode_velvet_paw_jazz_club_dead_drop_node_01" unique_id=769545983]
+shape = SubResource("RectangleShape2D_pqwqr")
+
+[node name="TriggerZone_velvet_paw_jazz_club_trigger_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1369318174]
+position = Vector2(2944, 2496)
+script = ExtResource("23_thsld")
+mechanic_id = &"velvet_paw_jazz_club.trigger_zone.01"
+display_name = "Side Door Entry"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+prompt_text = "Enter through the propped staff door."
+success_effects = SubResource("Resource_thsld")
+shape_size = Vector2(128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TriggerZone_velvet_paw_jazz_club_trigger_zone_01" unique_id=1699813464]
+shape = SubResource("RectangleShape2D_n5khj")
+
+[node name="MusicTriggerZone_velvet_paw_jazz_club_music_trigger_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1557168004]
+position = Vector2(2688, 2368)
+script = ExtResource("24_sx518")
+mechanic_id = &"velvet_paw_jazz_club.music_trigger_zone.01"
+display_name = "Floor Music"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+one_shot = false
+prompt_text = "Change music"
+shape_size = Vector2(384, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/MusicTriggerZone_velvet_paw_jazz_club_music_trigger_zone_01" unique_id=1404392510]
+shape = SubResource("RectangleShape2D_a4fid")
+
+[node name="ProfessionalismMeterNode_velvet_paw_jazz_club_professionalism_meter_node_01" type="Node" parent="GameplayRoot/MissionMechanics" unique_id=895620256]
+script = ExtResource("25_0cb35")
+mechanic_id = &"velvet_paw_jazz_club.professionalism_meter_node.01"
+mission_id_override = "velvet_paw_jazz_club"
+
+[node name="InspectionZone_velvet_paw_jazz_club_inspection_zone_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1711047776]
+position = Vector2(1600, 1600)
+script = ExtResource("19_8ey6f")
+mechanic_id = &"velvet_paw_jazz_club.inspection_zone.02"
+display_name = "Floor Inspection"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Pass the floor inspection."
+locked_prompt_text = "Look professional first: clear glasses at the bar."
+requirements = SubResource("Resource_0cb35")
+shape_size = Vector2(320, 256)
+preview_color = Color(0.55, 0.45, 0.9, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InspectionZone_velvet_paw_jazz_club_inspection_zone_02" unique_id=1406452404]
+shape = SubResource("RectangleShape2D_bypr4")
+
+[node name="BelievableTaskZone_velvet_paw_jazz_club_believable_task_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=498468689]
+position = Vector2(512, 1408)
+script = ExtResource("26_pimlv")
+mechanic_id = &"velvet_paw_jazz_club.believable_task_zone.01"
+display_name = "Bar Task"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Clear glasses and look like you belong."
+success_effects = SubResource("Resource_w6o47")
+shape_size = Vector2(128, 128)
+preview_color = Color(0.25, 0.65, 0.45, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_jazz_club_believable_task_zone_01" unique_id=1186243729]
+shape = SubResource("RectangleShape2D_lem6e")
+
+[node name="DistractionObject_velvet_paw_jazz_club_distraction_object_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1667697122]
+position = Vector2(704, 1856)
+script = ExtResource("27_w6o47")
+noise_id = &"distraction_noise"
+noise_kind = "decoy"
+noise_team = "player"
+noise_radius = 220.0
+noise_strength = 0.75
+mechanic_id = &"velvet_paw_jazz_club.distraction_object.01"
+display_name = "Barback Distraction"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Create distraction"
+preview_color = Color(0.2, 0.9, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DistractionObject_velvet_paw_jazz_club_distraction_object_01" unique_id=128013058]
+shape = SubResource("RectangleShape2D_1hf6w")
+
+[node name="InvestigationPointNode_velvet_paw_jazz_club_investigation_point_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=855820234]
+position = Vector2(1024, 1728)
+script = ExtResource("28_2fcth")
+mechanic_id = &"velvet_paw_jazz_club.investigation_point_node.01"
+display_name = "Investigation Point"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Investigate"
+locked_prompt_text = "Investigation unavailable"
+preview_color = Color(0.95, 0.75, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InvestigationPointNode_velvet_paw_jazz_club_investigation_point_node_01" unique_id=1776999634]
+shape = SubResource("RectangleShape2D_eiakg")
+
+[node name="NoiseEmitterNode_velvet_paw_jazz_club_noise_emitter_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=812531413]
+position = Vector2(1472, 1984)
+script = ExtResource("29_5jkg3")
+mechanic_id = &"velvet_paw_jazz_club.noise_emitter_node.01"
+display_name = "Noise Emitter"
+mission_id_override = "velvet_paw_jazz_club"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/NoiseEmitterNode_velvet_paw_jazz_club_noise_emitter_node_01" unique_id=195838324]
+shape = SubResource("RectangleShape2D_1e70s")
+
+[node name="BentleyWaitMarker_velvet_paw_jazz_club_bentley_wait_marker_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1840408166]
+position = Vector2(1216, 2240)
+script = ExtResource("30_14mip")
+command_type = "wait"
+command_label = "Bentley wait"
+mechanic_id = &"velvet_paw_jazz_club.bentley_wait_marker.01"
+display_name = "Bentley Wait"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Ask Bentley to wait"
+preview_color = Color(0.35, 0.65, 1, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BentleyWaitMarker_velvet_paw_jazz_club_bentley_wait_marker_01" unique_id=339721481]
+shape = SubResource("RectangleShape2D_2jj5r")
+
+[node name="HideSpotNode_velvet_paw_jazz_club_hide_spot_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=717331061]
+position = Vector2(2848, 1952)
+script = ExtResource("31_am28a")
+mechanic_id = &"velvet_paw_jazz_club.hide_spot_node.01"
+display_name = "Hide Booth"
+mission_id_override = "velvet_paw_jazz_club"
+one_shot = false
+prompt_text = "Press E: Hide"
+locked_prompt_text = "Cannot hide here"
+preview_color = Color(0.2, 0.55, 0.85, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/HideSpotNode_velvet_paw_jazz_club_hide_spot_node_01" unique_id=1623655672]
+shape = SubResource("RectangleShape2D_5n1i3")
+
+[node name="ProtocolZone_velvet_paw_jazz_club_protocol_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1414706329]
+position = Vector2(2688, 1664)
+script = ExtResource("32_uja73")
+mechanic_id = &"velvet_paw_jazz_club.protocol_zone.01"
+display_name = "Vip Protocol"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Follow protocol"
+locked_prompt_text = "Protocol unavailable"
+shape_size = Vector2(320, 512)
+preview_color = Color(0.75, 0.55, 0.25, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ProtocolZone_velvet_paw_jazz_club_protocol_zone_01" unique_id=906196949]
+shape = SubResource("RectangleShape2D_4p2kr")
+
+[node name="SearchZone_velvet_paw_jazz_club_search_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=788759245]
+position = Vector2(2816, 2304)
+script = ExtResource("33_ntanu")
+searched_flag = &"vpj_vip_voicemail_found"
+found_message = "Assistant voicemail: Shred before midnight. The badge is in the green room."
+mechanic_id = &"velvet_paw_jazz_club.search_zone.01"
+display_name = "Vip Phone Search"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Check the VIP phone."
+success_effects = SubResource("Resource_5jkg3")
+shape_size = Vector2(128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SearchZone_velvet_paw_jazz_club_search_zone_01" unique_id=334060923]
+shape = SubResource("RectangleShape2D_v8s80")
+
+[node name="BarkTrigger_velvet_paw_jazz_club_bark_trigger_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=41316440]
+position = Vector2(320, 832)
+script = ExtResource("34_k0lda")
+bark_text = "(Bentley respects the grout lines.)"
+fallback_speaker = "Bentley"
+fallback_text = "(Bentley respects the grout lines.)"
+mechanic_id = &"velvet_paw_jazz_club.bark_trigger.01"
+display_name = "Bathroom Bark"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BarkTrigger_velvet_paw_jazz_club_bark_trigger_01" unique_id=144094839]
+shape = SubResource("RectangleShape2D_b4si7")
+
+[node name="BentleyCrawlspaceConnector_velvet_paw_jazz_club_bentley_crawlspace_connector_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1010380027]
+position = Vector2(2496, 1024)
+script = ExtResource("35_a6534")
+command_type = "crawlspace"
+command_label = "Bentley crawlspace"
+mechanic_id = &"velvet_paw_jazz_club.bentley_crawlspace_connector.01"
+display_name = "Bentley Crawl"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Send Bentley through"
+preview_color = Color(0.25, 0.85, 0.9, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BentleyCrawlspaceConnector_velvet_paw_jazz_club_bentley_crawlspace_connector_01" unique_id=1539651979]
+shape = SubResource("RectangleShape2D_6nwf1")
+
+[node name="InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=2116323605]
+position = Vector2(2432, 832)
+script = ExtResource("36_aqcij")
+item_id = &"velvet_paw_staff_badge"
+item_category = "credential"
+reward_id = &"velvet_paw_staff_badge"
+collected_flag = &"vpj_staff_badge_collected"
+mechanic_id = &"velvet_paw_jazz_club.inventory_pickup_node.01"
+display_name = "Staff Badge Pickup"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Take the staff badge."
+requirements = SubResource("Resource_am28a")
+success_effects = SubResource("Resource_ntanu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_01" unique_id=246832839]
+shape = SubResource("RectangleShape2D_urvnl")
+
+[node name="LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=501203410]
+position = Vector2(2048, 960)
+script = ExtResource("37_rs1l8")
+lock_kind = "gate"
+unlocked_flag = &"vpj_staff_gate_open"
+mechanic_id = &"velvet_paw_jazz_club.locked_interaction_node.01"
+display_name = "Staff Gate"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Swipe the staff badge."
+locked_prompt_text = "The stage wing requires a staff badge."
+requirements = SubResource("Resource_a6534")
+success_effects = SubResource("Resource_rs1l8")
+shape_size = Vector2(96, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_01" unique_id=169089867]
+shape = SubResource("RectangleShape2D_og3se")
+
+[node name="InteractiveContainer_velvet_paw_jazz_club_interactive_container_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1548126597]
+position = Vector2(2720, 512)
+script = ExtResource("38_sy4a7")
+mechanic_id = &"velvet_paw_jazz_club.interactive_container.01"
+display_name = "Green Room Lockers"
+mission_id_override = "velvet_paw_jazz_club"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InteractiveContainer_velvet_paw_jazz_club_interactive_container_01" unique_id=1456475597]
+shape = SubResource("RectangleShape2D_lcmxm")
+
+[node name="SideObjectiveNode_velvet_paw_jazz_club_side_objective_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=227983498]
+position = Vector2(1920, 704)
+script = ExtResource("39_b23tu")
+objective_id = &"velvet_paw_soundcheck"
+objective_text = "Run the stage-wing sound check."
+objective_flag = &"vpj_soundcheck_done"
+mechanic_id = &"velvet_paw_jazz_club.side_objective_node.01"
+display_name = "Soundcheck Task"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Run the stage-wing sound check."
+requirements = SubResource("Resource_b23tu")
+success_effects = SubResource("Resource_js70k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SideObjectiveNode_velvet_paw_jazz_club_side_objective_node_01" unique_id=209674886]
+shape = SubResource("RectangleShape2D_vyy1p")
+
+[node name="SearchZone_velvet_paw_jazz_club_search_zone_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1568818112]
+position = Vector2(1568, 896)
+script = ExtResource("33_ntanu")
+searched_flag = &"vpj_decoy_ledger_found"
+found_message = "Blank pages. Sterling's crew planted a prop ledger. The real route points below the stage."
+mechanic_id = &"velvet_paw_jazz_club.search_zone.02"
+display_name = "Backstage Crate Search"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Search the backstage prop crates."
+locked_prompt_text = "Read both setlist clues first."
+requirements = SubResource("Resource_rxnqn")
+success_effects = SubResource("Resource_m2jh2")
+shape_size = Vector2(128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SearchZone_velvet_paw_jazz_club_search_zone_02" unique_id=1203666238]
+shape = SubResource("RectangleShape2D_h1dih")
+
+[node name="TerminalHackNode_velvet_paw_jazz_club_terminal_hack_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1216437504]
+position = Vector2(1152, 640)
+script = ExtResource("40_i4rnn")
+mechanic_id = &"velvet_paw_jazz_club.terminal_hack_node.01"
+display_name = "Setlist Terminal"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Decode the five-song setlist."
+locked_prompt_text = "Two setlist clues are still missing."
+requirements = SubResource("Resource_ueac7")
+success_effects = SubResource("Resource_qs31d")
+failure_effects = SubResource("Resource_pqwqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TerminalHackNode_velvet_paw_jazz_club_terminal_hack_node_01" unique_id=822194616]
+shape = SubResource("RectangleShape2D_jo3xr")
+
+[node name="PresentationSequencePlayer_velvet_paw_jazz_club_presentation_sequence_player_01" type="Node2D" parent="GameplayRoot/MissionMechanics" unique_id=540774542]
+position = Vector2(1152, 512)
+script = ExtResource("41_js70k")
+sequence_steps = Array[Dictionary]([{
+"id": "stage_downbeat",
+"speaker": "Yordano",
+"text": "House lights love you. Don't waste the downbeat.",
+"type": "simple_dialogue"
+}])
+intro_sequence_id = "velvet_paw_jazz_club.presentation_sequence_player.01"
+
+[node name="RouteUnlockNode_velvet_paw_jazz_club_route_unlock_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1997422298]
+position = Vector2(1024, 832)
+script = ExtResource("42_x442b")
+route_id = &"velvet_paw_basement_hatch"
+route_flag = &"vpj_backstage_hatch_open"
+mechanic_id = &"velvet_paw_jazz_club.route_unlock_node.01"
+display_name = "Backstage Hatch"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Open the service hatch."
+requirements = SubResource("Resource_a4fid")
+success_effects = SubResource("Resource_lem6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RouteUnlockNode_velvet_paw_jazz_club_route_unlock_node_01" unique_id=1534477471]
+shape = SubResource("RectangleShape2D_2hlm7")
+
+[node name="TeleportZone_velvet_paw_jazz_club_teleport_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1185927602]
+position = Vector2(1024, 928)
+script = ExtResource("43_tifu2")
+target_marker_path = NodePath("../TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_01")
+trigger_on_enter = false
+mechanic_id = &"velvet_paw_jazz_club.teleport_zone.01"
+display_name = "Basement Teleport"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Drop into the basement."
+requirements = SubResource("Resource_eiakg")
+shape_size = Vector2(96, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TeleportZone_velvet_paw_jazz_club_teleport_zone_01" unique_id=1454956781]
+shape = SubResource("RectangleShape2D_mj6ej")
+
+[node name="TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_01" type="Marker2D" parent="GameplayRoot/MissionMechanics" unique_id=1186775834]
+position = Vector2(3616, 2944)
+script = ExtResource("44_rxnqn")
+target_id = &"velvet_paw_jazz_club.teleport_target_marker.01"
+
+[node name="DialogueTriggerZone_velvet_paw_jazz_club_dialogue_trigger_zone_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=88448557]
+position = Vector2(3776, 2816)
+script = ExtResource("21_wjn08")
+fallback_speaker = "Yordano"
+fallback_text = "That hum is the vault handshake. I green-lit it - go pull Sterling's purple shard before lawyers remote-wipe."
+mechanic_id = &"velvet_paw_jazz_club.dialogue_trigger_zone.02"
+display_name = "Yordano Dialogue"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+prompt_text = "Listen to Yordano's vault briefing."
+requirements = SubResource("Resource_2jj5r")
+success_effects = SubResource("Resource_4p2kr")
+shape_size = Vector2(192, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DialogueTriggerZone_velvet_paw_jazz_club_dialogue_trigger_zone_02" unique_id=439320349]
+shape = SubResource("RectangleShape2D_qcfro")
+
+[node name="PowerCircuitNode_velvet_paw_jazz_club_power_circuit_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=300697644]
+position = Vector2(4160, 2464)
+script = ExtResource("45_b386c")
+circuit_id = &"velvet_paw_vault_power"
+circuit_flag = &"vpj_vault_power_rerouted"
+mechanic_id = &"velvet_paw_jazz_club.power_circuit_node.01"
+display_name = "Vault Power"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Reroute power on the bass swell."
+requirements = SubResource("Resource_b4si7")
+success_effects = SubResource("Resource_urvnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/PowerCircuitNode_velvet_paw_jazz_club_power_circuit_node_01" unique_id=1097593830]
+shape = SubResource("RectangleShape2D_vycf5")
+
+[node name="LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1397999653]
+position = Vector2(3936, 2112)
+script = ExtResource("37_rs1l8")
+lock_kind = "safe"
+unlocked_flag = &"vpj_server_vault_open"
+mechanic_id = &"velvet_paw_jazz_club.locked_interaction_node.02"
+display_name = "Server Vault"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Release the server-vault maglock."
+locked_prompt_text = "Reroute vault power first."
+requirements = SubResource("Resource_lcmxm")
+success_effects = SubResource("Resource_h1dih")
+shape_size = Vector2(128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_02" unique_id=991740938]
+shape = SubResource("RectangleShape2D_bmhrd")
+
+[node name="InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=506167824]
+position = Vector2(4224, 1920)
+script = ExtResource("36_aqcij")
+item_id = &"velvet_paw_ledger_shard"
+item_category = "evidence"
+reward_id = &"velvet_paw_ledger_shard"
+collected_flag = &"vpj_shard_collected"
+mechanic_id = &"velvet_paw_jazz_club.inventory_pickup_node.02"
+display_name = "Ledger Shard"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Take Sterling's purple ledger shard."
+locked_prompt_text = "Open the server vault first."
+requirements = SubResource("Resource_2hlm7")
+success_effects = SubResource("Resource_vycf5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_02" unique_id=481203860]
+shape = SubResource("RectangleShape2D_k13iy")
+
+[node name="AuditTrailCleanupNode_velvet_paw_jazz_club_audit_trail_cleanup_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1713334876]
+position = Vector2(3712, 2464)
+script = ExtResource("46_m2jh2")
+mechanic_id = &"velvet_paw_jazz_club.audit_trail_cleanup_node.01"
+display_name = "Audit Cleanup"
+mission_id_override = "velvet_paw_jazz_club"
+one_shot = false
+prompt_text = "Press E: Clean audit trail"
+preview_color = Color(0.35, 0.9, 0.55, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/AuditTrailCleanupNode_velvet_paw_jazz_club_audit_trail_cleanup_node_01" unique_id=2068786717]
+shape = SubResource("RectangleShape2D_3g0p1")
+
+[node name="InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_03" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1148700914]
+position = Vector2(3584, 2336)
+script = ExtResource("36_aqcij")
+item_id = &"velvet_paw_basement_keycard"
+item_category = "credential"
+reward_id = &"velvet_paw_basement_keycard"
+mechanic_id = &"velvet_paw_jazz_club.inventory_pickup_node.03"
+display_name = "Basement Keycard"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Take the Black Ledger keycard."
+requirements = SubResource("Resource_k13iy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/InventoryPickupNode_velvet_paw_jazz_club_inventory_pickup_node_03" unique_id=1460128461]
+shape = SubResource("RectangleShape2D_55mnq")
+
+[node name="HeatSinkObject_velvet_paw_jazz_club_heat_sink_object_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=97253493]
+position = Vector2(4096, 2560)
+script = ExtResource("47_13wgs")
+mechanic_id = &"velvet_paw_jazz_club.heat_sink_object.01"
+display_name = "Heat Sink"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Plant misdirection"
+preview_color = Color(0.95, 0.65, 0.2, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/HeatSinkObject_velvet_paw_jazz_club_heat_sink_object_01" unique_id=557080606]
+shape = SubResource("RectangleShape2D_bi0wb")
+
+[node name="TeleportZone_velvet_paw_jazz_club_teleport_zone_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=324797465]
+position = Vector2(3616, 3040)
+script = ExtResource("43_tifu2")
+target_marker_path = NodePath("../TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_02")
+trigger_on_enter = false
+mechanic_id = &"velvet_paw_jazz_club.teleport_zone.02"
+display_name = "Return Teleport"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Return upstairs. The club has turned hostile - every bouncer is looking for you."
+locked_prompt_text = "Take the ledger shard before returning."
+requirements = SubResource("Resource_55mnq")
+shape_size = Vector2(96, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TeleportZone_velvet_paw_jazz_club_teleport_zone_02" unique_id=1173199419]
+shape = SubResource("RectangleShape2D_w63kg")
+
+[node name="TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_02" type="Marker2D" parent="GameplayRoot/MissionMechanics" unique_id=964260520]
+position = Vector2(1024, 1120)
+script = ExtResource("44_rxnqn")
+target_id = &"velvet_paw_jazz_club.teleport_target_marker.02"
+
+[node name="EncounterController_velvet_paw_jazz_club_encounter_controller_01" type="Node" parent="GameplayRoot/MissionMechanics" unique_id=619067870]
+script = ExtResource("48_jlmtb")
+encounter_id = &"velvet_paw_jazz_club.encounter_controller.01"
+display_name = "Velvet Paw Hostile Return"
+mission_id_override = "velvet_paw_jazz_club"
+initial_phase_id = &"hostile_return"
+start_on_ready = false
+
+[node name="DisruptionActionNode_velvet_paw_jazz_club_disruption_action_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=142560859]
+position = Vector2(2176, 1408)
+script = ExtResource("49_ueac7")
+mechanic_id = &"velvet_paw_jazz_club.disruption_action_node.01"
+display_name = "Lights Disruption"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Cut the club strobes."
+requirements = SubResource("Resource_w63kg")
+preview_color = Color(0.95, 0.25, 0.2, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/DisruptionActionNode_velvet_paw_jazz_club_disruption_action_node_01" unique_id=794374758]
+shape = SubResource("RectangleShape2D_qigcd")
+
+[node name="SchemeCardTriggerNode_velvet_paw_jazz_club_scheme_card_trigger_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=690263170]
+position = Vector2(1856, 1216)
+script = ExtResource("50_4xa6p")
+missing_card_message = "Equip Yordano's Bass Drop scheme card."
+mechanic_id = &"velvet_paw_jazz_club.scheme_card_trigger_node.01"
+display_name = "Scheme Card Bassdrop"
+mission_id_override = "velvet_paw_jazz_club"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SchemeCardTriggerNode_velvet_paw_jazz_club_scheme_card_trigger_node_01" unique_id=173028740]
+shape = SubResource("RectangleShape2D_yoxq0")
+
+[node name="LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_03" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=914858715]
+position = Vector2(3008, 1216)
+script = ExtResource("37_rs1l8")
+lock_kind = "scanner"
+unlocked_flag = &"vpj_owner_stairs_open"
+mechanic_id = &"velvet_paw_jazz_club.locked_interaction_node.03"
+display_name = "Owner Stairs"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Use the keycard on the rig stairs."
+locked_prompt_text = "The hostile club route needs the basement keycard."
+requirements = SubResource("Resource_mvyug")
+success_effects = SubResource("Resource_rs34o")
+shape_size = Vector2(96, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/LockedInteractionNode_velvet_paw_jazz_club_locked_interaction_node_03" unique_id=794790627]
+shape = SubResource("RectangleShape2D_mvyug")
+
+[node name="TeleportZone_velvet_paw_jazz_club_teleport_zone_03" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1984824272]
+position = Vector2(3008, 1120)
+script = ExtResource("43_tifu2")
+target_marker_path = NodePath("../TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_03")
+trigger_on_enter = false
+mechanic_id = &"velvet_paw_jazz_club.teleport_zone.03"
+display_name = "Suite Teleport"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Climb to the owner suite."
+requirements = SubResource("Resource_cwa7k")
+shape_size = Vector2(96, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TeleportZone_velvet_paw_jazz_club_teleport_zone_03" unique_id=167928279]
+shape = SubResource("RectangleShape2D_snqoq")
+
+[node name="TeleportTargetMarker_velvet_paw_jazz_club_teleport_target_marker_03" type="Marker2D" parent="GameplayRoot/MissionMechanics" unique_id=1166112359]
+position = Vector2(3616, 1216)
+script = ExtResource("44_rxnqn")
+target_id = &"velvet_paw_jazz_club.teleport_target_marker.03"
+
+[node name="ChallengeObjectiveNode_velvet_paw_jazz_club_challenge_objective_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=198245126]
+position = Vector2(3904, 704)
+script = ExtResource("51_f0e30")
+encounter_controller_path = NodePath("../EncounterController_velvet_paw_jazz_club_encounter_controller_01")
+event_id = &"velvet_paw_owner_cleared"
+result_tag = &"owner_defeated"
+advances_phase = false
+wins_encounter = true
+mechanic_id = &"velvet_paw_jazz_club.challenge_objective_node.01"
+display_name = "Owner Encounter"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Clear the owner's challenge."
+locked_prompt_text = "Reach the suite first."
+requirements = SubResource("Resource_eyx1f")
+success_effects = SubResource("Resource_f483x")
+preview_color = Color(0.9, 0.55, 0.2, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ChallengeObjectiveNode_velvet_paw_jazz_club_challenge_objective_node_01" unique_id=82105129]
+shape = SubResource("RectangleShape2D_rs34o")
+
+[node name="BugPlantNode_velvet_paw_jazz_club_bug_plant_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=667019349]
+position = Vector2(3840, 640)
+script = ExtResource("52_lcx64")
+mechanic_id = &"velvet_paw_jazz_club.bug_plant_node.01"
+display_name = "Bug Plant"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Plant a bug in the owner's desk phone."
+requirements = SubResource("Resource_my2qi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BugPlantNode_velvet_paw_jazz_club_bug_plant_node_01" unique_id=132737670]
+shape = SubResource("RectangleShape2D_t6ax8")
+
+[node name="RewardNode_velvet_paw_jazz_club_reward_node_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=130049122]
+position = Vector2(4096, 320)
+script = ExtResource("53_82tvf")
+reward_kind = "evidence"
+reward_id = &"velvet_paw_blackmail_briefcase"
+collected_flag = &"vpj_briefcase_collected"
+mechanic_id = &"velvet_paw_jazz_club.reward_node.01"
+display_name = "Briefcase Reward"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Grab it and don't admire the view."
+locked_prompt_text = "The owner still controls the suite."
+requirements = SubResource("Resource_bl4y1")
+success_effects = SubResource("Resource_ru7sa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RewardNode_velvet_paw_jazz_club_reward_node_01" unique_id=509724265]
+shape = SubResource("RectangleShape2D_cwa7k")
+
+[node name="SideObjectiveNode_velvet_paw_jazz_club_side_objective_node_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1969579300]
+position = Vector2(1344, 448)
+script = ExtResource("39_b23tu")
+mechanic_id = &"velvet_paw_jazz_club.side_objective_node.02"
+display_name = "Hidden Polaroid"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Capture Bentley in the stage-wing spotlight."
+requirements = SubResource("Resource_o08np")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SideObjectiveNode_velvet_paw_jazz_club_side_objective_node_02" unique_id=1968484492]
+shape = SubResource("RectangleShape2D_h8s7c")
+
+[node name="SearchZone_velvet_paw_jazz_club_search_zone_03" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=775069294]
+position = Vector2(4160, 448)
+script = ExtResource("33_ntanu")
+searched_flag = &"secret_velvet_collectible"
+found_message = "A tiny velvet Shelf Goblin. Evidence can be tasteful."
+mechanic_id = &"velvet_paw_jazz_club.search_zone.03"
+display_name = "Shelf Goblin Secret"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Search the balcony shelf."
+requirements = SubResource("Resource_2i6me")
+success_effects = SubResource("Resource_y1kp8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/SearchZone_velvet_paw_jazz_club_search_zone_03" unique_id=740940878]
+shape = SubResource("RectangleShape2D_eyx1f")
+
+[node name="RouteUnlockNode_velvet_paw_jazz_club_route_unlock_node_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=643195771]
+position = Vector2(4224, 2688)
+script = ExtResource("42_x442b")
+route_id = &"velvet_paw_escape_hatch"
+route_flag = &"vpj_escape_hatch_open"
+mechanic_id = &"velvet_paw_jazz_club.route_unlock_node.02"
+display_name = "Escape Route"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Yordano: Bass drop. Release the escape hatch and move."
+locked_prompt_text = "Take the blackmail briefcase first."
+requirements = SubResource("Resource_rpvd6")
+success_effects = SubResource("Resource_122hm")
+shape_size = Vector2(96, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/RouteUnlockNode_velvet_paw_jazz_club_route_unlock_node_02" unique_id=844803232]
+shape = SubResource("RectangleShape2D_gwcd6")
+
+[node name="MusicTriggerZone_velvet_paw_jazz_club_music_trigger_zone_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1444672976]
+position = Vector2(4032, 2880)
+script = ExtResource("24_sx518")
+mechanic_id = &"velvet_paw_jazz_club.music_trigger_zone.02"
+display_name = "Escape Music"
+mission_id_override = "velvet_paw_jazz_club"
+interaction_mode = 0
+one_shot = false
+prompt_text = "Cue the escape bass drop."
+requirements = SubResource("Resource_27bmy")
+shape_size = Vector2(384, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/MusicTriggerZone_velvet_paw_jazz_club_music_trigger_zone_02" unique_id=1645252522]
+shape = SubResource("RectangleShape2D_hrms2")
+
+[node name="ExtractionZone_velvet_paw_jazz_club_extraction_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1744710653]
+position = Vector2(4224, 2944)
+script = ExtResource("54_qs31d")
+extraction_tag = &"velvet_paw_basement_escape"
+missing_objective_message = "Finish the setlist, shard, owner, briefcase, and escape objectives first."
+mechanic_id = &"velvet_paw_jazz_club.extraction_zone.01"
+display_name = "Extraction"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Escape on Yordano's bass drop."
+locked_prompt_text = "Open the escape hatch and recover the briefcase."
+requirements = SubResource("Resource_5r6k0")
+shape_size = Vector2(128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ExtractionZone_velvet_paw_jazz_club_extraction_zone_01" unique_id=1119732041]
+shape = SubResource("RectangleShape2D_f483x")
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=2057511153]
+y_sort_enabled = true
+
+[node name="GroundArtLayer" type="TileMapLayer" parent="ArtRoot" unique_id=473742211]
+
+[node name="WallArtLayer" type="TileMapLayer" parent="ArtRoot" unique_id=877708715]
+
+[node name="PropArtLayer" type="TileMapLayer" parent="ArtRoot" unique_id=215835076]
+y_sort_enabled = true
+collision_enabled = false
+
+[node name="DecorBelowLayer" type="TileMapLayer" parent="ArtRoot" unique_id=586781708]
+collision_enabled = false
+
+[node name="DecorAboveLayer" type="TileMapLayer" parent="ArtRoot" unique_id=652554572]
+collision_enabled = false
+
+[node name="LightingLayer" type="TileMapLayer" parent="ArtRoot" unique_id=1535214484]
+collision_enabled = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1726039491]
+position = Vector2(256, 2880)
+limit_left = -128
+limit_top = -128
+limit_right = 4608
+limit_bottom = 3328
