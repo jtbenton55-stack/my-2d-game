@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-12" name="report_113" tests="8" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-12T17:03:34" hostname="localhost" tests="8" failures="1" errors="0" skipped="0" flaky="0" time="6.005">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="2.142">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.677">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.283">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="1.188">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.386">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.314">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:204" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+	at 'test_vip_front_inspection_opens_dynamic_rope_and_front_entry' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:204
+]]>
+			</failure>
+		</testcase>
+		<testcase name="test_room_visibility_only_reveals_the_players_current_area" classname="VelvetPawJazzClubRuntimeQATest" time="0.320">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.396">
+		</testcase>
+	</testsuite>
+</testsuites>

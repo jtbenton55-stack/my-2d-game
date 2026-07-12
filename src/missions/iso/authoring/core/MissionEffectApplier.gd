@@ -328,7 +328,8 @@ static func _apply_toggle_node(effect: Resource, context: Dictionary) -> Diction
 		(target as Area2D).monitoring = bool(data.get("monitoring"))
 	if data.has("disabled") and target is CollisionShape2D:
 		(target as CollisionShape2D).disabled = bool(data.get("disabled"))
-	return _result(true, "node_toggled", "Node toggled: %s." % str(target.get_path()), String(effect.get("effect_id")))
+	var target_label: String = str(target.get_path()) if target.is_inside_tree() else String(target.name)
+	return _result(true, "node_toggled", "Node toggled: %s." % target_label, String(effect.get("effect_id")))
 
 
 static func _apply_call_method(effect: Resource, context: Dictionary) -> Dictionary:

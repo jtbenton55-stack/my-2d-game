@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-12" name="report_121" tests="22" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-12T17:31:10" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="7.335">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="2.041">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.768">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.370">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="1.278">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.451">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.398">
+		</testcase>
+		<testcase name="test_side_door_entry_starts_floor_music_in_normal_alert_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.346">
+		</testcase>
+		<testcase name="test_vip_polaroid_requires_protocol_and_voicemail" classname="VelvetPawJazzClubRuntimeQATest" time="0.440">
+		</testcase>
+		<testcase name="test_room_visibility_only_reveals_the_players_current_area" classname="VelvetPawJazzClubRuntimeQATest" time="0.415">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.392">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T17:31:18" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="1.051">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="0.167">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.153">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.546">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetCameraDetectionPolicyTest" package="tests/mission_authoring" timestamp="2026-07-12T17:31:19" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.046">
+		<testcase name="test_default_camera_policy_preserves_always_detect_behavior" classname="VelvetCameraDetectionPolicyTest" time="0.063">
+		</testcase>
+		<testcase name="test_velvet_normal_heat_requires_action_and_theft_respects_concealment" classname="VelvetCameraDetectionPolicyTest" time="0.057">
+		</testcase>
+		<testcase name="test_raised_initial_posture_and_reset_clear_actions" classname="VelvetCameraDetectionPolicyTest" time="0.042">
+		</testcase>
+		<testcase name="test_hold_interaction_registers_and_clears_camera_suspicion" classname="VelvetCameraDetectionPolicyTest" time="0.077">
+		</testcase>
+		<testcase name="test_forced_stealth_sources_preserve_manual_stealth_and_hide_spot_source" classname="VelvetCameraDetectionPolicyTest" time="0.069">
+		</testcase>
+		<testcase name="test_camera_author_passes_los_occlusion_configuration" classname="VelvetCameraDetectionPolicyTest" time="0.042">
+		</testcase>
+		<testcase name="test_camera_queries_controller_before_accumulating" classname="VelvetCameraDetectionPolicyTest" time="0.075">
+		</testcase>
+		<testcase name="test_movement_sensitive_camera_freezes_exposure_while_stationary" classname="VelvetCameraDetectionPolicyTest" time="0.047">
+		</testcase>
+		<testcase name="test_wall_blocks_los_and_clips_visible_cone" classname="VelvetCameraDetectionPolicyTest" time="0.055">
+		</testcase>
+	</testsuite>
+</testsuites>

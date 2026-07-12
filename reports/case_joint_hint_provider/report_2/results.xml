@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_2" tests="5" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-11T19:09:29" hostname="localhost" tests="5" failures="0" errors="3" skipped="0" flaky="0" time="0.660">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.047">
+		</testcase>
+		<testcase name="test_bridge_prompt_refresh_is_callable_and_clears_out_of_range" classname="CaseJointHintProviderTest" time="0.069">
+		</testcase>
+		<testcase name="test_provider_filters_requirements_and_distance_then_uses_priority" classname="CaseJointHintProviderTest" time="0.045">
+			<error message="ERROR: res://tests/mission_authoring/CaseJointHintProviderTest.gd:85" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Invalid assignment of property or key 'hints' with value of type 'Array' on a base object of type 'Node (MissionCaseHintProvider)'.'
+	at res://tests/mission_authoring/CaseJointHintProviderTest.gd:85
+]]>
+			</error>
+		</testcase>
+		<testcase name="test_provider_selection_is_stable_and_respects_per_hint_cooldown" classname="CaseJointHintProviderTest" time="0.066">
+			<error message="ERROR: res://tests/mission_authoring/CaseJointHintProviderTest.gd:102" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Invalid assignment of property or key 'hints' with value of type 'Array' on a base object of type 'Node (MissionCaseHintProvider)'.'
+	at res://tests/mission_authoring/CaseJointHintProviderTest.gd:102
+]]>
+			</error>
+		</testcase>
+		<testcase name="test_provider_uses_dedicated_hint_signal_not_objective_updates" classname="CaseJointHintProviderTest" time="0.050">
+			<error message="ERROR: res://tests/mission_authoring/CaseJointHintProviderTest.gd:117" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Invalid assignment of property or key 'hints' with value of type 'Array' on a base object of type 'Node (MissionCaseHintProvider)'.'
+	at res://tests/mission_authoring/CaseJointHintProviderTest.gd:117
+]]>
+			</error>
+		</testcase>
+	</testsuite>
+</testsuites>

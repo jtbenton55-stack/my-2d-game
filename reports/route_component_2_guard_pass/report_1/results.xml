@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="3" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T00:26:22" hostname="localhost" tests="3" failures="2" errors="0" skipped="0" flaky="0" time="3.896">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="2.743">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.202">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.666">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:65" type="FAILURE">
+<![CDATA[
+Expecting:
+ '1'
+ but was
+ '0'
+	at 'test_component_2_dev_overlay_is_created_by_controller' in res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:65
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:66" type="FAILURE">
+<![CDATA[
+Expecting:
+ '1'
+ but was
+ '0'
+	at 'test_component_2_dev_overlay_is_created_by_controller' in res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:66
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -316,7 +316,7 @@ func _wire_optional_mechanics(nodes: Dictionary) -> void:
 func _wire_dialogue(nodes: Dictionary) -> void:
 	_set_values(nodes.get("alley_dialogue"), {
 		"fallback_speaker": "Bentley",
-		"fallback_text": "(Too many colognes. The bass line is honest, though.)",
+		"fallback_text": "There are too many colognes. And none of them smell as good as my expression.",
 	})
 	_set_values(nodes.get("queue_eavesdrop"), {
 		"prompt_text": "Listen: the staff side door stays propped open between sets.",

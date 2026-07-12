@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-12" name="report_1" tests="62" failures="6" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-12T16:46:53" hostname="localhost" tests="10" failures="2" errors="0" skipped="0" flaky="0" time="4.075">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="2.538">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.397">
+		</testcase>
+		<testcase name="test_furniture_and_solid_cover_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.428">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.421">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:279" type="FAILURE">
+<![CDATA[
+vip_rope_north_end (2528.0, 1696.0) -> (2784.0, 1696.0)
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:279
+	at 'test_fixed_openings_connect_and_non_solid_cover_is_walkable' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:123
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:224
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:279" type="FAILURE">
+<![CDATA[
+vip_rope_north_end_reverse (2784.0, 1696.0) -> (2528.0, 1696.0)
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:279
+	at 'test_fixed_openings_connect_and_non_solid_cover_is_walkable' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:124
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubPhysicsTest.gd:224
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-12T16:46:58" hostname="localhost" tests="19" failures="1" errors="0" skipped="0" flaky="0" time="1.493">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.141">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.030">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.160">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.155">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.769">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:124" type="FAILURE">
+<![CDATA[
+Expecting:
+ '6'
+ but was
+ '7'
+	at 'test_persisted_layout_and_contract' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:124
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-12T16:46:59" hostname="localhost" tests="8" failures="3" errors="0" skipped="0" flaky="0" time="2.379">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.124">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.369">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.346">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="1.258">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297" type="FAILURE">
+<![CDATA[
+Expecting:
+ '6'
+ but was
+ '7'
+	at '_assert_fresh_runtime_contract' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297
+	at 'test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:99
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:404
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297" type="FAILURE">
+<![CDATA[
+Expecting:
+ '6'
+ but was
+ '7'
+	at '_assert_fresh_runtime_contract' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297
+	at 'test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:99
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:404
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297" type="FAILURE">
+<![CDATA[
+Expecting:
+ '6'
+ but was
+ '7'
+	at '_assert_fresh_runtime_contract' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:297
+	at 'test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:99
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:404
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="VelvetPawRouteComponent1Test" package="tests/mission_authoring" timestamp="2026-07-12T16:47:02" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.724">
+		<testcase name="test_route_component_runtime_helpers_and_front_contract_are_authored" classname="VelvetPawRouteComponent1Test" time="0.142">
+		</testcase>
+		<testcase name="test_front_inspection_requires_both_vip_facts_and_opens_rope" classname="VelvetPawRouteComponent1Test" time="0.166">
+		</testcase>
+		<testcase name="test_front_rejection_is_timed_non_manual_and_skipped_for_vip" classname="VelvetPawRouteComponent1Test" time="0.137">
+		</testcase>
+		<testcase name="test_eavesdrop_phone_and_dead_drop_present_and_transfer_information" classname="VelvetPawRouteComponent1Test" time="0.128">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T16:47:02" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="1.020">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="0.136">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.127">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.610">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="VelvetCameraDetectionPolicyTest" package="tests/mission_authoring" timestamp="2026-07-12T16:47:03" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.684">
+		<testcase name="test_default_camera_policy_preserves_always_detect_behavior" classname="VelvetCameraDetectionPolicyTest" time="0.035">
+		</testcase>
+		<testcase name="test_velvet_normal_heat_requires_action_and_theft_respects_concealment" classname="VelvetCameraDetectionPolicyTest" time="0.040">
+		</testcase>
+		<testcase name="test_raised_initial_posture_and_reset_clear_actions" classname="VelvetCameraDetectionPolicyTest" time="0.029">
+		</testcase>
+		<testcase name="test_hold_interaction_registers_and_clears_camera_suspicion" classname="VelvetCameraDetectionPolicyTest" time="0.044">
+		</testcase>
+		<testcase name="test_forced_stealth_sources_preserve_manual_stealth_and_hide_spot_source" classname="VelvetCameraDetectionPolicyTest" time="0.041">
+		</testcase>
+		<testcase name="test_camera_author_passes_los_occlusion_configuration" classname="VelvetCameraDetectionPolicyTest" time="0.026">
+		</testcase>
+		<testcase name="test_camera_queries_controller_before_accumulating" classname="VelvetCameraDetectionPolicyTest" time="0.059">
+		</testcase>
+		<testcase name="test_wall_blocks_los_and_clips_visible_cone" classname="VelvetCameraDetectionPolicyTest" time="0.043">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="GuardBehaviorTest" package="tests/mission_authoring" timestamp="2026-07-12T16:47:04" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="0.860">
+		<testcase name="test_unaware_guard_requires_facing_cone_and_detection_buildup" classname="GuardBehaviorTest" time="0.033">
+		</testcase>
+		<testcase name="test_detection_decays_and_does_not_attack_before_threshold" classname="GuardBehaviorTest" time="0.029">
+		</testcase>
+		<testcase name="test_line_of_sight_blocker_prevents_detection_buildup" classname="GuardBehaviorTest" time="0.037">
+		</testcase>
+		<testcase name="test_direct_player_provocation_and_attack_player_spawn_are_hostile" classname="GuardBehaviorTest" time="0.035">
+		</testcase>
+		<testcase name="test_valid_social_cover_suppresses_only_ambient_detection" classname="GuardBehaviorTest" time="0.035">
+		</testcase>
+		<testcase name="test_restricted_room_entry_forces_immediate_hostility" classname="GuardBehaviorTest" time="0.032">
+		</testcase>
+		<testcase name="test_decoy_interrupts_patrol_then_resumes_saved_index" classname="GuardBehaviorTest" time="0.027">
+		</testcase>
+		<testcase name="test_bark_accumulates_to_threshold_and_combat_ignores_noise" classname="GuardBehaviorTest" time="0.039">
+		</testcase>
+		<testcase name="test_guard_scene_has_production_noise_listener" classname="GuardBehaviorTest" time="0.054">
+		</testcase>
+		<testcase name="test_spawn_author_binds_config_and_routes_spotted_to_alert" classname="GuardBehaviorTest" time="0.073">
+		</testcase>
+	</testsuite>
+</testsuites>

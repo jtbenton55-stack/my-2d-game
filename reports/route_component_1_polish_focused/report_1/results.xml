@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="40" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="TimedDialoguePresentationTest" package="tests/mission_authoring" timestamp="2026-07-11T21:09:00" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.949">
+		<testcase name="test_timed_sequence_advances_and_ends" classname="TimedDialoguePresentationTest" time="0.055">
+		</testcase>
+		<testcase name="test_manual_advance_is_suppressed_and_metadata_defaults_are_additive" classname="TimedDialoguePresentationTest" time="0.032">
+		</testcase>
+		<testcase name="test_untimed_dialogue_still_advances_manually_and_skips" classname="TimedDialoguePresentationTest" time="0.025">
+		</testcase>
+		<testcase name="test_old_timer_cannot_advance_replacement_dialogue" classname="TimedDialoguePresentationTest" time="0.094">
+		</testcase>
+		<testcase name="test_timed_dialogue_waits_while_scene_tree_is_paused" classname="TimedDialoguePresentationTest" time="0.162">
+		</testcase>
+		<testcase name="test_dialogue_box_replaces_disallowed_controls_with_enter_close_hint" classname="TimedDialoguePresentationTest" time="0.046">
+		</testcase>
+		<testcase name="test_enter_closes_dialogue_even_when_manual_advance_and_skip_are_disabled" classname="TimedDialoguePresentationTest" time="0.030">
+		</testcase>
+		<testcase name="test_no_key_trigger_supplies_fallback_text_and_preserves_explicit_lines" classname="TimedDialoguePresentationTest" time="0.041">
+		</testcase>
+		<testcase name="test_one_shot_guard_does_not_replace_active_dialogue" classname="TimedDialoguePresentationTest" time="0.036">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawRouteComponent1Test" package="tests/mission_authoring" timestamp="2026-07-11T21:09:01" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="2.703">
+		<testcase name="test_route_component_runtime_helpers_and_front_contract_are_authored" classname="VelvetPawRouteComponent1Test" time="2.128">
+		</testcase>
+		<testcase name="test_front_inspection_requires_both_vip_facts_and_opens_rope" classname="VelvetPawRouteComponent1Test" time="0.097">
+		</testcase>
+		<testcase name="test_front_rejection_is_timed_non_manual_and_skipped_for_vip" classname="VelvetPawRouteComponent1Test" time="0.144">
+		</testcase>
+		<testcase name="test_eavesdrop_phone_and_dead_drop_present_and_transfer_information" classname="VelvetPawRouteComponent1Test" time="0.128">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T21:09:04" hostname="localhost" tests="19" failures="1" errors="0" skipped="0" flaky="0" time="4.532">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.113">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.035">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.119">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.093">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.721">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.430">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.134">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.050">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.155">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.867">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.904">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:249" type="FAILURE">
+<![CDATA[
+Expecting:
+ must be empty but was
+ '[2103493830580, 2103527385473, 2103544162686, 2103560939900, 2103577717119, 2103594493799, 2103611271012, 2103628048264]'
+	at 'test_full_startup_forward_sync_and_phase3a_teardown_are_clean' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:249
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T21:09:08" hostname="localhost" tests="8" failures="1" errors="0" skipped="0" flaky="0" time="0.655">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.114">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.352">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:61" type="FAILURE">
+<![CDATA[
+Expecting:
+ must be empty but was
+ '[2487675294012, 2487708848662, 2487725625879, 2487742403096, 2487759180313, 2487775957530, 2487792734747, 2487809511964]'
+	at 'test_return_without_shard_cannot_set_hostile_state' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:61
+	at '_remove_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:409
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_2" tests="52" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:21" hostname="localhost" tests="19" failures="0" errors="0" skipped="0" flaky="0" time="6.297">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.001">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.041">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.140">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.134">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.790">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.407">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.111">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.032">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.122">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.837">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.006">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.126">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.128">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.115">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.130">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.138">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.100">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.043">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.060">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="IsoMissionBaseLifecycleTest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:28" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.775">
+		<testcase name="test_ensure_node_frees_unused_fallback_and_returns_existing" classname="IsoMissionBaseLifecycleTest" time="0.036">
+		</testcase>
+		<testcase name="test_ensure_node_attaches_valid_fallback_when_child_is_missing" classname="IsoMissionBaseLifecycleTest" time="0.058">
+		</testcase>
+		<testcase name="test_minimal_iso_mission_lifecycle_is_teardown_safe" classname="IsoMissionBaseLifecycleTest" time="0.076">
+		</testcase>
+		<testcase name="test_velvet_scene_lifecycle_twice_does_not_accumulate_orphans" classname="IsoMissionBaseLifecycleTest" time="0.432">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="LevelBlueprintLayoutPainterTest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:28" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.087">
+		<testcase name="test_dry_run_ok_and_production_scene_hash_unchanged" classname="LevelBlueprintLayoutPainterTest" time="0.208">
+		</testcase>
+		<testcase name="test_semantic_region_and_cell_sets" classname="LevelBlueprintLayoutPainterTest" time="0.035">
+		</testcase>
+		<testcase name="test_cover_contract_has_four_solid_and_two_non_solid_labels" classname="LevelBlueprintLayoutPainterTest" time="0.033">
+		</testcase>
+		<testcase name="test_nine_openings_have_expected_classifications_and_blocking" classname="LevelBlueprintLayoutPainterTest" time="0.038">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_closed_islands_are_contained" classname="LevelBlueprintLayoutPainterTest" time="0.030">
+		</testcase>
+		<testcase name="test_blocking_overlap_and_union_evidence" classname="LevelBlueprintLayoutPainterTest" time="0.037">
+		</testcase>
+		<testcase name="test_all_five_approved_layer_paths_resolve" classname="LevelBlueprintLayoutPainterTest" time="0.036">
+		</testcase>
+		<testcase name="test_non_dry_run_is_rejected_without_mutation" classname="LevelBlueprintLayoutPainterTest" time="0.036">
+		</testcase>
+		<testcase name="test_repeated_runs_are_deterministic" classname="LevelBlueprintLayoutPainterTest" time="0.222">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="TileDataPromotionHelperTest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:30" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.500">
+		<testcase name="test_synthetic_lf_and_crlf_preserve_every_baseline_byte" classname="TileDataPromotionHelperTest" time="0.029">
+		</testcase>
+		<testcase name="test_rejects_invalid_exact_block_contracts" classname="TileDataPromotionHelperTest" time="0.050">
+		</testcase>
+		<testcase name="test_deterministic_payloads_and_known_defaults_excluded" classname="TileDataPromotionHelperTest" time="0.042">
+		</testcase>
+		<testcase name="test_real_candidate_uses_immutable_checkpoint_scratch_baseline" classname="TileDataPromotionHelperTest" time="0.148">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:30" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="4.626">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="0.559">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.305">
+		</testcase>
+		<testcase name="test_furniture_solid_cover_and_front_rope_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.450">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.335">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="1.042">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.315">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.326">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.314">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.280">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.268">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T16:21:35" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="2.580">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.108">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.275">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.289">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.925">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.372">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.304">
+		</testcase>
+	</testsuite>
+</testsuites>

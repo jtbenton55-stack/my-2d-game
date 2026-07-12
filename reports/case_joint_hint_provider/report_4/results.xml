@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_4" tests="6" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-11T19:11:05" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.672">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.047">
+		</testcase>
+		<testcase name="test_bridge_prompt_refresh_is_callable_and_clears_out_of_range" classname="CaseJointHintProviderTest" time="0.038">
+		</testcase>
+		<testcase name="test_provider_filters_requirements_and_distance_then_uses_priority" classname="CaseJointHintProviderTest" time="0.053">
+		</testcase>
+		<testcase name="test_provider_selection_is_stable_and_respects_per_hint_cooldown" classname="CaseJointHintProviderTest" time="0.048">
+		</testcase>
+		<testcase name="test_provider_uses_dedicated_hint_signal_not_objective_updates" classname="CaseJointHintProviderTest" time="0.038">
+		</testcase>
+		<testcase name="test_player_queries_only_one_grouped_provider_after_case_pulse" classname="CaseJointHintProviderTest" time="0.045">
+		</testcase>
+	</testsuite>
+</testsuites>

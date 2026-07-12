@@ -17,6 +17,7 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 @export var alibi_window_seconds: float = 0.0
 ## Replan Packet 3: minimum seconds between repeats when one_shot is false.
 @export var repeat_cooldown_seconds: float = 0.0
+@export var completion_message: String = "Believable task complete. Your cover story is active."
 
 var last_task_result: Dictionary = {}
 var _last_success_msec: int = -1_000_000
@@ -64,6 +65,7 @@ func activate(actor: Node = null, reason: String = "interact") -> Dictionary:
 	var details: Dictionary = (result.get("details", {}) as Dictionary).duplicate(true)
 	details["task_result"] = last_task_result
 	result["details"] = details
+	result["message"] = completion_message
 	last_activation_result = result
 	refresh_debug_label()
 	return result

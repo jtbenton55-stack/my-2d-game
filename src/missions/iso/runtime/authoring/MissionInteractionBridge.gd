@@ -14,25 +14,37 @@ const INTERACTION_METHODS: Array[String] = ["interact", "on_interact", "use", "i
 
 @export var player_path: NodePath
 @export var action_interact: StringName = &"interact"
-@export var action_scan_or_debug: StringName = &"case_the_joint"
 @export var interaction_radius: float = 144.0
 @export var cooldown_seconds: float = 0.20
+@export var prompt_refresh_interval: float = 0.20
 @export var prefer_available: bool = true
 @export var prefer_uncompleted: bool = true
 @export var debug_enabled: bool = true
 @export var include_legacy_candidates: bool = true
 @export var prompt_target_path: NodePath
+@export var wall_occlusion_mask: int = 4
+@export var feedback_hold_seconds: float = 2.25
 
 var last_candidate: Node = null
 var last_interaction_result: bool = false
 var last_prompt_text: String = ""
 
 var _cooldown: float = 0.0
+var _prompt_refresh_elapsed: float = 0.0
+var _feedback_hold_remaining: float = 0.0
 
 
 func _process(delta: float) -> void:
 	if _cooldown > 0.0:
 		_cooldown = maxf(_cooldown - delta, 0.0)
+	if _feedback_hold_remaining > 0.0:
+		_feedback_hold_remaining = maxf(0.0, _feedback_hold_remaining - delta)
+		return
+	if prompt_target_path != NodePath():
+		_prompt_refresh_elapsed += delta
+		if _prompt_refresh_elapsed >= maxf(prompt_refresh_interval, 0.05):
+			_prompt_refresh_elapsed = 0.0
+			refresh_nearest_prompt()
 
 
 func _input(event: InputEvent) -> void:
@@ -44,11 +56,6 @@ func _input(event: InputEvent) -> void:
 		if try_interact():
 			get_viewport().set_input_as_handled()
 		return
-	if _is_action_pressed(event, action_scan_or_debug):
-		if try_interact():
-			get_viewport().set_input_as_handled()
-		else:
-			_refresh_nearest_prompt()
 
 
 func find_player() -> Node:
@@ -89,7 +96,11 @@ func find_best_candidate(test_position: Vector2, require_available: bool = true)
 			continue
 		var node2d := node as Node2D
 		var dist: float = test_position.distance_to(node2d.global_position)
+		if node is Area2D and actor is PhysicsBody2D and (node as Area2D).overlaps_body(actor as PhysicsBody2D):
+			dist = 0.0
 		if dist > interaction_radius:
+			continue
+		if _is_candidate_occluded(test_position, node2d):
 			continue
 		var available: bool = is_candidate_available(node, actor)
 		if require_available and not available:
@@ -140,8 +151,10 @@ func try_interact_at_position(test_position: Vector2) -> bool:
 	var result: bool = _call_candidate(candidate, actor)
 	last_candidate = candidate
 	last_interaction_result = result
-	last_prompt_text = get_candidate_prompt(candidate)
-	_update_prompt_label(last_prompt_text)
+	var feedback := _candidate_result_message(candidate)
+	if feedback == "":
+		feedback = get_candidate_prompt(candidate)
+	_show_feedback(feedback)
 	_cooldown = cooldown_seconds
 	if debug_enabled:
 		print("[MissionInteractionBridge] Interacted with %s -> %s" % [candidate.name, _candidate_debug_result(candidate, result)])
@@ -227,7 +240,36 @@ func _candidate_debug_result(node: Node, fallback: bool) -> String:
 	return str(fallback)
 
 
-func _refresh_nearest_prompt() -> void:
+func _candidate_result_message(node: Node) -> String:
+	for property_name: String in ["last_activation_result", "last_inspection_result", "last_protocol_result", "last_task_result", "last_command_result", "last_hide_result"]:
+		var value: Variant = node.get(property_name) if node != null else null
+		if value is Dictionary and not (value as Dictionary).is_empty():
+			var message := String((value as Dictionary).get("message", "")).strip_edges()
+			if message != "" and message != "Mechanic activated.":
+				return message
+	return ""
+
+
+func _show_feedback(text: String) -> void:
+	_feedback_hold_remaining = maxf(feedback_hold_seconds, 0.0)
+	_update_prompt_label(text)
+
+
+func _is_candidate_occluded(from_position: Vector2, candidate: Node2D) -> bool:
+	if wall_occlusion_mask == 0 or candidate == null or not candidate.is_inside_tree():
+		return false
+	var to_position := candidate.global_position
+	var delta := to_position - from_position
+	if delta.length() <= 6.0:
+		return false
+	var query := PhysicsRayQueryParameters2D.create(from_position, to_position - delta.normalized() * 4.0)
+	query.collision_mask = wall_occlusion_mask
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	return not candidate.get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+func refresh_nearest_prompt() -> void:
 	var player := find_player()
 	if not (player is Node2D):
 		_update_prompt_label("")

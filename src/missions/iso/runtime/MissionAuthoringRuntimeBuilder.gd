@@ -9,10 +9,11 @@ static func setup(mission: Node, authoring_root: Node2D) -> Node:
 	var router := _ensure_router_on_mission(mission)
 	if router == null:
 		return null
-	_register_guard_spawn_listeners(router, authoring_root)
+	_register_guard_spawn_listeners(router, authoring_root, mission)
 	_register_effect_listeners(router, authoring_root, mission)
 	_setup_area_triggers(mission, router, authoring_root)
 	_setup_authored_cameras(mission, router, authoring_root)
+	_spawn_initial_guards(authoring_root)
 	_store_effect_author_counts(mission, authoring_root)
 	return router
 
@@ -35,7 +36,7 @@ static func _ensure_router_on_mission(mission: Node) -> Node:
 	return router
 
 
-static func _register_guard_spawn_listeners(router: Node, authoring_root: Node2D) -> void:
+static func _register_guard_spawn_listeners(router: Node, authoring_root: Node2D, mission: Node) -> void:
 	if not authoring_root.has_method("collect_guard_spawn_authors"):
 		return
 	var spawns: Array = authoring_root.call("collect_guard_spawn_authors")
@@ -44,6 +45,8 @@ static func _register_guard_spawn_listeners(router: Node, authoring_root: Node2D
 			continue
 		if not bool(author.get("enabled")):
 			continue
+		if author.has_method("bind_mission"):
+			author.call("bind_mission", mission)
 		var events_v: Variant = author.get("trigger_events")
 		if not (events_v is Array):
 			continue
@@ -51,6 +54,14 @@ static func _register_guard_spawn_listeners(router: Node, authoring_root: Node2D
 			var eid := String(ev).strip_edges()
 			if eid != "":
 				router.call("register_listener", StringName(eid), author as Node)
+
+
+static func _spawn_initial_guards(authoring_root: Node2D) -> void:
+	if not authoring_root.has_method("collect_guard_spawn_authors"):
+		return
+	for author in authoring_root.call("collect_guard_spawn_authors"):
+		if author is Node and bool(author.get("enabled")) and bool(author.get("spawn_on_ready")) and author.has_method("spawn_initial"):
+			author.call("spawn_initial")
 
 
 static func _setup_area_triggers(mission: Node, router: Node, authoring_root: Node2D) -> void:

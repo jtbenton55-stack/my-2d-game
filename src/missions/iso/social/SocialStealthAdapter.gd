@@ -39,6 +39,19 @@ static func set_cover_story(cover_story_id: String, data: Dictionary = {}, conte
 	return _result(true, "cover_story_set", "Cover story active: %s." % id, id, {"mission_id": state.get("mission_id", ""), "cover_story": record})
 
 
+static func clear_cover_story(cover_story_id: String, context: Dictionary = {}) -> Dictionary:
+	var id := cover_story_id.strip_edges()
+	if id == "":
+		return _result(false, "cover_story_id_missing", "Cover story id is missing.")
+	var state := _state_for_context(context)
+	var stories: Dictionary = state.get("cover_stories", {})
+	var removed := stories.erase(id)
+	state["cover_stories"] = stories
+	if String(state.get("active_cover_story_id", "")) == id:
+		state["active_cover_story_id"] = ""
+	return _result(true, "cover_story_cleared", "Cover story cleared: %s." % id, id, {"mission_id": state.get("mission_id", ""), "removed": removed})
+
+
 static func grant_credential(credential_id: String, data: Dictionary = {}, context: Dictionary = {}) -> Dictionary:
 	var id := credential_id.strip_edges()
 	if id == "":
@@ -51,6 +64,17 @@ static func grant_credential(credential_id: String, data: Dictionary = {}, conte
 	credentials[id] = record
 	state["credentials"] = credentials
 	return _result(true, "credential_granted", "Credential granted: %s." % id, id, {"mission_id": state.get("mission_id", ""), "credential": record})
+
+
+static func revoke_credential(credential_id: String, context: Dictionary = {}) -> Dictionary:
+	var id := credential_id.strip_edges()
+	if id == "":
+		return _result(false, "credential_id_missing", "Credential id is missing.")
+	var state := _state_for_context(context)
+	var credentials: Dictionary = state.get("credentials", {})
+	var removed := credentials.erase(id)
+	state["credentials"] = credentials
+	return _result(true, "credential_revoked", "Credential revoked: %s." % id, id, {"mission_id": state.get("mission_id", ""), "removed": removed})
 
 
 static func complete_protocol(protocol_id: String, data: Dictionary = {}, context: Dictionary = {}) -> Dictionary:

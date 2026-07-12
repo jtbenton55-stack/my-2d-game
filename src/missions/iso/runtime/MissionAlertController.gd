@@ -12,6 +12,11 @@ const COVER_TILE := Vector2i(2, 0)
 @export var suspicious_decay_seconds: float = 6.0
 @export var noise_suspicious_threshold: float = 0.5
 
+@export_group("Camera Policy")
+## Opt-in social-stealth policy. Other missions retain always-actionable cameras.
+@export var camera_action_required_at_normal_initial_heat: bool = false
+@export var camera_raised_initial_heat_threshold: int = 1
+
 var alert_state: String = "normal"
 var alert_score: float = 0.0
 var player_detection_modifier: float = 1.0
@@ -27,14 +32,118 @@ var _last_spawn_msec_by_source: Dictionary = {}
 var _security_adapter: MissionSecurityEventAdapter = null
 var _recent_noise_events: Array[Dictionary] = []
 const MAX_RECENT_NOISE_EVENTS := 8
+var _camera_initial_heat: int = 0
+var _suspicious_actions: Dictionary = {}
+var _last_camera_policy_result: Dictionary = {}
 
 
 func _ready() -> void:
 	add_to_group("iso_alert_controller")
+	_capture_camera_initial_heat()
 	_ensure_security_adapter()
 	call_deferred("_sync_security_adapter_context")
 	set_process(true)
 	_sync_state()
+
+
+func configure_camera_detection_policy(require_action_at_normal_heat: bool, initial_heat: int = -1) -> void:
+	camera_action_required_at_normal_initial_heat = require_action_at_normal_heat
+	if initial_heat >= 0:
+		_camera_initial_heat = initial_heat
+	else:
+		_capture_camera_initial_heat()
+
+
+func register_suspicious_action(action_id: String, kind: String = "theft") -> Dictionary:
+	var id := action_id.strip_edges()
+	if id == "":
+		return {"ok": false, "code": "invalid_action_id", "action_id": action_id}
+	var entry: Dictionary = _suspicious_actions.get(id, {})
+	entry["kind"] = kind.strip_edges().to_lower() if kind.strip_edges() != "" else "suspicious"
+	entry["count"] = int(entry.get("count", 0)) + 1
+	_suspicious_actions[id] = entry
+	return {"ok": true, "code": "suspicious_action_registered", "action_id": id, "kind": entry["kind"], "count": entry["count"]}
+
+
+func end_suspicious_action(action_id: String) -> Dictionary:
+	var id := action_id.strip_edges()
+	if not _suspicious_actions.has(id):
+		return {"ok": false, "code": "suspicious_action_not_registered", "action_id": id}
+	var entry: Dictionary = _suspicious_actions[id]
+	var count := int(entry.get("count", 1)) - 1
+	if count <= 0:
+		_suspicious_actions.erase(id)
+	else:
+		entry["count"] = count
+		_suspicious_actions[id] = entry
+	return {"ok": true, "code": "suspicious_action_ended", "action_id": id, "remaining_count": maxi(0, count)}
+
+
+func is_suspicious_action_active(action_id: String = "") -> bool:
+	var id := action_id.strip_edges()
+	return not _suspicious_actions.is_empty() if id == "" else _suspicious_actions.has(id)
+
+
+func should_camera_accumulate_exposure(actor: Node = null, source_id: String = "") -> bool:
+	return bool(evaluate_camera_exposure(actor, source_id).get("actionable", true))
+
+
+func evaluate_camera_exposure(actor: Node = null, source_id: String = "") -> Dictionary:
+	var actionable := true
+	var reason := "default_always_detect"
+	if camera_action_required_at_normal_initial_heat:
+		if _camera_initial_heat >= camera_raised_initial_heat_threshold:
+			reason = "raised_initial_posture"
+		elif _suspicious_actions.is_empty():
+			actionable = false
+			reason = "normal_posture_no_suspicious_action"
+		else:
+			var theft_active := false
+			var other_action_active := false
+			for entry_value in _suspicious_actions.values():
+				var entry: Dictionary = entry_value
+				if String(entry.get("kind", "")) == "theft":
+					theft_active = true
+				else:
+					other_action_active = true
+			if theft_active and not other_action_active and _is_actor_camera_protected(actor):
+				actionable = false
+				reason = "suspicious_theft_concealed"
+			else:
+				reason = "suspicious_action_active"
+	_last_camera_policy_result = {
+		"actionable": actionable,
+		"reason": reason,
+		"source_id": source_id,
+		"initial_heat": _camera_initial_heat,
+		"active_action_count": _suspicious_actions.size(),
+		"actor_stealth_active": actor != null and actor.has_method("is_stealth_active") and actor.call("is_stealth_active") == true,
+		"actor_mission_hidden": actor != null and actor.is_in_group("mission_hidden"),
+	}
+	return _last_camera_policy_result.duplicate(true)
+
+
+func get_camera_policy_debug_state() -> Dictionary:
+	return {
+		"enabled": camera_action_required_at_normal_initial_heat,
+		"initial_heat": _camera_initial_heat,
+		"raised_initial_heat_threshold": camera_raised_initial_heat_threshold,
+		"active_actions": _suspicious_actions.duplicate(true),
+		"last_evaluation": _last_camera_policy_result.duplicate(true),
+	}
+
+
+func _capture_camera_initial_heat() -> void:
+	var mid := mission_id if mission_id != "" else String(GameState.current_mission_id)
+	_camera_initial_heat = GameState.get_mission_heat(mid) if mid != "" else 0
+
+
+func _is_actor_camera_protected(actor: Node) -> bool:
+	if actor == null or not is_instance_valid(actor):
+		return false
+	if actor.is_in_group("mission_hidden"):
+		return true
+	return actor.has_method("is_stealth_active") and actor.call("is_stealth_active") == true
 
 
 func _process(delta: float) -> void:
@@ -267,6 +376,9 @@ func reset_attempt_state() -> void:
 	_recent_noise_events.clear()
 	_suspicious_timer = 0.0
 	_last_spawn_msec_by_source.clear()
+	_suspicious_actions.clear()
+	_last_camera_policy_result.clear()
+	_capture_camera_initial_heat()
 	if _security_adapter != null:
 		_security_adapter.reset_attempt_security_state()
 	_sync_state()

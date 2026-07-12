@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GdUnit4 Testsuite</title>
+	<link rel="stylesheet" href="../css/styles.css">
+	<link href="../css/breadcrumb.css" rel="stylesheet" type="text/css" />
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script>
+		$(document).ready(function () {
+			var report_view = $('#report_area').find('.report-column')
+
+			$('#report-table tr').click(function () {
+				var report = $(this).find('.report-column').html();
+				report_view.html(report)
+				$('.selected').removeClass('selected');
+				$(this).addClass('selected');
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+			<img src="../css/logo.png" alt="GdUnit4 Logo">
+			<span>GdUnit4</span>
+		</div>
+		<div class="report-container">
+			<h1>Testsuite Report</h1>
+			<div>
+				<span class="label">res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd</span>
+			</div>
+			<div class="summary">
+				<div class="summary-item">
+					<span class="label">Tests</span>
+					<span class="value">3</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Skipped</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Flaky</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Failures</span>
+					<span class="value">49</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Orphans</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Duration</span>
+					<span class="value">2s 587ms</span>
+				</div>
+				<div class="success-rate">
+					<div class="check-icon status-failed">✓</div>
+					<div class="rate-text">
+						<span class="label">Success Rate</span>
+						<span class="value">0%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="breadcrumb">
+			<a href="../index.html"><span>All</span></a>
+			<a href="../path/tests.mission_authoring.html"><span>tests/mission_authoring</span></a>
+			<a class="active" href="#"><span>VelvetPawJazzClubRuntimeQATest</span></a>
+		</div>
+	</header>
+
+	<main>
+		<div class="tab-report-grid">
+			<div class="grid-item tab">
+				<table id="report-table">
+					<thead>
+						<tr>
+							<th>Testcase</th>
+							<th>Result</th>
+							<th>Skipped</th>
+							<th>Orphans</th>
+							<th>Duration</th>
+							<th class="report-column">Report</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+								<tr class="testcase-group">
+									<td>test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free</td>
+									<td><span class="status status-passed">PASSED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>978ms</td>
+									<td class="report-column">
+										<pre>
+
+										</pre>
+									</td>
+								</tr>
+
+
+								<tr class="testcase-group">
+									<td>test_critical_route_obeys_requirements_and_physical_blockers</td>
+									<td><span class="status status-failed">FAILED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>371ms</td>
+									<td class="report-column">
+										<pre>
+badge collect: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.inventory_pickup_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;reward_kind&quot;: &quot;item&quot;, &quot;reward_id&quot;: &quot;velvet_paw_staff_badge&quot;, &quot;collected_flag&quot;: &quot;vpj_staff_badge_collected&quot;, &quot;collected&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:66
+	at &#39;_add_mission&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:298
+
+staff gate: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.locked_interaction_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;lock_kind&quot;: &quot;gate&quot;, &quot;unlocked_flag&quot;: &quot;vpj_staff_gate_open&quot;, &quot;unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:67
+	at &#39;_add_mission&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:298
+
+staff_gate_open start
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:239
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:69
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_gate_open
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:69
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_row
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:70
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_wing
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:70
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+setlist terminal: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.terminal_hack_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;lock_kind&quot;: &quot;terminal&quot;, &quot;unlocked_flag&quot;: &quot;&quot;, &quot;unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:78
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage hatch: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.route_unlock_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;route_id&quot;: &quot;velvet_paw_basement_hatch&quot;, &quot;route_flag&quot;: &quot;vpj_backstage_hatch_open&quot;, &quot;route_unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:79
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage_hatch_open
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:81
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_row
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_wing
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+basement teleport: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.teleport_zone.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt; } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:84
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+basement
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:84
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+vault power: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this circuit.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.power_circuit_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt; } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:91
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+server vault: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.locked_interaction_node.02&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;lock_kind&quot;: &quot;safe&quot;, &quot;unlocked_flag&quot;: &quot;vpj_server_vault_open&quot;, &quot;unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:92
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+server_vault_open
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:94
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_row
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_wing
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+vault
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+shard collect: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.inventory_pickup_node.02&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;reward_kind&quot;: &quot;item&quot;, &quot;reward_id&quot;: &quot;velvet_paw_ledger_shard&quot;, &quot;collected_flag&quot;: &quot;vpj_shard_collected&quot;, &quot;collected&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:97
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+keycard collect: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.inventory_pickup_node.03&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;reward_kind&quot;: &quot;item&quot;, &quot;reward_id&quot;: &quot;velvet_paw_basement_keycard&quot;, &quot;collected_flag&quot;: &quot;&quot;, &quot;collected&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:99
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+return teleport: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.teleport_zone.02&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt; } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:104
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+return
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:104
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+Expecting: &#39;true&#39; but is &#39;false&#39;
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:107
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+Expecting: &#39;true&#39; but is &#39;false&#39;
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:108
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner stairs: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.locked_interaction_node.03&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;lock_kind&quot;: &quot;scanner&quot;, &quot;unlocked_flag&quot;: &quot;vpj_owner_stairs_open&quot;, &quot;unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:109
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner_stairs_open end
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:240
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:111
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner_stairs_open
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:111
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_row
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_wing
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+vault
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+suite teleport: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.teleport_zone.03&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt; } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:114
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+suite
+	at &#39;_assert_teleport&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:114
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner encounter: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.challenge_objective_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt; } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:120
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+briefcase collect: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.reward_node.01&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;reward_kind&quot;: &quot;evidence&quot;, &quot;reward_id&quot;: &quot;velvet_paw_blackmail_briefcase&quot;, &quot;collected_flag&quot;: &quot;vpj_briefcase_collected&quot;, &quot;collected&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:122
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+escape hatch: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this mechanic.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.route_unlock_node.02&quot;, &quot;details&quot;: { &quot;reason&quot;: &quot;phase6_route&quot;, &quot;actor&quot;: Phase6RouteActor:&lt;Node2D#6343045975801&gt;, &quot;route_id&quot;: &quot;velvet_paw_escape_hatch&quot;, &quot;route_flag&quot;: &quot;vpj_escape_hatch_open&quot;, &quot;route_unlocked&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:123
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+escape_hatch_open
+	at &#39;_assert_clear_motion&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:125
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_row
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+staff_wing
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+backstage
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+vault
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+owner
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+escape
+	at &#39;_assert_disabled_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+extraction readiness: { &quot;ok&quot;: false, &quot;code&quot;: &quot;actor_not_allowed&quot;, &quot;message&quot;: &quot;Actor cannot use this extraction zone.&quot;, &quot;source_id&quot;: &quot;velvet_paw_jazz_club.extraction_zone.01&quot;, &quot;details&quot;: { &quot;extraction_tag&quot;: &quot;velvet_paw_basement_escape&quot;, &quot;extraction_flag&quot;: &quot;&quot;, &quot;extracted&quot;: false } }
+	at &#39;_assert_succeeded&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:133
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+Expecting:
+ &#39;can_extract&#39;
+ but was
+ &#39;acator_not_allowextractd&#39;
+	at &#39;test_critical_route_obeys_requirements_and_physical_blockers&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:134
+	at &#39;_flush_physics&#39; in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+
+
+										</pre>
+									</td>
+								</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<div id="report_area" class="grid-item tab">
+				<h4>Failure Report</h4>
+				<div class="report-column"></div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<p>Generated by <a href="https://github.com/MikeSchulze/gdUnit4">GdUnit4</a> at 2026-07-11 14:11:25</p>
+		<div class="status-legend">
+			<span class="status-legend-item">
+				<span class="status-box status-skipped"></span> Skipped
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-passed"></span> Passed
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-flaky"></span> Flaky
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-warning"></span> Warning
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-failed"></span> Failed
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-error"></span> Error
+			</span>
+		</div>
+	</footer>
+</body>
+
+<script>
+	function groupTableRows() {
+		const table = document.getElementById('report-table');
+		const rows = table.querySelectorAll('tbody tr');
+
+		let previousTestCase = '';
+		let groupStartIndex = 0;
+		let groupColorToggle = true; // Toggle between two colors
+
+		rows.forEach((row, index) => {
+			const testCaseName = row.cells[0].textContent.trim();
+
+			if (testCaseName !== previousTestCase) {
+				// Close the previous group
+				if (index > 0 && groupStartIndex !== index - 1) {
+					// Apply background color to the group
+					const groupClass = groupColorToggle ? 'group-bg-1' : 'group-bg-2';
+					for (let i = groupStartIndex; i <= index - 1; i++) {
+						rows[i].classList.add(groupClass);
+					}
+
+					// Toggle background color for the next group
+					groupColorToggle = !groupColorToggle;
+				}
+
+				// Start a new group
+				groupStartIndex = index;
+			}
+
+			previousTestCase = testCaseName;
+		});
+
+		// Handle the last group
+		if (groupStartIndex !== rows.length - 1) {
+			// Apply background color to the last group
+			const groupClass = groupColorToggle ? 'group-bg-1' : 'group-bg-2';
+			for (let i = groupStartIndex; i < rows.length; i++) {
+				rows[i].classList.add(groupClass);
+			}
+		}
+	}
+
+	// Call the function to group table rows after the DOM loads
+	document.addEventListener('DOMContentLoaded', groupTableRows);
+</script>
+
+</html>

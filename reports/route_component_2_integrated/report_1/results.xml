@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="50" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T00:31:17" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="3.477">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="1.968">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.237">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="1.124">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-12T00:31:20" hostname="localhost" tests="15" failures="0" errors="0" skipped="0" flaky="0" time="1.522">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.031">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.060">
+		</testcase>
+		<testcase name="test_include_legacy_candidates_false_ignores_phase0j_groups" classname="MissionInteractionBridgeTest" time="0.051">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.044">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.049">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.048">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.032">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.039">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.034">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.036">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.034">
+		</testcase>
+		<testcase name="test_wall_collision_blocks_interaction_target" classname="MissionInteractionBridgeTest" time="0.032">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.045">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.083">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.063">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-12T00:31:22" hostname="localhost" tests="19" failures="0" errors="0" skipped="0" flaky="0" time="6.411">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.223">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.063">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.195">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.159">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.825">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.511">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.148">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.071">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.182">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.212">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.652">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.156">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.185">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.204">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.151">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.178">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.157">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.068">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.046">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="Phase13SocialStealthTest" package="tests/mission_authoring" timestamp="2026-07-12T00:31:28" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.786">
+		<testcase name="test_cover_story_credentials_and_social_fact_bridge" classname="Phase13SocialStealthTest" time="0.045">
+		</testcase>
+		<testcase name="test_social_effects_route_through_effect_applier" classname="Phase13SocialStealthTest" time="0.047">
+		</testcase>
+		<testcase name="test_inspection_rule_set_accepts_and_rejects_social_state" classname="Phase13SocialStealthTest" time="0.036">
+		</testcase>
+		<testcase name="test_social_mechanic_nodes_drive_believable_action_flow" classname="Phase13SocialStealthTest" time="0.042">
+		</testcase>
+		<testcase name="test_mission_result_receives_social_summary" classname="Phase13SocialStealthTest" time="0.067">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase13_nodes" classname="Phase13SocialStealthTest" time="0.145">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="SecurityReadabilityLiteTest" package="tests/mission_authoring" timestamp="2026-07-12T00:31:29" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.823">
+		<testcase name="test_camera_sweep_debug_state_is_predictable" classname="SecurityReadabilityLiteTest" time="0.041">
+		</testcase>
+		<testcase name="test_camera_author_exports_readability_config" classname="SecurityReadabilityLiteTest" time="0.045">
+		</testcase>
+		<testcase name="test_hide_spot_reduces_and_resets_detection_modifier" classname="SecurityReadabilityLiteTest" time="0.056">
+		</testcase>
+		<testcase name="test_taco_phase4g_camera_alarm_effect_set_slice_exists" classname="SecurityReadabilityLiteTest" time="0.067">
+		</testcase>
+		<testcase name="test_phase4g_qa_model_reports_waiting_before_alarm" classname="SecurityReadabilityLiteTest" time="0.072">
+		</testcase>
+		<testcase name="test_phase4g_qa_model_reports_passed_alarm_chain" classname="SecurityReadabilityLiteTest" time="0.052">
+		</testcase>
+		<testcase name="test_qa_review_hotkey_avoids_godot_editor_stop_key" classname="SecurityReadabilityLiteTest" time="0.052">
+		</testcase>
+	</testsuite>
+</testsuites>

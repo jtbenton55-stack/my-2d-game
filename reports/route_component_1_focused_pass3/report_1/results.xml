@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="4" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawRouteComponent1Test" package="tests/mission_authoring" timestamp="2026-07-11T19:36:58" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="2.895">
+		<testcase name="test_route_component_runtime_helpers_and_front_contract_are_authored" classname="VelvetPawRouteComponent1Test" time="2.210">
+		</testcase>
+		<testcase name="test_front_inspection_requires_both_vip_facts_and_opens_rope" classname="VelvetPawRouteComponent1Test" time="0.113">
+		</testcase>
+		<testcase name="test_front_rejection_is_timed_non_manual_and_skipped_for_vip" classname="VelvetPawRouteComponent1Test" time="0.160">
+		</testcase>
+		<testcase name="test_eavesdrop_phone_and_dead_drop_present_and_transfer_information" classname="VelvetPawRouteComponent1Test" time="0.147">
+		</testcase>
+	</testsuite>
+</testsuites>

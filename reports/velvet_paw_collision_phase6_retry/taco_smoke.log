@@ -1,0 +1,191 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000008a2e0000dd10000000000000,Hand Held Legend GC Ultimate,a:b0,b:b2,back:b17,dpdown:b5,dpleft:b6,dpright:b7,dpup:b4,guide:b18,leftshoulder:b10,leftstick:b8,lefttrigger:a3,leftx:a0,lefty:a1,misc1:b19,misc2:b24,paddle1:b13,paddle2:b12,rightshoulder:b11,rightstick:b9,righttrigger:a4,rightx:a2,righty:a5,start:b16,x:b1,y:b3,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 4039755037
+EDITOR API HASH: 223528947
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://src/autoload/GameState.gd
+Loading resource: res://src/autoload/SaveManager.gd
+Loading resource: res://src/autoload/AudioManager.gd
+Loading resource: res://src/autoload/SceneManager.gd
+Loading resource: res://src/autoload/DialogueManager.gd
+Loading resource: res://src/autoload/QuestManager.gd
+Loading resource: res://src/autoload/CardEffects.gd
+Loading resource: res://src/collectibles/CollectibleManager.gd
+Loading resource: res://addons/godot_mcp/runtime/mcp_runtime.gd
+Loading resource: res://scripts/mcp_interaction_server.gd
+Loading resource: res://addons/godot-runtime-bridge/runtime_bridge/DebugServer.gd
+Loading resource: res://addons/godot_mcp/mcp_screenshot_service.gd
+Loading resource: res://addons/godot_mcp/mcp_input_service.gd
+Loading resource: res://addons/godot_mcp/mcp_game_inspector_service.gd
+Loaded system CA certificates
+Loading resource: res://scenes/missions_iso/TacoBellIso_Editable_RedesignTest.tscn
+Loading resource: res://src/levels/IsoMissionBase.gd
+Loading resource: res://scenes/characters/player.tscn
+Loading resource: res://src/player/Player.gd
+Loading resource: res://assets/sprites/player_sprite_frames.tres
+Loading resource: res://assets/icons/token_player.svg
+Loading resource: res://.godot/imported/token_player.svg-ea442caf60dcd2edfa3160030c766a7f.ctex
+Loading resource: res://src/combat/PlayerCombatController.gd
+Loading resource: res://src/combat/MeleeHitbox.gd
+Loading resource: res://assets/characters/generated_player_visuals/parmida_player_visual_0mc2.png
+Loading resource: res://.godot/imported/parmida_player_visual_0mc2.png-fa5a7ad897a3688f67c0bd5241718783.ctex
+Loading resource: res://scenes/characters/dog.tscn
+Loading resource: res://src/player/DogCompanion.gd
+Loading resource: res://assets/sprites/dog_sprite_frames.tres
+Loading resource: res://assets/icons/token_dog.svg
+Loading resource: res://.godot/imported/token_dog.svg-65ee2bf9bfd445b034c0fa7b048d503d.ctex
+Loading resource: res://scenes/ui/hud.tscn
+Loading resource: res://src/ui/HUD.gd
+Loading resource: res://assets/icons/hud_objective_pin.svg
+Loading resource: res://.godot/imported/hud_objective_pin.svg-62d670e20f80b3f80a2c2dadfdcc235f.ctex
+Loading resource: res://scenes/ui/DialogueBox.tscn
+Loading resource: res://src/ui/DialogueBox.gd
+Loading resource: res://assets/missions/taco_bell_iso_blockout_definition.tres
+Loading resource: res://src/missions/definitions/MissionDefinition.gd
+Loading resource: res://src/missions/definitions/MissionZoneDefinition.gd
+Loading resource: res://src/missions/definitions/MissionObjectiveDefinition.gd
+Loading resource: res://src/missions/definitions/MissionCollectibleDefinition.gd
+Loading resource: res://src/missions/definitions/MissionClueDefinition.gd
+Loading resource: res://src/missions/definitions/MissionRewardDefinition.gd
+Loading resource: res://src/missions/definitions/MissionMutationDefinition.gd
+Loading resource: res://src/missions/definitions/MissionCutsceneDefinition.gd
+Loading resource: res://src/missions/definitions/MissionRouteDefinition.gd
+Loading resource: res://src/missions/definitions/MissionGateDefinition.gd
+Loading resource: res://src/missions/iso/runtime/MissionAlertController.gd
+Loading resource: res://assets/tilesets/iso_blockout_clean/IsoBlockoutTileset_Clean.tres
+Loading resource: res://assets/tilesets/iso_blockout_clean/iso_blockout_atlas_clean.png
+Loading resource: res://.godot/imported/iso_blockout_atlas_clean.png-607b68257d258353b4c9abbf6b1f8344.ctex
+Loading resource: res://assets/tilesets/marker_authoring/MarkerAuthoringTileset.tres
+Loading resource: res://assets/tilesets/marker_authoring/marker_authoring_atlas.png
+Loading resource: res://.godot/imported/marker_authoring_atlas.png-dcf0334528d3c818ec1b378a03eddad2.ctex
+Loading resource: res://src/missions/iso/runtime/Phase0IAuthoringHider.gd
+Loading resource: res://src/missions/iso/runtime/Phase0IRouteSafeguard.gd
+Loading resource: res://src/missions/iso/placeholders/MissionCluePickupPlaceholder.gd
+Loading resource: res://src/missions/iso/runtime/MissionCameraShake.gd
+Loading resource: res://src/missions/iso/runtime/IsoMissionDebugPanel.gd
+Loading resource: res://src/ui/test_ui/controls_overlay.tscn
+Loading resource: res://src/ui/test_ui/controls_overlay.gd
+Loading resource: res://src/ui/test_ui/pause_menu.tscn
+Loading resource: res://src/ui/test_ui/pause_menu.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JRuntimeAuthoringHider.gd
+Loading resource: res://src/tools/editor/EditorOnlyRoomLabel.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JB2WallCellCollisionGenerator.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JInteractionBridge.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JCodeGateController.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JDebugHUD.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JCodeInputUI.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JMarkerDebugInteractable.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JRuntimeMarkerLabel.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JMissionStateAdapter.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JCollectibleMenuAdapter.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JObjectiveAdapter.gd
+Loading resource: res://src/missions/iso/runtime/Phase0JMechanicRouter.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KMissionCompletionController.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KLouisExitInteractable.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KBagObjectiveInteractable.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KCameraSpawner.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KGuardSpawner.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KBWrongCodeAttackGuardSpawner.gd
+Loading resource: res://src/missions/iso/runtime/Phase0KBBoundsCleanup.gd
+Loading resource: res://src/missions/iso/authoring/SecurityAuthoringRoot.gd
+Loading resource: res://src/missions/iso/authoring/SecurityBeamAuthor.gd
+Loading resource: res://src/missions/iso/authoring/GuardSpawnAuthor.gd
+Loading resource: res://src/missions/iso/authoring/GuardPatrolRouteAuthor.gd
+Loading resource: res://src/missions/iso/authoring/AreaTriggerAuthor.gd
+Loading resource: res://src/missions/iso/authoring/SecurityCameraAuthor.gd
+Loading resource: res://src/missions/iso/authoring/SecurityLockdownEffectAuthor.gd
+Loading resource: res://src/missions/iso/authoring/ObjectiveEffectAuthor.gd
+Loading resource: res://src/missions/iso/authoring/NodeToggleEffectAuthor.gd
+Loading resource: res://src/missions/iso/authoring/DoorLockEffectAuthor.gd
+Loading resource: res://src/missions/iso/authoring/D6_05A_TestDoorLockTarget.gd
+Loading resource: res://src/missions/iso/authoring/PoopBagAuthor.gd
+Loading resource: res://src/missions/iso/authoring/MoneyPickupAuthor.gd
+Loading resource: res://src/missions/iso/authoring/PolaroidAuthor.gd
+Loading resource: res://src/missions/iso/authoring/TinyIconAuthor.gd
+Loading resource: res://src/missions/iso/authoring/GlowGuyAuthor.gd
+Loading resource: res://src/missions/iso/authoring/ClueAuthor.gd
+Loading resource: res://src/missions/iso/authoring/CaseCashAuthor.gd
+Loading resource: res://src/missions/iso/runtime/authoring/MissionInteractionBridge.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/SearchZone.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/RewardNode.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/RouteUnlockNode.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/SchemeCardTriggerNode.gd
+Loading resource: res://src/missions/iso/authoring/SecurityEffectSetAuthor.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/SideObjectiveNode.gd
+Loading resource: res://src/missions/iso/runtime/Phase16GarageManagerDeniabilityController.gd
+Loading resource: res://src/missions/iso/dev/Phase16GarageDeniabilityDevTrigger.gd
+Loading resource: res://src/missions/iso/authoring/mechanics/EncounterRouteActionNode.gd
+[OpenClaw] GameState ready
+[OpenClaw] SaveManager ready
+[OpenClaw] AudioManager ready
+[OpenClaw] SceneManager ready
+[OpenClaw] DialogueManager ready
+[OpenClaw] QuestManager ready
+Loading resource: res://resources/cards/bentley_dental_boy.tres
+Loading resource: res://src/inventory/SchemeCard.gd
+Loading resource: res://resources/cards/bryce_swiss_timing.tres
+Loading resource: res://resources/cards/clorox_wipe_protocol.tres
+Loading resource: res://resources/cards/diamond_a_year.tres
+Loading resource: res://resources/cards/doms_getaway_keys.tres
+Loading resource: res://resources/cards/fish_treat_focus.tres
+Loading resource: res://resources/cards/jakes_resident_orders.tres
+Loading resource: res://resources/cards/jc_london_contact.tres
+Loading resource: res://resources/cards/louis_delivery_route.tres
+Loading resource: res://resources/cards/mere_legal_eyes.tres
+Loading resource: res://resources/cards/persian_tea_focus.tres
+Loading resource: res://resources/cards/polaroid_proof.tres
+Loading resource: res://resources/cards/stationery_queen.tres
+Loading resource: res://resources/cards/two_letters_away.tres
+Loading resource: res://resources/cards/violet_counterpunch.tres
+Loading resource: res://resources/cards/yordano_bass_drop.tres
+[OpenClaw] CardManager ready with 16 cards
+[OpenClaw] CardEffects ready
+[OpenClaw] CollectibleManager ready
+McpInteractionServer: Listening on 127.0.0.1:9090
+[OpenClaw] [Phase0JDebugHUD] Phase0J bridge ready: E/Q radius 144
+[OpenClaw] [Phase0JDebugHUD] Phase0J debug layer ready. E/Q: interact/inspect Phase0J marker. Code: 0420
+[OpenClaw] Mission started: taco_bell_drop
+[OpenClaw] Iso authoring_mode=hybrid layout_source=scene_tilemaps_plus_definition_defaults marker_source=scene_markers scene_markers=56
+[OpenClaw] Iso layout preserved from scene-authored TileMapLayer.
+Loading resource: res://src/missions/iso/placeholders/MissionObjectivePlaceholder.gd
+Loading resource: res://src/missions/iso/placeholders/MissionScentTrailPlaceholder.gd
+Loading resource: res://src/missions/iso/placeholders/MissionCodeGatePlaceholder.gd
+Loading resource: res://src/missions/iso/placeholders/MissionPoopBagPlaceholder.gd
+Loading resource: res://src/missions/iso/MissionMechanicHook.gd
+Loading resource: res://src/missions/iso/placeholders/MissionCutsceneTriggerPlaceholder.gd
+Loading resource: res://src/missions/iso/placeholders/MissionExitTriggerPlaceholder.gd
+Loading resource: res://scenes/characters/guard.tscn
+Loading resource: res://src/enemies/Guard.gd
+Loading resource: res://assets/sprites/guard_sprite_frames.tres
+Loading resource: res://assets/icons/token_guard.svg
+Loading resource: res://.godot/imported/token_guard.svg-179988e23f76432871d44771aa6ab379.ctex
+Loading resource: res://src/missions/iso/runtime/MissionEncounterTrigger.gd
+Loading resource: res://src/missions/iso/runtime/MissionLightZone.gd
+Loading resource: res://src/missions/iso/runtime/MissionRouteAccessPoint.gd
+Loading resource: res://src/missions/iso/runtime/MissionTransitionPlaceholder.gd
+Loading resource: res://src/missions/iso/runtime/MissionPoopBagDecoyPoint.gd
+Loading resource: res://src/missions/iso/runtime/MissionCameraTerminal.gd
+[OpenClaw] Loaded level: TacoBellIso_Editable mission=taco_bell_drop
+Loading resource: res://src/missions/iso/runtime/readability/MissionReadabilityLayer.gd
+Loading resource: res://src/missions/iso/runtime/kit/MissionPlayerKitLayer.gd
+Loading resource: res://src/missions/iso/runtime/cover/MissionCoverLayer.gd
+Loading resource: res://src/missions/iso/runtime/SecurityEventRouter.gd
+Loading resource: res://assets/portraits/generated_slices/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0.png
+Loading resource: res://.godot/imported/portrait_Sak_pixel_art_character_portrait_pack_cyberpunk_theme_WHITE_B_069c08a9-90d0-4b77_eff15256_r1_c0.png-f92922713e215a38976ad186aae98c0c.ctex
+[Phase0JB2] Generated 2380 wall-cell collision polygons.
+McpInteractionServer: Stopped
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

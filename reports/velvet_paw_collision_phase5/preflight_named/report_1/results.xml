@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="2" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T13:36:44" hostname="localhost" tests="2" failures="0" errors="0" skipped="0" flaky="0" time="2.913">
+		<testcase name="test_preflight_compact_tilemap_wall_seams" classname="VelvetPawJazzClubPhysicsTest" time="2.573">
+		</testcase>
+		<testcase name="test_preflight_named_motion_measurements" classname="VelvetPawJazzClubPhysicsTest" time="0.263">
+		</testcase>
+	</testsuite>
+</testsuites>

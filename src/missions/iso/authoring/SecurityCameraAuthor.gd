@@ -9,6 +9,11 @@ extends Node2D
 @export var range_px: float = 320.0
 @export var fov_degrees: float = 55.0
 @export var direction_degrees: float = 0.0
+@export var require_line_of_sight: bool = false
+@export_flags_2d_physics var occlusion_collision_mask: int = 4
+@export var occlude_cover_tiles: bool = true
+@export_range(3, 65, 2) var visible_cone_ray_count: int = 17
+@export var show_visible_cone: bool = true
 
 @export_group("Sweep")
 @export var sweep_enabled := false
@@ -20,6 +25,8 @@ extends Node2D
 @export var detection_rate: float = 0.7
 @export var detection_decay: float = 0.4
 @export var alarm_threshold: float = 1.0
+@export var exposure_requires_player_movement := false
+@export var player_movement_threshold: float = 8.0
 
 @export_group("Events")
 @export var on_detect_event: StringName = &""
@@ -65,6 +72,11 @@ func build_runtime_config() -> Dictionary:
 		"range_px": range_px,
 		"fov_degrees": fov_degrees,
 		"direction_degrees": direction_degrees,
+		"require_line_of_sight": require_line_of_sight,
+		"occlusion_collision_mask": occlusion_collision_mask,
+		"occlude_cover_tiles": occlude_cover_tiles,
+		"visible_cone_ray_count": visible_cone_ray_count,
+		"show_visible_cone": show_visible_cone,
 		"sweep_enabled": sweep_enabled,
 		"sweep_arc_degrees": sweep_arc_degrees,
 		"sweep_speed_degrees": sweep_speed_degrees,
@@ -72,6 +84,8 @@ func build_runtime_config() -> Dictionary:
 		"detection_rate": detection_rate,
 		"detection_decay": detection_decay,
 		"alarm_threshold": alarm_threshold,
+		"exposure_requires_player_movement": exposure_requires_player_movement,
+		"player_movement_threshold": player_movement_threshold,
 		"on_detect_event": String(on_detect_event),
 		"on_alarm_event": String(on_alarm_event),
 		"emit_detect_event": emit_detect_event,

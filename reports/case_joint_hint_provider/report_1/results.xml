@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="5" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-11T19:09:03" hostname="localhost" tests="5" failures="1" errors="0" skipped="0" flaky="0" time="0.197">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.037">
+			<failure message="FAILED: res://tests/mission_authoring/CaseJointHintProviderTest.gd:26" type="FAILURE">
+<![CDATA[
+Expecting:
+ '1'
+ but was
+ '0'
+	at 'test_bridge_q_does_not_interact_but_e_still_does' in res://tests/mission_authoring/CaseJointHintProviderTest.gd:26
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

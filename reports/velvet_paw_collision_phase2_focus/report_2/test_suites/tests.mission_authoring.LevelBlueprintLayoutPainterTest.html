@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GdUnit4 Testsuite</title>
+	<link rel="stylesheet" href="../css/styles.css">
+	<link href="../css/breadcrumb.css" rel="stylesheet" type="text/css" />
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script>
+		$(document).ready(function () {
+			var report_view = $('#report_area').find('.report-column')
+
+			$('#report-table tr').click(function () {
+				var report = $(this).find('.report-column').html();
+				report_view.html(report)
+				$('.selected').removeClass('selected');
+				$(this).addClass('selected');
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+			<img src="../css/logo.png" alt="GdUnit4 Logo">
+			<span>GdUnit4</span>
+		</div>
+		<div class="report-container">
+			<h1>Testsuite Report</h1>
+			<div>
+				<span class="label">res://tests/mission_authoring/LevelBlueprintLayoutPainterTest.gd</span>
+			</div>
+			<div class="summary">
+				<div class="summary-item">
+					<span class="label">Tests</span>
+					<span class="value">8</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Skipped</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Flaky</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Failures</span>
+					<span class="value">4</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Orphans</span>
+					<span class="value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="label">Duration</span>
+					<span class="value">46s 499ms</span>
+				</div>
+				<div class="success-rate">
+					<div class="check-icon status-failed">✓</div>
+					<div class="rate-text">
+						<span class="label">Success Rate</span>
+						<span class="value">50%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="breadcrumb">
+			<a href="../index.html"><span>All</span></a>
+			<a href="../path/tests.mission_authoring.html"><span>tests/mission_authoring</span></a>
+			<a class="active" href="#"><span>LevelBlueprintLayoutPainterTest</span></a>
+		</div>
+	</header>
+
+	<main>
+		<div class="tab-report-grid">
+			<div class="grid-item tab">
+				<table id="report-table">
+					<thead>
+						<tr>
+							<th>Testcase</th>
+							<th>Result</th>
+							<th>Skipped</th>
+							<th>Orphans</th>
+							<th>Duration</th>
+							<th class="report-column">Report</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+								<tr class="testcase-group">
+									<td>test_dry_run_ok_and_production_scene_hash_unchanged</td>
+									<td><span class="status status-passed">PASSED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>24s 721ms</td>
+									<td class="report-column">
+										<pre>
+
+										</pre>
+									</td>
+								</tr>
+
+
+								<tr class="testcase-group">
+									<td>test_semantic_region_and_cell_sets</td>
+									<td><span class="status status-passed">PASSED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>1s 68ms</td>
+									<td class="report-column">
+										<pre>
+
+										</pre>
+									</td>
+								</tr>
+
+
+								<tr class="testcase-group">
+									<td>test_cover_contract_has_four_solid_and_two_non_solid_labels</td>
+									<td><span class="status status-passed">PASSED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>1s 316ms</td>
+									<td class="report-column">
+										<pre>
+
+										</pre>
+									</td>
+								</tr>
+
+
+								<tr class="testcase-group">
+									<td>test_nine_openings_have_expected_classifications_and_blocking</td>
+									<td><span class="status status-passed">PASSED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>1s 143ms</td>
+									<td class="report-column">
+										<pre>
+
+										</pre>
+									</td>
+								</tr>
+
+
+								<tr class="testcase-group">
+									<td>test_owner_suite_and_basement_closed_islands_are_contained</td>
+									<td><span class="status status-failed">FAILED</span></td>
+									<td>0</td>
+									<td>0</td>
+									<td>1s 236ms</td>
+									<td class="report-column">
+										<pre>
+{ &quot;island_id&quot;: &quot;owner_suite&quot;, &quot;perimeter_cell_count&quot;: 180, &quot;represented_perimeter_cell_count&quot;: 154, &quot;perimeter_represented&quot;: false, &quot;contained_floor_cell_count&quot;: 1064, &quot;containment_represented&quot;: false, &quot;perimeter_cells&quot;: [[54, 11], [55, 11], [56, 11], [57, 11], [58, 11], [59, 11], [60, 11], [61, 11], [62, 11], [63, 11], [64, 11], [65, 11], [66, 11], [67, 11], [68, 11], [54, 12], [68, 12], [54, 13], [68, 13], [54, 14], [68, 14], [54, 15], [68, 15], [54, 16], [68, 16], [54, 17], [68, 17], [54, 18], [68, 18], [54, 19], [68, 19], [54, 20], [68, 20], [54, 21], [68, 21], [54, 22], [68, 22], [54, 23], [68, 23], [54, 24], [68, 24], [54, 25], [68, 25], [54, 26], [68, 26], [54, 27], [68, 27], [54, 28], [68, 28], [54, 29], [68, 29], [54, 30], [68, 30], [54, 31], [68, 31], [54, 32], [68, 32], [54, 33], [68, 33], [54, 34], [68, 34], [54, 35], [68, 35], [54, 36], [68, 36], [54, 37], [68, 37], [54, 38], [68, 38], [54, 39], [68, 39], [54, 40], [68, 40], [54, 41], [68, 41], [54, 42], [68, 42], [54, 43], [68, 43], [54, 44], [68, 44], [54, 45], [68, 45], [54, 46], [68, 46], [54, 47], [68, 47], [54, 48], [68, 48], [54, 49], [68, 49], [54, 50], [68, 50], [54, 51], [68, 51], [54, 52], [68, 52], [54, 53], [68, 53], [54, 54], [68, 54], [54, 55], [68, 55], [54, 56], [68, 56], [54, 57], [68, 57], [54, 58], [68, 58], [54, 59], [68, 59], [54, 60], [68, 60], [54, 61], [68, 61], [54, 62], [68, 62], [54, 63], [68, 63], [54, 64], [68, 64], [54, 65], [68, 65], [54, 66], [68, 66], [54, 67], [68, 67], [54, 68], [68, 68], [54, 69], [68, 69], [54, 70], [68, 70], [54, 71], [68, 71], [54, 72], [68, 72], [54, 73], [68, 73], [54, 74], [68, 74], [54, 75], [68, 75], [54, 76], [68, 76], [54, 77], [68, 77], [54, 78], [68, 78], [54, 79], [68, 79], [54, 80], [68, 80], [54, 81], [68, 81], [54, 82], [68, 82], [54, 83], [68, 83], [54, 84], [68, 84], [54, 85], [68, 85], [54, 86], [68, 86], [54, 87], [55, 87], [56, 87], [57, 87], [58, 87], [59, 87], [60, 87], [61, 87], [62, 87], [63, 87], [64, 87], [65, 87], [66, 87], [67, 87], [68, 87]] }
+	at &#39;test_owner_suite_and_basement_closed_islands_are_contained&#39; in res://tests/mission_authoring/LevelBlueprintLayoutPainterTest.gd:86
+
+{ &quot;island_id&quot;: &quot;owner_suite&quot;, &quot;perimeter_cell_count&quot;: 180, &quot;represented_perimeter_cell_count&quot;: 154, &quot;perimeter_represented&quot;: false, &quot;contained_floor_cell_count&quot;: 1064, &quot;containment_represented&quot;: false, &quot;perimeter_cells&quot;: [[54, 11], [55, 11], [56, 11], [57, 11], [58, 11], [59, 11], [60, 11], [61, 11], [62, 11], [63, 11], [64, 11], [65, 11], [66, 11], [67, 11], [68, 11], [54, 12], [68, 12], [54, 13], [68, 13], [54, 14], [68, 14], [54, 15], [68, 15], [54, 16], [68, 16], [54, 17], [68, 17], [54, 18], [68, 18], [54, 19], [68, 19], [54, 20], [68, 20], [54, 21], [68, 21], [54, 22], [68, 22], [54, 23], [68, 23], [54, 24], [68, 24], [54, 25], [68, 25], [54, 26], [68, 26], [54, 27], [68, 27], [54, 28], [68, 28], [54, 29], [68, 29], [54, 30], [68, 30], [54, 31], [68, 31], [54, 32], [68, 32], [54, 33], [68, 33], [54, 34], [68, 34], [54, 35], [68, 35], [54, 36], [68, 36], [54, 37], [68, 37], [54, 38], [68, 38], [54, 39], [68, 39], [54, 40], [68, 40], [54, 41], [68, 41], [54, 42], [68, 42], [54, 43], [68, 43], [54, 44], [68, 44], [54, 45], [68, 45], [54, 46], [68, 46], [54, 47], [68, 47], [54, 48], [68, 48], [54, 49], [68, 49], [54, 50], [68, 50], [54, 51], [68, 51], [54, 52], [68, 52], [54, 53], [68, 53], [54, 54], [68, 54], [54, 55], [68, 55], [54, 56], [68, 56], [54, 57], [68, 57], [54, 58], [68, 58], [54, 59], [68, 59], [54, 60], [68, 60], [54, 61], [68, 61], [54, 62], [68, 62], [54, 63], [68, 63], [54, 64], [68, 64], [54, 65], [68, 65], [54, 66], [68, 66], [54, 67], [68, 67], [54, 68], [68, 68], [54, 69], [68, 69], [54, 70], [68, 70], [54, 71], [68, 71], [54, 72], [68, 72], [54, 73], [68, 73], [54, 74], [68, 74], [54, 75], [68, 75], [54, 76], [68, 76], [54, 77], [68, 77], [54, 78], [68, 78], [54, 79], [68, 79], [54, 80], [68, 80], [54, 81], [68, 81], [54, 82], [68, 82], [54, 83], [68, 83], [54, 84], [68, 84], [54, 85], [68, 85], [54, 86], [68, 86], [54, 87], [55, 87], [56, 87], [57, 87], [58, 87], [59, 87], [60, 87], [61, 87], [62, 87], [63, 87], [64, 87], [65, 87], [66, 87], [67, 87], [68, 87]] }
+	at &#39;test_owner_suite_and_basement_closed_islands_are_contained&#39; in res://tests/mission_authoring/LevelBlueprintLayoutPainterTest.gd:87
+
+{ &quot;island_id&quot;: &quot;basement&quot;, &quot;perimeter_cell_count&quot;: 204, &quot;represented_perimeter_cell_count&quot;: 178, &quot;perimeter_represented&quot;: false, &quot;contained_floor_cell_count&quot;: 1232, &quot;containment_represented&quot;: false, &quot;perimeter_cells&quot;: [[54, 107], [55, 107], [56, 107], [57, 107], [58, 107], [59, 107], [60, 107], [61, 107], [62, 107], [63, 107], [64, 107], [65, 107], [66, 107], [67, 107], [68, 107], [54, 108], [68, 108], [54, 109], [68, 109], [54, 110], [68, 110], [54, 111], [68, 111], [54, 112], [68, 112], [54, 113], [68, 113], [54, 114], [68, 114], [54, 115], [68, 115], [54, 116], [68, 116], [54, 117], [68, 117], [54, 118], [68, 118], [54, 119], [68, 119], [54, 120], [68, 120], [54, 121], [68, 121], [54, 122], [68, 122], [54, 123], [68, 123], [54, 124], [68, 124], [54, 125], [68, 125], [54, 126], [68, 126], [54, 127], [68, 127], [54, 128], [68, 128], [54, 129], [68, 129], [54, 130], [68, 130], [54, 131], [68, 131], [54, 132], [68, 132], [54, 133], [68, 133], [54, 134], [68, 134], [54, 135], [68, 135], [54, 136], [68, 136], [54, 137], [68, 137], [54, 138], [68, 138], [54, 139], [68, 139], [54, 140], [68, 140], [54, 141], [68, 141], [54, 142], [68, 142], [54, 143], [68, 143], [54, 144], [68, 144], [54, 145], [68, 145], [54, 146], [68, 146], [54, 147], [68, 147], [54, 148], [68, 148], [54, 149], [68, 149], [54, 150], [68, 150], [54, 151], [68, 151], [54, 152], [68, 152], [54, 153], [68, 153], [54, 154], [68, 154], [54, 155], [68, 155], [54, 156], [68, 156], [54, 157], [68, 157], [54, 158], [68, 158], [54, 159], [68, 159], [54, 160], [68, 160], [54, 161], [68, 161], [54, 162], [68, 162], [54, 163], [68, 163], [54, 164], [68, 164], [54, 165], [68, 165], [54, 166], [68, 166], [54, 167], [68, 167], [54, 168], [68, 168], [54, 169], [68, 169], [54, 170], [68, 170], [54, 171], [68, 171], [54, 172], [68, 172], [54, 173], [68, 173], [54, 174], [68, 174], [54, 175], [68, 175], [54, 176], [68, 176], [54, 177], [68, 177], [54, 178], [68, 178], [54, 179], [68, 179], [54, 180], [68, 180], [54, 181], [68, 181], [54, 182], [68, 182], [54, 183], [68, 183], [54, 184], [68, 184], [54, 185], [68, 185], [54, 186], [68, 186], [54, 187], [68, 187], [54, 188], [68, 188], [54, 189], [68, 189], [54, 190], [68, 190], [54, 191], [68, 191], [54, 192], [68, 192], [54, 193], [68, 193], [54, 194], [68, 194], [54, 195], [55, 195], [56, 195], [57, 195], [58, 195], [59, 195], [60, 195], [61, 195], [62, 195], [63, 195], [64, 195], [65, 195], [66, 195], [67, 195], [68, 195]] }
+	at &#39;test_owner_suite_and_basement_closed_islands_are_contained&#39; in res://tests/mission_authoring/LevelBlueprintLayoutPainterTest.gd:86
+
+{ &quot;island_id&quot;: &quot;basement&quot;, &quot;perimeter_cell_count&quot;: 204, &quot;represented_perimeter_cell_count&quot;: 178, &quot;perimeter_represented&quot;: false, &quot;contained_floor_cell_count&quot;: 1232, &quot;containment_represented&quot;: false, &quot;perimeter_cells&quot;: [[54, 107], [55, 107], [56, 107], [57, 107], [58, 107], [59, 107], [60, 107], [61, 107], [62, 107], [63, 107], [64, 107], [65, 107], [66, 107], [67, 107], [68, 107], [54, 108], [68, 108], [54, 109], [68, 109], [54, 110], [68, 110], [54, 111], [68, 111], [54, 112], [68, 112], [54, 113], [68, 113], [54, 114], [68, 114], [54, 115], [68, 115], [54, 116], [68, 116], [54, 117], [68, 117], [54, 118], [68, 118], [54, 119], [68, 119], [54, 120], [68, 120], [54, 121], [68, 121], [54, 122], [68, 122], [54, 123], [68, 123], [54, 124], [68, 124], [54, 125], [68, 125], [54, 126], [68, 126], [54, 127], [68, 127], [54, 128], [68, 128], [54, 129], [68, 129], [54, 130], [68, 130], [54, 131], [68, 131], [54, 132], [68, 132], [54, 133], [68, 133], [54, 134], [68, 134], [54, 135], [68, 135], [54, 136], [68, 136], [54, 137], [68, 137], [54, 138], [68, 138], [54, 139], [68, 139], [54, 140], [68, 140], [54, 141], [68, 141], [54, 142], [68, 142], [54, 143], [68, 143], [54, 144], [68, 144], [54, 145], [68, 145], [54, 146], [68, 146], [54, 147], [68, 147], [54, 148], [68, 148], [54, 149], [68, 149], [54, 150], [68, 150], [54, 151], [68, 151], [54, 152], [68, 152], [54, 153], [68, 153], [54, 154], [68, 154], [54, 155], [68, 155], [54, 156], [68, 156], [54, 157], [68, 157], [54, 158], [68, 158], [54, 159], [68, 159], [54, 160], [68, 160], [54, 161], [68, 161], [54, 162], [68, 162], [54, 163], [68, 163], [54, 164], [68, 164], [54, 165], [68, 165], [54, 166], [68, 166], [54, 167], [68, 167], [54, 168], [68, 168], [54, 169], [68, 169], [54, 170], [68, 170], [54, 171], [68, 171], [54, 172], [68, 172], [54, 173], [68, 173], [54, 174], [68, 174], [54, 175], [68, 175], [54, 176], [68, 176], [54, 177], [68, 177], [54, 178], [68, 178], [54, 179], [68, 179], [54, 180], [68, 180], [54, 181], [68, 181], [54, 182], [68, 182], [54, 183], [68, 183], [54, 184], [68, 184], [54, 185], [68, 185], [54, 186], [68, 186], [54, 187], [68, 187], [54, 188], [68, 188], [54, 189], [68, 189], [54, 190], [68, 190], [54, 191], [68, 191], [54, 192], [68, 192], [54, 193], [68, 193], [54, 194], [68, 194], [54, 195], [55, 195], [56, 195], [57, 195], [58, 195], [59, 195], [60, 195], [61, 195], [62, 195], [63, 195], [64, 195], [65, 195], [66, 195], [67, 195], [68, 195]] }
+	at &#39;test_owner_suite_and_basement_closed_islands_are_contained&#39; in res://tests/mission_authoring/LevelBlueprintLayoutPainterTest.gd:87
+
+
+										</pre>
+									</td>
+								</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<div id="report_area" class="grid-item tab">
+				<h4>Failure Report</h4>
+				<div class="report-column"></div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<p>Generated by <a href="https://github.com/MikeSchulze/gdUnit4">GdUnit4</a> at 2026-07-11 00:20:36</p>
+		<div class="status-legend">
+			<span class="status-legend-item">
+				<span class="status-box status-skipped"></span> Skipped
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-passed"></span> Passed
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-flaky"></span> Flaky
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-warning"></span> Warning
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-failed"></span> Failed
+			</span>
+			<span class="status-legend-item">
+				<span class="status-box status-error"></span> Error
+			</span>
+		</div>
+	</footer>
+</body>
+
+<script>
+	function groupTableRows() {
+		const table = document.getElementById('report-table');
+		const rows = table.querySelectorAll('tbody tr');
+
+		let previousTestCase = '';
+		let groupStartIndex = 0;
+		let groupColorToggle = true; // Toggle between two colors
+
+		rows.forEach((row, index) => {
+			const testCaseName = row.cells[0].textContent.trim();
+
+			if (testCaseName !== previousTestCase) {
+				// Close the previous group
+				if (index > 0 && groupStartIndex !== index - 1) {
+					// Apply background color to the group
+					const groupClass = groupColorToggle ? 'group-bg-1' : 'group-bg-2';
+					for (let i = groupStartIndex; i <= index - 1; i++) {
+						rows[i].classList.add(groupClass);
+					}
+
+					// Toggle background color for the next group
+					groupColorToggle = !groupColorToggle;
+				}
+
+				// Start a new group
+				groupStartIndex = index;
+			}
+
+			previousTestCase = testCaseName;
+		});
+
+		// Handle the last group
+		if (groupStartIndex !== rows.length - 1) {
+			// Apply background color to the last group
+			const groupClass = groupColorToggle ? 'group-bg-1' : 'group-bg-2';
+			for (let i = groupStartIndex; i < rows.length; i++) {
+				rows[i].classList.add(groupClass);
+			}
+		}
+	}
+
+	// Call the function to group table rows after the DOM loads
+	document.addEventListener('DOMContentLoaded', groupTableRows);
+</script>
+
+</html>

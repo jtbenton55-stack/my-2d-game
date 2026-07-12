@@ -18,14 +18,22 @@ const PHASE4G_CAMERA_AUTHOR_PATH := "GameplayRoot/SecurityAuthoringRoot/TestCame
 const PHASE4G_RUNTIME_CAMERA_PATH := "EntityRoot/Cameras/AuthoredCamera_test_camera_01"
 const PHASE4G_EFFECT_AUTHOR_PATH := "GameplayRoot/SecurityAuthoringRoot/Phase4G_CameraAlarmEffectSet_Author"
 const PHASE4G_CAMERA_TEST_POSITION := Vector2(8500.0, 135.0)
+const VELVET_PAW_MISSION_ID := "velvet_paw_jazz_club"
+const VELVET_PAW_VIP_COVER_ID := "velvet_paw_vip_guest"
+const VELVET_PAW_VIP_CREDENTIAL_ID := "velvet_paw_vip_wristband"
+const VIP_ACCESS_NORMAL := 0
+const VIP_ACCESS_GUEST := 1
 
 var _mission: Node = null
 var _selector: OptionButton = null
+var _vip_access_selector: OptionButton = null
+var _map_overlay_toggle: CheckButton = null
 var _body: RichTextLabel = null
 var _actions_box: GridContainer = null
 var _action_buttons: Array[Button] = []
 var _last_action_label: Label = null
 var _mode := MODE_OVERVIEW
+var _vip_access_synced_mission_id := ""
 
 
 func _ready() -> void:
@@ -37,11 +45,14 @@ func _ready() -> void:
 
 func set_mission(mission: Node) -> void:
 	_mission = mission
+	_sync_vip_access_selector(true)
+	_sync_map_overlay_toggle()
 
 
 func toggle_panel() -> void:
 	visible = not visible
 	if visible:
+		_sync_vip_access_selector(true)
 		_refresh()
 
 
@@ -82,6 +93,26 @@ func _build_ui() -> void:
 	_selector.item_selected.connect(_on_mode_selected)
 	add_child(_selector)
 
+	_vip_access_selector = OptionButton.new()
+	_vip_access_selector.name = "VelvetVipAccessSelector"
+	_vip_access_selector.position = Vector2(320.0, 38.0)
+	_vip_access_selector.size = Vector2(188.0, 30.0)
+	_vip_access_selector.add_item("Normal access", VIP_ACCESS_NORMAL)
+	_vip_access_selector.add_item("VIP guest + wristband", VIP_ACCESS_GUEST)
+	_vip_access_selector.item_selected.connect(_on_vip_access_selected)
+	add_child(_vip_access_selector)
+	_sync_vip_access_selector(true)
+
+	_map_overlay_toggle = CheckButton.new()
+	_map_overlay_toggle.name = "VelvetRedMapOverlayToggle"
+	_map_overlay_toggle.position = Vector2(320.0, 6.0)
+	_map_overlay_toggle.size = Vector2(188.0, 28.0)
+	_map_overlay_toggle.text = "Red Map Overlay"
+	_map_overlay_toggle.tooltip_text = "Outline and label walls, barriers, cover, interactables, zones, guards, cameras, and actors."
+	_map_overlay_toggle.toggled.connect(_on_map_overlay_toggled)
+	add_child(_map_overlay_toggle)
+	_sync_map_overlay_toggle()
+
 	_actions_box = GridContainer.new()
 	_actions_box.name = "ActionButtons"
 	_actions_box.position = Vector2(12.0, 72.0)
@@ -115,6 +146,63 @@ func _on_mode_selected(index: int) -> void:
 	_mode = _selector.get_item_id(index)
 	_rebuild_action_buttons()
 	_refresh()
+
+
+func _on_vip_access_selected(index: int) -> void:
+	if _current_mission_id() != VELVET_PAW_MISSION_ID:
+		return
+	var context := {"mission_id": VELVET_PAW_MISSION_ID, "source_id": "f12_qa_vip_access"}
+	if _vip_access_selector.get_item_id(index) == VIP_ACCESS_GUEST:
+		SocialStealthAdapter.set_cover_story(VELVET_PAW_VIP_COVER_ID, {"source": "f12_qa"}, context)
+		SocialStealthAdapter.grant_credential(VELVET_PAW_VIP_CREDENTIAL_ID, {"source": "f12_qa"}, context)
+		_set_last_action("Applied Velvet Paw VIP guest cover and wristband.")
+	else:
+		SocialStealthAdapter.clear_cover_story(VELVET_PAW_VIP_COVER_ID, context)
+		SocialStealthAdapter.revoke_credential(VELVET_PAW_VIP_CREDENTIAL_ID, context)
+		_set_last_action("Removed Velvet Paw VIP guest cover and wristband.")
+
+
+func _sync_vip_access_selector(force: bool = false) -> void:
+	if _vip_access_selector == null:
+		return
+	var mission_id := _current_mission_id()
+	_vip_access_selector.visible = mission_id == VELVET_PAW_MISSION_ID
+	if not _vip_access_selector.visible:
+		_vip_access_synced_mission_id = ""
+		return
+	if not force and _vip_access_synced_mission_id == mission_id:
+		return
+	var context := {"mission_id": mission_id}
+	var has_cover := bool(SocialStealthAdapter.get_fact_value(SocialStealthAdapter.FACT_COVER_STORY_ACTIVE, VELVET_PAW_VIP_COVER_ID, context))
+	var has_credential := bool(SocialStealthAdapter.get_fact_value(SocialStealthAdapter.FACT_CREDENTIAL_ACTIVE, VELVET_PAW_VIP_CREDENTIAL_ID, context))
+	_vip_access_selector.select(_vip_access_selector.get_item_index(VIP_ACCESS_GUEST if has_cover and has_credential else VIP_ACCESS_NORMAL))
+	_vip_access_synced_mission_id = mission_id
+
+
+func _on_map_overlay_toggled(enabled: bool) -> void:
+	var overlay := _find_velvet_map_overlay()
+	if overlay == null:
+		_set_last_action("Velvet red map overlay is unavailable.")
+		return
+	overlay.call("set_overlay_enabled", enabled)
+	_set_last_action("Red map overlay %s." % ["enabled" if enabled else "disabled"])
+
+
+func _sync_map_overlay_toggle() -> void:
+	if _map_overlay_toggle == null:
+		return
+	_map_overlay_toggle.visible = _current_mission_id() == VELVET_PAW_MISSION_ID
+	if not _map_overlay_toggle.visible:
+		return
+	var overlay := _find_velvet_map_overlay()
+	var enabled := overlay != null and bool(overlay.call("is_overlay_enabled"))
+	_map_overlay_toggle.set_pressed_no_signal(enabled)
+
+
+func _find_velvet_map_overlay() -> Node:
+	if _mission == null:
+		return null
+	return _mission.get_node_or_null("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController/CollisionDebugOverlay")
 
 
 func _rebuild_action_buttons() -> void:
@@ -228,6 +316,8 @@ func _on_action_pressed(action: Dictionary) -> void:
 func _refresh() -> void:
 	if _body == null:
 		return
+	_sync_vip_access_selector()
+	_sync_map_overlay_toggle()
 	var rsum := _get_runtime_summary()
 	var flags := _get_dialogue_flags()
 	match _mode:

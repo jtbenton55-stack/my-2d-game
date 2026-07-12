@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq5w7v5v5o5v11"]
+[gd_scene load_steps=7 format=3 uid="uid://bq5w7v5v5o5v11"]
 
 [ext_resource type="Script" path="res://src/enemies/Guard.gd" id="1_9h8aw"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/guard_sprite_frames.tres" id="2_9h8aw"]
+[ext_resource type="Script" path="res://src/missions/iso/runtime/noise/NoiseListenerComponent.gd" id="3_noise"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11h8aw"]
 size = Vector2(32, 32)
@@ -48,12 +49,10 @@ collision_mask = 1
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
 shape = SubResource("CircleShape2D_12h8aw")
 
-[node name="VisionCone" type="ColorRect" parent="VisionArea"]
+[node name="VisionCone" type="Polygon2D" parent="VisionArea"]
+visible = false
+polygon = PackedVector2Array(0, 0, 114.9067, -96.4181, 114.9067, 96.4181)
 color = Color(1, 0, 0, 0.2)
-offset_left = 0.0
-offset_top = -50.0
-offset_right = 100.0
-offset_bottom = 50.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 monitoring = false
@@ -63,3 +62,9 @@ collision_mask = 1
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_13h8aw")
+
+[node name="NoiseListenerComponent" type="Node" parent="."]
+script = ExtResource("3_noise")
+listener_id = &"guard_noise_listener"
+accepted_teams = PackedStringArray("player")
+reaction_seconds = 3.0

@@ -21,6 +21,18 @@ bg_color = Color(0.1, 0.11, 0.15, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_StaminaFill"]
 bg_color = Color(0.32, 0.78, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SocialStatus"]
+bg_color = Color(0.035, 0.045, 0.075, 0.86)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.72, 0.82, 0.72)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_14h8aw")
 layer = 50
@@ -126,6 +138,23 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 9
 autowrap_mode = 3
 text = ""
+
+[node name="SocialStatusPanel" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -280.0
+offset_top = 110.0
+offset_right = -10.0
+offset_bottom = 220.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_SocialStatus")
+
+[node name="Status" type="Label" parent="SocialStatusPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.94, 0.96, 1)
+theme_override_font_sizes/font_size = 10
+text = "COVER  None\nBELIEF  Unproven   PRO  0\nHEAT  0   ALERT  NORMAL\nSTEALTH  Standing   CAM  Clear\nBENTLEY  Following"
 
 [node name="ObjectiveLabel" type="Label" parent="."]
 anchors_preset = 10

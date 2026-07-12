@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_109" tests="4" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawRouteComponent1Test" package="tests/mission_authoring" timestamp="2026-07-11T19:31:26" hostname="localhost" tests="4" failures="1" errors="1" skipped="0" flaky="0" time="3.623">
+		<testcase name="test_route_component_runtime_helpers_and_front_contract_are_authored" classname="VelvetPawRouteComponent1Test" time="2.458">
+			<error message="ERROR: res://tests/mission_authoring/VelvetPawRouteComponent1Test.gd:23" type="ABORT">
+<![CDATA[
+Godot Runtime Error !
+Error: 'Invalid call 'String' constructor: ../../../HUD/MissionHudStrip/ControlHint'
+	at res://tests/mission_authoring/VelvetPawRouteComponent1Test.gd:23
+]]>
+			</error>
+		</testcase>
+		<testcase name="test_front_inspection_requires_both_vip_facts_and_opens_rope" classname="VelvetPawRouteComponent1Test" time="0.372">
+		</testcase>
+		<testcase name="test_front_rejection_is_timed_non_manual_and_skipped_for_vip" classname="VelvetPawRouteComponent1Test" time="0.339">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawRouteComponent1Test.gd:61" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+	at 'test_front_rejection_is_timed_non_manual_and_skipped_for_vip' in res://tests/mission_authoring/VelvetPawRouteComponent1Test.gd:61
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

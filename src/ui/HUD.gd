@@ -17,12 +17,16 @@ extends CanvasLayer
 @onready var _stamina_caption: Label = get_node_or_null("MissionHudStrip/StaminaCaption") as Label
 @onready var _poop_label: Label = get_node_or_null("MissionHudStrip/PoopBagLabel") as Label
 @onready var _control_hint: Label = get_node_or_null("MissionHudStrip/ControlHint") as Label
+@onready var _social_status_panel: Control = get_node_or_null("SocialStatusPanel")
+@onready var _social_status_label: Label = get_node_or_null("SocialStatusPanel/Status") as Label
 
 var objective_position := Vector2.ZERO
 var has_marker := false
 
 var _card_status_labels: Dictionary = {} # card_id -> Label
 var _toast_timer: SceneTreeTimer = null
+var _case_hint_label: Label = null
+var _case_hint_timer: SceneTreeTimer = null
 var _mission_hud_refresh_acc := 0.0
 
 func _ready() -> void:
@@ -31,6 +35,7 @@ func _ready() -> void:
 	EventBus.bentley_meter_changed.connect(_on_bentley_meter_changed)
 	EventBus.show_objective_marker.connect(_on_show_objective_marker)
 	EventBus.objective_updated.connect(_on_objective_updated)
+	EventBus.case_hint_requested.connect(_on_case_hint_requested)
 	EventBus.card_selection_changed.connect(_on_cards_changed)
 	EventBus.card_triggered.connect(_on_card_triggered)
 	EventBus.combat_style_changed.connect(_on_combat_style_changed)
@@ -61,6 +66,8 @@ func _exit_tree() -> void:
 		EventBus.game_state_changed.disconnect(_on_game_state_changed)
 	if EventBus.mission_started.is_connected(_on_mission_started):
 		EventBus.mission_started.disconnect(_on_mission_started)
+	if EventBus.case_hint_requested.is_connected(_on_case_hint_requested):
+		EventBus.case_hint_requested.disconnect(_on_case_hint_requested)
 
 func _on_mission_started(_mission_id: String) -> void:
 	_refresh_mission_compact_hud()
@@ -102,9 +109,12 @@ func _refresh_mission_compact_hud() -> void:
 	if _mission_strip != null:
 		_mission_strip.visible = in_mission
 	if not in_mission:
+		if _social_status_panel != null:
+			_social_status_panel.visible = false
 		if objective_label != null:
 			objective_label.text = ""
 		return
+	_refresh_social_status()
 	if objective_label != null:
 		objective_label.text = _player_facing_objective_line(String(payload.get("objective_text", "")))
 	if _mission_strip == null:
@@ -133,6 +143,49 @@ func _refresh_mission_compact_hud() -> void:
 			_poop_label.tooltip_text = String(payload.get("poop_bag_status_text", ""))
 		else:
 			_poop_label.visible = false
+
+
+func _refresh_social_status() -> void:
+	if _social_status_panel == null or _social_status_label == null:
+		return
+	_social_status_panel.visible = true
+	var mission_id := String(GameState.current_mission_id)
+	var social := SocialStealthAdapter.get_summary(mission_id)
+	var cover := String(social.get("active_cover_story_id", ""))
+	cover = "None" if cover == "" else cover.replace("_", " ").capitalize()
+	var believability := "Unproven"
+	if int(social.get("inspections_failed", 0)) > 0:
+		believability = "Questioned"
+	elif int(social.get("inspections_passed", 0)) > 0:
+		believability = "Credible"
+	elif int(social.get("task_count", 0)) + int(social.get("protocol_count", 0)) > 0:
+		believability = "Believable"
+	var alert := get_tree().get_first_node_in_group("iso_alert_controller")
+	var alert_state := String(alert.get("alert_state")) if alert != null else "normal"
+	var camera_state := "Clear"
+	if alert != null and alert.has_method("get_camera_policy_debug_state"):
+		var camera_debug: Dictionary = alert.call("get_camera_policy_debug_state")
+		if not (camera_debug.get("active_actions", {}) as Dictionary).is_empty():
+			camera_state = "Action exposed"
+		var last_eval: Dictionary = camera_debug.get("last_evaluation", {})
+		if bool(last_eval.get("actionable", false)):
+			camera_state = "Watched"
+	var player := get_tree().get_first_node_in_group("player")
+	var stealth := "Standing"
+	if player != null and player.is_in_group("mission_hidden"):
+		stealth = "Hidden"
+	elif player != null and player.has_method("is_stealth_active") and bool(player.call("is_stealth_active")):
+		stealth = "Sneaking"
+	var bentley_state := "Following"
+	var bentley := get_tree().get_first_node_in_group("bentley")
+	if bentley != null and bentley.has_method("get_command_state"):
+		var command_state: Dictionary = bentley.call("get_command_state")
+		if bool(command_state.get("staying", false)):
+			bentley_state = "Parked"
+	_social_status_label.text = "COVER  %s\nBELIEF  %s   PRO  %d\nHEAT  %d   ALERT  %s\nSTEALTH  %s   CAM  %s\nBENTLEY  %s" % [
+		cover, believability, int(social.get("professionalism", 0)),
+		GameState.get_mission_heat(mission_id), alert_state.to_upper(), stealth, camera_state, bentley_state,
+	]
 
 
 func _player_facing_objective_line(body: String) -> String:
@@ -190,6 +243,40 @@ func _on_objective_updated(text: String) -> void:
 	if detection_meter:
 		detection_meter.tooltip_text = shown
 	_refresh_mission_compact_hud()
+
+
+func _on_case_hint_requested(text: String, speaker: String) -> void:
+	if _case_hint_label == null:
+		_case_hint_label = Label.new()
+		_case_hint_label.name = "CaseHintToast"
+		_case_hint_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+		_case_hint_label.offset_left = -260.0
+		_case_hint_label.offset_top = -116.0
+		_case_hint_label.offset_right = 260.0
+		_case_hint_label.offset_bottom = -68.0
+		_case_hint_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_case_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_case_hint_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_case_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_case_hint_label.add_theme_color_override("font_color", Color(0.92, 0.96, 0.78))
+		_case_hint_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.9))
+		_case_hint_label.add_theme_constant_override("shadow_offset_x", 2)
+		_case_hint_label.add_theme_constant_override("shadow_offset_y", 2)
+		_case_hint_label.add_theme_font_size_override("font_size", 16)
+		add_child(_case_hint_label)
+	var clean_text := text.strip_edges()
+	var clean_speaker := speaker.strip_edges()
+	_case_hint_label.text = "%s: %s" % [clean_speaker, clean_text] if clean_speaker != "" else clean_text
+	_case_hint_label.visible = clean_text != ""
+	if _case_hint_timer != null and is_instance_valid(_case_hint_timer) and _case_hint_timer.timeout.is_connected(_hide_case_hint):
+		_case_hint_timer.timeout.disconnect(_hide_case_hint)
+	_case_hint_timer = get_tree().create_timer(3.0, true)
+	_case_hint_timer.timeout.connect(_hide_case_hint)
+
+
+func _hide_case_hint() -> void:
+	if _case_hint_label != null:
+		_case_hint_label.visible = false
 
 
 func _on_detection_state_changed(current: float, max_value: float, state: String, modifier: float, source_id: String) -> void:

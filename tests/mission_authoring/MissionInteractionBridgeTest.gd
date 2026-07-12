@@ -205,6 +205,32 @@ func test_find_best_candidate_excludes_unavailable_when_required() -> void:
 	_teardown(bridge, [unavailable])
 
 
+func test_wall_collision_blocks_interaction_target() -> void:
+	var bridge := _spawn_bridge()
+	var candidate := _MockInteractCandidate.new()
+	candidate.global_position = Vector2(100, 0)
+	candidate.add_to_group("interactable")
+	add_child(candidate)
+
+	var wall := StaticBody2D.new()
+	wall.collision_layer = 4
+	wall.collision_mask = 0
+	wall.global_position = Vector2(50, 0)
+	var shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(16, 96)
+	shape.shape = rectangle
+	wall.add_child(shape)
+	add_child(wall)
+	await get_tree().physics_frame
+
+	assert_bool(bridge.find_best_candidate(Vector2.ZERO, false).is_empty()).is_true()
+	assert_bool(bridge.try_interact_at_position(Vector2.ZERO)).is_false()
+	assert_bool(candidate.interact_called).is_false()
+
+	_teardown(bridge, [candidate, wall])
+
+
 func test_prompt_priority_and_completed_helpers() -> void:
 	var bridge := _spawn_bridge()
 	var candidate := _MockInteractCandidate.new()

@@ -47,9 +47,47 @@ var _poop_bag_targeting := false
 var _stamina_controller: PlayerStaminaController = null
 ## Last completed physics frame — merged into `get_sprint_runtime_debug()` for overlay / harness.
 var _sprint_physics_debug_last: Dictionary = {}
+var _manual_stealth := false
+var _forced_stealth_sources: Dictionary = {}
 
 func is_stealth_active() -> bool:
-	return is_stealth
+	return is_stealth or not _forced_stealth_sources.is_empty()
+
+
+func add_forced_stealth_source(source_id: String) -> bool:
+	var id := source_id.strip_edges()
+	if id == "":
+		return false
+	if _forced_stealth_sources.is_empty():
+		_manual_stealth = is_stealth
+	_forced_stealth_sources[id] = true
+	_recompute_stealth_state()
+	return true
+
+
+func remove_forced_stealth_source(source_id: String) -> bool:
+	var id := source_id.strip_edges()
+	if not _forced_stealth_sources.erase(id):
+		return false
+	_recompute_stealth_state()
+	return true
+
+
+func has_forced_stealth_source(source_id: String = "") -> bool:
+	var id := source_id.strip_edges()
+	return not _forced_stealth_sources.is_empty() if id == "" else _forced_stealth_sources.has(id)
+
+
+func get_stealth_debug_state() -> Dictionary:
+	return {
+		"active": is_stealth_active(),
+		"manual": _manual_stealth,
+		"forced_sources": _forced_stealth_sources.keys(),
+	}
+
+
+func _recompute_stealth_state() -> void:
+	is_stealth = _manual_stealth or not _forced_stealth_sources.is_empty()
 
 func _uses_hitbox_combat() -> bool:
 	return _combat != null and _combat.enabled
@@ -114,7 +152,8 @@ func _physics_process(delta: float) -> void:
 	var stealth_mult: float = _card_float("get_player_stealth_multiplier", 1.0)
 	var effective_speed: float = speed * speed_mult
 	var effective_stealth_speed: float = stealth_speed * speed_mult * stealth_mult
-	is_stealth = _action_pressed("stealth")
+	_manual_stealth = _action_pressed("stealth")
+	_recompute_stealth_state()
 	var move_speed := effective_stealth_speed if is_stealth else effective_speed
 	var base_move_speed: float = move_speed
 	var sprint_mult := 1.0
@@ -389,7 +428,7 @@ func _try_click_interact(world_pos: Vector2) -> bool:
 
 func _try_case_the_joint() -> void:
 	if _case_joint_cooldown_timer > 0.0:
-		EventBus.objective_updated.emit("Focus not ready.")
+		EventBus.case_hint_requested.emit("Focus not ready.", "")
 		return
 	_case_joint_cooldown_timer = case_joint_cooldown
 	_case_joint_timer = case_joint_duration
@@ -401,7 +440,13 @@ func _try_case_the_joint() -> void:
 		if found >= 12:
 			break
 	EventBus.screen_shake.emit(0.55, 0.05)
-	EventBus.objective_updated.emit("Case the Joint: %d nearby points of interest." % found)
+	var hint_presented := false
+	var provider := get_tree().get_first_node_in_group("mission_case_hint_provider")
+	if provider != null and provider.has_method("request_hint"):
+		var result: Variant = provider.call("request_hint", self)
+		hint_presented = result is Dictionary and bool((result as Dictionary).get("ok", false))
+	if not hint_presented:
+		EventBus.case_hint_requested.emit("Case the Joint: %d nearby points of interest." % found, "")
 
 
 func _collect_case_targets() -> Array:

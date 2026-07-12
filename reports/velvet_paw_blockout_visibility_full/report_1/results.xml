@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="449" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="CompanionCommandPointTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:07" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="0.900">
+		<testcase name="test_companion_command_point_extends_mechanic_area_base" classname="CompanionCommandPointTest" time="0.025">
+		</testcase>
+		<testcase name="test_bark_command_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.038">
+		</testcase>
+		<testcase name="test_requirement_failure_blocks_companion_command" classname="CompanionCommandPointTest" time="0.024">
+		</testcase>
+		<testcase name="test_missing_companion_returns_clean_failure" classname="CompanionCommandPointTest" time="0.023">
+		</testcase>
+		<testcase name="test_fetch_command_calls_companion_fetch_method" classname="CompanionCommandPointTest" time="0.022">
+		</testcase>
+		<testcase name="test_crawlspace_connector_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.023">
+		</testcase>
+		<testcase name="test_wait_marker_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.047">
+		</testcase>
+		<testcase name="test_dog_companion_public_command_api" classname="CompanionCommandPointTest" time="0.032">
+		</testcase>
+		<testcase name="test_dog_companion_wait_and_crawlspace_commands_hold_position" classname="CompanionCommandPointTest" time="0.029">
+		</testcase>
+		<testcase name="test_dog_companion_fetch_interacts_with_fetchable_node" classname="CompanionCommandPointTest" time="0.025">
+		</testcase>
+		<testcase name="test_card_modifiers_tune_bentley_fetch_range_and_cooldowns" classname="CompanionCommandPointTest" time="0.030">
+		</testcase>
+		<testcase name="test_dev_scene_contains_phase7_command_points" classname="CompanionCommandPointTest" time="0.167">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="CornerStoreCashoutProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:08" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="5.294">
+		<testcase name="test_scene_loads_with_expected_structure" classname="CornerStoreCashoutProductionSkeletonTest" time="4.438">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="CornerStoreCashoutProductionSkeletonTest" time="0.027">
+		</testcase>
+		<testcase name="test_bridge_scope_is_safe" classname="CornerStoreCashoutProductionSkeletonTest" time="0.026">
+		</testcase>
+		<testcase name="test_core_objective_flag_chain_updates_controller" classname="CornerStoreCashoutProductionSkeletonTest" time="0.028">
+		</testcase>
+		<testcase name="test_locked_office_door_blocks_before_badge_requirement" classname="CornerStoreCashoutProductionSkeletonTest" time="0.028">
+		</testcase>
+		<testcase name="test_route_unlock_and_side_objective_nodes_exist" classname="CornerStoreCashoutProductionSkeletonTest" time="0.028">
+		</testcase>
+		<testcase name="test_extraction_blocks_before_required_objectives" classname="CornerStoreCashoutProductionSkeletonTest" time="0.034">
+		</testcase>
+		<testcase name="test_route_choice_locks_competitors" classname="CornerStoreCashoutProductionSkeletonTest" time="0.031">
+		</testcase>
+		<testcase name="test_encounter_route_summary_contains_route_labels" classname="CornerStoreCashoutProductionSkeletonTest" time="0.032">
+		</testcase>
+		<testcase name="test_taco_completion_unlocks_corner_store_in_game_state" classname="CornerStoreCashoutProductionSkeletonTest" time="0.032">
+		</testcase>
+		<testcase name="test_completion_bridge_finds_runtime_helpers_mission_controller" classname="CornerStoreCashoutProductionSkeletonTest" time="0.024">
+		</testcase>
+		<testcase name="test_scene_includes_debug_proof_harness" classname="CornerStoreCashoutProductionSkeletonTest" time="0.047">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="EffectSetTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:13" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.211">
+		<testcase name="test_effect_set_sets_mission_flag" classname="EffectSetTest" time="0.023">
+		</testcase>
+		<testcase name="test_effect_set_completes_objective" classname="EffectSetTest" time="0.040">
+		</testcase>
+		<testcase name="test_effect_set_stops_on_failure_when_configured" classname="EffectSetTest" time="0.026">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="ExtractionZoneTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:13" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="1.004">
+		<testcase name="test_extraction_zone_extends_mechanic_area_base" classname="ExtractionZoneTest" time="0.079">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_extracted" classname="ExtractionZoneTest" time="0.037">
+		</testcase>
+		<testcase name="test_successful_clean_extraction_without_mission_completion" classname="ExtractionZoneTest" time="0.020">
+		</testcase>
+		<testcase name="test_base_requirement_gating_blocks_extraction" classname="ExtractionZoneTest" time="0.041">
+		</testcase>
+		<testcase name="test_required_objective_gating" classname="ExtractionZoneTest" time="0.034">
+		</testcase>
+		<testcase name="test_optional_objective_reporting" classname="ExtractionZoneTest" time="0.027">
+		</testcase>
+		<testcase name="test_extraction_flag_sets_namespaced_mission_flag" classname="ExtractionZoneTest" time="0.054">
+		</testcase>
+		<testcase name="test_clean_exit_effects_apply_only_for_clean_outcome" classname="ExtractionZoneTest" time="0.026">
+		</testcase>
+		<testcase name="test_messy_exit_effects_when_alerted" classname="ExtractionZoneTest" time="0.033">
+		</testcase>
+		<testcase name="test_alert_failure_blocks_extraction_and_completion" classname="ExtractionZoneTest" time="0.061">
+		</testcase>
+		<testcase name="test_mission_completion_request_when_enabled" classname="ExtractionZoneTest" time="0.034">
+		</testcase>
+		<testcase name="test_already_extracted_does_not_reapply_effects" classname="ExtractionZoneTest" time="0.034">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="ExtractionZoneTest" time="0.040">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_extract" classname="ExtractionZoneTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="InteractiveContainerTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:14" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.793">
+		<testcase name="test_interactive_container_extends_search_zone_and_mechanic_area_base" classname="InteractiveContainerTest" time="0.052">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_open" classname="InteractiveContainerTest" time="0.033">
+		</testcase>
+		<testcase name="test_successful_open_search" classname="InteractiveContainerTest" time="0.033">
+		</testcase>
+		<testcase name="test_search_zone_reuse_and_no_duplicate_effects" classname="InteractiveContainerTest" time="0.040">
+		</testcase>
+		<testcase name="test_opened_flag_sets_namespaced_mission_flag" classname="InteractiveContainerTest" time="0.024">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_open_and_search" classname="InteractiveContainerTest" time="0.033">
+		</testcase>
+		<testcase name="test_close_container_keeps_searched_and_flags" classname="InteractiveContainerTest" time="0.034">
+		</testcase>
+		<testcase name="test_close_after_search_ends_closed" classname="InteractiveContainerTest" time="0.025">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="InteractiveContainerTest" time="0.025">
+		</testcase>
+		<testcase name="test_target_toggling_and_missing_path_warnings" classname="InteractiveContainerTest" time="0.032">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_open_container" classname="InteractiveContainerTest" time="0.036">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="InventoryPickupNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:15" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.564">
+		<testcase name="test_inventory_pickup_extends_reward_node" classname="InventoryPickupNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_successful_pickup_grants_item_once" classname="InventoryPickupNodeTest" time="0.034">
+		</testcase>
+		<testcase name="test_requirement_failure_does_not_grant_item" classname="InventoryPickupNodeTest" time="0.030">
+		</testcase>
+		<testcase name="test_collected_flag_still_uses_reward_node_flow" classname="InventoryPickupNodeTest" time="0.031">
+		</testcase>
+		<testcase name="test_pickup_item_requirement_unlocks_route" classname="InventoryPickupNodeTest" time="0.026">
+		</testcase>
+		<testcase name="test_dev_scene_contains_phase5d_pickup_route_chain" classname="InventoryPickupNodeTest" time="0.108">
+		</testcase>
+		<testcase name="test_f10_debug_line_shows_mission_inventory_snapshot" classname="InventoryPickupNodeTest" time="0.030">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="IsoMissionBaseLifecycleTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:16" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.785">
+		<testcase name="test_ensure_node_frees_unused_fallback_and_returns_existing" classname="IsoMissionBaseLifecycleTest" time="0.047">
+		</testcase>
+		<testcase name="test_ensure_node_attaches_valid_fallback_when_child_is_missing" classname="IsoMissionBaseLifecycleTest" time="0.033">
+		</testcase>
+		<testcase name="test_minimal_iso_mission_lifecycle_is_teardown_safe" classname="IsoMissionBaseLifecycleTest" time="0.070">
+		</testcase>
+		<testcase name="test_velvet_scene_lifecycle_twice_does_not_accumulate_orphans" classname="IsoMissionBaseLifecycleTest" time="0.448">
+		</testcase>
+	</testsuite>
+	<testsuite id="7" name="LevelBlueprintLayerTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:17" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.617">
+		<testcase name="test_reference_blueprints_load_and_validate" classname="LevelBlueprintLayerTest" time="0.039">
+		</testcase>
+		<testcase name="test_missing_spec_reports_error" classname="LevelBlueprintLayerTest" time="0.027">
+		</testcase>
+		<testcase name="test_every_mission_dock_mechanic_type_has_category" classname="LevelBlueprintLayerTest" time="0.044">
+		</testcase>
+		<testcase name="test_layer_frees_itself_at_runtime" classname="LevelBlueprintLayerTest" time="0.045">
+		</testcase>
+		<testcase name="test_phase0j_hider_strips_blueprint_layer_nodes" classname="LevelBlueprintLayerTest" time="0.024">
+		</testcase>
+		<testcase name="test_coverage_reports_placed_missing_and_mismatched" classname="LevelBlueprintLayerTest" time="0.051">
+		</testcase>
+		<testcase name="test_slot_helpers_and_parent_routing" classname="LevelBlueprintLayerTest" time="0.027">
+		</testcase>
+		<testcase name="test_mission_dock_carries_blueprint_integration" classname="LevelBlueprintLayerTest" time="0.037">
+		</testcase>
+	</testsuite>
+	<testsuite id="8" name="LevelBlueprintLayoutPainterTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:17" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.982">
+		<testcase name="test_dry_run_ok_and_production_scene_hash_unchanged" classname="LevelBlueprintLayoutPainterTest" time="0.187">
+		</testcase>
+		<testcase name="test_semantic_region_and_cell_sets" classname="LevelBlueprintLayoutPainterTest" time="0.042">
+		</testcase>
+		<testcase name="test_cover_contract_has_four_solid_and_two_non_solid_labels" classname="LevelBlueprintLayoutPainterTest" time="0.026">
+		</testcase>
+		<testcase name="test_nine_openings_have_expected_classifications_and_blocking" classname="LevelBlueprintLayoutPainterTest" time="0.035">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_closed_islands_are_contained" classname="LevelBlueprintLayoutPainterTest" time="0.040">
+		</testcase>
+		<testcase name="test_blocking_overlap_and_union_evidence" classname="LevelBlueprintLayoutPainterTest" time="0.033">
+		</testcase>
+		<testcase name="test_all_five_approved_layer_paths_resolve" classname="LevelBlueprintLayoutPainterTest" time="0.035">
+		</testcase>
+		<testcase name="test_non_dry_run_is_rejected_without_mutation" classname="LevelBlueprintLayoutPainterTest" time="0.057">
+		</testcase>
+		<testcase name="test_repeated_runs_are_deterministic" classname="LevelBlueprintLayoutPainterTest" time="0.169">
+		</testcase>
+	</testsuite>
+	<testsuite id="9" name="LockedInteractionNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:19" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="0.805">
+		<testcase name="test_locked_interaction_node_extends_mechanic_area_base" classname="LockedInteractionNodeTest" time="0.022">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_unlocked" classname="LockedInteractionNodeTest" time="0.024">
+		</testcase>
+		<testcase name="test_successful_unlock_without_requirements" classname="LockedInteractionNodeTest" time="0.064">
+		</testcase>
+		<testcase name="test_unlocked_flag_sets_namespaced_mission_flag" classname="LockedInteractionNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_requirement_failure_prevents_unlock_and_can_apply_failure_effects" classname="LockedInteractionNodeTest" time="0.022">
+		</testcase>
+		<testcase name="test_already_unlocked_does_not_reapply_effects_when_not_staying_available" classname="LockedInteractionNodeTest" time="0.043">
+		</testcase>
+		<testcase name="test_prompt_behavior_for_locked_and_unlocked_states" classname="LockedInteractionNodeTest" time="0.060">
+		</testcase>
+		<testcase name="test_target_toggling_show_hide_and_collision" classname="LockedInteractionNodeTest" time="0.024">
+		</testcase>
+		<testcase name="test_missing_target_path_returns_warnings_without_crash" classname="LockedInteractionNodeTest" time="0.060">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_unlock" classname="LockedInteractionNodeTest" time="0.030">
+		</testcase>
+	</testsuite>
+	<testsuite id="10" name="MechanicAreaBaseTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:19" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="1.002">
+		<testcase name="test_ready_adds_groups_and_initializes_used" classname="MechanicAreaBaseTest" time="0.041">
+		</testcase>
+		<testcase name="test_disabled_node_is_unavailable" classname="MechanicAreaBaseTest" time="0.037">
+		</testcase>
+		<testcase name="test_one_shot_used_node_is_unavailable" classname="MechanicAreaBaseTest" time="0.024">
+		</testcase>
+		<testcase name="test_actor_group_filtering" classname="MechanicAreaBaseTest" time="0.064">
+		</testcase>
+		<testcase name="test_empty_requirements_allow_interaction" classname="MechanicAreaBaseTest" time="0.029">
+		</testcase>
+		<testcase name="test_failing_requirements_block_availability_and_show_locked_prompt" classname="MechanicAreaBaseTest" time="0.026">
+		</testcase>
+		<testcase name="test_passing_requirements_allow_interaction" classname="MechanicAreaBaseTest" time="0.026">
+		</testcase>
+		<testcase name="test_success_effect_sets_namespaced_mission_flag" classname="MechanicAreaBaseTest" time="0.028">
+		</testcase>
+		<testcase name="test_one_shot_marks_used_after_successful_activation" classname="MechanicAreaBaseTest" time="0.022">
+		</testcase>
+		<testcase name="test_failure_effects_apply_when_requirements_fail" classname="MechanicAreaBaseTest" time="0.027">
+		</testcase>
+		<testcase name="test_failed_activation_does_not_mark_used" classname="MechanicAreaBaseTest" time="0.029">
+		</testcase>
+		<testcase name="test_interaction_aliases_route_to_activation" classname="MechanicAreaBaseTest" time="0.029">
+		</testcase>
+		<testcase name="test_get_interaction_priority_returns_export" classname="MechanicAreaBaseTest" time="0.032">
+		</testcase>
+		<testcase name="test_is_completed_reflects_used_one_shot" classname="MechanicAreaBaseTest" time="0.025">
+		</testcase>
+	</testsuite>
+	<testsuite id="11" name="MilestoneAAuthoringRuntimeDegateTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:20" hostname="localhost" tests="2" failures="0" errors="0" skipped="0" flaky="0" time="0.252">
+		<testcase name="test_non_taco_security_root_builds_router_and_authored_beam" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.090">
+		</testcase>
+		<testcase name="test_non_taco_without_security_root_records_no_collectible_root_and_no_router" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.056">
+		</testcase>
+	</testsuite>
+	<testsuite id="12" name="MilestoneAThinAuthorablesTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:21" hostname="localhost" tests="17" failures="0" errors="0" skipped="0" flaky="0" time="1.531">
+		<testcase name="test_player_start_marker_matches_existing_spawn_authoring_convention" classname="MilestoneAThinAuthorablesTest" time="0.022">
+		</testcase>
+		<testcase name="test_player_start_marker_creates_default_and_start_main_spawn_points" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_milestone_a_proof_scene_has_bridge_and_valid_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.086">
+		</testcase>
+		<testcase name="test_milestone_a_proof_camera_bounds_cover_authored_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.078">
+		</testcase>
+		<testcase name="test_milestone_a_proof_inventory_chain_is_self_contained" classname="MilestoneAThinAuthorablesTest" time="0.088">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.077">
+		</testcase>
+		<testcase name="test_milestone_a_proof_extraction_is_configured_for_visible_result_screen" classname="MilestoneAThinAuthorablesTest" time="0.099">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_are_reusable_and_work_after_route_unlock" classname="MilestoneAThinAuthorablesTest" time="0.065">
+		</testcase>
+		<testcase name="test_authored_poop_bag_updates_canonical_counts_immediately" classname="MilestoneAThinAuthorablesTest" time="0.028">
+		</testcase>
+		<testcase name="test_authored_clue_is_visible_to_pause_snapshot_during_attempt" classname="MilestoneAThinAuthorablesTest" time="0.029">
+		</testcase>
+		<testcase name="test_pause_inventory_snapshot_lists_mission_inventory_items" classname="MilestoneAThinAuthorablesTest" time="0.030">
+		</testcase>
+		<testcase name="test_hide_spot_marks_hidden_and_player_damage_respects_hidden_state" classname="MilestoneAThinAuthorablesTest" time="0.020">
+		</testcase>
+		<testcase name="test_teleport_zone_moves_player_and_applies_effect_after_requirements" classname="MilestoneAThinAuthorablesTest" time="0.032">
+		</testcase>
+		<testcase name="test_teleport_zone_blocks_when_requirements_fail" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+		<testcase name="test_teleport_zone_can_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.039">
+		</testcase>
+		<testcase name="test_teleport_zone_missing_target_is_safe" classname="MilestoneAThinAuthorablesTest" time="0.025">
+		</testcase>
+		<testcase name="test_music_trigger_zone_requests_audio_manager_and_restores_on_exit" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="13" name="MissionCompletionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:22" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.337">
+		<testcase name="test_request_complete_uses_game_state_fallback" classname="MissionCompletionBridgeTest" time="0.040">
+		</testcase>
+		<testcase name="test_request_fail_uses_game_state_fallback" classname="MissionCompletionBridgeTest" time="0.043">
+		</testcase>
+		<testcase name="test_missing_mission_id_fails_cleanly" classname="MissionCompletionBridgeTest" time="0.055">
+		</testcase>
+		<testcase name="test_request_mission_fail_effect_routes_through_applier" classname="MissionCompletionBridgeTest" time="0.029">
+		</testcase>
+	</testsuite>
+	<testsuite id="14" name="MissionConstructionKitIntegrationTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:23" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.322">
+		<testcase name="test_two_reward_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.043">
+		</testcase>
+		<testcase name="test_two_search_zones_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.026">
+		</testcase>
+		<testcase name="test_two_route_unlock_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.032">
+		</testcase>
+		<testcase name="test_two_side_objective_nodes_do_not_cross_contaminate" classname="MissionConstructionKitIntegrationTest" time="0.032">
+		</testcase>
+	</testsuite>
+	<testsuite id="15" name="MissionDialogueBridgeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:23" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.376">
+		<testcase name="test_play_simple_line_starts_dialogue_with_one_line" classname="MissionDialogueBridgeTest" time="0.036">
+		</testcase>
+		<testcase name="test_play_simple_line_supports_lines_payload" classname="MissionDialogueBridgeTest" time="0.026">
+		</testcase>
+		<testcase name="test_play_dialogue_key_uses_fallback_text" classname="MissionDialogueBridgeTest" time="0.040">
+		</testcase>
+		<testcase name="test_play_dialogue_key_without_fallback_fails_cleanly" classname="MissionDialogueBridgeTest" time="0.044">
+		</testcase>
+		<testcase name="test_trigger_simple_dialogue_effect_routes_through_applier" classname="MissionDialogueBridgeTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="16" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:23" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="0.986">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.045">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.024">
+		</testcase>
+		<testcase name="test_include_legacy_candidates_false_ignores_phase0j_groups" classname="MissionInteractionBridgeTest" time="0.030">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.036">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.031">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.026">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.035">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.029">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.043">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.025">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.033">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.042">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.032">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.020">
+		</testcase>
+	</testsuite>
+	<testsuite id="17" name="MissionInventoryTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:24" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.398">
+		<testcase name="test_item_data_exposes_item_vocabulary" classname="MissionInventoryTest" time="0.040">
+		</testcase>
+		<testcase name="test_mission_inventory_add_remove_count_category_and_clear" classname="MissionInventoryTest" time="0.024">
+		</testcase>
+		<testcase name="test_inventory_requirements_read_mission_inventory" classname="MissionInventoryTest" time="0.035">
+		</testcase>
+		<testcase name="test_inventory_effects_grant_remove_and_clear_items" classname="MissionInventoryTest" time="0.027">
+		</testcase>
+		<testcase name="test_mission_inventory_does_not_persist_and_clears_on_mission_lifecycle" classname="MissionInventoryTest" time="0.047">
+		</testcase>
+	</testsuite>
+	<testsuite id="18" name="MissionModifierSetTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:25" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.301">
+		<testcase name="test_modifier_set_keeps_card_bundle_inspectable" classname="MissionModifierSetTest" time="0.029">
+		</testcase>
+		<testcase name="test_modifier_set_evaluates_requirement_set" classname="MissionModifierSetTest" time="0.043">
+		</testcase>
+		<testcase name="test_modifier_set_applies_setup_effects_without_manager" classname="MissionModifierSetTest" time="0.028">
+		</testcase>
+		<testcase name="test_modifier_set_empty_setup_effects_is_safe_noop" classname="MissionModifierSetTest" time="0.025">
+		</testcase>
+	</testsuite>
+	<testsuite id="19" name="MissionSceneResolverCatalogTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:25" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.299">
+		<testcase name="test_existing_playable_iso_catalog_entries_resolve" classname="MissionSceneResolverCatalogTest" time="0.033">
+		</testcase>
+		<testcase name="test_unknown_mission_falls_back_to_game_state_default" classname="MissionSceneResolverCatalogTest" time="0.028">
+		</testcase>
+		<testcase name="test_temporary_catalog_playable_iso_scene_resolves_without_resolver_edit" classname="MissionSceneResolverCatalogTest" time="0.039">
+		</testcase>
+		<testcase name="test_resolution_report_warns_on_missing_playable_iso_scene" classname="MissionSceneResolverCatalogTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="20" name="NoiseDistractionTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:26" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.718">
+		<testcase name="test_noise_event_schema_and_range_helper" classname="NoiseDistractionTest" time="0.029">
+		</testcase>
+		<testcase name="test_noise_emitter_extends_mechanic_area_base" classname="NoiseDistractionTest" time="0.039">
+		</testcase>
+		<testcase name="test_noise_emitter_applies_effect_and_routes_to_alert_controller" classname="NoiseDistractionTest" time="0.056">
+		</testcase>
+		<testcase name="test_bentley_bark_emits_noise_event_to_alert_controller" classname="NoiseDistractionTest" time="0.040">
+		</testcase>
+		<testcase name="test_distraction_object_defaults_to_player_decoy_noise" classname="NoiseDistractionTest" time="0.033">
+		</testcase>
+		<testcase name="test_noise_listener_records_in_range_noise" classname="NoiseDistractionTest" time="0.032">
+		</testcase>
+		<testcase name="test_noise_reactive_guard_records_investigation_callback" classname="NoiseDistractionTest" time="0.032">
+		</testcase>
+		<testcase name="test_poop_bag_decoy_point_emits_noise_after_consuming_bag" classname="NoiseDistractionTest" time="0.038">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase8_nodes" classname="NoiseDistractionTest" time="0.066">
+		</testcase>
+	</testsuite>
+	<testsuite id="21" name="ObjectiveStepControllerTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:26" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.772">
+		<testcase name="test_result_contract_has_required_fields" classname="ObjectiveStepControllerTest" time="0.024">
+		</testcase>
+		<testcase name="test_mission_id_resolution_prefers_explicit_argument" classname="ObjectiveStepControllerTest" time="0.031">
+		</testcase>
+		<testcase name="test_mission_id_resolution_uses_context_when_explicit_empty" classname="ObjectiveStepControllerTest" time="0.040">
+		</testcase>
+		<testcase name="test_mission_id_resolution_falls_back_to_game_state" classname="ObjectiveStepControllerTest" time="0.026">
+		</testcase>
+		<testcase name="test_activate_objective_marks_active" classname="ObjectiveStepControllerTest" time="0.025">
+		</testcase>
+		<testcase name="test_complete_objective_after_activate" classname="ObjectiveStepControllerTest" time="0.033">
+		</testcase>
+		<testcase name="test_complete_missing_objective_uses_quest_manager_behavior" classname="ObjectiveStepControllerTest" time="0.032">
+		</testcase>
+		<testcase name="test_fail_objective_marks_failed_and_not_active" classname="ObjectiveStepControllerTest" time="0.025">
+		</testcase>
+		<testcase name="test_get_objective_record_for_active_and_missing" classname="ObjectiveStepControllerTest" time="0.024">
+		</testcase>
+		<testcase name="test_missing_objective_id_returns_clean_failure" classname="ObjectiveStepControllerTest" time="0.027">
+		</testcase>
+		<testcase name="test_quest_manager_presence" classname="ObjectiveStepControllerTest" time="0.042">
+		</testcase>
+	</testsuite>
+	<testsuite id="22" name="Phase0JRuntimeAuthoringHiderTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:27" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.771">
+		<testcase name="test_default_preserves_generated_runtime_marker_labels" classname="Phase0JRuntimeAuthoringHiderTest" time="0.036">
+		</testcase>
+		<testcase name="test_opt_in_hides_generated_runtime_marker_labels" classname="Phase0JRuntimeAuthoringHiderTest" time="0.053">
+		</testcase>
+		<testcase name="test_missing_generated_labels_path_does_not_crash" classname="Phase0JRuntimeAuthoringHiderTest" time="0.039">
+		</testcase>
+		<testcase name="test_opt_in_does_not_hide_plug_and_play_or_interactables" classname="Phase0JRuntimeAuthoringHiderTest" time="0.040">
+		</testcase>
+		<testcase name="test_security_author_labels_hidden_when_opt_in" classname="Phase0JRuntimeAuthoringHiderTest" time="0.040">
+		</testcase>
+		<testcase name="test_security_taco_policy_hides_author_and_preserves_proof_door_labels" classname="Phase0JRuntimeAuthoringHiderTest" time="0.048">
+		</testcase>
+		<testcase name="test_security_author_label_without_residue_flag_leaves_at_label_residue_visible" classname="Phase0JRuntimeAuthoringHiderTest" time="0.044">
+		</testcase>
+		<testcase name="test_security_proof_and_door_labels_hidden_when_opt_in" classname="Phase0JRuntimeAuthoringHiderTest" time="0.048">
+		</testcase>
+		<testcase name="test_default_preserves_proof_and_door_labels" classname="Phase0JRuntimeAuthoringHiderTest" time="0.040">
+		</testcase>
+	</testsuite>
+	<testsuite id="23" name="Phase10HideoutRewardAdapterTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:28" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.416">
+		<testcase name="test_completed_taco_rewards_apply_to_hideout_state" classname="Phase10HideoutRewardAdapterTest" time="0.022">
+		</testcase>
+		<testcase name="test_adapter_is_idempotent_for_store_and_card_unlocks" classname="Phase10HideoutRewardAdapterTest" time="0.035">
+		</testcase>
+		<testcase name="test_uncompleted_mission_does_not_apply_hideout_rewards" classname="Phase10HideoutRewardAdapterTest" time="0.035">
+		</testcase>
+		<testcase name="test_completed_rewards_survive_save_load_contract_path" classname="Phase10HideoutRewardAdapterTest" time="0.035">
+		</testcase>
+		<testcase name="test_dev_taco_completion_shortcut_uses_game_state_completion_path" classname="Phase10HideoutRewardAdapterTest" time="0.030">
+		</testcase>
+		<testcase name="test_mission_board_exposes_dev_completion_button_only_in_debug_builds" classname="Phase10HideoutRewardAdapterTest" time="0.026">
+		</testcase>
+	</testsuite>
+	<testsuite id="24" name="Phase11PaperTrailDeniabilityTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:28" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.527">
+		<testcase name="test_trace_event_schema_is_inspectable" classname="Phase11PaperTrailDeniabilityTest" time="0.033">
+		</testcase>
+		<testcase name="test_adapter_records_cleans_redirects_and_summarizes" classname="Phase11PaperTrailDeniabilityTest" time="0.029">
+		</testcase>
+		<testcase name="test_effect_applier_routes_paper_trail_effects" classname="Phase11PaperTrailDeniabilityTest" time="0.030">
+		</testcase>
+		<testcase name="test_mechanic_nodes_extend_base_and_change_trace_state" classname="Phase11PaperTrailDeniabilityTest" time="0.031">
+		</testcase>
+		<testcase name="test_mission_result_receives_paper_trail_summary" classname="Phase11PaperTrailDeniabilityTest" time="0.030">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase11_nodes" classname="Phase11PaperTrailDeniabilityTest" time="0.100">
+		</testcase>
+	</testsuite>
+	<testsuite id="25" name="Phase12NarrativePresentationTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:29" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.417">
+		<testcase name="test_dialogue_bridge_registry_provider_and_fallback_lookup" classname="Phase12NarrativePresentationTest" time="0.031">
+		</testcase>
+		<testcase name="test_dialogue_and_bark_triggers_prevent_spam" classname="Phase12NarrativePresentationTest" time="0.026">
+		</testcase>
+		<testcase name="test_camera_player_and_audio_visual_bridges_fail_safe_and_restore" classname="Phase12NarrativePresentationTest" time="0.036">
+		</testcase>
+		<testcase name="test_sequence_player_coordinates_bridges_without_gameplay_ownership" classname="Phase12NarrativePresentationTest" time="0.037">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase12_nodes" classname="Phase12NarrativePresentationTest" time="0.061">
+		</testcase>
+	</testsuite>
+	<testsuite id="26" name="Phase13SocialStealthTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:29" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.463">
+		<testcase name="test_cover_story_credentials_and_social_fact_bridge" classname="Phase13SocialStealthTest" time="0.030">
+		</testcase>
+		<testcase name="test_social_effects_route_through_effect_applier" classname="Phase13SocialStealthTest" time="0.027">
+		</testcase>
+		<testcase name="test_inspection_rule_set_accepts_and_rejects_social_state" classname="Phase13SocialStealthTest" time="0.023">
+		</testcase>
+		<testcase name="test_social_mechanic_nodes_drive_believable_action_flow" classname="Phase13SocialStealthTest" time="0.041">
+		</testcase>
+		<testcase name="test_mission_result_receives_social_summary" classname="Phase13SocialStealthTest" time="0.028">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase13_nodes" classname="Phase13SocialStealthTest" time="0.055">
+		</testcase>
+	</testsuite>
+	<testsuite id="27" name="Phase14EncounterTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:30" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.402">
+		<testcase name="test_encounter_controller_exposes_phase_meter_and_result_facts" classname="Phase14EncounterTest" time="0.028">
+		</testcase>
+		<testcase name="test_encounter_effects_route_through_effect_applier" classname="Phase14EncounterTest" time="0.028">
+		</testcase>
+		<testcase name="test_challenge_and_disruption_nodes_drive_non_hp_flow" classname="Phase14EncounterTest" time="0.026">
+		</testcase>
+		<testcase name="test_mission_result_receives_encounter_summary" classname="Phase14EncounterTest" time="0.032">
+		</testcase>
+		<testcase name="test_templates_and_proof_scene_contain_phase14_nodes_and_buttons" classname="Phase14EncounterTest" time="0.092">
+		</testcase>
+	</testsuite>
+	<testsuite id="28" name="Phase15ReactiveNpcTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:30" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.490">
+		<testcase name="test_social_signal_event_validates_and_round_trips_records" classname="Phase15ReactiveNpcTest" time="0.019">
+		</testcase>
+		<testcase name="test_brain_adapter_records_signals_and_budgeted_fallback_reactions" classname="Phase15ReactiveNpcTest" time="0.031">
+		</testcase>
+		<testcase name="test_effects_and_facts_route_through_reactive_adapter" classname="Phase15ReactiveNpcTest" time="0.026">
+		</testcase>
+		<testcase name="test_authoring_nodes_emit_bounded_reactive_signals" classname="Phase15ReactiveNpcTest" time="0.029">
+		</testcase>
+		<testcase name="test_mission_result_receives_reactive_npc_summary_and_limbo_is_adapter_gated" classname="Phase15ReactiveNpcTest" time="0.039">
+		</testcase>
+		<testcase name="test_templates_and_proof_scene_contain_phase15_nodes_and_buttons" classname="Phase15ReactiveNpcTest" time="0.065">
+		</testcase>
+	</testsuite>
+	<testsuite id="29" name="Phase16TacoGarageDeniabilityTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:31" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.375">
+		<testcase name="test_clean_social_route_uses_social_and_encounter_adapters" classname="Phase16TacoGarageDeniabilityTest" time="0.034">
+		</testcase>
+		<testcase name="test_bentley_and_evidence_routes_record_deniability_state" classname="Phase16TacoGarageDeniabilityTest" time="0.030">
+		</testcase>
+		<testcase name="test_messy_route_reports_authority_without_global_manager" classname="Phase16TacoGarageDeniabilityTest" time="0.026">
+		</testcase>
+		<testcase name="test_taco_scene_contains_phase16_controller_and_preserves_bridge_scope" classname="Phase16TacoGarageDeniabilityTest" time="0.044">
+		</testcase>
+		<testcase name="test_dev_trigger_calls_controller_without_interaction_scanning" classname="Phase16TacoGarageDeniabilityTest" time="0.024">
+		</testcase>
+	</testsuite>
+	<testsuite id="30" name="Phase17LevelBuilderReadinessTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:31" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.420">
+		<testcase name="test_f12_phase17_routes_are_qa_only_actions" classname="Phase17LevelBuilderReadinessTest" time="0.026">
+		</testcase>
+		<testcase name="test_phase16_route_label_reaches_mission_result_summary" classname="Phase17LevelBuilderReadinessTest" time="0.055">
+		</testcase>
+		<testcase name="test_level_builder_starter_and_non_taco_proof_scenes_load" classname="Phase17LevelBuilderReadinessTest" time="0.036">
+		</testcase>
+		<testcase name="test_non_taco_level_builder_proof_runs_multiple_systems" classname="Phase17LevelBuilderReadinessTest" time="0.049">
+		</testcase>
+		<testcase name="test_mission_dock_and_static_validator_cover_phase17_readiness" classname="Phase17LevelBuilderReadinessTest" time="0.036">
+		</testcase>
+	</testsuite>
+	<testsuite id="31" name="Phase18TacoPlayerRouteActionTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:32" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.509">
+		<testcase name="test_route_action_gates_until_code_gate_objective_is_complete" classname="Phase18TacoPlayerRouteActionTest" time="0.037">
+		</testcase>
+		<testcase name="test_route_action_can_gate_on_phase0k_controller_bool" classname="Phase18TacoPlayerRouteActionTest" time="0.040">
+		</testcase>
+		<testcase name="test_route_action_records_choice_and_locks_other_routes" classname="Phase18TacoPlayerRouteActionTest" time="0.028">
+		</testcase>
+		<testcase name="test_route_style_reaches_mission_result_summary" classname="Phase18TacoPlayerRouteActionTest" time="0.045">
+		</testcase>
+		<testcase name="test_taco_scene_contains_phase18_player_route_actions_and_preserves_bridge_scope" classname="Phase18TacoPlayerRouteActionTest" time="0.077">
+		</testcase>
+		<testcase name="test_mission_dock_and_static_validator_cover_phase18_routes" classname="Phase18TacoPlayerRouteActionTest" time="0.026">
+		</testcase>
+	</testsuite>
+	<testsuite id="32" name="Phase9BPowerPuzzleNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:32" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.499">
+		<testcase name="test_phase9b_nodes_extend_mechanic_area_base" classname="Phase9BPowerPuzzleNodeTest" time="0.027">
+		</testcase>
+		<testcase name="test_timed_switch_sets_and_expires_mission_flag" classname="Phase9BPowerPuzzleNodeTest" time="0.021">
+		</testcase>
+		<testcase name="test_pressure_plate_sets_and_clears_pressed_flag" classname="Phase9BPowerPuzzleNodeTest" time="0.026">
+		</testcase>
+		<testcase name="test_pressure_plate_accepts_bentley_actor_group" classname="Phase9BPowerPuzzleNodeTest" time="0.029">
+		</testcase>
+		<testcase name="test_power_circuit_requires_linked_flags_before_powering" classname="Phase9BPowerPuzzleNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase9b_nodes" classname="Phase9BPowerPuzzleNodeTest" time="0.080">
+		</testcase>
+	</testsuite>
+	<testsuite id="33" name="Phase9CTo9FPuzzleSideJobNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:33" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.575">
+		<testcase name="test_phase9c_to_9f_nodes_extend_expected_bases" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.044">
+		</testcase>
+		<testcase name="test_dead_drop_deposit_removes_item_and_sets_facts" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.037">
+		</testcase>
+		<testcase name="test_dead_drop_retrieve_grants_item" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.026">
+		</testcase>
+		<testcase name="test_object_swap_consumes_required_item_and_grants_replacement" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.048">
+		</testcase>
+		<testcase name="test_bug_plant_and_eavesdrop_set_ordered_side_job_facts" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.038">
+		</testcase>
+		<testcase name="test_custom_sequence_runner_enforces_step_dependencies" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.021">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase9c_to_9f_nodes" classname="Phase9CTo9FPuzzleSideJobNodeTest" time="0.071">
+		</testcase>
+	</testsuite>
+	<testsuite id="34" name="Phase9GTo9ISideJobCompletionTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:34" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.685">
+		<testcase name="test_phase9_side_job_proof_room_contains_two_distinct_side_jobs" classname="Phase9GTo9ISideJobCompletionTest" time="0.050">
+		</testcase>
+		<testcase name="test_phase9g_poop_bag_calibration_course_flow_uses_reusable_nodes" classname="Phase9GTo9ISideJobCompletionTest" time="0.029">
+		</testcase>
+		<testcase name="test_phase9h_bentley_snack_trail_flow_uses_different_node_combination" classname="Phase9GTo9ISideJobCompletionTest" time="0.033">
+		</testcase>
+		<testcase name="test_phase9i_taco_production_gate_is_isolated_and_route_gated" classname="Phase9GTo9ISideJobCompletionTest" time="0.067">
+		</testcase>
+		<testcase name="test_phase9i_taco_production_chain_sets_flags_and_visuals" classname="Phase9GTo9ISideJobCompletionTest" time="0.127">
+		</testcase>
+		<testcase name="test_phase9i_taco_bridge_selects_side_job_signoff_after_route_open" classname="Phase9GTo9ISideJobCompletionTest" time="0.136">
+		</testcase>
+	</testsuite>
+	<testsuite id="35" name="PhaseD501AttemptResetContractTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:34" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.200">
+		<testcase name="test_objective_bridge_reset_clears_only_target_mission_runtime_objectives" classname="PhaseD501AttemptResetContractTest" time="0.028">
+		</testcase>
+		<testcase name="test_phase0k_reset_attempt_state_clears_bag_code_exit_and_reseeds_objectives" classname="PhaseD501AttemptResetContractTest" time="0.033">
+		</testcase>
+		<testcase name="test_phase0j_bag_interactable_reset_restores_visual_collision_and_label" classname="PhaseD501AttemptResetContractTest" time="0.031">
+		</testcase>
+		<testcase name="test_phase0j_state_adapter_reset_forgets_collected_delivery_bag" classname="PhaseD501AttemptResetContractTest" time="0.029">
+		</testcase>
+		<testcase name="test_d5_security_reset_rearms_beam_and_removes_response_guards" classname="PhaseD501AttemptResetContractTest" time="0.063">
+		</testcase>
+		<testcase name="test_d5_reset_preclear_removes_live_cameras_and_attempt_guards" classname="PhaseD501AttemptResetContractTest" time="0.049">
+		</testcase>
+		<testcase name="test_runtime_rebuild_clear_children_removes_queued_nodes_immediately" classname="PhaseD501AttemptResetContractTest" time="0.040">
+		</testcase>
+		<testcase name="test_authoring_beam_trip_marks_same_runtime_flag_as_f12_dashboard" classname="PhaseD501AttemptResetContractTest" time="0.040">
+		</testcase>
+		<testcase name="test_stale_security_event_router_is_not_reused_after_runtime_rebuild" classname="PhaseD501AttemptResetContractTest" time="0.078">
+		</testcase>
+		<testcase name="test_d5_pause_payload_uses_live_taco_mission_context" classname="PhaseD501AttemptResetContractTest" time="0.074">
+		</testcase>
+		<testcase name="test_d5_louis_route_bypasses_beam_without_marking_alarm_trip" classname="PhaseD501AttemptResetContractTest" time="0.078">
+		</testcase>
+		<testcase name="test_d5_beam_still_trips_without_louis_route" classname="PhaseD501AttemptResetContractTest" time="0.060">
+		</testcase>
+	</testsuite>
+	<testsuite id="36" name="PhaseD6PlayerFacingPolishTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:36" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.367">
+		<testcase name="test_taco_success_posts_first_sterling_clue_and_result_status" classname="PhaseD6PlayerFacingPolishTest" time="0.047">
+		</testcase>
+		<testcase name="test_pause_provider_marks_taco_next_objective" classname="PhaseD6PlayerFacingPolishTest" time="0.054">
+		</testcase>
+		<testcase name="test_hud_payload_exposes_next_objective_and_three_bag_status" classname="PhaseD6PlayerFacingPolishTest" time="0.068">
+		</testcase>
+	</testsuite>
+	<testsuite id="37" name="ReplanPacket1ReadabilityTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:36" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.706">
+		<testcase name="test_instant_interact_still_activates_immediately" classname="ReplanPacket1ReadabilityTest" time="0.039">
+		</testcase>
+		<testcase name="test_hold_interact_channels_then_activates" classname="ReplanPacket1ReadabilityTest" time="0.023">
+		</testcase>
+		<testcase name="test_hold_interrupts_when_actor_moves" classname="ReplanPacket1ReadabilityTest" time="0.030">
+		</testcase>
+		<testcase name="test_hold_interrupt_adds_alert_exposure_when_configured" classname="ReplanPacket1ReadabilityTest" time="0.069">
+		</testcase>
+		<testcase name="test_noise_pulse_visualizer_records_emitted_noise" classname="ReplanPacket1ReadabilityTest" time="0.029">
+		</testcase>
+		<testcase name="test_npc_pip_visualizer_marks_enemies_when_suspicious" classname="ReplanPacket1ReadabilityTest" time="0.046">
+		</testcase>
+		<testcase name="test_readability_layer_composes_all_visualizers" classname="ReplanPacket1ReadabilityTest" time="0.055">
+		</testcase>
+		<testcase name="test_casing_overlay_reads_mission_state_without_crash" classname="ReplanPacket1ReadabilityTest" time="0.035">
+		</testcase>
+	</testsuite>
+	<testsuite id="38" name="ReplanPacket2HeistKitTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:37" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.612">
+		<testcase name="test_item_data_incriminating_and_bulky_flow_into_inventory" classname="ReplanPacket2HeistKitTest" time="0.025">
+		</testcase>
+		<testcase name="test_incriminating_total_scales_with_count" classname="ReplanPacket2HeistKitTest" time="0.030">
+		</testcase>
+		<testcase name="test_inspection_frisk_fails_on_incriminating_gear" classname="ReplanPacket2HeistKitTest" time="0.034">
+		</testcase>
+		<testcase name="test_inspection_frisk_disabled_by_default" classname="ReplanPacket2HeistKitTest" time="0.025">
+		</testcase>
+		<testcase name="test_footstep_emitter_tiers_and_bulky_radius" classname="ReplanPacket2HeistKitTest" time="0.033">
+		</testcase>
+		<testcase name="test_decoy_throw_consumes_item_and_emits_decoy_noise" classname="ReplanPacket2HeistKitTest" time="0.040">
+		</testcase>
+		<testcase name="test_decoy_throw_clamps_to_range" classname="ReplanPacket2HeistKitTest" time="0.020">
+		</testcase>
+		<testcase name="test_heist_kit_hud_splits_loadout_and_mission_slots" classname="ReplanPacket2HeistKitTest" time="0.030">
+		</testcase>
+		<testcase name="test_kit_layer_composes_all_pieces" classname="ReplanPacket2HeistKitTest" time="0.036">
+		</testcase>
+	</testsuite>
+	<testsuite id="39" name="ReplanPacket3CoverRuntimeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:37" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.736">
+		<testcase name="test_cover_meter_drains_on_sustained_running" classname="ReplanPacket3CoverRuntimeTest" time="0.027">
+		</testcase>
+		<testcase name="test_cover_meter_drain_floor_stops_passive_drain" classname="ReplanPacket3CoverRuntimeTest" time="0.031">
+		</testcase>
+		<testcase name="test_alibi_window_registration_and_expiry_query" classname="ReplanPacket3CoverRuntimeTest" time="0.030">
+		</testcase>
+		<testcase name="test_believable_task_grants_alibi_window" classname="ReplanPacket3CoverRuntimeTest" time="0.050">
+		</testcase>
+		<testcase name="test_believable_task_repeat_cooldown_blocks_spam" classname="ReplanPacket3CoverRuntimeTest" time="0.029">
+		</testcase>
+		<testcase name="test_roaming_inspector_auto_passes_during_alibi" classname="ReplanPacket3CoverRuntimeTest" time="0.037">
+		</testcase>
+		<testcase name="test_roaming_inspector_fail_confiscates_and_bumps_exposure" classname="ReplanPacket3CoverRuntimeTest" time="0.026">
+		</testcase>
+		<testcase name="test_challenge_prompt_choices_respect_facts" classname="ReplanPacket3CoverRuntimeTest" time="0.035">
+		</testcase>
+		<testcase name="test_cover_layer_composes_meter_and_prompt" classname="ReplanPacket3CoverRuntimeTest" time="0.031">
+		</testcase>
+	</testsuite>
+	<testsuite id="40" name="ReplanPacket4TraceMessTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:38" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.700">
+		<testcase name="test_mess_spawn_charges_debt_and_cleanup_restores" classname="ReplanPacket4TraceMessTest" time="0.039">
+		</testcase>
+		<testcase name="test_mess_cleanup_with_trace_radius_wipes_nearby_traces" classname="ReplanPacket4TraceMessTest" time="0.042">
+		</testcase>
+		<testcase name="test_hardened_traces_resist_cleanup_but_allow_redirect" classname="ReplanPacket4TraceMessTest" time="0.051">
+		</testcase>
+		<testcase name="test_hardening_disabled_by_default_keeps_cleanup_working" classname="ReplanPacket4TraceMessTest" time="0.024">
+		</testcase>
+		<testcase name="test_investigation_report_clean_run_is_cold_case" classname="ReplanPacket4TraceMessTest" time="0.044">
+		</testcase>
+		<testcase name="test_investigation_report_active_traces_open_investigation" classname="ReplanPacket4TraceMessTest" time="0.039">
+		</testcase>
+		<testcase name="test_investigation_report_redirected_names_the_raccoon" classname="ReplanPacket4TraceMessTest" time="0.026">
+		</testcase>
+		<testcase name="test_annotate_mission_result_adds_report_payload" classname="ReplanPacket4TraceMessTest" time="0.027">
+		</testcase>
+		<testcase name="test_venue_heat_accumulates_from_report_and_cools" classname="ReplanPacket4TraceMessTest" time="0.031">
+		</testcase>
+	</testsuite>
+	<testsuite id="41" name="ReplanPacket5WitnessTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:39" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.620">
+		<testcase name="test_witness_scan_notices_nearby_mess" classname="ReplanPacket5WitnessTest" time="0.036">
+		</testcase>
+		<testcase name="test_report_files_signal_trace_and_exposure" classname="ReplanPacket5WitnessTest" time="0.039">
+		</testcase>
+		<testcase name="test_cleaning_mess_makes_witness_stand_down" classname="ReplanPacket5WitnessTest" time="0.046">
+		</testcase>
+		<testcase name="test_player_decoy_noise_distracts_witness" classname="ReplanPacket5WitnessTest" time="0.038">
+		</testcase>
+		<testcase name="test_sabotaged_phone_blocks_report" classname="ReplanPacket5WitnessTest" time="0.062">
+		</testcase>
+		<testcase name="test_gossip_reaches_exactly_one_nearby_witness" classname="ReplanPacket5WitnessTest" time="0.074">
+		</testcase>
+		<testcase name="test_gossip_shortens_notice_delay" classname="ReplanPacket5WitnessTest" time="0.024">
+		</testcase>
+	</testsuite>
+	<testsuite id="42" name="ReplanPacket6HeatMetaTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:40" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.523">
+		<testcase name="test_scanner_readout_lists_venues_by_heat" classname="ReplanPacket6HeatMetaTest" time="0.035">
+		</testcase>
+		<testcase name="test_scanner_chatter_scales_with_heat" classname="ReplanPacket6HeatMetaTest" time="0.037">
+		</testcase>
+		<testcase name="test_cooldown_shift_requires_completed_venue" classname="ReplanPacket6HeatMetaTest" time="0.043">
+		</testcase>
+		<testcase name="test_cooldown_shift_cools_worked_venue" classname="ReplanPacket6HeatMetaTest" time="0.025">
+		</testcase>
+		<testcase name="test_cooldown_shift_cannot_cool_below_attempt_floor" classname="ReplanPacket6HeatMetaTest" time="0.027">
+		</testcase>
+		<testcase name="test_briefing_line_reflects_heat_level" classname="ReplanPacket6HeatMetaTest" time="0.032">
+		</testcase>
+		<testcase name="test_mission_heat_uses_max_of_report_and_attempts" classname="ReplanPacket6HeatMetaTest" time="0.030">
+		</testcase>
+	</testsuite>
+	<testsuite id="43" name="RequirementSetTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:40" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.796">
+		<testcase name="test_selected_card_requirement_reads_game_state" classname="RequirementSetTest" time="0.031">
+		</testcase>
+		<testcase name="test_unlocked_card_requirement_reads_typed_scheme_registry" classname="RequirementSetTest" time="0.033">
+		</testcase>
+		<testcase name="test_scheme_effect_requirement_reads_selected_card_effect" classname="RequirementSetTest" time="0.057">
+		</testcase>
+		<testcase name="test_scheme_effect_requirement_reads_current_loadout_effect" classname="RequirementSetTest" time="0.031">
+		</testcase>
+		<testcase name="test_completed_objective_requirement_reads_quest_manager" classname="RequirementSetTest" time="0.061">
+		</testcase>
+		<testcase name="test_mission_flag_requirement_uses_namespaced_dialogue_flag" classname="RequirementSetTest" time="0.054">
+		</testcase>
+		<testcase name="test_typed_collectible_count_requirement_counts_type_and_group" classname="RequirementSetTest" time="0.034">
+		</testcase>
+		<testcase name="test_requirement_set_any_passes_when_one_requirement_passes" classname="RequirementSetTest" time="0.035">
+		</testcase>
+	</testsuite>
+	<testsuite id="44" name="RewardNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:41" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="0.900">
+		<testcase name="test_reward_node_extends_mechanic_area_base" classname="RewardNodeTest" time="0.041">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_collected" classname="RewardNodeTest" time="0.043">
+		</testcase>
+		<testcase name="test_successful_collection" classname="RewardNodeTest" time="0.050">
+		</testcase>
+		<testcase name="test_effect_set_reward_and_no_duplicate_on_repeat" classname="RewardNodeTest" time="0.045">
+		</testcase>
+		<testcase name="test_collected_flag_sets_namespaced_mission_flag" classname="RewardNodeTest" time="0.027">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_collection" classname="RewardNodeTest" time="0.038">
+		</testcase>
+		<testcase name="test_already_collected_availability" classname="RewardNodeTest" time="0.026">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="RewardNodeTest" time="0.051">
+		</testcase>
+		<testcase name="test_target_toggling_and_missing_path_warnings" classname="RewardNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_grant_typed_collectible_through_effect_set" classname="RewardNodeTest" time="0.023">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_collect" classname="RewardNodeTest" time="0.028">
+		</testcase>
+	</testsuite>
+	<testsuite id="45" name="RouteUnlockNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:42" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="0.898">
+		<testcase name="test_route_unlock_node_extends_mechanic_area_base" classname="RouteUnlockNodeTest" time="0.022">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_unlocked" classname="RouteUnlockNodeTest" time="0.028">
+		</testcase>
+		<testcase name="test_successful_route_unlock" classname="RouteUnlockNodeTest" time="0.027">
+		</testcase>
+		<testcase name="test_effect_set_and_no_duplicate_on_repeat" classname="RouteUnlockNodeTest" time="0.024">
+		</testcase>
+		<testcase name="test_route_flag_sets_namespaced_mission_flag" classname="RouteUnlockNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_unlock" classname="RouteUnlockNodeTest" time="0.024">
+		</testcase>
+		<testcase name="test_mission_flag_requirement_delegates_gating" classname="RouteUnlockNodeTest" time="0.054">
+		</testcase>
+		<testcase name="test_already_unlocked_availability" classname="RouteUnlockNodeTest" time="0.047">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="RouteUnlockNodeTest" time="0.035">
+		</testcase>
+		<testcase name="test_visual_target_toggling_and_warnings" classname="RouteUnlockNodeTest" time="0.027">
+		</testcase>
+		<testcase name="test_collision_target_toggling" classname="RouteUnlockNodeTest" time="0.032">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_unlock" classname="RouteUnlockNodeTest" time="0.025">
+		</testcase>
+	</testsuite>
+	<testsuite id="46" name="SchemeCardTriggerNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:43" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.659">
+		<testcase name="test_selected_card_modifier_applies_setup_effect" classname="SchemeCardTriggerNodeTest" time="0.030">
+		</testcase>
+		<testcase name="test_missing_selected_card_blocks_trigger" classname="SchemeCardTriggerNodeTest" time="0.028">
+		</testcase>
+		<testcase name="test_current_loadout_card_modifier_unlocks_route_requirement" classname="SchemeCardTriggerNodeTest" time="0.024">
+		</testcase>
+		<testcase name="test_apply_on_ready_runs_starting_setup_hook" classname="SchemeCardTriggerNodeTest" time="0.032">
+		</testcase>
+		<testcase name="test_phase6f_taco_scene_has_louis_route_card_slice" classname="SchemeCardTriggerNodeTest" time="0.146">
+		</testcase>
+		<testcase name="test_planning_table_dev_louis_override_does_not_unlock_card" classname="SchemeCardTriggerNodeTest" time="0.028">
+		</testcase>
+		<testcase name="test_start_mission_clears_stale_phase6f_attempt_flags" classname="SchemeCardTriggerNodeTest" time="0.037">
+		</testcase>
+	</testsuite>
+	<testsuite id="47" name="SearchZoneTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:44" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="0.924">
+		<testcase name="test_search_zone_extends_mechanic_area_base" classname="SearchZoneTest" time="0.027">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_searched" classname="SearchZoneTest" time="0.031">
+		</testcase>
+		<testcase name="test_successful_search_without_requirements" classname="SearchZoneTest" time="0.028">
+		</testcase>
+		<testcase name="test_searched_flag_sets_namespaced_mission_flag" classname="SearchZoneTest" time="0.034">
+		</testcase>
+		<testcase name="test_requirement_failure_prevents_search_and_can_apply_failure_effects" classname="SearchZoneTest" time="0.047">
+		</testcase>
+		<testcase name="test_already_searched_does_not_reapply_effects_when_not_staying_available" classname="SearchZoneTest" time="0.042">
+		</testcase>
+		<testcase name="test_prompt_behavior_for_unsearched_and_searched_states" classname="SearchZoneTest" time="0.034">
+		</testcase>
+		<testcase name="test_target_toggling_show_hide_and_visual_shorthand" classname="SearchZoneTest" time="0.058">
+		</testcase>
+		<testcase name="test_missing_target_path_returns_warnings_without_crash" classname="SearchZoneTest" time="0.054">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_search" classname="SearchZoneTest" time="0.050">
+		</testcase>
+	</testsuite>
+	<testsuite id="48" name="SecurityEffectSetAuthorTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:45" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.444">
+		<testcase name="test_security_event_applies_effect_set_mission_flag" classname="SecurityEffectSetAuthorTest" time="0.040">
+		</testcase>
+		<testcase name="test_unmatched_security_event_does_not_apply_effect_set" classname="SecurityEffectSetAuthorTest" time="0.048">
+		</testcase>
+		<testcase name="test_missing_effect_set_rejects_security_event" classname="SecurityEffectSetAuthorTest" time="0.031">
+		</testcase>
+		<testcase name="test_debug_summary_exposes_effect_chain_result" classname="SecurityEffectSetAuthorTest" time="0.038">
+		</testcase>
+		<testcase name="test_dev_scene_security_event_applies_effect_set" classname="SecurityEffectSetAuthorTest" time="0.032">
+		</testcase>
+	</testsuite>
+	<testsuite id="49" name="SecurityReadabilityLiteTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:45" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="0.584">
+		<testcase name="test_camera_sweep_debug_state_is_predictable" classname="SecurityReadabilityLiteTest" time="0.031">
+		</testcase>
+		<testcase name="test_camera_author_exports_readability_config" classname="SecurityReadabilityLiteTest" time="0.056">
+		</testcase>
+		<testcase name="test_hide_spot_reduces_and_resets_detection_modifier" classname="SecurityReadabilityLiteTest" time="0.038">
+		</testcase>
+		<testcase name="test_taco_phase4g_camera_alarm_effect_set_slice_exists" classname="SecurityReadabilityLiteTest" time="0.037">
+		</testcase>
+		<testcase name="test_phase4g_qa_model_reports_waiting_before_alarm" classname="SecurityReadabilityLiteTest" time="0.043">
+		</testcase>
+		<testcase name="test_phase4g_qa_model_reports_passed_alarm_chain" classname="SecurityReadabilityLiteTest" time="0.032">
+		</testcase>
+		<testcase name="test_qa_review_hotkey_avoids_godot_editor_stop_key" classname="SecurityReadabilityLiteTest" time="0.033">
+		</testcase>
+	</testsuite>
+	<testsuite id="50" name="SideObjectiveNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:46" hostname="localhost" tests="13" failures="0" errors="0" skipped="0" flaky="0" time="1.044">
+		<testcase name="test_side_objective_node_extends_mechanic_area_base" classname="SideObjectiveNodeTest" time="0.025">
+		</testcase>
+		<testcase name="test_ready_groups_and_starts_handled" classname="SideObjectiveNodeTest" time="0.029">
+		</testcase>
+		<testcase name="test_successful_objective_activation" classname="SideObjectiveNodeTest" time="0.036">
+		</testcase>
+		<testcase name="test_successful_objective_completion" classname="SideObjectiveNodeTest" time="0.029">
+		</testcase>
+		<testcase name="test_objective_fail_behavior" classname="SideObjectiveNodeTest" time="0.050">
+		</testcase>
+		<testcase name="test_requirement_gating_blocks_objective_action" classname="SideObjectiveNodeTest" time="0.040">
+		</testcase>
+		<testcase name="test_success_effects_apply_through_activate" classname="SideObjectiveNodeTest" time="0.038">
+		</testcase>
+		<testcase name="test_objective_flag_sets_namespaced_mission_flag" classname="SideObjectiveNodeTest" time="0.027">
+		</testcase>
+		<testcase name="test_already_handled_availability" classname="SideObjectiveNodeTest" time="0.031">
+		</testcase>
+		<testcase name="test_prompt_behavior" classname="SideObjectiveNodeTest" time="0.028">
+		</testcase>
+		<testcase name="test_missing_objective_id_returns_clean_failure" classname="SideObjectiveNodeTest" time="0.037">
+		</testcase>
+		<testcase name="test_multiple_instance_isolation" classname="SideObjectiveNodeTest" time="0.029">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_handle_objective" classname="SideObjectiveNodeTest" time="0.052">
+		</testcase>
+	</testsuite>
+	<testsuite id="51" name="TerminalHackNodeTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:47" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.368">
+		<testcase name="test_terminal_hack_node_extends_locked_interaction_node" classname="TerminalHackNodeTest" time="0.030">
+		</testcase>
+		<testcase name="test_terminal_hack_sets_completion_flag_and_effects" classname="TerminalHackNodeTest" time="0.055">
+		</testcase>
+		<testcase name="test_interface_methods_route_to_hack" classname="TerminalHackNodeTest" time="0.032">
+		</testcase>
+		<testcase name="test_template_and_dev_scene_contain_terminal_hack" classname="TerminalHackNodeTest" time="0.066">
+		</testcase>
+	</testsuite>
+	<testsuite id="52" name="TileDataPromotionHelperTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:47" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.423">
+		<testcase name="test_synthetic_lf_and_crlf_preserve_every_baseline_byte" classname="TileDataPromotionHelperTest" time="0.035">
+		</testcase>
+		<testcase name="test_rejects_invalid_exact_block_contracts" classname="TileDataPromotionHelperTest" time="0.028">
+		</testcase>
+		<testcase name="test_deterministic_payloads_and_known_defaults_excluded" classname="TileDataPromotionHelperTest" time="0.032">
+		</testcase>
+		<testcase name="test_real_candidate_uses_immutable_checkpoint_scratch_baseline" classname="TileDataPromotionHelperTest" time="0.105">
+		</testcase>
+	</testsuite>
+	<testsuite id="53" name="TriggerZoneTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:48" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.723">
+		<testcase name="test_trigger_zone_extends_mechanic_area_base" classname="TriggerZoneTest" time="0.022">
+		</testcase>
+		<testcase name="test_ready_keeps_mission_mechanic_groups" classname="TriggerZoneTest" time="0.035">
+		</testcase>
+		<testcase name="test_script_trigger_activates_and_sets_reason" classname="TriggerZoneTest" time="0.064">
+		</testcase>
+		<testcase name="test_build_context_includes_trigger_metadata" classname="TriggerZoneTest" time="0.032">
+		</testcase>
+		<testcase name="test_one_shot_marks_used_and_second_trigger_is_already_used" classname="TriggerZoneTest" time="0.028">
+		</testcase>
+		<testcase name="test_requirement_failure_applies_failure_effects_without_marking_used" classname="TriggerZoneTest" time="0.039">
+		</testcase>
+		<testcase name="test_interact_required_does_not_auto_activate_on_body_enter" classname="TriggerZoneTest" time="0.037">
+		</testcase>
+		<testcase name="test_automatic_on_enter_handler_activates_allowed_actor" classname="TriggerZoneTest" time="0.024">
+		</testcase>
+		<testcase name="test_interact_routes_with_interact_reason" classname="TriggerZoneTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="54" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:48" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="3.905">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="0.567">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.268">
+		</testcase>
+		<testcase name="test_furniture_solid_cover_and_front_rope_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.317">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.271">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="0.820">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.271">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.231">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.270">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.243">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.236">
+		</testcase>
+	</testsuite>
+	<testsuite id="55" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:52" hostname="localhost" tests="18" failures="0" errors="0" skipped="0" flaky="0" time="4.218">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.101">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.038">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.105">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.116">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.718">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.335">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.034">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.102">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.735">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.491">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.123">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.095">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.118">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.093">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.101">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.093">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.072">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.026">
+		</testcase>
+	</testsuite>
+	<testsuite id="56" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T15:42:57" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="2.304">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.117">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.224">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.247">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.917">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.344">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.238">
+		</testcase>
+	</testsuite>
+</testsuites>

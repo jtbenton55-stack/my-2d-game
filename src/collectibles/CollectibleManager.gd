@@ -4,6 +4,7 @@ var polaroid_catalog: Dictionary = {
 	"taco_bell_polaroid": {"title": "Bentley Judges the Bag", "description": "Completion shot — the Taco Bell drop was never just takeout."},
 	"taco_bell_midnight_market_rain": {"title": "Midnight Market Rain", "description": "Neon halal cart glow through drizzle by a tired streetlight."},
 	"jazz_club_polaroid": {"title": "Velvet Paw", "description": "Noir lights, bass downstairs, secrets backstage."},
+	"velvet_vip_champagne_polaroid": {"title": "Champagne for One", "description": "Parmida enjoys the VIP pour while Bentley judges the no-dogs policy from the background."},
 	"rewrite_room_polaroid": {"title": "The Rewrite Room", "description": "Creative proof recovered from predatory paperwork."},
 	"car_chase_polaroid": {"title": "Fast Family Getaway", "description": "Rain, sirens, and a Shiba with opinions."},
 	"final_crew_polaroid": {"title": "Friends Helping Friends", "description": "The whole crew showed up."},

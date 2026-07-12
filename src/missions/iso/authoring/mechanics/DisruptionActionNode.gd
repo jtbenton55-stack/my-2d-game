@@ -4,6 +4,7 @@ extends MechanicAreaBase
 
 const PaperTrailAdapterScript := preload("res://src/missions/iso/runtime/paper_trail/PaperTrailAdapter.gd")
 const SocialStealthAdapterScript := preload("res://src/missions/iso/social/SocialStealthAdapter.gd")
+const NoiseEventHelper := preload("res://src/missions/iso/runtime/noise/NoiseEvent.gd")
 
 @export_group("Encounter")
 @export var encounter_controller_path: NodePath
@@ -20,6 +21,8 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 @export var social_professionalism_delta: int = 0
 @export var social_cleanliness_delta: int = 0
 @export var alert_exposure_delta: float = 0.0
+@export var noise_radius: float = 0.0
+@export var noise_strength: float = 1.0
 
 
 func _init() -> void:
@@ -76,6 +79,7 @@ func _apply_disruption_success(context: Dictionary, reason: String) -> void:
 			controller.call("set_result_tag", String(route_tag), true)
 	_apply_paper_trace(context)
 	_apply_social_deltas(context)
+	_apply_noise(context, reason)
 	_apply_alert_exposure()
 
 
@@ -101,6 +105,20 @@ func _apply_alert_exposure() -> void:
 	var controller := _find_alert_controller()
 	if controller != null and controller.has_method("accumulate_exposure"):
 		controller.call("accumulate_exposure", String(mechanic_id), alert_exposure_delta, action_type)
+
+
+func _apply_noise(context: Dictionary, reason: String) -> void:
+	if noise_radius <= 0.0 or action_type not in ["noise", "blackout"]:
+		return
+	var event := NoiseEventHelper.make_event(
+		String(event_id), String(mechanic_id), global_position, noise_radius,
+		noise_strength, action_type, "player", {"reason": reason}
+	)
+	EventBus.mission_noise_emitted.emit(event)
+	var controller := _find_alert_controller()
+	if controller != null and controller.has_method("register_noise_event"):
+		controller.call("register_noise_event", event)
+	context["noise_event"] = event
 
 
 func _phase_allows_use() -> bool:

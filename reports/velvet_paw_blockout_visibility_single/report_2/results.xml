@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_2" tests="18" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T15:36:03" hostname="localhost" tests="18" failures="1" errors="0" skipped="0" flaky="0" time="6.657">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.601">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.020">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.095">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.118">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.740">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:98" type="FAILURE">
+<![CDATA[
+Expecting:
+ '9996'
+ but was
+ '10058'
+Additional info:
+ floor
+	at 'test_persisted_layout_and_contract' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:98
+]]>
+			</failure>
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.368">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.033">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.143">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.972">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.945">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.136">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.157">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.111">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.194">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.136">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.125">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.053">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.031">
+		</testcase>
+	</testsuite>
+</testsuites>

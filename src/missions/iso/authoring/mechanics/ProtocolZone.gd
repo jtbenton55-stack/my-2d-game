@@ -11,6 +11,12 @@ const SocialStealthAdapterScript := preload("res://src/missions/iso/social/Socia
 @export var completed_flag: StringName = &""
 @export var professionalism_delta: int = 1
 @export var cleanliness_delta: int = 0
+@export var require_companion_waiting: bool = false
+@export var companion_group: StringName = &"bentley"
+@export var required_companion_wait_marker_id: StringName = &""
+@export var companion_wait_max_distance: float = 96.0
+@export var completion_message: String = "Protocol complete. You look like you belong here."
+@export var blocked_message: String = "Follow the posted protocol before entering."
 
 var last_protocol_result: Dictionary = {}
 
@@ -53,6 +59,7 @@ func activate(actor: Node = null, reason: String = "interact") -> Dictionary:
 	var details: Dictionary = (result.get("details", {}) as Dictionary).duplicate(true)
 	details["protocol_result"] = last_protocol_result
 	result["details"] = details
+	result["message"] = completion_message
 	last_activation_result = result
 	refresh_debug_label()
 	return result
@@ -68,8 +75,28 @@ func _social_prerequisites(context: Dictionary) -> Dictionary:
 		reasons.append("Missing cover story: %s." % String(required_cover_story_id))
 	if required_credential_id != &"" and not bool(SocialStealthAdapterScript.get_fact_value(SocialStealthAdapterScript.FACT_CREDENTIAL_ACTIVE, String(required_credential_id), context)):
 		reasons.append("Missing credential: %s." % String(required_credential_id))
+	if require_companion_waiting and not _companion_is_waiting():
+		reasons.append("Bentley must wait outside the VIP lounge.")
 	var ok := reasons.is_empty()
-	return _result(ok, "protocol_prerequisites_met" if ok else "protocol_prerequisites_failed", "Protocol prerequisites met." if ok else "Protocol prerequisites failed.", String(_resolved_protocol_id()), {"reasons": reasons})
+	return _result(ok, "protocol_prerequisites_met" if ok else "protocol_prerequisites_failed", "Protocol prerequisites met." if ok else blocked_message, String(_resolved_protocol_id()), {"reasons": reasons})
+
+
+func _companion_is_waiting() -> bool:
+	if get_tree() == null:
+		return false
+	var companion := get_tree().get_first_node_in_group(String(companion_group))
+	if companion == null or not companion.has_method("get_command_state"):
+		return false
+	var state := companion.call("get_command_state") as Dictionary
+	if not bool(state.get("staying", false)):
+		return false
+	if required_companion_wait_marker_id != &"" and String(state.get("wait_marker_id", "")) != String(required_companion_wait_marker_id):
+		return false
+	if required_companion_wait_marker_id != &"" and companion is Node2D:
+		var wait_position: Variant = state.get("wait_marker_position", Vector2.INF)
+		if not (wait_position is Vector2) or (companion as Node2D).global_position.distance_to(wait_position) > companion_wait_max_distance:
+			return false
+	return true
 
 
 func _resolved_protocol_id() -> StringName:

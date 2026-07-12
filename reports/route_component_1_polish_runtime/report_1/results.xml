@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="8" failures="18" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T21:10:42" hostname="localhost" tests="8" failures="18" errors="0" skipped="0" flaky="0" time="5.292">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="2.132">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.581">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.264">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.850">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.324">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.257">
+		</testcase>
+		<testcase name="test_room_visibility_only_reveals_the_players_current_area" classname="VelvetPawJazzClubRuntimeQATest" time="0.244">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'club_main'
+ but was
+ 'club_mainstreet'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in club_main
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+club_main while player is in club_main
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'bathroom'
+ but was
+ 'basthroomeet'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in bathroom
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+bathroom while player is in bathroom
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'stage'
+ but was
+ 'stagreet'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in stage
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+stage while player is in stage
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'backstage'
+ but was
+ 'backstagreet'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in backstage
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+backstage while player is in backstage
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'owner_suite'
+ but was
+ 'owner_suitreet'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+owner_suite while player is in owner_suite
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in owner_suite
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'basement'
+ but was
+ 'bastrement'
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:224
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+basement while player is in basement
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227" type="FAILURE">
+<![CDATA[
+street while player is in basement
+	at 'test_room_visibility_only_reveals_the_players_current_area' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:227
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:402
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

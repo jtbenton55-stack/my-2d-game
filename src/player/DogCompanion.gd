@@ -22,6 +22,8 @@ var target: Node2D = null
 var _sniff_cd := 0.0
 var _fetch_cd := 0.0
 var _stay_mode := false
+var _wait_marker_id := ""
+var _wait_marker_position := Vector2.ZERO
 var last_noise_result: Dictionary = {}
 
 func _ready() -> void:
@@ -129,14 +131,18 @@ func command_crawlspace(_actor: Node = null, context: Dictionary = {}) -> Dictio
 func command_wait(_actor: Node = null, context: Dictionary = {}) -> Dictionary:
 	global_position = _context_position(context, global_position)
 	_stay_mode = true
+	_wait_marker_id = String(context.get("source_id", ""))
+	_wait_marker_position = global_position
 	EventBus.objective_updated.emit("Bentley waits.")
 	EventBus.bentley_ability_used.emit("wait")
-	return _command_result(true, "wait_executed", "Bentley waits at the marker.", {"position": global_position, "staying": _stay_mode})
+	return _command_result(true, "wait_executed", "Bentley waits at the marker.", {"position": global_position, "staying": _stay_mode, "wait_marker_id": _wait_marker_id})
 
 
 func get_command_state() -> Dictionary:
 	return {
 		"staying": _stay_mode,
+		"wait_marker_id": _wait_marker_id,
+		"wait_marker_position": _wait_marker_position,
 		"sniff_cooldown": _sniff_cd,
 		"fetch_cooldown": _fetch_cd,
 		"fetch_range": fetch_range,
@@ -200,6 +206,8 @@ func _handle_commands() -> void:
 		command_fetch()
 	if _command_pressed("bentley_toggle_stay"):
 		_stay_mode = not _stay_mode
+		_wait_marker_id = ""
+		_wait_marker_position = global_position
 		if _stay_mode:
 			EventBus.objective_updated.emit("Bentley waits.")
 		else:

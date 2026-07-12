@@ -4,6 +4,196 @@
   "description": "Act 1 Mission 2 - Velvet Paw Jazz Club (Yordano, ~30 min). Full story build: alley entry past the front queue, social stealth on the club floor, staff badge + two setlist clues feeding the stage setlist hack, basement server vault for the Black Ledger Shard with Yordano's help, hostile-club return, owner suite fight for the blackmail briefcase, and a bass-drop basement escape. Pacing target: exterior 3 min, floor stealth 6 min, badge/clues/setlist 7 min, basement 6 min, hostile return 4 min, suite fight 3 min, escape 2 min.",
   "grid_size": 64,
   "canvas": {"width": 4480, "height": 3200},
+  "collision_contract": {
+    "version": 1,
+    "units": "pixels",
+    "grid_alignment_px": 64,
+    "wall_guidance": {
+      "nominal_thickness_px": 64,
+      "minimum_player_footprint_px": [24, 24],
+      "preferred_route_clearance_cells": 3,
+      "preferred_route_clearance_px": 192,
+      "note": "Paint walls one 64 px cell thick. Keep ordinary routes at least three cells (192 px) clear; the 24 x 24 ISO player must never rely on sub-cell seams. Four-cell (256 px) openings are used where an existing mechanic center falls between grid lines."
+    },
+    "closed_teleport_islands": [
+      {
+        "island_id": "owner_suite",
+        "perimeter": [3520, 192, 896, 1216],
+        "label": "Owner Suite is a physically closed teleport island; suite_arrival and extraction movement remain inside the contained perimeter."
+      },
+      {
+        "island_id": "basement",
+        "perimeter": [3520, 1728, 896, 1408],
+        "label": "Basement is a physically closed teleport island; basement_arrival, return teleport, and extraction remain inside the contained perimeter."
+      }
+    ],
+    "safe_non_solid_cover_labels": [
+      "Bar Corner",
+      "Dance Floor Silhouette"
+    ],
+    "solid_cover_labels": [
+      "Subwoofer Stack",
+      "Costume Rack",
+      "Alley Dumpster",
+      "Basement Crates"
+    ],
+    "collision_barriers_block_movement": true,
+    "dynamic_blockers": [
+      {
+        "blocker_id": "FrontEntranceCrowdRopeBlocker",
+        "mechanic_slots": ["queue_inspection"],
+        "shapes": [
+          {"shape_id": "RopeShape", "shape": "rect", "center": [1440, 2528], "size": [192, 64]}
+        ],
+        "note": "The twelve source barrier cells remain painted as authoring evidence but are excluded from runtime static collision and replaced by this VIP-inspection-controlled rope shape."
+      },
+      {
+        "blocker_id": "VipProtocolGateBlocker",
+        "mechanic_slots": ["vip_protocol"],
+        "shapes": [
+          {"shape_id": "GateShape", "shape": "rect", "center": [2624, 1696], "size": [64, 192]}
+        ],
+        "note": "The only VIP lounge opening stays physically blocked until Bentley is parked at the exact authored wait marker; the protocol and phone remain separately gated by cover plus that parked state."
+      },
+      {
+        "blocker_id": "StaffGateBlocker",
+        "mechanic_slots": ["staff_gate"],
+        "shapes": [
+          {"shape_id": "StageRowShape", "shape": "rect", "center": [2048, 1056], "size": [256, 64]},
+          {"shape_id": "StageWingShape", "shape": "rect", "center": [2080, 928], "size": [64, 192]}
+        ]
+      },
+      {
+        "blocker_id": "BackstageHatchBlocker",
+        "mechanic_slots": ["backstage_hatch"],
+        "shapes": [
+          {"shape_id": "HatchShape", "shape": "rect", "center": [1024, 1056], "size": [256, 64]}
+        ]
+      },
+      {
+        "blocker_id": "ServerVaultBlocker",
+        "mechanic_slots": ["server_vault"],
+        "shapes": [
+          {"shape_id": "VaultShape", "shape": "rect", "center": [3936, 2144], "size": [192, 64]}
+        ]
+      },
+      {
+        "blocker_id": "OwnerStairsBlocker",
+        "mechanic_slots": ["owner_stairs"],
+        "shapes": [
+          {"shape_id": "PortalPadShape", "shape": "rect", "center": [3008, 1152], "size": [192, 64]}
+        ]
+      },
+      {
+        "blocker_id": "EscapeHatchBlocker",
+        "mechanic_slots": ["escape_route"],
+        "shapes": [
+          {"shape_id": "HatchLidShape", "shape": "rect", "center": [4224, 2688], "size": [96, 128]}
+        ],
+        "note": "Extraction requirements remain authoritative; this blocker represents the closed hatch interaction, not an opening into void."
+      }
+    ],
+    "openings": [
+      {
+        "opening_id": "front_entrance_crowd_rope",
+        "boundaries": ["club_south", "street_north"],
+        "state": "dynamic",
+        "classification": "vip_social_gate",
+        "rect": [1344, 2496, 192, 64],
+        "clear_width_px": 192,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["queue_inspection"],
+        "label": "Dynamic VIP front entrance centered at x=1440. The crowd rope opens when the Taco-earned VIP guest cover and wristband pass inspection; otherwise the bouncer redirects the player toward the alley."
+      },
+      {
+        "opening_id": "staff_side_club_entrance",
+        "boundaries": ["club_south", "street_north"],
+        "state": "fixed_open",
+        "classification": "usable_route",
+        "rect": [2880, 2496, 192, 64],
+        "clear_width_px": 192,
+        "blocks_movement": false,
+        "mechanic_slots": ["side_door_entry"],
+        "label": "Fixed-open 3-cell staff entrance from x=2880 through x=3072, centered at x=2976 and covering the x=2944 trigger center."
+      },
+      {
+        "opening_id": "stage_row_bathroom_access",
+        "boundaries": ["stage_row"],
+        "state": "fixed_open",
+        "classification": "usable_route",
+        "rect": [192, 1024, 256, 64],
+        "clear_width_px": 256,
+        "blocks_movement": false,
+        "label": "Fixed-open 4-cell stage-row bathroom access from x=192 through x=448, centered at x=320."
+      },
+      {
+        "opening_id": "stage_row_backstage_hatch",
+        "boundaries": ["stage_row"],
+        "state": "dynamic",
+        "classification": "portal_gated",
+        "rect": [896, 1024, 256, 64],
+        "clear_width_px": 256,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["backstage_hatch", "basement_teleport", "return_marker"],
+        "label": "Dynamic 4-cell portal-gated hatch opening from x=896 through x=1152, centered at x=1024."
+      },
+      {
+        "opening_id": "stage_row_staff_gate",
+        "boundaries": ["stage_row"],
+        "state": "dynamic",
+        "classification": "gate",
+        "rect": [1920, 1024, 256, 64],
+        "clear_width_px": 256,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["staff_gate"],
+        "label": "Dynamic 4-cell stage/staff opening from x=1920 through x=2176, centered at x=2048."
+      },
+      {
+        "opening_id": "bathroom_divider_south_end",
+        "boundaries": ["bathroom_divider"],
+        "state": "fixed_open",
+        "classification": "usable_route",
+        "rect": [576, 832, 64, 192],
+        "clear_width_px": 192,
+        "blocks_movement": false,
+        "mechanic_slots": ["bathroom_bark"],
+        "label": "Fixed-open 3-cell south-end divider gap from y=832 through y=1024."
+      },
+      {
+        "opening_id": "stage_wing_divider_south_gate",
+        "boundaries": ["stage_wing_divider"],
+        "state": "dynamic",
+        "classification": "gate",
+        "rect": [2048, 832, 64, 192],
+        "clear_width_px": 192,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["staff_gate"],
+        "label": "Dynamic 3-cell south-end stage-wing gate gap from y=832 through y=1024."
+      },
+      {
+        "opening_id": "vip_rope_north_end",
+        "boundaries": ["vip_rope"],
+        "state": "dynamic",
+        "classification": "protocol_gate",
+        "rect": [2624, 1600, 64, 192],
+        "clear_width_px": 192,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["vip_protocol", "camera_vip"],
+        "label": "Dynamic 3-cell left-side VIP entrance from y=1600 through y=1792. It opens only after Bentley is parked at the exact authored wait marker."
+      },
+      {
+        "opening_id": "server_cage_south_center_door",
+        "boundaries": ["server_cage_south"],
+        "state": "dynamic",
+        "classification": "gate",
+        "rect": [3840, 2112, 192, 64],
+        "clear_width_px": 192,
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["server_vault"],
+        "label": "Dynamic 3-cell server-cage south door from x=3840 through x=4032, centered at x=3936."
+      }
+    ]
+  },
   "regions": [
     {"kind": "floor", "shape": "rect", "rect": [64, 2560, 3328, 576], "label": "Street, Front Queue & Alley"},
     {"kind": "floor", "shape": "rect", "rect": [64, 1088, 3008, 1408], "label": "Club Main Floor (bar west, dance floor center, VIP east)"},
@@ -12,32 +202,50 @@
     {"kind": "floor", "shape": "rect", "rect": [64, 448, 512, 576], "label": "Bathroom"},
     {"kind": "floor", "shape": "rect", "rect": [3520, 192, 896, 1216], "label": "Owner Suite - Floor 2 (reached via rig stairs teleport)"},
     {"kind": "floor", "shape": "rect", "rect": [3520, 1728, 896, 1408], "label": "Basement - Service Level (reached via stage hatch teleport)"},
-    {"kind": "wall", "shape": "polyline", "points": [[64, 448], [3200, 448], [3200, 2496], [64, 2496], [64, 448]], "label": "Club Outer Walls (front door gap center-south, staff side door gap east-south)"},
-    {"kind": "wall", "shape": "polyline", "points": [[64, 1024], [3200, 1024]], "label": "Stage Row Wall (wing gaps: hatch near piano at x1024, staff gate at x2048)"},
-    {"kind": "wall", "shape": "polyline", "points": [[576, 448], [576, 1024]], "label": "Bathroom Wall (door gap at south)"},
-    {"kind": "wall", "shape": "polyline", "points": [[2048, 448], [2048, 1024]], "label": "Stage Wing Divider (staff gate gap at south end)"},
-    {"kind": "wall", "shape": "polyline", "points": [[2624, 1600], [2624, 2496]], "label": "VIP Rope Rail (rope gap at north end)"},
-    {"kind": "wall", "shape": "polyline", "points": [[3520, 192], [4416, 192], [4416, 1408], [3520, 1408], [3520, 192]], "label": "Owner Suite Walls (stairs arrival gap at south-west)"},
-    {"kind": "wall", "shape": "polyline", "points": [[3520, 1728], [4416, 1728], [4416, 3136], [3520, 3136], [3520, 1728]], "label": "Basement Walls (hatch arrival gap at south-west, escape hatch gap at east)"},
-    {"kind": "wall", "shape": "polyline", "points": [[3584, 1792], [4352, 1792], [4352, 2112], [3584, 2112], [3584, 1792]], "label": "Server Vault Cage (vault door gap at south center)"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [192, 1216, 768, 128], "label": "Bar Counter"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [1664, 512, 256, 128], "label": "DJ Rig / Speaker Stack (owner stairs run behind this on floor plan east)"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [768, 768, 192, 128], "label": "Grand Piano (service hatch just east of it)"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [2240, 640, 384, 96], "label": "Green Room Couch"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 1728, 320, 128], "label": "VIP Booth North"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 2112, 320, 128], "label": "VIP Booth South"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [3712, 448, 512, 128], "label": "Owner Desk"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 1856, 448, 96], "label": "Server Rack Row (inside vault cage)"},
-    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 2304, 640, 96], "label": "Basement Storage Shelves"},
-    {"kind": "cover", "shape": "rect", "rect": [1024, 1408, 128, 128], "label": "Bar Corner (setlist-alarm safe spot)"},
-    {"kind": "cover", "shape": "rect", "rect": [1600, 1856, 192, 192], "label": "Dance Floor Silhouette (setlist-alarm safe spot)"},
-    {"kind": "cover", "shape": "rect", "rect": [1280, 2048, 192, 192], "label": "Subwoofer Stack Cover"},
-    {"kind": "cover", "shape": "rect", "rect": [2816, 640, 128, 192], "label": "Costume Rack Cover (green room)"},
-    {"kind": "cover", "shape": "rect", "rect": [2880, 2688, 192, 192], "label": "Alley Dumpster"},
-    {"kind": "cover", "shape": "rect", "rect": [3968, 2624, 192, 192], "label": "Basement Crates"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 448], [3200, 448]], "label": "Club outer north wall - continuous, 64 px nominal thickness"},
+    {"kind": "wall", "shape": "polyline", "points": [[3200, 448], [3200, 2496]], "label": "Club outer east wall - continuous, 64 px nominal thickness"},
+    {"kind": "wall", "shape": "polyline", "points": [[3200, 2496], [3072, 2496]], "label": "Club south wall east segment - stops at fixed staff opening x=2880..3072"},
+    {"kind": "wall", "shape": "polyline", "points": [[2880, 2496], [1536, 2496]], "label": "Club south wall middle segment - between staff opening x=2880..3072 and front gap x=1344..1536"},
+    {"kind": "wall", "shape": "polyline", "points": [[1344, 2496], [64, 2496], [64, 448]], "label": "Club south-west and west wall segment - front visible gap x=1344..1536 is crowd-rope blocked"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 1024], [192, 1024]], "label": "Stage row west stub - fixed bathroom opening x=192..448"},
+    {"kind": "wall", "shape": "polyline", "points": [[448, 1024], [896, 1024]], "label": "Stage row segment - bathroom opening x=192..448 to dynamic hatch x=896..1152"},
+    {"kind": "wall", "shape": "polyline", "points": [[1152, 1024], [1920, 1024]], "label": "Stage row segment - dynamic hatch x=896..1152 to dynamic staff gate x=1920..2176"},
+    {"kind": "wall", "shape": "polyline", "points": [[2176, 1024], [3200, 1024]], "label": "Stage row east segment - starts after dynamic staff gate x=1920..2176"},
+    {"kind": "wall", "shape": "polyline", "points": [[576, 448], [576, 832]], "label": "Bathroom divider - fixed south-end opening y=832..1024 (192 px)"},
+    {"kind": "wall", "shape": "polyline", "points": [[2048, 448], [2048, 832]], "label": "Stage-wing divider - dynamic south-end gate opening y=832..1024 (192 px)"},
+    {"kind": "wall", "shape": "polyline", "points": [[2624, 1792], [2624, 2496]], "label": "VIP rope rail - fixed north-end opening y=1600..1792 (192 px)"},
+    {"kind": "wall", "shape": "polyline", "points": [[3520, 192], [4416, 192], [4416, 1408], [3520, 1408], [3520, 192]], "label": "Owner Suite closed teleport-island perimeter - portal arrival and extraction movement remain inside the contained perimeter"},
+    {"kind": "wall", "shape": "polyline", "points": [[3520, 1728], [4416, 1728], [4416, 3136], [3520, 3136], [3520, 1728]], "label": "Basement closed teleport-island perimeter - portal arrivals, return, and extraction remain inside the contained perimeter"},
+    {"kind": "wall", "shape": "polyline", "points": [[3584, 1792], [4352, 1792]], "label": "Server cage north wall"},
+    {"kind": "wall", "shape": "polyline", "points": [[4352, 1792], [4352, 2112]], "label": "Server cage east wall"},
+    {"kind": "wall", "shape": "polyline", "points": [[4352, 2112], [4032, 2112]], "label": "Server cage south-east segment - dynamic door x=3840..4032"},
+    {"kind": "wall", "shape": "polyline", "points": [[3840, 2112], [3584, 2112]], "label": "Server cage south-west segment - dynamic door x=3840..4032 centered x=3936"},
+    {"kind": "wall", "shape": "polyline", "points": [[3584, 2112], [3584, 1792]], "label": "Server cage west wall"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 2560], [64, 3136]], "label": "Street/alley exposed west perimeter wall - prevents floor leak into void"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 3136], [3392, 3136]], "label": "Street/alley exposed south perimeter wall - prevents floor leak into void"},
+    {"kind": "wall", "shape": "polyline", "points": [[3392, 3136], [3392, 2560]], "label": "Street/alley exposed east perimeter wall - prevents floor leak into void"},
+    {"kind": "wall", "shape": "polyline", "points": [[64, 2560], [1344, 2560]], "label": "Street north-west wall - stops at front crowd-rope gap x=1344..1536"},
+    {"kind": "wall", "shape": "polyline", "points": [[1536, 2560], [2880, 2560]], "label": "Street north-middle wall - between front gap x=1344..1536 and staff opening x=2880..3072"},
+    {"kind": "wall", "shape": "polyline", "points": [[3072, 2560], [3392, 2560]], "label": "Street north-east wall - starts after fixed staff opening x=2880..3072"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [1344, 2496, 192, 64], "blocks_movement": true, "label": "Front Entrance Crowd Rope - retained authoring footprint; runtime static collision excluded and replaced by dynamic VIP gate"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [192, 1216, 768, 128], "blocks_movement": true, "label": "Bar Counter - blocks_movement=true"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [1664, 512, 256, 128], "blocks_movement": true, "label": "DJ Rig / Speaker Stack - blocks_movement=true (owner stairs run behind this on floor plan east)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [768, 768, 192, 128], "blocks_movement": true, "label": "Grand Piano - blocks_movement=true (service hatch just east of it)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2240, 640, 384, 96], "blocks_movement": true, "label": "Green Room Couch - blocks_movement=true"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 1728, 320, 128], "blocks_movement": true, "label": "VIP Booth North - blocks_movement=true"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [2688, 2112, 320, 128], "blocks_movement": true, "label": "VIP Booth South - blocks_movement=true"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3712, 448, 512, 128], "blocks_movement": true, "label": "Owner Desk - blocks_movement=true"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 1856, 448, 96], "blocks_movement": true, "label": "Server Rack Row - blocks_movement=true (inside vault cage)"},
+    {"kind": "collision_barrier", "shape": "rect", "rect": [3648, 2304, 640, 96], "blocks_movement": true, "label": "Basement Storage Shelves - blocks_movement=true"},
+    {"kind": "cover", "shape": "rect", "rect": [1024, 1408, 128, 128], "blocks_movement": false, "label": "Bar Corner - safe non-solid cover, blocks_movement=false (setlist-alarm safe spot)"},
+    {"kind": "cover", "shape": "rect", "rect": [1600, 1856, 192, 192], "blocks_movement": false, "label": "Dance Floor Silhouette - safe non-solid cover, blocks_movement=false (setlist-alarm safe spot)"},
+    {"kind": "cover", "shape": "rect", "rect": [1280, 2048, 192, 192], "blocks_movement": true, "label": "Subwoofer Stack - solid cover, blocks_movement=true"},
+    {"kind": "cover", "shape": "rect", "rect": [2816, 640, 128, 192], "blocks_movement": true, "label": "Costume Rack - solid cover, blocks_movement=true (green room)"},
+    {"kind": "cover", "shape": "rect", "rect": [2880, 2688, 192, 192], "blocks_movement": true, "label": "Alley Dumpster - solid cover, blocks_movement=true"},
+    {"kind": "cover", "shape": "rect", "rect": [3968, 2624, 192, 192], "blocks_movement": true, "label": "Basement Crates - solid cover, blocks_movement=true"},
     {"kind": "marker", "shape": "circle", "center": [256, 2880], "radius": 64, "label": "Spawn Area (street west)"},
-    {"kind": "marker", "shape": "circle", "center": [1440, 2496], "radius": 48, "label": "Front Door (too crowded - queue blocks it)"},
-    {"kind": "marker", "shape": "circle", "center": [2976, 2496], "radius": 48, "label": "Staff Side Door (the real way in)"},
+    {"kind": "marker", "shape": "circle", "center": [1440, 2496], "radius": 48, "label": "Front Door (VIP cover + wristband alternate entrance)"},
+    {"kind": "marker", "shape": "circle", "center": [2976, 2496], "radius": 48, "label": "Staff Side Door (default alley entrance)"},
     {"kind": "marker", "shape": "circle", "center": [1152, 704], "radius": 96, "label": "Stage Center (setlist puzzle)"},
     {"kind": "marker", "shape": "circle", "center": [4192, 320], "radius": 96, "label": "Owner Suite Balcony (briefcase)"},
     {"kind": "marker", "shape": "circle", "center": [4288, 3008], "radius": 64, "label": "Extraction Hatch (bass-drop escape)"}
@@ -56,7 +264,7 @@
       "position": [1312, 2624],
       "size": [256, 192],
       "suggested_id": "velvet_paw_jazz_club.inspection_zone.01",
-      "note": "Front-door bouncer works the velvet rope. Entering the queue without a wristband bounces the player back - this sells 'the front is too crowded' and pushes them toward the alley."
+      "note": "Front-door bouncer checks the Taco-earned velvet_paw_vip_guest cover and velvet_paw_vip_wristband. A valid pair opens the dynamic rope; otherwise a timed Bouncer/Bentley exchange redirects the player toward the alley."
     },
     {
       "slot_id": "queue_eavesdrop",
@@ -64,7 +272,7 @@
       "position": [960, 2816],
       "size": [192, 128],
       "suggested_id": "velvet_paw_jazz_club.eavesdrop_zone.01",
-      "note": "Two patrons in line gripe that the horn section props the staff side door open between sets. Teaches the alley route without a map marker."
+      "note": "Two patrons in line gripe that the horn section props the staff side door open between sets. Completion displays the discovery in the dialogue box and teaches the alley route without a map marker."
     },
     {
       "slot_id": "alley_dialogue",
@@ -72,14 +280,14 @@
       "position": [2688, 2816],
       "size": [192, 192],
       "suggested_id": "velvet_paw_jazz_club.dialogue_trigger_zone.01",
-      "note": "Micro-cutscene intro beat: Bentley sniffs the alley ('Too many colognes. The bass line is honest, though.'). One-shot."
+      "note": "One-shot Bentley alley beat using the authored fallback line about cheap colognes and his expression."
     },
     {
       "slot_id": "dead_drop",
       "mechanic_type": "DeadDropNode",
       "position": [3136, 2944],
       "suggested_id": "velvet_paw_jazz_club.dead_drop_node.01",
-      "note": "Optional: loose brick behind the alley. Leaving a copy of the VIP voicemail here foreshadows Rewrite Room (Mere picks it up between missions)."
+      "note": "Optional: loose brick behind the alley. The VIP phone grants one velvet_paw_vip_voicemail_copy; this deposit consumes it, sets vpj_vip_voicemail_copy_dropped, and confirms Mere can retrieve it."
     },
     {
       "slot_id": "poop_bag_alley",
@@ -208,7 +416,7 @@
       "position": [2816, 2304],
       "size": [128, 96],
       "suggested_id": "velvet_paw_jazz_club.search_zone.01",
-      "note": "VIP booth phone: voicemail from Sterling's assistant ('Shred before midnight'). Reveals where the staff badge hangs in the green room and sets the flag staff_badge_pickup requires."
+      "note": "VIP booth phone inside Velvet Paw: pressing E displays Sterling's assistant voicemail ('Shred before midnight. The badge is in the green room.'), sets vpj_vip_voicemail_found, and grants one mission-local voicemail copy for the alley dead drop. It is not the source of front-door VIP access."
     },
     {
       "slot_id": "camera_vip",

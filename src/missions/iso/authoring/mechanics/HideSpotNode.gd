@@ -109,6 +109,8 @@ func _apply_actor_hidden_state(actor: Node) -> void:
 		return
 	actor.add_to_group("mission_hidden")
 	actor.set_meta("mission_hide_spot_path", str(get_path()) if is_inside_tree() else str(mechanic_id))
+	if actor.has_method("add_forced_stealth_source"):
+		actor.call("add_forced_stealth_source", _forced_stealth_source_id())
 
 
 func _clear_actor_hidden_state(actor: Node) -> void:
@@ -118,6 +120,12 @@ func _clear_actor_hidden_state(actor: Node) -> void:
 		actor.remove_from_group("mission_hidden")
 	if actor.has_meta("mission_hide_spot_path"):
 		actor.remove_meta("mission_hide_spot_path")
+	if actor.has_method("remove_forced_stealth_source"):
+		actor.call("remove_forced_stealth_source", _forced_stealth_source_id())
+
+
+func _forced_stealth_source_id() -> String:
+	return "hide_spot:%s" % (str(get_path()) if is_inside_tree() else String(mechanic_id))
 
 
 func _find_alert_controller() -> Node:

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="10" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T14:02:53" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="5.391">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="2.540">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.222">
+		</testcase>
+		<testcase name="test_furniture_solid_cover_and_front_rope_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.229">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.243">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="0.950">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.254">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.252">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.227">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.223">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.226">
+		</testcase>
+	</testsuite>
+</testsuites>

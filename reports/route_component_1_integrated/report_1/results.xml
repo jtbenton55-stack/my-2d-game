@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="82" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="TimedDialoguePresentationTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:13" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="0.787">
+		<testcase name="test_timed_sequence_advances_and_ends" classname="TimedDialoguePresentationTest" time="0.034">
+		</testcase>
+		<testcase name="test_manual_advance_is_suppressed_and_metadata_defaults_are_additive" classname="TimedDialoguePresentationTest" time="0.033">
+		</testcase>
+		<testcase name="test_untimed_dialogue_still_advances_manually_and_skips" classname="TimedDialoguePresentationTest" time="0.030">
+		</testcase>
+		<testcase name="test_old_timer_cannot_advance_replacement_dialogue" classname="TimedDialoguePresentationTest" time="0.071">
+		</testcase>
+		<testcase name="test_timed_dialogue_waits_while_scene_tree_is_paused" classname="TimedDialoguePresentationTest" time="0.154">
+		</testcase>
+		<testcase name="test_dialogue_box_hides_disallowed_controls_and_restores_defaults" classname="TimedDialoguePresentationTest" time="0.036">
+		</testcase>
+		<testcase name="test_no_key_trigger_supplies_fallback_text_and_preserves_explicit_lines" classname="TimedDialoguePresentationTest" time="0.033">
+		</testcase>
+		<testcase name="test_one_shot_guard_does_not_replace_active_dialogue" classname="TimedDialoguePresentationTest" time="0.047">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawVipDebugAccessTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:14" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.289">
+		<testcase name="test_targeted_removal_preserves_unrelated_social_state" classname="VelvetPawVipDebugAccessTest" time="0.033">
+		</testcase>
+		<testcase name="test_velvet_dropdown_applies_and_removes_only_vip_facts" classname="VelvetPawVipDebugAccessTest" time="0.048">
+		</testcase>
+		<testcase name="test_dropdown_visibility_and_initial_state_derive_from_current_mission_facts" classname="VelvetPawVipDebugAccessTest" time="0.034">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:14" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.492">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.038">
+		</testcase>
+		<testcase name="test_bridge_prompt_refresh_is_callable_and_clears_out_of_range" classname="CaseJointHintProviderTest" time="0.033">
+		</testcase>
+		<testcase name="test_provider_filters_requirements_and_distance_then_uses_priority" classname="CaseJointHintProviderTest" time="0.031">
+		</testcase>
+		<testcase name="test_provider_selection_is_stable_and_respects_per_hint_cooldown" classname="CaseJointHintProviderTest" time="0.043">
+		</testcase>
+		<testcase name="test_provider_uses_dedicated_hint_signal_not_objective_updates" classname="CaseJointHintProviderTest" time="0.027">
+		</testcase>
+		<testcase name="test_player_queries_only_one_grouped_provider_after_case_pulse" classname="CaseJointHintProviderTest" time="0.036">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:15" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="1.349">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.038">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.045">
+		</testcase>
+		<testcase name="test_include_legacy_candidates_false_ignores_phase0j_groups" classname="MissionInteractionBridgeTest" time="0.035">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.038">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.037">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.031">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.033">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.032">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.035">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.052">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.034">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.031">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.079">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.017">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="Phase12NarrativePresentationTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:16" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.640">
+		<testcase name="test_dialogue_bridge_registry_provider_and_fallback_lookup" classname="Phase12NarrativePresentationTest" time="0.070">
+		</testcase>
+		<testcase name="test_dialogue_and_bark_triggers_prevent_spam" classname="Phase12NarrativePresentationTest" time="0.039">
+		</testcase>
+		<testcase name="test_camera_player_and_audio_visual_bridges_fail_safe_and_restore" classname="Phase12NarrativePresentationTest" time="0.051">
+		</testcase>
+		<testcase name="test_sequence_player_coordinates_bridges_without_gameplay_ownership" classname="Phase12NarrativePresentationTest" time="0.070">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase12_nodes" classname="Phase12NarrativePresentationTest" time="0.093">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="Phase13SocialStealthTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:17" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.574">
+		<testcase name="test_cover_story_credentials_and_social_fact_bridge" classname="Phase13SocialStealthTest" time="0.034">
+		</testcase>
+		<testcase name="test_social_effects_route_through_effect_applier" classname="Phase13SocialStealthTest" time="0.036">
+		</testcase>
+		<testcase name="test_inspection_rule_set_accepts_and_rejects_social_state" classname="Phase13SocialStealthTest" time="0.038">
+		</testcase>
+		<testcase name="test_social_mechanic_nodes_drive_believable_action_flow" classname="Phase13SocialStealthTest" time="0.043">
+		</testcase>
+		<testcase name="test_mission_result_receives_social_summary" classname="Phase13SocialStealthTest" time="0.037">
+		</testcase>
+		<testcase name="test_templates_and_dev_scene_contain_phase13_nodes" classname="Phase13SocialStealthTest" time="0.094">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="VelvetPawRouteComponent1Test" package="tests/mission_authoring" timestamp="2026-07-11T19:41:17" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="2.235">
+		<testcase name="test_route_component_runtime_helpers_and_front_contract_are_authored" classname="VelvetPawRouteComponent1Test" time="1.612">
+		</testcase>
+		<testcase name="test_front_inspection_requires_both_vip_facts_and_opens_rope" classname="VelvetPawRouteComponent1Test" time="0.158">
+		</testcase>
+		<testcase name="test_front_rejection_is_timed_non_manual_and_skipped_for_vip" classname="VelvetPawRouteComponent1Test" time="0.119">
+		</testcase>
+		<testcase name="test_eavesdrop_phone_and_dead_drop_present_and_transfer_information" classname="VelvetPawRouteComponent1Test" time="0.147">
+		</testcase>
+	</testsuite>
+	<testsuite id="7" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:20" hostname="localhost" tests="19" failures="1" errors="0" skipped="0" flaky="0" time="5.543">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.120">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.033">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.273">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.158">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.762">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.419">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.175">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.037">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.147">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.954">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.871">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.120">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.118">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.130">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.113">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.120">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.108">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.039">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:367" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+	at 'test_required_dialogue_content_is_authored' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:367
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="8" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:25" hostname="localhost" tests="7" failures="0" errors="0" skipped="0" flaky="0" time="2.863">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.114">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.289">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.280">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.935">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.349">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.289">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.288">
+		</testcase>
+	</testsuite>
+	<testsuite id="9" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T19:41:28" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="4.451">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="0.575">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.304">
+		</testcase>
+		<testcase name="test_furniture_and_solid_cover_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.348">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.335">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="1.056">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.292">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.290">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.317">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.278">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.267">
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="37" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T00:25:01" hostname="localhost" tests="3" failures="2" errors="0" skipped="0" flaky="0" time="3.361">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="2.200">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.202">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.683">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:65" type="FAILURE">
+<![CDATA[
+Expecting:
+ '1'
+ but was
+ '0'
+	at 'test_component_2_dev_overlay_is_created_by_controller' in res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:65
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:66" type="FAILURE">
+<![CDATA[
+Expecting:
+ '1'
+ but was
+ '0'
+	at 'test_component_2_dev_overlay_is_created_by_controller' in res://tests/mission_authoring/VelvetPawRouteComponent2Test.gd:66
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-12T00:25:04" hostname="localhost" tests="15" failures="0" errors="0" skipped="0" flaky="0" time="1.534">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.059">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.033">
+		</testcase>
+		<testcase name="test_include_legacy_candidates_false_ignores_phase0j_groups" classname="MissionInteractionBridgeTest" time="0.036">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.038">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.044">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.067">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.049">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.037">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.063">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.036">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.050">
+		</testcase>
+		<testcase name="test_wall_collision_blocks_interaction_target" classname="MissionInteractionBridgeTest" time="0.064">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.081">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.049">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.063">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-12T00:25:06" hostname="localhost" tests="19" failures="0" errors="0" skipped="0" flaky="0" time="6.413">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.165">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.046">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.153">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.180">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.815">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.444">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.166">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.042">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.159">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="1.308">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.733">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.175">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.165">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.200">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.172">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.201">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.141">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.077">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.066">
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-10" name="report_1" tests="24" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="LevelBlueprintLayoutPainterTest" package="tests/mission_authoring" timestamp="2026-07-11T00:29:13" hostname="localhost" tests="8" failures="0" errors="0" skipped="0" flaky="0" time="2.680">
+		<testcase name="test_dry_run_ok_and_production_scene_hash_unchanged" classname="LevelBlueprintLayoutPainterTest" time="1.988">
+		</testcase>
+		<testcase name="test_semantic_region_and_cell_sets" classname="LevelBlueprintLayoutPainterTest" time="0.048">
+		</testcase>
+		<testcase name="test_cover_contract_has_four_solid_and_two_non_solid_labels" classname="LevelBlueprintLayoutPainterTest" time="0.027">
+		</testcase>
+		<testcase name="test_nine_openings_have_expected_classifications_and_blocking" classname="LevelBlueprintLayoutPainterTest" time="0.030">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_closed_islands_are_contained" classname="LevelBlueprintLayoutPainterTest" time="0.049">
+		</testcase>
+		<testcase name="test_all_five_approved_layer_paths_resolve" classname="LevelBlueprintLayoutPainterTest" time="0.033">
+		</testcase>
+		<testcase name="test_non_dry_run_is_rejected_without_mutation" classname="LevelBlueprintLayoutPainterTest" time="0.030">
+		</testcase>
+		<testcase name="test_repeated_runs_are_deterministic" classname="LevelBlueprintLayoutPainterTest" time="0.183">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T00:29:16" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.656">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.105">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.049">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.101">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.112">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.102">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.099">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.086">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.084">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.141">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.144">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.041">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.038">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="MissionSceneResolverCatalogTest" package="tests/mission_authoring" timestamp="2026-07-11T00:29:18" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.353">
+		<testcase name="test_existing_playable_iso_catalog_entries_resolve" classname="MissionSceneResolverCatalogTest" time="0.038">
+		</testcase>
+		<testcase name="test_unknown_mission_falls_back_to_game_state_default" classname="MissionSceneResolverCatalogTest" time="0.028">
+		</testcase>
+		<testcase name="test_temporary_catalog_playable_iso_scene_resolves_without_resolver_edit" classname="MissionSceneResolverCatalogTest" time="0.051">
+		</testcase>
+		<testcase name="test_resolution_report_warns_on_missing_playable_iso_scene" classname="MissionSceneResolverCatalogTest" time="0.026">
+		</testcase>
+	</testsuite>
+</testsuites>

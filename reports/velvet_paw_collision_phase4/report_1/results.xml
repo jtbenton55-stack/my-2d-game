@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="70" failures="5" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="TileDataPromotionHelperTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:43" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="1.292">
+		<testcase name="test_synthetic_lf_and_crlf_preserve_every_baseline_byte" classname="TileDataPromotionHelperTest" time="0.026">
+		</testcase>
+		<testcase name="test_rejects_invalid_exact_block_contracts" classname="TileDataPromotionHelperTest" time="0.029">
+		</testcase>
+		<testcase name="test_deterministic_payloads_and_known_defaults_excluded" classname="TileDataPromotionHelperTest" time="0.074">
+		</testcase>
+		<testcase name="test_real_candidate_uses_immutable_checkpoint_scratch_baseline" classname="TileDataPromotionHelperTest" time="0.908">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="LevelBlueprintLayoutPainterTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:45" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.359">
+		<testcase name="test_dry_run_ok_and_production_scene_hash_unchanged" classname="LevelBlueprintLayoutPainterTest" time="0.220">
+		</testcase>
+		<testcase name="test_semantic_region_and_cell_sets" classname="LevelBlueprintLayoutPainterTest" time="0.072">
+		</testcase>
+		<testcase name="test_cover_contract_has_four_solid_and_two_non_solid_labels" classname="LevelBlueprintLayoutPainterTest" time="0.045">
+		</testcase>
+		<testcase name="test_nine_openings_have_expected_classifications_and_blocking" classname="LevelBlueprintLayoutPainterTest" time="0.067">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_closed_islands_are_contained" classname="LevelBlueprintLayoutPainterTest" time="0.031">
+		</testcase>
+		<testcase name="test_blocking_overlap_and_union_evidence" classname="LevelBlueprintLayoutPainterTest" time="0.038">
+		</testcase>
+		<testcase name="test_all_five_approved_layer_paths_resolve" classname="LevelBlueprintLayoutPainterTest" time="0.056">
+		</testcase>
+		<testcase name="test_non_dry_run_is_rejected_without_mutation" classname="LevelBlueprintLayoutPainterTest" time="0.051">
+		</testcase>
+		<testcase name="test_repeated_runs_are_deterministic" classname="LevelBlueprintLayoutPainterTest" time="0.225">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:46" hostname="localhost" tests="18" failures="5" errors="0" skipped="0" flaky="0" time="1.821">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.106">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.020">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.090">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.098">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.707">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.310">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.035">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157" type="FAILURE">
+<![CDATA[
+Expecting:
+ '[        ["StageRowShape", [2048, 1056], [256, 64]],         ["StageWingShape", [2080, 928], [64, 192]]]'
+ but was
+ '[["StageRowShape", [2048.0, 1056.0], [256.0, 64.0]], ["StageWingShape", [2080.0, 928.0], [64.0, 192.0]]]'
+
+Differences found:
+Index	Current	Expected	0	["StageRowShape", [2048.0, 1056.0], [256.0, 64.0]]	["StageRowShape", [2048, 1056], [256, 64]]	1	["StageWingShape", [2080.0, 928.0], [64.0, 192.0]]	["StageWingShape", [2080, 928], [64, 192]]	
+	at 'test_dynamic_blocker_blueprint_contract_is_exact' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157" type="FAILURE">
+<![CDATA[
+Expecting:
+ '[        ["HatchShape", [1024, 1056], [256, 64]]]'
+ but was
+ '[["HatchShape", [1024.0, 1056.0], [256.0, 64.0]]]'
+
+Differences found:
+Index	Current	Expected	0	["HatchShape", [1024.0, 1056.0], [256.0, 64.0]]	["HatchShape", [1024, 1056], [256, 64]]	
+	at 'test_dynamic_blocker_blueprint_contract_is_exact' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157" type="FAILURE">
+<![CDATA[
+Expecting:
+ '[        ["VaultShape", [3936, 2144], [192, 64]]]'
+ but was
+ '[["VaultShape", [3936.0, 2144.0], [192.0, 64.0]]]'
+
+Differences found:
+Index	Current	Expected	0	["VaultShape", [3936.0, 2144.0], [192.0, 64.0]]	["VaultShape", [3936, 2144], [192, 64]]	
+	at 'test_dynamic_blocker_blueprint_contract_is_exact' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157" type="FAILURE">
+<![CDATA[
+Expecting:
+ '[        ["PortalPadShape", [3008, 1152], [192, 64]]]'
+ but was
+ '[["PortalPadShape", [3008.0, 1152.0], [192.0, 64.0]]]'
+
+Differences found:
+Index	Current	Expected	0	["PortalPadShape", [3008.0, 1152.0], [192.0, 64.0]]	["PortalPadShape", [3008, 1152], [192, 64]]	
+	at 'test_dynamic_blocker_blueprint_contract_is_exact' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157" type="FAILURE">
+<![CDATA[
+Expecting:
+ '[        ["HatchLidShape", [4224, 2688], [96, 128]]]'
+ but was
+ '[["HatchLidShape", [4224.0, 2688.0], [96.0, 128.0]]]'
+
+Differences found:
+Index	Current	Expected	0	["HatchLidShape", [4224.0, 2688.0], [96.0, 128.0]]	["HatchLidShape", [4224, 2688], [96, 128]]	
+	at 'test_dynamic_blocker_blueprint_contract_is_exact' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:157
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="MissionSceneResolverCatalogTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:48" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.288">
+		<testcase name="test_existing_playable_iso_catalog_entries_resolve" classname="MissionSceneResolverCatalogTest" time="0.026">
+		</testcase>
+		<testcase name="test_unknown_mission_falls_back_to_game_state_default" classname="MissionSceneResolverCatalogTest" time="0.029">
+		</testcase>
+		<testcase name="test_temporary_catalog_playable_iso_scene_resolves_without_resolver_edit" classname="MissionSceneResolverCatalogTest" time="0.033">
+		</testcase>
+		<testcase name="test_resolution_report_warns_on_missing_playable_iso_scene" classname="MissionSceneResolverCatalogTest" time="0.034">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="IsoMissionBaseLifecycleTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:48" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="1.184">
+		<testcase name="test_ensure_node_frees_unused_fallback_and_returns_existing" classname="IsoMissionBaseLifecycleTest" time="0.036">
+		</testcase>
+		<testcase name="test_ensure_node_attaches_valid_fallback_when_child_is_missing" classname="IsoMissionBaseLifecycleTest" time="0.029">
+		</testcase>
+		<testcase name="test_minimal_iso_mission_lifecycle_is_teardown_safe" classname="IsoMissionBaseLifecycleTest" time="0.262">
+		</testcase>
+		<testcase name="test_velvet_scene_lifecycle_twice_does_not_accumulate_orphans" classname="IsoMissionBaseLifecycleTest" time="0.650">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="MilestoneAAuthoringRuntimeDegateTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:50" hostname="localhost" tests="2" failures="0" errors="0" skipped="0" flaky="0" time="0.302">
+		<testcase name="test_non_taco_security_root_builds_router_and_authored_beam" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.118">
+		</testcase>
+		<testcase name="test_non_taco_without_security_root_records_no_collectible_root_and_no_router" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.100">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="MilestoneAThinAuthorablesTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:50" hostname="localhost" tests="17" failures="0" errors="0" skipped="0" flaky="0" time="1.842">
+		<testcase name="test_player_start_marker_matches_existing_spawn_authoring_convention" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_player_start_marker_creates_default_and_start_main_spawn_points" classname="MilestoneAThinAuthorablesTest" time="0.030">
+		</testcase>
+		<testcase name="test_milestone_a_proof_scene_has_bridge_and_valid_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.315">
+		</testcase>
+		<testcase name="test_milestone_a_proof_camera_bounds_cover_authored_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.096">
+		</testcase>
+		<testcase name="test_milestone_a_proof_inventory_chain_is_self_contained" classname="MilestoneAThinAuthorablesTest" time="0.114">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.098">
+		</testcase>
+		<testcase name="test_milestone_a_proof_extraction_is_configured_for_visible_result_screen" classname="MilestoneAThinAuthorablesTest" time="0.105">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_are_reusable_and_work_after_route_unlock" classname="MilestoneAThinAuthorablesTest" time="0.094">
+		</testcase>
+		<testcase name="test_authored_poop_bag_updates_canonical_counts_immediately" classname="MilestoneAThinAuthorablesTest" time="0.046">
+		</testcase>
+		<testcase name="test_authored_clue_is_visible_to_pause_snapshot_during_attempt" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+		<testcase name="test_pause_inventory_snapshot_lists_mission_inventory_items" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_hide_spot_marks_hidden_and_player_damage_respects_hidden_state" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_teleport_zone_moves_player_and_applies_effect_after_requirements" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+		<testcase name="test_teleport_zone_blocks_when_requirements_fail" classname="MilestoneAThinAuthorablesTest" time="0.025">
+		</testcase>
+		<testcase name="test_teleport_zone_can_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+		<testcase name="test_teleport_zone_missing_target_is_safe" classname="MilestoneAThinAuthorablesTest" time="0.036">
+		</testcase>
+		<testcase name="test_music_trigger_zone_requests_audio_manager_and_restores_on_exit" classname="MilestoneAThinAuthorablesTest" time="0.058">
+		</testcase>
+	</testsuite>
+	<testsuite id="7" name="PhaseD501AttemptResetContractTest" package="tests/mission_authoring" timestamp="2026-07-11T13:25:52" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.149">
+		<testcase name="test_objective_bridge_reset_clears_only_target_mission_runtime_objectives" classname="PhaseD501AttemptResetContractTest" time="0.033">
+		</testcase>
+		<testcase name="test_phase0k_reset_attempt_state_clears_bag_code_exit_and_reseeds_objectives" classname="PhaseD501AttemptResetContractTest" time="0.057">
+		</testcase>
+		<testcase name="test_phase0j_bag_interactable_reset_restores_visual_collision_and_label" classname="PhaseD501AttemptResetContractTest" time="0.034">
+		</testcase>
+		<testcase name="test_phase0j_state_adapter_reset_forgets_collected_delivery_bag" classname="PhaseD501AttemptResetContractTest" time="0.026">
+		</testcase>
+		<testcase name="test_d5_security_reset_rearms_beam_and_removes_response_guards" classname="PhaseD501AttemptResetContractTest" time="0.061">
+		</testcase>
+		<testcase name="test_d5_reset_preclear_removes_live_cameras_and_attempt_guards" classname="PhaseD501AttemptResetContractTest" time="0.058">
+		</testcase>
+		<testcase name="test_runtime_rebuild_clear_children_removes_queued_nodes_immediately" classname="PhaseD501AttemptResetContractTest" time="0.090">
+		</testcase>
+		<testcase name="test_authoring_beam_trip_marks_same_runtime_flag_as_f12_dashboard" classname="PhaseD501AttemptResetContractTest" time="0.056">
+		</testcase>
+		<testcase name="test_stale_security_event_router_is_not_reused_after_runtime_rebuild" classname="PhaseD501AttemptResetContractTest" time="0.066">
+		</testcase>
+		<testcase name="test_d5_pause_payload_uses_live_taco_mission_context" classname="PhaseD501AttemptResetContractTest" time="0.069">
+		</testcase>
+		<testcase name="test_d5_louis_route_bypasses_beam_without_marking_alarm_trip" classname="PhaseD501AttemptResetContractTest" time="0.057">
+		</testcase>
+		<testcase name="test_d5_beam_still_trips_without_louis_route" classname="PhaseD501AttemptResetContractTest" time="0.081">
+		</testcase>
+	</testsuite>
+</testsuites>

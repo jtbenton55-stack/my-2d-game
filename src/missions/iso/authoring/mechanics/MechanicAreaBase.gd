@@ -38,6 +38,8 @@ enum InteractionMode {
 @export var hold_move_tolerance: float = 24.0
 ## Alert exposure added when a channel is interrupted (getting caught mid-act is suspicious).
 @export var interrupt_alert_exposure: float = 0.0
+## Non-empty actions are exposed to camera policy while a hold interaction is in progress.
+@export var suspicious_action_kind: String = ""
 
 @export_group("Logic")
 @export var requirements: RequirementSet
@@ -53,6 +55,7 @@ enum InteractionMode {
 @export var show_debug_label: bool = true
 @export var debug_label_path: NodePath = NodePath("DebugLabel")
 @export var preview_color: Color = Color(0.3, 0.7, 1.0, 0.35)
+@export var show_runtime_debug_visuals: bool = false
 
 var used: bool = false
 var current_actor: Node = null
@@ -65,6 +68,7 @@ var _holding: bool = false
 var _hold_actor: Node = null
 var _hold_elapsed: float = 0.0
 var _hold_actor_start_pos: Vector2 = Vector2.ZERO
+var _suspicious_action_registered := false
 
 
 func _ready() -> void:
@@ -288,7 +292,7 @@ func refresh_debug_label() -> void:
 
 
 func _ensure_runtime_debug_visual() -> void:
-	if Engine.is_editor_hint() or not OS.is_debug_build():
+	if Engine.is_editor_hint() or not OS.is_debug_build() or not show_runtime_debug_visuals:
 		return
 	if show_debug_label and get_node_or_null(debug_label_path) == null:
 		var label := Label.new()
@@ -347,6 +351,7 @@ func cancel_hold(reason: String = "cancelled") -> void:
 	_holding = false
 	_hold_actor = null
 	_hold_elapsed = 0.0
+	_end_suspicious_action()
 	hold_interrupted.emit(String(mechanic_id), reason)
 	if interrupt_alert_exposure > 0.0:
 		var controller := _find_alert_controller()
@@ -360,6 +365,7 @@ func _begin_hold(actor: Node) -> void:
 	_hold_actor = actor
 	_hold_elapsed = 0.0
 	_hold_actor_start_pos = (actor as Node2D).global_position if actor is Node2D else global_position
+	_register_suspicious_action()
 	hold_started.emit(String(mechanic_id), interact_duration)
 	set_process(true)
 	queue_redraw()
@@ -384,6 +390,25 @@ func _advance_hold(delta: float) -> void:
 		_hold_elapsed = 0.0
 		queue_redraw()
 		activate(actor, "hold_interact")
+		_end_suspicious_action()
+
+
+func _register_suspicious_action() -> void:
+	if suspicious_action_kind.strip_edges() == "" or _suspicious_action_registered:
+		return
+	var controller := _find_alert_controller()
+	if controller != null and controller.has_method("register_suspicious_action"):
+		controller.call("register_suspicious_action", String(mechanic_id), suspicious_action_kind)
+		_suspicious_action_registered = true
+
+
+func _end_suspicious_action() -> void:
+	if not _suspicious_action_registered:
+		return
+	var controller := _find_alert_controller()
+	if controller != null and controller.has_method("end_suspicious_action"):
+		controller.call("end_suspicious_action", String(mechanic_id))
+	_suspicious_action_registered = false
 
 
 func _find_alert_controller() -> Node:

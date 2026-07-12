@@ -99,7 +99,7 @@ Use DialogueTriggerZone `fallback_speaker`/`fallback_text` (or dialogue_key if r
 per-mechanic prompt_text/found_message/locked_prompt_text. Voices: Parmida dry, Bentley parenthetical
 barks, Yordano stoic-funny (see assets/dialogue/yordano.json). Required content:
 
-1. alley_dialogue — Bentley: "(Too many colognes. The bass line is honest, though.)"
+1. alley_dialogue — Bentley: "There are too many colognes. And none of them smell as good as my expression."
 2. queue_eavesdrop — patrons hint the staff side door propped open between sets.
 3. vip_phone_search found_message — assistant voicemail: "Shred before midnight" + badge in green room.
 4. clue_setlist note (legacy): "Album arc tonight—start where we started hungry, ballad in the middle

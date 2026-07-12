@@ -1,16 +1,30 @@
 extends "res://src/enemies/EnemyBase.gd"
 
+const InspectionRuleSetScript := preload("res://src/missions/iso/social/InspectionRuleSet.gd")
+
 @export var patrol_speed := 100.0
 @export var wait_time_at_points := 2.0
-@export var detection_speed := 1.0
-@export var detection_decay := 0.5
-@export var alert_duration := 5.0
+@export_group("Social Cover")
+@export var inspection_rule_set: InspectionRuleSet
+@export var social_cover_mission_id: String = ""
+@export var ignore_social_cover: bool = false
+
+@export_group("Noise Investigation")
+@export var decoy_inspection_seconds: float = 3.0
+@export var noise_attention_threshold: float = 1.0
+@export var noise_attention_decay: float = 0.5
 
 var _patrol_points: Array[Vector2] = []
 var _patrol_target_index := 0
 var _patrol_state := 0
 var _patrol_idle_timer := 0.0
 var _security_search_net_active := false
+var _noise_attention := 0.0
+var _investigation_state := "idle"
+var _investigate_position := Vector2.ZERO
+var _investigate_timer := 0.0
+var _resume_patrol_index := 0
+var _hostile_on_player_enter_rect := Rect2()
 
 const AUTHORING_CHASE_MAX_DISTANCE := 480.0
 const AUTHORING_CHASE_MAX_SECONDS := 14.0
@@ -69,6 +83,16 @@ func apply_security_search_net(search_net: Dictionary) -> void:
 
 ## D6-03: apply hand-placed guard spawn behavior from GuardSpawnAuthor.
 func _update_ai(delta: float) -> void:
+	_noise_attention = maxf(0.0, _noise_attention - noise_attention_decay * delta)
+	if not is_hostile() and target != null and is_instance_valid(target) and _hostile_on_player_enter_rect.has_area():
+		if _hostile_on_player_enter_rect.has_point(target.global_position):
+			set_hostile(true)
+	if _investigation_state != "idle":
+		if is_hostile() or is_aware():
+			_cancel_noise_investigation()
+		else:
+			_update_noise_investigation(delta)
+			return
 	if has_meta("authoring_force_chase") and bool(get_meta("authoring_force_chase")):
 		if _authoring_chase_should_end():
 			_enter_authoring_fallback()
@@ -113,8 +137,7 @@ func apply_authoring_spawn_behavior(behavior: StringName, payload: Dictionary = 
 		"attack_player":
 			remove_meta("authoring_fallback_entered")
 			target = get_tree().get_first_node_in_group("player") as Node2D
-			_aware = true
-			_spotted_emitted = true
+			set_hostile(true)
 			_security_search_net_active = false
 			set_meta("authoring_force_chase", true)
 			set_meta("authoring_chase_started_msec", Time.get_ticks_msec())
@@ -141,6 +164,101 @@ func apply_authoring_spawn_behavior(behavior: StringName, payload: Dictionary = 
 				assign_patrol_points_world([global_position, global_position + Vector2(48.0, 0.0)], true)
 		_:
 			pass
+
+
+func apply_guard_authoring_config(config: Dictionary) -> void:
+	if float(config.get("detection_range", -1.0)) >= 0.0:
+		detection_range = float(config.get("detection_range"))
+	if float(config.get("vision_angle_degrees", -1.0)) >= 0.0:
+		debug_cone_angle_degrees = float(config.get("vision_angle_degrees"))
+	if float(config.get("detection_speed", -1.0)) >= 0.0:
+		detection_speed = float(config.get("detection_speed"))
+	if float(config.get("detection_decay", -1.0)) >= 0.0:
+		detection_decay = float(config.get("detection_decay"))
+	if float(config.get("detection_threshold", -1.0)) > 0.0:
+		detection_threshold = float(config.get("detection_threshold"))
+	var rules: Variant = config.get("inspection_rule_set")
+	if rules is InspectionRuleSetScript:
+		inspection_rule_set = rules
+	social_cover_mission_id = String(config.get("social_cover_mission_id", social_cover_mission_id))
+	ignore_social_cover = bool(config.get("ignore_social_cover", ignore_social_cover))
+	var hostile_rect: Variant = config.get("hostile_on_player_enter_rect", Rect2())
+	if hostile_rect is Rect2:
+		_hostile_on_player_enter_rect = hostile_rect
+	_update_vision_cone_visual()
+
+
+func on_noise_heard(noise_event: Dictionary, listener: Node = null) -> Dictionary:
+	var kind := String(noise_event.get("kind", "generic"))
+	var team := String(noise_event.get("team", "neutral"))
+	if is_hostile() or is_aware() or (has_meta("authoring_force_chase") and bool(get_meta("authoring_force_chase"))):
+		return {"ok": false, "code": "guard_ignored_noise_in_combat", "kind": kind}
+	if team != "player":
+		return {"ok": false, "code": "guard_ignored_non_player_noise", "kind": kind}
+	_noise_attention += maxf(0.0, float(noise_event.get("strength", 0.0)))
+	if kind in ["decoy", "poop_decoy"] or _noise_attention >= noise_attention_threshold:
+		_begin_noise_investigation(noise_event.get("position", global_position))
+		return {
+			"ok": true,
+			"code": "guard_investigating_noise",
+			"kind": kind,
+			"investigate_position": _investigate_position,
+			"listener_id": String(listener.get("listener_id")) if listener != null else "",
+		}
+	return {"ok": true, "code": "guard_noise_attention_accumulated", "kind": kind, "attention": _noise_attention}
+
+
+func get_noise_investigation_state() -> Dictionary:
+	return {
+		"state": _investigation_state,
+		"position": _investigate_position,
+		"resume_patrol_index": _resume_patrol_index,
+		"patrol_target_index": _patrol_target_index,
+		"attention": _noise_attention,
+	}
+
+
+func _begin_noise_investigation(position: Vector2) -> void:
+	_resume_patrol_index = _patrol_target_index
+	_investigate_position = position
+	_investigate_timer = decoy_inspection_seconds
+	_investigation_state = "traveling"
+	set_meta("noise_reaction_state", _investigation_state)
+	set_meta("noise_investigate_position", position)
+
+
+func _update_noise_investigation(delta: float) -> void:
+	if _investigation_state == "traveling":
+		var offset := _investigate_position - global_position
+		if offset.length() <= 12.0:
+			velocity = Vector2.ZERO
+			move_and_slide()
+			_investigation_state = "inspecting"
+			set_meta("noise_reaction_state", _investigation_state)
+			return
+		velocity = offset.normalized() * patrol_speed
+		move_and_slide()
+		return
+	velocity = Vector2.ZERO
+	move_and_slide()
+	_investigate_timer -= delta
+	if _investigate_timer <= 0.0:
+		_cancel_noise_investigation()
+
+
+func _cancel_noise_investigation() -> void:
+	_investigation_state = "idle"
+	_noise_attention = 0.0
+	if not _patrol_points.is_empty():
+		_patrol_target_index = clampi(_resume_patrol_index, 0, _patrol_points.size() - 1)
+	_patrol_state = 0
+	set_meta("noise_reaction_state", _investigation_state)
+
+
+func _should_suppress_innocent_detection() -> bool:
+	if ignore_social_cover or inspection_rule_set == null or is_hostile():
+		return false
+	return bool(inspection_rule_set.evaluate({"mission_id": social_cover_mission_id}).get("ok", false))
 
 
 func _authoring_chase_should_end() -> bool:

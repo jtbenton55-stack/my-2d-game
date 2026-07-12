@@ -15,6 +15,8 @@ var _last_dialogue_msec: int = -1000000
 
 
 func activate(actor: Node = null, reason: String = "interact") -> Dictionary:
+	if one_shot and used:
+		return super.activate(actor, reason)
 	if not _cooldown_ready():
 		last_activation_result = _result(false, "dialogue_cooldown", "Dialogue trigger is cooling down.", String(mechanic_id), {"remaining_seconds": _cooldown_remaining_seconds()})
 		activation_failed.emit(String(mechanic_id), last_activation_result)
@@ -55,6 +57,8 @@ func _play_dialogue(context: Dictionary) -> Dictionary:
 		payload["speaker"] = fallback_speaker
 	if not payload.has("fallback_text"):
 		payload["fallback_text"] = fallback_text
+	if not payload.has("lines") and String(payload.get("text", "")).strip_edges() == "":
+		payload["text"] = fallback_text
 	var dialogue_context := context.duplicate(true)
 	dialogue_context["payload"] = payload
 	if key != "":

@@ -119,6 +119,7 @@ const MARKER_CATEGORIES: Array[String] = [
 @export var auto_generate_from_definition := true
 @export var default_zone_size := Vector2i(12, 8)
 @export var dev_harness_enabled := true
+@export var layout_collision_excluded_cells: Array[Vector2i] = []
 
 var _required_objective_ids: Array[String] = []
 var _completed_objective_ids: Dictionary = {}
@@ -555,6 +556,8 @@ func _ensure_iso_structure() -> void:
 func _ensure_node(parent: Node, child_name: String, node: Node) -> Node:
 	var existing := parent.get_node_or_null(child_name)
 	if existing != null:
+		if node != existing and is_instance_valid(node):
+			node.free()
 		return existing
 	node.name = child_name
 	parent.add_child(node)
@@ -3517,14 +3520,20 @@ func _spawn_guard_from_authoring_spawn(author: Node2D, event_id: StringName, pay
 		enemies_root.add_child(guard)
 		var spawn_pos: Vector2 = author.global_position
 		var player := get_tree().get_first_node_in_group("player") as Node2D
-		if player != null:
+		if player != null and event_id != &"initial":
 			spawn_pos = author.global_position.lerp(player.global_position, 0.35)
+			var spread := maxf(0.0, float(_author_prop(author, "spawn_spread_radius", 0.0)))
+			if spread > 0.0 and count_want > 1:
+				spawn_pos += Vector2.RIGHT.rotated(TAU * float(i) / float(count_want)) * spread
 		guard.global_position = spawn_pos
+		_apply_iso_enemy_profile(guard)
 		guard.set_meta("author_spawn_id", spawn_id)
 		guard.set_meta("author_trigger_event", String(event_id))
 		guard.set_meta("guard_archetype", String(_author_prop(author, "guard_archetype", "grunt")))
-		guard.set_meta("security_response_guard", true)
-		guard.set_meta("security_response_spawn", true)
+		var is_initial_patrol := event_id == &"initial"
+		guard.set_meta("ambient_security_guard", is_initial_patrol)
+		guard.set_meta("security_response_guard", not is_initial_patrol)
+		guard.set_meta("security_response_spawn", not is_initial_patrol)
 		guard.set_meta("security_spawn_source", "author:" + spawn_id)
 		guard.set_meta("security_spawn_time_sec", int(Time.get_ticks_msec() / 1000))
 		if guard.has_method("apply_archetype_metadata"):
@@ -6536,16 +6545,25 @@ func _sync_layout_root_to_gameplay_layers() -> void:
 	collision_layer.clear()
 	if marker_layer != null:
 		marker_layer.clear()
+	var excluded_collision_cells: Dictionary = {}
+	for excluded_cell: Vector2i in layout_collision_excluded_cells:
+		excluded_collision_cells[excluded_cell] = true
 	for cell in layout_floor.get_used_cells():
 		floor_layer.set_cell(cell, SOURCE_ID, TILE_FLOOR)
 	if layout_wall != null:
 		for cell in layout_wall.get_used_cells():
+			if excluded_collision_cells.has(cell):
+				continue
 			collision_layer.set_cell(cell, SOURCE_ID, TILE_WALL)
 	if layout_cover != null:
 		for cell in layout_cover.get_used_cells():
+			if excluded_collision_cells.has(cell):
+				continue
 			collision_layer.set_cell(cell, SOURCE_ID, TILE_COVER)
 	if layout_barrier != null:
 		for cell in layout_barrier.get_used_cells():
+			if excluded_collision_cells.has(cell):
+				continue
 			collision_layer.set_cell(cell, SOURCE_ID, TILE_WALL)
 	if marker_layer != null and layout_markers != null:
 		for cell in layout_markers.get_used_cells():

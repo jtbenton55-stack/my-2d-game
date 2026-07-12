@@ -19,7 +19,19 @@ func _ready() -> void:
 		EventBus.dialogue_line_changed_full.connect(_on_dialogue_line_changed_full)
 	EventBus.dialogue_ended.connect(_on_dialogue_ended)
 	if skip_button:
-		skip_button.pressed.connect(DialogueManager.end_dialogue)
+		skip_button.pressed.connect(DialogueManager.skip_dialogue)
+
+
+func _input(event: InputEvent) -> void:
+	if not visible or not DialogueManager.is_in_dialogue or not (event is InputEventKey):
+		return
+	var key_event := event as InputEventKey
+	if not key_event.pressed or key_event.echo:
+		return
+	if key_event.keycode == KEY_ENTER or key_event.keycode == KEY_KP_ENTER:
+		DialogueManager.end_dialogue()
+		get_viewport().set_input_as_handled()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and InputMap.has_action("interact") and event.is_action_pressed("interact"):
@@ -30,6 +42,7 @@ func _on_dialogue_started(_lines: Array) -> void:
 	visible = true
 	_last_portrait_id = ""
 	_apply_portrait("")
+	_apply_line_controls(true, true)
 
 func _on_dialogue_line_changed(speaker: String, text: String) -> void:
 	visible = true
@@ -39,6 +52,7 @@ func _on_dialogue_line_changed(speaker: String, text: String) -> void:
 		text_label.text = text
 	if next_indicator:
 		next_indicator.text = "Press E"
+	_apply_line_controls(true, true)
 	# Legacy listeners may fire before the _full signal in the same frame.
 	# If the _full signal arrives, it will overwrite the portrait correctly.
 	# Default to inferring portrait_id from the speaker name when the
@@ -46,7 +60,7 @@ func _on_dialogue_line_changed(speaker: String, text: String) -> void:
 	if _last_portrait_id == "":
 		_apply_portrait(_speaker_to_portrait_id(speaker))
 
-func _on_dialogue_line_changed_full(speaker: String, text: String, portrait_id: String, _line_data: Dictionary) -> void:
+func _on_dialogue_line_changed_full(speaker: String, text: String, portrait_id: String, line_data: Dictionary) -> void:
 	visible = true
 	if speaker_label:
 		speaker_label.text = speaker
@@ -54,6 +68,10 @@ func _on_dialogue_line_changed_full(speaker: String, text: String, portrait_id: 
 		text_label.text = text
 	if next_indicator:
 		next_indicator.text = "Press E"
+	_apply_line_controls(
+		bool(line_data.get("allow_manual_advance", true)),
+		bool(line_data.get("allow_skip", true))
+	)
 	var resolved_id := portrait_id
 	if resolved_id == "":
 		resolved_id = _speaker_to_portrait_id(speaker)
@@ -62,6 +80,14 @@ func _on_dialogue_line_changed_full(speaker: String, text: String, portrait_id: 
 func _on_dialogue_ended() -> void:
 	visible = false
 	_apply_portrait("")
+	_apply_line_controls(true, true)
+
+func _apply_line_controls(allow_manual_advance: bool, allow_skip: bool) -> void:
+	if next_indicator:
+		next_indicator.visible = true
+		next_indicator.text = "Press E | Enter: Close" if allow_manual_advance else "Press Enter to close"
+	if skip_button:
+		skip_button.visible = allow_skip
 
 func _apply_portrait(portrait_id: String) -> void:
 	_last_portrait_id = portrait_id

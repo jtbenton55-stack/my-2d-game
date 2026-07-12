@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-11" name="report_1" tests="83" failures="49" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="TileDataPromotionHelperTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:07" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="1.041">
+		<testcase name="test_synthetic_lf_and_crlf_preserve_every_baseline_byte" classname="TileDataPromotionHelperTest" time="0.021">
+		</testcase>
+		<testcase name="test_rejects_invalid_exact_block_contracts" classname="TileDataPromotionHelperTest" time="0.024">
+		</testcase>
+		<testcase name="test_deterministic_payloads_and_known_defaults_excluded" classname="TileDataPromotionHelperTest" time="0.044">
+		</testcase>
+		<testcase name="test_real_candidate_uses_immutable_checkpoint_scratch_baseline" classname="TileDataPromotionHelperTest" time="0.801">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="LevelBlueprintLayoutPainterTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:08" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.049">
+		<testcase name="test_dry_run_ok_and_production_scene_hash_unchanged" classname="LevelBlueprintLayoutPainterTest" time="0.202">
+		</testcase>
+		<testcase name="test_semantic_region_and_cell_sets" classname="LevelBlueprintLayoutPainterTest" time="0.019">
+		</testcase>
+		<testcase name="test_cover_contract_has_four_solid_and_two_non_solid_labels" classname="LevelBlueprintLayoutPainterTest" time="0.045">
+		</testcase>
+		<testcase name="test_nine_openings_have_expected_classifications_and_blocking" classname="LevelBlueprintLayoutPainterTest" time="0.050">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_closed_islands_are_contained" classname="LevelBlueprintLayoutPainterTest" time="0.029">
+		</testcase>
+		<testcase name="test_blocking_overlap_and_union_evidence" classname="LevelBlueprintLayoutPainterTest" time="0.047">
+		</testcase>
+		<testcase name="test_all_five_approved_layer_paths_resolve" classname="LevelBlueprintLayoutPainterTest" time="0.024">
+		</testcase>
+		<testcase name="test_non_dry_run_is_rejected_without_mutation" classname="LevelBlueprintLayoutPainterTest" time="0.036">
+		</testcase>
+		<testcase name="test_repeated_runs_are_deterministic" classname="LevelBlueprintLayoutPainterTest" time="0.217">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:09" hostname="localhost" tests="18" failures="0" errors="0" skipped="0" flaky="0" time="4.531">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.109">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.025">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.119">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.091">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.712">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.337">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.043">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.086">
+		</testcase>
+		<testcase name="test_dynamic_blockers_gate_unlocks_and_fresh_scene_restores" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.751">
+		</testcase>
+		<testcase name="test_full_startup_forward_sync_and_phase3a_teardown_are_clean" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.908">
+		</testcase>
+		<testcase name="test_staff_gate_requirement_blocks_then_passes" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.100">
+		</testcase>
+		<testcase name="test_staff_badge_soft_voicemail_dependency_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.100">
+		</testcase>
+		<testcase name="test_extraction_requires_flags_and_objectives" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.094">
+		</testcase>
+		<testcase name="test_teleport_and_patrol_links_resolve" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.089">
+		</testcase>
+		<testcase name="test_setlist_requirement_and_effect_resources_are_live" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.100">
+		</testcase>
+		<testcase name="test_dialogue_zones_have_fallback_text_or_key" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.099">
+		</testcase>
+		<testcase name="test_required_dialogue_content_is_authored" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.045">
+		</testcase>
+		<testcase name="test_controller_syncs_canonical_flags_and_game_state_side_effects" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.042">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="MissionSceneResolverCatalogTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:14" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.284">
+		<testcase name="test_existing_playable_iso_catalog_entries_resolve" classname="MissionSceneResolverCatalogTest" time="0.039">
+		</testcase>
+		<testcase name="test_unknown_mission_falls_back_to_game_state_default" classname="MissionSceneResolverCatalogTest" time="0.028">
+		</testcase>
+		<testcase name="test_temporary_catalog_playable_iso_scene_resolves_without_resolver_edit" classname="MissionSceneResolverCatalogTest" time="0.018">
+		</testcase>
+		<testcase name="test_resolution_report_warns_on_missing_playable_iso_scene" classname="MissionSceneResolverCatalogTest" time="0.034">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="IsoMissionBaseLifecycleTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:14" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.739">
+		<testcase name="test_ensure_node_frees_unused_fallback_and_returns_existing" classname="IsoMissionBaseLifecycleTest" time="0.033">
+		</testcase>
+		<testcase name="test_ensure_node_attaches_valid_fallback_when_child_is_missing" classname="IsoMissionBaseLifecycleTest" time="0.038">
+		</testcase>
+		<testcase name="test_minimal_iso_mission_lifecycle_is_teardown_safe" classname="IsoMissionBaseLifecycleTest" time="0.063">
+		</testcase>
+		<testcase name="test_velvet_scene_lifecycle_twice_does_not_accumulate_orphans" classname="IsoMissionBaseLifecycleTest" time="0.459">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="MilestoneAAuthoringRuntimeDegateTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:15" hostname="localhost" tests="2" failures="0" errors="0" skipped="0" flaky="0" time="0.288">
+		<testcase name="test_non_taco_security_root_builds_router_and_authored_beam" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.111">
+		</testcase>
+		<testcase name="test_non_taco_without_security_root_records_no_collectible_root_and_no_router" classname="MilestoneAAuthoringRuntimeDegateTest" time="0.071">
+		</testcase>
+	</testsuite>
+	<testsuite id="6" name="MilestoneAThinAuthorablesTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:15" hostname="localhost" tests="17" failures="0" errors="0" skipped="0" flaky="0" time="1.755">
+		<testcase name="test_player_start_marker_matches_existing_spawn_authoring_convention" classname="MilestoneAThinAuthorablesTest" time="0.025">
+		</testcase>
+		<testcase name="test_player_start_marker_creates_default_and_start_main_spawn_points" classname="MilestoneAThinAuthorablesTest" time="0.032">
+		</testcase>
+		<testcase name="test_milestone_a_proof_scene_has_bridge_and_valid_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.284">
+		</testcase>
+		<testcase name="test_milestone_a_proof_camera_bounds_cover_authored_teleport_targets" classname="MilestoneAThinAuthorablesTest" time="0.097">
+		</testcase>
+		<testcase name="test_milestone_a_proof_inventory_chain_is_self_contained" classname="MilestoneAThinAuthorablesTest" time="0.096">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.101">
+		</testcase>
+		<testcase name="test_milestone_a_proof_extraction_is_configured_for_visible_result_screen" classname="MilestoneAThinAuthorablesTest" time="0.087">
+		</testcase>
+		<testcase name="test_milestone_a_proof_teleports_are_reusable_and_work_after_route_unlock" classname="MilestoneAThinAuthorablesTest" time="0.106">
+		</testcase>
+		<testcase name="test_authored_poop_bag_updates_canonical_counts_immediately" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_authored_clue_is_visible_to_pause_snapshot_during_attempt" classname="MilestoneAThinAuthorablesTest" time="0.030">
+		</testcase>
+		<testcase name="test_pause_inventory_snapshot_lists_mission_inventory_items" classname="MilestoneAThinAuthorablesTest" time="0.031">
+		</testcase>
+		<testcase name="test_hide_spot_marks_hidden_and_player_damage_respects_hidden_state" classname="MilestoneAThinAuthorablesTest" time="0.026">
+		</testcase>
+		<testcase name="test_teleport_zone_moves_player_and_applies_effect_after_requirements" classname="MilestoneAThinAuthorablesTest" time="0.048">
+		</testcase>
+		<testcase name="test_teleport_zone_blocks_when_requirements_fail" classname="MilestoneAThinAuthorablesTest" time="0.029">
+		</testcase>
+		<testcase name="test_teleport_zone_can_bypass_prior_interaction_requirements" classname="MilestoneAThinAuthorablesTest" time="0.027">
+		</testcase>
+		<testcase name="test_teleport_zone_missing_target_is_safe" classname="MilestoneAThinAuthorablesTest" time="0.025">
+		</testcase>
+		<testcase name="test_music_trigger_zone_requests_audio_manager_and_restores_on_exit" classname="MilestoneAThinAuthorablesTest" time="0.042">
+		</testcase>
+	</testsuite>
+	<testsuite id="7" name="PhaseD501AttemptResetContractTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:17" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.026">
+		<testcase name="test_objective_bridge_reset_clears_only_target_mission_runtime_objectives" classname="PhaseD501AttemptResetContractTest" time="0.026">
+		</testcase>
+		<testcase name="test_phase0k_reset_attempt_state_clears_bag_code_exit_and_reseeds_objectives" classname="PhaseD501AttemptResetContractTest" time="0.028">
+		</testcase>
+		<testcase name="test_phase0j_bag_interactable_reset_restores_visual_collision_and_label" classname="PhaseD501AttemptResetContractTest" time="0.047">
+		</testcase>
+		<testcase name="test_phase0j_state_adapter_reset_forgets_collected_delivery_bag" classname="PhaseD501AttemptResetContractTest" time="0.023">
+		</testcase>
+		<testcase name="test_d5_security_reset_rearms_beam_and_removes_response_guards" classname="PhaseD501AttemptResetContractTest" time="0.049">
+		</testcase>
+		<testcase name="test_d5_reset_preclear_removes_live_cameras_and_attempt_guards" classname="PhaseD501AttemptResetContractTest" time="0.046">
+		</testcase>
+		<testcase name="test_runtime_rebuild_clear_children_removes_queued_nodes_immediately" classname="PhaseD501AttemptResetContractTest" time="0.048">
+		</testcase>
+		<testcase name="test_authoring_beam_trip_marks_same_runtime_flag_as_f12_dashboard" classname="PhaseD501AttemptResetContractTest" time="0.068">
+		</testcase>
+		<testcase name="test_stale_security_event_router_is_not_reused_after_runtime_rebuild" classname="PhaseD501AttemptResetContractTest" time="0.047">
+		</testcase>
+		<testcase name="test_d5_pause_payload_uses_live_taco_mission_context" classname="PhaseD501AttemptResetContractTest" time="0.068">
+		</testcase>
+		<testcase name="test_d5_louis_route_bypasses_beam_without_marking_alarm_trip" classname="PhaseD501AttemptResetContractTest" time="0.049">
+		</testcase>
+		<testcase name="test_d5_beam_still_trips_without_louis_route" classname="PhaseD501AttemptResetContractTest" time="0.060">
+		</testcase>
+	</testsuite>
+	<testsuite id="8" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:18" hostname="localhost" tests="10" failures="0" errors="0" skipped="0" flaky="0" time="4.516">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="0.544">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.297">
+		</testcase>
+		<testcase name="test_furniture_solid_cover_and_front_rope_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.330">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.308">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="1.074">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.315">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.312">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.318">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.308">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.306">
+		</testcase>
+	</testsuite>
+	<testsuite id="9" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-11T14:11:23" hostname="localhost" tests="3" failures="49" errors="0" skipped="0" flaky="0" time="2.587">
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.978">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.371">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+badge collect: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.inventory_pickup_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "reward_kind": "item", "reward_id": "velvet_paw_staff_badge", "collected_flag": "vpj_staff_badge_collected", "collected": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:66
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:298
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+staff gate: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.locked_interaction_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "lock_kind": "gate", "unlocked_flag": "vpj_staff_gate_open", "unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:67
+	at '_add_mission' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:298
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:239" type="FAILURE">
+<![CDATA[
+staff_gate_open start
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:239
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:69
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241" type="FAILURE">
+<![CDATA[
+staff_gate_open
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:69
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_row
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:70
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_wing
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:70
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+setlist terminal: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.terminal_hack_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "lock_kind": "terminal", "unlocked_flag": "", "unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:78
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+backstage hatch: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.route_unlock_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "route_id": "velvet_paw_basement_hatch", "route_flag": "vpj_backstage_hatch_open", "route_unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:79
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241" type="FAILURE">
+<![CDATA[
+backstage_hatch_open
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:81
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_row
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_wing
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+backstage
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:82
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+basement teleport: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.teleport_zone.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801> } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:84
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206" type="FAILURE">
+<![CDATA[
+basement
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:84
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+vault power: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this circuit.", "source_id": "velvet_paw_jazz_club.power_circuit_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801> } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:91
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+server vault: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.locked_interaction_node.02", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "lock_kind": "safe", "unlocked_flag": "vpj_server_vault_open", "unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:92
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241" type="FAILURE">
+<![CDATA[
+server_vault_open
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:94
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_row
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_wing
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+backstage
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+vault
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:95
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+shard collect: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.inventory_pickup_node.02", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "reward_kind": "item", "reward_id": "velvet_paw_ledger_shard", "collected_flag": "vpj_shard_collected", "collected": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:97
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+keycard collect: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.inventory_pickup_node.03", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "reward_kind": "item", "reward_id": "velvet_paw_basement_keycard", "collected_flag": "", "collected": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:99
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+return teleport: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.teleport_zone.02", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801> } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:104
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206" type="FAILURE">
+<![CDATA[
+return
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:104
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:107" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:107
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:108" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:108
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+owner stairs: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.locked_interaction_node.03", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "lock_kind": "scanner", "unlocked_flag": "vpj_owner_stairs_open", "unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:109
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:240" type="FAILURE">
+<![CDATA[
+owner_stairs_open end
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:240
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:111
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241" type="FAILURE">
+<![CDATA[
+owner_stairs_open
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:111
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_row
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_wing
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+backstage
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+vault
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+owner
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:112
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+suite teleport: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.teleport_zone.03", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801> } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:205
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:114
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206" type="FAILURE">
+<![CDATA[
+suite
+	at '_assert_teleport' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:206
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:114
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+owner encounter: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.challenge_objective_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801> } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:120
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+briefcase collect: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.reward_node.01", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "reward_kind": "evidence", "reward_id": "velvet_paw_blackmail_briefcase", "collected_flag": "vpj_briefcase_collected", "collected": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:122
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+escape hatch: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this mechanic.", "source_id": "velvet_paw_jazz_club.route_unlock_node.02", "details": { "reason": "phase6_route", "actor": Phase6RouteActor:<Node2D#6343045975801>, "route_id": "velvet_paw_escape_hatch", "route_flag": "vpj_escape_hatch_open", "route_unlocked": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:123
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241" type="FAILURE">
+<![CDATA[
+escape_hatch_open
+	at '_assert_clear_motion' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:241
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:125
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_row
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+staff_wing
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+backstage
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+vault
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+owner
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220" type="FAILURE">
+<![CDATA[
+escape
+	at '_assert_disabled_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:220
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:126
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225" type="FAILURE">
+<![CDATA[
+extraction readiness: { "ok": false, "code": "actor_not_allowed", "message": "Actor cannot use this extraction zone.", "source_id": "velvet_paw_jazz_club.extraction_zone.01", "details": { "extraction_tag": "velvet_paw_basement_escape", "extraction_flag": "", "extracted": false } }
+	at '_assert_succeeded' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:225
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:133
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:134" type="FAILURE">
+<![CDATA[
+Expecting:
+ 'can_extract'
+ but was
+ 'acator_not_allowextractd'
+	at 'test_critical_route_obeys_requirements_and_physical_blockers' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:134
+	at '_flush_physics' in res://tests/mission_authoring/VelvetPawJazzClubRuntimeQATest.gd:310
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

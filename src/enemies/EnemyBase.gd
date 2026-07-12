@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 signal died(enemy)
-## Emitted once when the enemy first gains line-of-sight while the player is in aggro range.
+## Emitted once when awareness reaches its threshold or hostility is made explicit.
 signal spotted_player()
 signal health_changed(current: int, max_health: int)
 
@@ -17,6 +17,10 @@ signal health_changed(current: int, max_health: int)
 @export var stealth_aggro_multiplier := 0.35
 @export var hit_recovery_delay: float = 0.42
 @export var debug_cone_angle_degrees: float = 80.0
+@export var detection_speed: float = 1.0
+@export var detection_decay: float = 0.5
+@export var detection_threshold: float = 1.0
+@export var alert_duration: float = 5.0
 @export var hit_invulnerability_seconds: float = 0.3
 @export var stun_baton_base_chance: float = 0.12
 
@@ -25,8 +29,12 @@ var target: Node2D = null
 var attack_timer := 0.0
 var stunned_timer := 0.0
 var detection_multiplier := 1.0
+var detection_progress := 0.0
 var _spotted_emitted := false
 var _aware := false
+var _hostile := false
+var _awareness_hold_timer := 0.0
+var _facing_direction := Vector2.RIGHT
 var _hit_invuln_timer := 0.0
 var _health_bar: ProgressBar = null
 var _health_label: Label = null
@@ -37,6 +45,7 @@ func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player") as Node2D
 	health_changed.emit(health, max_health)
 	_create_health_bar()
+	_update_vision_cone_visual()
 	if OS.is_debug_build():
 		set_process(true)
 
@@ -53,11 +62,40 @@ func _physics_process(delta: float) -> void:
 	if target == null or not is_instance_valid(target):
 		target = get_tree().get_first_node_in_group("player") as Node2D
 	_update_ai(delta)
+	if velocity.length_squared() > 0.01:
+		_facing_direction = velocity.normalized()
+	_update_vision_cone_visual()
 	if OS.is_debug_build():
 		queue_redraw()
 
 func is_aware() -> bool:
 	return _aware
+
+
+func is_hostile() -> bool:
+	return _hostile
+
+
+func get_detection_progress() -> float:
+	return detection_progress
+
+
+func set_facing_direction(direction: Vector2) -> void:
+	if direction.length_squared() > 0.0001:
+		_facing_direction = direction.normalized()
+		_update_vision_cone_visual()
+
+
+func set_hostile(hostile: bool, emit_spotted: bool = true) -> void:
+	_hostile = hostile
+	if not hostile:
+		return
+	detection_progress = maxf(detection_progress, detection_threshold)
+	_awareness_hold_timer = alert_duration
+	_aware = true
+	if emit_spotted and not _spotted_emitted:
+		_spotted_emitted = true
+		spotted_player.emit()
 
 
 func instant_kill() -> void:
@@ -68,30 +106,33 @@ func instant_kill() -> void:
 	_die()
 
 
-func _update_ai(_delta: float) -> void:
+func _update_ai(delta: float) -> void:
 	if target == null:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 	if _target_is_hidden():
-		_spotted_emitted = false
-		_aware = false
-		_patrol_or_idle(_delta)
+		_update_detection(false, delta)
+		_patrol_or_idle(delta)
 		return
 	var distance := global_position.distance_to(target.global_position)
-	var effective_aggro_range := aggro_range
+	var effective_detection_range := detection_range * maxf(0.0, detection_multiplier)
 	if target.has_method("is_stealth_active") and target.is_stealth_active():
-		effective_aggro_range *= stealth_aggro_multiplier
-	if distance <= attack_range and _can_see_player():
-		_aware = true
+		effective_detection_range *= stealth_aggro_multiplier
+	var has_visual := not _hostile \
+		and distance <= effective_detection_range \
+		and _is_target_in_facing_cone() \
+		and _can_see_player() \
+		and not _should_suppress_innocent_detection()
+	_update_detection(has_visual, delta)
+	if not _aware:
+		_patrol_or_idle(delta)
+		return
+	if distance <= attack_range:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		_try_attack()
-	elif distance <= effective_aggro_range and _can_see_player():
-		_aware = true
-		if not _spotted_emitted:
-			_spotted_emitted = true
-			spotted_player.emit()
+	else:
 		var to_t := target.global_position - global_position
 		var dir := to_t.normalized()
 		var spd := chase_speed
@@ -99,11 +140,55 @@ func _update_ai(_delta: float) -> void:
 			spd *= 0.42
 		velocity = dir * spd
 		move_and_slide()
-	else:
-		if distance > effective_aggro_range * 1.75:
-			_spotted_emitted = false
-			_aware = false
-		_patrol_or_idle(_delta)
+
+
+func _update_detection(has_visual: bool, delta: float) -> void:
+	if _hostile:
+		detection_progress = maxf(detection_progress, detection_threshold)
+		_aware = true
+		return
+	if has_visual:
+		detection_progress = minf(detection_threshold, detection_progress + detection_speed * maxf(0.0, detection_multiplier) * delta)
+		if detection_progress >= detection_threshold:
+			_awareness_hold_timer = alert_duration
+			_aware = true
+			if not _spotted_emitted:
+				_spotted_emitted = true
+				spotted_player.emit()
+		return
+	if _aware and _awareness_hold_timer > 0.0:
+		_awareness_hold_timer = maxf(0.0, _awareness_hold_timer - delta)
+		return
+	detection_progress = maxf(0.0, detection_progress - detection_decay * delta)
+	if detection_progress <= 0.0:
+		_aware = false
+		_spotted_emitted = false
+
+
+func _is_target_in_facing_cone() -> bool:
+	if target == null or not is_instance_valid(target):
+		return false
+	var to_target := target.global_position - global_position
+	if to_target.length_squared() <= 0.0001:
+		return true
+	return absf(_facing_direction.angle_to(to_target.normalized())) <= deg_to_rad(debug_cone_angle_degrees * 0.5)
+
+
+func _should_suppress_innocent_detection() -> bool:
+	return false
+
+
+func _update_vision_cone_visual() -> void:
+	var cone := get_node_or_null("VisionArea/VisionCone") as Polygon2D
+	if cone == null:
+		return
+	var half := deg_to_rad(debug_cone_angle_degrees * 0.5)
+	cone.polygon = PackedVector2Array([
+		Vector2.ZERO,
+		Vector2.RIGHT.rotated(-half) * detection_range,
+		Vector2.RIGHT.rotated(half) * detection_range,
+	])
+	cone.rotation = _facing_direction.angle()
 
 func _can_see_player() -> bool:
 	if target == null or not is_instance_valid(target):
@@ -133,6 +218,8 @@ func _try_attack() -> void:
 		target.take_damage(attack_damage, self)
 
 func take_damage(amount: int, source: Node = null) -> void:
+	if source != null and (source == target or source.is_in_group("player")):
+		set_hostile(true)
 	if _hit_invuln_timer > 0.0:
 		return
 	EventBus.debug("Guard hit.")
@@ -157,9 +244,7 @@ func _die() -> void:
 	queue_free()
 
 func set_detection_multiplier(mult: float) -> void:
-	detection_multiplier = mult
-	# Adjust detection range
-	detection_range *= mult
+	detection_multiplier = maxf(0.0, mult)
 
 func _patrol_or_idle(_delta: float) -> void:
 	velocity = Vector2.ZERO
@@ -170,11 +255,7 @@ func _draw() -> void:
 	if not OS.is_debug_build():
 		return
 	var half := deg_to_rad(debug_cone_angle_degrees * 0.5)
-	var facing_dir := Vector2.RIGHT
-	if target != null and is_instance_valid(target):
-		var to_target := target.global_position - global_position
-		if to_target.length() > 0.01:
-			facing_dir = to_target.normalized()
+	var facing_dir := _facing_direction
 	var draw_range := aggro_range
 	if has_meta("authoring_debug_cone_range"):
 		draw_range = float(get_meta("authoring_debug_cone_range"))

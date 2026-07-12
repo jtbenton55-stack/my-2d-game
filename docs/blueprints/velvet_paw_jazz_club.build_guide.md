@@ -27,32 +27,50 @@ Paint each region onto its LayoutRoot tile layer:
 | Bathroom | floor | `GameplayRoot/LayoutRoot/FloorLayer` |
 | Owner Suite - Floor 2 (reached via rig stairs teleport) | floor | `GameplayRoot/LayoutRoot/FloorLayer` |
 | Basement - Service Level (reached via stage hatch teleport) | floor | `GameplayRoot/LayoutRoot/FloorLayer` |
-| Club Outer Walls (front door gap center-south, staff side door gap east-south) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Stage Row Wall (wing gaps: hatch near piano at x1024, staff gate at x2048) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Bathroom Wall (door gap at south) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Stage Wing Divider (staff gate gap at south end) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| VIP Rope Rail (rope gap at north end) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Owner Suite Walls (stairs arrival gap at south-west) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Basement Walls (hatch arrival gap at south-west, escape hatch gap at east) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Server Vault Cage (vault door gap at south center) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Bar Counter | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| DJ Rig / Speaker Stack (owner stairs run behind this on floor plan east) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Grand Piano (service hatch just east of it) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Green Room Couch | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| VIP Booth North | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| VIP Booth South | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Owner Desk | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Server Rack Row (inside vault cage) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Basement Storage Shelves | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
-| Bar Corner (setlist-alarm safe spot) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
-| Dance Floor Silhouette (setlist-alarm safe spot) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
-| Subwoofer Stack Cover | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
-| Costume Rack Cover (green room) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
-| Alley Dumpster | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
-| Basement Crates | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Club outer north wall - continuous, 64 px nominal thickness | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Club outer east wall - continuous, 64 px nominal thickness | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Club south wall east segment - stops at fixed staff opening x=2880..3072 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Club south wall middle segment - between staff opening x=2880..3072 and front gap x=1344..1536 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Club south-west and west wall segment - front visible gap x=1344..1536 is crowd-rope blocked | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Stage row west stub - fixed bathroom opening x=192..448 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Stage row segment - bathroom opening x=192..448 to dynamic hatch x=896..1152 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Stage row segment - dynamic hatch x=896..1152 to dynamic staff gate x=1920..2176 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Stage row east segment - starts after dynamic staff gate x=1920..2176 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Bathroom divider - fixed south-end opening y=832..1024 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Stage-wing divider - dynamic south-end gate opening y=832..1024 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| VIP rope rail - Bentley-parking-gated left entrance y=1600..1792 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Owner Suite closed teleport-island perimeter - portal arrival and extraction movement remain inside the contained perimeter | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Basement closed teleport-island perimeter - portal arrivals, return, and extraction remain inside the contained perimeter | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Server cage north wall | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Server cage east wall | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Server cage south-east segment - dynamic door x=3840..4032 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Server cage south-west segment - dynamic door x=3840..4032 centered x=3936 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Server cage west wall | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street/alley exposed west perimeter wall - prevents floor leak into void | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street/alley exposed south perimeter wall - prevents floor leak into void | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street/alley exposed east perimeter wall - prevents floor leak into void | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street north-west wall - stops at front crowd-rope gap x=1344..1536 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street north-middle wall - between front gap x=1344..1536 and staff opening x=2880..3072 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Street north-east wall - starts after fixed staff opening x=2880..3072 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Front Entrance Crowd Rope - retained authoring footprint; runtime collision uses a dynamic VIP gate | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Bar Counter - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| DJ Rig / Speaker Stack - blocks_movement=true (owner stairs run behind this on floor plan east) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Grand Piano - blocks_movement=true (service hatch just east of it) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Green Room Couch - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| VIP Booth North - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| VIP Booth South - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Owner Desk - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Server Rack Row - blocks_movement=true (inside vault cage) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Basement Storage Shelves - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Bar Corner - safe non-solid cover, blocks_movement=false (setlist-alarm safe spot) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Dance Floor Silhouette - safe non-solid cover, blocks_movement=false (setlist-alarm safe spot) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Subwoofer Stack - solid cover, blocks_movement=true | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Costume Rack - solid cover, blocks_movement=true (green room) | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Alley Dumpster - solid cover, blocks_movement=true | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
+| Basement Crates - solid cover, blocks_movement=true | cover | `GameplayRoot/LayoutRoot/CoverLayer` |
 | Spawn Area (street west) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
-| Front Door (too crowded - queue blocks it) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
-| Staff Side Door (the real way in) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
+| Front Door (VIP cover + wristband alternate entrance) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
+| Staff Side Door (default alley entrance) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
 | Stage Center (setlist puzzle) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
 | Owner Suite Balcony (briefcase) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
 | Extraction Hatch (bass-drop escape) | marker | `GameplayRoot/LayoutRoot/MarkerTileLayer` |
@@ -74,7 +92,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Position: (1312, 2624)
 - Zone size: 256 x 192
 - Parent: `MissionMechanics`
-- Instructions: Front-door bouncer works the velvet rope. Entering the queue without a wristband bounces the player back - this sells 'the front is too crowded' and pushes them toward the alley.
+- Instructions: Front-door bouncer checks `velvet_paw_vip_guest` plus `velvet_paw_vip_wristband`. Valid VIP access opens the dynamic rope. Without it, an automatic five-second bouncer line followed by a five-second Bentley line redirects the player toward the alley.
 
 ### 3. `queue_eavesdrop` - EavesdropZone
 
@@ -82,7 +100,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Position: (960, 2816)
 - Zone size: 192 x 128
 - Parent: `MissionMechanics`
-- Instructions: Two patrons in line gripe that the horn section props the staff side door open between sets. Teaches the alley route without a map marker.
+- Instructions: Two patrons in line gripe that the horn section props the staff side door open between sets. Completion displays the discovery in the dialogue box and teaches the alley route without a map marker.
 
 ### 4. `alley_dialogue` - DialogueTriggerZone
 
@@ -90,14 +108,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Position: (2688, 2816)
 - Zone size: 192 x 192
 - Parent: `MissionMechanics`
-- Instructions: Micro-cutscene intro beat: Bentley sniffs the alley ('Too many colognes. The bass line is honest, though.'). One-shot.
+- Instructions: One-shot Bentley alley beat using the authored fallback line about cheap colognes and his expression.
 
 ### 5. `dead_drop` - DeadDropNode
 
 - Suggested ID: `velvet_paw_jazz_club.dead_drop_node.01`
 - Position: (3136, 2944)
 - Parent: `MissionMechanics`
-- Instructions: Optional: loose brick behind the alley. Leaving a copy of the VIP voicemail here foreshadows Rewrite Room (Mere picks it up between missions).
+- Instructions: Optional loose-brick deposit. The VIP phone grants one `velvet_paw_vip_voicemail_copy`; this node consumes it, sets `vpj_vip_voicemail_copy_dropped`, and confirms Mere can retrieve it.
 
 ### 6. `poop_bag_alley` - PoopBagAuthor
 
@@ -202,7 +220,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Suggested ID: `velvet_paw_jazz_club.bentley_wait_marker.01`
 - Position: (1216, 2240)
 - Parent: `MissionMechanics`
-- Instructions: Park Bentley by the dance floor edge before working the VIP lounge - a dog in VIP breaks the protocol zone instantly.
+- Instructions: Park Bentley at the exact dance-floor marker to open the only VIP entrance on the left, then use the new-staff cover to complete protocol inside. The phone remains locked until protocol completes. Bringing Bentley to the closed entrance triggers the bouncer exchange and makes the shortened VIP camera actionable; that camera pauses exposure while Parmida stands still and resumes it when she moves.
 
 ### 20. `hide_booth` - HideSpotNode
 
@@ -225,7 +243,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Position: (2816, 2304)
 - Zone size: 128 x 96
 - Parent: `MissionMechanics`
-- Instructions: VIP booth phone: voicemail from Sterling's assistant ('Shred before midnight'). Reveals where the staff badge hangs in the green room and sets the flag staff_badge_pickup requires.
+- Instructions: This phone is inside Velvet Paw's VIP booth, not Taco Bell or the alley. Press E to display Sterling's assistant voicemail, set `vpj_vip_voicemail_found`, and grant one mission-local `velvet_paw_vip_voicemail_copy` for the alley dead drop. It is not the source of front-door VIP access.
 
 ### 23. `camera_vip` - SecurityCameraAuthor
 

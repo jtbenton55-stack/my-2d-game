@@ -9,6 +9,7 @@ extends TriggerZone
 @export var restore_music_key: StringName = &""
 @export var audio_player_path: NodePath
 @export var audio_stream: AudioStream
+@export var loop_music: bool = true
 
 var previous_music_key: String = ""
 var last_music_result: Dictionary = {}
@@ -27,10 +28,15 @@ func _init() -> void:
 func _ready() -> void:
 	super._ready()
 	add_to_group("music_trigger_zone")
-	if audio_stream != null and get_node_or_null(audio_player_path) == null:
+	var audio_manager := get_node_or_null("/root/AudioManager")
+	var key := String(music_key).strip_edges()
+	if audio_manager != null and key != "" and audio_stream != null and audio_manager.has_method("register_music_cue"):
+		audio_manager.call("register_music_cue", key, audio_stream, loop_music)
+	elif audio_stream != null and get_node_or_null(audio_player_path) == null:
 		var player := AudioStreamPlayer.new()
 		player.name = "MusicPreviewPlayer"
 		player.stream = audio_stream
+		player.bus = "Music"
 		add_child(player)
 		audio_player_path = NodePath("MusicPreviewPlayer")
 
@@ -63,6 +69,8 @@ func _request_music_change() -> Dictionary:
 	if player != null:
 		if audio_stream != null:
 			player.stream = audio_stream
+			if loop_music and "loop" in player.stream:
+				player.stream.set("loop", true)
 		_fade_player_in(player)
 		return _result(true, "audio_player_started", "Started local AudioStreamPlayer.", String(mechanic_id), {"player_path": str(player.get_path())})
 	return _result(false, "missing_audio_seam", "No AudioManager music key or AudioStreamPlayer available.", String(mechanic_id))

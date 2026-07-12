@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-12" name="report_110" tests="23" failures="1" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetCameraDetectionPolicyTest" package="tests/mission_authoring" timestamp="2026-07-12T16:59:12" hostname="localhost" tests="9" failures="1" errors="0" skipped="0" flaky="0" time="0.650">
+		<testcase name="test_default_camera_policy_preserves_always_detect_behavior" classname="VelvetCameraDetectionPolicyTest" time="0.034">
+		</testcase>
+		<testcase name="test_velvet_normal_heat_requires_action_and_theft_respects_concealment" classname="VelvetCameraDetectionPolicyTest" time="0.028">
+		</testcase>
+		<testcase name="test_raised_initial_posture_and_reset_clear_actions" classname="VelvetCameraDetectionPolicyTest" time="0.016">
+		</testcase>
+		<testcase name="test_hold_interaction_registers_and_clears_camera_suspicion" classname="VelvetCameraDetectionPolicyTest" time="0.039">
+		</testcase>
+		<testcase name="test_forced_stealth_sources_preserve_manual_stealth_and_hide_spot_source" classname="VelvetCameraDetectionPolicyTest" time="0.054">
+		</testcase>
+		<testcase name="test_camera_author_passes_los_occlusion_configuration" classname="VelvetCameraDetectionPolicyTest" time="0.032">
+		</testcase>
+		<testcase name="test_camera_queries_controller_before_accumulating" classname="VelvetCameraDetectionPolicyTest" time="0.037">
+		</testcase>
+		<testcase name="test_movement_sensitive_camera_freezes_exposure_while_stationary" classname="VelvetCameraDetectionPolicyTest" time="0.031">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetCameraDetectionPolicyTest.gd:176" type="FAILURE">
+<![CDATA[
+Expecting to be greater than:
+ '0.350000' but was '0.000000'
+	at 'test_movement_sensitive_camera_freezes_exposure_while_stationary' in res://tests/mission_authoring/VelvetCameraDetectionPolicyTest.gd:176
+]]>
+			</failure>
+		</testcase>
+		<testcase name="test_wall_blocks_los_and_clips_visible_cone" classname="VelvetCameraDetectionPolicyTest" time="0.028">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-12T16:59:13" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="2.955">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="1.843">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.165">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.801">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawJazzClubPhysicsTest" package="tests/mission_authoring" timestamp="2026-07-12T16:59:16" hostname="localhost" tests="11" failures="0" errors="0" skipped="0" flaky="0" time="5.762">
+		<testcase name="test_wall_proxy_is_deterministic_transform_aware_and_bounded" classname="VelvetPawJazzClubPhysicsTest" time="0.626">
+		</testcase>
+		<testcase name="test_exterior_and_island_walls_block_from_both_sides" classname="VelvetPawJazzClubPhysicsTest" time="0.472">
+		</testcase>
+		<testcase name="test_furniture_and_solid_cover_physically_block" classname="VelvetPawJazzClubPhysicsTest" time="0.510">
+		</testcase>
+		<testcase name="test_fixed_openings_connect_and_non_solid_cover_is_walkable" classname="VelvetPawJazzClubPhysicsTest" time="0.355">
+		</testcase>
+		<testcase name="test_vip_left_entrance_blocks_until_bentley_is_parked" classname="VelvetPawJazzClubPhysicsTest" time="0.383">
+		</testcase>
+		<testcase name="test_four_dynamic_blockers_block_then_existing_unlock_opens" classname="VelvetPawJazzClubPhysicsTest" time="1.239">
+		</testcase>
+		<testcase name="test_owner_stairs_uses_valid_south_route_and_teleport_grid" classname="VelvetPawJazzClubPhysicsTest" time="0.368">
+		</testcase>
+		<testcase name="test_spawn_and_all_teleport_landings_have_usable_clearance" classname="VelvetPawJazzClubPhysicsTest" time="0.356">
+		</testcase>
+		<testcase name="test_owner_suite_and_basement_perimeters_prevent_void_leaks" classname="VelvetPawJazzClubPhysicsTest" time="0.365">
+		</testcase>
+		<testcase name="test_cardinal_and_diagonal_adjacent_wall_seams_are_sealed" classname="VelvetPawJazzClubPhysicsTest" time="0.341">
+		</testcase>
+		<testcase name="test_teardown_leaves_zero_new_orphans" classname="VelvetPawJazzClubPhysicsTest" time="0.363">
+		</testcase>
+	</testsuite>
+</testsuites>
