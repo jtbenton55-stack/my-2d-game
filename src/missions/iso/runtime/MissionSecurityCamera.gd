@@ -9,6 +9,8 @@ signal player_detected(source_id: String)
 @export var detection_threshold: float = 1.0
 @export var exposure_requires_player_movement := false
 @export var player_movement_threshold: float = 8.0
+@export var minimum_exposure_seconds: float = 0.0
+@export var show_exposure_countdown_ring := true
 @export var sight_range: float = 180.0
 @export var fov_angle_degrees: float = 70.0
 @export var enabled := true
@@ -33,6 +35,20 @@ var _camera_visual: Node2D = null
 var _cover_layers: Array[TileMapLayer] = []
 var _last_player_position := Vector2.ZERO
 var _has_last_player_position := false
+var _minimum_exposure_elapsed := 0.0
+var _minimum_exposure_triggered := false
+var _exposure_ring: Node2D = null
+var _exposure_ring_foreground: Line2D = null
+var _exposure_ring_background: Line2D = null
+var _exposure_ring_remaining := 1.0
+var _exposure_ring_color := Color(0.2, 0.9, 0.3, 1.0)
+
+const EXPOSURE_RING_RADIUS := 20.0
+const EXPOSURE_RING_SEGMENTS := 32
+const EXPOSURE_RING_OFFSET := Vector2(0.0, -58.0)
+const EXPOSURE_RING_GREEN := Color(0.2, 0.9, 0.3, 1.0)
+const EXPOSURE_RING_YELLOW := Color(1.0, 0.8, 0.12, 1.0)
+const EXPOSURE_RING_RED := Color(0.95, 0.16, 0.12, 1.0)
 
 
 func _ready() -> void:
@@ -64,6 +80,8 @@ func apply_authoring_config(cfg: Dictionary) -> void:
 	detection_threshold = float(cfg.get("alarm_threshold", cfg.get("detection_threshold", detection_threshold)))
 	exposure_requires_player_movement = bool(cfg.get("exposure_requires_player_movement", exposure_requires_player_movement))
 	player_movement_threshold = float(cfg.get("player_movement_threshold", player_movement_threshold))
+	minimum_exposure_seconds = maxf(0.0, float(cfg.get("minimum_exposure_seconds", minimum_exposure_seconds)))
+	show_exposure_countdown_ring = bool(cfg.get("show_exposure_countdown_ring", show_exposure_countdown_ring))
 	enabled = bool(cfg.get("enabled", enabled))
 	sweep_readability_label = String(cfg.get("sweep_readability_label", sweep_readability_label))
 	require_line_of_sight = bool(cfg.get("require_line_of_sight", require_line_of_sight))
@@ -144,6 +162,13 @@ func get_runtime_debug_state() -> Dictionary:
 		"camera_exposure_allowed": _camera_exposure_allowed(),
 		"exposure_requires_player_movement": exposure_requires_player_movement,
 		"player_movement_threshold": player_movement_threshold,
+		"minimum_exposure_seconds": minimum_exposure_seconds,
+		"minimum_exposure_elapsed": _minimum_exposure_elapsed,
+		"minimum_exposure_progress": get_minimum_exposure_progress(),
+		"minimum_exposure_complete": is_minimum_exposure_complete(),
+		"exposure_ring_visible": _exposure_ring != null and _exposure_ring.visible,
+		"exposure_ring_remaining": _exposure_ring_remaining,
+		"exposure_ring_color": _exposure_ring_color,
 	}
 	state["sweep"] = get_sweep_debug_state()
 	state["sweep_readability_line"] = get_sweep_readability_line()
@@ -201,7 +226,9 @@ func _process(delta: float) -> void:
 	var player_observed := _player != null and is_instance_valid(_player) and _is_in_cone(_player.global_position) and _los_ok(_player.global_position)
 	var exposure_allowed := player_observed and _camera_exposure_allowed()
 	var movement_allows_exposure := _player_movement_allows_exposure(delta)
-	if exposure_allowed and movement_allows_exposure:
+	if minimum_exposure_seconds > 0.0:
+		_update_minimum_exposure(exposure_allowed, movement_allows_exposure, delta)
+	elif exposure_allowed and movement_allows_exposure:
 		var mod := 1.0
 		if _controller != null:
 			mod = _controller.player_detection_modifier
@@ -229,6 +256,7 @@ func set_camera_enabled(active: bool) -> void:
 		_debug_cone.visible = active and show_visible_cone
 	if not enabled:
 		_detection_value = 0.0
+		_reset_minimum_exposure()
 		if _player != null:
 			_player = null
 		_has_last_player_position = false
@@ -243,8 +271,123 @@ func _on_body_entered(body: Node) -> void:
 
 func _on_body_exited(body: Node) -> void:
 	if body == _player:
+		_reset_minimum_exposure()
 		_player = null
 		_has_last_player_position = false
+
+
+func _update_minimum_exposure(exposure_active: bool, can_advance: bool, delta: float) -> void:
+	if not exposure_active:
+		_reset_minimum_exposure()
+		return
+	_ensure_exposure_ring()
+	if can_advance and not _minimum_exposure_triggered:
+		_minimum_exposure_elapsed = minf(minimum_exposure_seconds, _minimum_exposure_elapsed + maxf(0.0, delta))
+	var progress := get_minimum_exposure_progress()
+	_detection_value = detection_threshold * progress
+	_update_exposure_ring(1.0 - progress, true)
+	if progress < 1.0 or _minimum_exposure_triggered:
+		return
+	_minimum_exposure_triggered = true
+	if _controller != null:
+		_controller.accumulate_exposure(camera_id, 1.0, "camera_detected")
+	player_detected.emit(camera_id)
+	EventBus.debug("Camera completed minimum exposure: " + camera_id)
+
+
+func _reset_minimum_exposure() -> void:
+	_minimum_exposure_elapsed = 0.0
+	_minimum_exposure_triggered = false
+	_detection_value = 0.0
+	_update_exposure_ring(1.0, false)
+
+
+func get_minimum_exposure_progress() -> float:
+	if minimum_exposure_seconds <= 0.0:
+		return 1.0
+	return clampf(_minimum_exposure_elapsed / minimum_exposure_seconds, 0.0, 1.0)
+
+
+func is_minimum_exposure_complete() -> bool:
+	return minimum_exposure_seconds <= 0.0 or _minimum_exposure_triggered
+
+
+func get_minimum_exposure_debug_state() -> Dictionary:
+	return {
+		"duration": minimum_exposure_seconds,
+		"elapsed": _minimum_exposure_elapsed,
+		"progress": get_minimum_exposure_progress(),
+		"complete": is_minimum_exposure_complete(),
+		"ring_visible": _exposure_ring != null and _exposure_ring.visible,
+		"ring_remaining": _exposure_ring_remaining,
+		"ring_color": _exposure_ring_color,
+	}
+
+
+func _ensure_exposure_ring() -> void:
+	if not show_exposure_countdown_ring or _player == null or not is_instance_valid(_player):
+		return
+	if _exposure_ring != null and is_instance_valid(_exposure_ring) and _exposure_ring.get_parent() == _player:
+		return
+	_exposure_ring = Node2D.new()
+	_exposure_ring.name = "CameraExposureCountdownRing"
+	_exposure_ring.position = EXPOSURE_RING_OFFSET
+	_exposure_ring.z_as_relative = false
+	_exposure_ring.z_index = 3900
+	_exposure_ring.add_to_group("camera_exposure_countdown_ring")
+	_exposure_ring.set_meta("camera_id", camera_id)
+	_exposure_ring_background = Line2D.new()
+	_exposure_ring_background.name = "Background"
+	_exposure_ring_background.width = 7.0
+	_exposure_ring_background.default_color = Color(0.02, 0.02, 0.03, 0.72)
+	_exposure_ring_background.antialiased = true
+	_exposure_ring_background.points = _build_ring_points(1.0)
+	_exposure_ring.add_child(_exposure_ring_background)
+	_exposure_ring_foreground = Line2D.new()
+	_exposure_ring_foreground.name = "Remaining"
+	_exposure_ring_foreground.width = 4.5
+	_exposure_ring_foreground.antialiased = true
+	_exposure_ring.add_child(_exposure_ring_foreground)
+	_player.add_child(_exposure_ring)
+
+
+func _update_exposure_ring(remaining: float, active: bool) -> void:
+	_exposure_ring_remaining = clampf(remaining, 0.0, 1.0)
+	_exposure_ring_color = _ring_color_for_remaining(_exposure_ring_remaining)
+	if _exposure_ring == null or not is_instance_valid(_exposure_ring):
+		return
+	_exposure_ring.visible = active and show_exposure_countdown_ring
+	_exposure_ring.set_meta("remaining", _exposure_ring_remaining)
+	_exposure_ring.set_meta("color", _exposure_ring_color)
+	if _exposure_ring_foreground != null:
+		_exposure_ring_foreground.default_color = _exposure_ring_color
+		_exposure_ring_foreground.points = _build_ring_points(_exposure_ring_remaining)
+
+
+func _ring_color_for_remaining(remaining: float) -> Color:
+	if remaining > 0.66:
+		return EXPOSURE_RING_GREEN
+	if remaining > 0.25:
+		return EXPOSURE_RING_YELLOW
+	return EXPOSURE_RING_RED
+
+
+func _build_ring_points(fraction: float) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var clamped := clampf(fraction, 0.0, 1.0)
+	if clamped <= 0.0:
+		return points
+	var point_count := maxi(2, ceili(float(EXPOSURE_RING_SEGMENTS) * clamped) + 1)
+	for index in range(point_count):
+		var weight := minf(clamped, float(index) / float(EXPOSURE_RING_SEGMENTS))
+		var angle := -PI * 0.5 + TAU * weight
+		points.append(Vector2(cos(angle), sin(angle)) * EXPOSURE_RING_RADIUS)
+	return points
+
+
+func _exit_tree() -> void:
+	if _exposure_ring != null and is_instance_valid(_exposure_ring):
+		_exposure_ring.queue_free()
 
 
 func _player_movement_allows_exposure(delta: float) -> bool:

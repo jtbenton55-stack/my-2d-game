@@ -44,6 +44,9 @@ var _case_joint_timer: float = 0.0
 var _case_joint_cooldown_timer: float = 0.0
 var _case_highlights: Dictionary = {}
 var _poop_bag_targeting := false
+var _poop_aim_direction := Vector2.RIGHT
+var _poop_aim_distance := 0.0
+var _poop_target_reticle: Line2D = null
 var _stamina_controller: PlayerStaminaController = null
 ## Last completed physics frame — merged into `get_sprint_runtime_debug()` for overlay / harness.
 var _sprint_physics_debug_last: Dictionary = {}
@@ -52,6 +55,20 @@ var _forced_stealth_sources: Dictionary = {}
 
 func is_stealth_active() -> bool:
 	return is_stealth or not _forced_stealth_sources.is_empty()
+
+
+func is_poop_bag_targeting() -> bool:
+	return _poop_bag_targeting
+
+
+func get_poop_bag_targeting_debug() -> Dictionary:
+	return {
+		"active": _poop_bag_targeting,
+		"aim_direction": _poop_aim_direction,
+		"aim_distance": _poop_aim_distance,
+		"target_position": _poop_target_world_position(),
+		"reticle_visible": _poop_target_reticle != null and _poop_target_reticle.visible,
+	}
 
 
 func add_forced_stealth_source(source_id: String) -> bool:
@@ -104,6 +121,7 @@ func _ready() -> void:
 	if melee_hb:
 		melee_hb.monitoring = false
 	_create_stealth_indicator()
+	_create_poop_target_reticle()
 	_stamina_controller = PlayerStaminaController.new()
 	_stamina_controller.reset_stamina()
 	if OS.is_debug_build() or Engine.is_editor_hint():
@@ -129,6 +147,7 @@ func _physics_process(delta: float) -> void:
 	var input_vector := _get_move_vector()
 	if input_vector.length() > 0.01:
 		facing = input_vector.normalized()
+	_update_poop_bag_controller_aim()
 
 	var combat_on := _uses_hitbox_combat()
 	if combat_on:
@@ -228,10 +247,6 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not can_control:
 		return
-	if event.is_action_pressed("case_the_joint"):
-		_try_case_the_joint()
-		get_viewport().set_input_as_handled()
-		return
 	if event.is_action_pressed("poop_bag_targeting"):
 		if _poop_bag_targeting:
 			_cancel_poop_bag_targeting("Throw canceled.")
@@ -239,8 +254,20 @@ func _unhandled_input(event: InputEvent) -> void:
 			_enter_poop_bag_targeting()
 		get_viewport().set_input_as_handled()
 		return
-	if _poop_bag_targeting and event.is_action_pressed("ui_cancel"):
-		_cancel_poop_bag_targeting("Throw canceled.")
+	if _poop_bag_targeting:
+		if event.is_action_pressed("ui_cancel"):
+			_cancel_poop_bag_targeting("Throw canceled.")
+			get_viewport().set_input_as_handled()
+			return
+		if _is_controller_event(event) and event.is_action_pressed("attack"):
+			_try_throw_poop_bag(_poop_target_world_position())
+			get_viewport().set_input_as_handled()
+			return
+		if event.is_action_pressed("case_the_joint"):
+			get_viewport().set_input_as_handled()
+			return
+	if event.is_action_pressed("case_the_joint"):
+		_try_case_the_joint()
 		get_viewport().set_input_as_handled()
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -481,14 +508,19 @@ func _clear_case_highlights() -> void:
 
 func _enter_poop_bag_targeting() -> void:
 	if GameState.get_poop_bag_count() <= 0:
-		EventBus.objective_updated.emit("No poop bags.")
+		EventBus.objective_updated.emit("No poop bags. Pick one up before targeting.")
 		return
 	_poop_bag_targeting = true
-	EventBus.objective_updated.emit("Click where to throw.")
+	_poop_aim_direction = facing.normalized() if facing.length_squared() > 0.0001 else Vector2.RIGHT
+	_poop_aim_distance = minf(poop_throw_range, maxf(96.0, poop_throw_range * 0.7))
+	_update_poop_target_reticle()
+	EventBus.objective_updated.emit("Aim with Right Stick or mouse. RT/click throws; B/right-click cancels.")
 
 
 func _cancel_poop_bag_targeting(text: String = "Throw canceled.") -> void:
 	_poop_bag_targeting = false
+	if _poop_target_reticle != null:
+		_poop_target_reticle.visible = false
 	if text != "":
 		EventBus.objective_updated.emit(text)
 
@@ -512,7 +544,51 @@ func _try_throw_poop_bag(world_pos: Vector2) -> void:
 		EventBus.objective_updated.emit("No poop bags.")
 		return
 	_poop_bag_targeting = false
+	if _poop_target_reticle != null:
+		_poop_target_reticle.visible = false
 	EventBus.objective_updated.emit("Poop bag deployed.")
+
+
+func _update_poop_bag_controller_aim() -> void:
+	if not _poop_bag_targeting:
+		return
+	var aim := Input.get_vector(&"aim_left", &"aim_right", &"aim_up", &"aim_down")
+	if aim.length() > 0.05:
+		_poop_aim_direction = aim.normalized()
+		var minimum_distance := minf(72.0, poop_throw_range)
+		_poop_aim_distance = lerpf(minimum_distance, poop_throw_range, clampf(aim.length(), 0.0, 1.0))
+	_update_poop_target_reticle()
+
+
+func _poop_target_world_position() -> Vector2:
+	return global_position + _poop_aim_direction * _poop_aim_distance
+
+
+func _update_poop_target_reticle() -> void:
+	if _poop_target_reticle == null:
+		return
+	_poop_target_reticle.position = _poop_aim_direction * _poop_aim_distance
+	_poop_target_reticle.visible = _poop_bag_targeting
+
+
+func _create_poop_target_reticle() -> void:
+	_poop_target_reticle = Line2D.new()
+	_poop_target_reticle.name = "PoopBagTargetReticle"
+	_poop_target_reticle.width = 3.0
+	_poop_target_reticle.default_color = Color(0.45, 1.0, 0.35, 0.95)
+	_poop_target_reticle.closed = true
+	_poop_target_reticle.z_as_relative = false
+	_poop_target_reticle.z_index = 100
+	var points := PackedVector2Array()
+	for point_index: int in range(17):
+		points.append(Vector2.RIGHT.rotated(TAU * float(point_index) / 16.0) * 12.0)
+	_poop_target_reticle.points = points
+	_poop_target_reticle.visible = false
+	add_child(_poop_target_reticle)
+
+
+func _is_controller_event(event: InputEvent) -> bool:
+	return event is InputEventJoypadButton or event is InputEventJoypadMotion
 
 
 func _as_bool_safe(value: Variant) -> bool:

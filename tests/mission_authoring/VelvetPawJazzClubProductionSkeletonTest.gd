@@ -12,6 +12,11 @@ const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd
 const BLOCKER_GEOMETRY := {
 	"FrontEntranceCrowdRopeBlocker/RopeShape": [Vector2(1440, 2528), Vector2(192, 64)],
 	"VipProtocolGateBlocker/GateShape": [Vector2(2624, 1696), Vector2(64, 192)],
+	"VipNorthRailBlocker/TopRailShape": [Vector2(2816, 1408), Vector2(384, 64)],
+	"VipNorthRailBlocker/RightRailShape": [Vector2(3008, 1600), Vector2(64, 384)],
+	"VipNorthRailBlocker/BottomRailShape": [Vector2(2816, 1792), Vector2(384, 64)],
+	"VipNorthRailBlocker/LeftRailShape": [Vector2(2624, 1504), Vector2(64, 192)],
+	"StageServiceDoorBlocker/DoorShape": [Vector2(608, 928), Vector2(64, 192)],
 	"StaffGateBlocker/StageRowShape": [Vector2(2048, 1056), Vector2(256, 64)],
 	"StaffGateBlocker/StageWingShape": [Vector2(2080, 928), Vector2(64, 192)],
 	"BackstageHatchBlocker/HatchShape": [Vector2(1024, 1056), Vector2(256, 64)],
@@ -64,11 +69,11 @@ func test_blueprint_coverage_is_complete() -> void:
 	var loaded := BlueprintSpec.load_spec(BLUEPRINT_PATH)
 	assert_bool(loaded.get("ok", false)).is_true()
 	var slots: Array = BlueprintSpec.mechanic_slots(loaded.get("spec", {}))
-	assert_int(slots.size()).is_equal(68)
+	assert_int(slots.size()).is_equal(71)
 	var root := (load(SCENE_PATH) as PackedScene).instantiate()
 	var coverage := BlueprintSpec.coverage(loaded.get("spec", {}), root)
-	assert_int(coverage.get("total", 0)).is_equal(68)
-	assert_int((coverage.get("placed", []) as Array).size()).is_equal(68)
+	assert_int(coverage.get("total", 0)).is_equal(71)
+	assert_int((coverage.get("placed", []) as Array).size()).is_equal(71)
 	assert_array(coverage.get("missing", [])).is_empty()
 	assert_array(coverage.get("mismatched", [])).is_empty()
 	root.free()
@@ -122,7 +127,7 @@ func test_persisted_layout_and_contract() -> void:
 	for island: Dictionary in report.closed_island_analysis:
 		assert_bool(bool(island.containment_represented)).is_true()
 	_assert_blockout_visuals_hidden(root)
-	assert_int(root.get_node("GameplayRoot/RouteBlockers").get_child_count()).is_equal(7)
+	assert_int(root.get_node("GameplayRoot/RouteBlockers").get_child_count()).is_equal(9)
 	var art: Node = root.get_node("ArtRoot")
 	assert_array(art.find_children("*", "CollisionObject2D", true, false)).is_empty()
 	for child: Node in art.get_children():
@@ -162,32 +167,47 @@ func test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts(
 
 func test_dynamic_blocker_blueprint_contract_is_exact() -> void:
 	var json := JSON.parse_string(FileAccess.get_file_as_string(BLUEPRINT_PATH)) as Dictionary
-	var blockers := (json.get("collision_contract", {}) as Dictionary).get("dynamic_blockers", []) as Array
-	assert_int(blockers.size()).is_equal(7)
+	var collision_contract := json.get("collision_contract", {}) as Dictionary
+	var blockers := collision_contract.get("dynamic_blockers", []) as Array
+	assert_int(blockers.size()).is_equal(8)
 	var expected := {
-		"FrontEntranceCrowdRopeBlocker": ["queue_inspection", [["RopeShape", [1440.0, 2528.0], [192.0, 64.0]]]],
-		"VipProtocolGateBlocker": ["vip_protocol", [["GateShape", [2624.0, 1696.0], [64.0, 192.0]]]],
-		"StaffGateBlocker": ["staff_gate", [["StageRowShape", [2048.0, 1056.0], [256.0, 64.0]], ["StageWingShape", [2080.0, 928.0], [64.0, 192.0]]]],
-		"BackstageHatchBlocker": ["backstage_hatch", [["HatchShape", [1024.0, 1056.0], [256.0, 64.0]]]],
-		"ServerVaultBlocker": ["server_vault", [["VaultShape", [3936.0, 2144.0], [192.0, 64.0]]]],
-		"OwnerStairsBlocker": ["owner_stairs", [["PortalPadShape", [3008.0, 1152.0], [192.0, 64.0]]]],
-		"EscapeHatchBlocker": ["escape_route", [["HatchLidShape", [4224.0, 2688.0], [96.0, 128.0]]]],
+		"FrontEntranceCrowdRopeBlocker": [["queue_inspection"], [["RopeShape", [1440.0, 2528.0], [192.0, 64.0]]]],
+		"VipProtocolGateBlocker": [["clear_table_01", "clear_table_02", "clear_table_03", "bentley_wait", "vip_protocol"], [["GateShape", [2624.0, 1696.0], [64.0, 192.0]]]],
+		"StageServiceDoorBlocker": [["clear_table_01", "clear_table_02", "clear_table_03"], [["DoorShape", [608.0, 928.0], [64.0, 192.0]]]],
+		"StaffGateBlocker": [["staff_gate"], [["StageRowShape", [2048.0, 1056.0], [256.0, 64.0]], ["StageWingShape", [2080.0, 928.0], [64.0, 192.0]]]],
+		"BackstageHatchBlocker": [["backstage_hatch"], [["HatchShape", [1024.0, 1056.0], [256.0, 64.0]]]],
+		"ServerVaultBlocker": [["server_vault"], [["VaultShape", [3936.0, 2144.0], [192.0, 64.0]]]],
+		"OwnerStairsBlocker": [["owner_stairs"], [["PortalPadShape", [3008.0, 1152.0], [192.0, 64.0]]]],
+		"EscapeHatchBlocker": [["escape_route"], [["HatchLidShape", [4224.0, 2688.0], [96.0, 128.0]]]],
 	}
 	for blocker: Dictionary in blockers:
 		var blocker_id := String(blocker.get("blocker_id", ""))
 		assert_bool(expected.has(blocker_id)).is_true()
-		assert_array(blocker.get("mechanic_slots", [])).is_equal([expected[blocker_id][0]])
+		assert_array(blocker.get("mechanic_slots", [])).is_equal(expected[blocker_id][0])
 		var actual_shapes: Array = []
 		for shape: Dictionary in blocker.get("shapes", []):
 			actual_shapes.append([shape.get("shape_id", ""), shape.get("center", []), shape.get("size", [])])
 		assert_array(actual_shapes).is_equal(expected[blocker_id][1])
 	assert_str(String(_row_by_id(blockers, "blocker_id", "EscapeHatchBlocker").get("note", ""))).contains("not an opening into void")
+	var fixed_blockers := collision_contract.get("fixed_blockers", []) as Array
+	assert_int(fixed_blockers.size()).is_equal(1)
+	var vip_enclosure := fixed_blockers[0] as Dictionary
+	assert_str(String(vip_enclosure.get("blocker_id", ""))).is_equal("VipNorthRailBlocker")
+	var fixed_shapes: Array = []
+	for shape: Dictionary in vip_enclosure.get("shapes", []):
+		fixed_shapes.append([shape.get("shape_id", ""), shape.get("center", []), shape.get("size", [])])
+	assert_array(fixed_shapes).is_equal([
+		["TopRailShape", [2816.0, 1408.0], [384.0, 64.0]],
+		["RightRailShape", [3008.0, 1600.0], [64.0, 384.0]],
+		["BottomRailShape", [2816.0, 1792.0], [384.0, 64.0]],
+		["LeftRailShape", [2624.0, 1504.0], [64.0, 192.0]],
+	])
 
 
 func test_dynamic_blocker_hierarchy_geometry_and_detached_paths() -> void:
 	var root := (load(SCENE_PATH) as PackedScene).instantiate()
 	var blocker_root := root.get_node("GameplayRoot/RouteBlockers")
-	assert_int(blocker_root.get_child_count()).is_equal(7)
+	assert_int(blocker_root.get_child_count()).is_equal(9)
 	for body: Node in blocker_root.get_children():
 		assert_object(body).is_instanceof(StaticBody2D)
 		assert_int((body as StaticBody2D).collision_layer).is_equal(4)

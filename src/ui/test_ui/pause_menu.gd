@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const InputBindingFormatterScript := preload("res://src/utils/InputBindingFormatter.gd")
+
 @onready var resume_button: Button = $Overlay/CenterContainer/VBoxContainer/ResumeButton
 @onready var exit_button: Button = $Overlay/CenterContainer/VBoxContainer/ExitButton
 
@@ -20,11 +22,18 @@ func _ready() -> void:
 	exit_button.pressed.connect(_exit_to_hideout)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("pause"):
 		if visible:
 			_resume_game()
 		else:
 			_pause_game()
+		get_viewport().set_input_as_handled()
+		return
+	if visible and event.is_action_pressed("ui_cancel"):
+		if info_panel != null and info_panel.visible:
+			_close_info_panel()
+		else:
+			_resume_game()
 		get_viewport().set_input_as_handled()
 
 func _pause_game() -> void:
@@ -117,6 +126,22 @@ func _toggle_info_panel(kind: String) -> void:
 	call_deferred("_fit_pause_info_scroll")
 
 
+func _close_info_panel() -> void:
+	if info_panel == null:
+		return
+	var kind := String(info_panel.get_meta("kind", ""))
+	info_panel.hide()
+	var return_button: Button = {
+		"objectives": objectives_button,
+		"scheme_cards": scheme_cards_button,
+		"clues": clues_button,
+		"inventory": inventory_button,
+		"controls": controls_button,
+	}.get(kind)
+	if return_button != null:
+		return_button.grab_focus()
+
+
 func _fit_pause_info_scroll() -> void:
 	if _info_rich == null or _info_scroll == null:
 		return
@@ -133,6 +158,7 @@ func _controls_text() -> String:
 		"",
 		"Combat (hitbox melee)",
 		"  Light attack / combo: %s (J = keyboard jab; mouse / gamepad also work)" % _bindings("attack", "J / Mouse"),
+		"  Heavy attack: %s" % _bindings("heavy", "Mouse Right"),
 		"  Case the Joint pulse: %s" % _bindings("case_the_joint", "Q"),
 		"  Dash (invulnerable frames): %s (hold a move direction or dash won't start)" % _bindings("dodge", "Space"),
 		"  Style finisher (STYLE bar full in HUD): %s" % _bindings("finisher", "R"),
@@ -141,7 +167,7 @@ func _controls_text() -> String:
 		"  Stealth takedown: stealth + behind unaware enemy + %s" % _bindings("attack", "J / light attack"),
 		"  Bentley Bark / Sniff / Fetch / Stay-Heel: %s / %s / %s / %s" % [_bindings("bentley_bark", "1"), _bindings("bentley_sniff", "2"), _bindings("bentley_fetch", "3"), _bindings("bentley_toggle_stay", "4")],
 		"  Bentley fallback bark: %s" % _bindings("bentley_ability", "F"),
-		"  Poop bag throw targeting: %s (left click throw, right click or Esc cancel)" % _bindings("poop_bag_targeting", "T"),
+		"  Poop bag targeting: %s; aim Right Stick/mouse, %s throw, %s cancel" % [_bindings("poop_bag_targeting", "T"), _bindings("attack", "Mouse Left"), _bindings("ui_cancel", "Esc")],
 		"",
 		"Menus",
 		"  Pause / resume: %s" % _bindings("pause", "Esc"),
@@ -254,15 +280,4 @@ func _mission_node() -> Node:
 	return null
 
 func _bindings(action_name: String, fallback: String) -> String:
-	if not InputMap.has_action(action_name):
-		return fallback
-	var events := InputMap.action_get_events(action_name)
-	var names: PackedStringArray = []
-	for ev in events:
-		if ev is InputEventKey:
-			names.append(OS.get_keycode_string(ev.physical_keycode if ev.physical_keycode != 0 else ev.keycode))
-		elif ev is InputEventMouseButton:
-			names.append("Mouse %d" % ev.button_index)
-		elif ev is InputEventJoypadButton:
-			names.append("Gamepad Button %d" % ev.button_index)
-	return ", ".join(names) if not names.is_empty() else fallback
+	return InputBindingFormatterScript.action_summary(StringName(action_name), fallback)

@@ -198,7 +198,7 @@ func _can_see_player() -> bool:
 	var space := get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(global_position, target.global_position)
 	query.exclude = [get_rid()]
-	query.collision_mask = 3
+	query.collision_mask = 5
 	var result := space.intersect_ray(query)
 	if result.is_empty():
 		return true
@@ -231,10 +231,16 @@ func take_damage(amount: int, source: Node = null) -> void:
 	AudioManager.play_sfx("enemy_hit", global_position)
 	if source is Node2D:
 		var knock: Vector2 = (global_position - source.global_position).normalized() * 16.0
-		global_position += knock
+		call_deferred("_apply_damage_knockback", knock)
 	if health <= 0:
 		EventBus.debug("Guard defeated.")
 		_die()
+
+
+func _apply_damage_knockback(knockback: Vector2) -> void:
+	if is_inside_tree():
+		move_and_collide(knockback)
+
 
 func stun(duration: float) -> void:
 	stunned_timer = max(stunned_timer, duration)

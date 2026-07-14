@@ -94,6 +94,7 @@ func _item_payload() -> Dictionary:
 	if _is_item_data(item_data):
 		return {
 			"item_id": get_item_id(),
+			"display_name": String(item_data.call("get_display_name")),
 			"category": String(item_data.call("get_category")),
 			"stackable": bool(item_data.get("stackable")),
 			"max_stack": int(item_data.call("get_stack_limit")),
@@ -101,6 +102,7 @@ func _item_payload() -> Dictionary:
 		}
 	return {
 		"item_id": get_item_id(),
+		"display_name": display_name if display_name.strip_edges() != "" else get_item_id().capitalize(),
 		"category": get_item_category(),
 		"stackable": item_stackable,
 		"max_stack": maxi(1, item_max_stack),

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const InputBindingFormatterScript := preload("res://src/utils/InputBindingFormatter.gd")
+
 ## Simple overlay that shows the main controls.
 ## Can be toggled with a hotkey (F1) or left always visible.
 ## 0M-D5-02A: Bounded ScrollContainer + RichTextLabel so long bindings never run off-screen.
@@ -75,9 +77,11 @@ func _update_label() -> void:
 	text += _action_bindings("move_down", "Move down")
 	text += _action_bindings("interact", "Interact / dialogue")
 	text += _action_bindings("attack", "Light attack / combo")
+	text += _action_bindings("heavy", "Heavy attack")
 	text += _action_bindings("case_the_joint", "Case the Joint")
 	text += _action_bindings("dodge", "Dash")
 	text += _action_bindings("finisher", "Finisher (style full)")
+	text += _action_bindings("sprint", "Sprint (hold)")
 	text += _action_bindings("stealth", "Stealth walk (hold + WASD)")
 	text += "Stealth takedown: stealth + behind unaware + light attack\n"
 	text += _action_bindings("bentley_bark", "Bentley Bark")
@@ -93,16 +97,4 @@ func _update_label() -> void:
 func _action_bindings(action_name: String, label: String) -> String:
 	if not InputMap.has_action(action_name):
 		return ""
-	var keys: Array[InputEvent] = InputMap.action_get_events(action_name)
-	var key_strs: PackedStringArray = []
-	for ev in keys:
-		if ev is InputEventKey:
-			var kc: int = ev.physical_keycode if ev.physical_keycode != 0 else ev.keycode
-			key_strs.append(OS.get_keycode_string(kc))
-		elif ev is InputEventJoypadButton:
-			key_strs.append("Btn %d" % ev.button_index)
-		elif ev is InputEventMouseButton:
-			key_strs.append("M%d" % ev.button_index)
-	if key_strs.is_empty():
-		return "%s: %s\n" % [label, action_name]
-	return "%s: %s\n" % [label, ", ".join(key_strs)]
+	return "%s: %s\n" % [label, InputBindingFormatterScript.action_summary(StringName(action_name), action_name)]

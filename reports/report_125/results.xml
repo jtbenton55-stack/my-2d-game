@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-13" name="report_125" tests="36" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawJazzClubProductionSkeletonTest" package="tests/mission_authoring" timestamp="2026-07-14T00:08:04" hostname="localhost" tests="19" failures="2" errors="0" skipped="0" flaky="0" time="1.884">
+		<testcase name="test_scene_loads_and_instantiates" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.041">
+		</testcase>
+		<testcase name="test_mission_catalog_resolves_playable_scene" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.029">
+		</testcase>
+		<testcase name="test_blueprint_coverage_is_complete" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.044">
+		</testcase>
+		<testcase name="test_representative_stubs_match_blueprint_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.030">
+		</testcase>
+		<testcase name="test_persisted_layout_and_contract" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.670">
+		</testcase>
+		<testcase name="test_detached_forward_sync_matches_complete_union_and_preserves_sources" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.408">
+		</testcase>
+		<testcase name="test_mission_controller_rehides_blockout_layers_if_scene_visibility_drifts" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.039">
+		</testcase>
+		<testcase name="test_dynamic_blocker_blueprint_contract_is_exact" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.030">
+		</testcase>
+		<testcase name="test_dynamic_blocker_hierarchy_geometry_and_detached_paths" classname="VelvetPawJazzClubProductionSkeletonTest" time="0.070">
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:217" type="FAILURE">
+<![CDATA[
+VipNorthRailBlocker/RightRailShape
+	at 'test_dynamic_blocker_hierarchy_geometry_and_detached_paths' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:217
+]]>
+			</failure>
+			<failure message="FAILED: res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:218" type="FAILURE">
+<![CDATA[
+VipNorthRailBlocker/RightRailShape
+	at 'test_dynamic_blocker_hierarchy_geometry_and_detached_paths' in res://tests/mission_authoring/VelvetPawJazzClubProductionSkeletonTest.gd:218
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-14T00:08:06" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="4.970">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.036">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.589">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.219">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.867">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.329">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.297">
+		</testcase>
+		<testcase name="test_side_door_entry_starts_floor_music_in_normal_alert_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.230">
+		</testcase>
+		<testcase name="test_right_edge_of_staff_door_physically_starts_audible_bus_music" classname="VelvetPawJazzClubRuntimeQATest" time="0.285">
+		</testcase>
+		<testcase name="test_bar_cover_three_tables_vip_phone_and_inventory_progress_in_order" classname="VelvetPawJazzClubRuntimeQATest" time="0.322">
+		</testcase>
+		<testcase name="test_f12_velvet_security_controls_drive_heat_alert_and_hostile_states" classname="VelvetPawJazzClubRuntimeQATest" time="0.287">
+		</testcase>
+		<testcase name="test_unparked_bentley_vip_camera_requires_completed_countdown_before_response" classname="VelvetPawJazzClubRuntimeQATest" time="0.309">
+		</testcase>
+		<testcase name="test_vip_polaroid_requires_protocol_only" classname="VelvetPawJazzClubRuntimeQATest" time="0.252">
+		</testcase>
+		<testcase name="test_room_visibility_only_reveals_the_players_current_area" classname="VelvetPawJazzClubRuntimeQATest" time="0.236">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.238">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="VelvetPawControllerCheckpointTest" package="tests/mission_authoring" timestamp="2026-07-14T00:08:11" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.449">
+		<testcase name="test_start_and_a_use_pause_and_interact_actions" classname="VelvetPawControllerCheckpointTest" time="0.029">
+		</testcase>
+		<testcase name="test_start_toggles_mission_pause_but_hidden_cancel_does_not_open_it" classname="VelvetPawControllerCheckpointTest" time="0.037">
+		</testcase>
+		<testcase name="test_controller_a_routes_through_production_bridge_to_exact_bentley_marker" classname="VelvetPawControllerCheckpointTest" time="0.251">
+		</testcase>
+	</testsuite>
+</testsuites>

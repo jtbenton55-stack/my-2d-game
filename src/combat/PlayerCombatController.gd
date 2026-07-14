@@ -38,6 +38,7 @@ var _dash_cd: float = 0.0
 var _light_cd: float = 0.0
 var _heavy_cd: float = 0.0
 var _busy: bool = false
+var last_attack_kind := ""
 
 var _combo_window_mult: float = 1.0
 var _style_decay_reduction: float = 0.0
@@ -121,6 +122,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("finisher"):
 		_request_finisher()
+	elif event.is_action_pressed("heavy"):
+		_request_heavy()
 	elif event.is_action_pressed("attack"):
 		_request_light_or_takedown()
 	elif event.is_action_pressed("dodge"):
@@ -133,6 +136,8 @@ func _should_block_combat_input() -> bool:
 	if DialogueManager.is_in_dialogue:
 		return true
 	if _player == null or not _player.can_control:
+		return true
+	if _player.has_method("is_poop_bag_targeting") and bool(_player.call("is_poop_bag_targeting")):
 		return true
 	return false
 
@@ -224,13 +229,16 @@ func _request_light_or_takedown() -> void:
 			_player.call("notify_attack_spam", 0.22)
 		return
 	if _try_stealth_takedown():
+		last_attack_kind = "takedown"
 		return
+	last_attack_kind = "light"
 	_run_light_attack_async()
 
 
 func _request_heavy() -> void:
 	if not can_act or _heavy_cd > 0.0:
 		return
+	last_attack_kind = "heavy"
 	_run_heavy_attack_async()
 
 
@@ -238,7 +246,9 @@ func _request_finisher() -> void:
 	if not can_act:
 		return
 	if current_style < max_style - 0.5:
+		EventBus.objective_updated.emit("Finisher not ready: STYLE %d/%d." % [roundi(current_style), roundi(max_style)])
 		return
+	last_attack_kind = "finisher"
 	_run_finisher_async()
 
 
@@ -291,7 +301,8 @@ func _run_heavy_attack_async() -> void:
 	_melee.damage = dmg
 	await get_tree().create_timer(heavy_windup).timeout
 	_melee.begin_swing()
-	AudioManager.play_sfx("quick_attack", _player.global_position)
+	AudioManager.play_sfx("heavy_attack", _player.global_position)
+	EventBus.screen_shake.emit(4.0, 0.1)
 	await get_tree().create_timer(heavy_active).timeout
 	_melee.end_swing()
 	await get_tree().create_timer(heavy_recovery_time).timeout

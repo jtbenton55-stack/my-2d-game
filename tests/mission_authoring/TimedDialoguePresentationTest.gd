@@ -77,11 +77,11 @@ func test_dialogue_box_replaces_disallowed_controls_with_enter_close_hint() -> v
 	var next_indicator := dialogue_box.get_node("DialoguePanel/MarginContainer/HBox/ContentContainer/NextIndicator") as Label
 	var skip_button := dialogue_box.get_node("DialoguePanel/SkipButton") as Button
 	assert_bool(next_indicator.visible).is_true()
-	assert_str(next_indicator.text).is_equal("Press Enter to close")
+	assert_str(next_indicator.text).is_equal("B / Escape: Close")
 	assert_bool(skip_button.visible).is_false()
 	DialogueManager.start_simple_dialogue([{"speaker": "Mission", "text": "Normal."}])
 	assert_bool(next_indicator.visible).is_true()
-	assert_str(next_indicator.text).is_equal("Press E | Enter: Close")
+	assert_str(next_indicator.text).is_equal("A / E: Advance | B / Escape: Close")
 	assert_bool(skip_button.visible).is_true()
 	DialogueManager.end_dialogue()
 	dialogue_box.queue_free()

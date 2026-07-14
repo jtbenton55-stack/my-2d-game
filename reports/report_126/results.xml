@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-13" name="report_126" tests="12" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="TimedDialoguePresentationTest" package="tests/mission_authoring" timestamp="2026-07-14T00:08:33" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.743">
+		<testcase name="test_timed_sequence_advances_and_ends" classname="TimedDialoguePresentationTest" time="0.027">
+		</testcase>
+		<testcase name="test_manual_advance_is_suppressed_and_metadata_defaults_are_additive" classname="TimedDialoguePresentationTest" time="0.023">
+		</testcase>
+		<testcase name="test_untimed_dialogue_still_advances_manually_and_skips" classname="TimedDialoguePresentationTest" time="0.021">
+		</testcase>
+		<testcase name="test_old_timer_cannot_advance_replacement_dialogue" classname="TimedDialoguePresentationTest" time="0.142">
+		</testcase>
+		<testcase name="test_timed_dialogue_waits_while_scene_tree_is_paused" classname="TimedDialoguePresentationTest" time="0.159">
+		</testcase>
+		<testcase name="test_dialogue_box_replaces_disallowed_controls_with_enter_close_hint" classname="TimedDialoguePresentationTest" time="0.031">
+		</testcase>
+		<testcase name="test_enter_closes_dialogue_even_when_manual_advance_and_skip_are_disabled" classname="TimedDialoguePresentationTest" time="0.029">
+		</testcase>
+		<testcase name="test_no_key_trigger_supplies_fallback_text_and_preserves_explicit_lines" classname="TimedDialoguePresentationTest" time="0.021">
+		</testcase>
+		<testcase name="test_one_shot_guard_does_not_replace_active_dialogue" classname="TimedDialoguePresentationTest" time="0.020">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="PhaseD6PlayerFacingPolishTest" package="tests/mission_authoring" timestamp="2026-07-14T00:08:34" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.183">
+		<testcase name="test_taco_success_posts_first_sterling_clue_and_result_status" classname="PhaseD6PlayerFacingPolishTest" time="0.020">
+		</testcase>
+		<testcase name="test_pause_provider_marks_taco_next_objective" classname="PhaseD6PlayerFacingPolishTest" time="0.019">
+		</testcase>
+		<testcase name="test_hud_payload_exposes_next_objective_and_three_bag_status" classname="PhaseD6PlayerFacingPolishTest" time="0.023">
+		</testcase>
+	</testsuite>
+</testsuites>

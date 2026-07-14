@@ -27,6 +27,8 @@ extends Node2D
 @export var alarm_threshold: float = 1.0
 @export var exposure_requires_player_movement := false
 @export var player_movement_threshold: float = 8.0
+@export var minimum_exposure_seconds: float = 0.0
+@export var show_exposure_countdown_ring := true
 
 @export_group("Events")
 @export var on_detect_event: StringName = &""
@@ -86,6 +88,8 @@ func build_runtime_config() -> Dictionary:
 		"alarm_threshold": alarm_threshold,
 		"exposure_requires_player_movement": exposure_requires_player_movement,
 		"player_movement_threshold": player_movement_threshold,
+		"minimum_exposure_seconds": minimum_exposure_seconds,
+		"show_exposure_countdown_ring": show_exposure_countdown_ring,
 		"on_detect_event": String(on_detect_event),
 		"on_alarm_event": String(on_alarm_event),
 		"emit_detect_event": emit_detect_event,

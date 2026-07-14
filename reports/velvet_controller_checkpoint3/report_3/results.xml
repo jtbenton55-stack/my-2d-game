@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-13" name="report_3" tests="53" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="VelvetPawControllerCheckpointTest" package="tests/mission_authoring" timestamp="2026-07-13T20:49:45" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.859">
+		<testcase name="test_start_and_y_use_existing_pause_and_interact_actions" classname="VelvetPawControllerCheckpointTest" time="0.030">
+		</testcase>
+		<testcase name="test_start_toggles_mission_pause_but_hidden_cancel_does_not_open_it" classname="VelvetPawControllerCheckpointTest" time="0.054">
+		</testcase>
+		<testcase name="test_controller_y_routes_through_production_bridge_to_exact_bentley_marker" classname="VelvetPawControllerCheckpointTest" time="0.669">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-13T20:49:46" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.541">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.037">
+		</testcase>
+		<testcase name="test_bridge_prompt_refresh_is_callable_and_clears_out_of_range" classname="CaseJointHintProviderTest" time="0.043">
+		</testcase>
+		<testcase name="test_provider_filters_requirements_and_distance_then_uses_priority" classname="CaseJointHintProviderTest" time="0.032">
+		</testcase>
+		<testcase name="test_provider_selection_is_stable_and_respects_per_hint_cooldown" classname="CaseJointHintProviderTest" time="0.023">
+		</testcase>
+		<testcase name="test_provider_uses_dedicated_hint_signal_not_objective_updates" classname="CaseJointHintProviderTest" time="0.051">
+		</testcase>
+		<testcase name="test_player_queries_only_one_grouped_provider_after_case_pulse" classname="CaseJointHintProviderTest" time="0.031">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="MissionInteractionBridgeTest" package="tests/mission_authoring" timestamp="2026-07-13T20:49:47" hostname="localhost" tests="15" failures="0" errors="0" skipped="0" flaky="0" time="1.041">
+		<testcase name="test_collects_mission_mechanic_and_generic_interactable" classname="MissionInteractionBridgeTest" time="0.026">
+		</testcase>
+		<testcase name="test_collects_generic_interactable_without_generated_by" classname="MissionInteractionBridgeTest" time="0.026">
+		</testcase>
+		<testcase name="test_include_legacy_candidates_false_ignores_phase0j_groups" classname="MissionInteractionBridgeTest" time="0.029">
+		</testcase>
+		<testcase name="test_interact_method_activates_candidate" classname="MissionInteractionBridgeTest" time="0.033">
+		</testcase>
+		<testcase name="test_use_only_candidate_can_be_activated" classname="MissionInteractionBridgeTest" time="0.051">
+		</testcase>
+		<testcase name="test_method_order_prefers_interact_over_use" classname="MissionInteractionBridgeTest" time="0.025">
+		</testcase>
+		<testcase name="test_higher_priority_wins" classname="MissionInteractionBridgeTest" time="0.022">
+		</testcase>
+		<testcase name="test_closer_candidate_wins_when_priority_ties" classname="MissionInteractionBridgeTest" time="0.027">
+		</testcase>
+		<testcase name="test_available_wins_when_prefer_available" classname="MissionInteractionBridgeTest" time="0.030">
+		</testcase>
+		<testcase name="test_uncompleted_wins_when_prefer_uncompleted" classname="MissionInteractionBridgeTest" time="0.021">
+		</testcase>
+		<testcase name="test_find_best_candidate_excludes_unavailable_when_required" classname="MissionInteractionBridgeTest" time="0.039">
+		</testcase>
+		<testcase name="test_wall_collision_blocks_interaction_target" classname="MissionInteractionBridgeTest" time="0.029">
+		</testcase>
+		<testcase name="test_prompt_priority_and_completed_helpers" classname="MissionInteractionBridgeTest" time="0.023">
+		</testcase>
+		<testcase name="test_cooldown_blocks_immediate_repeat" classname="MissionInteractionBridgeTest" time="0.034">
+		</testcase>
+		<testcase name="test_find_player_uses_explicit_path_and_group_fallback" classname="MissionInteractionBridgeTest" time="0.034">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="CompanionCommandPointTest" package="tests/mission_authoring" timestamp="2026-07-13T20:49:48" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.211">
+		<testcase name="test_companion_command_point_extends_mechanic_area_base" classname="CompanionCommandPointTest" time="0.024">
+		</testcase>
+		<testcase name="test_bark_command_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.030">
+		</testcase>
+		<testcase name="test_requirement_failure_blocks_companion_command" classname="CompanionCommandPointTest" time="0.033">
+		</testcase>
+		<testcase name="test_missing_companion_returns_clean_failure" classname="CompanionCommandPointTest" time="0.054">
+		</testcase>
+		<testcase name="test_fetch_command_calls_companion_fetch_method" classname="CompanionCommandPointTest" time="0.037">
+		</testcase>
+		<testcase name="test_crawlspace_connector_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.036">
+		</testcase>
+		<testcase name="test_wait_marker_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.048">
+		</testcase>
+		<testcase name="test_dog_companion_public_command_api" classname="CompanionCommandPointTest" time="0.041">
+		</testcase>
+		<testcase name="test_dog_companion_wait_and_crawlspace_commands_hold_position" classname="CompanionCommandPointTest" time="0.028">
+		</testcase>
+		<testcase name="test_dog_companion_fetch_interacts_with_fetchable_node" classname="CompanionCommandPointTest" time="0.047">
+		</testcase>
+		<testcase name="test_card_modifiers_tune_bentley_fetch_range_and_cooldowns" classname="CompanionCommandPointTest" time="0.047">
+		</testcase>
+		<testcase name="test_dev_scene_contains_phase7_command_points" classname="CompanionCommandPointTest" time="0.252">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="VelvetPawRouteComponent2Test" package="tests/mission_authoring" timestamp="2026-07-13T20:49:49" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.705">
+		<testcase name="test_component_2_authoring_contract_is_wired" classname="VelvetPawRouteComponent2Test" time="0.039">
+		</testcase>
+		<testcase name="test_component_2_security_authors_are_runtime_ready" classname="VelvetPawRouteComponent2Test" time="0.062">
+		</testcase>
+		<testcase name="test_component_2_dev_overlay_is_created_by_controller" classname="VelvetPawRouteComponent2Test" time="0.462">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="VelvetPawJazzClubRuntimeQATest" package="tests/mission_authoring" timestamp="2026-07-13T20:49:50" hostname="localhost" tests="14" failures="0" errors="0" skipped="0" flaky="0" time="4.743">
+		<testcase name="test_return_teleport_path_resolves_detached_to_exact_zone" classname="VelvetPawJazzClubRuntimeQATest" time="0.046">
+		</testcase>
+		<testcase name="test_return_without_shard_cannot_set_hostile_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.260">
+		</testcase>
+		<testcase name="test_real_shard_pickup_and_return_teleport_set_hostile_and_advance_objective" classname="VelvetPawJazzClubRuntimeQATest" time="0.252">
+		</testcase>
+		<testcase name="test_three_complete_runtime_cycles_are_fresh_deterministic_and_orphan_free" classname="VelvetPawJazzClubRuntimeQATest" time="0.889">
+		</testcase>
+		<testcase name="test_critical_route_obeys_requirements_and_physical_blockers" classname="VelvetPawJazzClubRuntimeQATest" time="0.353">
+		</testcase>
+		<testcase name="test_vip_front_inspection_opens_dynamic_rope_and_front_entry" classname="VelvetPawJazzClubRuntimeQATest" time="0.303">
+		</testcase>
+		<testcase name="test_side_door_entry_starts_floor_music_in_normal_alert_state" classname="VelvetPawJazzClubRuntimeQATest" time="0.244">
+		</testcase>
+		<testcase name="test_right_edge_of_staff_door_physically_starts_audible_bus_music" classname="VelvetPawJazzClubRuntimeQATest" time="0.291">
+		</testcase>
+		<testcase name="test_bar_cover_three_tables_vip_phone_and_inventory_progress_in_order" classname="VelvetPawJazzClubRuntimeQATest" time="0.285">
+		</testcase>
+		<testcase name="test_f12_velvet_security_controls_drive_heat_alert_and_hostile_states" classname="VelvetPawJazzClubRuntimeQATest" time="0.290">
+		</testcase>
+		<testcase name="test_unparked_bentley_vip_camera_requires_completed_countdown_before_response" classname="VelvetPawJazzClubRuntimeQATest" time="0.312">
+		</testcase>
+		<testcase name="test_vip_polaroid_requires_protocol_only" classname="VelvetPawJazzClubRuntimeQATest" time="0.227">
+		</testcase>
+		<testcase name="test_room_visibility_only_reveals_the_players_current_area" classname="VelvetPawJazzClubRuntimeQATest" time="0.245">
+		</testcase>
+		<testcase name="test_runtime_camera_patrol_spawn_targets_art_and_overlay_contract" classname="VelvetPawJazzClubRuntimeQATest" time="0.279">
+		</testcase>
+	</testsuite>
+</testsuites>

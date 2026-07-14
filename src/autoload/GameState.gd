@@ -247,6 +247,13 @@ func cool_venue_heat(mission_id: String, amount: int = 1) -> int:
 	return next
 
 
+func increase_venue_heat(mission_id: String, amount: int = 1) -> int:
+	var next := mini(5, get_mission_heat(mission_id) + maxi(0, amount))
+	venue_heat[mission_id] = next
+	EventBus.game_state_changed.emit()
+	return next
+
+
 ## Read-only summary for pause/F10; does not mutate save data.
 func get_mission_heat_summary(mission_id: String) -> Dictionary:
 	return {

@@ -65,7 +65,7 @@ func test_nine_openings_have_expected_classifications_and_blocking() -> void:
 		"stage_row_bathroom_access": ["fixed_open", "usable_route"],
 		"stage_row_backstage_hatch": ["dynamic", "portal_gated"],
 		"stage_row_staff_gate": ["dynamic", "gate"],
-		"bathroom_divider_south_end": ["fixed_open", "usable_route"],
+		"bathroom_divider_south_end": ["dynamic", "barback_service_gate"],
 		"stage_wing_divider_south_gate": ["dynamic", "gate"],
 		"vip_rope_north_end": ["dynamic", "protocol_gate"],
 		"server_cage_south_center_door": ["dynamic", "gate"],

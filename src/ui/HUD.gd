@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+const InputBindingFormatterScript := preload("res://src/utils/InputBindingFormatter.gd")
+const ACTION_FEEDBACK_DURATION_MSEC := 1800
+
 @export var show_compact_control_hint := false
 
 @onready var health_bar := get_node_or_null("HealthBar") as ProgressBar
@@ -28,6 +31,7 @@ var _toast_timer: SceneTreeTimer = null
 var _case_hint_label: Label = null
 var _case_hint_timer: SceneTreeTimer = null
 var _mission_hud_refresh_acc := 0.0
+var _objective_feedback_until_msec := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -115,7 +119,7 @@ func _refresh_mission_compact_hud() -> void:
 			objective_label.text = ""
 		return
 	_refresh_social_status()
-	if objective_label != null:
+	if objective_label != null and Time.get_ticks_msec() >= _objective_feedback_until_msec:
 		objective_label.text = _player_facing_objective_line(String(payload.get("objective_text", "")))
 	if _mission_strip == null:
 		return
@@ -217,14 +221,7 @@ func _on_combat_style_changed(current: float, max_style: float) -> void:
 	if current >= max_style - 0.75:
 		style_bar.modulate = Color(1.0, 0.88, 0.4, 1.0)
 		if style_finisher_hint:
-			var fin_key := "R"
-			if InputMap.has_action("finisher"):
-				for ev in InputMap.action_get_events("finisher"):
-					if ev is InputEventKey:
-						var kc: int = ev.physical_keycode if ev.physical_keycode != 0 else ev.keycode
-						fin_key = OS.get_keycode_string(kc)
-						break
-			style_finisher_hint.text = "Finisher ready — press %s" % fin_key
+			style_finisher_hint.text = "Finisher ready - press %s" % InputBindingFormatterScript.action_summary(&"finisher", "R")
 	else:
 		style_bar.modulate = Color.WHITE
 		if style_finisher_hint:
@@ -238,6 +235,7 @@ func _on_show_objective_marker(should_show: bool, position: Vector2) -> void:
 
 func _on_objective_updated(text: String) -> void:
 	var shown := MissionHudDataProvider.sanitize_objective_line(text)
+	_objective_feedback_until_msec = Time.get_ticks_msec() + ACTION_FEEDBACK_DURATION_MSEC
 	if objective_label:
 		objective_label.text = _player_facing_objective_line(shown)
 	if detection_meter:

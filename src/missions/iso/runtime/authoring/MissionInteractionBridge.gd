@@ -1,6 +1,7 @@
 class_name MissionInteractionBridge
 extends Node
 
+const InputBindingFormatterScript := preload("res://src/utils/InputBindingFormatter.gd")
 const LEGACY_CANDIDATE_GROUPS: Array[String] = [
 	"phase0j_interactable",
 	"phase0j_marker_debug",
@@ -283,16 +284,17 @@ func refresh_nearest_prompt() -> void:
 
 
 func _update_prompt_label(text: String) -> void:
-	last_prompt_text = text
+	var display_text := InputBindingFormatterScript.format_interact_prompt(text)
+	last_prompt_text = display_text
 	if prompt_target_path == NodePath():
 		return
 	var target := get_node_or_null(prompt_target_path)
 	if target == null:
 		return
 	if target.has_method("set_text"):
-		target.call("set_text", text)
+		target.call("set_text", display_text)
 	if target is CanvasItem:
-		(target as CanvasItem).visible = text.strip_edges() != ""
+		(target as CanvasItem).visible = display_text.strip_edges() != ""
 
 
 func _candidate_groups() -> Array[String]:

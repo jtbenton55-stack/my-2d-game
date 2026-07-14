@@ -9,7 +9,9 @@ const ALERT_CONTROLLER_PATH := NodePath("../MissionAlertController")
 const RETURN_TELEPORT_PATH := NodePath("../../MissionMechanics/TeleportZone_velvet_paw_jazz_club_teleport_zone_02")
 const PLAYER_PATH := NodePath("../../EntityRoot/Player")
 const VIP_POLAROID_PATH := NodePath("../../MissionMechanics/VipChampagnePolaroid")
+const VIP_VOICEMAIL_PATH := NodePath("../../MissionMechanics/SearchZone_velvet_paw_jazz_club_search_zone_01")
 const VIP_GATE_SHAPE_PATH := NodePath("../../RouteBlockers/VipProtocolGateBlocker/GateShape")
+const STAGE_SERVICE_DOOR_SHAPE_PATH := NodePath("../../RouteBlockers/StageServiceDoorBlocker/DoorShape")
 const VIP_PROTOCOL_PATH := NodePath("../../MissionMechanics/ProtocolZone_velvet_paw_jazz_club_protocol_zone_01")
 const CLUB_ENTRY_PATHS: Array[NodePath] = [
 	NodePath("../../MissionMechanics/TriggerZone_velvet_paw_jazz_club_trigger_zone_01"),
@@ -20,6 +22,8 @@ const VIP_WAIT_MAX_DISTANCE := 72.0
 const VIP_REINFORCEMENT_PATH := NodePath("../../SecurityAuthoringRoot/GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_08")
 const VIP_CAMERA_ID := "velvet_paw_jazz_club.security_camera_author.01"
 const VIP_TRESPASS_ACTION_ID := "velvet_paw_vip_bentley_trespass"
+const TABLE_CLEAR_FLAGS: Array[String] = ["vpj_table_01_cleared", "vpj_table_02_cleared", "vpj_table_03_cleared"]
+const TABLES_CLEARED_FLAG := "vpj_three_tables_cleared"
 const VIP_ENTRY_RECT := Rect2(2632.0, 1584.0, 440.0, 928.0)
 const VIP_THRESHOLD_RECT := Rect2(2368.0, 1472.0, 312.0, 448.0)
 const ROOM_VISIBILITY_TELEPORT_PATHS: Array[NodePath] = [
@@ -63,6 +67,7 @@ var eavesdrop_done: bool = false
 var alley_intro_done: bool = false
 var entered_club: bool = false
 var bar_task_done: bool = false
+var three_tables_cleared: bool = false
 var vip_voicemail_found: bool = false
 var staff_badge_collected: bool = false
 var staff_gate_open: bool = false
@@ -90,12 +95,14 @@ var _room_visibility_curtains: Node2D = null
 var _active_room_visibility_id: StringName = &"street"
 var _previous_entered_club := false
 var _vip_denial_armed := true
+var _vip_warning_stage := 0
 var _vip_trespass_registered := false
 var _vip_alarm_committed := false
 
 
 func _ready() -> void:
 	set_meta("scene_local_only", true)
+	_reset_stale_hostile_state()
 	_hide_blockout_tile_layers()
 	_ensure_room_visibility_curtains()
 	_ensure_collision_debug_overlay()
@@ -120,10 +127,13 @@ func _hide_blockout_tile_layers() -> void:
 
 
 func _process(_delta: float) -> void:
+	_sync_club_entry_from_player_position()
 	sync_from_mission_facts()
 	_update_room_visibility()
 	_sync_floor_music()
 	_sync_vip_access()
+	_sync_table_progression()
+	_sync_vip_voicemail()
 	_sync_vip_polaroid()
 
 
@@ -133,11 +143,39 @@ func _sync_vip_polaroid() -> void:
 		return
 	var context := {"mission_id": mission_id}
 	var protocol_complete := _mission_flag_set("vpj_vip_protocol_complete", context)
-	var voicemail_found := _mission_flag_set("vpj_vip_voicemail_found", context)
-	var available := protocol_complete and voicemail_found and not CollectibleManager.is_collected("velvet_vip_champagne_polaroid")
+	var available := protocol_complete and not CollectibleManager.is_collected("velvet_vip_champagne_polaroid")
 	pickup.visible = available
 	pickup.collision_layer = 8 if available else 0
 	pickup.monitoring = available
+
+
+func _sync_vip_voicemail() -> void:
+	var voicemail := get_node_or_null(VIP_VOICEMAIL_PATH) as Area2D
+	if voicemail == null:
+		return
+	var context := {"mission_id": mission_id}
+	var available := _mission_flag_set("vpj_vip_protocol_complete", context) and not _mission_flag_set("vpj_vip_voicemail_found", context)
+	voicemail.visible = available
+	voicemail.collision_layer = 8 if available else 0
+	voicemail.monitoring = available
+
+
+func _sync_table_progression() -> void:
+	var all_cleared := _all_table_flags_set()
+	if all_cleared and not _mission_flag_set(TABLES_CLEARED_FLAG, {"mission_id": mission_id}):
+		_set_mission_flag(TABLES_CLEARED_FLAG)
+	three_tables_cleared = all_cleared
+	var service_shape := get_node_or_null(STAGE_SERVICE_DOOR_SHAPE_PATH) as CollisionShape2D
+	if service_shape != null:
+		service_shape.set_deferred("disabled", all_cleared)
+
+
+func _all_table_flags_set() -> bool:
+	var context := {"mission_id": mission_id}
+	for flag_id: String in TABLE_CLEAR_FLAGS:
+		if not _mission_flag_set(flag_id, context):
+			return false
+	return true
 
 
 func _connect_vip_protocol() -> void:
@@ -149,6 +187,8 @@ func _connect_vip_protocol() -> void:
 
 func _on_vip_protocol_succeeded(_mechanic_id: String, _result: Dictionary) -> void:
 	_sync_vip_gate()
+	_sync_vip_voicemail()
+	_sync_vip_polaroid()
 	EventBus.case_hint_requested.emit("VIP access established. Enter from the left and check the phone.", "Mere")
 
 
@@ -156,6 +196,23 @@ func _sync_floor_music() -> void:
 	if _floor_music_should_play() and (not _previous_entered_club or not AudioManager.is_music_playing(FLOOR_MUSIC_KEY)):
 		AudioManager.play_music(FLOOR_MUSIC_KEY, 0.25)
 	_previous_entered_club = entered_club
+
+
+func _sync_club_entry_from_player_position() -> void:
+	if _mission_flag_set("vpj_entered_club", {"mission_id": mission_id}):
+		return
+	var player := _find_room_visibility_player()
+	if player != null and (ROOM_VISIBILITY_RECTS[&"club_main"] as Rect2).has_point(player.global_position):
+		_set_mission_flag("vpj_entered_club")
+
+
+func _reset_stale_hostile_state() -> void:
+	if not GameState.velvet_paw_club_hostile:
+		return
+	if _mission_flag_set("vpj_shard_collected", {"mission_id": mission_id}):
+		return
+	GameState.velvet_paw_club_hostile = false
+	EventBus.game_state_changed.emit()
 
 
 func _floor_music_should_play() -> bool:
@@ -177,17 +234,15 @@ func _sync_vip_access() -> void:
 	var protocol_complete := _mission_flag_set("vpj_vip_protocol_complete", {"mission_id": mission_id})
 	if protocol_complete and VIP_ENTRY_RECT.has_point(player.global_position):
 		_set_mission_flag("vpj_vip_area_entered")
-	var bentley := get_tree().get_first_node_in_group("bentley") as Node2D
-	var bentley_at_threshold := bentley != null and bentley.global_position.distance_to(player.global_position) <= 220.0
-	var trespassing := not protocol_complete and bentley_at_threshold and VIP_THRESHOLD_RECT.has_point(player.global_position)
-	if trespassing and _vip_denial_armed and not DialogueManager.is_in_dialogue:
+	var bentley_parked := _is_bentley_parked_for_vip()
+	var trespassing := not protocol_complete and not bentley_parked and VIP_THRESHOLD_RECT.has_point(player.global_position)
+	if trespassing and _vip_denial_armed:
 		_vip_denial_armed = false
-		DialogueManager.start_simple_dialogue([
-			{"speaker": "VIP Bouncer", "text": "No dogs allowed in the VIP area.", "auto_advance_seconds": 2.5, "allow_manual_advance": false},
-			{"speaker": "Bentley", "text": "Bentley gives the VIP bouncer side-eye.", "auto_advance_seconds": 2.5, "allow_manual_advance": false},
-		])
+		_vip_warning_stage = 1
+		EventBus.case_hint_requested.emit("VIP warning: back away from the rope and park Bentley at the dance-floor marker.", "VIP Bouncer")
 	if not VIP_THRESHOLD_RECT.grow(64.0).has_point(player.global_position):
 		_vip_denial_armed = true
+		_vip_warning_stage = 0
 	var alert := get_node_or_null(ALERT_CONTROLLER_PATH)
 	if alert == null:
 		return
@@ -197,14 +252,29 @@ func _sync_vip_access() -> void:
 	elif not trespassing and _vip_trespass_registered:
 		alert.call("end_suspicious_action", VIP_TRESPASS_ACTION_ID)
 		_vip_trespass_registered = false
+	if trespassing and _vip_warning_stage == 1 and (String(alert.get("alert_state")) == "suspicious" or _vip_camera_exposure_progress() >= 0.5):
+		_vip_warning_stage = 2
+		EventBus.case_hint_requested.emit("Final warning: leave the VIP camera now and park Bentley, or security will respond.", "VIP Bouncer")
 	if trespassing and String(alert.get("alert_state")) == "alerted" and String(alert.get("last_detection_source")) == VIP_CAMERA_ID:
 		_commit_vip_trespass_alarm()
 
 
 func _sync_vip_gate() -> void:
+	var unlocked := _vip_gate_prerequisites_met()
 	var shape := get_node_or_null(VIP_GATE_SHAPE_PATH) as CollisionShape2D
 	if shape != null:
-		shape.set_deferred("disabled", _is_bentley_parked_for_vip())
+		shape.set_deferred("disabled", unlocked)
+	var protocol := get_node_or_null(VIP_PROTOCOL_PATH) as Area2D
+	if protocol != null:
+		protocol.set("enabled", unlocked)
+		protocol.collision_layer = 8 if unlocked else 0
+		protocol.set_deferred("monitoring", unlocked)
+
+
+func _vip_gate_prerequisites_met() -> bool:
+	var context := {"mission_id": mission_id}
+	var has_cover := bool(SocialStealthAdapter.get_fact_value(SocialStealthAdapter.FACT_COVER_STORY_ACTIVE, "velvet_paw_new_staff", context))
+	return has_cover and _all_table_flags_set() and _is_bentley_parked_for_vip()
 
 
 func _is_bentley_parked_for_vip() -> bool:
@@ -219,7 +289,7 @@ func _is_bentley_parked_for_vip() -> bool:
 
 
 func _commit_vip_trespass_alarm() -> void:
-	if _vip_alarm_committed:
+	if _vip_alarm_committed or not _vip_camera_exposure_complete():
 		return
 	_vip_alarm_committed = true
 	_set_mission_flag("vpj_vip_trespass_alarm")
@@ -238,6 +308,40 @@ func _commit_vip_trespass_alarm() -> void:
 		if guard.has_method("set_hostile"):
 			guard.call("set_hostile", true, false)
 	AudioManager.stop_music(0.15)
+
+
+func _vip_camera_exposure_complete() -> bool:
+	var mission := get_node_or_null("../../..")
+	for camera: Node in get_tree().get_nodes_in_group("iso_security_camera"):
+		if mission != null and not mission.is_ancestor_of(camera):
+			continue
+		if String(camera.get("camera_id")) != VIP_CAMERA_ID:
+			continue
+		return camera.has_method("is_minimum_exposure_complete") and bool(camera.call("is_minimum_exposure_complete"))
+	return false
+
+
+func _vip_camera_exposure_progress() -> float:
+	var mission := get_node_or_null("../../..")
+	for camera: Node in get_tree().get_nodes_in_group("iso_security_camera"):
+		if mission != null and not mission.is_ancestor_of(camera):
+			continue
+		if String(camera.get("camera_id")) == VIP_CAMERA_ID and camera.has_method("get_minimum_exposure_progress"):
+			return float(camera.call("get_minimum_exposure_progress"))
+	return 0.0
+
+
+func trigger_hostile_state(_source_id: String = "f12_qa") -> Dictionary:
+	var changed := not GameState.velvet_paw_club_hostile
+	GameState.velvet_paw_club_hostile = true
+	for guard: Node in get_tree().get_nodes_in_group("enemy"):
+		if guard.has_method("set_hostile"):
+			guard.call("set_hostile", true, false)
+	AudioManager.stop_music(0.25)
+	if changed:
+		EventBus.game_state_changed.emit()
+	_sync_objective_chain()
+	return {"ok": true, "changed": changed, "hostile": true}
 
 
 func _ensure_room_visibility_curtains() -> void:
@@ -332,6 +436,7 @@ func reset_attempt_state() -> Dictionary:
 	alley_intro_done = false
 	entered_club = false
 	bar_task_done = false
+	three_tables_cleared = false
 	vip_voicemail_found = false
 	staff_badge_collected = false
 	staff_gate_open = false
@@ -368,6 +473,7 @@ func sync_from_mission_facts() -> void:
 	alley_intro_done = _mission_flag_set("vpj_alley_intro_done", context)
 	entered_club = _mission_flag_set("vpj_entered_club", context)
 	bar_task_done = _mission_flag_set("vpj_bar_task_done", context)
+	three_tables_cleared = _mission_flag_set(TABLES_CLEARED_FLAG, context) or _all_table_flags_set()
 	vip_voicemail_found = _mission_flag_set("vpj_vip_voicemail_found", context)
 	staff_badge_collected = _mission_flag_set("vpj_staff_badge_collected", context)
 	staff_gate_open = _mission_flag_set("vpj_staff_gate_open", context)

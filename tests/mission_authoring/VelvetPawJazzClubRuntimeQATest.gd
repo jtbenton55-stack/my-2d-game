@@ -12,6 +12,7 @@ const MissionInventoryScript := preload("res://src/inventory/MissionInventory.gd
 
 const BLOCKER_PATHS := {
 	"front_rope": "GameplayRoot/RouteBlockers/FrontEntranceCrowdRopeBlocker/RopeShape",
+	"stage_service": "GameplayRoot/RouteBlockers/StageServiceDoorBlocker/DoorShape",
 	"staff_row": "GameplayRoot/RouteBlockers/StaffGateBlocker/StageRowShape",
 	"staff_wing": "GameplayRoot/RouteBlockers/StaffGateBlocker/StageWingShape",
 	"backstage": "GameplayRoot/RouteBlockers/BackstageHatchBlocker/HatchShape",
@@ -218,13 +219,151 @@ func test_side_door_entry_starts_floor_music_in_normal_alert_state() -> void:
 	await _remove_mission(root)
 
 
-func test_vip_polaroid_requires_protocol_and_voicemail() -> void:
+func test_right_edge_of_staff_door_physically_starts_audible_bus_music() -> void:
+	var root := await _add_mission()
+	GameState.velvet_paw_club_hostile = false
+	var player := root.get_node("EntityRoot/Player") as CharacterBody2D
+	var alert := root.get_node("GameplayRoot/RuntimeHelpers/MissionAlertController")
+	alert.call("resolve_alert")
+	alert.call("set_alert_state", "normal")
+	player.global_position = Vector2(3050, 2660)
+	await get_tree().physics_frame
+	player.global_position = Vector2(3050, 2440)
+	await get_tree().physics_frame
+	await get_tree().process_frame
+	assert_bool(_flag("vpj_entered_club")).is_true()
+	assert_bool(AudioManager.is_music_playing("velvet_paw_floor")).is_true()
+	var audio: Dictionary = AudioManager.get_music_debug_state()
+	assert_bool(bool(audio.get("playing", false))).is_true()
+	assert_bool(bool(audio.get("music_bus_muted", true))).is_false()
+	assert_float(float(audio.get("music_bus_volume_db", -80.0))).is_equal(0.0)
+	assert_str(String(audio.get("stream", ""))).contains("paoloargento")
+	await _remove_mission(root)
+
+
+func test_bar_cover_three_tables_vip_phone_and_inventory_progress_in_order() -> void:
+	var was_collected := CollectibleManager.is_collected("velvet_vip_champagne_polaroid")
+	GameState.collected_polaroids.erase("velvet_vip_champagne_polaroid")
+	var root := await _add_mission()
+	var actor := _add_player_actor(root)
+	var controller := root.get_node(CONTROLLER_PATH)
+	var phone := root.get_node(MECHANICS + "SearchZone_velvet_paw_jazz_club_search_zone_01") as Area2D
+	assert_bool(phone.visible).is_false()
+	var first_table := root.get_node(MECHANICS + "BelievableTaskZone_velvet_paw_clear_table_01")
+	_assert_failed(first_table.call("activate", actor, "before_bar_cover"), "table before bar cover")
+	var bar_task := root.get_node(MECHANICS + "BelievableTaskZone_velvet_paw_jazz_club_believable_task_zone_01")
+	_assert_succeeded(bar_task.call("activate", actor, "bar_cover"), "west bar cover")
+	var context := {"mission_id": MISSION_ID}
+	assert_bool(bool(SocialStealthAdapter.get_fact_value(SocialStealthAdapter.FACT_COVER_STORY_ACTIVE, "velvet_paw_new_staff", context))).is_true()
+	var inspection := root.get_node(MECHANICS + "InspectionZone_velvet_paw_jazz_club_inspection_zone_02")
+	_assert_succeeded(inspection.call("activate", actor, "covered_inspection"), "covered floor inspection")
+	var wait_marker := root.get_node(MECHANICS + "BentleyWaitMarker_velvet_paw_jazz_club_bentley_wait_marker_01")
+	_assert_succeeded(wait_marker.call("run_command", actor, "vip_wait"), "Bentley wait marker")
+	var protocol := root.get_node(MECHANICS + "ProtocolZone_velvet_paw_jazz_club_protocol_zone_01")
+	_assert_failed(protocol.call("activate", actor, "tables_incomplete"), "VIP protocol before tables")
+	for table_index: int in range(1, 4):
+		var table := root.get_node(MECHANICS + "BelievableTaskZone_velvet_paw_clear_table_%02d" % table_index)
+		_assert_succeeded(table.call("activate", actor, "clear_table_%d" % table_index), "clear table %d" % table_index)
+	controller.call("_sync_table_progression")
+	controller.call("_sync_vip_gate")
+	assert_bool(_flag("vpj_three_tables_cleared")).is_true()
+	assert_bool(bool(controller.get("three_tables_cleared"))).is_true()
+	_assert_succeeded(protocol.call("activate", actor, "tables_complete"), "VIP protocol after tables")
+	controller.call("_sync_vip_voicemail")
+	controller.call("_sync_vip_polaroid")
+	assert_bool(phone.visible).is_true()
+	assert_int(phone.collision_layer).is_equal(8)
+	var polaroid := root.get_node(MECHANICS + "VipChampagnePolaroid")
+	assert_bool(polaroid.visible).is_true()
+	assert_bool(bool(polaroid.call("is_interaction_available", actor))).is_true()
+	_assert_succeeded(phone.call("search", actor, "vip_voicemail"), "VIP voicemail")
+	assert_bool(MissionInventoryScript.has_item("velvet_paw_vip_voicemail_copy")).is_true()
+	polaroid.call("interact", actor)
+	assert_bool(MissionInventoryScript.has_item("velvet_vip_champagne_polaroid")).is_true()
+	await _remove_mission(root)
+	GameState.collected_polaroids.erase("velvet_vip_champagne_polaroid")
+	if was_collected:
+		GameState.collected_polaroids.append("velvet_vip_champagne_polaroid")
+
+
+func test_f12_velvet_security_controls_drive_heat_alert_and_hostile_states() -> void:
+	GameState.venue_heat.erase(MISSION_ID)
+	GameState.failed_attempts.erase(MISSION_ID)
+	var root := await _add_mission()
+	var panel := preload("res://src/missions/iso/runtime/MissionQAChecklistPanel.gd").new()
+	add_child(panel)
+	panel.call("set_mission", root)
+	var selector := panel.get_node("ChecklistSelector") as OptionButton
+	assert_int(selector.get_item_index(9)).is_greater_equal(0)
+	selector.select(selector.get_item_index(9))
+	selector.item_selected.emit(selector.selected)
+	assert_int(panel.get_node("ActionButtons").get_child_count()).is_equal(5)
+	panel.call("_velvet_increase_heat")
+	assert_int(GameState.get_mission_heat(MISSION_ID)).is_equal(1)
+	var alert := root.get_node("GameplayRoot/RuntimeHelpers/MissionAlertController")
+	assert_int(int(alert.call("get_camera_policy_debug_state").get("initial_heat", 0))).is_equal(1)
+	panel.call("_velvet_trigger_suspicion")
+	assert_str(String(alert.get("alert_state"))).is_equal("suspicious")
+	panel.call("_velvet_trigger_alert")
+	assert_str(String(alert.get("alert_state"))).is_equal("alerted")
+	panel.call("_velvet_resolve_alert")
+	assert_str(String(alert.get("alert_state"))).is_equal("resolved")
+	assert_float(float(alert.get("alert_score"))).is_equal(0.0)
+	panel.call("_velvet_trigger_hostile")
+	assert_bool(GameState.velvet_paw_club_hostile).is_true()
+	for guard: Node in get_tree().get_nodes_in_group("enemy"):
+		assert_bool(bool(guard.call("is_hostile"))).is_true()
+	panel.queue_free()
+	await _remove_mission(root)
+	GameState.venue_heat.erase(MISSION_ID)
+
+
+func test_unparked_bentley_vip_camera_requires_completed_countdown_before_response() -> void:
+	var root := await _add_mission()
+	var controller := root.get_node(CONTROLLER_PATH)
+	var player := root.get_node("EntityRoot/Player") as CharacterBody2D
+	var alert := root.get_node("GameplayRoot/RuntimeHelpers/MissionAlertController")
+	player.global_position = Vector2(2528, 1664)
+	alert.call("resolve_alert")
+	alert.call("set_alert_state", "normal")
+	controller.call("_sync_vip_access")
+	assert_int(int(controller.get("_vip_warning_stage"))).is_equal(1)
+	assert_bool(bool(alert.call("is_suspicious_action_active", "velvet_paw_vip_bentley_trespass"))).is_true()
+	alert.call("set_alert_state", "suspicious")
+	controller.call("_sync_vip_access")
+	assert_int(int(controller.get("_vip_warning_stage"))).is_equal(2)
+	alert.set("last_detection_source", "velvet_paw_jazz_club.security_camera_author.01")
+	alert.call("set_alert_state", "alerted")
+	controller.call("_sync_vip_access")
+	await get_tree().process_frame
+	var vip_spawn := root.get_node("GameplayRoot/SecurityAuthoringRoot/GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_08")
+	assert_int(int(vip_spawn.get("last_spawned_count"))).is_equal(0)
+	assert_bool(_flag("vpj_vip_trespass_alarm")).is_false()
+	var vip_camera: Node = null
+	for camera: Node in root.get_node("EntityRoot/Cameras").get_children():
+		if String(camera.get("camera_id")) == "velvet_paw_jazz_club.security_camera_author.01":
+			vip_camera = camera
+			break
+	assert_object(vip_camera).is_not_null()
+	vip_camera.set("_minimum_exposure_elapsed", 5.99)
+	vip_camera.set("_minimum_exposure_triggered", false)
+	controller.call("_sync_vip_access")
+	assert_int(int(vip_spawn.get("last_spawned_count"))).is_equal(0)
+	vip_camera.set("_minimum_exposure_elapsed", 6.0)
+	vip_camera.set("_minimum_exposure_triggered", true)
+	controller.call("_sync_vip_access")
+	await get_tree().process_frame
+	assert_int(int(vip_spawn.get("last_spawned_count"))).is_greater(0)
+	assert_bool(_flag("vpj_vip_trespass_alarm")).is_true()
+	await _remove_mission(root)
+
+
+func test_vip_polaroid_requires_protocol_only() -> void:
 	var was_collected := CollectibleManager.is_collected("velvet_vip_champagne_polaroid")
 	GameState.collected_polaroids.erase("velvet_vip_champagne_polaroid")
 	var root := await _add_mission()
 	var controller := root.get_node(CONTROLLER_PATH)
 	var pickup := root.get_node(MECHANICS + "VipChampagnePolaroid") as Area2D
-	_set_flag("vpj_vip_voicemail_found")
 	controller.call("_sync_vip_polaroid")
 	assert_bool(pickup.visible).is_false()
 	assert_int(pickup.collision_layer).is_equal(0)
@@ -329,7 +468,7 @@ func _assert_fresh_runtime_contract(root: Node, cycle: int) -> void:
 	var proxy := root.get_node("GameplayRoot/GeneratedRuntimeCollision/WallCollision/WallCellBody")
 	assert_int(proxy.get_child_count()).is_equal(1418)
 	assert_int(int(proxy.get("generated_shape_count"))).is_equal(1418)
-	assert_int(root.get_node("GameplayRoot/RouteBlockers").get_child_count()).is_equal(7)
+	assert_int(root.get_node("GameplayRoot/RouteBlockers").get_child_count()).is_equal(9)
 	_assert_disabled_blockers(root, [])
 	assert_bool(MissionInventoryScript.has_item("velvet_paw_staff_badge")).is_false()
 	assert_bool(GameState.velvet_paw_club_hostile).is_false()

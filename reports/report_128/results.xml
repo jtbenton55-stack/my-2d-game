@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-13" name="report_128" tests="9" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ControllerInputLayoutTest" package="tests/mission_authoring" timestamp="2026-07-14T00:39:44" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="1.155">
+		<testcase name="test_gamesir_xbox_layout_is_exact" classname="ControllerInputLayoutTest" time="0.019">
+		</testcase>
+		<testcase name="test_semantic_binding_labels_are_player_facing" classname="ControllerInputLayoutTest" time="0.033">
+		</testcase>
+		<testcase name="test_right_bumper_dispatches_the_existing_heavy_attack" classname="ControllerInputLayoutTest" time="0.752">
+		</testcase>
+		<testcase name="test_controller_poop_bag_targeting_aims_throws_and_cancels" classname="ControllerInputLayoutTest" time="0.039">
+		</testcase>
+		<testcase name="test_contextual_controller_feedback_survives_hud_refresh" classname="ControllerInputLayoutTest" time="0.057">
+		</testcase>
+		<testcase name="test_bentley_dpad_commands_ignore_blocking_ui" classname="ControllerInputLayoutTest" time="0.062">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawControllerCheckpointTest" package="tests/mission_authoring" timestamp="2026-07-14T00:39:45" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.808">
+		<testcase name="test_start_and_a_use_pause_and_interact_actions" classname="VelvetPawControllerCheckpointTest" time="0.032">
+		</testcase>
+		<testcase name="test_start_toggles_mission_pause_but_hidden_cancel_does_not_open_it" classname="VelvetPawControllerCheckpointTest" time="0.048">
+		</testcase>
+		<testcase name="test_controller_a_routes_through_production_bridge_to_exact_bentley_marker" classname="VelvetPawControllerCheckpointTest" time="0.590">
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const DialoguePortraitRegistry = preload("res://src/dialogue/DialoguePortraitRegistry.gd")
+const InputBindingFormatterScript := preload("res://src/utils/InputBindingFormatter.gd")
 
 @onready var speaker_label := get_node_or_null("DialoguePanel/MarginContainer/HBox/ContentContainer/SpeakerLabel") as Label
 @onready var text_label := get_node_or_null("DialoguePanel/MarginContainer/HBox/ContentContainer/TextLabel") as Label
@@ -34,7 +35,13 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible and InputMap.has_action("interact") and event.is_action_pressed("interact"):
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel"):
+		DialogueManager.end_dialogue()
+		get_viewport().set_input_as_handled()
+		return
+	if InputMap.has_action("interact") and event.is_action_pressed("interact"):
 		DialogueManager.next_line()
 		get_viewport().set_input_as_handled()
 
@@ -51,7 +58,7 @@ func _on_dialogue_line_changed(speaker: String, text: String) -> void:
 	if text_label:
 		text_label.text = text
 	if next_indicator:
-		next_indicator.text = "Press E"
+		next_indicator.text = "Press %s" % InputBindingFormatterScript.action_summary(&"interact", "E")
 	_apply_line_controls(true, true)
 	# Legacy listeners may fire before the _full signal in the same frame.
 	# If the _full signal arrives, it will overwrite the portrait correctly.
@@ -67,7 +74,7 @@ func _on_dialogue_line_changed_full(speaker: String, text: String, portrait_id: 
 	if text_label:
 		text_label.text = text
 	if next_indicator:
-		next_indicator.text = "Press E"
+		next_indicator.text = "Press %s" % InputBindingFormatterScript.action_summary(&"interact", "E")
 	_apply_line_controls(
 		bool(line_data.get("allow_manual_advance", true)),
 		bool(line_data.get("allow_skip", true))
@@ -85,7 +92,9 @@ func _on_dialogue_ended() -> void:
 func _apply_line_controls(allow_manual_advance: bool, allow_skip: bool) -> void:
 	if next_indicator:
 		next_indicator.visible = true
-		next_indicator.text = "Press E | Enter: Close" if allow_manual_advance else "Press Enter to close"
+		var advance := InputBindingFormatterScript.action_summary(&"interact", "E")
+		var close := InputBindingFormatterScript.action_summary(&"ui_cancel", "Esc")
+		next_indicator.text = "%s: Advance | %s: Close" % [advance, close] if allow_manual_advance else "%s: Close" % close
 	if skip_button:
 		skip_button.visible = allow_skip
 

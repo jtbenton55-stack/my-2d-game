@@ -10,6 +10,7 @@ const MODE_D5_01 := 5
 const MODE_D5_02 := 6
 const MODE_D5_03 := 7
 const MODE_PHASE17 := 8
+const MODE_VELVET_SECURITY := 9
 
 const PHASE4G_MISSION_ID := "taco_bell_drop"
 const PHASE4G_FLAG_ID := "phase4g_camera_alarm_seen"
@@ -90,6 +91,7 @@ func _build_ui() -> void:
 	_selector.add_item("D5-02 - Pause Context", MODE_D5_02)
 	_selector.add_item("D5-03 - Louis Beam Bypass", MODE_D5_03)
 	_selector.add_item("Phase 17 - Garage Routes", MODE_PHASE17)
+	_selector.add_item("Velvet Paw - Security/Fight", MODE_VELVET_SECURITY)
 	_selector.item_selected.connect(_on_mode_selected)
 	add_child(_selector)
 
@@ -266,6 +268,14 @@ func _actions_for_mode() -> Array[Dictionary]:
 				{"label": "Trigger Alarm", "kind": "trigger_alarm", "hint": "Call the mission debug alarm hook."},
 				{"label": "Spawn Guard", "kind": "spawn_guard", "hint": "Call the mission debug guard spawn hook."},
 			]
+		MODE_VELVET_SECURITY:
+			return [
+				{"label": "Increase Heat", "kind": "velvet_increase_heat", "hint": "Raise Velvet Paw heat by one and refresh the live camera posture."},
+				{"label": "Suspicion", "kind": "velvet_suspicion", "hint": "Trigger a non-alarm suspicious state."},
+				{"label": "Alert", "kind": "velvet_alert", "hint": "Trigger a real alert event and downstream response."},
+				{"label": "Resolve", "kind": "velvet_resolve", "hint": "Clear exposure and enter the resolved state."},
+				{"label": "Hostile/Fight", "kind": "velvet_hostile", "hint": "Make the club and all existing guards hostile."},
+			]
 	return []
 
 
@@ -308,6 +318,16 @@ func _on_action_pressed(action: Dictionary) -> void:
 				_set_last_action("Guard spawn test unavailable on this mission.")
 		"phase16_route":
 			_run_phase16_route(String(action.get("method", "")))
+		"velvet_increase_heat":
+			_velvet_increase_heat()
+		"velvet_suspicion":
+			_velvet_trigger_suspicion()
+		"velvet_alert":
+			_velvet_trigger_alert()
+		"velvet_resolve":
+			_velvet_resolve_alert()
+		"velvet_hostile":
+			_velvet_trigger_hostile()
 		_:
 			_set_last_action("Unknown QA action: %s" % kind)
 	_refresh()
@@ -337,6 +357,8 @@ func _refresh() -> void:
 			_body.text = _render_d5_03(rsum)
 		MODE_PHASE17:
 			_body.text = _render_phase17()
+		MODE_VELVET_SECURITY:
+			_body.text = _render_velvet_security()
 		_:
 			_body.text = _render_overview(rsum, flags)
 
@@ -359,6 +381,77 @@ func _current_mission_id() -> String:
 		if mid != "":
 			return mid
 	return String(GameState.current_mission_id)
+
+
+func _velvet_alert_controller() -> Node:
+	if _mission == null or not is_instance_valid(_mission):
+		return null
+	return _mission.get_node_or_null("GameplayRoot/RuntimeHelpers/MissionAlertController")
+
+
+func _velvet_mission_controller() -> Node:
+	if _mission == null or not is_instance_valid(_mission):
+		return null
+	return _mission.get_node_or_null("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController")
+
+
+func _velvet_increase_heat() -> void:
+	if _current_mission_id() != VELVET_PAW_MISSION_ID:
+		_set_last_action("Velvet Paw heat controls are unavailable in this mission.")
+		return
+	var heat := GameState.increase_venue_heat(VELVET_PAW_MISSION_ID, 1)
+	var alert := _velvet_alert_controller()
+	if alert != null and alert.has_method("configure_camera_detection_policy"):
+		alert.call("configure_camera_detection_policy", true, heat)
+	_set_last_action("Velvet Paw heat increased to %d/5; live camera posture refreshed." % heat)
+
+
+func _velvet_trigger_suspicion() -> void:
+	var alert := _velvet_alert_controller()
+	if _current_mission_id() != VELVET_PAW_MISSION_ID or alert == null:
+		_set_last_action("Velvet Paw alert controller is unavailable.")
+		return
+	alert.call("resolve_alert")
+	alert.call("set_alert_state", "normal")
+	alert.call("register_detection_event", "f12_qa_suspicion", 0.35, "qa_suspicion")
+	_set_last_action("Triggered suspicion without committing an alarm.")
+
+
+func _velvet_trigger_alert() -> void:
+	var alert := _velvet_alert_controller()
+	if _current_mission_id() != VELVET_PAW_MISSION_ID or alert == null:
+		_set_last_action("Velvet Paw alert controller is unavailable.")
+		return
+	alert.call("register_detection_event", "f12_qa_alert", 1.0, "camera_detected")
+	_set_last_action("Triggered an alerted security event with downstream response.")
+
+
+func _velvet_resolve_alert() -> void:
+	var alert := _velvet_alert_controller()
+	if _current_mission_id() != VELVET_PAW_MISSION_ID or alert == null:
+		_set_last_action("Velvet Paw alert controller is unavailable.")
+		return
+	alert.call("resolve_alert")
+	_set_last_action("Cleared exposure and resolved the alert.")
+
+
+func _velvet_trigger_hostile() -> void:
+	var controller := _velvet_mission_controller()
+	if _current_mission_id() != VELVET_PAW_MISSION_ID or controller == null:
+		_set_last_action("Velvet Paw mission controller is unavailable.")
+		return
+	controller.call("trigger_hostile_state", "f12_qa")
+	_set_last_action("Triggered the club-wide hostile/fight state.")
+
+
+func _render_velvet_security() -> String:
+	if _current_mission_id() != VELVET_PAW_MISSION_ID:
+		return "[b]Velvet Paw Security/Fight[/b]\nLaunch Velvet Paw to use these controls."
+	var alert := _velvet_alert_controller()
+	var state := String(alert.get("alert_state")) if alert != null else "unavailable"
+	var score := float(alert.get("alert_score")) if alert != null else 0.0
+	var audio: Dictionary = AudioManager.get_music_debug_state()
+	return "[b]Velvet Paw Security/Fight[/b]\nHeat: %d/5\nAlert: %s (exposure %.2f)\nHostile/fight: %s\nMusic: %s playing=%s at %.1fs\nMusic bus: %.1f dB muted=%s | Master: %.1f dB muted=%s\n\nIncrease Heat refreshes the current camera posture immediately. Suspicion is temporary and does not commit an alarm. Alert runs real alarm routing. Resolve clears exposure. Hostile/Fight makes all current guards hostile and stops house music." % [GameState.get_mission_heat(VELVET_PAW_MISSION_ID), state, score, "yes" if GameState.velvet_paw_club_hostile else "no", String(audio.get("current_music", "none")), str(audio.get("playing", false)), float(audio.get("playback_position", 0.0)), float(audio.get("music_bus_volume_db", -80.0)), str(audio.get("music_bus_muted", true)), float(audio.get("master_bus_volume_db", -80.0)), str(audio.get("master_bus_muted", true))]
 
 
 func _get_phase0k_controller() -> Node:

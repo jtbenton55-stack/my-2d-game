@@ -9,9 +9,13 @@ func _ready() -> void:
 	_ensure_bus("Music")
 	_ensure_bus("SFX")
 	_ensure_bus("UI")
+	var music_bus := AudioServer.get_bus_index("Music")
+	AudioServer.set_bus_mute(music_bus, false)
+	AudioServer.set_bus_volume_db(music_bus, 0.0)
 	_music_player = AudioStreamPlayer.new()
 	_music_player.name = "MusicPlayer"
 	_music_player.bus = "Music"
+	_music_player.volume_db = 0.0
 	add_child(_music_player)
 	EventBus.debug("AudioManager ready")
 
@@ -71,6 +75,22 @@ func is_music_playing(music_name: String = "") -> bool:
 	if _music_player == null or not _music_player.playing:
 		return false
 	return music_name.strip_edges() == "" or current_music == music_name.strip_edges()
+
+
+func get_music_debug_state() -> Dictionary:
+	var music_bus := AudioServer.get_bus_index("Music")
+	var master_bus := AudioServer.get_bus_index("Master")
+	return {
+		"current_music": current_music,
+		"playing": _music_player != null and _music_player.playing,
+		"playback_position": _music_player.get_playback_position() if _music_player != null and _music_player.playing else 0.0,
+		"stream": _music_player.stream.resource_path if _music_player != null and _music_player.stream != null else "",
+		"player_volume_db": _music_player.volume_db if _music_player != null else -80.0,
+		"music_bus_volume_db": AudioServer.get_bus_volume_db(music_bus) if music_bus >= 0 else -80.0,
+		"music_bus_muted": AudioServer.is_bus_mute(music_bus) if music_bus >= 0 else true,
+		"master_bus_volume_db": AudioServer.get_bus_volume_db(master_bus) if master_bus >= 0 else -80.0,
+		"master_bus_muted": AudioServer.is_bus_mute(master_bus) if master_bus >= 0 else true,
+	}
 
 func play_sfx(sfx_name: String, _position = Vector2.ZERO) -> void:
 	EventBus.debug("SFX cue: " + sfx_name)

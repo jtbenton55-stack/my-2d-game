@@ -199,6 +199,14 @@ func decay_exposure(amount: float) -> void:
 	_emit_detection_state()
 
 
+func resolve_alert() -> void:
+	alert_score = 0.0
+	last_detection_source = ""
+	_suspicious_timer = 0.0
+	set_alert_state("resolved")
+	_emit_detection_state()
+
+
 func record_alarm_event(kind: String = "alarm", source_id: String = "") -> void:
 	var mid := mission_id if mission_id != "" else String(GameState.current_mission_id)
 	var scene := get_tree().current_scene

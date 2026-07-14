@@ -73,6 +73,15 @@ size = Vector2(192, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_protocol_gate"]
 size = Vector2(64, 192)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_vip_rail_horizontal"]
+size = Vector2(384, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_vip_rail_right"]
+size = Vector2(32, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_stage_service_door"]
+size = Vector2(64, 192)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_staff_row"]
 size = Vector2(256, 64)
 
@@ -363,7 +372,7 @@ set_id = &"effects_side_door_entry"
 effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_00pr0")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5khj"]
-size = Vector2(128, 96)
+size = Vector2(224, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_front_entry"]
 size = Vector2(192, 96)
@@ -430,6 +439,24 @@ effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_pimlv"), SubReso
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lem6e"]
 size = Vector2(128, 128)
 
+[sub_resource type="Resource" id="Resource_vpj_bar_cover_requirement"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_bar_task_done"
+fact_type = &"mission_flag"
+key = "vpj_bar_task_done"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Establish the barback cover at the west bar first."
+
+[sub_resource type="Resource" id="Resource_vpj_bar_cover_requirements"]
+script = ExtResource("26_cv021")
+set_id = &"req_clear_tables_after_bar_cover"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_vpj_bar_cover_requirement")])
+locked_message = "Establish the barback cover at the west bar first."
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpj_clear_table"]
+size = Vector2(112, 80)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hf6w"]
 size = Vector2(96, 96)
 
@@ -445,8 +472,23 @@ size = Vector2(96, 96)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5n1i3"]
 size = Vector2(96, 96)
 
+[sub_resource type="Resource" id="Resource_vpj_tables_cleared_requirement"]
+script = ExtResource("25_7tevw")
+requirement_id = &"requires_vpj_three_tables_cleared"
+fact_type = &"mission_flag"
+key = "vpj_three_tables_cleared"
+operator = 2
+expected_value_type = "exists"
+fail_message = "Clear the glasses from all three club-floor tables first."
+
+[sub_resource type="Resource" id="Resource_vpj_tables_cleared_requirements"]
+script = ExtResource("26_cv021")
+set_id = &"req_vip_three_tables"
+requirements = Array[ExtResource("25_7tevw")]([SubResource("Resource_vpj_tables_cleared_requirement")])
+locked_message = "Clear the glasses from all three club-floor tables first."
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p2kr"]
-size = Vector2(320, 512)
+size = Vector2(384, 384)
 
 [sub_resource type="Resource" id="Resource_vpj_phone_protocol_requirement"]
 script = ExtResource("25_7tevw")
@@ -1102,6 +1144,19 @@ script = ExtResource("15_a3c8o")
 effect_id = &"set_vpj_briefcase_collected"
 key = "vpj_briefcase_collected"
 
+[sub_resource type="Resource" id="Resource_vpj_grant_briefcase_item"]
+script = ExtResource("15_a3c8o")
+effect_id = &"grant_vpj_blackmail_briefcase_item"
+effect_type = 21
+key = "velvet_paw_blackmail_briefcase"
+payload = {
+"category": "evidence",
+"display_name": "Blackmail Briefcase",
+"max_stack": 1,
+"mission_only": true,
+"stackable": false
+}
+
 [sub_resource type="Resource" id="Resource_jo7lb"]
 script = ExtResource("15_a3c8o")
 effect_id = &"complete_recover_briefcase"
@@ -1113,7 +1168,7 @@ value_type = "string"
 [sub_resource type="Resource" id="Resource_ru7sa"]
 script = ExtResource("16_o2w7y")
 set_id = &"effects_briefcase_reward"
-effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_60guv"), SubResource("Resource_jo7lb")])
+effects = Array[ExtResource("15_a3c8o")]([SubResource("Resource_60guv"), SubResource("Resource_vpj_grant_briefcase_item"), SubResource("Resource_jo7lb")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwa7k"]
 size = Vector2(96, 96)
@@ -1283,6 +1338,34 @@ collision_mask = 0
 [node name="GateShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/VipProtocolGateBlocker" unique_id=1346006344]
 position = Vector2(2624, 1696)
 shape = SubResource("RectangleShape2D_vpj_protocol_gate")
+
+[node name="VipNorthRailBlocker" type="StaticBody2D" parent="GameplayRoot/RouteBlockers" unique_id=645025892]
+collision_layer = 4
+collision_mask = 0
+
+[node name="TopRailShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/VipNorthRailBlocker" unique_id=154173088]
+position = Vector2(2816, 1408)
+shape = SubResource("RectangleShape2D_vpj_vip_rail_horizontal")
+
+[node name="RightRailShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/VipNorthRailBlocker" unique_id=1022972893]
+position = Vector2(2992, 1600)
+shape = SubResource("RectangleShape2D_vpj_vip_rail_right")
+
+[node name="BottomRailShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/VipNorthRailBlocker" unique_id=1069652398]
+position = Vector2(2816, 1792)
+shape = SubResource("RectangleShape2D_vpj_vip_rail_horizontal")
+
+[node name="LeftRailShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/VipNorthRailBlocker" unique_id=2138152047]
+position = Vector2(2624, 1504)
+shape = SubResource("RectangleShape2D_vpj_protocol_gate")
+
+[node name="StageServiceDoorBlocker" type="StaticBody2D" parent="GameplayRoot/RouteBlockers" unique_id=770527045]
+collision_layer = 4
+collision_mask = 0
+
+[node name="DoorShape" type="CollisionShape2D" parent="GameplayRoot/RouteBlockers/StageServiceDoorBlocker" unique_id=1201296222]
+position = Vector2(608, 928)
+shape = SubResource("RectangleShape2D_vpj_stage_service_door")
 
 [node name="StaffGateBlocker" type="StaticBody2D" parent="GameplayRoot/RouteBlockers" unique_id=1332050789]
 collision_layer = 4
@@ -1503,21 +1586,21 @@ script = ExtResource("11_a3c8o")
 camera_id = &"velvet_paw_jazz_club.security_camera_author.01"
 range_px = 520.0
 fov_degrees = 78.0
-direction_degrees = 90.0
+direction_degrees = 180.0
 require_line_of_sight = true
 sweep_enabled = true
-sweep_arc_degrees = 110.0
+sweep_arc_degrees = 180.0
 sweep_speed_degrees = 28.0
-exposure_requires_player_movement = true
+minimum_exposure_seconds = 6.0
 
 [node name="AuthorLabel" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/SecurityCameraAuthor_velvet_paw_jazz_club_security_camera_author_01" unique_id=370032228]
 offset_left = -100.0
-offset_top = -924.0
+offset_top = -544.0
 offset_right = 304.0
-offset_bottom = -889.0
+offset_bottom = -509.0
 theme_override_font_sizes/font_size = 11
 text = "CAM velvet_paw_jazz_club.security_camera_author.01 -> camera_alarm
-velvet_paw_jazz_club.security_camera_author.01 sweeps 110 deg at 28 deg/s"
+velvet_paw_jazz_club.security_camera_author.01 sweeps 180 deg at 28 deg/s"
 horizontal_alignment = 1
 
 [node name="GuardPatrolRouteAuthor_velvet_paw_jazz_club_guard_patrol_route_author_03" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=838334295]
@@ -2004,11 +2087,12 @@ one_shot = true
 [node name="AuthorLabel" type="Label" parent="GameplayRoot/SecurityAuthoringRoot/GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_08" unique_id=1605641917]
 offset_left = -90.0
 offset_top = -28.0
-offset_right = 90.0
+offset_right = 309.0
 offset_bottom = -5.0
 theme_override_font_sizes/font_size = 11
 text = "SPAWN velvet_paw_jazz_club.guard_spawn_author.08 <- vip_trespass_alarm"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="SecurityCameraAuthor_velvet_paw_jazz_club_security_camera_author_02" type="Node2D" parent="GameplayRoot/SecurityAuthoringRoot" unique_id=819304278]
 position = Vector2(3872, 1760)
@@ -2209,7 +2293,7 @@ success_effects = SubResource("Resource_vpj_dead_drop_effects")
 shape = SubResource("RectangleShape2D_pqwqr")
 
 [node name="TriggerZone_velvet_paw_jazz_club_trigger_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1369318174]
-position = Vector2(2944, 2496)
+position = Vector2(2976, 2528)
 collision_layer = 8
 script = ExtResource("23_thsld")
 mechanic_id = &"velvet_paw_jazz_club.trigger_zone.01"
@@ -2218,7 +2302,7 @@ mission_id_override = "velvet_paw_jazz_club"
 interaction_mode = 0
 prompt_text = "Enter through the propped staff door."
 success_effects = SubResource("Resource_thsld")
-shape_size = Vector2(128, 96)
+shape_size = Vector2(224, 160)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/TriggerZone_velvet_paw_jazz_club_trigger_zone_01" unique_id=1699813464]
 shape = SubResource("RectangleShape2D_n5khj")
@@ -2240,8 +2324,7 @@ shape_size = Vector2(192, 96)
 shape = SubResource("RectangleShape2D_vpj_front_entry")
 
 [node name="MusicTriggerZone_velvet_paw_jazz_club_music_trigger_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1557168004]
-position = Vector2(2728, 2392)
-scale = Vector2(1.48, 1.56)
+position = Vector2(2976, 2480)
 collision_layer = 8
 script = ExtResource("24_sx518")
 music_key = &"velvet_paw_floor"
@@ -2325,6 +2408,93 @@ preview_color = Color(0.25, 0.65, 0.45, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_jazz_club_believable_task_zone_01" unique_id=1186243729]
 shape = SubResource("RectangleShape2D_lem6e")
+
+[node name="BelievableTaskZone_velvet_paw_clear_table_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=680113964]
+position = Vector2(896, 2176)
+collision_layer = 8
+script = ExtResource("26_pimlv")
+task_id = &"velvet_paw_clear_table_01"
+completed_flag = &"vpj_table_01_cleared"
+professionalism_delta = 0
+completion_message = "First table cleared. Two glass runs remain."
+mechanic_id = &"velvet_paw_jazz_club.clear_table.01"
+display_name = "Clear Club Table 1"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Clear glasses from table 1"
+locked_prompt_text = "Establish the barback cover at the west bar first."
+interact_duration = 1.4
+requirements = SubResource("Resource_vpj_bar_cover_requirements")
+shape_size = Vector2(112, 80)
+preview_color = Color(0.55, 0.36, 0.18, 0.65)
+
+[node name="TableVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_01" unique_id=389425555]
+color = Color(0.34, 0.18, 0.08, 1)
+polygon = PackedVector2Array(-56, -40, 56, -40, 56, 40, -56, 40)
+
+[node name="GlassesVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_01" unique_id=1010327867]
+color = Color(0.55, 0.9, 1, 0.9)
+polygon = PackedVector2Array(-28, -12, -12, -12, -12, 12, -28, 12, 12, -12, 28, -12, 28, 12, 12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_01" unique_id=1955942322]
+shape = SubResource("RectangleShape2D_vpj_clear_table")
+
+[node name="BelievableTaskZone_velvet_paw_clear_table_02" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=545098616]
+position = Vector2(1664, 2176)
+collision_layer = 8
+script = ExtResource("26_pimlv")
+task_id = &"velvet_paw_clear_table_02"
+completed_flag = &"vpj_table_02_cleared"
+professionalism_delta = 0
+completion_message = "Second table cleared. One glass run remains."
+mechanic_id = &"velvet_paw_jazz_club.clear_table.02"
+display_name = "Clear Club Table 2"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Clear glasses from table 2"
+locked_prompt_text = "Establish the barback cover at the west bar first."
+interact_duration = 1.4
+requirements = SubResource("Resource_vpj_bar_cover_requirements")
+shape_size = Vector2(112, 80)
+preview_color = Color(0.55, 0.36, 0.18, 0.65)
+
+[node name="TableVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_02" unique_id=2074360220]
+color = Color(0.34, 0.18, 0.08, 1)
+polygon = PackedVector2Array(-56, -40, 56, -40, 56, 40, -56, 40)
+
+[node name="GlassesVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_02" unique_id=1689437863]
+color = Color(0.55, 0.9, 1, 0.9)
+polygon = PackedVector2Array(-28, -12, -12, -12, -12, 12, -28, 12, 12, -12, 28, -12, 28, 12, 12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_02" unique_id=267421442]
+shape = SubResource("RectangleShape2D_vpj_clear_table")
+
+[node name="BelievableTaskZone_velvet_paw_clear_table_03" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=982304564]
+position = Vector2(2368, 2176)
+collision_layer = 8
+script = ExtResource("26_pimlv")
+task_id = &"velvet_paw_clear_table_03"
+completed_flag = &"vpj_table_03_cleared"
+professionalism_delta = 0
+completion_message = "All three tables are clear. VIP service and the bathroom back room are available."
+mechanic_id = &"velvet_paw_jazz_club.clear_table.03"
+display_name = "Clear Club Table 3"
+mission_id_override = "velvet_paw_jazz_club"
+prompt_text = "Press E: Clear glasses from table 3"
+locked_prompt_text = "Establish the barback cover at the west bar first."
+interact_duration = 1.4
+requirements = SubResource("Resource_vpj_bar_cover_requirements")
+shape_size = Vector2(112, 80)
+preview_color = Color(0.55, 0.36, 0.18, 0.65)
+
+[node name="TableVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_03" unique_id=893817148]
+color = Color(0.34, 0.18, 0.08, 1)
+polygon = PackedVector2Array(-56, -40, 56, -40, 56, 40, -56, 40)
+
+[node name="GlassesVisual" type="Polygon2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_03" unique_id=1340122826]
+color = Color(0.55, 0.9, 1, 0.9)
+polygon = PackedVector2Array(-28, -12, -12, -12, -12, 12, -28, 12, 12, -12, 28, -12, 28, 12, 12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/BelievableTaskZone_velvet_paw_clear_table_03" unique_id=1825901050]
+shape = SubResource("RectangleShape2D_vpj_clear_table")
 
 [node name="DistractionObject_velvet_paw_jazz_club_distraction_object_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1667697122]
 position = Vector2(704, 1856)
@@ -2416,7 +2586,7 @@ preview_color = Color(0.2, 0.55, 0.85, 0.35)
 shape = SubResource("RectangleShape2D_5n1i3")
 
 [node name="ProtocolZone_velvet_paw_jazz_club_protocol_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=1414706329]
-position = Vector2(2688, 1664)
+position = Vector2(2816, 1600)
 collision_layer = 8
 script = ExtResource("32_uja73")
 protocol_id = &"velvet_paw_vip_lounge_protocol"
@@ -2429,16 +2599,19 @@ completion_message = "VIP access established. Enter from the left and check the 
 blocked_message = "VIP protocol blocked: establish the barback cover and park Bentley at the dance-floor edge."
 mechanic_id = &"velvet_paw_jazz_club.protocol_zone.01"
 display_name = "Vip Protocol"
+enabled = false
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Press E: Enter the VIP lounge under protocol"
 locked_prompt_text = "Establish a cover and park Bentley first."
-shape_size = Vector2(320, 512)
+requirements = SubResource("Resource_vpj_tables_cleared_requirements")
+shape_size = Vector2(384, 384)
 preview_color = Color(0.75, 0.55, 0.25, 0.35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayRoot/MissionMechanics/ProtocolZone_velvet_paw_jazz_club_protocol_zone_01" unique_id=906196949]
 shape = SubResource("RectangleShape2D_4p2kr")
 
 [node name="SearchZone_velvet_paw_jazz_club_search_zone_01" type="Area2D" parent="GameplayRoot/MissionMechanics" unique_id=788759245]
+visible = false
 position = Vector2(2816, 2304)
 collision_layer = 8
 script = ExtResource("33_ntanu")
@@ -2449,6 +2622,7 @@ display_name = "Vip Phone Search"
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Press E: Check the VIP phone"
 locked_prompt_text = "Complete VIP protocol and leave Bentley at the dance-floor edge first."
+interact_duration = 1.4
 requirements = SubResource("Resource_vpj_phone_protocol_requirements")
 success_effects = SubResource("Resource_5jkg3")
 shape_size = Vector2(128, 96)
@@ -2516,7 +2690,7 @@ mechanic_id = &"velvet_paw_jazz_club.inventory_pickup_node.01"
 display_name = "Staff Badge Pickup"
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Take the staff badge."
-interact_duration = 1.0
+interact_duration = 1.5
 suspicious_action_kind = "theft"
 requirements = SubResource("Resource_am28a")
 success_effects = SubResource("Resource_ntanu")
@@ -2731,7 +2905,7 @@ display_name = "Ledger Shard"
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Take Sterling's purple ledger shard."
 locked_prompt_text = "Open the server vault first."
-interact_duration = 1.25
+interact_duration = 1.75
 suspicious_action_kind = "theft"
 requirements = SubResource("Resource_2hlm7")
 success_effects = SubResource("Resource_vycf5")
@@ -2765,7 +2939,7 @@ mechanic_id = &"velvet_paw_jazz_club.inventory_pickup_node.03"
 display_name = "Basement Keycard"
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Take the Black Ledger keycard."
-interact_duration = 1.0
+interact_duration = 1.5
 suspicious_action_kind = "theft"
 requirements = SubResource("Resource_k13iy")
 
@@ -2939,7 +3113,7 @@ display_name = "Briefcase Reward"
 mission_id_override = "velvet_paw_jazz_club"
 prompt_text = "Grab it and don't admire the view."
 locked_prompt_text = "The owner still controls the suite."
-interact_duration = 1.25
+interact_duration = 1.75
 suspicious_action_kind = "theft"
 requirements = SubResource("Resource_bl4y1")
 success_effects = SubResource("Resource_ru7sa")

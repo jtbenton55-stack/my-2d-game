@@ -36,9 +36,9 @@ Paint each region onto its LayoutRoot tile layer:
 | Stage row segment - bathroom opening x=192..448 to dynamic hatch x=896..1152 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Stage row segment - dynamic hatch x=896..1152 to dynamic staff gate x=1920..2176 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Stage row east segment - starts after dynamic staff gate x=1920..2176 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Bathroom divider - fixed south-end opening y=832..1024 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| Bathroom divider - dynamic barback service opening y=832..1024 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Stage-wing divider - dynamic south-end gate opening y=832..1024 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| VIP rope rail - Bentley-parking-gated left entrance y=1600..1792 (192 px) | wall | `GameplayRoot/LayoutRoot/WallLayer` |
+| VIP divider south extension from the protocol enclosure's lower-left corner to the club south wall | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Owner Suite closed teleport-island perimeter - portal arrival and extraction movement remain inside the contained perimeter | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Basement closed teleport-island perimeter - portal arrivals, return, and extraction remain inside the contained perimeter | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Server cage north wall | wall | `GameplayRoot/LayoutRoot/WallLayer` |
@@ -52,7 +52,7 @@ Paint each region onto its LayoutRoot tile layer:
 | Street north-west wall - stops at front crowd-rope gap x=1344..1536 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Street north-middle wall - between front gap x=1344..1536 and staff opening x=2880..3072 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
 | Street north-east wall - starts after fixed staff opening x=2880..3072 | wall | `GameplayRoot/LayoutRoot/WallLayer` |
-| Front Entrance Crowd Rope - retained authoring footprint; runtime collision uses a dynamic VIP gate | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
+| Front Entrance Crowd Rope - retained authoring footprint; runtime static collision excluded and replaced by dynamic VIP gate | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
 | Bar Counter - blocks_movement=true | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
 | DJ Rig / Speaker Stack - blocks_movement=true (owner stairs run behind this on floor plan east) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
 | Grand Piano - blocks_movement=true (service hatch just east of it) | collision_barrier | `GameplayRoot/LayoutRoot/CollisionBarrierLayer` |
@@ -92,7 +92,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Position: (1312, 2624)
 - Zone size: 256 x 192
 - Parent: `MissionMechanics`
-- Instructions: Front-door bouncer checks `velvet_paw_vip_guest` plus `velvet_paw_vip_wristband`. Valid VIP access opens the dynamic rope. Without it, an automatic five-second bouncer line followed by a five-second Bentley line redirects the player toward the alley.
+- Instructions: Front-door bouncer checks the Taco-earned velvet_paw_vip_guest cover and velvet_paw_vip_wristband. A valid pair opens the dynamic rope; otherwise a timed Bouncer/Bentley exchange redirects the player toward the alley.
 
 ### 3. `queue_eavesdrop` - EavesdropZone
 
@@ -115,7 +115,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Suggested ID: `velvet_paw_jazz_club.dead_drop_node.01`
 - Position: (3136, 2944)
 - Parent: `MissionMechanics`
-- Instructions: Optional loose-brick deposit. The VIP phone grants one `velvet_paw_vip_voicemail_copy`; this node consumes it, sets `vpj_vip_voicemail_copy_dropped`, and confirms Mere can retrieve it.
+- Instructions: Optional: loose brick behind the alley. The VIP phone grants one velvet_paw_vip_voicemail_copy; this deposit consumes it, sets vpj_vip_voicemail_copy_dropped, and confirms Mere can retrieve it.
 
 ### 6. `poop_bag_alley` - PoopBagAuthor
 
@@ -127,15 +127,15 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 ### 7. `side_door_entry` - TriggerZone
 
 - Suggested ID: `velvet_paw_jazz_club.trigger_zone.01`
-- Position: (2944, 2496)
-- Zone size: 128 x 96
+- Position: (2976, 2528)
+- Zone size: 224 x 160
 - Parent: `MissionMechanics`
 - Instructions: Staff side door in the alley - the actual entrance. Crossing it advances the mission to the social-stealth step. The eavesdrop zone hints at it.
 
 ### 8. `floor_music` - MusicTriggerZone
 
 - Suggested ID: `velvet_paw_jazz_club.music_trigger_zone.01`
-- Position: (2688, 2368)
+- Position: (2976, 2480)
 - Zone size: 384 x 128
 - Parent: `MissionMechanics`
 - Instructions: House jazz set kicks in when the player steps onto the club floor from the side door.
@@ -193,7 +193,31 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Parent: `MissionMechanics`
 - Instructions: Clearing glasses at the bar sells the 'new staff' cover story used against floor_inspection.
 
-### 16. `barback_distraction` - DistractionObject
+### 16. `clear_table_01` - BelievableTaskZone
+
+- Suggested ID: `velvet_paw_jazz_club.clear_table.01`
+- Position: (896, 2176)
+- Zone size: 112 x 80
+- Parent: `MissionMechanics`
+- Instructions: First of three club-floor glass runs. Requires the west-bar cover task and contributes to VIP and bathroom service access.
+
+### 17. `clear_table_02` - BelievableTaskZone
+
+- Suggested ID: `velvet_paw_jazz_club.clear_table.02`
+- Position: (1664, 2176)
+- Zone size: 112 x 80
+- Parent: `MissionMechanics`
+- Instructions: Second of three club-floor glass runs. Requires the west-bar cover task and contributes to VIP and bathroom service access.
+
+### 18. `clear_table_03` - BelievableTaskZone
+
+- Suggested ID: `velvet_paw_jazz_club.clear_table.03`
+- Position: (2368, 2176)
+- Zone size: 112 x 80
+- Parent: `MissionMechanics`
+- Instructions: Final club-floor glass run. Completing all three unlocks the bathroom service door and allows the Bentley-parked VIP gate to open.
+
+### 19. `barback_distraction` - DistractionObject
 
 - Suggested ID: `velvet_paw_jazz_club.distraction_object.01`
 - Position: (704, 1856)
@@ -201,79 +225,79 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Parent: `MissionMechanics`
 - Instructions: Glass rack: knocking it pulls the nearest bouncer to the bar for a few seconds.
 
-### 17. `investigation_point` - InvestigationPointNode
+### 20. `investigation_point` - InvestigationPointNode
 
 - Suggested ID: `velvet_paw_jazz_club.investigation_point_node.01`
 - Position: (1024, 1728)
 - Parent: `MissionMechanics`
 - Instructions: Spilled drink on the floor. Bouncers who hear noise investigate here first, buying the player a route around them.
 
-### 18. `noise_emitter` - NoiseEmitterNode
+### 21. `noise_emitter` - NoiseEmitterNode
 
 - Suggested ID: `velvet_paw_jazz_club.noise_emitter_node.01`
 - Position: (1472, 1984)
 - Parent: `MissionMechanics`
 - Instructions: Subwoofer throb on the dance floor masks player footsteps inside its radius. Stealth angle 2.
 
-### 19. `bentley_wait` - BentleyWaitMarker
+### 22. `bentley_wait` - BentleyWaitMarker
 
 - Suggested ID: `velvet_paw_jazz_club.bentley_wait_marker.01`
 - Position: (1216, 2240)
 - Parent: `MissionMechanics`
-- Instructions: Park Bentley at the exact dance-floor marker to open the only VIP entrance on the left, then use the new-staff cover to complete protocol inside. The phone remains locked until protocol completes. Bringing Bentley to the closed entrance triggers the bouncer exchange and makes the shortened VIP camera actionable; that camera pauses exposure while Parmida stands still and resumes it when she moves.
+- Instructions: Park Bentley by the dance floor edge before working the VIP lounge - a dog in VIP breaks the protocol zone instantly.
 
-### 20. `hide_booth` - HideSpotNode
+### 23. `hide_booth` - HideSpotNode
 
 - Suggested ID: `velvet_paw_jazz_club.hide_spot_node.01`
 - Position: (2848, 1952)
 - Parent: `MissionMechanics`
 - Instructions: Slip between the two VIP booths to drop out of a bouncer's sightline.
 
-### 21. `vip_protocol` - ProtocolZone
+### 24. `vip_protocol` - ProtocolZone
 
 - Suggested ID: `velvet_paw_jazz_club.protocol_zone.01`
-- Position: (2688, 1664)
-- Zone size: 320 x 512
+- Position: (2816, 1600)
+- Zone size: 384 x 384
 - Parent: `MissionMechanics`
-- Instructions: VIP lounge etiquette: walk, no interact-spam, no dog. Ties into the vip_alt_route mutation roll - on strict rolls, require the bar_task cover first.
+- Instructions: VIP lounge etiquette fills the enclosed 384 x 384 square and requires the active west-bar cover, all three table runs, and Bentley parked at the exact dance-floor marker.
 
-### 22. `vip_phone_search` - SearchZone
+### 25. `vip_phone_search` - SearchZone
 
 - Suggested ID: `velvet_paw_jazz_club.search_zone.01`
 - Position: (2816, 2304)
 - Zone size: 128 x 96
 - Parent: `MissionMechanics`
-- Instructions: This phone is inside Velvet Paw's VIP booth, not Taco Bell or the alley. Press E to display Sterling's assistant voicemail, set `vpj_vip_voicemail_found`, and grant one mission-local `velvet_paw_vip_voicemail_copy` for the alley dead drop. It is not the source of front-door VIP access.
+- Instructions: VIP booth phone inside Velvet Paw remains hidden and non-interactable until protocol completion. Pressing E then displays Sterling's assistant voicemail, sets vpj_vip_voicemail_found, and grants one mission-local voicemail copy for the alley dead drop.
 
-### 23. `camera_vip` - SecurityCameraAuthor
+### 26. `camera_vip` - SecurityCameraAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.security_camera_author.01`
 - Position: (2624, 1600)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
-- Instructions: Camera over the VIP rope gap, sweeping the lounge. Parent under GameplayRoot/SecurityAuthoringRoot.
+- Instructions: Camera at the VIP gate faces left (180 degrees) with a 180-degree sweep. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 24. `bathroom_glow_guy` - GlowGuyAuthor
+### 27. `bathroom_glow_guy` - GlowGuyAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.glow_guy_author.01`
 - Position: (192, 576)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: velvet_bathroom_glow_guy - hidden Glow Guy behind the bathroom sink. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 25. `bathroom_bark` - BarkTrigger
+### 28. `bathroom_bark` - BarkTrigger
 
 - Suggested ID: `velvet_paw_jazz_club.bark_trigger.01`
 - Position: (320, 832)
 - Parent: `MissionMechanics`
 - Instructions: Bentley bark line in the bathroom doorway: '(Bentley respects the grout lines.)' Points sharp-eared players at the Glow Guy.
 
-### 26. `bentley_crawl` - BentleyCrawlspaceConnector
+### 29. `bentley_crawl` - BentleyCrawlspaceConnector
 
 - Suggested ID: `velvet_paw_jazz_club.bentley_crawlspace_connector.01`
 - Position: (2496, 1024)
 - Parent: `MissionMechanics`
 - Instructions: Optional route: vent in the stage row wall. Bentley crawls from the club floor into the green room and can fetch the staff badge without the VIP voicemail lead.
 
-### 27. `staff_badge_pickup` - InventoryPickupNode
+### 30. `staff_badge_pickup` - InventoryPickupNode
 
 - Suggested ID: `velvet_paw_jazz_club.inventory_pickup_node.01`
 - Position: (2432, 832)
@@ -282,7 +306,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `vip_phone_search`
 - Instructions: Staff badge on the green room dressing rail. Main lead comes from vip_phone_search; bentley_crawl is the alternate way to reach it.
 
-### 28. `staff_gate` - LockedInteractionNode
+### 31. `staff_gate` - LockedInteractionNode
 
 - Suggested ID: `velvet_paw_jazz_club.locked_interaction_node.01`
 - Position: (2048, 960)
@@ -291,7 +315,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `staff_badge_pickup`
 - Instructions: Staff gate at the south end of the stage wing divider. Unlocks with the staff badge and opens the whole stage/backstage row.
 
-### 29. `green_room_lockers` - InteractiveContainer
+### 32. `green_room_lockers` - InteractiveContainer
 
 - Suggested ID: `velvet_paw_jazz_club.interactive_container.01`
 - Position: (2720, 512)
@@ -299,7 +323,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Parent: `MissionMechanics`
 - Instructions: Band lockers: tip-jar cash plus a rumor note about the owner's balcony habit (soft hint at where the briefcase ends up).
 
-### 30. `clue_manager_notes` - ClueAuthor
+### 33. `clue_manager_notes` - ClueAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.clue_author.01`
 - Position: (2304, 512)
@@ -307,7 +331,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `staff_gate`
 - Instructions: Stage Manager's Notes on the green room couch table - setlist clue 2 of 2 (five songs, release-timeline order). Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 31. `soundcheck_task` - SideObjectiveNode
+### 34. `soundcheck_task` - SideObjectiveNode
 
 - Suggested ID: `velvet_paw_jazz_club.side_objective_node.01`
 - Position: (1920, 704)
@@ -315,7 +339,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `staff_gate`
 - Instructions: Optional micro-objective: run the sound check at the wing mixing board. Completing it adds a crowd-cue hint line to the setlist puzzle.
 
-### 32. `clue_setlist` - ClueAuthor
+### 35. `clue_setlist` - ClueAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.clue_author.02`
 - Position: (832, 704)
@@ -323,7 +347,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `staff_gate`
 - Instructions: Crumpled Setlist Fragment taped to the piano lid - setlist clue 1 of 2 (album arc order). Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 33. `backstage_crate_search` - SearchZone
+### 36. `backstage_crate_search` - SearchZone
 
 - Suggested ID: `velvet_paw_jazz_club.search_zone.02`
 - Position: (1568, 896)
@@ -332,7 +356,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `clue_setlist`, `clue_manager_notes`
 - Instructions: Mid-mission twist: prop crates hold a DECOY ledger with blank pages. Searching it after both clues fires the 'Sterling's crew planted a prop' beat and points at the basement.
 
-### 34. `setlist_terminal` - TerminalHackNode
+### 37. `setlist_terminal` - TerminalHackNode
 
 - Suggested ID: `velvet_paw_jazz_club.terminal_hack_node.01`
 - Position: (1152, 640)
@@ -340,7 +364,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `clue_setlist`, `clue_manager_notes`
 - Instructions: The stage setlist puzzle: reorder five songs using both clues (album arc + release timeline). Success opens the service hatch, grants the Sterling evidence clue jazz_club_encoded_setlist (connects_to: Rewrite Room), and triggers stage_presentation. Failure triggers wrong_note_alarm.
 
-### 35. `stage_presentation` - PresentationSequencePlayer
+### 38. `stage_presentation` - PresentationSequencePlayer
 
 - Suggested ID: `velvet_paw_jazz_club.presentation_sequence_player.01`
 - Position: (1152, 512)
@@ -348,7 +372,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `setlist_terminal`
 - Instructions: Spotlight sweep + Yordano line ('House lights love you. Don't waste the downbeat.') when the setlist is solved.
 
-### 36. `wrong_note_alarm` - SecurityEffectSetAuthor
+### 39. `wrong_note_alarm` - SecurityEffectSetAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.security_effect_set_author.01`
 - Position: (1344, 640)
@@ -356,7 +380,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `setlist_terminal`
 - Instructions: Setlist-alarm effect set: on terminal failure, red wash overlay + temporary reinforcements for ~8s. Bar Corner and Dance Floor Silhouette cover regions are the safe spots. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 37. `alarm_spawn` - GuardSpawnAuthor
+### 40. `alarm_spawn` - GuardSpawnAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.guard_spawn_author.03`
 - Position: (1664, 1088)
@@ -364,7 +388,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `wrong_note_alarm`
 - Instructions: Reinforcement bouncer spawn used only by the setlist alarm. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 38. `backstage_hatch` - RouteUnlockNode
+### 41. `backstage_hatch` - RouteUnlockNode
 
 - Suggested ID: `velvet_paw_jazz_club.route_unlock_node.01`
 - Position: (1024, 832)
@@ -373,7 +397,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `setlist_terminal`
 - Instructions: Service basement hatch east of the piano. Opens when the setlist terminal is solved.
 
-### 39. `basement_teleport` - TeleportZone
+### 42. `basement_teleport` - TeleportZone
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_zone.01`
 - Position: (1024, 928)
@@ -382,7 +406,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `backstage_hatch`
 - Instructions: Drop through the open hatch into the basement (targets basement_arrival).
 
-### 40. `basement_arrival` - TeleportTargetMarker
+### 43. `basement_arrival` - TeleportTargetMarker
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_target_marker.01`
 - Position: (3616, 2944)
@@ -390,7 +414,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `basement_teleport`
 - Instructions: Basement arrival point at the bottom of the service ladder.
 
-### 41. `yordano_dialogue` - DialogueTriggerZone
+### 44. `yordano_dialogue` - DialogueTriggerZone
 
 - Suggested ID: `velvet_paw_jazz_club.dialogue_trigger_zone.02`
 - Position: (3776, 2816)
@@ -399,14 +423,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `basement_arrival`
 - Instructions: Friend beat: Yordano over the house PA explains the vault handshake hum and green-lights the shard pull. One-shot.
 
-### 42. `camera_basement` - SecurityCameraAuthor
+### 45. `camera_basement` - SecurityCameraAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.security_camera_author.02`
 - Position: (3872, 1760)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: Camera watching the vault cage door from the north wall. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 43. `vault_power` - PowerCircuitNode
+### 46. `vault_power` - PowerCircuitNode
 
 - Suggested ID: `velvet_paw_jazz_club.power_circuit_node.01`
 - Position: (4160, 2464)
@@ -414,7 +438,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `yordano_dialogue`
 - Instructions: Breaker panel: reroute club power so the vault maglock drops on the next bass swell. The mission's puzzle beat for the basement.
 
-### 44. `server_vault` - LockedInteractionNode
+### 47. `server_vault` - LockedInteractionNode
 
 - Suggested ID: `velvet_paw_jazz_club.locked_interaction_node.02`
 - Position: (3936, 2112)
@@ -423,7 +447,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `vault_power`
 - Instructions: Vault cage door (gap in the cage's south wall). Opens once vault_power has rerouted the maglock.
 
-### 45. `ledger_shard` - InventoryPickupNode
+### 48. `ledger_shard` - InventoryPickupNode
 
 - Suggested ID: `velvet_paw_jazz_club.inventory_pickup_node.02`
 - Position: (4224, 1920)
@@ -432,7 +456,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `server_vault`
 - Instructions: Black Ledger Shard on the server rack. Sets GameState.velvet_paw_basement_shard_collected; taking it upstairs later flips velvet_paw_club_hostile. Physical pickup beat separate from the encoded-setlist Sterling clue.
 
-### 46. `audit_cleanup` - AuditTrailCleanupNode
+### 49. `audit_cleanup` - AuditTrailCleanupNode
 
 - Suggested ID: `velvet_paw_jazz_club.audit_trail_cleanup_node.01`
 - Position: (3712, 2464)
@@ -440,7 +464,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `ledger_shard`
 - Instructions: Optional paper-trail beat: wipe the access log terminal so the shard pull never traces back to Yordano. Lowers post-mission heat.
 
-### 47. `basement_keycard` - InventoryPickupNode
+### 50. `basement_keycard` - InventoryPickupNode
 
 - Suggested ID: `velvet_paw_jazz_club.inventory_pickup_node.03`
 - Position: (3584, 2336)
@@ -449,7 +473,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `ledger_shard`
 - Instructions: Optional Black Ledger Keycard behind basement storage shelves. Sets velvet_paw_basement_keycard_collected so the player can reach owner_stairs during the hostile phase without thinning every bouncer.
 
-### 48. `heat_sink` - HeatSinkObject
+### 51. `heat_sink` - HeatSinkObject
 
 - Suggested ID: `velvet_paw_jazz_club.heat_sink_object.01`
 - Position: (4096, 2560)
@@ -457,14 +481,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `vault_power`
 - Instructions: Optional paper-trail beat: plant a misdirection explanation on the basement breaker panel so the shard pull traces to 'equipment maintenance' instead of Yordano.
 
-### 49. `poop_bag_basement` - PoopBagAuthor
+### 52. `poop_bag_basement` - PoopBagAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.poop_bag_author.02`
 - Position: (3648, 2688)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: Poop bag 2 of 3, by the basement crates. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 50. `return_teleport` - TeleportZone
+### 53. `return_teleport` - TeleportZone
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_zone.02`
 - Position: (3616, 3040)
@@ -473,7 +497,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `ledger_shard`
 - Instructions: Ladder back up to the stage row (targets return_marker). Taking the shard upstairs flips the club HOSTILE - bouncers hunt instead of patrol.
 
-### 51. `return_marker` - TeleportTargetMarker
+### 54. `return_marker` - TeleportTargetMarker
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_target_marker.02`
 - Position: (1024, 1120)
@@ -481,7 +505,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `return_teleport`
 - Instructions: Floor 1 return point just south of the piano hatch.
 
-### 52. `encounter_controller` - EncounterController
+### 55. `encounter_controller` - EncounterController
 
 - Suggested ID: `velvet_paw_jazz_club.encounter_controller.01`
 - Position: (1600, 1344)
@@ -489,7 +513,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `return_teleport`
 - Instructions: Hostile-club phase: escalates bouncer aggression after the shard return. Extend/wrap MissionAlertController behavior; combat-or-sneak beat.
 
-### 53. `lights_disruption` - DisruptionActionNode
+### 56. `lights_disruption` - DisruptionActionNode
 
 - Suggested ID: `velvet_paw_jazz_club.disruption_action_node.01`
 - Position: (2176, 1408)
@@ -497,14 +521,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `encounter_controller`
 - Instructions: Optional: cut the strobes at the lighting panel - hostile bouncers lose the player for ~4 seconds.
 
-### 54. `scheme_card_bassdrop` - SchemeCardTriggerNode
+### 57. `scheme_card_bassdrop` - SchemeCardTriggerNode
 
 - Suggested ID: `velvet_paw_jazz_club.scheme_card_trigger_node.01`
 - Position: (1856, 1216)
 - Parent: `MissionMechanics`
 - Instructions: yordano_bass_drop scheme card hook: if the card is equipped, trigger a bass drop here that stuns every bouncer for 5 seconds.
 
-### 55. `owner_stairs` - LockedInteractionNode
+### 58. `owner_stairs` - LockedInteractionNode
 
 - Suggested ID: `velvet_paw_jazz_club.locked_interaction_node.03`
 - Position: (3008, 1216)
@@ -513,7 +537,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `return_teleport`
 - Instructions: Rig stairs behind the DJ stack, east edge of the floor. Opens during the hostile phase after thinning bouncers — or silently if basement_keycard was collected.
 
-### 56. `suite_teleport` - TeleportZone
+### 59. `suite_teleport` - TeleportZone
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_zone.03`
 - Position: (3008, 1120)
@@ -522,7 +546,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `owner_stairs`
 - Instructions: Climb to the owner suite (targets suite_arrival).
 
-### 57. `suite_arrival` - TeleportTargetMarker
+### 60. `suite_arrival` - TeleportTargetMarker
 
 - Suggested ID: `velvet_paw_jazz_club.teleport_target_marker.03`
 - Position: (3616, 1216)
@@ -530,14 +554,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `suite_teleport`
 - Instructions: Owner suite arrival at the top of the rig stairs (south-west gap).
 
-### 58. `beam_suite` - SecurityBeamAuthor
+### 61. `beam_suite` - SecurityBeamAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.security_beam_author.01`
 - Position: (3616, 832)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: Laser beam across the suite corridor between the stairs and the office. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 59. `owner_encounter` - ChallengeObjectiveNode
+### 62. `owner_encounter` - ChallengeObjectiveNode
 
 - Suggested ID: `velvet_paw_jazz_club.challenge_objective_node.01`
 - Position: (3904, 704)
@@ -545,7 +569,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `suite_arrival`
 - Instructions: Boss beat: the club owner defends the suite (existing JazzClubOwnerArena fight). Clearing it is required for the briefcase.
 
-### 60. `bug_plant` - BugPlantNode
+### 63. `bug_plant` - BugPlantNode
 
 - Suggested ID: `velvet_paw_jazz_club.bug_plant_node.01`
 - Position: (3840, 640)
@@ -553,7 +577,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `owner_encounter`
 - Instructions: Optional: plant a bug in the owner's desk phone after the fight - extra intel line for the Sterling Tower finale.
 
-### 61. `briefcase_reward` - RewardNode
+### 64. `briefcase_reward` - RewardNode
 
 - Suggested ID: `velvet_paw_jazz_club.reward_node.01`
 - Position: (4096, 320)
@@ -562,14 +586,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `owner_encounter`
 - Instructions: The blackmail briefcase on the balcony - the mission target. 'Grab it and don't admire the view.'
 
-### 62. `suite_stash` - CaseCashAuthor
+### 65. `suite_stash` - CaseCashAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.case_cash_author.01`
 - Position: (4288, 320)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: Optional shelf-goblin stash at the balcony's east end (+1 intel bonus, velvet_shelf_goblins flavor). Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 63. `hidden_polaroid` - SideObjectiveNode
+### 66. `hidden_polaroid` - SideObjectiveNode
 
 - Suggested ID: `velvet_paw_jazz_club.side_objective_node.02`
 - Position: (1344, 448)
@@ -578,7 +602,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `stage_presentation`
 - Instructions: Hidden perfect-moment polaroid (jazz_club_polaroid): Bentley on stage wings during the spotlight sweep after setlist_terminal. Optional; wires to hideout gallery reward.
 
-### 64. `shelf_goblin_secret` - SearchZone
+### 67. `shelf_goblin_secret` - SearchZone
 
 - Suggested ID: `velvet_paw_jazz_club.search_zone.03`
 - Position: (4160, 448)
@@ -587,14 +611,14 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `briefcase_reward`
 - Instructions: Secret velvet_shelf_goblins collectible on the owner-suite balcony shelf. Searching after briefcase_reward sets secret_velvet_collectible for bonus intel.
 
-### 65. `poop_bag_floor` - PoopBagAuthor
+### 68. `poop_bag_floor` - PoopBagAuthor
 
 - Suggested ID: `velvet_paw_jazz_club.poop_bag_author.03`
 - Position: (448, 2240)
 - Parent: `GameplayRoot/SecurityAuthoringRoot`
 - Instructions: Poop bag 3 of 3, near the club floor south wall. Parent under GameplayRoot/SecurityAuthoringRoot.
 
-### 66. `escape_route` - RouteUnlockNode
+### 69. `escape_route` - RouteUnlockNode
 
 - Suggested ID: `velvet_paw_jazz_club.route_unlock_node.02`
 - Position: (4224, 2688)
@@ -603,7 +627,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Depends on: `briefcase_reward`
 - Instructions: Basement escape hatch (east wall gap) unlocks once the briefcase is taken - Yordano cues the bass drop to cover the exit.
 
-### 67. `escape_music` - MusicTriggerZone
+### 70. `escape_music` - MusicTriggerZone
 
 - Suggested ID: `velvet_paw_jazz_club.music_trigger_zone.02`
 - Position: (4032, 2880)
@@ -611,7 +635,7 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - Parent: `MissionMechanics`
 - Instructions: Bass-drop escape theme when the player re-enters the basement south end with the briefcase.
 
-### 68. `extraction` - ExtractionZone
+### 71. `extraction` - ExtractionZone
 
 - Suggested ID: `velvet_paw_jazz_club.extraction_zone.01`
 - Position: (4224, 2944)
@@ -637,6 +661,9 @@ Slots are listed in dependency order; place them top to bottom. Use the Mission 
 - [ ] `professionalism_meter` (ProfessionalismMeterNode) placed with id `velvet_paw_jazz_club.professionalism_meter_node.01`
 - [ ] `floor_inspection` (InspectionZone) placed with id `velvet_paw_jazz_club.inspection_zone.02`
 - [ ] `bar_task` (BelievableTaskZone) placed with id `velvet_paw_jazz_club.believable_task_zone.01`
+- [ ] `clear_table_01` (BelievableTaskZone) placed with id `velvet_paw_jazz_club.clear_table.01`
+- [ ] `clear_table_02` (BelievableTaskZone) placed with id `velvet_paw_jazz_club.clear_table.02`
+- [ ] `clear_table_03` (BelievableTaskZone) placed with id `velvet_paw_jazz_club.clear_table.03`
 - [ ] `barback_distraction` (DistractionObject) placed with id `velvet_paw_jazz_club.distraction_object.01`
 - [ ] `investigation_point` (InvestigationPointNode) placed with id `velvet_paw_jazz_club.investigation_point_node.01`
 - [ ] `noise_emitter` (NoiseEmitterNode) placed with id `velvet_paw_jazz_club.noise_emitter_node.01`

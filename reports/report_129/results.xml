@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-13" name="report_129" tests="39" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ControllerInputLayoutTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:07" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="1.203">
+		<testcase name="test_gamesir_xbox_layout_is_exact" classname="ControllerInputLayoutTest" time="0.031">
+		</testcase>
+		<testcase name="test_semantic_binding_labels_are_player_facing" classname="ControllerInputLayoutTest" time="0.036">
+		</testcase>
+		<testcase name="test_right_bumper_dispatches_the_existing_heavy_attack" classname="ControllerInputLayoutTest" time="0.740">
+		</testcase>
+		<testcase name="test_controller_poop_bag_targeting_aims_throws_and_cancels" classname="ControllerInputLayoutTest" time="0.054">
+		</testcase>
+		<testcase name="test_contextual_controller_feedback_survives_hud_refresh" classname="ControllerInputLayoutTest" time="0.065">
+		</testcase>
+		<testcase name="test_bentley_dpad_commands_ignore_blocking_ui" classname="ControllerInputLayoutTest" time="0.047">
+		</testcase>
+	</testsuite>
+	<testsuite id="1" name="VelvetPawControllerCheckpointTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:08" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.816">
+		<testcase name="test_start_and_a_use_pause_and_interact_actions" classname="VelvetPawControllerCheckpointTest" time="0.027">
+		</testcase>
+		<testcase name="test_start_toggles_mission_pause_but_hidden_cancel_does_not_open_it" classname="VelvetPawControllerCheckpointTest" time="0.046">
+		</testcase>
+		<testcase name="test_controller_a_routes_through_production_bridge_to_exact_bentley_marker" classname="VelvetPawControllerCheckpointTest" time="0.597">
+		</testcase>
+	</testsuite>
+	<testsuite id="2" name="CompanionCommandPointTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:09" hostname="localhost" tests="12" failures="0" errors="0" skipped="0" flaky="0" time="1.156">
+		<testcase name="test_companion_command_point_extends_mechanic_area_base" classname="CompanionCommandPointTest" time="0.037">
+		</testcase>
+		<testcase name="test_bark_command_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.047">
+		</testcase>
+		<testcase name="test_requirement_failure_blocks_companion_command" classname="CompanionCommandPointTest" time="0.053">
+		</testcase>
+		<testcase name="test_missing_companion_returns_clean_failure" classname="CompanionCommandPointTest" time="0.039">
+		</testcase>
+		<testcase name="test_fetch_command_calls_companion_fetch_method" classname="CompanionCommandPointTest" time="0.026">
+		</testcase>
+		<testcase name="test_crawlspace_connector_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.031">
+		</testcase>
+		<testcase name="test_wait_marker_calls_companion_and_applies_effects" classname="CompanionCommandPointTest" time="0.032">
+		</testcase>
+		<testcase name="test_dog_companion_public_command_api" classname="CompanionCommandPointTest" time="0.037">
+		</testcase>
+		<testcase name="test_dog_companion_wait_and_crawlspace_commands_hold_position" classname="CompanionCommandPointTest" time="0.034">
+		</testcase>
+		<testcase name="test_dog_companion_fetch_interacts_with_fetchable_node" classname="CompanionCommandPointTest" time="0.032">
+		</testcase>
+		<testcase name="test_card_modifiers_tune_bentley_fetch_range_and_cooldowns" classname="CompanionCommandPointTest" time="0.038">
+		</testcase>
+		<testcase name="test_dev_scene_contains_phase7_command_points" classname="CompanionCommandPointTest" time="0.240">
+		</testcase>
+	</testsuite>
+	<testsuite id="3" name="TimedDialoguePresentationTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:10" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="1.004">
+		<testcase name="test_timed_sequence_advances_and_ends" classname="TimedDialoguePresentationTest" time="0.138">
+		</testcase>
+		<testcase name="test_manual_advance_is_suppressed_and_metadata_defaults_are_additive" classname="TimedDialoguePresentationTest" time="0.029">
+		</testcase>
+		<testcase name="test_untimed_dialogue_still_advances_manually_and_skips" classname="TimedDialoguePresentationTest" time="0.056">
+		</testcase>
+		<testcase name="test_old_timer_cannot_advance_replacement_dialogue" classname="TimedDialoguePresentationTest" time="0.108">
+		</testcase>
+		<testcase name="test_timed_dialogue_waits_while_scene_tree_is_paused" classname="TimedDialoguePresentationTest" time="0.139">
+		</testcase>
+		<testcase name="test_dialogue_box_replaces_disallowed_controls_with_enter_close_hint" classname="TimedDialoguePresentationTest" time="0.038">
+		</testcase>
+		<testcase name="test_enter_closes_dialogue_even_when_manual_advance_and_skip_are_disabled" classname="TimedDialoguePresentationTest" time="0.037">
+		</testcase>
+		<testcase name="test_no_key_trigger_supplies_fallback_text_and_preserves_explicit_lines" classname="TimedDialoguePresentationTest" time="0.065">
+		</testcase>
+		<testcase name="test_one_shot_guard_does_not_replace_active_dialogue" classname="TimedDialoguePresentationTest" time="0.027">
+		</testcase>
+	</testsuite>
+	<testsuite id="4" name="PhaseD6PlayerFacingPolishTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:11" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="0.307">
+		<testcase name="test_taco_success_posts_first_sterling_clue_and_result_status" classname="PhaseD6PlayerFacingPolishTest" time="0.051">
+		</testcase>
+		<testcase name="test_pause_provider_marks_taco_next_objective" classname="PhaseD6PlayerFacingPolishTest" time="0.026">
+		</testcase>
+		<testcase name="test_hud_payload_exposes_next_objective_and_three_bag_status" classname="PhaseD6PlayerFacingPolishTest" time="0.046">
+		</testcase>
+	</testsuite>
+	<testsuite id="5" name="CaseJointHintProviderTest" package="tests/mission_authoring" timestamp="2026-07-14T00:40:11" hostname="localhost" tests="6" failures="0" errors="0" skipped="0" flaky="0" time="0.514">
+		<testcase name="test_bridge_q_does_not_interact_but_e_still_does" classname="CaseJointHintProviderTest" time="0.037">
+		</testcase>
+		<testcase name="test_bridge_prompt_refresh_is_callable_and_clears_out_of_range" classname="CaseJointHintProviderTest" time="0.035">
+		</testcase>
+		<testcase name="test_provider_filters_requirements_and_distance_then_uses_priority" classname="CaseJointHintProviderTest" time="0.050">
+		</testcase>
+		<testcase name="test_provider_selection_is_stable_and_respects_per_hint_cooldown" classname="CaseJointHintProviderTest" time="0.029">
+		</testcase>
+		<testcase name="test_provider_uses_dedicated_hint_signal_not_objective_updates" classname="CaseJointHintProviderTest" time="0.035">
+		</testcase>
+		<testcase name="test_player_queries_only_one_grouped_provider_after_case_pulse" classname="CaseJointHintProviderTest" time="0.053">
+		</testcase>
+	</testsuite>
+</testsuites>

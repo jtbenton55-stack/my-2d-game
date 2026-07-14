@@ -57,14 +57,7 @@ func test_line_of_sight_blocker_prevents_detection_buildup() -> void:
 	var guard: Node = pair.guard
 	guard.set_facing_direction(Vector2.RIGHT)
 	pair.player.global_position = Vector2(40, 0)
-	var blocker := StaticBody2D.new()
-	blocker.collision_layer = 2
-	var shape := CollisionShape2D.new()
-	var rectangle := RectangleShape2D.new()
-	rectangle.size = Vector2(8, 80)
-	shape.shape = rectangle
-	blocker.add_child(shape)
-	blocker.global_position = Vector2(20, 0)
+	var blocker := _make_wall(Vector2(20, 0), Vector2(8, 80))
 	add_child(blocker)
 	await get_tree().physics_frame
 	guard._update_ai(2.0)
@@ -72,6 +65,56 @@ func test_line_of_sight_blocker_prevents_detection_buildup() -> void:
 	assert_float(guard.get_detection_progress()).is_equal(0.0)
 	blocker.queue_free()
 	_free_pair(pair)
+
+
+func test_production_guard_contract_covers_startup_and_reinforcement_instances() -> void:
+	var packed := load("res://scenes/characters/guard.tscn") as PackedScene
+	for role in ["startup", "reinforcement"]:
+		var guard := packed.instantiate() as CharacterBody2D
+		guard.name = role.capitalize() + "Guard"
+		add_child(guard)
+		guard.set_physics_process(false)
+		assert_int(guard.collision_layer).is_equal(2)
+		assert_int(guard.collision_mask).is_equal(7)
+		guard.queue_free()
+
+
+func test_production_guard_body_is_blocked_by_layer_four_wall() -> void:
+	var guard := (load("res://scenes/characters/guard.tscn") as PackedScene).instantiate() as CharacterBody2D
+	add_child(guard)
+	guard.set_physics_process(false)
+	guard.global_position = Vector2.ZERO
+	var wall := _make_wall(Vector2(40, 0), Vector2(16, 96))
+	add_child(wall)
+	await get_tree().physics_frame
+	var collision := guard.move_and_collide(Vector2(100, 0))
+	assert_object(collision).is_not_null()
+	assert_object(collision.get_collider()).is_same(wall)
+	assert_float(guard.global_position.x).is_less(20.0)
+	wall.queue_free()
+	guard.queue_free()
+
+
+func test_damage_knockback_stops_at_layer_four_wall() -> void:
+	var player := DamagePlayer.new()
+	player.add_to_group("player")
+	player.global_position = Vector2.ZERO
+	add_child(player)
+	var guard := (load("res://scenes/characters/guard.tscn") as PackedScene).instantiate() as CharacterBody2D
+	add_child(guard)
+	guard.set_physics_process(false)
+	guard.global_position = Vector2(16, 0)
+	var wall := _make_wall(Vector2(40, 0), Vector2(16, 96))
+	add_child(wall)
+	await get_tree().physics_frame
+	guard.take_damage(1, player)
+	await get_tree().process_frame
+	assert_float(guard.global_position.x).is_greater_equal(15.9)
+	assert_float(guard.global_position.x).is_less_equal(16.0)
+	assert_int(guard.health).is_equal(guard.max_health - 1)
+	wall.queue_free()
+	guard.queue_free()
+	player.queue_free()
 
 
 func test_direct_player_provocation_and_attack_player_spawn_are_hostile() -> void:
@@ -182,6 +225,46 @@ func test_spawn_author_binds_config_and_routes_spotted_to_alert() -> void:
 	mission.queue_free()
 
 
+func test_velvet_startup_and_reinforcement_guards_use_production_collision_contract() -> void:
+	var packed := load("res://scenes/missions_iso/VelvetPawJazzClub_Editable.tscn") as PackedScene
+	var mission := packed.instantiate()
+	add_child(mission)
+	await get_tree().process_frame
+	await get_tree().physics_frame
+	await get_tree().process_frame
+	var enemies := mission.get_node("EntityRoot/Enemies")
+	var startup_guards_checked := 0
+	for guard: Node in enemies.get_children():
+		if bool(guard.get_meta("ambient_security_guard", false)):
+			assert_int(guard.collision_layer).is_equal(2)
+			assert_int(guard.collision_mask).is_equal(7)
+			startup_guards_checked += 1
+	assert_int(startup_guards_checked).is_greater_equal(6)
+	for camera: Node in mission.get_node("EntityRoot/Cameras").get_children():
+		if String(camera.get("camera_id")) == "velvet_paw_jazz_club.security_camera_author.01":
+			camera.set("_minimum_exposure_elapsed", 6.0)
+			camera.set("_minimum_exposure_triggered", true)
+			break
+	var controller := mission.get_node("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController")
+	controller.call("_commit_vip_trespass_alarm")
+	await get_tree().process_frame
+	var reinforcement_guards_checked := 0
+	for guard: Node in enemies.get_children():
+		if bool(guard.get_meta("security_response_spawn", false)):
+			assert_int(guard.collision_layer).is_equal(2)
+			assert_int(guard.collision_mask).is_equal(7)
+			reinforcement_guards_checked += 1
+	assert_int(reinforcement_guards_checked).is_greater_equal(3)
+	mission.queue_free()
+	await get_tree().process_frame
+	GameState.current_mission_id = ""
+	GameState.is_in_mission = false
+	GameState.velvet_paw_club_hostile = false
+	for key: Variant in GameState.dialogue_flags.keys():
+		if String(key).begins_with("mission_flag:velvet_paw_jazz_club:"):
+			GameState.dialogue_flags.erase(key)
+
+
 func _guard_and_player() -> Dictionary:
 	var player := DamagePlayer.new()
 	player.add_to_group("player")
@@ -195,6 +278,19 @@ func _guard_and_player() -> Dictionary:
 func _free_pair(pair: Dictionary) -> void:
 	(pair.guard as Node).queue_free()
 	(pair.player as Node).queue_free()
+
+
+func _make_wall(position: Vector2, size: Vector2) -> StaticBody2D:
+	var wall := StaticBody2D.new()
+	wall.collision_layer = 4
+	wall.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = size
+	shape.shape = rectangle
+	wall.add_child(shape)
+	wall.global_position = position
+	return wall
 
 
 class DamagePlayer:

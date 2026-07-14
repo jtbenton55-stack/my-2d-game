@@ -117,6 +117,8 @@ func test_camera_author_passes_los_occlusion_configuration() -> void:
 	author.visible_cone_ray_count = 9
 	author.exposure_requires_player_movement = true
 	author.player_movement_threshold = 12.0
+	author.minimum_exposure_seconds = 6.0
+	author.show_exposure_countdown_ring = false
 	var config: Dictionary = author.build_runtime_config()
 	assert_bool(config.get("require_line_of_sight", false)).is_true()
 	assert_int(int(config.get("occlusion_collision_mask", 0))).is_equal(12)
@@ -124,6 +126,8 @@ func test_camera_author_passes_los_occlusion_configuration() -> void:
 	assert_int(int(config.get("visible_cone_ray_count", 0))).is_equal(9)
 	assert_bool(bool(config.get("exposure_requires_player_movement", false))).is_true()
 	assert_float(float(config.get("player_movement_threshold", 0.0))).is_equal(12.0)
+	assert_float(float(config.get("minimum_exposure_seconds", 0.0))).is_equal(6.0)
+	assert_bool(bool(config.get("show_exposure_countdown_ring", true))).is_false()
 	author.free()
 
 
@@ -177,6 +181,54 @@ func test_movement_sensitive_camera_freezes_exposure_while_stationary() -> void:
 	var moving_detection := camera.get_detection_value()
 	camera.call("_process", 0.5)
 	assert_float(camera.get_detection_value()).is_equal(moving_detection)
+
+	await _free_node(camera)
+	await _free_node(actor)
+
+
+func test_minimum_exposure_drains_ring_for_six_seconds_before_detection() -> void:
+	var actor := StealthActor.new()
+	actor.add_to_group("player")
+	actor.position = Vector2(40, 0)
+	add_child(actor)
+	var camera := CameraScript.new()
+	camera.camera_id = "six_second_camera"
+	camera.sweep_min_degrees = 0.0
+	camera.sweep_max_degrees = 0.0
+	camera.sweep_speed = 0.0
+	camera.minimum_exposure_seconds = 6.0
+	camera.detection_rate = 100.0
+	add_child(camera)
+	camera.call("_on_body_entered", actor)
+	var detections: Array[String] = []
+	camera.player_detected.connect(func(source_id: String) -> void: detections.append(source_id))
+
+	camera.call("_process", 0.0)
+	var ring := actor.get_node("CameraExposureCountdownRing") as Node2D
+	var state: Dictionary = camera.get_minimum_exposure_debug_state()
+	assert_bool(ring.visible).is_true()
+	assert_vector(ring.position).is_equal(Vector2(0, -58))
+	assert_float(float(state.get("ring_remaining", 0.0))).is_equal(1.0)
+	assert_bool(Color(state.get("ring_color", Color.WHITE)).is_equal_approx(Color(0.2, 0.9, 0.3, 1.0))).is_true()
+
+	camera.call("_process", 3.0)
+	state = camera.get_minimum_exposure_debug_state()
+	assert_float(float(state.get("ring_remaining", 0.0))).is_equal_approx(0.5, 0.001)
+	assert_bool(Color(state.get("ring_color", Color.WHITE)).is_equal_approx(Color(1.0, 0.8, 0.12, 1.0))).is_true()
+	camera.call("_process", 2.9)
+	state = camera.get_minimum_exposure_debug_state()
+	assert_float(float(state.get("elapsed", 0.0))).is_equal_approx(5.9, 0.001)
+	assert_bool(Color(state.get("ring_color", Color.WHITE)).is_equal_approx(Color(0.95, 0.16, 0.12, 1.0))).is_true()
+	assert_int(detections.size()).is_equal(0)
+	camera.call("_process", 0.09)
+	assert_bool(camera.is_minimum_exposure_complete()).is_false()
+	assert_int(detections.size()).is_equal(0)
+	camera.call("_process", 0.01)
+	state = camera.get_minimum_exposure_debug_state()
+	assert_bool(bool(state.get("complete", false))).is_true()
+	assert_float(float(state.get("ring_remaining", 1.0))).is_equal(0.0)
+	assert_int((ring.get_node("Remaining") as Line2D).points.size()).is_equal(0)
+	assert_int(detections.size()).is_equal(1)
 
 	await _free_node(camera)
 	await _free_node(actor)

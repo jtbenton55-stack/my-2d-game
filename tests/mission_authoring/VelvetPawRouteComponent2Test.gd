@@ -35,11 +35,18 @@ func test_component_2_authoring_contract_is_wired() -> void:
 	assert_bool(wait_marker.one_shot).is_false()
 
 	var protocol: Node = mechanics.get_node("ProtocolZone_velvet_paw_jazz_club_protocol_zone_01")
+	assert_vector(protocol.position).is_equal(Vector2(2816.0, 1600.0))
+	assert_vector(protocol.shape_size).is_equal(Vector2(384.0, 384.0))
 	assert_str(String(protocol.required_cover_story_id)).is_equal("velvet_paw_new_staff")
 	assert_bool(protocol.require_companion_waiting).is_true()
 	assert_str(String(protocol.required_companion_wait_marker_id)).is_equal(String(wait_marker.mechanic_id))
+	assert_object(protocol.requirements).is_not_null()
+	assert_str(String(protocol.requirements.requirements[0].key)).is_equal("vpj_three_tables_cleared")
 	var phone: Node = mechanics.get_node("SearchZone_velvet_paw_jazz_club_search_zone_01")
 	assert_object(phone.requirements).is_not_null()
+	assert_bool(phone.visible).is_false()
+	assert_vector(phone.position).is_equal(Vector2(2816.0, 2304.0))
+	assert_float(float(phone.interact_duration)).is_equal(1.4)
 	var mere_hint_found := false
 	for effect: Resource in phone.success_effects.effects:
 		if String(effect.payload.get("speaker", "")) == "Mere" and String(effect.payload.get("text", "")).contains("dead drop"):
@@ -58,6 +65,28 @@ func test_component_2_authoring_contract_is_wired() -> void:
 	var gate_shape := mission.get_node("GameplayRoot/RouteBlockers/VipProtocolGateBlocker/GateShape") as CollisionShape2D
 	assert_bool(gate_shape.disabled).is_false()
 	assert_vector((gate_shape.shape as RectangleShape2D).size).is_equal(Vector2(64.0, 192.0))
+	var fixed_enclosure := mission.get_node("GameplayRoot/RouteBlockers/VipNorthRailBlocker")
+	var expected_enclosure := {
+		"TopRailShape": [Vector2(2816.0, 1408.0), Vector2(384.0, 64.0)],
+		"RightRailShape": [Vector2(3008.0, 1600.0), Vector2(64.0, 384.0)],
+		"BottomRailShape": [Vector2(2816.0, 1792.0), Vector2(384.0, 64.0)],
+		"LeftRailShape": [Vector2(2624.0, 1504.0), Vector2(64.0, 192.0)],
+	}
+	for shape_name: String in expected_enclosure:
+		var rail_shape := fixed_enclosure.get_node(shape_name) as CollisionShape2D
+		assert_vector(rail_shape.position).override_failure_message(shape_name).is_equal(expected_enclosure[shape_name][0])
+		assert_vector((rail_shape.shape as RectangleShape2D).size).override_failure_message(shape_name).is_equal(expected_enclosure[shape_name][1])
+	var service_door := mission.get_node("GameplayRoot/RouteBlockers/StageServiceDoorBlocker/DoorShape") as CollisionShape2D
+	assert_vector(service_door.position).is_equal(Vector2(608.0, 928.0))
+	assert_vector((service_door.shape as RectangleShape2D).size).is_equal(Vector2(64.0, 192.0))
+	for table_index: int in range(1, 4):
+		var table := mechanics.get_node("BelievableTaskZone_velvet_paw_clear_table_%02d" % table_index)
+		assert_str(String(table.task_id)).is_equal("velvet_paw_clear_table_%02d" % table_index)
+		assert_str(String(table.completed_flag)).is_equal("vpj_table_%02d_cleared" % table_index)
+		assert_object(table.requirements).is_not_null()
+		assert_str(String(table.requirements.requirements[0].key)).is_equal("vpj_bar_task_done")
+		assert_float(float(table.interact_duration)).is_equal(1.4)
+		assert_object(table.get_node_or_null("TableVisual")).is_not_null()
 	assert_float(float(bar_task.interact_duration)).is_equal(1.5)
 	assert_str(String(bar_task.suspicious_action_kind)).is_equal("tampering")
 	var distraction: Node = mechanics.get_node("DistractionObject_velvet_paw_jazz_club_distraction_object_01")
@@ -71,7 +100,13 @@ func test_component_2_authoring_contract_is_wired() -> void:
 	]:
 		var pickup: Node = mechanics.get_node(pickup_name)
 		assert_str(String(pickup.suspicious_action_kind)).is_equal("theft")
-		assert_float(float(pickup.interact_duration)).is_greater(0.0)
+		assert_float(float(pickup.interact_duration)).is_greater_equal(1.5)
+	var briefcase: Node = mechanics.get_node("RewardNode_velvet_paw_jazz_club_reward_node_01")
+	var inventory_effect_found := false
+	for effect: Resource in briefcase.success_effects.effects:
+		if int(effect.effect_type) == 21 and String(effect.key) == "velvet_paw_blackmail_briefcase":
+			inventory_effect_found = true
+	assert_bool(inventory_effect_found).is_true()
 
 
 func test_component_2_security_authors_are_runtime_ready() -> void:
@@ -103,10 +138,14 @@ func test_component_2_security_authors_are_runtime_ready() -> void:
 	assert_array(vip_reinforcement.trigger_events).contains([&"vip_trespass_alarm"])
 	assert_int(vip_reinforcement.spawn_count).is_equal(3)
 	var vip_camera: Node = security.get_node("SecurityCameraAuthor_velvet_paw_jazz_club_security_camera_author_01")
+	assert_vector(vip_camera.position).is_equal(Vector2(2624.0, 1600.0))
 	assert_float(float(vip_camera.range_px)).is_equal(520.0)
-	assert_float(float(vip_camera.sweep_arc_degrees)).is_equal(110.0)
-	assert_bool(bool(vip_camera.exposure_requires_player_movement)).is_true()
+	assert_float(float(vip_camera.direction_degrees)).is_equal(180.0)
+	assert_float(float(vip_camera.sweep_arc_degrees)).is_equal(180.0)
+	assert_bool(bool(vip_camera.exposure_requires_player_movement)).is_false()
 	assert_float(float(vip_camera.player_movement_threshold)).is_equal(8.0)
+	assert_float(float(vip_camera.minimum_exposure_seconds)).is_equal(6.0)
+	assert_bool(bool(vip_camera.show_exposure_countdown_ring)).is_true()
 
 
 func test_component_2_dev_overlay_is_created_by_controller() -> void:
@@ -161,6 +200,14 @@ func test_component_2_dev_overlay_is_created_by_controller() -> void:
 		if bool(camera.get_meta("authored_camera", false)):
 			authored_camera_count += 1
 	assert_int(authored_camera_count).is_equal(12)
+	var vip_runtime_camera: Node = null
+	for camera: Node in cameras.get_children():
+		if String(camera.get("camera_id")) == "velvet_paw_jazz_club.security_camera_author.01":
+			vip_runtime_camera = camera
+			break
+	assert_object(vip_runtime_camera).is_not_null()
+	vip_runtime_camera.set("_minimum_exposure_elapsed", 6.0)
+	vip_runtime_camera.set("_minimum_exposure_triggered", true)
 	controller.call("_commit_vip_trespass_alarm")
 	await get_tree().process_frame
 	var vip_spawn: Node = runtime_security.get_node("GuardSpawnAuthor_velvet_paw_jazz_club_guard_spawn_author_08")

@@ -49,11 +49,19 @@
       },
       {
         "blocker_id": "VipProtocolGateBlocker",
-        "mechanic_slots": ["vip_protocol"],
+        "mechanic_slots": ["clear_table_01", "clear_table_02", "clear_table_03", "bentley_wait", "vip_protocol"],
         "shapes": [
           {"shape_id": "GateShape", "shape": "rect", "center": [2624, 1696], "size": [64, 192]}
         ],
-        "note": "The only VIP lounge opening stays physically blocked until Bentley is parked at the exact authored wait marker; the protocol and phone remain separately gated by cover plus that parked state."
+        "note": "The only VIP lounge opening stays physically blocked until the active barback cover, all three table runs, and exact Bentley parking are all satisfied."
+      },
+      {
+        "blocker_id": "StageServiceDoorBlocker",
+        "mechanic_slots": ["clear_table_01", "clear_table_02", "clear_table_03"],
+        "shapes": [
+          {"shape_id": "DoorShape", "shape": "rect", "center": [608, 928], "size": [64, 192]}
+        ],
+        "note": "The bathroom-to-stage service doorway remains physically blocked until all three club-floor tables are cleared."
       },
       {
         "blocker_id": "StaffGateBlocker",
@@ -91,6 +99,18 @@
           {"shape_id": "HatchLidShape", "shape": "rect", "center": [4224, 2688], "size": [96, 128]}
         ],
         "note": "Extraction requirements remain authoritative; this blocker represents the closed hatch interaction, not an opening into void."
+      }
+    ],
+    "fixed_blockers": [
+      {
+        "blocker_id": "VipNorthRailBlocker",
+        "shapes": [
+          {"shape_id": "TopRailShape", "shape": "rect", "center": [2816, 1408], "size": [384, 64]},
+          {"shape_id": "RightRailShape", "shape": "rect", "center": [3008, 1600], "size": [64, 384]},
+          {"shape_id": "BottomRailShape", "shape": "rect", "center": [2816, 1792], "size": [384, 64]},
+          {"shape_id": "LeftRailShape", "shape": "rect", "center": [2624, 1504], "size": [64, 192]}
+        ],
+        "note": "Fixed rails enclose the 384 x 384 VIP protocol square on its top, right, bottom, and upper-left edges. The dynamic gate is the lower-left edge from y=1600 through y=1792."
       }
     ],
     "openings": [
@@ -151,13 +171,13 @@
       {
         "opening_id": "bathroom_divider_south_end",
         "boundaries": ["bathroom_divider"],
-        "state": "fixed_open",
-        "classification": "usable_route",
+        "state": "dynamic",
+        "classification": "barback_service_gate",
         "rect": [576, 832, 64, 192],
         "clear_width_px": 192,
-        "blocks_movement": false,
-        "mechanic_slots": ["bathroom_bark"],
-        "label": "Fixed-open 3-cell south-end divider gap from y=832 through y=1024."
+        "blocks_movement_when_closed": true,
+        "mechanic_slots": ["clear_table_01", "clear_table_02", "clear_table_03", "bathroom_bark"],
+        "label": "Dynamic 3-cell bathroom-to-stage service door from y=832 through y=1024. It opens after all three table-clearing tasks."
       },
       {
         "opening_id": "stage_wing_divider_south_gate",
@@ -178,8 +198,8 @@
         "rect": [2624, 1600, 64, 192],
         "clear_width_px": 192,
         "blocks_movement_when_closed": true,
-        "mechanic_slots": ["vip_protocol", "camera_vip"],
-        "label": "Dynamic 3-cell left-side VIP entrance from y=1600 through y=1792. It opens only after Bentley is parked at the exact authored wait marker."
+        "mechanic_slots": ["clear_table_01", "clear_table_02", "clear_table_03", "bentley_wait", "vip_protocol", "camera_vip"],
+        "label": "Dynamic 3-cell left-side VIP entrance from y=1600 through y=1792. It opens only after active barback cover, all three table runs, and exact Bentley parking."
       },
       {
         "opening_id": "server_cage_south_center_door",
@@ -211,9 +231,9 @@
     {"kind": "wall", "shape": "polyline", "points": [[448, 1024], [896, 1024]], "label": "Stage row segment - bathroom opening x=192..448 to dynamic hatch x=896..1152"},
     {"kind": "wall", "shape": "polyline", "points": [[1152, 1024], [1920, 1024]], "label": "Stage row segment - dynamic hatch x=896..1152 to dynamic staff gate x=1920..2176"},
     {"kind": "wall", "shape": "polyline", "points": [[2176, 1024], [3200, 1024]], "label": "Stage row east segment - starts after dynamic staff gate x=1920..2176"},
-    {"kind": "wall", "shape": "polyline", "points": [[576, 448], [576, 832]], "label": "Bathroom divider - fixed south-end opening y=832..1024 (192 px)"},
+    {"kind": "wall", "shape": "polyline", "points": [[576, 448], [576, 832]], "label": "Bathroom divider - dynamic barback service opening y=832..1024 (192 px)"},
     {"kind": "wall", "shape": "polyline", "points": [[2048, 448], [2048, 832]], "label": "Stage-wing divider - dynamic south-end gate opening y=832..1024 (192 px)"},
-    {"kind": "wall", "shape": "polyline", "points": [[2624, 1792], [2624, 2496]], "label": "VIP rope rail - fixed north-end opening y=1600..1792 (192 px)"},
+    {"kind": "wall", "shape": "polyline", "points": [[2624, 1792], [2624, 2496]], "label": "VIP divider south extension from the protocol enclosure's lower-left corner to the club south wall"},
     {"kind": "wall", "shape": "polyline", "points": [[3520, 192], [4416, 192], [4416, 1408], [3520, 1408], [3520, 192]], "label": "Owner Suite closed teleport-island perimeter - portal arrival and extraction movement remain inside the contained perimeter"},
     {"kind": "wall", "shape": "polyline", "points": [[3520, 1728], [4416, 1728], [4416, 3136], [3520, 3136], [3520, 1728]], "label": "Basement closed teleport-island perimeter - portal arrivals, return, and extraction remain inside the contained perimeter"},
     {"kind": "wall", "shape": "polyline", "points": [[3584, 1792], [4352, 1792]], "label": "Server cage north wall"},
@@ -299,15 +319,15 @@
     {
       "slot_id": "side_door_entry",
       "mechanic_type": "TriggerZone",
-      "position": [2944, 2496],
-      "size": [128, 96],
+      "position": [2976, 2528],
+      "size": [224, 160],
       "suggested_id": "velvet_paw_jazz_club.trigger_zone.01",
       "note": "Staff side door in the alley - the actual entrance. Crossing it advances the mission to the social-stealth step. The eavesdrop zone hints at it."
     },
     {
       "slot_id": "floor_music",
       "mechanic_type": "MusicTriggerZone",
-      "position": [2688, 2368],
+      "position": [2976, 2480],
       "size": [384, 128],
       "suggested_id": "velvet_paw_jazz_club.music_trigger_zone.01",
       "note": "House jazz set kicks in when the player steps onto the club floor from the side door."
@@ -367,6 +387,30 @@
       "note": "Clearing glasses at the bar sells the 'new staff' cover story used against floor_inspection."
     },
     {
+      "slot_id": "clear_table_01",
+      "mechanic_type": "BelievableTaskZone",
+      "position": [896, 2176],
+      "size": [112, 80],
+      "suggested_id": "velvet_paw_jazz_club.clear_table.01",
+      "note": "First of three club-floor glass runs. Requires the west-bar cover task and contributes to VIP and bathroom service access."
+    },
+    {
+      "slot_id": "clear_table_02",
+      "mechanic_type": "BelievableTaskZone",
+      "position": [1664, 2176],
+      "size": [112, 80],
+      "suggested_id": "velvet_paw_jazz_club.clear_table.02",
+      "note": "Second of three club-floor glass runs. Requires the west-bar cover task and contributes to VIP and bathroom service access."
+    },
+    {
+      "slot_id": "clear_table_03",
+      "mechanic_type": "BelievableTaskZone",
+      "position": [2368, 2176],
+      "size": [112, 80],
+      "suggested_id": "velvet_paw_jazz_club.clear_table.03",
+      "note": "Final club-floor glass run. Completing all three unlocks the bathroom service door and allows the Bentley-parked VIP gate to open."
+    },
+    {
       "slot_id": "barback_distraction",
       "mechanic_type": "DistractionObject",
       "position": [704, 1856],
@@ -405,10 +449,10 @@
     {
       "slot_id": "vip_protocol",
       "mechanic_type": "ProtocolZone",
-      "position": [2688, 1664],
-      "size": [320, 512],
+      "position": [2816, 1600],
+      "size": [384, 384],
       "suggested_id": "velvet_paw_jazz_club.protocol_zone.01",
-      "note": "VIP lounge etiquette: walk, no interact-spam, no dog. Ties into the vip_alt_route mutation roll - on strict rolls, require the bar_task cover first."
+      "note": "VIP lounge etiquette fills the enclosed 384 x 384 square and requires the active west-bar cover, all three table runs, and Bentley parked at the exact dance-floor marker."
     },
     {
       "slot_id": "vip_phone_search",
@@ -416,14 +460,14 @@
       "position": [2816, 2304],
       "size": [128, 96],
       "suggested_id": "velvet_paw_jazz_club.search_zone.01",
-      "note": "VIP booth phone inside Velvet Paw: pressing E displays Sterling's assistant voicemail ('Shred before midnight. The badge is in the green room.'), sets vpj_vip_voicemail_found, and grants one mission-local voicemail copy for the alley dead drop. It is not the source of front-door VIP access."
+      "note": "VIP booth phone inside Velvet Paw remains hidden and non-interactable until protocol completion. Pressing E then displays Sterling's assistant voicemail, sets vpj_vip_voicemail_found, and grants one mission-local voicemail copy for the alley dead drop."
     },
     {
       "slot_id": "camera_vip",
       "mechanic_type": "SecurityCameraAuthor",
       "position": [2624, 1600],
       "suggested_id": "velvet_paw_jazz_club.security_camera_author.01",
-      "note": "Camera over the VIP rope gap, sweeping the lounge. Parent under GameplayRoot/SecurityAuthoringRoot."
+      "note": "Camera at the VIP gate faces left (180 degrees) with a 180-degree sweep. Parent under GameplayRoot/SecurityAuthoringRoot."
     },
     {
       "slot_id": "bathroom_glow_guy",

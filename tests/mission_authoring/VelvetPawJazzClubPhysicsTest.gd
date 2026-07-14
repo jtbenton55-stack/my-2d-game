@@ -25,7 +25,6 @@ const BLOCKING_MOTIONS := {
 const FIXED_OPENING_MOTIONS := {
 	"staff_side_club_entrance": [Vector2(2976, 2400), Vector2(2976, 2656)],
 	"stage_row_bathroom_access": [Vector2(320, 928), Vector2(320, 1120)],
-	"bathroom_divider_south_end": [Vector2(480, 928), Vector2(704, 928)],
 }
 
 const DYNAMIC_CASES := [
@@ -130,15 +129,55 @@ func test_vip_left_entrance_blocks_until_bentley_is_parked() -> void:
 	var root := await _add_mission()
 	var motion := [Vector2(2528, 1696), Vector2(2784, 1696)]
 	_assert_blocked_motion("vip_left_gate_closed", motion[0], motion[1])
+	_assert_clear_motion("old_north_rail_removed", Vector2(2528, 1280), Vector2(2784, 1280))
+	_assert_blocked_motion("vip_left_upper_rail", Vector2(2528, 1504), Vector2(2784, 1504))
+	_assert_blocked_motion("vip_top_rail", Vector2(2816, 1328), Vector2(2816, 1488))
+	_assert_blocked_motion("vip_right_rail", Vector2(2928, 1600), Vector2(3088, 1600))
+	_assert_blocked_motion("vip_bottom_rail", Vector2(2816, 1712), Vector2(2816, 1872))
 	var player := root.get_node("EntityRoot/Player")
 	var wait_marker := root.get_node("GameplayRoot/MissionMechanics/BentleyWaitMarker_velvet_paw_jazz_club_bentley_wait_marker_01")
 	var wait_result: Dictionary = wait_marker.call("run_command", player, "physics_test")
 	assert_bool(bool(wait_result.get("ok", false))).is_true()
-	root.get_node("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController").call("_sync_vip_gate")
+	var controller := root.get_node("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController")
+	controller.call("_sync_vip_gate")
+	await get_tree().physics_frame
+	_assert_blocked_motion("vip_left_gate_waiting_but_tables_dirty", motion[0], motion[1])
+	for flag_id: String in ["vpj_table_01_cleared", "vpj_table_02_cleared", "vpj_table_03_cleared"]:
+		_set_flag(flag_id)
+	controller.call("_sync_table_progression")
+	controller.call("_sync_vip_gate")
+	await get_tree().physics_frame
+	_assert_blocked_motion("vip_left_gate_tables_and_bentley_but_no_cover", motion[0], motion[1])
+	SocialStealthAdapter.set_cover_story("velvet_paw_new_staff", {}, {"mission_id": MISSION_ID})
+	controller.call("_sync_vip_gate")
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	_assert_clear_motion("vip_left_gate_open", motion[0], motion[1])
 	_assert_clear_motion("vip_left_gate_open_reverse", motion[1], motion[0])
+	_assert_blocked_motion("vip_left_upper_rail_stays_closed", Vector2(2528, 1504), Vector2(2784, 1504))
+	_assert_blocked_motion("vip_top_rail_stays_closed", Vector2(2816, 1328), Vector2(2816, 1488))
+	_assert_blocked_motion("vip_right_rail_stays_closed", Vector2(2928, 1600), Vector2(3088, 1600))
+	_assert_blocked_motion("vip_bottom_rail_stays_closed", Vector2(2816, 1712), Vector2(2816, 1872))
+	await _remove_mission(root)
+
+
+func test_stage_service_door_opens_only_after_all_three_tables() -> void:
+	var root := await _add_mission()
+	var controller := root.get_node("GameplayRoot/RuntimeHelpers/VelvetPawJazzClubMissionController")
+	var from := Vector2(480, 928)
+	var to := Vector2(704, 928)
+	_assert_blocked_motion("stage_service_initial", from, to)
+	_set_flag("vpj_table_01_cleared")
+	_set_flag("vpj_table_02_cleared")
+	controller.call("_sync_table_progression")
+	await get_tree().physics_frame
+	_assert_blocked_motion("stage_service_two_tables", from, to)
+	_set_flag("vpj_table_03_cleared")
+	controller.call("_sync_table_progression")
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	_assert_clear_motion("stage_service_three_tables", from, to)
+	_assert_clear_motion("stage_service_three_tables_reverse", to, from)
 	await _remove_mission(root)
 
 

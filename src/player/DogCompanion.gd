@@ -198,6 +198,12 @@ func _clamp_to_scene_bounds() -> void:
 
 
 func _handle_commands() -> void:
+	if get_tree().paused or DialogueManager.is_in_dialogue:
+		return
+	if not get_tree().get_nodes_in_group("blocking_ui").is_empty():
+		return
+	if target != null and target.get("can_control") == false:
+		return
 	if _command_pressed("bentley_bark") or _ability_pressed():
 		command_bark()
 	if _command_pressed("bentley_sniff"):

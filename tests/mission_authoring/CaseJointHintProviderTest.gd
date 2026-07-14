@@ -51,7 +51,7 @@ func test_bridge_prompt_refresh_is_callable_and_clears_out_of_range() -> void:
 	add_child(candidate)
 
 	bridge.refresh_nearest_prompt()
-	assert_str(label.text).is_equal("Press E")
+	assert_str(label.text).is_equal("Press A / E")
 	assert_bool(label.visible).is_true()
 	player.global_position = Vector2(100.0, 0.0)
 	bridge.refresh_nearest_prompt()
